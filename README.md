@@ -511,8 +511,14 @@ gantt
 ## 📞 联系方式
 
 [推特](https://x.com/123olp)
+
 [telegram](https://t.me/desci0)
+
 邮箱（不一定能及时看到）：tukuai.ai@gmail.com
+
+[telegram交流群](https://t.me/glue_coding)
+
+[telegram频道](https://t.me/tradecat_ai_channel)
 
 ---
 
