@@ -1,0 +1,39 @@
+{
+  "repo_info": {
+    "name": "awesome-verse",
+    "full_name": "spilth/awesome-verse",
+    "description": "A curated list of awesome resources, examples and tutorials for Verse, the programming language created by Epic Games.",
+    "url": "https://github.com/spilth/awesome-verse",
+    "homepage": "",
+    "stars": 75,
+    "forks": 5,
+    "open_issues": 0,
+    "default_branch": "main",
+    "created_at": "2023-04-05T20:56:34+00:00",
+    "updated_at": "2025-12-05T02:05:52+00:00",
+    "language": null,
+    "license": null,
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "fortnite",
+      "fortnite-creative-mode",
+      "uefn",
+      "verse"
+    ]
+  },
+  "readme": "# Awesome Verse [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) \n\nA curated list of awesome resources, examples and tutorials for Verse, the programming language created by Epic Games.\n\n- [Official Resources](#official-resources)\n- [Code](#code)\n- [Discord Servers](#discord-servers)\n- [Reddit](#reddit)\n- [YouTube Channels](#youtube-channels)\n- [Technical Foundations](#technical-foundations)\n\n## Official Resources\n\n- [Create in Fortnite - Verse](https://dev.epicgames.com/community/fortnite/getting-started/verse) - the official getting started guide\n- [Verse Language Quick Reference](https://dev.epicgames.com/documentation/en-us/uefn/verse-language-quick-reference)\n- [Verse Language Reference](https://dev.epicgames.com/documentation/en-us/uefn/verse-language-reference)\n- [Verse API Reference](https://dev.epicgames.com/documentation/en-us/uefn/verse-api)\n- [UEFN Release Notes](https://dev.epicgames.com/documentation/en-us/uefn/whats-new-in-unreal-editor-for-fortnite)\n\n## Code\n\n- [Code Snippet Repository](https://dev.epicgames.com/community/fortnite/snippets)\n- [kbfngg/uefn](https://github.com/kbfngg/uefn) - A basic repository to accumulate a knowledgebase around UEFN and to track public API diffs.\n- [Versus](https://verse-book.netlify.app) - This guide aims to aid those wanting to either learn Verse from scratch or deepen their existing knowledge\n\n## Discord Servers\n\n- [Fortnite Create Official](https://discord.gg/fortnitecreative)\n- [The Lab - Fortnite Creative](https://discord.gg/thelabfn) - A group dedicated to sharing information and bugs regarding Fortnite Creative.\n\n## Reddit\n\n- [/r/FortniteCreative](https://www.reddit.com/r/FortniteCreative/) - The developer supported, community run subreddit dedicated to Fortnite Create and Unreal Editor for Fortnite (UEFN) by Epic Games\n- [/r/uefn](https://www.reddit.com/r/uefn/) - Unofficial community for Unreal Editor for Fortnite - Fortnite Creative 2.0 with Verse programming language\n\n## YouTube Channels\n\n- [Fortnite Sensei](https://www.youtube.com/@fortnite_sensei) - Fortnite tutorials and creative videos. Learn how to create entire worlds and games in Fortnite!\n- [Unreal Engine](https://www.youtube.com/@UnrealEngine)\n- [Wahlbeck Warforge](https://www.youtube.com/@WarforgeXP) - The ultimate channel for learning how to code and make Fortnite games with Unreal Editor for Fortnite (UEFN) and Verse programming language.\n\n## Technical Foundations\n\n- [The Verse Calculus: a Core Calculus for Functional Logic Programming Paper (March 2023)](https://simon.peytonjones.org/assets/pdfs/verse-March23.pdf)\n- [Beyond Functional Programming: The Verse Programming Language (Simon Peyton Jones)](https://www.youtube.com/watch?v=832JF1o7Ck8&t)\n",
+  "file_tree": [
+    {
+      "path": "README.md",
+      "type": "file",
+      "size": 2732
+    }
+  ],
+  "languages": {},
+  "signatures": [],
+  "test_examples": [],
+  "issues": [],
+  "changelog": "",
+  "releases": []
+}

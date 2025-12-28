@@ -1,0 +1,73 @@
+{
+  "name": "uefn-complete",
+  "description": "Complete UEFN and Verse programming resource - API reference, tutorials, code examples, and best practices for Fortnite Creative development",
+  "merge_mode": "rule-based",
+  "sources": [
+    {
+      "type": "github",
+      "repo": "vz-creates/uefn",
+      "description": "Verse API diffs and digest files (81 stars)",
+      "extract_readme": true,
+      "extract_code": true,
+      "max_files": 200
+    },
+    {
+      "type": "github",
+      "repo": "spilth/awesome-verse",
+      "description": "Curated list of Verse resources (75 stars)",
+      "extract_readme": true
+    },
+    {
+      "type": "github",
+      "repo": "MadsMGrin/Verse",
+      "description": "Collection of Verse scripts for UEFN (74 stars)",
+      "extract_readme": true,
+      "extract_code": true,
+      "file_patterns": ["*.verse", "*.md"]
+    },
+    {
+      "type": "github",
+      "repo": "LilWikipedia/UEFNVersePocketWiki",
+      "description": "Verse/UEFN documentation in Markdown (23 stars)",
+      "extract_readme": true,
+      "extract_code": true,
+      "file_patterns": ["*.md"]
+    },
+    {
+      "type": "github",
+      "repo": "sanxfxteam/uefn-devices",
+      "description": "UEFN device code examples in Verse (21 stars)",
+      "extract_readme": true,
+      "extract_code": true,
+      "file_patterns": ["*.verse"]
+    },
+    {
+      "type": "github",
+      "repo": "glinesbdev/versus",
+      "description": "Community book to learn Verse (21 stars)",
+      "extract_readme": true,
+      "file_patterns": ["*.md"]
+    },
+    {
+      "type": "github", 
+      "repo": "sprintermax/UEFNVerseSnippets",
+      "description": "Reusable Verse modules and devices (19 stars)",
+      "extract_readme": true,
+      "extract_code": true,
+      "file_patterns": ["*.verse"]
+    }
+  ],
+  "categories": {
+    "api_reference": ["api", "digest", "reference", "class", "struct", "interface"],
+    "verse_language": ["verse", "syntax", "types", "functions", "specifier", "effect"],
+    "devices": ["device", "creative_device", "trigger", "spawner", "zone"],
+    "tutorials": ["tutorial", "guide", "learn", "example", "how-to"],
+    "code_examples": ["snippet", "sample", "demo", "template"],
+    "best_practices": ["best-practice", "pattern", "architecture", "optimization"]
+  },
+  "output_structure": {
+    "skill_name": "uefn-complete",
+    "create_index": true,
+    "merge_references": true
+  }
+}
