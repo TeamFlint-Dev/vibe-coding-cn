@@ -1,0 +1,219 @@
+{
+  "repo_info": {
+    "name": "UEFNVersePocketWiki",
+    "full_name": "LilWikipedia/UEFNVersePocketWiki",
+    "description": "Documentation for Verse and UEFN restructured with Markdown",
+    "url": "https://github.com/LilWikipedia/UEFNVersePocketWiki",
+    "homepage": "https://www.fncwiki.com/",
+    "stars": 23,
+    "forks": 5,
+    "open_issues": 0,
+    "default_branch": "main",
+    "created_at": "2024-02-29T18:58:24+00:00",
+    "updated_at": "2025-12-17T23:10:02+00:00",
+    "language": null,
+    "license": "Other",
+    "topics": [
+      "api",
+      "digest",
+      "documentation",
+      "fortnite",
+      "uefn",
+      "verse"
+    ]
+  },
+  "readme": "---\ndescription: verse.FNCwiki.com\n---\n\n# Table of Contents\n\n![](https://ue-cdn.artstation.com/imgproxy/kbNaxGnLbxRxJBFLqlZ12Ix89EhFVjCVN0wq14zhVag/filename:verse-programming-hero-image.png/resizing\\_type:fill/width:1920/height:335/ext:jpg/aHR0cHM6Ly9kMWl2N2RiNDR5aGd4bi5jbG91ZGZyb250Lm5ldC9kb2N1bWVudGF0aW9uL2ltYWdlcy80NDkwN2Y5Yi0wYjM3LTQ0MWQtYjlkNy0zMjk0OTU3OWY4YWMvdmVyc2UtcHJvZ3JhbW1pbmctaGVyby1pbWFnZS5wbmc)\n\n## VerseWiki\n\nThis project is just the **Epic Games** UEFN and Verse documentation rewritten in markdown- adding more direct navigation, and making the API easier to reference.\n\nThere is ALOT of unorganized documentation on Epic's website so this will be an ongoing project!\n\n\n\n***\n\n![](https://github.com/LilWikipedia/UEFNVersePocketWiki/assets/78571191/a894c872-b4e0-492e-b7dd-2c79dc971abe) ![](https://github.com/LilWikipedia/UEFNVersePocketWiki/assets/78571191/fe7cbe1e-1b77-49b4-b4aa-a6c6866882ce) ![](https://github.com/LilWikipedia/UEFNVersePocketWiki/assets/78571191/16c1ae8d-0299-4f94-81dd-8c8997188c76)\n\n***\n\n**Programming with Verse**\n\n* Create your own rules and behaviors for your game by programming with Verse in UEFN!\n* This guide provides a set of recommended standards for writing consistent code that's easy to maintain.\n* By adhering to these guidelines, developers can improve code readability, reduce errors, and facilitate collaboration.\n* Standardized code style is necessary to ensure code is easy to understand and maintain by both current and future developers working on a project.\n\n***\n\n## <mark style=\"color:green;\">Verse Basics</mark>\n\n### [Importing Expressions or Modules](import-expressions.md)\n\n### [1. Common Naming Patterns](01.-common-naming-patterns.md)\n\n### [2. Names](02.-names.md)\n\n### [3. Formatting](03.-formatting.md)\n\n### [4. Functions](04.-functions.md)\n\n### [5. Failure Checks](05.-failure-checks.md)\n\n### [6. Encapsulation](06.-encapsulation.md)\n\n### [7. Events](07.-events.md)\n\n### [8. Concurrency](08.-concurrency.md)\n\n### [9. Attributes](09.-attributes.md)\n\n### [10. Constructors](10.-constructors.md)\n\n### [11. Class](11.-class-and-specifiers.md)\n\n### [12. Math](12.-math.md)\n\n***\n\n## <mark style=\"color:green;\">API</mark>\n\n### [<mark style=\"background-color:blue;\">Fortnite Digest</mark>](fortnite-digest.md)\n\n#### [ui](fortnite-digest.md#ui)\n\n#### [creative\\_devices](fortnite-digest.md#creative\\_devices)\n\n#### [vehicles](fortnite-digest.md#vehicles)\n\n#### [teams](fortnite-digest.md#teams)\n\n#### [playspaces](fortnite-digest.md#playspaces)\n\n#### [game](fortnite-digest.md#game)\n\n#### [fortplayerutilities](fortnite-digest.md#fortplayerutilities)\n\n#### [characters](fortnite-digest.md#characters)\n\n#### [building](fortnite-digest.md#building)\n\n#### [assets](fortnite-digest.md#assets)\n\n#### [animation](fortnite-digest.md#animation)\n\n#### [ai](fortnite-digest.md#ai)\n\n### [<mark style=\"background-color:green;\">Unreal Engine Digest</mark>](unreal-engine-digest.md)\n\n#### [ui](unreal-engine-digest.md#ui)\n\n#### [diagnostics](unreal-engine-digest.md#diagnostics)\n\n#### [SpatialMath](unreal-engine-digest.md#spatialmath)\n\n### [<mark style=\"background-color:red;\">Verse Digest</mark>](verse-digest.md)\n\n#### [Simulation](verse-digest.md#simulation)\n\n#### [Tags](verse-digest.md#tags)\n\n#### [Functions, Methods, and Getters](verse-digest.md#functions-methods-and-getters)\n\n#### [Colors](verse-digest.md#colors)\n\n#### [NamedColors](verse-digest.md#namedcolors)\n\n#### [Native](verse-digest.md#native)\n\n#### [Concurrency](verse-digest.md#concurrency)\n\n***\n\n## <mark style=\"color:green;\">Source/Resources</mark>\n\n### EG: [Verse Onboarding Guide](https://dev.epicgames.com/documentation/en-us/uefn/onboarding-guide-to-programming-with-verse-in-unreal-editor-for-fortnite)\n\n### EG: [Programming with Verse](https://dev.epicgames.com/documentation/en-us/uefn/learn-programming-with-verse-in-unreal-editor-for-fortnite)\n\n### EG: [Language Reference](https://dev.epicgames.com/documentation/en-us/uefn/verse-language-reference)\n\n### EG: [Official API](https://dev.epicgames.com/documentation/en-us/uefn/verse-api)\n\n### EG: [Verse Scripting](https://forums.unrealengine.com/tags/c/development-discussion/programming-scripting/148/fortnite/l/latest)\n\n### EG: [Dev Community](https://forums.unrealengine.com/tags/c/development-discussion/programming-scripting/148/fortnite/l/latest)\n\n### EG: [Community Snippets](https://dev.epicgames.com/community/fortnite/snippets)\n\n***\n\n### [View on Github](https://github.com/LilWikipedia/UEFNVersePocketWiki)\n\n***\n\n####\n\n_Use of the Unreal Engine, Unreal Editor for Fortnite and Verse is governed by_ _the terms of the Unreal® Engine_ [End User License Agreement](https://www.unrealengine.com/eula). _A majority of this content was taken from_ [_VERSE DOCUMENTATION_](https://dev.epicgames.com/documentation/en-us/uefn/verse-code-style-guide-in-unreal-editor-for-fortnite) _Such content belongs to EPIC GAMES. Verse icon, UEFN, UEFN icon, Unreal Engine, Unreal Engine logo, Fortnite, & Fortnite icon are property of EPIC GAMES_ **This gitbook is not maintained or endorsed by EPIC GAMES.** It is made for educational purposes only.\n",
+  "file_tree": [
+    {
+      "path": "01.-common-naming-patterns.md",
+      "type": "file",
+      "size": 903
+    },
+    {
+      "path": "02.-names.md",
+      "type": "file",
+      "size": 981
+    },
+    {
+      "path": "03.-formatting.md",
+      "type": "file",
+      "size": 2644
+    },
+    {
+      "path": "04.-functions.md",
+      "type": "file",
+      "size": 1234
+    },
+    {
+      "path": "05.-failure-checks.md",
+      "type": "file",
+      "size": 4130
+    },
+    {
+      "path": "06.-encapsulation.md",
+      "type": "file",
+      "size": 462
+    },
+    {
+      "path": "07.-events.md",
+      "type": "file",
+      "size": 287
+    },
+    {
+      "path": "08.-concurrency.md",
+      "type": "file",
+      "size": 678
+    },
+    {
+      "path": "09.-attributes.md",
+      "type": "file",
+      "size": 264
+    },
+    {
+      "path": "10.-constructors.md",
+      "type": "file",
+      "size": 2352
+    },
+    {
+      "path": "11.-class-and-specifiers.md",
+      "type": "file",
+      "size": 15203
+    },
+    {
+      "path": "12.-math.md",
+      "type": "file",
+      "size": 4708
+    },
+    {
+      "path": "13.-containers.md",
+      "type": "file",
+      "size": 1127
+    },
+    {
+      "path": "LICENSE",
+      "type": "file",
+      "size": 12086
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "size": 5125
+    },
+    {
+      "path": "SUMMARY.md",
+      "type": "file",
+      "size": 1657
+    },
+    {
+      "path": "fortnite-digest.md",
+      "type": "file",
+      "size": 216820
+    },
+    {
+      "path": "import-expressions.md",
+      "type": "file",
+      "size": 415
+    },
+    {
+      "path": "lib",
+      "type": "dir",
+      "size": null
+    },
+    {
+      "path": "unreal-engine-digest.md",
+      "type": "file",
+      "size": 40721
+    },
+    {
+      "path": "verse-digest.md",
+      "type": "file",
+      "size": 30040
+    },
+    {
+      "path": "lib/01.-common-naming-patterns.md",
+      "type": "file",
+      "size": 903
+    },
+    {
+      "path": "lib/02.-names.md",
+      "type": "file",
+      "size": 981
+    },
+    {
+      "path": "lib/03.-formatting.md",
+      "type": "file",
+      "size": 2644
+    },
+    {
+      "path": "lib/04.-functions.md",
+      "type": "file",
+      "size": 1234
+    },
+    {
+      "path": "lib/05.-failure-checks.md",
+      "type": "file",
+      "size": 4130
+    },
+    {
+      "path": "lib/06.-encapsulation.md",
+      "type": "file",
+      "size": 462
+    },
+    {
+      "path": "lib/07.-events.md",
+      "type": "file",
+      "size": 287
+    },
+    {
+      "path": "lib/08.-concurrency.md",
+      "type": "file",
+      "size": 678
+    },
+    {
+      "path": "lib/09.-attributes.md",
+      "type": "file",
+      "size": 264
+    },
+    {
+      "path": "lib/10.-constructors.md",
+      "type": "file",
+      "size": 2352
+    },
+    {
+      "path": "lib/11.-class-and-specifiers.md",
+      "type": "file",
+      "size": 15203
+    },
+    {
+      "path": "lib/12.-math.md",
+      "type": "file",
+      "size": 4708
+    },
+    {
+      "path": "lib/fortnite-digest.md",
+      "type": "file",
+      "size": 216820
+    },
+    {
+      "path": "lib/import-expressions.md",
+      "type": "file",
+      "size": 415
+    },
+    {
+      "path": "lib/unreal-engine-digest.md",
+      "type": "file",
+      "size": 40721
+    },
+    {
+      "path": "lib/verse-digest.md",
+      "type": "file",
+      "size": 30040
+    }
+  ],
+  "languages": {},
+  "signatures": [],
+  "test_examples": [],
+  "issues": [],
+  "changelog": "",
+  "releases": []
+}

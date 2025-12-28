@@ -1,0 +1,33 @@
+{
+  "name": "uefn",
+  "description": "Unreal Editor for Fortnite (UEFN) - Create custom Fortnite experiences with Verse scripting, devices, and the UEFN editor",
+  "base_url": "https://dev.epicgames.com/documentation/en-us/uefn/",
+  "rate_limit": 1.0,
+  "max_pages": 500,
+  "selectors": {
+    "content": "main, article, .content, .documentation-content",
+    "title": "h1, .page-title",
+    "code": "pre, code"
+  },
+  "url_patterns": {
+    "include": [
+      "/uefn/",
+      "/verse/"
+    ],
+    "exclude": [
+      "/search",
+      "/login",
+      "/account"
+    ]
+  },
+  "categories": {
+    "getting_started": ["getting-started", "quick-start", "installation", "overview"],
+    "verse_language": ["verse", "language", "syntax", "types", "functions", "classes"],
+    "devices": ["device", "devices", "gameplay"],
+    "ui": ["ui", "widget", "hud", "interface"],
+    "multiplayer": ["multiplayer", "networking", "replication"],
+    "api_reference": ["api", "reference", "class", "struct", "enum"],
+    "tutorials": ["tutorial", "guide", "how-to", "example"],
+    "best_practices": ["best-practice", "optimization", "performance"]
+  }
+}
