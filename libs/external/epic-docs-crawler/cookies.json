@@ -1,0 +1,24 @@
+[
+  {
+    "name": "_tald",
+    "value": "4f139b0a-739d-4f1f-b4f8-a760a5a16130",
+    "domain": ".dev.epicgames.com"
+  },
+  {
+    "name": "visitor-uuid",
+    "value": "03ea546d-72c8-4b1c-90d4-475f901ba3ce",
+    "domain": ".dev.epicgames.com"
+  },
+  {
+    "name": "_epicSID",
+    "value": "e3ce594b5e7f446ba7341dc1f1ab22b8",
+    "domain": ".dev.epicgames.com"
+  },
+  {
+    "name": "cf_clearance",
+    "value": "vwEw1UAmV8nBqLACY4RWtxRwG0k2V5WcIBTB2nTaaFk-1766753276-1.2.1.1-aJl6and1VQGGBe1kZ2b_R1wAyVcYHYuDxk3n21WjkmnfY6pAYMtceGc9qQdtpd3L3EszTCRbqHVZ3GdaUIU2sAG0kEGc_p0coBMzXPXLrVJvf5zPKWZZ4j2soK6waJKgtcNCzTnz.krm7OM9z8C1AFR8b5.9wvg4RomJwHLkxPmPEuvNPqGn7NfWT20ioP4fyxHNb.6KO8rHDkEng_EktoIH.ZW_6sG0zqQ76o88FFo",
+    "domain": ".dev.epicgames.com",
+    "httpOnly": true,
+    "secure": true
+  }
+]
