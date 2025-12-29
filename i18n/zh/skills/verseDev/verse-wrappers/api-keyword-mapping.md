@@ -53,6 +53,31 @@
 
 ---
 
+### Sidekicks/宠物域 → PetWrapper ✅
+
+| 关键词 | 关联 API | digest 位置 |
+|--------|----------|-------------|
+| Sidekick | sidekick_component | Fortnite L4584 |
+| 宠物 | sidekick_component | Fortnite L4584 |
+| 情绪 | sidekick_component.GetMood/MoodOverride | Fortnite L4587-4590 |
+| 反应 | sidekick_component.PlayReaction | Fortnite L4598 |
+| 开心 | sidekick_reaction.Happy | Fortnite L4576 |
+| 跳舞 | sidekick_reaction.Dance | Fortnite L4577 |
+| 表情 | sidekick_reaction.Emote | Fortnite L4578 |
+| 生气 | sidekick_reaction.Angry | Fortnite L4579 |
+| 担心 | sidekick_reaction.Worried | Fortnite L4580 |
+| 情绪覆盖 | sidekick_component.MoodOverride | Fortnite L4587 |
+| 自动反应 | equipped_sidekick_component.AutomaticReactionsEnabled | Fortnite L4276 |
+| 宠物可见性 | equipped_sidekick_component.Show | Fortnite L4273 |
+| Spark 模式 | spark_mode_component.SparkModeAlwaysActive | Fortnite L4287 |
+| 宠物主人 | equipped_sidekick_component.GetOwningAgent | Fortnite L4270 |
+| 宠物交互 | equipped_sidekick_component.DefaultInteractionEnabled | Fortnite L4279 |
+
+**Wrapper 状态**: ✅ 已实现 (V2.0 - 基于 Sidekicks API)  
+**位置**: `shared/code-library/Wrappers/PetWrapper.verse`
+
+---
+
 ### 玩家空间域 → PlayspaceWrapper 🔲
 
 | 关键词 | 关联 API | digest 位置 |

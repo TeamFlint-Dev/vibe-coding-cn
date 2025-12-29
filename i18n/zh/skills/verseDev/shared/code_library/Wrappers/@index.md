@@ -21,7 +21,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 | 模块 | 业务域 | 封装接口 | digest 参考 | 状态 |
 |------|--------|----------|-------------|------|
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
-| [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
+| [PetWrapper](./PetWrapper.verse) | Sidekicks 宠物系统 | sidekick_component, equipped_sidekick_component, npc_sidekick_component, spark_mode_component | Fortnite L4240-4628 | ✅ |
 
 ---
 
@@ -56,25 +56,28 @@ else:
 
 ### PetWrapper
 
-**职责**: 封装宠物系统相关的所有 API 操作
+**职责**: 封装 Sidekicks 系统相关的所有 API 操作
 
 **功能分组**:
 
 | 分组 | 方法 | 来源接口 |
 |------|------|----------|
-| 生成管理 | SpawnPetAtLocation, DespawnPet | creative_prop, creative_device |
-| 位置跟随 | GetPetPosition, TeleportPetTo, CalculateDistanceToOwner, MoveTowardsPosition | positional |
-| 行为控制 | SetPetVisibility, PlayPetAnimation | creative_prop, fort_character |
-| 玩家交互 | IsPlayerInInteractionRange, GetRotationTowardsPlayer | 组合查询 |
-| 信息查询 | GetPetInfo | 状态聚合 |
+| 情绪管理 | GetMood, SetMoodOverride, ClearMoodOverride, HasMoodOverride | sidekick_component |
+| 反应播放 | PlayReaction, PlayHappyReaction, PlayDanceReaction, PlayEmoteReaction, PlayAngryReaction, PlayWorriedReaction | sidekick_component |
+| 可见性控制 | ShowEquippedSidekick, HideEquippedSidekick, IsEquippedSidekickVisible | equipped_sidekick_component (showable) |
+| 装备型特有功能 | GetOwningAgent, EnableAutomaticReactions, DisableAutomaticReactions, EnableDefaultInteraction, DisableDefaultInteraction | equipped_sidekick_component |
+| Spark 模式 | ForceSparkMode, AllowAutoSparkMode | spark_mode_component |
+| 信息查询 | GetSidekickInfo, GetNPCSidekickInfo | 状态聚合 |
 
 **调用示例**:
 ```verse
 # 在 Component 中调用
-Result := PetWrapper.SpawnPetAtLocation(SpawnPos, SpawnRot)
+Result := PetWrapper.SetMoodOverride(MySidekick, sidekick_mood.Happy)
 if Result.Success:
-    Distance := PetWrapper.CalculateDistanceToOwner(PetEntity, OwnerPos)
-    Log("宠物已生成，距离主人: {Distance}")
+    # 播放开心反应
+    ReactionResult := PetWrapper.PlayHappyReaction(MySidekick)
+    if ReactionResult.Success:
+        Log("Sidekick is happy!")
 ```
 
 ---
