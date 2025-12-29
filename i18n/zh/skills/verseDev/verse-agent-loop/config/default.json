@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  
+  "loop": {
+    "max_tasks": 5,
+    "auto_generate_requirements": false,
+    "requirement_queue_threshold": 2,
+    "escalation_threshold": 3
+  },
+  
+  "compile": {
+    "max_attempts": 3,
+    "verse_cli_path": "../verse-cli/verse-build.js",
+    "skip_in_demo": true
+  },
+  
+  "review": {
+    "weights": {
+      "utility": 0.4,
+      "framework": 0.4,
+      "quality": 0.2
+    },
+    "pass_threshold": 7.0,
+    "require_no_critical": true
+  },
+  
+  "tactician": {
+    "calibration_frequency": 1,
+    "auto_frequency": 5,
+    "skip_if_no_updates": true
+  },
+  
+  "agent": {
+    "provider": "demo",
+    "model": "gpt-4",
+    "timeout": 300,
+    "retry_attempts": 2,
+    "api_key_env": "OPENAI_API_KEY",
+    "_comment": "provider可选: demo(演示模式), copilot(需安装CLI), openai(需API Key)"
+  },
+  
+  "git": {
+    "auto_commit": true,
+    "branch_prefix": "agent-loop",
+    "main_branch": "main"
+  },
+  
+  "logs": {
+    "active_limit": 20,
+    "archive_by": "month"
+  }
+}

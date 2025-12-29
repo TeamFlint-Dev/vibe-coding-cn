@@ -1,0 +1,5 @@
+# Python dependencies for verse-agent-loop
+# pip install -r requirements.txt
+
+# 可选：如果使用 OpenAI API
+openai>=1.0.0

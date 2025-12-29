@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "description": "高频根源索引 - 存储出现频率>=3的问题根源",
+  "last_updated": "",
+  "total_roots": 0,
+  "roots": []
+}

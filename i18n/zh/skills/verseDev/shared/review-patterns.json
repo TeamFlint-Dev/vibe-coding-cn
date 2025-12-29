@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "description": "评审根源模式 - 存储评审过程中发现的问题根源",
+  "last_updated": "",
+  "categories": {
+    "utility": {
+      "description": "实用性相关问题根源",
+      "roots": []
+    },
+    "framework": {
+      "description": "框架符合性相关问题根源",
+      "roots": []
+    },
+    "quality": {
+      "description": "代码质量相关问题根源",
+      "roots": []
+    }
+  }
+}
