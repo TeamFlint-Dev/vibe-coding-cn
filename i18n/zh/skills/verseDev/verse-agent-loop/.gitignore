@@ -1,0 +1,14 @@
+# Ignore log files but keep directory structure
+logs/active/*
+!logs/active/.gitkeep
+logs/archive/*
+!logs/archive/.gitkeep
+logs/escalation/*
+!logs/escalation/.gitkeep
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
