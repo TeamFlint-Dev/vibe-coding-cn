@@ -2,7 +2,7 @@
 # 用法: .\verse-build.ps1 [选项]
 
 param(
-    [string]$Host = "127.0.0.1",
+    [string]$ServerHost = "127.0.0.1",
     [int]$Port = 1962,
     [switch]$Push,
     [switch]$Watch,
@@ -16,8 +16,8 @@ $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 # 构建参数
 $args = @()
 
-if ($Host -ne "127.0.0.1") {
-    $args += "--host", $Host
+if ($ServerHost -ne "127.0.0.1") {
+    $args += "--host", $ServerHost
 }
 
 if ($Port -ne 1962) {

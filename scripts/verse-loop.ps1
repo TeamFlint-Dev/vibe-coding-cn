@@ -30,6 +30,7 @@ param(
 $ErrorActionPreference = "Stop"
 $WorkflowName = "verse-dev-loop"
 $BuildScript = "i18n\zh\skills\verseDev\verse-cli\verse-build.ps1"
+$CurrentBranch = ""
 
 # Helper function to get the latest run ID
 function Get-LatestRunId {
@@ -47,12 +48,21 @@ while ($currentAttempt -le $MaxRetries) {
 
     # 1. Trigger Cloud Agent
     Write-Host "Triggering Cloud Agent..." -ForegroundColor Yellow
+    
+    $args = @($WorkflowName, "-f", "requirement=$Requirement")
     if ($currentErrors) {
         Write-Host "Sending compile errors to Agent..." -ForegroundColor Red
-        gh aw run $WorkflowName -f requirement="$Requirement" -f compile_errors="$currentErrors"
-    } else {
-        gh aw run $WorkflowName -f requirement="$Requirement"
+        $args += "-f"
+        $args += "compile_errors=$currentErrors"
     }
+    
+    if ($CurrentBranch) {
+        Write-Host "Targeting branch: $CurrentBranch" -ForegroundColor Cyan
+        $args += "--ref"
+        $args += $CurrentBranch
+    }
+
+    gh aw run @args
 
     # 2. Wait for Agent
     Write-Host "Waiting for Agent to finish..." -ForegroundColor Yellow
@@ -66,26 +76,57 @@ while ($currentAttempt -le $MaxRetries) {
         Write-Error "Cloud Agent workflow failed! Check GitHub Actions logs."
     }
 
-    # 3. Pull Changes
-    # Note: This assumes the Agent pushed to the current branch or we need to switch.
-    # For simplicity, we assume the user is on the correct branch or the Agent updates it.
-    # In a real PR scenario, we might need to checkout the PR branch.
-    Write-Host "Pulling latest code..." -ForegroundColor Yellow
-    git pull
+    # 3. Pull Changes / Checkout PR
+    Write-Host "Checking for new Pull Requests..." -ForegroundColor Yellow
+    $latestPR = gh pr list --limit 1 --json number,headRefName,createdAt | ConvertFrom-Json
+    
+    if ($latestPR) {
+        Write-Host "Found PR #$($latestPR.number) on branch $($latestPR.headRefName). Checking out..." -ForegroundColor Yellow
+        gh pr checkout $latestPR.number
+        $CurrentBranch = $latestPR.headRefName
+    } else {
+        Write-Host "No PR found. Pulling latest code..." -ForegroundColor Yellow
+        git pull
+        $CurrentBranch = "main"
+    }
 
     # 4. Local Build
-    Write-Host "Running Local Build..." -ForegroundColor Yellow
-    
-    # Capture output
-    $buildOutput = & $BuildScript 2>&1 | Out-String
-    $lastExitCode = $LASTEXITCODE
+    $buildSuccess = $false
+    while (-not $buildSuccess) {
+        Write-Host "Running Local Build..." -ForegroundColor Yellow
+        
+        # Check if build script exists
+        if (-not (Test-Path $BuildScript)) {
+            Write-Error "Build script not found at $BuildScript. Please create it or configure the path."
+            exit 1
+        }
 
-    if ($lastExitCode -eq 0) {
+        # Capture output
+        $buildOutput = & $BuildScript 2>&1 | Out-String
+        $lastExitCode = $LASTEXITCODE
+
+        if ($lastExitCode -eq 0) {
+            $buildSuccess = $true
+            break
+        }
+        
+        if ($buildOutput -match "ECONNREFUSED" -or $buildOutput -match "Connection refused") {
+             Write-Host "Error: Could not connect to UEFN. Please ensure UEFN is running and the project is loaded." -ForegroundColor Red
+             Write-Host "Press any key to retry build (or Ctrl+C to exit)..."
+             $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+             continue
+        } else {
+             # Real build error
+             break
+        }
+    }
+
+    if ($buildSuccess) {
         Write-Host "Build Success!" -ForegroundColor Green
         
         # 5. Trigger Documentation Workflow (Optional)
         Write-Host "Triggering Documentation Agent..." -ForegroundColor Cyan
-        gh aw run verse-docs-updater -f feature_name="$Requirement"
+        gh aw run verse-docs-updater -f feature_name="$Requirement" --ref $CurrentBranch
         
         exit 0
     } else {
@@ -97,7 +138,20 @@ while ($currentAttempt -le $MaxRetries) {
             $currentErrors = $currentErrors.Substring(0, 5000) + "...(truncated)"
         }
         
-        Write-Host "Errors captured. Retrying..."
+        Write-Host "Errors captured. Retrying on branch $CurrentBranch..."
+        
+        # Loop back
+        # We recursively call the loop or just continue the while loop?
+        # The script is a while loop.
+        # We need to update the 'requirement' to include the errors?
+        # Actually, the loop at the top uses $currentErrors.
+        # So we just loop.
+        
+        # IMPORTANT: We must ensure the next run targets the SAME branch so we iterate on the PR.
+        # But 'gh aw run' without --ref defaults to default branch.
+        # We need to modify the 'gh aw run' command at the top of the loop to use $CurrentBranch.
+    }
+}
     }
 }
 
