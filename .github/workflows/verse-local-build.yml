@@ -1,0 +1,297 @@
+# Verse Local Build - Self-Hosted Runner 本地编译工作流
+#
+# 架构：云端主控 + 本地编译服务
+# - 云端 Agent (verse-dev-loop) 生成代码并推送到 PR 分支
+# - 本地 Runner 自动触发编译验证
+# - 编译失败时，在同一分支上触发云端 Agent 修复（最多重试 3 次）
+# - 编译成功后，PR 准备就绪等待人工审核
+
+name: Verse Local Build
+
+on:
+  # 当 PR 中的 .verse 文件变更时自动触发
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '**.verse'
+      - '**/verse/**'
+
+  # 支持手动触发
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to build (leave empty for current branch)"
+        required: false
+        default: ""
+      requirement:
+        description: "Original requirement (for retry context)"
+        required: false
+        default: ""
+      retry_count:
+        description: "Current retry count (0-3)"
+        required: false
+        default: "0"
+
+# 确保同一时间只有一个编译任务运行
+concurrency:
+  group: verse-local-build-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: false
+
+env:
+  MAX_RETRIES: 3
+  VERSE_CLI_PATH: "i18n/zh/skills/verseDev/verse-cli/verse-build.js"
+
+jobs:
+  local-build:
+    # 运行在本地 Self-Hosted Runner
+    runs-on: [self-hosted, windows]
+    timeout-minutes: 20
+
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+
+    outputs:
+      build_result: ${{ steps.build.outputs.result }}
+      build_errors: ${{ steps.build.outputs.errors }}
+
+    steps:
+      # ============================================
+      # 1. 准备环境
+      # ============================================
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref }}
+          fetch-depth: 0
+          # 允许后续 push
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Get retry count
+        id: retry
+        shell: pwsh
+        run: |
+          $retryCount = "${{ inputs.retry_count }}"
+          if (-not $retryCount) { $retryCount = "0" }
+          "count=$retryCount" >> $env:GITHUB_OUTPUT
+          Write-Host "📊 Current retry count: $retryCount / ${{ env.MAX_RETRIES }}"
+
+      # ============================================
+      # 2. 检查 UEFN 连接
+      # ============================================
+      - name: Check UEFN Connection
+        id: uefn-check
+        shell: pwsh
+        run: |
+          $maxAttempts = 5
+          $attempt = 0
+          $connected = $false
+
+          Write-Host "🔌 Checking UEFN Workflow Server connection..."
+
+          while ($attempt -lt $maxAttempts -and -not $connected) {
+            try {
+              $tcp = New-Object System.Net.Sockets.TcpClient
+              $tcp.Connect("127.0.0.1", 1962)
+              $tcp.Close()
+              $connected = $true
+              Write-Host "✅ UEFN Workflow Server is running on port 1962"
+            } catch {
+              $attempt++
+              Write-Host "⏳ Waiting for UEFN... (attempt $attempt/$maxAttempts)"
+              Start-Sleep -Seconds 5
+            }
+          }
+
+          if (-not $connected) {
+            Write-Host "::error::❌ UEFN is not running. Please open UEFN with your project."
+            "connected=false" >> $env:GITHUB_OUTPUT
+            exit 1
+          }
+
+          "connected=true" >> $env:GITHUB_OUTPUT
+
+      # ============================================
+      # 3. 执行 Verse 编译
+      # ============================================
+      - name: Run Verse Build
+        id: build
+        shell: pwsh
+        run: |
+          $buildScript = "${{ github.workspace }}/${{ env.VERSE_CLI_PATH }}"
+
+          Write-Host "🔨 Running Verse compilation..."
+          Write-Host "   Script: $buildScript"
+
+          # 运行编译并捕获输出
+          $output = ""
+          try {
+            $output = node $buildScript 2>&1 | Out-String
+            $exitCode = $LASTEXITCODE
+          } catch {
+            $output = $_.Exception.Message
+            $exitCode = 1
+          }
+
+          # 保存完整输出到文件
+          $output | Out-File -FilePath "build-output.txt" -Encoding utf8
+
+          Write-Host "--- Build Output ---"
+          Write-Host $output
+          Write-Host "--- End Output ---"
+
+          if ($exitCode -eq 0) {
+            Write-Host "✅ Build succeeded!"
+            "result=success" >> $env:GITHUB_OUTPUT
+          } else {
+            Write-Host "❌ Build failed with exit code: $exitCode"
+            "result=failure" >> $env:GITHUB_OUTPUT
+
+            # 提取并截断错误信息（保留关键部分）
+            $errorOutput = $output
+            if ($errorOutput.Length -gt 4000) {
+              # 保留开头和结尾的错误信息
+              $head = $errorOutput.Substring(0, 2000)
+              $tail = $errorOutput.Substring($errorOutput.Length - 1500)
+              $errorOutput = "$head`n`n... [truncated] ...`n`n$tail"
+            }
+
+            # 转义多行输出
+            $escapedOutput = $errorOutput -replace '%', '%25' -replace "`n", '%0A' -replace "`r", ''
+            "errors<<EOF" >> $env:GITHUB_OUTPUT
+            $errorOutput >> $env:GITHUB_OUTPUT
+            "EOF" >> $env:GITHUB_OUTPUT
+          }
+
+      # ============================================
+      # 4. 上传构建日志
+      # ============================================
+      - name: Upload Build Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output-${{ github.run_number }}
+          path: build-output.txt
+          retention-days: 7
+
+      # ============================================
+      # 5. 处理构建结果
+      # ============================================
+
+      # 5a. 成功：在 PR 中评论
+      - name: Comment Success on PR
+        if: steps.build.outputs.result == 'success' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `## ✅ Verse Build Succeeded!
+
+            **Runner**: \`${{ runner.name }}\`
+            **Commit**: \`${{ github.sha }}\`
+            **Retry Count**: ${{ steps.retry.outputs.count }} / ${{ env.MAX_RETRIES }}
+
+            🎉 Code compiled successfully. Ready for review!
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: body
+            });
+
+      # 5b. 失败且未超过重试次数：触发修复循环
+      - name: Trigger Fix Loop
+        if: steps.build.outputs.result == 'failure' && steps.retry.outputs.count < env.MAX_RETRIES
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $retryCount = [int]"${{ steps.retry.outputs.count }}" + 1
+          $branchName = "${{ github.head_ref }}"
+          if (-not $branchName) { $branchName = "${{ github.ref_name }}" }
+
+          $requirement = "${{ inputs.requirement }}"
+          if (-not $requirement) {
+            $requirement = "Fix compilation errors in the current PR"
+          }
+
+          # 读取错误信息
+          $errors = Get-Content -Path "build-output.txt" -Raw -ErrorAction SilentlyContinue
+          if ($errors.Length -gt 4000) {
+            $errors = $errors.Substring(0, 4000) + "`n... [truncated]"
+          }
+
+          Write-Host "🔄 Triggering verse-dev-loop to fix errors..."
+          Write-Host "   Branch: $branchName"
+          Write-Host "   Retry: $retryCount / ${{ env.MAX_RETRIES }}"
+
+          # 触发云端 Agent 修复，指定同一分支，传递 working_branch 防止创建新分支
+          gh workflow run verse-dev-loop.lock.yml `
+            --ref "$branchName" `
+            -f requirement="$requirement" `
+            -f compile_errors="$errors" `
+            -f retry_count="$retryCount" `
+            -f working_branch="$branchName"
+
+          Write-Host "✅ Fix workflow triggered on branch: $branchName"
+
+      # 5c. 失败且超过重试次数：标记失败
+      - name: Comment Max Retries Exceeded
+        if: steps.build.outputs.result == 'failure' && steps.retry.outputs.count >= env.MAX_RETRIES
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = `## ❌ Verse Build Failed - Max Retries Exceeded
+
+            **Runner**: \`${{ runner.name }}\`
+            **Commit**: \`${{ github.sha }}\`
+            **Retry Count**: ${{ steps.retry.outputs.count }} / ${{ env.MAX_RETRIES }}
+
+            🚫 Automatic fix loop has reached the maximum retry limit.
+
+            **Next Steps**:
+            1. Review the build logs in the Artifacts
+            2. Manually fix the remaining issues
+            3. Push your changes to trigger a new build
+
+            <details>
+            <summary>Build Errors</summary>
+
+            \`\`\`
+            ${{ steps.build.outputs.errors }}
+            \`\`\`
+
+            </details>
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request?.number || 0,
+              body: body
+            });
+
+            // 添加失败标签
+            if (context.payload.pull_request) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                labels: ['build-failed', 'needs-manual-fix']
+              });
+            }
+
+      # 5d. 设置 Job 状态
+      - name: Set Job Status
+        if: steps.build.outputs.result == 'failure'
+        shell: pwsh
+        run: |
+          Write-Host "::error::Build failed. Check the build output for details."
+          exit 1

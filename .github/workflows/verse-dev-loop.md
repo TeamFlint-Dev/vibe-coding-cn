@@ -11,6 +11,14 @@ on:
         description: "Compile errors from previous run (optional)"
         required: false
         default: ""
+      retry_count:
+        description: "Current retry count (0-3, for tracking iteration)"
+        required: false
+        default: "0"
+      working_branch:
+        description: "Working branch name (stay on same branch for iterations)"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -23,6 +31,7 @@ tools:
 
 safe-outputs:
   create-pull-request:
+  add-comment:
 ---
 
 # Verse Developer Agent
@@ -45,7 +54,10 @@ Key principles from this skill:
 1.  **Analyze Context**:
     *   Requirement: "${{ inputs.requirement }}"
     *   Previous Errors (if any): "${{ inputs.compile_errors }}"
+    *   Working Branch: "${{ inputs.working_branch }}" (if set, push to this branch; do NOT create a new branch)
+    *   Retry Count: "${{ inputs.retry_count }}" / 3
     *   If errors are provided, your PRIMARY goal is to fix them while maintaining the original requirement.
+    *   If this is a retry (retry_count > 0), focus ONLY on fixing the compile errors. Do not add new features.
 
 2.  **Plan Implementation**: Based on the Skill, decide which Wrapper class to create or modify.
 3.  **Implement**: Write the Verse code. Ensure you handle edge cases and type conversions as per the Skill.
@@ -55,5 +67,7 @@ Key principles from this skill:
     *   Check for common Verse errors.
 5.  **Refine**: If the review finds issues, fix them immediately.
 6.  **Final Output**: Present the final code and explain how it adheres to the Skill.
-7.  **Submit**: Create a Pull Request with the code.
+7.  **Submit**: 
+    *   If working_branch is set: Push changes directly to that branch. Do NOT create a new PR.
+    *   If working_branch is empty (first run): Create a Pull Request with the code.
 
