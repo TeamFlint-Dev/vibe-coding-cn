@@ -1,5 +1,9 @@
 # Python dependencies for verse-agent-loop
-# pip install -r requirements.txt
+# Requires: Python >= 3.9
+# Install: pip install -r requirements.txt
 
-# 可选：如果使用 OpenAI API
+# Optional: Only needed when using OpenAI API provider (agent.provider = "openai")
 openai>=1.0.0
+
+# Note: The following are Python standard library modules (no installation needed):
+# - json, subprocess, pathlib, logging, datetime, signal, argparse, shutil, re, time

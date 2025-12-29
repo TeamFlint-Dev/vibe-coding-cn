@@ -42,6 +42,10 @@
         "verse_cli_path": {
           "type": "string",
           "description": "verse-cli 路径"
+        },
+        "skip_in_demo": {
+          "type": "boolean",
+          "description": "演示模式下是否跳过编译"
         }
       }
     },
@@ -93,7 +97,7 @@
       "properties": {
         "provider": {
           "type": "string",
-          "enum": ["copilot", "openai"],
+          "enum": ["copilot", "openai", "demo"],
           "description": "Agent提供者"
         },
         "model": {
