@@ -1,317 +1,228 @@
-# PetWrapper - UEFN 宠物系统 API 封装
-# 版本: 1.0
+# PetWrapper - UEFN Sidekick (宠物) 系统 API 封装
+# 版本: 2.0
 # 更新时间: 2025-12-29
-# 来源: 需求驱动示例 - 宠物系统开发
+# 来源: 需求驱动示例 - 宠物系统开发 (基于 Sidekick API)
 #
 # 设计目的:
-# 1. 统一封装 UEFN 宠物相关 API 调用（基于 fort_character 和 creative_prop）
-# 2. 提供宠物跟随、行为控制、状态管理的统一接口
+# 1. 统一封装 UEFN Sidekick API 调用（equipped_sidekick_component）
+# 2. 提供宠物情绪、反应、可见性控制的统一接口
 # 3. 处理宠物与玩家的交互逻辑
 # 4. 让 Component 层无需直接依赖底层 UEFN API
 #
 # 业务域范围:
-# - 宠物生成与销毁
-# - 宠物跟随系统（基于位置和旋转）
-# - 宠物行为状态（待命、跟随、攻击、休息）
-# - 宠物与玩家交互
-# - 宠物视觉效果控制
+# - Sidekick 情绪管理（Mood）
+# - Sidekick 反应播放（Reaction）
+# - Sidekick 可见性控制
+# - Spark 模式管理
+# - 玩家交互启用/禁用
 #
 # API 参考:
-# - fort_character: 用于宠物实体（如果使用角色类型）
-# - creative_prop: 用于宠物道具实体
-# - positional: 位置和移动控制
-# - 来源: shared/api-digests/Fortnite.digest.verse
+# - equipped_sidekick_component: 玩家装备的 Sidekick 管理组件
+# - sidekick_component: 所有 Sidekick 类型的基类组件
+# - spark_mode_component: Spark 模式控制组件
+# - 来源: shared/api-digests/Fortnite.digest.verse.md L4239-L4310
+#
+# 注意: Verse 中"宠物"对应的官方 API 是 Sidekick 系统
 
 using { /Verse.org/Simulation }
 using { /Verse.org/Verse }
-using { /UnrealEngine.com/Temporary/SpatialMath }
-using { /Fortnite.com/Characters }
-using { /Fortnite.com/Game }
-using { /Fortnite.com/Devices }
+using { /Fortnite.com/Characters }  # agent, fort_character
+using { /Fortnite.com/Game }  # equipped_sidekick_component, sidekick_component
 
 # ═══════════════════════════════════════════════════════════
-# 宠物状态枚举
+# Sidekick 情绪枚举 (对应 sidekick_mood)
+# digest: Fortnite.digest.verse.md L4239
 # ═══════════════════════════════════════════════════════════
 
-# 宠物行为状态
-pet_behavior_state<public> := enum:
-    Idle        # 待命状态
-    Following   # 跟随主人
-    Attacking   # 攻击状态
-    Resting     # 休息状态
-    Playing     # 玩耍状态
+# Sidekick 情绪状态 (映射自 UEFN sidekick_mood enum)
+# 注意: 这是业务层使用的类型,实际 API 调用使用 sidekick_mood
+pet_mood<public> := enum:
+    Neutral   # 中立状态
+    Combat    # 战斗状态
+    Worried   # 担忧状态
+    Bored     # 无聊状态
+
+# Sidekick 反应动作 (映射自 UEFN sidekick_reaction enum)
+# digest: Fortnite.digest.verse.md L4250
+pet_reaction<public> := enum:
+    Happy     # 开心
+    Dance     # 跳舞
+    Emote     # 表情
+    Angry     # 生气
+    Worried   # 担忧
 
 # ═══════════════════════════════════════════════════════════
 # 操作结果结构
 # ═══════════════════════════════════════════════════════════
 
-# 宠物操作结果（统一返回格式）
+# Sidekick 操作结果（统一返回格式）
 pet_op_result<public> := struct<concrete>:
     Success<public>:logic = false           # 是否成功
     ErrorReason<public>:string = ""         # 失败原因
-    ActualValue<public>:float = 0.0         # 实际生效的数值（如距离、速度等）
+    ActualValue<public>:float = 0.0         # 实际生效的数值（如适用）
 
-# 宠物信息结构
+# Sidekick 信息结构
 pet_info<public> := struct<concrete>:
-    IsValid<public>:logic = false           # 宠物是否有效
-    BehaviorState<public>:pet_behavior_state = pet_behavior_state.Idle
-    Position<public>:vector3 = vector3{X := 0.0, Y := 0.0, Z := 0.0}
-    DistanceToOwner<public>:float = 0.0     # 与主人的距离
-    IsVisible<public>:logic = true          # 是否可见
+    IsVisible<public>:logic = true                  # 是否可见
+    CurrentMood<public>:pet_mood = pet_mood.Neutral # 当前情绪
+    AutoReactionsEnabled<public>:logic = true       # 自动反应是否启用
+    InteractionEnabled<public>:logic = true         # 交互是否启用
 
 # ═══════════════════════════════════════════════════════════
-# PetWrapper 模块 - UEFN 宠物系统封装层
+# PetWrapper 模块 - UEFN Sidekick 系统封装层
 # ═══════════════════════════════════════════════════════════
 
 PetWrapper<public> := module:
     
     # ═══════════════════════════════════════════════════════
-    # 宠物生成与管理
-    # API: creative_device.SpawnProp / TeleportTo
-    # digest: Fortnite.digest.verse (creative_prop related APIs)
+    # Sidekick 获取
+    # API: agent.GetComponent(equipped_sidekick_component)
+    # digest: Fortnite.digest.verse.md L4247
     # ═══════════════════════════════════════════════════════
     
-    # 在指定位置生成宠物（使用 creative_prop 作为宠物实体）
-    # 注意: 实际项目中需要根据具体 UEFN 版本选择合适的生成 API
-    SpawnPetAtLocation<public>(
-        Position:vector3, 
-        Rotation:rotation
-    ):pet_op_result =
-        # 边界检查：位置是否有效
-        if (Position.X == 0.0 and Position.Y == 0.0 and Position.Z == 0.0):
-            pet_op_result{
-                Success := false,
-                ErrorReason := "Invalid spawn position",
-                ActualValue := 0.0
-            }
+    # 获取玩家装备的 Sidekick 组件
+    # 注意: 如果玩家没有装备 Sidekick 则返回 false
+    GetEquippedSidekick<public>(Agent:agent):?equipped_sidekick_component =
+        # digest: agent.GetComponent 用于获取特定组件
+        if (SidekickComp := Agent.GetComponent[equipped_sidekick_component]):
+            SidekickComp
         else:
-            # TODO: 实际项目中调用 SpawnProp 或类似 API
-            # 这里返回成功作为示例
-            pet_op_result{
-                Success := true,
-                ErrorReason := "",
-                ActualValue := 1.0
-            }
+            false
     
-    # 销毁宠物实体
-    DespawnPet<public>(PetEntity:creative_prop):pet_op_result =
-        # 检查实体有效性
-        # 注意: creative_prop 没有 IsActive 方法，需要其他验证方式
-        # 实际项目中根据具体 API 实现
+    # 获取玩家 agent (用于从 fort_character 获取 agent)
+    # digest: Fortnite.digest.verse.md (fort_character 相关)
+    GetAgent<public>(Character:fort_character):?agent =
+        if (PlayerAgent := agent[Character]):
+            PlayerAgent
+        else:
+            false
+    
+    # ═══════════════════════════════════════════════════════
+    # Sidekick 情绪管理
+    # API: equipped_sidekick_component.MoodOverride / GetMood()
+    # digest: Fortnite.digest.verse.md L4249-L4253
+    # ═══════════════════════════════════════════════════════
+    
+    # 设置 Sidekick 情绪覆盖（锁定到指定情绪）
+    SetMoodOverride<public>(
+        SidekickComp:equipped_sidekick_component, 
+        Mood:sidekick_mood
+    ):pet_op_result =
+        # digest: L4249 MoodOverride 字段
+        set SidekickComp.MoodOverride = option{Mood}
+        
         pet_op_result{
             Success := true,
             ErrorReason := "",
             ActualValue := 0.0
         }
     
-    # ═══════════════════════════════════════════════════════
-    # 位置与跟随系统
-    # API: positional interface (GetTransform, TeleportTo)
-    # ═══════════════════════════════════════════════════════
-    
-    # 获取宠物位置
-    GetPetPosition<public>(PetEntity:creative_prop):vector3 =
-        Transform := PetEntity.GetTransform()
-        Transform.Translation
-    
-    # 传送宠物到指定位置
-    TeleportPetTo<public>(
-        PetEntity:creative_prop, 
-        Position:vector3, 
-        Rotation:rotation
-    ):pet_op_result =
-        # 边界检查
-        if (Position.X == 0.0 and Position.Y == 0.0 and Position.Z == 0.0):
-            pet_op_result{
-                Success := false,
-                ErrorReason := "Invalid target position",
-                ActualValue := 0.0
-            }
-        else:
-            # 调用 positional 接口的 TeleportTo
-            if (PetEntity.TeleportTo[Position, Rotation]):
-                pet_op_result{
-                    Success := true,
-                    ErrorReason := "",
-                    ActualValue := 0.0
-                }
-            else:
-                pet_op_result{
-                    Success := false,
-                    ErrorReason := "Teleport failed - location may be blocked",
-                    ActualValue := 0.0
-                }
-    
-    # 计算宠物与主人的距离
-    CalculateDistanceToOwner<public>(
-        PetEntity:creative_prop, 
-        OwnerPosition:vector3
-    ):float =
-        PetPos := GetPetPosition(PetEntity)
-        DeltaX := PetPos.X - OwnerPosition.X
-        DeltaY := PetPos.Y - OwnerPosition.Y
-        DeltaZ := PetPos.Z - OwnerPosition.Z
+    # 清除情绪覆盖（恢复自动情绪系统）
+    ClearMoodOverride<public>(SidekickComp:equipped_sidekick_component):pet_op_result =
+        # digest: L4249 MoodOverride 字段设为 false 清除覆盖
+        set SidekickComp.MoodOverride = false
         
-        # 计算欧式距离
-        Sqrt(DeltaX * DeltaX + DeltaY * DeltaY + DeltaZ * DeltaZ)
-    
-    # 让宠物跟随到指定位置（平滑移动而非传送）
-    # 注意: 这是业务逻辑的一部分，实际实现应在 Helper 或 Component 层
-    # Wrapper 层只提供基础 API 封装
-    MoveTowardsPosition<public>(
-        PetEntity:creative_prop,
-        TargetPosition:vector3,
-        Speed:float
-    ):pet_op_result =
-        if (Speed <= 0.0):
-            pet_op_result{
-                Success := false,
-                ErrorReason := "Speed must be positive",
-                ActualValue := 0.0
-            }
-        else:
-            # TODO: 实际项目中使用物理系统 API 或角色移动组件
-            # 这里返回成功作为接口示例
-            CurrentPos := GetPetPosition(PetEntity)
-            Distance := CalculateDistanceToOwner(PetEntity, TargetPosition)
-            
-            pet_op_result{
-                Success := true,
-                ErrorReason := "",
-                ActualValue := Distance
-            }
-    
-    # ═══════════════════════════════════════════════════════
-    # 宠物行为状态管理
-    # 注意: 状态本身由 Component 层管理，Wrapper 只提供底层控制
-    # ═══════════════════════════════════════════════════════
-    
-    # 设置宠物可见性（对应不同行为状态的视觉表现）
-    SetPetVisibility<public>(PetEntity:creative_prop, Visible:logic):void =
-        if (Visible):
-            PetEntity.Show()
-        else:
-            PetEntity.Hide()
-    
-    # 播放宠物动画（如果宠物使用 fort_character）
-    # 注意: creative_prop 没有动画接口，需要使用 fort_character 或其他 API
-    # 这里作为接口占位符
-    PlayPetAnimation<public>(AnimationName:string):pet_op_result =
-        # TODO: 实际项目中调用动画播放 API
-        if (AnimationName = ""):
-            pet_op_result{
-                Success := false,
-                ErrorReason := "Animation name cannot be empty",
-                ActualValue := 0.0
-            }
-        else:
-            pet_op_result{
-                Success := true,
-                ErrorReason := "",
-                ActualValue := 0.0
-            }
-    
-    # ═══════════════════════════════════════════════════════
-    # 宠物与玩家交互
-    # API: 基于 agent 和 fort_character 的交互接口
-    # ═══════════════════════════════════════════════════════
-    
-    # 检查玩家是否在宠物交互范围内
-    IsPlayerInInteractionRange<public>(
-        PetEntity:creative_prop,
-        PlayerCharacter:fort_character,
-        InteractionRadius:float
-    ):logic =
-        if (InteractionRadius <= 0.0):
-            false
-        else:
-            PetPos := GetPetPosition(PetEntity)
-            PlayerTransform := PlayerCharacter.GetTransform()
-            PlayerPos := PlayerTransform.Translation
-            
-            Distance := CalculateDistanceToOwner(PetEntity, PlayerPos)
-            
-            if (Distance <= InteractionRadius):
-                true
-            else:
-                false
-    
-    # 获取宠物朝向玩家的旋转
-    GetRotationTowardsPlayer<public>(
-        PetEntity:creative_prop,
-        PlayerCharacter:fort_character
-    ):rotation =
-        PetPos := GetPetPosition(PetEntity)
-        PlayerTransform := PlayerCharacter.GetTransform()
-        PlayerPos := PlayerTransform.Translation
-        
-        # 计算方向向量
-        DeltaX := PlayerPos.X - PetPos.X
-        DeltaY := PlayerPos.Y - PetPos.Y
-        
-        # TODO: 实际项目中使用正确的旋转计算
-        # 这里返回默认旋转作为示例
-        rotation{}
-    
-    # ═══════════════════════════════════════════════════════
-    # 宠物信息查询
-    # ═══════════════════════════════════════════════════════
-    
-    # 获取宠物完整信息（用于 UI 显示或调试）
-    GetPetInfo<public>(
-        PetEntity:creative_prop,
-        OwnerCharacter:fort_character,
-        CurrentState:pet_behavior_state
-    ):pet_info =
-        PetPos := GetPetPosition(PetEntity)
-        OwnerTransform := OwnerCharacter.GetTransform()
-        OwnerPos := OwnerTransform.Translation
-        Distance := CalculateDistanceToOwner(PetEntity, OwnerPos)
-        
-        pet_info{
-            IsValid := true,
-            BehaviorState := CurrentState,
-            Position := PetPos,
-            DistanceToOwner := Distance,
-            IsVisible := true  # TODO: 实际检测可见性
+        pet_op_result{
+            Success := true,
+            ErrorReason := "",
+            ActualValue := 0.0
         }
     
-    # ═══════════════════════════════════════════════════════
-    # 工具函数
-    # ═══════════════════════════════════════════════════════
-    
-    # 平方根计算（用于距离计算）
-    Sqrt<private>(Value:float):float =
-        if (Value <= 0.0):
-            0.0
-        else:
-            # Verse 标准库应该提供 Sqrt，这里作为示例
-            # 实际使用 /Verse.org/Verse 中的数学函数
-            Value  # 简化实现，实际项目需使用正确的 Sqrt
-    
-    # 限制数值范围
-    ClampFloat<private>(Value:float, MinVal:float, MaxVal:float):float =
-        if (Value < MinVal):
-            MinVal
-        else if (Value > MaxVal):
-            MaxVal
-        else:
-            Value
+    # 获取当前情绪
+    GetCurrentMood<public>(SidekickComp:equipped_sidekick_component):sidekick_mood =
+        # digest: L4252 GetMood() 方法
+        SidekickComp.GetMood()
     
     # ═══════════════════════════════════════════════════════
-    # 边界条件检查（内部辅助函数）
+    # Sidekick 反应播放
+    # API: equipped_sidekick_component.PlayReaction()
+    # digest: Fortnite.digest.verse.md L4260-L4267
     # ═══════════════════════════════════════════════════════
     
-    # 验证位置向量是否有效（不在原点）
-    IsValidPosition<private>(Position:vector3):logic =
-        if (Position.X == 0.0 and Position.Y == 0.0 and Position.Z == 0.0):
-            false
+    # 播放 Sidekick 反应动作
+    # 注意: 不保证立即播放,需监听 StartPlayReactionEvent
+    PlayReaction<public>(
+        SidekickComp:equipped_sidekick_component,
+        Reaction:sidekick_reaction
+    ):pet_op_result =
+        # digest: L4263 PlayReaction 方法
+        # 使用 if 处理 <decides> 返回
+        if (SidekickComp.PlayReaction(Reaction)):
+            pet_op_result{
+                Success := true,
+                ErrorReason := "",
+                ActualValue := 0.0
+            }
         else:
-            true
+            pet_op_result{
+                Success := false,
+                ErrorReason := "Sidekick cannot play this reaction",
+                ActualValue := 0.0
+            }
     
-    # 验证距离是否在合理范围内
-    IsReasonableDistance<private>(Distance:float):logic =
-        if (Distance < 0.0 or Distance > 100000.0):  # 10万单位上限
-            false
-        else:
-            true
+    # ═══════════════════════════════════════════════════════
+    # Sidekick 可见性控制
+    # API: equipped_sidekick_component.Show (showable 接口)
+    # digest: Fortnite.digest.verse.md L4274
+    # ═══════════════════════════════════════════════════════
+    
+    # 设置 Sidekick 可见性
+    SetVisibility<public>(
+        SidekickComp:equipped_sidekick_component, 
+        Visible:logic
+    ):void =
+        # digest: L4274 Show 字段 (showable 接口)
+        set SidekickComp.Show = Visible
+    
+    # 显示 Sidekick
+    ShowSidekick<public>(SidekickComp:equipped_sidekick_component):void =
+        set SidekickComp.Show = true
+    
+    # 隐藏 Sidekick
+    HideSidekick<public>(SidekickComp:equipped_sidekick_component):void =
+        set SidekickComp.Show = false
+    
+    # ═══════════════════════════════════════════════════════
+    # Sidekick 交互控制
+    # API: equipped_sidekick_component 交互相关字段
+    # digest: Fortnite.digest.verse.md L4277-L4280
+    # ═══════════════════════════════════════════════════════
+    
+    # 设置自动反应系统启用状态
+    SetAutomaticReactions<public>(
+        SidekickComp:equipped_sidekick_component,
+        Enabled:logic
+    ):void =
+        # digest: L4277 AutomaticReactionsEnabled 字段
+        set SidekickComp.AutomaticReactionsEnabled = Enabled
+    
+    # 设置默认交互启用状态
+    SetDefaultInteraction<public>(
+        SidekickComp:equipped_sidekick_component,
+        Enabled:logic
+    ):void =
+        # digest: L4280 DefaultInteractionEnabled 字段
+        set SidekickComp.DefaultInteractionEnabled = Enabled
+    
+    # ═══════════════════════════════════════════════════════
+    # Sidekick 信息查询
+    # ═══════════════════════════════════════════════════════
+    
+    # 获取 Sidekick 完整信息（用于 UI 显示或调试）
+    GetSidekickInfo<public>(SidekickComp:equipped_sidekick_component):pet_info =
+        CurrentMood := SidekickComp.GetMood()
+        
+        # 转换 sidekick_mood 到 pet_mood
+        MappedMood := case (CurrentMood):
+            sidekick_mood.Neutral => pet_mood.Neutral
+            sidekick_mood.Combat => pet_mood.Combat
+            sidekick_mood.Worried => pet_mood.Worried
+            sidekick_mood.Bored => pet_mood.Bored
+            _ => pet_mood.Neutral
+        
+        pet_info{
+            IsVisible := SidekickComp.Show,
+            CurrentMood := MappedMood,
+            AutoReactionsEnabled := SidekickComp.AutomaticReactionsEnabled,
+            InteractionEnabled := SidekickComp.DefaultInteractionEnabled
+        }
