@@ -21,6 +21,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 | 模块 | 业务域 | 封装接口 | digest 参考 | 状态 |
 |------|--------|----------|-------------|------|
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
+| [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
 
 ---
 
@@ -51,6 +52,29 @@ if Result.Success:
     Log("造成了 {Result.ActualValue} 点伤害")
 else:
     Log("伤害失败: {Result.ErrorReason}")
+```
+
+### PetWrapper
+
+**职责**: 封装宠物系统相关的所有 API 操作
+
+**功能分组**:
+
+| 分组 | 方法 | 来源接口 |
+|------|------|----------|
+| 生成管理 | SpawnPetAtLocation, DespawnPet | creative_prop, creative_device |
+| 位置跟随 | GetPetPosition, TeleportPetTo, CalculateDistanceToOwner, MoveTowardsPosition | positional |
+| 行为控制 | SetPetVisibility, PlayPetAnimation | creative_prop, fort_character |
+| 玩家交互 | IsPlayerInInteractionRange, GetRotationTowardsPlayer | 组合查询 |
+| 信息查询 | GetPetInfo | 状态聚合 |
+
+**调用示例**:
+```verse
+# 在 Component 中调用
+Result := PetWrapper.SpawnPetAtLocation(SpawnPos, SpawnRot)
+if Result.Success:
+    Distance := PetWrapper.CalculateDistanceToOwner(PetEntity, OwnerPos)
+    Log("宠物已生成，距离主人: {Distance}")
 ```
 
 ---
@@ -90,4 +114,4 @@ else:
 
 ---
 
-*最后更新: 2025-12-28*
+*最后更新: 2025-12-29*
