@@ -250,8 +250,9 @@ PetWrapper<public> := module:
         DeltaY := PlayerPos.Y - PetPos.Y
         
         # TODO: 实际项目中使用正确的旋转计算
-        # 这里返回默认旋转作为示例
-        rotation{}
+        # 返回实体当前旋转作为默认值
+        PetTransform := PetEntity.GetTransform()
+        PetTransform.Rotation
     
     # ═══════════════════════════════════════════════════════
     # 宠物信息查询
@@ -281,13 +282,26 @@ PetWrapper<public> := module:
     # ═══════════════════════════════════════════════════════
     
     # 平方根计算（用于距离计算）
+    # 注意: 使用牛顿迭代法近似计算平方根
     Sqrt<private>(Value:float):float =
         if (Value <= 0.0):
             0.0
+        else if (Value = 1.0):
+            1.0
         else:
-            # Verse 标准库应该提供 Sqrt，这里作为示例
-            # 实际使用 /Verse.org/Verse 中的数学函数
-            Value  # 简化实现，实际项目需使用正确的 Sqrt
+            # 牛顿迭代法: x_new = (x + Value/x) / 2
+            # 初始猜测值
+            var Guess:float = Value / 2.0
+            var Iteration:int = 0
+            
+            # 迭代10次以获得足够精度
+            loop:
+                if (Iteration >= 10):
+                    break
+                set Guess = (Guess + Value / Guess) / 2.0
+                set Iteration = Iteration + 1
+            
+            Guess
     
     # 限制数值范围
     ClampFloat<private>(Value:float, MinVal:float, MaxVal:float):float =
