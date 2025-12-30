@@ -6,10 +6,6 @@ on:
       - '**.verse'
       - '**/verse/**'
 
-  # For testing: trigger on any PR comment
-  issue_comment:
-    types: [created]
-
   workflow_dispatch:
     inputs:
       pr_number:
@@ -29,25 +25,9 @@ env:
 
 jobs:
   build:
-    # Skip if issue_comment on non-PR or from bot
-    if: |
-      github.event_name != 'issue_comment' || 
-      (github.event.issue.pull_request && !contains(github.event.comment.user.login, '[bot]'))
     runs-on: [self-hosted, windows, verse-builder]
     
     steps:
-      - name: Get PR Info (for issue_comment)
-        id: pr_info
-        if: github.event_name == 'issue_comment'
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
-        shell: pwsh
-        run: |
-          $prNumber = "${{ github.event.issue.number }}"
-          $prInfo = gh pr view $prNumber --json headRefName --jq '.headRefName'
-          "branch=$prInfo" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-          Write-Host "PR #$prNumber branch: $prInfo"
-
       - name: Clone or Update Repository
         id: clone
         shell: pwsh
@@ -55,8 +35,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         run: |
           $repoPath = "${{ env.UEFN_REPO_PATH }}"
-          # Get branch from PR info or event
-          $branch = "${{ steps.pr_info.outputs.branch || github.event.pull_request.head.ref || github.ref_name }}"
+          $branch = "${{ github.event.pull_request.head.ref || github.ref_name }}"
           $token = "${{ secrets.ACTIONAGENT }}"
           $repoUrl = "https://x-access-token:${token}@github.com/${{ github.repository }}.git"
           
@@ -147,19 +126,19 @@ jobs:
           $content += "Ready for review."
           
           $content | Out-File -FilePath $tempFile -Encoding utf8
-          gh pr comment ${{ github.event.pull_request.number || github.event.issue.number }} --body-file $tempFile
+          gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
           Remove-Item $tempFile
 
       - name: Auto-merge on Success
         if: |
           steps.compile.outcome == 'success' && 
           env.AUTO_MERGE == 'true' && 
-          startsWith(github.event.pull_request.head.ref || '', 'copilot/')
+          startsWith(github.event.pull_request.head.ref, 'copilot/')
         env:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         shell: pwsh
         run: |
-          $prNumber = "${{ github.event.pull_request.number || github.event.issue.number }}"
+          $prNumber = "${{ github.event.pull_request.number }}"
           Write-Host "Auto-merging Copilot PR #$prNumber..."
           gh pr merge $prNumber --squash --delete-branch
           Write-Host "PR merged successfully!"
@@ -168,7 +147,7 @@ jobs:
         if: steps.compile.outcome == 'failure'
         env:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
-          IS_COPILOT: ${{ startsWith(steps.pr_info.outputs.branch || github.event.pull_request.head.ref || '', 'copilot/') }}
+          IS_COPILOT: ${{ startsWith(github.event.pull_request.head.ref, 'copilot/') }}
           BUILD_OUTPUT: ${{ steps.compile.outputs.build_output }}
         shell: pwsh
         run: |
@@ -193,7 +172,7 @@ jobs:
           $content += "```````n$buildOutput`n```````n"
           
           $content | Out-File -FilePath $tempFile -Encoding utf8
-          gh pr comment ${{ github.event.pull_request.number || github.event.issue.number }} --body-file $tempFile
+          gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
           Remove-Item $tempFile
 
       # Fail the workflow if build failed (after commenting)
