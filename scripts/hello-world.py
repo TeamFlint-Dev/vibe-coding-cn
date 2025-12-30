@@ -10,7 +10,7 @@ def main():
     print("Hello World from Vibe Coding CN!")
     print("=" * 60)
     print()
-    print("Welcome to the Vibe Coding Guide!")
+    print("Welcome to the Vibe Coding CN Guide!")
     print("This project helps you collaborate effectively with AI.")
     print()
     print("Key resources:")
