@@ -1,5 +1,6 @@
 # SidekickWrapper - UEFN Sidekick API 封装
 # 版本: 1.0
+# 作者: GitHub Copilot (co-authored with @surankepro7)
 # 更新时间: 2025-12-30
 # 来源: Task - Wrap Sidekick API as Wrapper
 #
