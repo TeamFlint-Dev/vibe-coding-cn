@@ -22,6 +22,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 |------|--------|----------|-------------|------|
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
 | [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
+| [SidekickWrapper](./SidekickWrapper.verse) | Sidekick 系统 | equipped_sidekick_component, sidekick_mood, sidekick_reaction | Fortnite L4246-4290 | ✅ |
 
 ---
 
@@ -77,6 +78,38 @@ if Result.Success:
     Log("宠物已生成，距离主人: {Distance}")
 ```
 
+### SidekickWrapper
+
+**职责**: 封装 `equipped_sidekick_component` 相关的所有 API 操作
+
+**功能分组**:
+
+| 分组 | 方法 | 来源接口 |
+|------|------|----------|
+| 心情管理 | GetMood, SetMood, ClearMoodOverride, HasMoodOverride, GetMoodOverride | sidekick_component.GetMood, MoodOverride |
+| 反应播放 | PlayReaction, PlayHappyReaction, PlayDanceReaction, PlayEmoteReaction, PlayAngryReaction, PlayWorriedReaction | sidekick_component.PlayReaction |
+| 事件访问 | GetChangeMoodEvent, GetStartPlayReactionEvent, GetStopPlayReactionEvent | ChangeMoodEvent, StartPlayReactionEvent, StopPlayReactionEvent |
+| 行为配置 | EnableAutomaticReactions, EnablePlayerInteraction, IsAutomaticReactionsEnabled, IsPlayerInteractionEnabled | AutomaticReactionsEnabled, DefaultInteractionEnabled |
+| 可见性控制 | ShowSidekick, HideSidekick, IsVisible, ToggleVisibility | showable.Show |
+| 辅助功能 | GetOwningAgent, GetSidekickInfo | GetOwningAgent, 状态聚合 |
+| 便捷方法 | SetNeutralMood, SetCombatMood, SetWorriedMood, SetBoredMood | MoodOverride 快捷设置 |
+
+**调用示例**:
+```verse
+# 在 Component 中调用
+# 设置心情
+Result := SidekickWrapper.SetCombatMood(MySidekick)
+if Result.Success:
+    Log("Sidekick 进入战斗心情")
+
+# 播放反应
+if (SidekickWrapper.PlayHappyReaction[MySidekick]):
+    Log("Sidekick 播放开心反应")
+
+# 监听事件
+SidekickWrapper.GetStartPlayReactionEvent(MySidekick).Subscribe(OnReactionStarted)
+```
+
 ---
 
 ## 待创建 Wrapper
@@ -114,4 +147,4 @@ if Result.Success:
 
 ---
 
-*最后更新: 2025-12-29*
+*最后更新: 2025-12-30*
