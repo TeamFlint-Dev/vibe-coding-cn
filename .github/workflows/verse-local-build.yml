@@ -4,6 +4,7 @@
 # - Listens for compile:request events
 # - Local Runner executes compilation
 # - Sends compile:complete callback on finish
+# Note: Copilot PRs (copilot/*) are handled by copilot-build.yml
 
 name: "Local Build"
 
@@ -12,12 +13,14 @@ on:
   repository_dispatch:
     types: [compile:request]
 
-  # Keep PR trigger for backward compatibility
+  # Keep PR trigger for backward compatibility (exclude Copilot branches)
   pull_request:
     types: [opened, synchronize]
     paths:
       - '**.verse'
       - '**/verse/**'
+    branches-ignore:
+      - 'copilot/**'
 
   # Support manual trigger
   workflow_dispatch:
