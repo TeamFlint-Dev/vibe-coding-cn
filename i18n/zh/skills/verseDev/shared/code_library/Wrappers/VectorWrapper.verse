@@ -303,7 +303,7 @@ VectorWrapper<public> := module:
     # ═══════════════════════════════════════════════════════
     
     # 计算两个向量之间的距离
-    Distance<public>(
+    CalculateDistance<public>(
         A:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):scalar_op_result =
@@ -320,7 +320,7 @@ VectorWrapper<public> := module:
         }
     
     # 计算两个向量之间距离的平方（避免开方，用于比较）
-    DistanceSquared<public>(
+    CalculateDistanceSquared<public>(
         A:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):scalar_op_result =
@@ -419,7 +419,7 @@ VectorWrapper<public> := module:
     
     # 线性插值（Lerp）
     # T=0 返回 A, T=1 返回 B, T=0.5 返回中点
-    Lerp<public>(
+    LerpVector<public>(
         A:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         T:float

@@ -121,8 +121,8 @@ if ReactionResult.Success:
 | 向量常量 | Zero, One, Forward, Right, Up 等         | 预定义方向向量                 |
 | 基础运算 | Add, Subtract, Multiply, Divide 等       | 加减乘除运算                   |
 | 高级运算 | Dot, Cross, Normalize, Length 等         | 点积、叉积、归一化、长度       |
-| 查询比较 | Distance, IsInRange, Direction 等        | 距离、方向、相等判断           |
-| 插值限制 | Lerp, Clamp, ClampLength                 | 线性插值、分量/长度限制        |
+| 查询比较 | CalculateDistance, IsInRange, Direction 等        | 距离、方向、相等判断           |
+| 插值限制 | LerpVector, Clamp, ClampLength                 | 线性插值、分量/长度限制        |
 | 坐标转换 | WorldToEditor, EditorToWorld             | 世界坐标与编辑器坐标互转       |
 | 工具函数 | MaxComponent, MinComponent, Abs, Negate  | 最大/最小分量、绝对值、取反    |
 
@@ -145,7 +145,7 @@ else:
     Log("归一化失败: {NormResult.ErrorReason}")
 
 # 计算距离
-DistResult := VectorWrapper.Distance(V1, V2)
+DistResult := VectorWrapper.CalculateDistance(V1, V2)
 if DistResult.Success:
     Log("距离: {DistResult.ResultValue}")
 
