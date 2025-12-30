@@ -116,11 +116,21 @@ jobs:
           $content += "<details>`n<summary>Build Output</summary>`n`n"
           $content += "```````n$buildOutput`n```````n`n"
           $content += "</details>`n`n"
-          $content += "@Maybank01 Ready for review."
+          $content += "Auto-merging..."
           
           $content | Out-File -FilePath $tempFile -Encoding utf8
           gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
           Remove-Item $tempFile
+
+      - name: Auto-merge on Success
+        if: steps.compile.outcome == 'success' && github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'copilot/')
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
+        shell: pwsh
+        run: |
+          Write-Host "Auto-merging Copilot PR..."
+          gh pr merge ${{ github.event.pull_request.number }} --squash --delete-branch
+          Write-Host "PR merged successfully!"
 
       - name: Comment - Build Failed
         if: steps.compile.outcome == 'failure' && github.event_name == 'pull_request'
