@@ -21,6 +21,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 | 模块 | 业务域 | 封装接口 | digest 参考 | 状态 |
 |------|--------|----------|-------------|------|
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
+| [GameFlowWrapper](./GameFlowWrapper.verse) | 游戏流程生命周期 | fort_playspace, round_settings_device, end_game_device, player_spawner_device, score_manager_device | Fortnite L8145+, L12076-12101 | ✅ |
 | [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
 | [SidekickWrapper](./SidekickWrapper.verse) | Sidekick 系统 | equipped_sidekick_component, sidekick_component, showable | Fortnite L4247-4279 | ✅ |
 | [VectorWrapper](./VectorWrapper.verse) | 向量操作 | Verse.vector3, UnrealEngine.vector3 | Verse/UnrealEngine SpatialMath | ✅ |
@@ -47,6 +48,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 | 控制状态 | SetVulnerability, IsVulnerable, Show, Hide, PutInStasis, ReleaseFromStasis | 控制接口 |
 
 **调用示例**:
+
 ```verse
 # 在 Component 中调用
 Result := CharacterWrapper.ApplyDamage(TargetCharacter, 50.0)
@@ -55,6 +57,56 @@ if Result.Success:
 else:
     Log("伤害失败: {Result.ErrorReason}")
 ```
+
+### GameFlowWrapper
+
+**职责**: 封装游戏流程生命周期相关的所有 API 操作
+
+**功能分组**:
+
+| 分组       | 方法                                       | 来源接口                        |
+|------------|--------------------------------------------|---------------------------------|
+| 玩家管理   | GetAllPlayers, GetAllParticipants 等       | fort_playspace                  |
+| 回合管理   | GetRoundBeginEvent 等                      | round_settings_device           |
+| 游戏结束   | EndGame, EnableEndGame 等                  | end_game_device                 |
+| 出生点管理 | GetPlayerSpawnedEvent 等                   | player_spawner_device           |
+| 检查点管理 | GetCheckpointFirstActivationEvent 等       | player_checkpoint_device        |
+| 分数管理   | GetScoreMaxTriggersEvent 等                | score_manager_device            |
+| 团队管理   | GetTeamCollection, GetPlayerTeam 等        | fort_team_collection            |
+| 状态查询   | GetPlayerCount, GetGameStateInfo 等        | 组合查询                        |
+
+**调用示例**:
+
+```verse
+# 在 Component 中调用
+# 获取游戏空间
+Playspace := GetPlayspace()
+
+# 监听玩家加入事件
+PlayerAddedEvent := GameFlowWrapper.GetPlayerAddedEvent(Playspace)
+PlayerAddedEvent.Subscribe(OnPlayerJoined)
+
+# 获取所有玩家
+Players := GameFlowWrapper.GetAllPlayers(Playspace)
+Log("当前玩家数量: {Players.Length}")
+
+# 检查游戏是否活动
+if (GameFlowWrapper.IsGameActive(Playspace)):
+    Log("游戏正在进行中")
+
+# 启用回合设置
+if (RoundDevice:round_settings_device = GetRoundDevice[]):
+    Result := GameFlowWrapper.EnableRoundSettings(RoundDevice)
+    if Result.Success:
+        Log("回合设置已启用")
+
+# 结束游戏
+if (EndDevice:end_game_device = GetEndGameDevice[]):
+    if (TriggerAgent:agent = GetTriggerAgent[]):
+        GameFlowWrapper.EndGame(EndDevice, TriggerAgent)
+        Log("游戏已结束")
+```
+
 
 ### PetWrapper
 
