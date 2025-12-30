@@ -1,12 +1,13 @@
 # test_workflow - Basic Hello World Test Class
-# Version: 1.0
+# Version: 1.1
 # Source: Test file for trophy-fishing workflow
+# Update: Fixed Verse syntax - changed to final_super for component inheritance
 
 using { /Verse.org/Simulation }
 using { /Verse.org/SceneGraph }
 
 # Hello World test class for trophy-fishing workflow
-hello_world_test<public> := class<concrete>(component):
+hello_world_test<public> := class<final_super>(component):
     @editable
     var Message<public>:string = "Hello, World!"
     
