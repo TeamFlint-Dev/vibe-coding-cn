@@ -223,7 +223,7 @@ VectorWrapper<public> := module:
     # 计算向量长度（模）
     Length<public>(V:(/UnrealEngine.com/Temporary/SpatialMath:)vector3):scalar_op_result =
         LenSquared := V.X * V.X + V.Y * V.Y + V.Z * V.Z
-        Len := Sqrt(LenSquared)
+        Len := (/Verse.org/Verse:)Sqrt(LenSquared)
         
         scalar_op_result{
             Success := true,
@@ -253,7 +253,7 @@ VectorWrapper<public> := module:
                 ResultVector := Zero()
             }
         else:
-            Len := Sqrt(LenSquared)
+            Len := (/Verse.org/Verse:)Sqrt(LenSquared)
             Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
                 X := V.X / Len,
                 Y := V.Y / Len,
@@ -272,12 +272,12 @@ VectorWrapper<public> := module:
         A:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):scalar_op_result =
-        DotProduct := A.X * B.X + A.Y * B.Y + A.Z * B.Z
+        DotProductValue := A.X * B.X + A.Y * B.Y + A.Z * B.Z
         
         scalar_op_result{
             Success := true,
             ErrorReason := "",
-            ResultValue := DotProduct
+            ResultValue := DotProductValue
         }
     
     # 叉积（向量积）
@@ -311,7 +311,7 @@ VectorWrapper<public> := module:
         DiffY := B.Y - A.Y
         DiffZ := B.Z - A.Z
         DistSquared := DiffX * DiffX + DiffY * DiffY + DiffZ * DiffZ
-        Dist := Sqrt(DistSquared)
+        Dist := (/Verse.org/Verse:)Sqrt(DistSquared)
         
         scalar_op_result{
             Success := true,
@@ -371,7 +371,7 @@ VectorWrapper<public> := module:
                 ResultVector := Zero()
             }
         else:
-            Len := Sqrt(LenSquared)
+            Len := (/Verse.org/Verse:)Sqrt(LenSquared)
             Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
                 X := DiffX / Len,
                 Y := DiffY / Len,
@@ -425,7 +425,7 @@ VectorWrapper<public> := module:
         T:float
     ):vector_op_result =
         # 使用标准库 Clamp 函数限制 T 在 [0, 1] 范围内
-        ClampedT := Clamp(T, 0.0, 1.0)
+        ClampedT := (/Verse.org/Verse:)Clamp(T, 0.0, 1.0)
         
         Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := A.X + (B.X - A.X) * ClampedT,
@@ -442,14 +442,14 @@ VectorWrapper<public> := module:
     # 向量分量限制（每个分量限制在指定范围内）
     Clamp<public>(
         V:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
-        Min:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
-        Max:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
+        MinVec:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
+        MaxVec:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):vector_op_result =
         # 使用标准库 Clamp 函数对每个分量进行限制
         Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
-            X := Clamp(V.X, Min.X, Max.X),
-            Y := Clamp(V.Y, Min.Y, Max.Y),
-            Z := Clamp(V.Z, Min.Z, Max.Z)
+            X := (/Verse.org/Verse:)Clamp(V.X, MinVec.X, MaxVec.X),
+            Y := (/Verse.org/Verse:)Clamp(V.Y, MinVec.Y, MaxVec.Y),
+            Z := (/Verse.org/Verse:)Clamp(V.Z, MinVec.Z, MaxVec.Z)
         }
         
         vector_op_result{
@@ -482,7 +482,7 @@ VectorWrapper<public> := module:
                 }
             else:
                 # 需要缩短向量
-                Len := Sqrt(LenSquared)
+                Len := (/Verse.org/Verse:)Sqrt(LenSquared)
                 Scale := MaxLength / Len
                 Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
                     X := V.X * Scale,
