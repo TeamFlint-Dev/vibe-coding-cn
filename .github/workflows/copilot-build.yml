@@ -109,25 +109,16 @@ jobs:
           Add-Type -AssemblyName System.Web
           $buildOutput = [System.Web.HttpUtility]::UrlDecode($buildOutput)
           
-          # Write comment to temp file to avoid escaping issues
+          # Build comment using string concatenation
           $tempFile = [System.IO.Path]::GetTempFileName()
-          @"
-## ✅ Build Success
-
-Local build verification passed!
-
-<details>
-<summary>Build Output</summary>
-
-``````
-$buildOutput
-``````
-
-</details>
-
-@Maybank01 Ready for review.
-"@ | Out-File -FilePath $tempFile -Encoding utf8
+          $content = "## ✅ Build Success`n`n"
+          $content += "Local build verification passed!`n`n"
+          $content += "<details>`n<summary>Build Output</summary>`n`n"
+          $content += "```````n$buildOutput`n```````n`n"
+          $content += "</details>`n`n"
+          $content += "@Maybank01 Ready for review."
           
+          $content | Out-File -FilePath $tempFile -Encoding utf8
           gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
           Remove-Item $tempFile
 
@@ -152,17 +143,12 @@ $buildOutput
           Add-Type -AssemblyName System.Web
           $buildOutput = [System.Web.HttpUtility]::UrlDecode($buildOutput)
           
-          # Write comment to temp file to avoid escaping issues
+          # Build comment using string concatenation
           $tempFile = [System.IO.Path]::GetTempFileName()
-          @"
-## ❌ Build Failed
-
-$mention
-
-``````
-$buildOutput
-``````
-"@ | Out-File -FilePath $tempFile -Encoding utf8
+          $content = "## ❌ Build Failed`n`n"
+          $content += "$mention`n`n"
+          $content += "```````n$buildOutput`n```````n"
           
+          $content | Out-File -FilePath $tempFile -Encoding utf8
           gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
           Remove-Item $tempFile
