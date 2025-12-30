@@ -13,8 +13,8 @@ on:
         required: false
 
 env:
-  UEFN_VERSE_PATH: "E:\\Game\\FishTycoon\\Content\\Verse"
-  REPO_VERSE_PATH: "UEFNgame/trophy-fishing/Verse"
+  # Clone destination (no hyphens - Verse illegal character)
+  UEFN_REPO_PATH: "E:\\Game\\FishTycoon\\Content\\AgentWorkSpace\\VibeCodingCN"
   VERSE_CLI_PATH: "i18n\\zh\\skills\\verseDev\\verse-cli"
 
 jobs:
@@ -22,46 +22,45 @@ jobs:
     runs-on: [self-hosted, windows, verse-builder]
     
     steps:
-      - name: Checkout PR
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref }}
-
-      - name: Sync Verse to UEFN Project
-        id: sync
+      - name: Clone or Update Repository
+        id: clone
         shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         run: |
-          $source = "${{ github.workspace }}\${{ env.REPO_VERSE_PATH }}"
-          $dest = "${{ env.UEFN_VERSE_PATH }}"
+          $repoPath = "${{ env.UEFN_REPO_PATH }}"
+          $branch = "${{ github.event.pull_request.head.ref || github.ref_name }}"
+          $repoUrl = "https://github.com/${{ github.repository }}.git"
           
-          Write-Host "Syncing Verse code to UEFN project..."
-          Write-Host "   Source: $source"
-          Write-Host "   Dest: $dest"
+          Write-Host "Repository path: $repoPath"
+          Write-Host "Branch: $branch"
           
-          if (-not (Test-Path $source)) {
-            Write-Host "Source directory does not exist, skipping sync"
-            exit 0
-          }
-          
-          if (-not (Test-Path $dest)) {
-            New-Item -ItemType Directory -Path $dest -Force | Out-Null
-          }
-          
-          # Use robocopy for sync (mirror mode)
-          robocopy $source $dest /MIR /R:3 /W:1 /NFL /NDL /NJH /NJS
-          
-          # robocopy return codes: 0-7 means success
-          if ($LASTEXITCODE -le 7) {
-            Write-Host "Sync completed"
+          if (Test-Path "$repoPath\.git") {
+            Write-Host "Repository exists, fetching and checking out..."
+            Push-Location $repoPath
+            git fetch origin
+            git checkout $branch
+            git pull origin $branch
+            Pop-Location
           } else {
-            Write-Host "::error::Sync failed with code: $LASTEXITCODE"
-            exit 1
+            Write-Host "Cloning repository..."
+            $parentDir = Split-Path $repoPath -Parent
+            if (-not (Test-Path $parentDir)) {
+              New-Item -ItemType Directory -Path $parentDir -Force | Out-Null
+            }
+            git clone $repoUrl $repoPath
+            Push-Location $repoPath
+            git checkout $branch
+            Pop-Location
           }
+          
+          Write-Host "Repository ready at: $repoPath"
 
       - name: Run Verse Build
         id: compile
         shell: pwsh
         continue-on-error: true
+        working-directory: ${{ env.UEFN_REPO_PATH }}
         run: |
           $buildScript = "${{ env.VERSE_CLI_PATH }}\verse-build.ps1"
           
