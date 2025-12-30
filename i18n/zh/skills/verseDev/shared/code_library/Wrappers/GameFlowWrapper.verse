@@ -360,7 +360,10 @@ GameFlowWrapper<public> := module:
     GetGameStateInfo<public>(Playspace:fort_playspace)<transacts>:game_state_info =
         Players := Playspace.GetPlayers()
         Participants := Playspace.GetParticipants()
-        IsActive := Participants.Length > 0
+        
+        var IsActive:logic = false
+        if (Participants.Length > 0):
+            set IsActive = true
         
         game_state_info{
             PlayerCount := Players.Length,
@@ -372,13 +375,19 @@ GameFlowWrapper<public> := module:
     # 如果至少有一个人类玩家，返回 true
     HasPlayers<public>(Playspace:fort_playspace)<transacts>:logic =
         Players := Playspace.GetPlayers()
-        Players.Length > 0
+        if (Players.Length > 0):
+            true
+        else:
+            false
     
     # 检查游戏空间是否有参与者
     # 如果至少有一个参与者（人类玩家或AI），返回 true
     HasParticipants<public>(Playspace:fort_playspace)<transacts>:logic =
         Participants := Playspace.GetParticipants()
-        Participants.Length > 0
+        if (Participants.Length > 0):
+            true
+        else:
+            false
     
     # ═══════════════════════════════════════════════════════
     # 团队管理辅助函数
@@ -425,10 +434,16 @@ GameFlowWrapper<public> := module:
     # 根据参与者数量判断游戏是否在进行中
     IsGameActive<public>(Playspace:fort_playspace)<transacts>:logic =
         Participants := Playspace.GetParticipants()
-        Participants.Length > 0
+        if (Participants.Length > 0):
+            true
+        else:
+            false
     
     # 检查是否达到最小玩家数量
     # 用于判断游戏是否可以开始
     HasMinimumPlayers<public>(Playspace:fort_playspace, MinPlayers:int)<transacts>:logic =
         Players := Playspace.GetPlayers()
-        Players.Length >= MinPlayers
+        if (Players.Length >= MinPlayers):
+            true
+        else:
+            false
