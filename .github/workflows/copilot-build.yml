@@ -162,3 +162,8 @@ jobs:
           $content | Out-File -FilePath $tempFile -Encoding utf8
           gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
           Remove-Item $tempFile
+
+      # Fail the workflow if build failed (after commenting)
+      - name: Fail on Build Error
+        if: steps.compile.outcome == 'failure'
+        run: exit 1
