@@ -2,7 +2,7 @@
 #
 # 监听所有事件，根据任务配置协调各个工作流的执行
 
-name: " 事件协调?
+name: "🎯 Event Orchestrator"
 
 on:
   repository_dispatch:
