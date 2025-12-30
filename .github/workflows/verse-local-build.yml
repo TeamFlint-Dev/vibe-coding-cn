@@ -99,11 +99,11 @@ jobs:
           if (-not $maxRetries) { $maxRetries = "${{ inputs.max_retries }}" }
           if (-not $maxRetries) { $maxRetries = "3" }
           
-          "branch_name=$branchName" >> $env:GITHUB_OUTPUT
-          "task_id=$taskId" >> $env:GITHUB_OUTPUT
-          "requirement=$requirement" >> $env:GITHUB_OUTPUT
-          "retry_count=$retryCount" >> $env:GITHUB_OUTPUT
-          "max_retries=$maxRetries" >> $env:GITHUB_OUTPUT
+          "branch_name=$branchName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "task_id=$taskId" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "requirement=$requirement" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "retry_count=$retryCount" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "max_retries=$maxRetries" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           
           Write-Host "📋 任务参数:"
           Write-Host "   分支: $branchName"
@@ -142,13 +142,13 @@ jobs:
             if ($invalidFiles) {
               Write-Host "::error:: 发现包含违规字符的文件名 (- 或空格):"
               $invalidFiles | ForEach-Object { Write-Host "   - $($_.FullName)" }
-              "valid=false" >> $env:GITHUB_OUTPUT
+              'valid=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
               exit 1
             }
           }
           
           Write-Host " 文件名检查通过"
-          "valid=true" >> $env:GITHUB_OUTPUT
+          'valid=true' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
       - name: Sync Verse to UEFN Project
         id: sync
@@ -163,7 +163,7 @@ jobs:
           
           if (-not (Test-Path $source)) {
             Write-Host " 源目录不存在，跳过同步"
-            "synced=skipped" >> $env:GITHUB_OUTPUT
+            'synced=skipped' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
             exit 0
           }
           
@@ -178,10 +178,10 @@ jobs:
           # robocopy 返回码: 0-7 表示成功
           if ($LASTEXITCODE -le 7) {
             Write-Host " 同步完成"
-            "synced=true" >> $env:GITHUB_OUTPUT
+            'synced=true' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           } else {
             Write-Host "::error:: 同步失败，错误码: $LASTEXITCODE"
-            "synced=false" >> $env:GITHUB_OUTPUT
+            'synced=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
             exit 1
           }
 
@@ -214,11 +214,11 @@ jobs:
 
           if (-not $connected) {
             Write-Host "::error::❌ UEFN is not running. Please open UEFN with your project."
-            "connected=false" >> $env:GITHUB_OUTPUT
+            'connected=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
             exit 1
           }
 
-          "connected=true" >> $env:GITHUB_OUTPUT
+          'connected=true' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
       # ============================================
       # 3. 执行 Verse 编译
@@ -252,10 +252,10 @@ jobs:
 
           if ($exitCode -eq 0) {
             Write-Host "✅ Build succeeded!"
-            "result=success" >> $env:GITHUB_OUTPUT
+            'result=success' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           } else {
             Write-Host "❌ Build failed with exit code: $exitCode"
-            "result=failure" >> $env:GITHUB_OUTPUT
+            'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
             # 提取并截断错误信息（保留关键部分）
             $errorOutput = $output
@@ -268,9 +268,9 @@ jobs:
 
             # 转义多行输出
             $escapedOutput = $errorOutput -replace '%', '%25' -replace "`n", '%0A' -replace "`r", ''
-            "errors<<EOF" >> $env:GITHUB_OUTPUT
-            $errorOutput >> $env:GITHUB_OUTPUT
-            "EOF" >> $env:GITHUB_OUTPUT
+            'errors<<EOF' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            $errorOutput | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            'EOF' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           }
 
       # ============================================
