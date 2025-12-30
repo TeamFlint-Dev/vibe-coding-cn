@@ -1,15 +1,18 @@
 # Verse Local Build - Self-Hosted Runner 本地编译工作流
 #
-# 架构：云端主控 + 本地编译服务
-# - 云端 Agent (verse-dev-loop) 生成代码并推送到 PR 分支
-# - 本地 Runner 自动触发编译验证
-# - 编译失败时，在同一分支上触发云端 Agent 修复（最多重试 3 次）
-# - 编译成功后，PR 准备就绪等待人工审核
+# 架构：事件驱动 + 本地编译服务
+# - 监听 compile:request 事件
+# - 本地 Runner 执行编译验证
+# - 编译完成后发送 compile:complete 事件回调
 
-name: Verse Local Build
+name: "🔨 本地编译"
 
 on:
-  # 当 PR 中的 .verse 文件变更时自动触发
+  # 事件驱动：监听编译请求
+  repository_dispatch:
+    types: [compile:request]
+
+  # 保留 PR 触发 (向后兼容)
   pull_request:
     types: [opened, synchronize]
     paths:
@@ -19,26 +22,33 @@ on:
   # 支持手动触发
   workflow_dispatch:
     inputs:
-      pr_number:
-        description: "PR number to build (leave empty for current branch)"
+      branch:
+        description: "分支名称"
+        required: false
+        default: ""
+      task_id:
+        description: "任务 ID"
         required: false
         default: ""
       requirement:
-        description: "Original requirement (for retry context)"
+        description: "任务需求 (用于修复上下文)"
         required: false
         default: ""
       retry_count:
-        description: "Current retry count (0-3)"
+        description: "当前重试次数"
         required: false
         default: "0"
+      max_retries:
+        description: "最大重试次数"
+        required: false
+        default: "3"
 
 # 确保同一时间只有一个编译任务运行
 concurrency:
-  group: verse-local-build-${{ github.head_ref || github.ref_name }}
+  group: verse-local-build-${{ github.event.client_payload.branch_name || github.head_ref || github.ref_name }}
   cancel-in-progress: false
 
 env:
-  MAX_RETRIES: 3
   VERSE_CLI_PATH: "i18n/zh/skills/verseDev/verse-cli/verse-build.js"
 
 jobs:
@@ -58,29 +68,58 @@ jobs:
 
     steps:
       # ============================================
+      # 0. 解析事件参数
+      # ============================================
+      - name: 解析参数
+        id: params
+        shell: powershell
+        run: |
+          # 从不同事件源获取参数
+          $branchName = "${{ github.event.client_payload.branch_name }}"
+          if (-not $branchName) { $branchName = "${{ inputs.branch }}" }
+          if (-not $branchName) { $branchName = "${{ github.head_ref }}" }
+          if (-not $branchName) { $branchName = "${{ github.ref_name }}" }
+          
+          $taskId = "${{ github.event.client_payload.task_id }}"
+          if (-not $taskId) { $taskId = "${{ inputs.task_id }}" }
+          if (-not $taskId) { $taskId = "manual-$(Get-Date -Format 'yyyyMMdd-HHmmss')" }
+          
+          $requirement = "${{ github.event.client_payload.requirement }}"
+          if (-not $requirement) { $requirement = "${{ inputs.requirement }}" }
+          
+          $retryCount = "${{ github.event.client_payload.retry_count }}"
+          if (-not $retryCount) { $retryCount = "${{ inputs.retry_count }}" }
+          if (-not $retryCount) { $retryCount = "0" }
+          
+          $maxRetries = "${{ github.event.client_payload.max_retries }}"
+          if (-not $maxRetries) { $maxRetries = "${{ inputs.max_retries }}" }
+          if (-not $maxRetries) { $maxRetries = "3" }
+          
+          "branch_name=$branchName" >> $env:GITHUB_OUTPUT
+          "task_id=$taskId" >> $env:GITHUB_OUTPUT
+          "requirement=$requirement" >> $env:GITHUB_OUTPUT
+          "retry_count=$retryCount" >> $env:GITHUB_OUTPUT
+          "max_retries=$maxRetries" >> $env:GITHUB_OUTPUT
+          
+          Write-Host "📋 任务参数:"
+          Write-Host "   分支: $branchName"
+          Write-Host "   任务ID: $taskId"
+          Write-Host "   重试: $retryCount / $maxRetries"
+
+      # ============================================
       # 1. 准备环境
       # ============================================
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref }}
+          ref: ${{ steps.params.outputs.branch_name }}
           fetch-depth: 0
-          # 允许后续 push
           persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Get retry count
-        id: retry
-        shell: powershell
-        run: |
-          $retryCount = "${{ inputs.retry_count }}"
-          if (-not $retryCount) { $retryCount = "0" }
-          "count=$retryCount" >> $env:GITHUB_OUTPUT
-          Write-Host "📊 Current retry count: $retryCount / ${{ env.MAX_RETRIES }}"
 
       # ============================================
       # 2. 检查 UEFN 连接
@@ -185,7 +224,41 @@ jobs:
       # 5. 处理构建结果
       # ============================================
 
-      # 5a. 成功：在 PR 中评论
+      # 5a. 发送编译完成事件 (事件驱动模式)
+      - name: 发送 compile:complete 事件
+        if: github.event_name == 'repository_dispatch'
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $result = "${{ steps.build.outputs.result }}"
+          $errors = ""
+          if ($result -ne "success") {
+            $errors = Get-Content -Path "build-output.txt" -Raw -ErrorAction SilentlyContinue
+            if ($errors.Length -gt 3000) {
+              $errors = $errors.Substring(0, 3000) + "... [truncated]"
+            }
+            $errors = $errors -replace '"', '\"' -replace "`n", '\n' -replace "`r", ''
+          }
+          
+          $payload = @{
+            task_id = "${{ steps.params.outputs.task_id }}"
+            branch_name = "${{ steps.params.outputs.branch_name }}"
+            requirement = "${{ steps.params.outputs.requirement }}"
+            status = $result
+            errors = $errors
+            retry_count = [int]"${{ steps.params.outputs.retry_count }}"
+            max_retries = [int]"${{ steps.params.outputs.max_retries }}"
+          } | ConvertTo-Json -Compress
+          
+          Write-Host "📤 发送 compile:complete 事件"
+          Write-Host "   状态: $result"
+          
+          gh api repos/${{ github.repository }}/dispatches `
+            -f event_type="compile:complete" `
+            -f client_payload="$payload"
+
+      # 5b. PR 模式：成功评论
       - name: Comment Success on PR
         if: steps.build.outputs.result == 'success' && github.event_name == 'pull_request'
         uses: actions/github-script@v7
@@ -195,7 +268,6 @@ jobs:
 
             **Runner**: \`${{ runner.name }}\`
             **Commit**: \`${{ github.sha }}\`
-            **Retry Count**: ${{ steps.retry.outputs.count }} / ${{ env.MAX_RETRIES }}
 
             🎉 Code compiled successfully. Ready for review!
             `;
@@ -207,87 +279,28 @@ jobs:
               body: body
             });
 
-      # 5b. 失败且未超过重试次数：触发修复循环
-      - name: Trigger Fix Loop
-        if: steps.build.outputs.result == 'failure' && steps.retry.outputs.count < env.MAX_RETRIES
+      # 5c. PR 模式：失败时触发修复 (向后兼容)
+      - name: Trigger Fix Loop (PR mode)
+        if: steps.build.outputs.result == 'failure' && github.event_name == 'pull_request'
         shell: powershell
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          $retryCount = [int]"${{ steps.retry.outputs.count }}" + 1
           $branchName = "${{ github.head_ref }}"
           if (-not $branchName) { $branchName = "${{ github.ref_name }}" }
 
-          $requirement = "${{ inputs.requirement }}"
-          if (-not $requirement) {
-            $requirement = "Fix compilation errors in the current PR"
-          }
-
-          # 读取错误信息
           $errors = Get-Content -Path "build-output.txt" -Raw -ErrorAction SilentlyContinue
           if ($errors.Length -gt 4000) {
             $errors = $errors.Substring(0, 4000) + "`n... [truncated]"
           }
 
           Write-Host "🔄 Triggering verse-dev-loop to fix errors..."
-          Write-Host "   Branch: $branchName"
-          Write-Host "   Retry: $retryCount / ${{ env.MAX_RETRIES }}"
-
-          # 触发云端 Agent 修复，指定同一分支，传递 working_branch 防止创建新分支
+          
           gh workflow run verse-dev-loop.lock.yml `
             --ref "$branchName" `
-            -f requirement="$requirement" `
+            -f requirement="Fix compilation errors" `
             -f compile_errors="$errors" `
-            -f retry_count="$retryCount" `
             -f working_branch="$branchName"
-
-          Write-Host "✅ Fix workflow triggered on branch: $branchName"
-
-      # 5c. 失败且超过重试次数：标记失败
-      - name: Comment Max Retries Exceeded
-        if: steps.build.outputs.result == 'failure' && steps.retry.outputs.count >= env.MAX_RETRIES
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const body = `## ❌ Verse Build Failed - Max Retries Exceeded
-
-            **Runner**: \`${{ runner.name }}\`
-            **Commit**: \`${{ github.sha }}\`
-            **Retry Count**: ${{ steps.retry.outputs.count }} / ${{ env.MAX_RETRIES }}
-
-            🚫 Automatic fix loop has reached the maximum retry limit.
-
-            **Next Steps**:
-            1. Review the build logs in the Artifacts
-            2. Manually fix the remaining issues
-            3. Push your changes to trigger a new build
-
-            <details>
-            <summary>Build Errors</summary>
-
-            \`\`\`
-            ${{ steps.build.outputs.errors }}
-            \`\`\`
-
-            </details>
-            `;
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request?.number || 0,
-              body: body
-            });
-
-            // 添加失败标签
-            if (context.payload.pull_request) {
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.payload.pull_request.number,
-                labels: ['build-failed', 'needs-manual-fix']
-              });
-            }
 
       # 5d. 设置 Job 状态
       - name: Set Job Status

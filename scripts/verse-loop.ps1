@@ -30,7 +30,10 @@ param(
 $ErrorActionPreference = "Stop"
 $WorkflowName = "verse-dev-loop"
 $BuildScript = "i18n\zh\skills\verseDev\verse-cli\verse-build.ps1"
-$CurrentBranch = ""
+$CurrentBranch = git branch --show-current
+if ($CurrentBranch -eq "main") {
+    $CurrentBranch = ""
+}
 
 # Helper function to get the latest run ID
 function Get-LatestRunId {
@@ -49,20 +52,20 @@ while ($currentAttempt -le $MaxRetries) {
     # 1. Trigger Cloud Agent
     Write-Host "Triggering Cloud Agent..." -ForegroundColor Yellow
     
-    $args = @($WorkflowName, "-f", "requirement=$Requirement")
+    $ghArgs = @($WorkflowName, "-f", "requirement=$Requirement")
     if ($currentErrors) {
         Write-Host "Sending compile errors to Agent..." -ForegroundColor Red
-        $args += "-f"
-        $args += "compile_errors=$currentErrors"
+        $ghArgs += "-f"
+        $ghArgs += "compile_errors=$currentErrors"
     }
     
     if ($CurrentBranch) {
         Write-Host "Targeting branch: $CurrentBranch" -ForegroundColor Cyan
-        $args += "--ref"
-        $args += $CurrentBranch
+        $ghArgs += "--ref"
+        $ghArgs += $CurrentBranch
     }
 
-    gh aw run @args
+    gh aw run @ghArgs
 
     # 2. Wait for Agent
     Write-Host "Waiting for Agent to finish..." -ForegroundColor Yellow
@@ -92,6 +95,9 @@ while ($currentAttempt -le $MaxRetries) {
 
     # 4. Local Build
     $buildSuccess = $false
+    $connectionRetries = 0
+    $maxConnectionRetries = 5
+
     while (-not $buildSuccess) {
         Write-Host "Running Local Build..." -ForegroundColor Yellow
         
@@ -111,9 +117,14 @@ while ($currentAttempt -le $MaxRetries) {
         }
         
         if ($buildOutput -match "ECONNREFUSED" -or $buildOutput -match "Connection refused") {
-             Write-Host "Error: Could not connect to UEFN. Please ensure UEFN is running and the project is loaded." -ForegroundColor Red
-             Write-Host "Press any key to retry build (or Ctrl+C to exit)..."
-             $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+             $connectionRetries++
+             Write-Host "Error: Could not connect to UEFN (Attempt $connectionRetries/$maxConnectionRetries)." -ForegroundColor Red
+             if ($connectionRetries -ge $maxConnectionRetries) {
+                 Write-Error "Failed to connect to UEFN after multiple attempts. Please ensure UEFN is running."
+                 exit 1
+             }
+             Write-Host "Retrying in 5 seconds..." -ForegroundColor Yellow
+             Start-Sleep -Seconds 5
              continue
         } else {
              # Real build error
@@ -150,8 +161,6 @@ while ($currentAttempt -le $MaxRetries) {
         # IMPORTANT: We must ensure the next run targets the SAME branch so we iterate on the PR.
         # But 'gh aw run' without --ref defaults to default branch.
         # We need to modify the 'gh aw run' command at the top of the loop to use $CurrentBranch.
-    }
-}
     }
 }
 

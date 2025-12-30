@@ -14,37 +14,38 @@ param(
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 # 构建参数
-$args = @()
+$nodeArgs = @()
 
 if ($ServerHost -ne "127.0.0.1") {
-    $args += "--host", $ServerHost
+    $nodeArgs += "--host"
+    $nodeArgs += $ServerHost
 }
 
 if ($Port -ne 1962) {
-    $args += "--port", $Port
+    $nodeArgs += "--port"
+    $nodeArgs += $Port
 }
 
 if ($Push) {
-    $args += "--push"
+    $nodeArgs += "--push"
 }
 
 if ($Watch) {
-    $args += "--watch"
+    $nodeArgs += "--watch"
 }
 
 foreach ($d in $Dir) {
-    $args += "--dir", $d
+    $nodeArgs += "--dir"
+    $nodeArgs += $d
 }
 
 if ($Verbose) {
-    $args += "--verbose"
+    $nodeArgs += "--verbose"
 }
 
 if ($Help) {
-    $args += "--help"
+    $nodeArgs += "--help"
 }
 
 # 运行 Node.js 脚本
-$process = Start-Process -FilePath "node" -ArgumentList (@("$ScriptDir\verse-build.js") + $args) -NoNewWindow -Wait -PassThru
-
-exit $process.ExitCode
+& node "$ScriptDir\verse-build.js" $nodeArgs

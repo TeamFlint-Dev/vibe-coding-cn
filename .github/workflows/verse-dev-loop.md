@@ -19,6 +19,12 @@ on:
         description: "Working branch name (stay on same branch for iterations)"
         required: false
         default: ""
+      task_id:
+        description: "Task ID for event tracking (event-driven mode)"
+        required: false
+        default: ""
+  repository_dispatch:
+    types: [agent:start]
 
 permissions:
   contents: read
@@ -32,6 +38,16 @@ tools:
 safe-outputs:
   create-pull-request:
   add-comment:
+
+# Event-driven mode: Extract parameters from dispatch payload
+env:
+  TASK_ID: ${{ github.event.client_payload.task_id || inputs.task_id || '' }}
+  REQUIREMENT: ${{ github.event.client_payload.requirement || inputs.requirement }}
+  COMPILE_ERRORS: ${{ github.event.client_payload.compile_errors || inputs.compile_errors || '' }}
+  RETRY_COUNT: ${{ github.event.client_payload.retry_count || inputs.retry_count || '0' }}
+  MAX_RETRIES: ${{ github.event.client_payload.max_retries || '3' }}
+  WORKING_BRANCH: ${{ github.event.client_payload.branch_name || inputs.working_branch || '' }}
+  EVENT_DRIVEN: ${{ github.event_name == 'repository_dispatch' }}
 ---
 
 # Verse Developer Agent
@@ -52,10 +68,11 @@ Key principles from this skill:
 ## Task Loop
 
 1.  **Analyze Context**:
-    *   Requirement: "${{ inputs.requirement }}"
-    *   Previous Errors (if any): "${{ inputs.compile_errors }}"
-    *   Working Branch: "${{ inputs.working_branch }}" (if set, push to this branch; do NOT create a new branch)
-    *   Retry Count: "${{ inputs.retry_count }}" / 3
+    *   Task ID: "${{ env.TASK_ID }}" (for event tracking)
+    *   Requirement: "${{ env.REQUIREMENT }}"
+    *   Previous Errors (if any): "${{ env.COMPILE_ERRORS }}"
+    *   Working Branch: "${{ env.WORKING_BRANCH }}" (if set, push to this branch; do NOT create a new branch)
+    *   Retry Count: "${{ env.RETRY_COUNT }}" / ${{ env.MAX_RETRIES }}
     *   If errors are provided, your PRIMARY goal is to fix them while maintaining the original requirement.
     *   If this is a retry (retry_count > 0), focus ONLY on fixing the compile errors. Do not add new features.
 
@@ -70,4 +87,16 @@ Key principles from this skill:
 7.  **Submit**: 
     *   If working_branch is set: Push changes directly to that branch. Do NOT create a new PR.
     *   If working_branch is empty (first run): Create a Pull Request with the code.
+
+## Event Callback (Event-Driven Mode)
+
+After completing your task, if `${{ env.EVENT_DRIVEN }}` is true, you MUST send an `agent:complete` event:
+
+```bash
+gh api repos/${{ github.repository }}/dispatches \
+  -f event_type="agent:complete" \
+  -f client_payload='{"task_id":"${{ env.TASK_ID }}","branch_name":"${{ env.WORKING_BRANCH }}","requirement":"${{ env.REQUIREMENT }}","agent":"verse-dev-loop","status":"success","retry_count":"${{ env.RETRY_COUNT }}","max_retries":"${{ env.MAX_RETRIES }}"}'
+```
+
+If you encounter an unrecoverable error, send with `"status":"failure"` instead.
 
