@@ -195,7 +195,7 @@ SidekickWrapper<public> := module:
         sidekick_op_result{
             Success := true,
             ErrorReason := "",
-            ActualValue := if (Visible) then 1 else 0
+            ActualValue := if Visible then 1 else 0
         }
     
     # 获取 Sidekick 可见性状态
@@ -230,7 +230,7 @@ SidekickWrapper<public> := module:
         sidekick_op_result{
             Success := true,
             ErrorReason := "",
-            ActualValue := if (Enable) then 1 else 0
+            ActualValue := if Enable then 1 else 0
         }
     
     # 启用/禁用玩家交互
@@ -246,7 +246,7 @@ SidekickWrapper<public> := module:
         sidekick_op_result{
             Success := true,
             ErrorReason := "",
-            ActualValue := if (Enable) then 1 else 0
+            ActualValue := if Enable then 1 else 0
         }
     
     # 获取自动反应系统状态
