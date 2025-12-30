@@ -1,4 +1,4 @@
-# Verse Local Build - Self-Hosted Runner 本地编译工作流
+﻿# Verse Local Build - Self-Hosted Runner 本地编译工作流
 #
 # 架构：事件驱动 + 本地编译服务
 # - 监听 compile:request 事件
@@ -50,6 +50,10 @@ concurrency:
 
 env:
   VERSE_CLI_PATH: "i18n/zh/skills/verseDev/verse-cli/verse-build.js"
+  # UEFN 项目 Verse 代码目录 (本地路径)
+  UEFN_VERSE_PATH: "E:\\Game\\FishTycoon\\Content\\Verse"
+  # 仓库中的 Verse 源码路径
+  REPO_VERSE_PATH: "UEFNgame\\trophy-fishing\\Verse"
 
 jobs:
   local-build:
@@ -120,6 +124,66 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      # ============================================
+      # 1.5 同步 Verse 代码到 UEFN 项目
+      # ============================================
+      - name: Validate File Names
+        id: validate
+        shell: powershell
+        run: |
+          $versePath = "${{ github.workspace }}\${{ env.REPO_VERSE_PATH }}"
+          Write-Host "🔍 检查文件名是否包含违规字符..."
+          
+          if (Test-Path $versePath) {
+            $invalidFiles = Get-ChildItem -Path $versePath -Recurse -File | 
+              Where-Object { $_.Name -match '[-\s]' }
+            
+            if ($invalidFiles) {
+              Write-Host "::error:: 发现包含违规字符的文件名 (- 或空格):"
+              $invalidFiles | ForEach-Object { Write-Host "   - $($_.FullName)" }
+              "valid=false" >> $env:GITHUB_OUTPUT
+              exit 1
+            }
+          }
+          
+          Write-Host " 文件名检查通过"
+          "valid=true" >> $env:GITHUB_OUTPUT
+
+      - name: Sync Verse to UEFN Project
+        id: sync
+        shell: powershell
+        run: |
+          $source = "${{ github.workspace }}\${{ env.REPO_VERSE_PATH }}"
+          $dest = "${{ env.UEFN_VERSE_PATH }}"
+          
+          Write-Host " 同步 Verse 代码到 UEFN 项目..."
+          Write-Host "   源: $source"
+          Write-Host "   目标: $dest"
+          
+          if (-not (Test-Path $source)) {
+            Write-Host " 源目录不存在，跳过同步"
+            "synced=skipped" >> $env:GITHUB_OUTPUT
+            exit 0
+          }
+          
+          # 确保目标目录存在
+          if (-not (Test-Path $dest)) {
+            New-Item -ItemType Directory -Path $dest -Force | Out-Null
+          }
+          
+          # 使用 robocopy 同步 (镜像模式)
+          robocopy $source $dest /MIR /R:3 /W:1 /NFL /NDL /NJH /NJS
+          
+          # robocopy 返回码: 0-7 表示成功
+          if ($LASTEXITCODE -le 7) {
+            Write-Host " 同步完成"
+            "synced=true" >> $env:GITHUB_OUTPUT
+          } else {
+            Write-Host "::error:: 同步失败，错误码: $LASTEXITCODE"
+            "synced=false" >> $env:GITHUB_OUTPUT
+            exit 1
+          }
 
       # ============================================
       # 2. 检查 UEFN 连接
