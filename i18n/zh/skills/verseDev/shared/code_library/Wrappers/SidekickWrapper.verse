@@ -192,10 +192,14 @@ SidekickWrapper<public> := module:
         # var Show:logic = external {}
         set Sidekick.Show = Visible
         
+        var ResultValue:int = 0
+        if (Visible?):
+            set ResultValue = 1
+        
         sidekick_op_result{
             Success := true,
             ErrorReason := "",
-            ActualValue := if (Visible) then 1 else 0
+            ActualValue := ResultValue
         }
     
     # 获取 Sidekick 可见性状态
@@ -227,10 +231,14 @@ SidekickWrapper<public> := module:
         # var AutomaticReactionsEnabled<public>:logic = external {}
         set Sidekick.AutomaticReactionsEnabled = Enable
         
+        var ResultValue:int = 0
+        if (Enable?):
+            set ResultValue = 1
+        
         sidekick_op_result{
             Success := true,
             ErrorReason := "",
-            ActualValue := if (Enable) then 1 else 0
+            ActualValue := ResultValue
         }
     
     # 启用/禁用玩家交互
@@ -243,10 +251,14 @@ SidekickWrapper<public> := module:
         # var DefaultInteractionEnabled<public>:logic = external {}
         set Sidekick.DefaultInteractionEnabled = Enable
         
+        var ResultValue:int = 0
+        if (Enable?):
+            set ResultValue = 1
+        
         sidekick_op_result{
             Success := true,
             ErrorReason := "",
-            ActualValue := if (Enable) then 1 else 0
+            ActualValue := ResultValue
         }
     
     # 获取自动反应系统状态
