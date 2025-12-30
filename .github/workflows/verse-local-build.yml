@@ -318,9 +318,7 @@ jobs:
           Write-Host "📤 发送 compile:complete 事件"
           Write-Host "   状态: $result"
           
-          gh api repos/${{ github.repository }}/dispatches `
-            -f event_type="compile:complete" `
-            -f client_payload="$payload"
+          $body = @{event_type="compile:complete";client_payload=$payload} | ConvertTo-Json -Compress; $body | gh api repos/${{ github.repository }}/dispatches --input -
 
       # 5b. PR 模式：成功评论
       - name: Comment Success on PR

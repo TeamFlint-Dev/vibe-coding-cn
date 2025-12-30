@@ -64,9 +64,7 @@ jobs:
             --arg next_step "${{ github.event.client_payload.workflow == 'verse-dev' && 'compile' || 'complete' }}" \
             '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, agent: $agent, max_retries: $max_retries, next_step: $next_step, retry_count: 0}')
           
-          gh api repos/${{ github.repository }}/dispatches \
-            -f event_type="agent:start" \
-            -f client_payload="$PAYLOAD"
+          echo "{\"event_type\":\"agent:start\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
       
       # ---- compile-only 工作流 ----
       - name: "触发编译"
@@ -81,9 +79,7 @@ jobs:
             --arg branch_name "${{ github.event.client_payload.branch_name }}" \
             '{task_id: $task_id, branch_name: $branch_name, retry_count: 0}')
           
-          gh api repos/${{ github.repository }}/dispatches \
-            -f event_type="compile:request" \
-            -f client_payload="$PAYLOAD"
+          echo "{\"event_type\":\"compile:request\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
 
   # ============================================
   # 处理 agent:complete - Agent 完成
@@ -121,9 +117,7 @@ jobs:
               --argjson max_retries ${{ github.event.client_payload.max_retries }} \
               '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, max_retries: $max_retries, retry_count: 0}')
             
-            gh api repos/${{ github.repository }}/dispatches \
-              -f event_type="compile:request" \
-              -f client_payload="$PAYLOAD"
+            echo "{\"event_type\":\"compile:request\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
           
           elif [ "$NEXT_STEP" == "complete" ]; then
             echo " 任务完成!"
@@ -174,9 +168,7 @@ jobs:
               --argjson retry_count $((RETRY_COUNT + 1)) \
               '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, compile_errors: $compile_errors, agent: $agent, max_retries: $max_retries, retry_count: $retry_count, next_step: "compile"}')
             
-            gh api repos/${{ github.repository }}/dispatches \
-              -f event_type="agent:start" \
-              -f client_payload="$PAYLOAD"
+            echo "{\"event_type\":\"agent:start\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
           
           else
             echo " 达到最大重试次数，任务失败"
