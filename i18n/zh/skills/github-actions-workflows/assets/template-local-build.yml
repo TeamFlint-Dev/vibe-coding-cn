@@ -1,0 +1,201 @@
+# ============================================================
+# Local Build Template (Self-Hosted Runner)
+# ============================================================
+# Executes build tasks on a Self-Hosted Runner
+# Sends compile:complete callback on finish
+#
+# Usage:
+# 1. Copy to .github/workflows/local-build.yml
+# 2. Configure Self-Hosted Runner with appropriate labels
+# 3. Configure secrets.ACTIONAGENT (Classic PAT with repo+workflow)
+# 4. Customize build commands for your project
+# ============================================================
+
+name: "Local Build"
+
+on:
+  # Event-driven trigger
+  repository_dispatch:
+    types: [compile:request]
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      task_id:
+        description: "Task ID"
+        required: false
+      skip_callback:
+        description: "Skip sending callback event"
+        required: false
+        default: "false"
+        type: boolean
+
+env:
+  # Customize these paths for your project
+  PROJECT_PATH: "E:\\Game\\MyProject"
+  BUILD_TOOL_PATH: "E:\\Tools\\build-cli"
+
+jobs:
+  build:
+    name: "Execute Build"
+    runs-on: [self-hosted, windows, verse-builder]  # Customize labels
+
+    outputs:
+      result: ${{ steps.build.outputs.result }}
+      errors: ${{ steps.build.outputs.errors }}
+
+    steps:
+      # ============================================
+      # 1. Checkout Repository
+      # ============================================
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ============================================
+      # 2. Parse Parameters
+      # ============================================
+      - name: Parse Parameters
+        id: params
+        shell: powershell
+        run: |
+          # Get task_id from dispatch or input
+          if ("${{ github.event_name }}" -eq "repository_dispatch") {
+            $taskId = "${{ github.event.client_payload.task_id }}"
+          } else {
+            $taskId = "${{ inputs.task_id }}"
+          }
+          
+          if ([string]::IsNullOrEmpty($taskId)) {
+            $taskId = "manual-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
+          }
+          
+          "task_id=$taskId" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          Write-Host "Task ID: $taskId"
+
+      # ============================================
+      # 3. Pre-build Checks
+      # ============================================
+      - name: Check Build Environment
+        id: check
+        shell: powershell
+        run: |
+          Write-Host "=== Environment Check ==="
+          
+          # Check if build tool exists
+          $buildTool = "${{ env.BUILD_TOOL_PATH }}\build.exe"
+          if (-not (Test-Path $buildTool)) {
+            Write-Host "::error::Build tool not found at: $buildTool"
+            'ready=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            exit 1
+          }
+          
+          # Check if project path exists
+          if (-not (Test-Path "${{ env.PROJECT_PATH }}")) {
+            Write-Host "::error::Project path not found"
+            'ready=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            exit 1
+          }
+          
+          Write-Host "Environment check passed"
+          'ready=true' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      # ============================================
+      # 4. Execute Build
+      # ============================================
+      - name: Run Build
+        id: build
+        if: steps.check.outputs.ready == 'true'
+        shell: powershell
+        run: |
+          Write-Host "=== Starting Build ==="
+          
+          $buildTool = "${{ env.BUILD_TOOL_PATH }}\build.exe"
+          $projectPath = "${{ env.PROJECT_PATH }}"
+          
+          try {
+            $output = & $buildTool --project="$projectPath" 2>&1 | Out-String
+            $exitCode = $LASTEXITCODE
+          } catch {
+            $output = $_.Exception.Message
+            $exitCode = 1
+          }
+          
+          Write-Host "--- Build Output ---"
+          Write-Host $output
+          Write-Host "--- End Output ---"
+          Write-Host "Exit Code: $exitCode"
+          
+          if ($exitCode -eq 0) {
+            Write-Host "Build succeeded!"
+            'result=success' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } else {
+            Write-Host "Build failed!"
+            'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            
+            # Truncate error output if too long
+            $errorOutput = $output
+            if ($errorOutput.Length -gt 4000) {
+              $head = $errorOutput.Substring(0, 2000)
+              $tail = $errorOutput.Substring($errorOutput.Length - 2000)
+              $errorOutput = "$head`n`n... [truncated] ...`n`n$tail"
+            }
+            
+            'errors<<EOF' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            $errorOutput | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            'EOF' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            
+            exit 1
+          }
+
+      # ============================================
+      # 5. Upload Build Logs
+      # ============================================
+      - name: Upload Build Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs-${{ steps.params.outputs.task_id }}
+          path: |
+            ${{ env.PROJECT_PATH }}/Saved/Logs/*.log
+          retention-days: 7
+          if-no-files-found: ignore
+
+  # ============================================
+  # Callback Job (always runs)
+  # ============================================
+  callback:
+    name: "Send Callback"
+    needs: build
+    if: always() && inputs.skip_callback != 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send compile:complete Event
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
+        run: |
+          RESULT="${{ needs.build.outputs.result }}"
+          
+          # Default to failure if no result
+          if [ -z "$RESULT" ]; then
+            RESULT="failure"
+          fi
+          
+          echo "Sending compile:complete event..."
+          echo "Result: $RESULT"
+          
+          gh api repos/${{ github.repository }}/dispatches --input - << EOF
+          {
+            "event_type": "compile:complete",
+            "client_payload": {
+              "task_id": "${{ needs.build.outputs.task_id || 'unknown' }}",
+              "result": "${RESULT}",
+              "run_id": "${{ github.run_id }}",
+              "run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+          }
+          EOF
+          
+          echo "Callback sent"

@@ -1,0 +1,130 @@
+# ============================================================
+# Event Orchestrator Template
+# ============================================================
+# Central hub for routing events between workflows
+# Handles: task:start, agent:complete, compile:complete, etc.
+#
+# Usage:
+# 1. Copy to .github/workflows/orchestrator.yml
+# 2. Configure secrets.ACTIONAGENT (Classic PAT with repo+workflow)
+# 3. Customize event types and routing logic
+# ============================================================
+
+name: "Orchestrator"
+
+on:
+  repository_dispatch:
+    types:
+      - task:start
+      - agent:complete
+      - compile:complete
+
+  # Also support workflow_dispatch for manual testing
+  workflow_dispatch:
+    inputs:
+      event_type:
+        description: "Event type to simulate"
+        required: true
+        type: choice
+        options:
+          - task:start
+          - agent:complete
+          - compile:complete
+      task_id:
+        description: "Task ID"
+        required: false
+      payload_json:
+        description: "Additional payload (JSON)"
+        required: false
+
+env:
+  MAX_RETRIES: 3
+
+jobs:
+  route:
+    name: "Route Event"
+    runs-on: ubuntu-latest
+
+    steps:
+      # ============================================
+      # 1. Parse Event (unified handling)
+      # ============================================
+      - name: Parse Event
+        id: event
+        run: |
+          # Determine event type (from dispatch or workflow_dispatch)
+          if [ -n "${{ inputs.event_type }}" ]; then
+            EVENT_TYPE="${{ inputs.event_type }}"
+            TASK_ID="${{ inputs.task_id }}"
+          else
+            EVENT_TYPE="${{ github.event.action }}"
+            TASK_ID="${{ github.event.client_payload.task_id }}"
+          fi
+          
+          echo "type=${EVENT_TYPE}" >> $GITHUB_OUTPUT
+          echo "task_id=${TASK_ID}" >> $GITHUB_OUTPUT
+          echo "status=${{ github.event.client_payload.status }}" >> $GITHUB_OUTPUT
+          echo "result=${{ github.event.client_payload.result }}" >> $GITHUB_OUTPUT
+          
+          echo "=== Event Info ==="
+          echo "Type: ${EVENT_TYPE}"
+          echo "Task ID: ${TASK_ID}"
+
+      # ============================================
+      # 2. Route: task:start
+      # ============================================
+      - name: "Route: task:start"
+        if: steps.event.outputs.type == 'task:start'
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
+        run: |
+          echo "Routing task:start to AI Agent..."
+          
+          gh workflow run verse-dev-loop.yml \
+            -f task_id="${{ steps.event.outputs.task_id }}" \
+            -f branch="${{ github.event.client_payload.branch }}" \
+            -f next_step="agent"
+          
+          echo "Agent workflow triggered"
+
+      # ============================================
+      # 3. Route: agent:complete
+      # ============================================
+      - name: "Route: agent:complete"
+        if: steps.event.outputs.type == 'agent:complete'
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
+        run: |
+          STATUS="${{ steps.event.outputs.status }}"
+          
+          if [ "$STATUS" = "success" ]; then
+            echo "Agent succeeded, triggering compile..."
+            
+            gh workflow run verse-local-build.yml \
+              -f task_id="${{ steps.event.outputs.task_id }}"
+              
+          else
+            echo "Agent failed with status: $STATUS"
+            # TODO: Implement retry logic or notification
+          fi
+
+      # ============================================
+      # 4. Route: compile:complete
+      # ============================================
+      - name: "Route: compile:complete"
+        if: steps.event.outputs.type == 'compile:complete'
+        run: |
+          RESULT="${{ steps.event.outputs.result }}"
+          TASK_ID="${{ steps.event.outputs.task_id }}"
+          
+          echo "=== Task Complete ==="
+          echo "Task ID: ${TASK_ID}"
+          echo "Result: ${RESULT}"
+          
+          if [ "$RESULT" = "success" ]; then
+            echo "Build succeeded!"
+            # TODO: Send success notification
+          else
+            echo "Build failed"
+            # TODO: Trigger retry or send failure notification
+          fi
