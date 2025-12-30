@@ -359,10 +359,7 @@ GameFlowWrapper<public> := module:
     GetGameStateInfo<public>(Playspace:fort_playspace)<transacts>:game_state_info =
         Players := Playspace.GetPlayers()
         Participants := Playspace.GetParticipants()
-        
-        var IsActive:logic = false
-        if (Participants.Length > 0):
-            set IsActive = true
+        IsActive := Participants.Length > 0
         
         game_state_info{
             PlayerCount := Players.Length,
