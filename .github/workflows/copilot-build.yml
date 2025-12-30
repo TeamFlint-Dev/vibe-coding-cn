@@ -1,21 +1,26 @@
-name: Copilot PR Builder
+name: PR Builder
 on:
   pull_request:
     types: [opened, synchronize]
-    branches-ignore:
-      - 'copilot/**'  # Trigger on PR target, not source branch
+    paths:
+      - '**.verse'
+      - '**/verse/**'
+
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to build"
+        required: false
 
 jobs:
   build:
-    # Handle Copilot PRs (from copilot/* branches)
-    if: startsWith(github.event.pull_request.head.ref, 'copilot/')
     runs-on: [self-hosted, windows, verse-builder]
     
     steps:
       - name: Checkout PR
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
 
       - name: Run Verse Build
         id: compile
@@ -43,18 +48,18 @@ jobs:
           }
 
       - name: Comment - Build Success
-        if: steps.compile.outcome == 'success'
+        if: steps.compile.outcome == 'success' && github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         shell: pwsh
         run: |
           $comment = @"
-          ## ✅ 编译成功
+          ## ✅ Build Success
           
-          本地编译验证通过！
+          Local build verification passed!
           
           <details>
-          <summary>编译输出</summary>
+          <summary>Build Output</summary>
           
           ``````
           ${{ steps.compile.outputs.build_output }}
@@ -62,27 +67,37 @@ jobs:
           
           </details>
           
-          @Maybank01 请审阅此 PR。
+          @Maybank01 Ready for review.
           "@
           
           gh pr comment ${{ github.event.pull_request.number }} --body $comment
 
       - name: Comment - Build Failed
-        if: steps.compile.outcome == 'failure'
+        if: steps.compile.outcome == 'failure' && github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
+          IS_COPILOT: ${{ startsWith(github.event.pull_request.head.ref, 'copilot/') }}
         shell: pwsh
         run: |
-          $comment = @"
-          ## ❌ 编译失败
+          $isCopilot = $env:IS_COPILOT -eq 'true'
           
-          @copilot 编译未通过，请根据以下错误信息修复代码：
+          if ($isCopilot) {
+            $mention = "@copilot Please fix the following build errors:"
+          } else {
+            $mention = "Build failed. Please fix the following errors:"
+          }
+          
+          $comment = @"
+          ## ❌ Build Failed
+          
+          $mention
           
           ``````
           ${{ steps.compile.outputs.build_output }}
           ``````
+          "@
           
-          请分析错误原因并推送修复后的代码。
+          gh pr comment ${{ github.event.pull_request.number }} --body $comment
           "@
           
           gh pr comment ${{ github.event.pull_request.number }} --body $comment
