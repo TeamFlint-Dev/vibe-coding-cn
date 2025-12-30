@@ -8549,4 +8549,9 @@ jobs:
             --arg max_retries "$MAX_RETRIES" \
             --arg next_step "$NEXT_STEP" \
             '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, agent: "verse-dev-loop", status: $status, retry_count: $retry_count, max_retries: $max_retries, next_step: $next_step}')
+          echo "Payload: $PAYLOAD"
+
+          echo "{\"event_type\":\"agent:complete\",\"client_payload\":$PAYLOAD}" | \
+            gh api repos/${{ github.repository }}/dispatches --input -
+
           echo " Event sent successfully"
