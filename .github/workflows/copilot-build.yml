@@ -103,16 +103,33 @@ jobs:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         shell: pwsh
         run: |
-          $buildOutput = @'
-          ${{ steps.compile.outputs.build_output }}
-          '@
+          $buildOutput = '${{ steps.compile.outputs.build_output }}'
           
           # Decode URL-encoded characters
+          Add-Type -AssemblyName System.Web
           $buildOutput = [System.Web.HttpUtility]::UrlDecode($buildOutput)
           
-          $comment = "## ✅ Build Success`n`nLocal build verification passed!`n`n<details>`n<summary>Build Output</summary>`n`n``````````n$buildOutput`n```````n`n</details>`n`n@Maybank01 Ready for review."
+          # Write comment to temp file to avoid escaping issues
+          $tempFile = [System.IO.Path]::GetTempFileName()
+          @"
+## ✅ Build Success
+
+Local build verification passed!
+
+<details>
+<summary>Build Output</summary>
+
+``````
+$buildOutput
+``````
+
+</details>
+
+@Maybank01 Ready for review.
+"@ | Out-File -FilePath $tempFile -Encoding utf8
           
-          gh pr comment ${{ github.event.pull_request.number }} --body $comment
+          gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
+          Remove-Item $tempFile
 
       - name: Comment - Build Failed
         if: steps.compile.outcome == 'failure' && github.event_name == 'pull_request'
@@ -129,13 +146,23 @@ jobs:
             $mention = "Build failed. Please fix the following errors:"
           }
           
-          $buildOutput = @'
-          ${{ steps.compile.outputs.build_output }}
-          '@
+          $buildOutput = '${{ steps.compile.outputs.build_output }}'
           
           # Decode URL-encoded characters
+          Add-Type -AssemblyName System.Web
           $buildOutput = [System.Web.HttpUtility]::UrlDecode($buildOutput)
           
-          $comment = "## ❌ Build Failed`n`n$mention`n`n``````````n$buildOutput`n```````"
+          # Write comment to temp file to avoid escaping issues
+          $tempFile = [System.IO.Path]::GetTempFileName()
+          @"
+## ❌ Build Failed
+
+$mention
+
+``````
+$buildOutput
+``````
+"@ | Out-File -FilePath $tempFile -Encoding utf8
           
-          gh pr comment ${{ github.event.pull_request.number }} --body $comment
+          gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
+          Remove-Item $tempFile
