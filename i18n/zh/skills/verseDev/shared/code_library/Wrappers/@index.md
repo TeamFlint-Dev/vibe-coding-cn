@@ -22,6 +22,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 |------|--------|----------|-------------|------|
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
 | [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
+| [SidekickWrapper](./SidekickWrapper.verse) | Sidekick 系统 | equipped_sidekick_component, sidekick_component, showable | Fortnite L4247-4279 | ✅ |
 
 ---
 
@@ -77,6 +78,42 @@ if Result.Success:
     Log("宠物已生成，距离主人: {Distance}")
 ```
 
+### SidekickWrapper
+
+**职责**: 封装 `equipped_sidekick_component` 相关的所有 API 操作
+
+**功能分组**:
+
+| 分组 | 方法 | 来源接口 |
+|------|------|----------|
+| 心情管理 | GetMood, SetMood, ClearMoodOverride, SetCombatMood, SetNeutralMood, SetWorriedMood, SetBoredMood | sidekick_component.GetMood, MoodOverride |
+| 反应控制 | PlayReaction, PlayHappyReaction, PlayDanceReaction, PlayEmoteReaction, PlayAngryReaction, PlayWorriedReaction | sidekick_component.PlayReaction |
+| 事件监听 | SubscribeToMoodChange, SubscribeToReactionStart, SubscribeToReactionStop | ChangeMoodEvent, StartPlayReactionEvent, StopPlayReactionEvent |
+| 行为控制 | EnableAutomaticReactions, EnablePlayerInteraction, IsAutomaticReactionsEnabled, IsPlayerInteractionEnabled | AutomaticReactionsEnabled, DefaultInteractionEnabled |
+| 可见性控制 | SetVisibility, IsVisible | showable.Show |
+| 所有者查询 | GetOwner | equipped_sidekick_component.GetOwningAgent |
+| 状态查询 | GetSidekickInfo | 状态聚合 |
+| 组合操作 | DisableSidekick, EnableSidekick, ResetToDefault | 多接口组合 |
+
+**调用示例**:
+```verse
+# 在 Component 中调用
+# 设置 Sidekick 心情为战斗模式
+Result := SidekickWrapper.SetCombatMood(SidekickComp)
+if Result.Success:
+    Log(Result.Message)
+
+# 播放开心反应并监听完成事件
+PlayResult := SidekickWrapper.PlayHappyReaction(SidekickComp)
+if PlayResult.Success:
+    SidekickWrapper.SubscribeToReactionStart(SidekickComp, OnReactionStarted)
+    SidekickWrapper.SubscribeToReactionStop(SidekickComp, OnReactionCompleted)
+
+# 启用所有功能
+SidekickWrapper.EnableSidekick(SidekickComp)
+```
+
+
 ---
 
 ## 待创建 Wrapper
@@ -114,4 +151,4 @@ if Result.Success:
 
 ---
 
-*最后更新: 2025-12-29*
+*最后更新: 2025-12-30*
