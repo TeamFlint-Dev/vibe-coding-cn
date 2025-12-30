@@ -30,16 +30,25 @@ jobs:
         run: |
           $repoPath = "${{ env.UEFN_REPO_PATH }}"
           $branch = "${{ github.event.pull_request.head.ref || github.ref_name }}"
-          $repoUrl = "https://github.com/${{ github.repository }}.git"
+          $token = "${{ secrets.ACTIONAGENT }}"
+          $repoUrl = "https://x-access-token:${token}@github.com/${{ github.repository }}.git"
           
           Write-Host "Repository path: $repoPath"
           Write-Host "Branch: $branch"
           
+          # Configure git to not prompt for credentials
+          git config --global credential.helper store
+          
           if (Test-Path "$repoPath\.git") {
             Write-Host "Repository exists, fetching and checking out..."
             Push-Location $repoPath
+            # Update remote URL with token
+            git remote set-url origin $repoUrl
             git fetch origin
-            git checkout $branch
+            git checkout $branch 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git checkout -b $branch origin/$branch
+            }
             git pull origin $branch
             Pop-Location
           } else {
@@ -50,7 +59,10 @@ jobs:
             }
             git clone $repoUrl $repoPath
             Push-Location $repoPath
-            git checkout $branch
+            git checkout $branch 2>$null
+            if ($LASTEXITCODE -ne 0) {
+              git checkout -b $branch origin/$branch
+            }
             Pop-Location
           }
           
