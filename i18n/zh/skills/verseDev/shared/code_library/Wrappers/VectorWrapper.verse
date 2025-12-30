@@ -29,9 +29,10 @@
 # API 参考:
 # - /Verse.org/SpatialMath: Verse 原生向量类型
 # - /UnrealEngine.com/Temporary/SpatialMath: UE 向量类型
+# - /Verse.org/Verse: 标准数学函数 (Sqrt, Clamp, Min, Max)
 
-using { /Verse.org/Simulation }
-using { /Verse.org/Verse }
+using { /Verse.org/Simulation }  # 标准 UEFN 模拟环境（所有 Wrapper 的标准引用）
+using { /Verse.org/Verse }  # Sqrt, Clamp 标准数学函数
 using { /Verse.org/SpatialMath }
 using { /UnrealEngine.com/Temporary/SpatialMath }
 
@@ -195,8 +196,8 @@ VectorWrapper<public> := module:
         V:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         Scalar:float
     ):vector_op_result =
-        # 检查除数是否为零
-        if (Scalar = 0.0):
+        # 检查除数是否接近零（使用小的容差值避免浮点精度问题）
+        if (Scalar > -0.0001 and Scalar < 0.0001):
             vector_op_result{
                 Success := false,
                 ErrorReason := "Cannot divide by zero",
@@ -423,14 +424,8 @@ VectorWrapper<public> := module:
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         T:float
     ):vector_op_result =
-        # 限制 T 在 [0, 1] 范围内
-        ClampedT:float = 
-            if (T < 0.0):
-                0.0
-            else if (T > 1.0):
-                1.0
-            else:
-                T
+        # 使用标准库 Clamp 函数限制 T 在 [0, 1] 范围内
+        ClampedT := Clamp(T, 0.0, 1.0)
         
         Result := vector3{
             X := A.X + (B.X - A.X) * ClampedT,
@@ -450,34 +445,11 @@ VectorWrapper<public> := module:
         Min:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         Max:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):vector_op_result =
-        ClampX:float = 
-            if (V.X < Min.X):
-                Min.X
-            else if (V.X > Max.X):
-                Max.X
-            else:
-                V.X
-        
-        ClampY:float = 
-            if (V.Y < Min.Y):
-                Min.Y
-            else if (V.Y > Max.Y):
-                Max.Y
-            else:
-                V.Y
-        
-        ClampZ:float = 
-            if (V.Z < Min.Z):
-                Min.Z
-            else if (V.Z > Max.Z):
-                Max.Z
-            else:
-                V.Z
-        
+        # 使用标准库 Clamp 函数对每个分量进行限制
         Result := vector3{
-            X := ClampX,
-            Y := ClampY,
-            Z := ClampZ
+            X := Clamp(V.X, Min.X, Max.X),
+            Y := Clamp(V.Y, Min.Y, Max.Y),
+            Z := Clamp(V.Z, Min.Z, Max.Z)
         }
         
         vector_op_result{
