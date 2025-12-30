@@ -2,11 +2,13 @@ name: Copilot PR Builder
 on:
   pull_request:
     types: [opened, synchronize]
+    branches-ignore:
+      - 'copilot/**'  # Trigger on PR target, not source branch
 
 jobs:
   build:
-    # 只处理 Copilot 创建的 PR
-    if: github.actor == 'copilot-swe-agent[bot]'
+    # Handle Copilot PRs (from copilot/* branches)
+    if: startsWith(github.event.pull_request.head.ref, 'copilot/')
     runs-on: [self-hosted, windows, verse-builder]
     
     steps:
