@@ -53,6 +53,32 @@
 
 ---
 
+### Sidekick 操作域 → SidekickWrapper ✅
+
+| 关键词 | 关联 API | digest 位置 |
+|--------|----------|-------------|
+| Sidekick | sidekick_component | Fortnite L4246 |
+| 小伙伴 | sidekick_component | Fortnite L4246 |
+| 宠物伙伴 | sidekick_component | Fortnite L4246 |
+| 装备型Sidekick | equipped_sidekick_component | Fortnite L4247 |
+| NPC Sidekick | npc_sidekick_component | Fortnite L4608 |
+| 心情 | sidekick_mood | Fortnite L4567 |
+| 情绪 | sidekick_mood | Fortnite L4567 |
+| 反应 | sidekick_reaction | Fortnite L4575 |
+| Sidekick反应 | PlayReaction | Fortnite L4598 |
+| Spark模式 | spark_capable_sidekick_component | Fortnite L4282 |
+| 闪耀模式 | spark_capable_sidekick_component | Fortnite L4282 |
+| Sidekick拥有者 | GetOwningAgent | Fortnite L4270 |
+| Sidekick可见性 | Show | Fortnite L4273 |
+| 自动反应 | AutomaticReactionsEnabled | Fortnite L4276 |
+| 默认交互 | DefaultInteractionEnabled | Fortnite L4279 |
+| 心情覆盖 | MoodOverride | Fortnite L4250 |
+
+**Wrapper 状态**: ✅ 已实现  
+**位置**: `shared/code-library/Wrappers/SidekickWrapper.verse`
+
+---
+
 ### 玩家空间域 → PlayspaceWrapper 🔲
 
 | 关键词 | 关联 API | digest 位置 |
