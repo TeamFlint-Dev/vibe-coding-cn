@@ -22,6 +22,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 |------|--------|----------|-------------|------|
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
 | [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
+| [SidekickWrapper](./SidekickWrapper.verse) | Sidekick 系统 | equipped_sidekick_component, sidekick_component, showable | Fortnite L4247-4279 | ✅ |
 
 ---
 
@@ -75,6 +76,36 @@ Result := PetWrapper.SpawnPetAtLocation(SpawnPos, SpawnRot)
 if Result.Success:
     Distance := PetWrapper.CalculateDistanceToOwner(PetEntity, OwnerPos)
     Log("宠物已生成，距离主人: {Distance}")
+```
+
+### SidekickWrapper
+
+**职责**: 封装 `equipped_sidekick_component` 相关的所有 API 操作
+
+**功能分组**:
+
+| 分组 | 方法 | 来源接口 |
+|------|------|----------|
+| 心情操作 | GetMood, SetMoodOverride, GetMoodInfo, ClearMoodOverride | sidekick_component |
+| 反应播放 | PlayReaction | sidekick_component |
+| 事件监听 | GetChangeMoodEvent, GetStartPlayReactionEvent, GetStopPlayReactionEvent | sidekick_component |
+| 可见性控制 | SetVisibility, GetVisibility, ShowSidekick, HideSidekick | showable |
+| 行为开关 | EnableAutomaticReactions, EnablePlayerInteraction, IsAutomaticReactionsEnabled, IsPlayerInteractionEnabled | equipped_sidekick_component |
+| 所有者查询 | GetOwningAgent | equipped_sidekick_component |
+| 状态查询 | IsValidAndEquipped, IsVisible, IsInMood | 组合查询 |
+
+**调用示例**:
+```verse
+# 在 Component 中调用
+# 设置 Sidekick 心情为 Combat
+Result := SidekickWrapper.SetMoodOverride(Sidekick, option{sidekick_mood.Combat})
+if Result.Success:
+    Log("Sidekick 心情已锁定为战斗模式")
+
+# 播放 Happy 反应
+ReactionResult := SidekickWrapper.PlayReaction(Sidekick, sidekick_reaction.Happy)
+if ReactionResult.Success:
+    Log("Sidekick 正在播放 Happy 反应")
 ```
 
 ---
