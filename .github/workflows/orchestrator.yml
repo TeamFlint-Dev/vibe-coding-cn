@@ -1,4 +1,4 @@
-﻿#  事件协调器 - Event Orchestrator
+#  事件协调器 - Event Orchestrator
 #
 # 监听所有事件，根据任务配置协调各个工作流的执行
 
@@ -64,7 +64,12 @@ jobs:
             --arg next_step "${{ github.event.client_payload.workflow == 'verse-dev' && 'compile' || 'complete' }}" \
             '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, agent: $agent, max_retries: $max_retries, next_step: $next_step, retry_count: 0}')
           
-          echo "{\"event_type\":\"agent:start\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
+          # 使用 workflow_dispatch 触发 Agent (避免权限问题)
+          gh workflow run verse-dev-loop.lock.yml \
+            -f requirement="${{ github.event.client_payload.requirement }}" \
+            -f working_branch="${{ github.event.client_payload.branch_name }}" \
+            -f task_id="${{ github.event.client_payload.task_id }}" \
+            -f retry_count="0"
       
       # ---- compile-only 工作流 ----
       - name: "触发编译"
@@ -168,7 +173,12 @@ jobs:
               --argjson retry_count $((RETRY_COUNT + 1)) \
               '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, compile_errors: $compile_errors, agent: $agent, max_retries: $max_retries, retry_count: $retry_count, next_step: "compile"}')
             
-            echo "{\"event_type\":\"agent:start\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
+            # 使用 workflow_dispatch 触发 Agent (避免权限问题)
+          gh workflow run verse-dev-loop.lock.yml \
+            -f requirement="${{ github.event.client_payload.requirement }}" \
+            -f working_branch="${{ github.event.client_payload.branch_name }}" \
+            -f task_id="${{ github.event.client_payload.task_id }}" \
+            -f retry_count="0"
           
           else
             echo " 达到最大重试次数，任务失败"

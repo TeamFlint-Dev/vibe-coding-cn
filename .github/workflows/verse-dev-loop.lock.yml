@@ -8510,7 +8510,7 @@ jobs:
       - agent
       - safe_outputs
       - conclusion
-    if: always() && github.event_name == 'repository_dispatch'
+    if: always() && (github.event_name == 'repository_dispatch' || inputs.task_id != '')
     runs-on: ubuntu-latest
     permissions:
       contents: write
