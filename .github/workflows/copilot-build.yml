@@ -36,8 +36,11 @@ jobs:
           Write-Host "Repository path: $repoPath"
           Write-Host "Branch: $branch"
           
-          # Configure git to not prompt for credentials
-          git config --global credential.helper store
+          # Disable credential manager to prevent UI popups
+          $env:GIT_TERMINAL_PROMPT = "0"
+          $env:GCM_INTERACTIVE = "never"
+          git config --global credential.helper ""
+          git config --global credential.interactive never
           
           if (Test-Path "$repoPath\.git") {
             Write-Host "Repository exists, fetching and checking out..."
