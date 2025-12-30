@@ -103,22 +103,14 @@ jobs:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         shell: pwsh
         run: |
-          $comment = @"
-          ## ✅ Build Success
-          
-          Local build verification passed!
-          
-          <details>
-          <summary>Build Output</summary>
-          
-          ``````
+          $buildOutput = @'
           ${{ steps.compile.outputs.build_output }}
-          ``````
+          '@
           
-          </details>
+          # Decode URL-encoded characters
+          $buildOutput = [System.Web.HttpUtility]::UrlDecode($buildOutput)
           
-          @Maybank01 Ready for review.
-          "@
+          $comment = "## ✅ Build Success`n`nLocal build verification passed!`n`n<details>`n<summary>Build Output</summary>`n`n``````````n$buildOutput`n```````n`n</details>`n`n@Maybank01 Ready for review."
           
           gh pr comment ${{ github.event.pull_request.number }} --body $comment
 
@@ -137,17 +129,13 @@ jobs:
             $mention = "Build failed. Please fix the following errors:"
           }
           
-          $comment = @"
-          ## ❌ Build Failed
-          
-          $mention
-          
-          ``````
+          $buildOutput = @'
           ${{ steps.compile.outputs.build_output }}
-          ``````
-          "@
+          '@
           
-          gh pr comment ${{ github.event.pull_request.number }} --body $comment
-          "@
+          # Decode URL-encoded characters
+          $buildOutput = [System.Web.HttpUtility]::UrlDecode($buildOutput)
+          
+          $comment = "## ❌ Build Failed`n`n$mention`n`n``````````n$buildOutput`n```````"
           
           gh pr comment ${{ github.event.pull_request.number }} --body $comment
