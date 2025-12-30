@@ -126,6 +126,41 @@ runs-on: [self-hosted, windows, verse-builder]
 .\run.cmd
 ```
 
+### Copilot Agent PR 自动运行
+
+**问题：** Copilot 创建的 PR 工作流默认需要手动批准。
+
+**解决方案（同时配置）：**
+
+1. **仓库设置**（`Settings → Actions → General`）：
+   - ✅ Run workflows from fork pull requests
+   - ❌ **不勾选** Require approval for fork pull request workflows
+
+2. **工作流文件**：
+```yaml
+on:
+  pull_request_target:  # 不是 pull_request
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: read
+
+jobs:
+  build:
+    runs-on: [self-hosted, windows, verse-builder]
+```
+
+**验证：**
+```bash
+# 检查运行状态
+gh api repos/{owner}/{repo}/actions/runs/{run_id} --jq '{conclusion, triggering_actor: .triggering_actor.login}'
+# conclusion 应该是 success/failure，不是 action_required
+```
+
+详见：[references/copilot-agent-pr-workflow.md](references/copilot-agent-pr-workflow.md)
+
 ### YAML 编码最佳实践
 
 1. **使用纯 ASCII 注释** - 避免中文字符导致解析错误
@@ -282,6 +317,7 @@ jobs:
 ## References
 
 - [references/index.md](references/index.md): 参考文档导航
+- [references/copilot-agent-pr-workflow.md](references/copilot-agent-pr-workflow.md): **Copilot Agent PR 工作流自动运行战术手册**
 - [references/event-driven-architecture.md](references/event-driven-architecture.md): 事件驱动架构详解
 - [references/gh-aw-workarounds.md](references/gh-aw-workarounds.md): gh-aw 限制与绕过方案
 - [references/self-hosted-runner.md](references/self-hosted-runner.md): Self-Hosted Runner 配置
@@ -291,8 +327,9 @@ jobs:
 ## Maintenance
 
 - 来源：实际项目经验 (vibe-coding-cn 仓库)
-- 最后更新：2024-12-30
+- 最后更新：2024-12-31
 - 已知限制：
   - gh-aw 为实验性功能，行为可能变化
   - repository_dispatch 需要 repo 级别的 PAT
   - Self-Hosted Runner 需要持续运行的主机
+  - Copilot Agent PR 需要特殊配置才能自动运行工作流
