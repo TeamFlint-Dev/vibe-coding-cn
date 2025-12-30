@@ -1,8 +1,8 @@
-#  事件协调器 - Event Orchestrator
+#  事件协调?- Event Orchestrator
 #
 # 监听所有事件，根据任务配置协调各个工作流的执行
 
-name: " 事件协调器"
+name: " 事件协调?
 
 on:
   repository_dispatch:
@@ -41,19 +41,19 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 创建新分支
+          # 创建新分?
           git checkout -b "$BRANCH"
           git push origin "$BRANCH"
           
           echo " 创建分支: $BRANCH"
       
-      # ---- verse-dev 工作流 ----
-      - name: "触发 Verse 开发 Agent"
+      # ---- verse-dev 工作?----
+      - name: "触发 Verse 开?Agent"
         if: github.event.client_payload.workflow == 'verse-dev' || github.event.client_payload.workflow == 'verse-dev-only'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo " 发送 agent:start 事件给 verse-dev-loop"
+          echo " 发?agent:start 事件?verse-dev-loop"
           
           PAYLOAD=$(jq -n \
             --arg task_id "${{ github.event.client_payload.task_id }}" \
@@ -69,15 +69,16 @@ jobs:
             -f requirement="${{ github.event.client_payload.requirement }}" \
             -f working_branch="${{ github.event.client_payload.branch_name }}" \
             -f task_id="${{ github.event.client_payload.task_id }}" \
-            -f retry_count="0"
+            -f retry_count="0" \
+            -f next_step="${{ github.event.client_payload.workflow == 'verse-dev' && 'compile' || 'complete' }}"
       
-      # ---- compile-only 工作流 ----
+      # ---- compile-only 工作?----
       - name: "触发编译"
         if: github.event.client_payload.workflow == 'compile-only'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo " 发送 compile:request 事件"
+          echo " 发?compile:request 事件"
           
           PAYLOAD=$(jq -n \
             --arg task_id "${{ github.event.client_payload.task_id }}" \
@@ -100,7 +101,7 @@ jobs:
           echo " Agent 完成事件"
           echo '${{ toJson(github.event.client_payload) }}' | jq .
       
-      - name: 触发下一步
+      - name: 触发下一?
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -108,12 +109,12 @@ jobs:
           STATUS="${{ github.event.client_payload.status }}"
           
           if [ "$STATUS" != "success" ]; then
-            echo " Agent 失败，任务终止"
+            echo " Agent 失败，任务终?
             exit 0
           fi
           
           if [ "$NEXT_STEP" == "compile" ]; then
-            echo " 发送 compile:request 事件"
+            echo " 发?compile:request 事件"
             
             PAYLOAD=$(jq -n \
               --arg task_id "${{ github.event.client_payload.task_id }}" \
@@ -157,11 +158,11 @@ jobs:
               --base main \
               --head "${{ github.event.client_payload.branch_name }}" \
               --title "feat: ${{ github.event.client_payload.task_id }}" \
-              --body "## 任务完成\n\n**需求**: ${{ github.event.client_payload.requirement }}\n\n自动生成的 PR，请审核后合并。" \
-              || echo "PR 可能已存在"
+              --body "## 任务完成\n\n**需?*: ${{ github.event.client_payload.requirement }}\n\n自动生成?PR，请审核后合并? \
+              || echo "PR 可能已存?
           
           elif [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
-            echo " 编译失败，触发修复 (重试 $((RETRY_COUNT + 1))/$MAX_RETRIES)"
+            echo " 编译失败，触发修?(重试 $((RETRY_COUNT + 1))/$MAX_RETRIES)"
             
             PAYLOAD=$(jq -n \
               --arg task_id "${{ github.event.client_payload.task_id }}" \
@@ -178,7 +179,8 @@ jobs:
             -f requirement="${{ github.event.client_payload.requirement }}" \
             -f working_branch="${{ github.event.client_payload.branch_name }}" \
             -f task_id="${{ github.event.client_payload.task_id }}" \
-            -f retry_count="0"
+            -f retry_count="${{ github.event.client_payload.retry_count }}" \
+            -f next_step="compile"
           
           else
             echo " 达到最大重试次数，任务失败"

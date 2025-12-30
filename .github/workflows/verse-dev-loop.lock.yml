@@ -47,6 +47,10 @@ name: "Verse Development Loop"
         default: ""
         description: Working branch name (stay on same branch for iterations)
         required: false
+      next_step:
+        default: "compile"
+        description: Next step after agent completes (compile or complete)
+        required: false
 
 permissions: {}
 
@@ -59,6 +63,7 @@ env:
   COMPILE_ERRORS: ${{ github.event.client_payload.compile_errors || inputs.compile_errors || '' }}
   EVENT_DRIVEN: ${{ github.event_name == 'repository_dispatch' }}
   MAX_RETRIES: ${{ github.event.client_payload.max_retries || '3' }}
+  NEXT_STEP: ${{ github.event.client_payload.next_step || inputs.next_step || 'compile' }}
   REQUIREMENT: ${{ github.event.client_payload.requirement || inputs.requirement }}
   RETRY_COUNT: ${{ github.event.client_payload.retry_count || inputs.retry_count || '0' }}
   TASK_ID: ${{ github.event.client_payload.task_id || inputs.task_id || '' }}
@@ -8523,17 +8528,18 @@ jobs:
           REQUIREMENT: ${{ env.REQUIREMENT }}
           RETRY_COUNT: ${{ env.RETRY_COUNT }}
           MAX_RETRIES: ${{ env.MAX_RETRIES }}
+          NEXT_STEP: ${{ env.NEXT_STEP }}
           AGENT_RESULT: ${{ needs.agent.result }}
         run: |
           echo " Sending agent:complete event..."
-          
+
           # Determine status based on agent result
           if [ "$AGENT_RESULT" == "success" ]; then
             STATUS="success"
           else
             STATUS="failure"
           fi
-          
+
           PAYLOAD=$(jq -n \
             --arg task_id "$TASK_ID" \
             --arg branch_name "$WORKING_BRANCH" \
@@ -8541,11 +8547,6 @@ jobs:
             --arg status "$STATUS" \
             --arg retry_count "$RETRY_COUNT" \
             --arg max_retries "$MAX_RETRIES" \
-            '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, agent: "verse-dev-loop", status: $status, retry_count: $retry_count, max_retries: $max_retries}')
-          
-          echo "Payload: $PAYLOAD"
-          
-          echo "{\"event_type\":\"agent:complete\",\"client_payload\":$PAYLOAD}" | \
-            gh api repos/${{ github.repository }}/dispatches --input -
-          
+            --arg next_step "$NEXT_STEP" \
+            '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, agent: "verse-dev-loop", status: $status, retry_count: $retry_count, max_retries: $max_retries, next_step: $next_step}')
           echo " Event sent successfully"
