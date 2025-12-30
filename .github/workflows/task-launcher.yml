@@ -79,7 +79,7 @@ jobs:
     steps:
       - name: 发送 task:start 事件
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         run: |
           PAYLOAD=$(jq -n \
             --arg task_id "${{ needs.initialize.outputs.task_id }}" \
