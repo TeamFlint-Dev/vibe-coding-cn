@@ -1,8 +1,8 @@
-#  事件协调?- Event Orchestrator
+# Event Orchestrator
 #
 # 监听所有事件，根据任务配置协调各个工作流的执行
 
-name: "🎯 Event Orchestrator"
+name: "Event Orchestrator"
 
 on:
   repository_dispatch:
@@ -16,172 +16,150 @@ jobs:
   # 处理 task:start - 任务启动
   # ============================================
   handle-task-start:
-    name: " 处理任务启动"
+    name: "Handle Task Start"
     if: github.event.action == 'task:start'
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: 解析任务配置
+
+      - name: Parse task config
         id: parse
         run: |
-          echo " 收到任务启动事件"
+          echo "Received task:start event"
           echo '${{ toJson(github.event.client_payload) }}' | jq .
-          
+
           WORKFLOW="${{ github.event.client_payload.workflow }}"
           echo "workflow=$WORKFLOW" >> $GITHUB_OUTPUT
-      
-      - name: 创建任务分支
+
+      - name: Create task branch
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH="${{ github.event.client_payload.branch_name }}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # 创建新分?
+
           git checkout -b "$BRANCH"
           git push origin "$BRANCH"
-          
-          echo " 创建分支: $BRANCH"
-      
-      # ---- verse-dev 工作?----
-      - name: "触发 Verse 开?Agent"
+
+          echo "Created branch: $BRANCH"
+
+      - name: "Trigger Verse Dev Agent"
         if: github.event.client_payload.workflow == 'verse-dev' || github.event.client_payload.workflow == 'verse-dev-only'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         run: |
-          echo " 发?agent:start 事件?verse-dev-loop"
-          
-          PAYLOAD=$(jq -n \
-            --arg task_id "${{ github.event.client_payload.task_id }}" \
-            --arg branch_name "${{ github.event.client_payload.branch_name }}" \
-            --arg requirement "${{ github.event.client_payload.requirement }}" \
-            --arg agent "verse-dev-loop" \
-            --argjson max_retries ${{ github.event.client_payload.max_retries }} \
-            --arg next_step "${{ github.event.client_payload.workflow == 'verse-dev' && 'compile' || 'complete' }}" \
-            '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, agent: $agent, max_retries: $max_retries, next_step: $next_step, retry_count: 0}')
-          
-          # 使用 workflow_dispatch 触发 Agent (避免权限问题)
+          echo "Triggering verse-dev-loop agent"
+
+          NEXT_STEP="${{ github.event.client_payload.workflow == 'verse-dev' && 'compile' || 'complete' }}"
           gh workflow run verse-dev-loop.lock.yml \
             -f requirement="${{ github.event.client_payload.requirement }}" \
             -f working_branch="${{ github.event.client_payload.branch_name }}" \
             -f task_id="${{ github.event.client_payload.task_id }}" \
             -f retry_count="0" \
-            -f next_step="${{ github.event.client_payload.workflow == 'verse-dev' && 'compile' || 'complete' }}"
-      
-      # ---- compile-only 工作?----
-      - name: "触发编译"
+            -f next_step="$NEXT_STEP"
+
+      - name: "Trigger Compile Only"
         if: github.event.client_payload.workflow == 'compile-only'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         run: |
-          echo " 发?compile:request 事件"
-          
+          echo "Sending compile:request event"
+
           PAYLOAD=$(jq -n \
             --arg task_id "${{ github.event.client_payload.task_id }}" \
             --arg branch_name "${{ github.event.client_payload.branch_name }}" \
             '{task_id: $task_id, branch_name: $branch_name, retry_count: 0}')
-          
+
           echo "{\"event_type\":\"compile:request\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
 
   # ============================================
   # 处理 agent:complete - Agent 完成
   # ============================================
   handle-agent-complete:
-    name: " 处理 Agent 完成"
+    name: "Handle Agent Complete"
     if: github.event.action == 'agent:complete'
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: 解析 Agent 结果
+      - name: Parse Agent result
         run: |
-          echo " Agent 完成事件"
+          echo "Agent complete event"
           echo '${{ toJson(github.event.client_payload) }}' | jq .
-      
-      - name: 触发下一?
+
+      - name: Trigger next step
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         run: |
           NEXT_STEP="${{ github.event.client_payload.next_step }}"
           STATUS="${{ github.event.client_payload.status }}"
-          
+
           if [ "$STATUS" != "success" ]; then
-            echo " Agent 失败，任务终?
+            echo "Agent failed, task terminated"
             exit 0
           fi
-          
+
           if [ "$NEXT_STEP" == "compile" ]; then
-            echo " 发?compile:request 事件"
-            
+            echo "Sending compile:request event"
+
             PAYLOAD=$(jq -n \
               --arg task_id "${{ github.event.client_payload.task_id }}" \
               --arg branch_name "${{ github.event.client_payload.branch_name }}" \
               --arg requirement "${{ github.event.client_payload.requirement }}" \
               --argjson max_retries ${{ github.event.client_payload.max_retries }} \
               '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, max_retries: $max_retries, retry_count: 0}')
-            
+
             echo "{\"event_type\":\"compile:request\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
-          
+
           elif [ "$NEXT_STEP" == "complete" ]; then
-            echo " 任务完成!"
+            echo "Task complete!"
           fi
 
   # ============================================
   # 处理 compile:complete - 编译完成
   # ============================================
   handle-compile-complete:
-    name: " 处理编译完成"
+    name: "Handle Compile Complete"
     if: github.event.action == 'compile:complete'
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: 解析编译结果
+      - name: Parse compile result
         run: |
-          echo " 编译完成事件"
+          echo "Compile complete event"
           echo '${{ toJson(github.event.client_payload) }}' | jq .
-      
-      - name: 处理编译结果
+
+      - name: Handle compile result
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         run: |
           STATUS="${{ github.event.client_payload.status }}"
           RETRY_COUNT=${{ github.event.client_payload.retry_count }}
           MAX_RETRIES=${{ github.event.client_payload.max_retries }}
-          
+
           if [ "$STATUS" == "success" ]; then
-            echo " 编译成功! 创建 PR..."
-            
+            echo "Compile success! Creating PR..."
+
             gh pr create \
               --base main \
               --head "${{ github.event.client_payload.branch_name }}" \
               --title "feat: ${{ github.event.client_payload.task_id }}" \
-              --body "## 任务完成\n\n**需?*: ${{ github.event.client_payload.requirement }}\n\n自动生成?PR，请审核后合并? \
-              || echo "PR 可能已存?
-          
+              --body "## Task Complete\n\n**Requirement**: ${{ github.event.client_payload.requirement }}\n\nAuto-generated PR, please review and merge." \
+              || echo "PR may already exist"
+
           elif [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
-            echo " 编译失败，触发修?(重试 $((RETRY_COUNT + 1))/$MAX_RETRIES)"
-            
-            PAYLOAD=$(jq -n \
-              --arg task_id "${{ github.event.client_payload.task_id }}" \
-              --arg branch_name "${{ github.event.client_payload.branch_name }}" \
-              --arg requirement "${{ github.event.client_payload.requirement }}" \
-              --arg compile_errors "${{ github.event.client_payload.errors }}" \
-              --arg agent "verse-dev-loop" \
-              --argjson max_retries $MAX_RETRIES \
-              --argjson retry_count $((RETRY_COUNT + 1)) \
-              '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, compile_errors: $compile_errors, agent: $agent, max_retries: $max_retries, retry_count: $retry_count, next_step: "compile"}')
-            
-            # 使用 workflow_dispatch 触发 Agent (避免权限问题)
-          gh workflow run verse-dev-loop.lock.yml \
-            -f requirement="${{ github.event.client_payload.requirement }}" \
-            -f working_branch="${{ github.event.client_payload.branch_name }}" \
-            -f task_id="${{ github.event.client_payload.task_id }}" \
-            -f retry_count="${{ github.event.client_payload.retry_count }}" \
-            -f next_step="compile"
-          
+            echo "Compile failed, triggering fix (retry $((RETRY_COUNT + 1))/$MAX_RETRIES)"
+
+            gh workflow run verse-dev-loop.lock.yml \
+              -f requirement="${{ github.event.client_payload.requirement }}" \
+              -f working_branch="${{ github.event.client_payload.branch_name }}" \
+              -f task_id="${{ github.event.client_payload.task_id }}" \
+              -f compile_errors="${{ github.event.client_payload.errors }}" \
+              -f retry_count="${{ github.event.client_payload.retry_count }}" \
+              -f next_step="compile"
+
           else
-            echo " 达到最大重试次数，任务失败"
+            echo "Max retries reached, task failed"
           fi
