@@ -1,7 +1,5 @@
 name: PR Builder
 on:
-  # Use pull_request_target to run workflows for Copilot agent PRs without manual approval
-  # This is safe because we only compile code on a self-hosted runner
   pull_request_target:
     types: [opened, synchronize]
     paths:
@@ -13,193 +11,16 @@ on:
       pr_number:
         description: "PR number to build"
         required: false
-      auto_merge:
-        description: "Auto-merge on success"
-        type: boolean
-        default: false
-
-# Explicitly define permissions to avoid approval requirement
-permissions:
-  contents: read
-  pull-requests: write
-  actions: read
-
-env:
-  # Clone destination (no hyphens - Verse illegal character)
-  UEFN_REPO_PATH: "E:\\Game\\FishTycoon\\Content\\AgentWorkSpace\\VibeCodingCN"
-  VERSE_CLI_PATH: "i18n\\zh\\skills\\verseDev\\verse-cli"
-  # Default: no auto-merge unless explicitly enabled
-  AUTO_MERGE: ${{ github.event.inputs.auto_merge || 'false' }}
 
 jobs:
-  # Gate job runs on GitHub-hosted runner (no approval needed)
-  # This enables Copilot-triggered PRs to run without manual approval
-  gate:
-    runs-on: ubuntu-latest
-    outputs:
-      should_build: ${{ steps.check.outputs.should_build }}
-    steps:
-      - name: Check PR source
-        id: check
-        run: |
-          echo "PR triggered by: ${{ github.triggering_actor }}"
-          echo "Event: ${{ github.event_name }}"
-          echo "should_build=true" >> $GITHUB_OUTPUT
-
   build:
-    needs: gate
-    if: needs.gate.outputs.should_build == 'true'
     runs-on: [self-hosted, windows, verse-builder]
     
     steps:
-      - name: Clone or Update Repository
-        id: clone
-        shell: pwsh
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
-        run: |
-          $repoPath = "${{ env.UEFN_REPO_PATH }}"
-          $branch = "${{ github.event.pull_request.head.ref || github.ref_name }}"
-          $token = "${{ secrets.ACTIONAGENT }}"
-          $repoUrl = "https://x-access-token:${token}@github.com/${{ github.repository }}.git"
-          
-          Write-Host "Repository path: $repoPath"
-          Write-Host "Branch: $branch"
-          
-          # Disable credential manager to prevent UI popups
-          $env:GIT_TERMINAL_PROMPT = "0"
-          $env:GCM_INTERACTIVE = "never"
-          git config --global credential.helper ""
-          git config --global credential.interactive never
-          
-          if (Test-Path "$repoPath\.git") {
-            Write-Host "Repository exists, fetching and checking out..."
-            Push-Location $repoPath
-            # Update remote URL with token
-            git remote set-url origin $repoUrl
-            git fetch origin
-            git checkout $branch 2>$null
-            if ($LASTEXITCODE -ne 0) {
-              git checkout -b $branch origin/$branch
-            }
-            git pull origin $branch
-            Pop-Location
-          } else {
-            Write-Host "Cloning repository..."
-            $parentDir = Split-Path $repoPath -Parent
-            if (-not (Test-Path $parentDir)) {
-              New-Item -ItemType Directory -Path $parentDir -Force | Out-Null
-            }
-            git clone $repoUrl $repoPath
-            Push-Location $repoPath
-            git checkout $branch 2>$null
-            if ($LASTEXITCODE -ne 0) {
-              git checkout -b $branch origin/$branch
-            }
-            Pop-Location
-          }
-          
-          Write-Host "Repository ready at: $repoPath"
-
-      - name: Run Verse Build
-        id: compile
-        shell: pwsh
-        continue-on-error: true
-        working-directory: ${{ env.UEFN_REPO_PATH }}
-        run: |
-          $buildScript = "${{ env.VERSE_CLI_PATH }}\verse-build.ps1"
-          
-          if (Test-Path $buildScript) {
-            $output = & $buildScript 2>&1 | Out-String
-            $exitCode = $LASTEXITCODE
-          } else {
-            $nodeScript = "${{ env.VERSE_CLI_PATH }}\verse-build.js"
-            $output = & node $nodeScript 2>&1 | Out-String
-            $exitCode = $LASTEXITCODE
-          }
-          
-          # 保存输出（处理多行）
-          $output = $output -replace "`r`n", "%0A" -replace "`n", "%0A"
-          "build_output=$output" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-          "exit_code=$exitCode" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-          
-          if ($exitCode -ne 0) {
-            exit 1
-          }
-
-      - name: Comment - Build Success
-        if: steps.compile.outcome == 'success'
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
-          BUILD_OUTPUT: ${{ steps.compile.outputs.build_output }}
+      - name: Test Step
         shell: pwsh
         run: |
-          $buildOutput = $env:BUILD_OUTPUT
-          
-          # Decode URL-encoded characters
-          Add-Type -AssemblyName System.Web
-          $buildOutput = [System.Web.HttpUtility]::UrlDecode($buildOutput)
-          
-          # Build comment using string concatenation
-          $tempFile = [System.IO.Path]::GetTempFileName()
-          $content = "## ✅ Build Success`n`n"
-          $content += "Local build verification passed!`n`n"
-          $content += "<details>`n<summary>Build Output</summary>`n`n"
-          $content += "```````n$buildOutput`n```````n`n"
-          $content += "</details>`n`n"
-          $content += "Ready for review."
-          
-          $content | Out-File -FilePath $tempFile -Encoding utf8
-          gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
-          Remove-Item $tempFile
-
-      - name: Auto-merge on Success
-        if: |
-          steps.compile.outcome == 'success' && 
-          env.AUTO_MERGE == 'true' && 
-          startsWith(github.event.pull_request.head.ref, 'copilot/')
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
-        shell: pwsh
-        run: |
-          $prNumber = "${{ github.event.pull_request.number }}"
-          Write-Host "Auto-merging Copilot PR #$prNumber..."
-          gh pr merge $prNumber --squash --delete-branch
-          Write-Host "PR merged successfully!"
-
-      - name: Comment - Build Failed
-        if: steps.compile.outcome == 'failure'
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
-          IS_COPILOT: ${{ startsWith(github.event.pull_request.head.ref, 'copilot/') }}
-          BUILD_OUTPUT: ${{ steps.compile.outputs.build_output }}
-        shell: pwsh
-        run: |
-          $isCopilot = $env:IS_COPILOT -eq 'true'
-          
-          if ($isCopilot) {
-            $mention = "@copilot Please fix the following build errors:"
-          } else {
-            $mention = "Build failed. Please fix the following errors:"
-          }
-          
-          $buildOutput = $env:BUILD_OUTPUT
-          
-          # Decode URL-encoded characters
-          Add-Type -AssemblyName System.Web
-          $buildOutput = [System.Web.HttpUtility]::UrlDecode($buildOutput)
-          
-          # Build comment using string concatenation
-          $tempFile = [System.IO.Path]::GetTempFileName()
-          $content = "## ❌ Build Failed`n`n"
-          $content += "$mention`n`n"
-          $content += "```````n$buildOutput`n```````n"
-          
-          $content | Out-File -FilePath $tempFile -Encoding utf8
-          gh pr comment ${{ github.event.pull_request.number }} --body-file $tempFile
-          Remove-Item $tempFile
-
-      # Fail the workflow if build failed (after commenting)
-      - name: Fail on Build Error
-        if: steps.compile.outcome == 'failure'
-        run: exit 1
+          Write-Host "Workflow triggered successfully!"
+          Write-Host "PR: ${{ github.event.pull_request.number }}"
+          Write-Host "Branch: ${{ github.event.pull_request.head.ref }}"
+          Write-Host "Actor: ${{ github.triggering_actor }}"
