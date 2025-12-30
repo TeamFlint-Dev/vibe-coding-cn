@@ -585,9 +585,17 @@ VectorWrapper<public> := module:
     
     # 获取向量各分量的绝对值
     Abs<public>(V:(/UnrealEngine.com/Temporary/SpatialMath:)vector3):vector_op_result =
-        AbsX:float = if (V.X < 0.0) then -V.X else V.X
-        AbsY:float = if (V.Y < 0.0) then -V.Y else V.Y
-        AbsZ:float = if (V.Z < 0.0) then -V.Z else V.Z
+        var AbsX:float = V.X
+        if (V.X < 0.0):
+            set AbsX = -V.X
+        
+        var AbsY:float = V.Y
+        if (V.Y < 0.0):
+            set AbsY = -V.Y
+        
+        var AbsZ:float = V.Z
+        if (V.Z < 0.0):
+            set AbsZ = -V.Z
         
         Result := vector3{
             X := AbsX,
