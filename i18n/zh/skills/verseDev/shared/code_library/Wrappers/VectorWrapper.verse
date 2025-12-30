@@ -44,7 +44,7 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 vector_op_result<public> := struct<concrete>:
     Success<public>:logic = false           # 是否成功
     ErrorReason<public>:string = ""         # 失败原因（成功时为空）
-    ResultVector<public>:(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = vector3{X := 0.0, Y := 0.0, Z := 0.0}  # 结果向量（使用 UE 类型）
+    ResultVector<public>:(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := 0.0, Y := 0.0, Z := 0.0}  # 结果向量（使用 UE 类型）
 
 # 标量操作结果（用于长度、距离等）
 scalar_op_result<public> := struct<concrete>:
@@ -67,7 +67,7 @@ VectorWrapper<public> := module:
     # Verse 使用 Forward/Left/Up, UE 使用 X/Y/Z
     # 映射关系: Forward->X, -Left->Y, Up->Z (注意 Left 需要取反为 Right)
     VerseToUE<public>(VV:(/Verse.org/SpatialMath:)vector3):(/UnrealEngine.com/Temporary/SpatialMath:)vector3 =
-        vector3{
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := VV.Forward,
             Y := -VV.Left,    # Verse 的 Left 对应 UE 的 -Y (因为 UE 用 Right)
             Z := VV.Up
@@ -77,7 +77,7 @@ VectorWrapper<public> := module:
     # UE 使用 X/Y/Z, Verse 使用 Forward/Left/Up
     # 映射关系: X->Forward, -Y->Left, Z->Up
     UEToVerse<public>(UV:(/UnrealEngine.com/Temporary/SpatialMath:)vector3):(/Verse.org/SpatialMath:)vector3 =
-        vector3{
+        (/Verse.org/SpatialMath:)vector3{
             Forward := UV.X,
             Left := -UV.Y,    # UE 的 Y (Right) 对应 Verse 的 -Left
             Up := UV.Z
@@ -89,35 +89,35 @@ VectorWrapper<public> := module:
     
     # 零向量
     Zero<public>():(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = 
-        vector3{X := 0.0, Y := 0.0, Z := 0.0}
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := 0.0, Y := 0.0, Z := 0.0}
     
     # 单位向量（所有分量为1）
     One<public>():(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = 
-        vector3{X := 1.0, Y := 1.0, Z := 1.0}
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := 1.0, Y := 1.0, Z := 1.0}
     
     # 前方向量（UE坐标系: X轴正方向）
     Forward<public>():(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = 
-        vector3{X := 1.0, Y := 0.0, Z := 0.0}
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := 1.0, Y := 0.0, Z := 0.0}
     
     # 右方向量（UE坐标系: Y轴正方向）
     Right<public>():(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = 
-        vector3{X := 0.0, Y := 1.0, Z := 0.0}
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := 0.0, Y := 1.0, Z := 0.0}
     
     # 上方向量（UE坐标系: Z轴正方向）
     Up<public>():(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = 
-        vector3{X := 0.0, Y := 0.0, Z := 1.0}
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := 0.0, Y := 0.0, Z := 1.0}
     
     # 后方向量
     Back<public>():(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = 
-        vector3{X := -1.0, Y := 0.0, Z := 0.0}
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := -1.0, Y := 0.0, Z := 0.0}
     
     # 左方向量
     Left<public>():(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = 
-        vector3{X := 0.0, Y := -1.0, Z := 0.0}
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := 0.0, Y := -1.0, Z := 0.0}
     
     # 下方向量
     Down<public>():(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = 
-        vector3{X := 0.0, Y := 0.0, Z := -1.0}
+        (/UnrealEngine.com/Temporary/SpatialMath:)vector3{X := 0.0, Y := 0.0, Z := -1.0}
     
     # ═══════════════════════════════════════════════════════
     # 向量基础运算
@@ -128,7 +128,7 @@ VectorWrapper<public> := module:
         A:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):vector_op_result =
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := A.X + B.X,
             Y := A.Y + B.Y,
             Z := A.Z + B.Z
@@ -145,7 +145,7 @@ VectorWrapper<public> := module:
         A:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):vector_op_result =
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := A.X - B.X,
             Y := A.Y - B.Y,
             Z := A.Z - B.Z
@@ -162,7 +162,7 @@ VectorWrapper<public> := module:
         V:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         Scalar:float
     ):vector_op_result =
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := V.X * Scalar,
             Y := V.Y * Scalar,
             Z := V.Z * Scalar
@@ -179,7 +179,7 @@ VectorWrapper<public> := module:
         A:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):vector_op_result =
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := A.X * B.X,
             Y := A.Y * B.Y,
             Z := A.Z * B.Z
@@ -204,7 +204,7 @@ VectorWrapper<public> := module:
                 ResultVector := Zero()
             }
         else:
-            Result := vector3{
+            Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
                 X := V.X / Scalar,
                 Y := V.Y / Scalar,
                 Z := V.Z / Scalar
@@ -254,7 +254,7 @@ VectorWrapper<public> := module:
             }
         else:
             Len := Sqrt(LenSquared)
-            Result := vector3{
+            Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
                 X := V.X / Len,
                 Y := V.Y / Len,
                 Z := V.Z / Len
@@ -286,7 +286,7 @@ VectorWrapper<public> := module:
         A:(/UnrealEngine.com/Temporary/SpatialMath:)vector3, 
         B:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):vector_op_result =
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := A.Y * B.Z - A.Z * B.Y,
             Y := A.Z * B.X - A.X * B.Z,
             Z := A.X * B.Y - A.Y * B.X
@@ -372,7 +372,7 @@ VectorWrapper<public> := module:
             }
         else:
             Len := Sqrt(LenSquared)
-            Result := vector3{
+            Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
                 X := DiffX / Len,
                 Y := DiffY / Len,
                 Z := DiffZ / Len
@@ -427,7 +427,7 @@ VectorWrapper<public> := module:
         # 使用标准库 Clamp 函数限制 T 在 [0, 1] 范围内
         ClampedT := Clamp(T, 0.0, 1.0)
         
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := A.X + (B.X - A.X) * ClampedT,
             Y := A.Y + (B.Y - A.Y) * ClampedT,
             Z := A.Z + (B.Z - A.Z) * ClampedT
@@ -446,7 +446,7 @@ VectorWrapper<public> := module:
         Max:(/UnrealEngine.com/Temporary/SpatialMath:)vector3
     ):vector_op_result =
         # 使用标准库 Clamp 函数对每个分量进行限制
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := Clamp(V.X, Min.X, Max.X),
             Y := Clamp(V.Y, Min.Y, Max.Y),
             Z := Clamp(V.Z, Min.Z, Max.Z)
@@ -484,7 +484,7 @@ VectorWrapper<public> := module:
                 # 需要缩短向量
                 Len := Sqrt(LenSquared)
                 Scale := MaxLength / Len
-                Result := vector3{
+                Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
                     X := V.X * Scale,
                     Y := V.Y * Scale,
                     Z := V.Z * Scale
@@ -569,7 +569,7 @@ VectorWrapper<public> := module:
         if (V.Z < 0.0):
             set AbsZ = -V.Z
         
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := AbsX,
             Y := AbsY,
             Z := AbsZ
@@ -583,7 +583,7 @@ VectorWrapper<public> := module:
     
     # 向量取反（所有分量取负）
     Negate<public>(V:(/UnrealEngine.com/Temporary/SpatialMath:)vector3):vector_op_result =
-        Result := vector3{
+        Result := (/UnrealEngine.com/Temporary/SpatialMath:)vector3{
             X := -V.X,
             Y := -V.Y,
             Z := -V.Z
