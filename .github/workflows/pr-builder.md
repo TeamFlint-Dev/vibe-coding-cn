@@ -15,6 +15,9 @@ on:
 # Use self-hosted runner for Verse compilation
 runs-on: [self-hosted, windows, verse-builder]
 
+# Roles - who can trigger this workflow (allow Copilot)
+roles: all
+
 # Permissions
 permissions:
   contents: read
