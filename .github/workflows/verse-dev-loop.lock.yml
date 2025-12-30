@@ -8517,7 +8517,7 @@ jobs:
     steps:
       - name: Send agent:complete event
         env:
-          GH_TOKEN: ${{ secrets.EVENT_DISPATCH_TOKEN }}
+          GH_TOKEN: ${{ secrets.EVENT_DISPATCH_TOKEN || secrets.GITHUB_TOKEN }}
           TASK_ID: ${{ env.TASK_ID }}
           WORKING_BRANCH: ${{ env.WORKING_BRANCH }}
           REQUIREMENT: ${{ env.REQUIREMENT }}
