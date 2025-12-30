@@ -23,6 +23,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
 | [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
 | [SidekickWrapper](./SidekickWrapper.verse) | Sidekick 系统 | equipped_sidekick_component, sidekick_component, showable | Fortnite L4247-4279 | ✅ |
+| [VectorWrapper](./VectorWrapper.verse) | 向量操作 | Verse.vector3, UnrealEngine.vector3 | Verse/UnrealEngine SpatialMath | ✅ |
 
 ---
 
@@ -108,6 +109,51 @@ if ReactionResult.Success:
     Log("Sidekick 正在播放 Happy 反应")
 ```
 
+### VectorWrapper
+
+**职责**: 统一封装 Verse 和 UnrealEngine 两种 vector3 类型，提供一致的向量操作 API
+
+**功能分组**:
+
+| 分组     | 方法                                      | 说明                          |
+|----------|------------------------------------------|------------------------------|
+| 类型转换 | VerseToUE, UEToVerse                     | Verse/UE vector3 互转         |
+| 向量常量 | Zero, One, Forward, Right, Up 等         | 预定义方向向量                 |
+| 基础运算 | Add, Subtract, Multiply, Divide 等       | 加减乘除运算                   |
+| 高级运算 | Dot, Cross, Normalize, Length 等         | 点积、叉积、归一化、长度       |
+| 查询比较 | CalculateDistance, IsInRange, Direction 等        | 距离、方向、相等判断           |
+| 插值限制 | LerpVector, Clamp, ClampLength                 | 线性插值、分量/长度限制        |
+| 坐标转换 | WorldToEditor, EditorToWorld             | 世界坐标与编辑器坐标互转       |
+| 工具函数 | MaxComponent, MinComponent, Abs, Negate  | 最大/最小分量、绝对值、取反    |
+
+**调用示例**:
+
+```verse
+# 在 Component 中调用
+# 向量加法
+V1 := vector3{X := 1.0, Y := 2.0, Z := 3.0}
+V2 := vector3{X := 4.0, Y := 5.0, Z := 6.0}
+AddResult := VectorWrapper.Add(V1, V2)
+if AddResult.Success:
+    Log("结果向量: ({AddResult.ResultVector.X}, {AddResult.ResultVector.Y}, {AddResult.ResultVector.Z})")
+
+# 归一化向量
+NormResult := VectorWrapper.Normalize(V1)
+if NormResult.Success:
+    Log("归一化成功")
+else:
+    Log("归一化失败: {NormResult.ErrorReason}")
+
+# 计算距离
+DistResult := VectorWrapper.CalculateDistance(V1, V2)
+if DistResult.Success:
+    Log("距离: {DistResult.ResultValue}")
+
+# 类型转换
+VerseVec := vector3{Forward := 1.0, Left := 0.0, Up := 0.0}
+UEVec := VectorWrapper.VerseToUE(VerseVec)
+Log("UE向量: ({UEVec.X}, {UEVec.Y}, {UEVec.Z})")
+```
 ---
 
 ## 待创建 Wrapper
@@ -145,4 +191,4 @@ if ReactionResult.Success:
 
 ---
 
-*最后更新: 2025-12-29*
+*最后更新: 2025-12-30*
