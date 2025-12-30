@@ -34,7 +34,7 @@ on:
 env:
   UEFN_VERSE_PATH: "E:\\Game\\FishTycoon\\Content\\Verse"
   REPO_VERSE_PATH: "UEFNgame/trophy-fishing/Verse"
-  VERSE_COMPILER_PATH: "C:\\Program Files\\Epic Games\\Fortnite\\FortniteGame\\Binaries\\Win64\\VerseCompiler.exe"
+  VERSE_CLI_PATH: "E:\\Game\\FishTycoon\\Content\\AgentWorkSpace\\vibe_coding\\i18n\\zh\\skills\\verseDev\\verse-cli"
 
 jobs:
   build:
@@ -160,23 +160,22 @@ jobs:
             $uefnProcess = Get-Process -Name "FortniteClient*" -ErrorAction SilentlyContinue
           }
 
-          $connected = $false
-          if ($uefnProcess) {
-            Write-Host "Found UEFN process: $($uefnProcess.Name)"
-            $connected = $true
-
-            # Additional check: verify verse compiler accessibility
-            if (Test-Path "${{ env.VERSE_COMPILER_PATH }}") {
-              Write-Host "Verse compiler found"
-            } else {
-              Write-Host "::warning::Verse compiler not found at expected path"
-            }
-          }
-
-          if (-not $connected) {
+          if (-not $uefnProcess) {
             Write-Host "::error::UEFN is not running. Please open UEFN with your project."
             'connected=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
             exit 1
+          }
+
+          Write-Host "Found UEFN process: $($uefnProcess.Name)"
+
+          # Test TCP connection to Verse Workflow Server (port 1962)
+          try {
+            $tcpClient = New-Object System.Net.Sockets.TcpClient
+            $tcpClient.Connect("127.0.0.1", 1962)
+            $tcpClient.Close()
+            Write-Host "Verse Workflow Server is accessible on port 1962"
+          } catch {
+            Write-Host "::warning::Cannot connect to Verse Workflow Server on port 1962"
           }
 
           'connected=true' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
@@ -190,28 +189,25 @@ jobs:
         run: |
           Write-Host "Starting Verse build..."
 
-          # Method 1: Use verse_build.bat if exists
-          $buildScript = "${{ github.workspace }}\scripts\verse_build.bat"
-          if (Test-Path $buildScript) {
-            Write-Host "Using build script: $buildScript"
-            $output = & cmd /c $buildScript 2>&1 | Out-String
-            $exitCode = $LASTEXITCODE
-          } else {
-            # Method 2: Direct verse compiler call
-            Write-Host "Using direct verse compiler"
-            $verseCompiler = "${{ env.VERSE_COMPILER_PATH }}"
+          # Use verse-build.js CLI tool (connects to UEFN via TCP:1962)
+          $verseCli = "${{ env.VERSE_CLI_PATH }}\verse-build.js"
 
-            if (-not (Test-Path $verseCompiler)) {
-              Write-Host "::error::Verse compiler not found"
-              'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-              'errors=Verse compiler not found' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-              exit 1
-            }
+          if (-not (Test-Path $verseCli)) {
+            Write-Host "::error::Verse CLI not found at: $verseCli"
+            'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            'errors=Verse CLI tool not found' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            exit 1
+          }
 
-            # Run verse compiler
-            $projectPath = "${{ env.UEFN_VERSE_PATH }}"
-            $output = & $verseCompiler --project="$projectPath" 2>&1 | Out-String
+          Write-Host "Using Verse CLI: $verseCli"
+
+          # Run verse-build.js
+          Push-Location "${{ env.VERSE_CLI_PATH }}"
+          try {
+            $output = node verse-build.js --push 2>&1 | Out-String
             $exitCode = $LASTEXITCODE
+          } finally {
+            Pop-Location
           }
 
           Write-Host "--- Build Output ---"
@@ -221,6 +217,10 @@ jobs:
           if ($exitCode -eq 0) {
             Write-Host "Build succeeded!"
             'result=success' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } elseif ($exitCode -eq 2) {
+            Write-Host "::error::UEFN not running or connection failed"
+            'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            'errors=UEFN not running or connection failed (exit code 2)' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           } else {
             Write-Host "Build failed with exit code: $exitCode"
             'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
@@ -233,8 +233,6 @@ jobs:
               $errorOutput = "$head`n`n... [truncated] ...`n`n$tail"
             }
 
-            # Escape multiline output
-            $escapedOutput = $errorOutput -replace '%', '%25' -replace "`n", '%0A' -replace "`r", ''
             'errors<<EOF' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
             $errorOutput | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
             'EOF' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
