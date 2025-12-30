@@ -8504,3 +8504,48 @@ jobs:
             }
             (async () => { await main(); })();
 
+  # === Event Callback Job (Added for event-driven architecture) ===
+  event_callback:
+    needs:
+      - agent
+      - safe_outputs
+      - conclusion
+    if: always() && github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Send agent:complete event
+        env:
+          GH_TOKEN: ${{ secrets.EVENT_DISPATCH_TOKEN }}
+          TASK_ID: ${{ env.TASK_ID }}
+          WORKING_BRANCH: ${{ env.WORKING_BRANCH }}
+          REQUIREMENT: ${{ env.REQUIREMENT }}
+          RETRY_COUNT: ${{ env.RETRY_COUNT }}
+          MAX_RETRIES: ${{ env.MAX_RETRIES }}
+          AGENT_RESULT: ${{ needs.agent.result }}
+        run: |
+          echo " Sending agent:complete event..."
+          
+          # Determine status based on agent result
+          if [ "$AGENT_RESULT" == "success" ]; then
+            STATUS="success"
+          else
+            STATUS="failure"
+          fi
+          
+          PAYLOAD=$(jq -n \
+            --arg task_id "$TASK_ID" \
+            --arg branch_name "$WORKING_BRANCH" \
+            --arg requirement "$REQUIREMENT" \
+            --arg status "$STATUS" \
+            --arg retry_count "$RETRY_COUNT" \
+            --arg max_retries "$MAX_RETRIES" \
+            '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, agent: "verse-dev-loop", status: $status, retry_count: $retry_count, max_retries: $max_retries}')
+          
+          echo "Payload: $PAYLOAD"
+          
+          echo "{\"event_type\":\"agent:complete\",\"client_payload\":$PAYLOAD}" | \
+            gh api repos/${{ github.repository }}/dispatches --input -
+          
+          echo " Event sent successfully"
