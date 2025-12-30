@@ -34,6 +34,7 @@ using { /Fortnite.com/Devices }
 using { /Fortnite.com/Game }
 using { /Fortnite.com/Characters }
 using { /Fortnite.com/Teams }
+using { /Fortnite.com/Playspaces }
 
 # ═══════════════════════════════════════════════════════════
 # 操作结果结构
@@ -395,9 +396,12 @@ GameFlowWrapper<public> := module:
     
     # 获取队伍中的所有 agent
     # 返回指定队伍中的所有 agent 列表
-    GetTeamAgents<public>(TargetTeam:team)<transacts>:[]agent =
-        # team 接口提供 GetAgents 方法
-        TargetTeam.GetAgents()
+    GetTeamAgents<public>(TeamCollection:fort_team_collection, TargetTeam:team)<transacts>:?[]agent =
+        # fort_team_collection 提供 GetAgents 方法
+        if (Agents := TeamCollection.GetAgents[TargetTeam]):
+            option{Agents}
+        else:
+            false
     
     # 检查两个 agent 是否在同一队伍
     # 如果两个 agent 属于同一队伍，返回 true
