@@ -128,9 +128,10 @@ jobs:
         if: steps.compile.outcome == 'success'
         env:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
+          BUILD_OUTPUT: ${{ steps.compile.outputs.build_output }}
         shell: pwsh
         run: |
-          $buildOutput = '${{ steps.compile.outputs.build_output }}'
+          $buildOutput = $env:BUILD_OUTPUT
           
           # Decode URL-encoded characters
           Add-Type -AssemblyName System.Web
@@ -168,6 +169,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACTIONAGENT }}
           IS_COPILOT: ${{ startsWith(steps.pr_info.outputs.branch || github.event.pull_request.head.ref || '', 'copilot/') }}
+          BUILD_OUTPUT: ${{ steps.compile.outputs.build_output }}
         shell: pwsh
         run: |
           $isCopilot = $env:IS_COPILOT -eq 'true'
@@ -178,7 +180,7 @@ jobs:
             $mention = "Build failed. Please fix the following errors:"
           }
           
-          $buildOutput = '${{ steps.compile.outputs.build_output }}'
+          $buildOutput = $env:BUILD_OUTPUT
           
           # Decode URL-encoded characters
           Add-Type -AssemblyName System.Web
