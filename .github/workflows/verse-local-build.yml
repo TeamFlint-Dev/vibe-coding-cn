@@ -1,311 +1,298 @@
-# Verse Local Build - Self-Hosted Runner 本地编译工作流
+# Verse Local Build - Self-Hosted Runner
 #
-# 架构：事件驱动 + 本地编译服务
-# - 监听 compile:request 事件
-# - 本地 Runner 执行编译验证
-# - 编译完成后发送 compile:complete 事件回调
+# Event-driven local compilation workflow
+# - Listens for compile:request events
+# - Local Runner executes compilation
+# - Sends compile:complete callback on finish
 
-name: "🔨 本地编译"
+name: "Local Build"
 
 on:
-  # 事件驱动：监听编译请求
+  # Event-driven: listen for compile requests
   repository_dispatch:
     types: [compile:request]
 
-  # 保留 PR 触发 (向后兼容)
+  # Keep PR trigger for backward compatibility
   pull_request:
     types: [opened, synchronize]
     paths:
       - '**.verse'
       - '**/verse/**'
 
-  # 支持手动触发
+  # Support manual trigger
   workflow_dispatch:
     inputs:
       branch:
-        description: "分支名称"
+        description: "Branch name"
         required: false
         default: ""
       task_id:
-        description: "任务 ID"
+        description: "Task ID"
         required: false
         default: ""
-      requirement:
-        description: "任务需求 (用于修复上下文)"
-        required: false
-        default: ""
-      retry_count:
-        description: "当前重试次数"
-        required: false
-        default: "0"
-      max_retries:
-        description: "最大重试次数"
-        required: false
-        default: "3"
-
-# 确保同一时间只有一个编译任务运行
-concurrency:
-  group: verse-local-build-${{ github.event.client_payload.branch_name || github.head_ref || github.ref_name }}
-  cancel-in-progress: false
 
 env:
-  VERSE_CLI_PATH: "i18n/zh/skills/verseDev/verse-cli/verse-build.js"
+  UEFN_VERSE_PATH: "E:\\Game\\FishTycoon\\Content\\Verse"
+  REPO_VERSE_PATH: "UEFNgame/trophy-fishing/Verse"
+  VERSE_CLI_PATH: "E:\\Game\\FishTycoon\\Content\\AgentWorkSpace\\vibe_coding\\i18n\\zh\\skills\\verseDev\\verse-cli"
 
 jobs:
-  local-build:
-    # 运行在本地 Self-Hosted Runner
-    runs-on: [self-hosted, windows]
-    timeout-minutes: 20
-
-    permissions:
-      contents: write
-      pull-requests: write
-      actions: write
+  build:
+    name: "Verse Build"
+    runs-on: [self-hosted, windows, verse-builder]
 
     outputs:
-      build_result: ${{ steps.build.outputs.result }}
-      build_errors: ${{ steps.build.outputs.errors }}
+      result: ${{ steps.build.outputs.result }}
+      errors: ${{ steps.build.outputs.errors }}
 
     steps:
-      # ============================================
-      # 0. 解析事件参数
-      # ============================================
-      - name: 解析参数
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.client_payload.branch_name || inputs.branch || github.head_ref || 'main' }}
+
+      - name: Parse event parameters
         id: params
         shell: powershell
         run: |
-          # 从不同事件源获取参数
           $branchName = "${{ github.event.client_payload.branch_name }}"
           if (-not $branchName) { $branchName = "${{ inputs.branch }}" }
           if (-not $branchName) { $branchName = "${{ github.head_ref }}" }
-          if (-not $branchName) { $branchName = "${{ github.ref_name }}" }
-          
+          if (-not $branchName) { $branchName = "main" }
+
           $taskId = "${{ github.event.client_payload.task_id }}"
           if (-not $taskId) { $taskId = "${{ inputs.task_id }}" }
-          if (-not $taskId) { $taskId = "manual-$(Get-Date -Format 'yyyyMMdd-HHmmss')" }
-          
+
           $requirement = "${{ github.event.client_payload.requirement }}"
-          if (-not $requirement) { $requirement = "${{ inputs.requirement }}" }
-          
+
           $retryCount = "${{ github.event.client_payload.retry_count }}"
-          if (-not $retryCount) { $retryCount = "${{ inputs.retry_count }}" }
           if (-not $retryCount) { $retryCount = "0" }
-          
+
           $maxRetries = "${{ github.event.client_payload.max_retries }}"
           if (-not $maxRetries) { $maxRetries = "${{ inputs.max_retries }}" }
           if (-not $maxRetries) { $maxRetries = "3" }
-          
-          "branch_name=$branchName" >> $env:GITHUB_OUTPUT
-          "task_id=$taskId" >> $env:GITHUB_OUTPUT
-          "requirement=$requirement" >> $env:GITHUB_OUTPUT
-          "retry_count=$retryCount" >> $env:GITHUB_OUTPUT
-          "max_retries=$maxRetries" >> $env:GITHUB_OUTPUT
-          
-          Write-Host "📋 任务参数:"
-          Write-Host "   分支: $branchName"
-          Write-Host "   任务ID: $taskId"
-          Write-Host "   重试: $retryCount / $maxRetries"
+
+          "branch_name=$branchName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "task_id=$taskId" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "requirement=$requirement" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "retry_count=$retryCount" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "max_retries=$maxRetries" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+          Write-Host "Task parameters:"
+          Write-Host "   Branch: $branchName"
+          Write-Host "   Task ID: $taskId"
+          Write-Host "   Retry: $retryCount / $maxRetries"
 
       # ============================================
-      # 1. 准备环境
+      # 1. Pre-build checks and sync
       # ============================================
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ steps.params.outputs.branch_name }}
-          fetch-depth: 0
-          persist-credentials: true
+      - name: Check filenames for invalid characters
+        id: check-files
+        shell: powershell
+        run: |
+          $versePath = "${{ github.workspace }}\${{ env.REPO_VERSE_PATH }}"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+          Write-Host "Checking filenames for invalid characters..."
+          if (Test-Path $versePath) {
+            $invalidFiles = Get-ChildItem -Path $versePath -Recurse -File |
+              Where-Object { $_.Name -match '[-\s]' }
+
+            if ($invalidFiles) {
+              Write-Host "::error::Found files with invalid characters (- or space):"
+              $invalidFiles | ForEach-Object { Write-Host "   - $($_.FullName)" }
+              'valid=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+              exit 1
+            }
+          }
+
+          Write-Host "Filename check passed"
+          'valid=true' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+
+      - name: Sync Verse to UEFN Project
+        id: sync
+        shell: powershell
+        run: |
+          $source = "${{ github.workspace }}\${{ env.REPO_VERSE_PATH }}"
+          $dest = "${{ env.UEFN_VERSE_PATH }}"
+
+          Write-Host "Syncing Verse code to UEFN project..."
+          Write-Host "   Source: $source"
+          Write-Host "   Dest: $dest"
+
+          if (-not (Test-Path $source)) {
+            Write-Host "Source directory does not exist, skipping sync"
+            'synced=skipped' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            exit 0
+          }
+
+          # Ensure destination directory exists
+          if (-not (Test-Path $dest)) {
+            New-Item -ItemType Directory -Path $dest -Force | Out-Null
+          }
+
+          # Use robocopy for sync (mirror mode)
+          robocopy $source $dest /MIR /R:3 /W:1 /NFL /NDL /NJH /NJS
+
+          # robocopy return codes: 0-7 means success
+          if ($LASTEXITCODE -le 7) {
+            Write-Host "Sync completed"
+            'synced=true' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } else {
+            Write-Host "::error::Sync failed with code: $LASTEXITCODE"
+            'synced=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            exit 1
+          }
 
       # ============================================
-      # 2. 检查 UEFN 连接
+      # 2. Check UEFN connection
       # ============================================
       - name: Check UEFN Connection
         id: uefn-check
         shell: powershell
         run: |
-          $maxAttempts = 5
-          $attempt = 0
-          $connected = $false
+          Write-Host "Checking UEFN connection..."
 
-          Write-Host "🔌 Checking UEFN Workflow Server connection..."
+          # Check if UEFN process is running
+          $uefnProcess = Get-Process -Name "UnrealEditor*" -ErrorAction SilentlyContinue
 
-          while ($attempt -lt $maxAttempts -and -not $connected) {
-            try {
-              $tcp = New-Object System.Net.Sockets.TcpClient
-              $tcp.Connect("127.0.0.1", 1962)
-              $tcp.Close()
-              $connected = $true
-              Write-Host "✅ UEFN Workflow Server is running on port 1962"
-            } catch {
-              $attempt++
-              Write-Host "⏳ Waiting for UEFN... (attempt $attempt/$maxAttempts)"
-              Start-Sleep -Seconds 5
-            }
+          if (-not $uefnProcess) {
+            # Try alternative process names
+            $uefnProcess = Get-Process -Name "FortniteClient*" -ErrorAction SilentlyContinue
           }
 
-          if (-not $connected) {
-            Write-Host "::error::❌ UEFN is not running. Please open UEFN with your project."
-            "connected=false" >> $env:GITHUB_OUTPUT
+          if (-not $uefnProcess) {
+            Write-Host "::error::UEFN is not running. Please open UEFN with your project."
+            'connected=false' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
             exit 1
           }
 
-          "connected=true" >> $env:GITHUB_OUTPUT
+          Write-Host "Found UEFN process: $($uefnProcess.Name)"
+
+          # Test TCP connection to Verse Workflow Server (port 1962)
+          try {
+            $tcpClient = New-Object System.Net.Sockets.TcpClient
+            $tcpClient.Connect("127.0.0.1", 1962)
+            $tcpClient.Close()
+            Write-Host "Verse Workflow Server is accessible on port 1962"
+          } catch {
+            Write-Host "::warning::Cannot connect to Verse Workflow Server on port 1962"
+          }
+
+          'connected=true' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
       # ============================================
-      # 3. 执行 Verse 编译
+      # 3. Execute Verse Build
       # ============================================
       - name: Run Verse Build
         id: build
         shell: powershell
-        continue-on-error: true
         run: |
-          $buildScript = "${{ github.workspace }}/${{ env.VERSE_CLI_PATH }}"
+          Write-Host "Starting Verse build..."
 
-          Write-Host "🔨 Running Verse compilation..."
-          Write-Host "   Script: $buildScript"
+          # Use verse-build.js CLI tool (connects to UEFN via TCP:1962)
+          $verseCli = "${{ env.VERSE_CLI_PATH }}\verse-build.js"
 
-          # 运行编译并捕获输出
-          $output = ""
-          try {
-            $output = node $buildScript 2>&1 | Out-String
-            $exitCode = $LASTEXITCODE
-          } catch {
-            $output = $_.Exception.Message
-            $exitCode = 1
+          if (-not (Test-Path $verseCli)) {
+            Write-Host "::error::Verse CLI not found at: $verseCli"
+            'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            'errors=Verse CLI tool not found' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            exit 1
           }
 
-          # 保存完整输出到文件
-          $output | Out-File -FilePath "build-output.txt" -Encoding utf8
+          Write-Host "Using Verse CLI: $verseCli"
+
+          # Run verse-build.js
+          Push-Location "${{ env.VERSE_CLI_PATH }}"
+          try {
+            $output = node verse-build.js --push 2>&1 | Out-String
+            $exitCode = $LASTEXITCODE
+          } finally {
+            Pop-Location
+          }
 
           Write-Host "--- Build Output ---"
           Write-Host $output
           Write-Host "--- End Output ---"
 
           if ($exitCode -eq 0) {
-            Write-Host "✅ Build succeeded!"
-            "result=success" >> $env:GITHUB_OUTPUT
+            Write-Host "Build succeeded!"
+            'result=success' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } elseif ($exitCode -eq 2) {
+            Write-Host "::error::UEFN not running or connection failed"
+            'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            'errors=UEFN not running or connection failed (exit code 2)' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           } else {
-            Write-Host "❌ Build failed with exit code: $exitCode"
-            "result=failure" >> $env:GITHUB_OUTPUT
+            Write-Host "Build failed with exit code: $exitCode"
+            'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
-            # 提取并截断错误信息（保留关键部分）
+            # Extract and truncate error message
             $errorOutput = $output
             if ($errorOutput.Length -gt 4000) {
-              # 保留开头和结尾的错误信息
               $head = $errorOutput.Substring(0, 2000)
-              $tail = $errorOutput.Substring($errorOutput.Length - 1500)
+              $tail = $errorOutput.Substring($errorOutput.Length - 2000)
               $errorOutput = "$head`n`n... [truncated] ...`n`n$tail"
             }
 
-            # 转义多行输出
-            $escapedOutput = $errorOutput -replace '%', '%25' -replace "`n", '%0A' -replace "`r", ''
-            "errors<<EOF" >> $env:GITHUB_OUTPUT
-            $errorOutput >> $env:GITHUB_OUTPUT
-            "EOF" >> $env:GITHUB_OUTPUT
+            'errors<<EOF' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            $errorOutput | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            'EOF' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
           }
 
       # ============================================
-      # 4. 上传构建日志
+      # 4. Upload build logs
       # ============================================
-      - name: Upload Build Log
+      - name: Upload build logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-output-${{ github.run_number }}
-          path: build-output.txt
-          retention-days: 7
+          name: build-logs
+          path: |
+            ${{ github.workspace }}/build.log
+            ${{ github.workspace }}/verse_build.log
+          if-no-files-found: ignore
 
-      # ============================================
-      # 5. 处理构建结果
-      # ============================================
+  # ============================================
+  # Event callback job
+  # ============================================
+  event_callback:
+    name: "Send Event Callback"
+    needs: build
+    if: always() && (github.event_name == 'repository_dispatch' || inputs.task_id != '')
+    runs-on: ubuntu-latest
 
-      # 5a. 发送编译完成事件 (事件驱动模式)
-      - name: 发送 compile:complete 事件
-        if: github.event_name == 'repository_dispatch'
-        shell: powershell
+    steps:
+      - name: Send compile:complete event
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
+          TASK_ID: ${{ needs.build.outputs.task_id || github.event.client_payload.task_id }}
+          BRANCH_NAME: ${{ needs.build.outputs.branch_name || github.event.client_payload.branch_name }}
+          REQUIREMENT: ${{ needs.build.outputs.requirement || github.event.client_payload.requirement }}
+          RETRY_COUNT: ${{ needs.build.outputs.retry_count || github.event.client_payload.retry_count || '0' }}
+          MAX_RETRIES: ${{ needs.build.outputs.max_retries || github.event.client_payload.max_retries || '3' }}
+          BUILD_RESULT: ${{ needs.build.outputs.result }}
+          BUILD_ERRORS: ${{ needs.build.outputs.errors }}
         run: |
-          $result = "${{ steps.build.outputs.result }}"
-          $errors = ""
-          if ($result -ne "success") {
-            $errors = Get-Content -Path "build-output.txt" -Raw -ErrorAction SilentlyContinue
-            if ($errors.Length -gt 3000) {
-              $errors = $errors.Substring(0, 3000) + "... [truncated]"
-            }
-            $errors = $errors -replace '"', '\"' -replace "`n", '\n' -replace "`r", ''
-          }
-          
-          $payload = @{
-            task_id = "${{ steps.params.outputs.task_id }}"
-            branch_name = "${{ steps.params.outputs.branch_name }}"
-            requirement = "${{ steps.params.outputs.requirement }}"
-            status = $result
-            errors = $errors
-            retry_count = [int]"${{ steps.params.outputs.retry_count }}"
-            max_retries = [int]"${{ steps.params.outputs.max_retries }}"
-          } | ConvertTo-Json -Compress
-          
-          Write-Host "📤 发送 compile:complete 事件"
-          Write-Host "   状态: $result"
-          
-          gh api repos/${{ github.repository }}/dispatches `
-            -f event_type="compile:complete" `
-            -f client_payload="$payload"
+          echo "Sending compile:complete event..."
 
-      # 5b. PR 模式：成功评论
-      - name: Comment Success on PR
-        if: steps.build.outputs.result == 'success' && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const body = `## ✅ Verse Build Succeeded!
+          # Skip if no task_id (manual trigger without task context)
+          if [ -z "$TASK_ID" ]; then
+            echo "No task_id, skipping event callback"
+            exit 0
+          fi
 
-            **Runner**: \`${{ runner.name }}\`
-            **Commit**: \`${{ github.sha }}\`
+          PAYLOAD=$(jq -n \
+            --arg task_id "$TASK_ID" \
+            --arg branch_name "$BRANCH_NAME" \
+            --arg requirement "$REQUIREMENT" \
+            --arg status "$BUILD_RESULT" \
+            --arg errors "$BUILD_ERRORS" \
+            --arg retry_count "$RETRY_COUNT" \
+            --arg max_retries "$MAX_RETRIES" \
+            '{task_id: $task_id, branch_name: $branch_name, requirement: $requirement, status: $status, errors: $errors, retry_count: $retry_count, max_retries: $max_retries}')
 
-            🎉 Code compiled successfully. Ready for review!
-            `;
+          echo "Payload: $PAYLOAD"
 
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: body
-            });
+          echo "{\"event_type\":\"compile:complete\",\"client_payload\":$PAYLOAD}" | \
+            gh api repos/${{ github.repository }}/dispatches --input -
 
-      # 5c. PR 模式：失败时触发修复 (向后兼容)
-      - name: Trigger Fix Loop (PR mode)
-        if: steps.build.outputs.result == 'failure' && github.event_name == 'pull_request'
-        shell: powershell
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          $branchName = "${{ github.head_ref }}"
-          if (-not $branchName) { $branchName = "${{ github.ref_name }}" }
-
-          $errors = Get-Content -Path "build-output.txt" -Raw -ErrorAction SilentlyContinue
-          if ($errors.Length -gt 4000) {
-            $errors = $errors.Substring(0, 4000) + "`n... [truncated]"
-          }
-
-          Write-Host "🔄 Triggering verse-dev-loop to fix errors..."
-          
-          gh workflow run verse-dev-loop.lock.yml `
-            --ref "$branchName" `
-            -f requirement="Fix compilation errors" `
-            -f compile_errors="$errors" `
-            -f working_branch="$branchName"
-
-      # 5d. 设置 Job 状态
-      - name: Set Job Status
-        if: steps.build.outputs.result == 'failure'
-        shell: powershell
-        run: |
-          Write-Host "::error::Build failed. Check the build output for details."
-          exit 1
+          echo "Event sent successfully"

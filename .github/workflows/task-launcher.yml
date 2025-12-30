@@ -79,7 +79,7 @@ jobs:
     steps:
       - name: 发送 task:start 事件
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
         run: |
           PAYLOAD=$(jq -n \
             --arg task_id "${{ needs.initialize.outputs.task_id }}" \
@@ -96,9 +96,7 @@ jobs:
           echo " 发送事件: task:start"
           echo "$PAYLOAD" | jq .
           
-          gh api repos/${{ github.repository }}/dispatches \
-            -f event_type="task:start" \
-            -f client_payload="$PAYLOAD"
+          echo "{\"event_type\":\"task:start\",\"client_payload\":$PAYLOAD}" | gh api repos/${{ github.repository }}/dispatches --input -
           
           echo "##  任务已发起" >> $GITHUB_STEP_SUMMARY
           echo "事件 task:start 已发送" >> $GITHUB_STEP_SUMMARY
