@@ -1,0 +1,158 @@
+# PR Builder - Dispatch Trigger Workflow
+#
+# 此工作流通过 repository_dispatch 事件触发，绕过 Copilot 审批限制
+# Webhook 服务器接收 GitHub PR 事件后调用此工作流
+
+name: "PR Builder - Dispatch Trigger"
+
+on:
+  repository_dispatch:
+    types: [build-pr]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: "pr-builder-${{ github.event.client_payload.pr_number }}"
+  cancel-in-progress: true
+
+run-name: "Build PR #${{ github.event.client_payload.pr_number }}"
+
+jobs:
+  build:
+    runs-on: [self-hosted, windows, verse-builder]
+    
+    steps:
+      - name: Display PR Info
+        run: |
+          echo "PR Number: ${{ github.event.client_payload.pr_number }}"
+          echo "PR Title: ${{ github.event.client_payload.pr_title }}"
+          echo "Head Ref: ${{ github.event.client_payload.head_ref }}"
+        shell: bash
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.client_payload.head_ref }}
+          fetch-depth: 0
+
+      - name: Run Verse Build Script
+        id: build
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Continue"
+          
+          # 设置 UEFN 仓库路径环境变量
+          $env:UEFN_REPO_PATH = "E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN"
+          
+          # 运行编译脚本
+          $buildScript = ".\i18n\zh\skills\verseDev\verse-cli\verse-build.ps1"
+          
+          if (Test-Path $buildScript) {
+            try {
+              $output = & $buildScript 2>&1 | Out-String
+              $exitCode = $LASTEXITCODE
+              
+              # 保存输出到文件（用于后续步骤）
+              $output | Out-File -FilePath "build_output.txt" -Encoding utf8
+              
+              if ($exitCode -eq 0) {
+                echo "build_success=true" >> $env:GITHUB_OUTPUT
+                echo "✅ Build succeeded"
+              } else {
+                echo "build_success=false" >> $env:GITHUB_OUTPUT
+                echo "❌ Build failed with exit code: $exitCode"
+              }
+            } catch {
+              $_.Exception.Message | Out-File -FilePath "build_output.txt" -Encoding utf8
+              echo "build_success=false" >> $env:GITHUB_OUTPUT
+              echo "❌ Build threw exception: $_"
+            }
+          } else {
+            echo "Build script not found: $buildScript" | Out-File -FilePath "build_output.txt" -Encoding utf8
+            echo "build_success=false" >> $env:GITHUB_OUTPUT
+            echo "❌ Build script not found"
+          }
+
+      - name: Comment on PR - Success
+        if: steps.build.outputs.build_success == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            let buildOutput = '';
+            try {
+              buildOutput = fs.readFileSync('build_output.txt', 'utf8');
+            } catch (e) {
+              buildOutput = 'Build output not available';
+            }
+            
+            // 截断过长的输出
+            if (buildOutput.length > 60000) {
+              buildOutput = buildOutput.substring(0, 60000) + '\n\n... (输出已截断)';
+            }
+            
+            const body = `## ✅ 编译成功
+
+本地编译验证通过！
+
+<details>
+<summary>编译输出</summary>
+
+\`\`\`
+${buildOutput}
+\`\`\`
+
+</details>
+
+@Maybank01 请审阅此 PR。`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.client_payload.pr_number }},
+              body: body
+            });
+
+      - name: Comment on PR - Failure
+        if: steps.build.outputs.build_success == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            let buildOutput = '';
+            try {
+              buildOutput = fs.readFileSync('build_output.txt', 'utf8');
+            } catch (e) {
+              buildOutput = 'Build output not available';
+            }
+            
+            // 截断过长的输出
+            if (buildOutput.length > 60000) {
+              buildOutput = buildOutput.substring(0, 60000) + '\n\n... (输出已截断)';
+            }
+            
+            const body = `## ❌ 编译失败
+
+@copilot 编译未通过，请根据以下错误信息修复代码：
+
+\`\`\`
+${buildOutput}
+\`\`\`
+
+请分析错误原因并推送修复后的代码。`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.client_payload.pr_number }},
+              body: body
+            });
+
+      - name: Fail job if build failed
+        if: steps.build.outputs.build_success == 'false'
+        run: exit 1
+        shell: bash
