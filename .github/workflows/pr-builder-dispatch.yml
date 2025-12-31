@@ -25,14 +25,58 @@ jobs:
           Write-Host "PR Number: ${{ github.event.client_payload.pr_number }}"
           Write-Host "PR Title: ${{ github.event.client_payload.pr_title }}"
           Write-Host "Head Ref: ${{ github.event.client_payload.head_ref }}"
+          Write-Host "Head SHA: ${{ github.event.client_payload.head_sha }}"
+
+      - name: Check for duplicate run
+        id: check_duplicate
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const headSha = '${{ github.event.client_payload.head_sha }}';
+            const prNumber = ${{ github.event.client_payload.pr_number }};
+            
+            if (!headSha) {
+              console.log('No head_sha provided, proceeding with build');
+              return 'proceed';
+            }
+            
+            // 检查是否已有包含此 SHA 的评论
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              per_page: 20
+            });
+            
+            const shaMarker = `<!-- build-sha: ${headSha} -->`;
+            const hasDuplicate = comments.data.some(c => c.body.includes(shaMarker));
+            
+            if (hasDuplicate) {
+              console.log(`Found existing comment for SHA ${headSha.substring(0, 7)}, skipping`);
+              return 'skip';
+            }
+            
+            console.log(`No duplicate found for SHA ${headSha.substring(0, 7)}, proceeding`);
+            return 'proceed';
+          result-encoding: string
+
+      - name: Skip duplicate notification
+        if: steps.check_duplicate.outputs.result == 'skip'
+        shell: pwsh
+        run: |
+          Write-Host "Skipping duplicate build for same commit SHA"
+          exit 0
 
       - name: Checkout PR branch
+        if: steps.check_duplicate.outputs.result != 'skip'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.client_payload.head_ref }}
           fetch-depth: 0
 
       - name: Check for Verse files
+        if: steps.check_duplicate.outputs.result != 'skip'
         id: check_files
         shell: pwsh
         run: |
@@ -59,20 +103,21 @@ jobs:
           }
 
       - name: Skip Build Comment
-        if: steps.check_files.outputs.should_build == 'false'
+        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'false'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const headSha = '${{ github.event.client_payload.head_sha }}' || 'unknown';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.client_payload.pr_number }},
-              body: '## ⏭️ Build Skipped\n\nNo Verse code changes detected. Build skipped automatically.\n\n*Changed files do not include `.verse` files or Verse-related directories.*'
+              body: `## ⏭️ Build Skipped\n\nNo Verse code changes detected. Build skipped automatically.\n\n*Changed files do not include \`.verse\` files or Verse-related directories.*\n\n<!-- build-sha: ${headSha} -->`
             });
 
       - name: Run Verse Build Script
-        if: steps.check_files.outputs.should_build == 'true'
+        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true'
         id: build
         shell: pwsh
         run: |
@@ -105,12 +150,13 @@ jobs:
           }
 
       - name: Comment on PR - Success
-        if: steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'true'
+        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'true'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            const headSha = '${{ github.event.client_payload.head_sha }}' || 'unknown';
             let output = 'Build output not available';
             try { output = fs.readFileSync('build_output.txt', 'utf8'); } catch (e) {}
             if (output.length > 60000) output = output.substring(0, 60000) + '\n\n... (truncated)';
@@ -119,16 +165,17 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.client_payload.pr_number }},
-              body: '## Build Succeeded\n\nThe Verse build completed successfully!\n\n<details>\n<summary>Build Output</summary>\n\n```\n' + output + '\n```\n\n</details>\n\n@Maybank01 Please review and merge this PR.'
+              body: `## ✅ Build Succeeded\n\nThe Verse build completed successfully!\n\n<details>\n<summary>Build Output</summary>\n\n\`\`\`\n${output}\n\`\`\`\n\n</details>\n\n@Maybank01 Please review and merge this PR.\n\n<!-- build-sha: ${headSha} -->`
             });
 
       - name: Comment on PR - Failure
-        if: steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
+        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
+            const headSha = '${{ github.event.client_payload.head_sha }}' || 'unknown';
             let output = 'Build output not available';
             try { output = fs.readFileSync('build_output.txt', 'utf8'); } catch (e) {}
             if (output.length > 60000) output = output.substring(0, 60000) + '\n\n... (truncated)';
@@ -137,10 +184,10 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.client_payload.pr_number }},
-              body: '## Build Failed\n\n@copilot The build failed. Please analyze the error and fix it:\n\n```\n' + output + '\n```\n\nPlease fix the issues and push a new commit.'
+              body: `## ❌ Build Failed\n\n@copilot The build failed. Please analyze the error and fix it:\n\n\`\`\`\n${output}\n\`\`\`\n\nPlease fix the issues and push a new commit.\n\n<!-- build-sha: ${headSha} -->`
             });
 
       - name: Fail job if build failed
-        if: steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
+        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
         shell: pwsh
         run: exit 1

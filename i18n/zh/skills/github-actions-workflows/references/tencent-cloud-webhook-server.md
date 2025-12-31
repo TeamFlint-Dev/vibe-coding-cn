@@ -131,19 +131,44 @@ class WebhookHandler(BaseHTTPRequestHandler):
         pr = data.get('pull_request', {})
         pr_number = pr.get('number')
         pr_title = pr.get('title', '')
+        head_sha = pr.get('head', {}).get('sha', '')  # 获取 commit SHA 用于去重
         
         # Trigger on opened, synchronize, reopened
         if action in ['opened', 'synchronize', 'reopened']:
-            logger.info(f'PR #{pr_number}: {pr_title} - Action: {action}')
-            self.trigger_repository_dispatch(pr_number, action)
+            # 去重：检查是否已处理过该 commit
+            if self.is_duplicate(pr_number, head_sha):
+                logger.info(f'PR #{pr_number}: Skipping duplicate event for SHA {head_sha[:7]}')
+                return
+            
+            logger.info(f'PR #{pr_number}: {pr_title} - Action: {action} - SHA: {head_sha[:7]}')
+            self.trigger_repository_dispatch(pr_number, action, head_sha, pr.get('head', {}).get('ref', ''), pr_title)
+            self.mark_processed(pr_number, head_sha)
     
-    def trigger_repository_dispatch(self, pr_number, action):
+    # 简单的内存去重（生产环境建议用 Redis）
+    _processed_events = {}
+    
+    def is_duplicate(self, pr_number, head_sha):
+        key = f'{pr_number}:{head_sha}'
+        return key in WebhookHandler._processed_events
+    
+    def mark_processed(self, pr_number, head_sha):
+        key = f'{pr_number}:{head_sha}'
+        WebhookHandler._processed_events[key] = True
+        # 清理旧记录（保留最近 100 条）
+        if len(WebhookHandler._processed_events) > 100:
+            oldest = list(WebhookHandler._processed_events.keys())[0]
+            del WebhookHandler._processed_events[oldest]
+    
+    def trigger_repository_dispatch(self, pr_number, action, head_sha='', head_ref='', pr_title=''):
         url = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/dispatches'
         payload = json.dumps({
             'event_type': 'build-pr',
             'client_payload': {
                 'pr_number': pr_number,
-                'action': action
+                'action': action,
+                'head_sha': head_sha,
+                'head_ref': head_ref,
+                'pr_title': pr_title
             }
         }).encode()
         
