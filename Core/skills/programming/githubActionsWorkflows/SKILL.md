@@ -437,3 +437,15 @@ jobs:
 - Self-Hosted Runner 需要持续运行的主机
 - Webhook 服务器需要公网可访问 IP 或配置内网穿透（Ngrok/FRP）
 - Copilot Agent PR 必须通过外部 Webhook 才能完全自动化（仓库设置方案有限制）
+
+## Troubleshooting Quick Index
+
+常见问题速查，详见 [references/troubleshooting.md](references/troubleshooting.md)
+
+| 问题 | 原因 | 解决方案 |
+|------|------|----------|
+| GitHub Actions 评论无法触发 Copilot | Bot 无法触发 Bot | 使用个人 PAT 以用户身份发评论 |
+| SSH 连接被拒绝 | 端口混淆（SSH 22 vs Webhook 19527） | SSH 用端口 22，Webhook 服务用 19527 |
+| curl 下载私有仓库返回 404 | 仓库是私有的 | 使用 SCP 或带 Token 的请求 |
+| `Resource not accessible by integration` | GITHUB_TOKEN 权限不足 | 使用 Classic PAT |
+| Webhook 服务启动失败 | 下载的文件内容错误 | 验证文件内容：`head -5 file.py` |

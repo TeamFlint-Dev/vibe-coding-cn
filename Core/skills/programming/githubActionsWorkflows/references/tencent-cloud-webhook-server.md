@@ -7,6 +7,14 @@
 > 📁 **当前部署的配置信息**（IP、端口、密钥等）请查看本地文件：
 > `.secrets/tencent-webhook-config.md`（已添加到 .gitignore，不会提交到仓库）
 
+## 功能列表
+
+| 功能 | 触发方式 | 说明 |
+|------|---------|------|
+| 自动构建 | PR opened/synchronize | Copilot 或用户创建/更新 PR 时自动触发 |
+| 手动构建 | `/build` 或 `/编译` 评论 | 在 PR 中评论即可手动触发构建 |
+| Copilot 修复 | 构建失败时 | 以用户身份 @copilot 请求修复（GitHub Actions 评论无法触发 Copilot）|
+
 ## 问题背景
 
 GitHub Copilot Agent 创建的 PR 会触发 `pull_request` 事件，但由于安全策略，这些 workflow 需要人工批准才能运行。这对于需要全自动化的场景是一个障碍。
@@ -16,7 +24,11 @@ GitHub Copilot Agent 创建的 PR 会触发 `pull_request` 事件，但由于安
 ## 架构设计
 
 ```
-GitHub PR Event → Webhook → Tencent Cloud Server → GitHub API → repository_dispatch → Self-Hosted Runner
+GitHub PR Event ─────────────────┐
+GitHub Comment Event (/build) ───┼──→ Webhook Server ──→ repository_dispatch ──→ Runner
+GitHub Actions (build failed) ───┘         │
+                                           ↓
+                                   Post comment as user (@copilot fix)
 ```
 
 ## 服务器要求
@@ -45,7 +57,13 @@ cd /opt/webhook
 
 ```bash
 cat > /opt/webhook/.env << 'EOF'
+# 用于 repository_dispatch 触发工作流
 GITHUB_PAT=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# 用于以用户身份发表评论（触发 Copilot Agent）
+# 必须是个人账号的 PAT，不能是 Bot
+GITHUB_USER_PAT=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 WEBHOOK_SECRET=your-webhook-secret-here
 REPO_OWNER=YourOrg
 REPO_NAME=your-repo
@@ -55,11 +73,31 @@ chmod 600 /opt/webhook/.env
 ```
 
 **重要参数说明：**
-- `GITHUB_PAT`: GitHub Personal Access Token (Classic)，需要 `repo` 权限
+- `GITHUB_PAT`: GitHub Personal Access Token (Classic)，需要 `repo` 权限，用于触发工作流
+- `GITHUB_USER_PAT`: 个人账号的 PAT，用于以用户身份发表 @copilot 评论
 - `WEBHOOK_SECRET`: 与 GitHub Webhook 配置中的 Secret 一致
 - `PORT`: Webhook 服务监听端口
 
-### 3. 创建 Webhook 服务脚本
+> ⚠️ **重要**：`GITHUB_USER_PAT` 必须是真人用户的 PAT。GitHub Actions 使用 `GITHUB_TOKEN` 发表的评论无法触发 Copilot Agent（Bot 不能触发 Bot）。
+
+### 3. 部署 Webhook 服务脚本
+
+**推荐方式：通过 SCP 上传**（私有仓库无法直接 curl）
+
+```bash
+# 从本地上传
+scp -i ~/.ssh/key.pem scripts/webhook-server/webhook_server.py ubuntu@server:/tmp/
+ssh -i ~/.ssh/key.pem ubuntu@server "sudo cp /tmp/webhook_server.py /opt/webhook/"
+```
+
+**验证文件内容：**
+```bash
+head -5 /opt/webhook/webhook_server.py
+# 应该显示 Python 代码，而不是 "404: Not Found"
+```
+
+<details>
+<summary>手动创建脚本（备用方案）</summary>
 
 ```bash
 cat > /opt/webhook/webhook_server.py << 'PYTHON_EOF'

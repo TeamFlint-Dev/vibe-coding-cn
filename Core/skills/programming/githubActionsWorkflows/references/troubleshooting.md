@@ -321,3 +321,111 @@ env:
    ├─> 检查标签匹配
    └─> 检查文件权限
 ```
+
+## Webhook 服务器问题
+
+### GitHub Actions 评论无法触发 Copilot Agent
+
+**症状：** GitHub Actions 使用 `GITHUB_TOKEN` 发表的评论中 `@copilot` 不会触发 Copilot Agent 响应。
+
+**原因：** GitHub 设计上阻止 Bot 触发其他 Bot（防止无限循环）。
+
+**解决方案：** 使用个人 PAT 以用户身份发表评论：
+
+```python
+# Webhook 服务器中添加
+GITHUB_USER_PAT = os.environ.get("GITHUB_USER_PAT", "")  # 个人 PAT
+
+def post_comment_as_user(pr_number: int, body: str) -> bool:
+    """以用户身份发表评论（可触发 Copilot Agent）"""
+    url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/issues/{pr_number}/comments"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_USER_PAT}",  # 使用个人 PAT
+        # ...
+    }
+```
+
+**评论分离策略：**
+| 评论类型 | 发表方式 | 可触发 Copilot |
+|---------|---------|---------------|
+| 系统消息 (Build Skipped/Succeeded) | GitHub Actions (`GITHUB_TOKEN`) | ❌ |
+| 修复请求 (`@copilot ...`) | Webhook (`GITHUB_USER_PAT`) | ✅ |
+
+### SSH 连接被拒绝
+
+**症状：**
+```
+Connection closed by 193.112.183.143 port 19527
+```
+
+**原因：** 端口混淆 - SSH 端口是 22，19527 是 Webhook 服务端口。
+
+**解决方案：**
+```bash
+# ✅ 正确：SSH 使用默认端口 22
+ssh -i ~/.ssh/key.pem ubuntu@server-ip
+
+# ❌ 错误：误用 Webhook 端口
+ssh -i ~/.ssh/key.pem -p 19527 ubuntu@server-ip
+```
+
+### curl 下载私有仓库文件返回 404
+
+**症状：**
+```bash
+curl -o file.py https://raw.githubusercontent.com/org/private-repo/main/file.py
+# 文件内容是 "404: Not Found"
+```
+
+**原因：** 私有仓库需要认证。
+
+**解决方案：**
+```bash
+# 方案 A：使用 SCP 上传
+scp -i key.pem local_file.py ubuntu@server:/opt/webhook/
+
+# 方案 B：使用带 Token 的请求
+curl -H "Authorization: token ghp_xxx" \
+  https://raw.githubusercontent.com/org/repo/main/file.py
+
+# 方案 C：使用 GitHub API
+curl -H "Authorization: token ghp_xxx" \
+  -H "Accept: application/vnd.github.raw" \
+  https://api.github.com/repos/org/repo/contents/file.py
+```
+
+### Webhook 服务启动失败 - SyntaxError
+
+**症状：**
+```
+SyntaxError: illegal target for annotation
+```
+
+**原因：** 下载的文件内容不正确（通常是 404 页面或 HTML）。
+
+**诊断：**
+```bash
+head -5 /opt/webhook/webhook_server.py
+# 如果显示 "404: Not Found" 或 HTML，说明下载失败
+```
+
+**解决方案：** 使用 SCP 直接上传正确的文件。
+
+## 手动触发构建
+
+### 添加 `/build` 命令支持
+
+在 Webhook 服务器中添加对 PR 评论的监听：
+
+```python
+BUILD_COMMANDS = re.compile(r"^\s*(/build|/编译)\s*$", re.MULTILINE)
+
+def _handle_comment_event(self, data: dict):
+    """检测 /build 或 /编译 命令"""
+    comment_body = data.get("comment", {}).get("body", "")
+    if BUILD_COMMANDS.search(comment_body):
+        # 触发构建
+        trigger_repository_dispatch(pr_number, pr_title, head_ref)
+```
+
+**GitHub Webhook 配置：** 需要勾选 `Issue comments` 事件。
