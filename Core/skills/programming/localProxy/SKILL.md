@@ -126,3 +126,45 @@ $env:NO_PROXY = "localhost,127.0.0.1,193.112.183.143"
    - 国内站点/服务器 → 需要直连
 3. **检查直连规则**：目标 IP 是否在直连列表？
 4. **添加规则**：如需要，添加直连规则并重启
+5. **检查服务器端防火墙**：见下节
+
+## 服务器端防火墙检查
+
+当 Ping 正常但 TCP 端口连接失败时，问题可能在服务器端 iptables：
+
+### 症状
+
+```
+TcpTestSucceeded : False  （但 PingSucceeded : True）
+```
+
+或 V2RayN 日志出现：
+
+```
+proxy/http: failed to read response > unexpected EOF
+```
+
+### 排查命令
+
+```bash
+# SSH 到服务器后检查
+sudo iptables -L INPUT -n --line-numbers   # 查看 INPUT 链
+sudo iptables -L GITHUB_WEBHOOK -n -v      # 查看专用链（如有）
+sudo ss -tlnp | grep 端口号                 # 确认服务监听
+```
+
+### 腾讯云 Webhook 服务器
+
+该服务器存在 `GITHUB_WEBHOOK` iptables 链，专门控制 19527 端口：
+
+```bash
+# 查看规则
+sudo iptables -L GITHUB_WEBHOOK -n -v
+
+# 设置全放行（由云安全组控制）
+sudo iptables -F GITHUB_WEBHOOK
+sudo iptables -A GITHUB_WEBHOOK -j ACCEPT
+sudo netfilter-persistent save
+```
+
+详见 [controlHub SKILL](../controlHub/SKILL.md) 的防火墙配置章节。

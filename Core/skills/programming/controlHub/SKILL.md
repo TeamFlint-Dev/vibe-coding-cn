@@ -414,6 +414,42 @@ sudo systemctl status webhook
 - `CALLBACK_URL`: `http://193.112.183.143:19527/callback`
 - `CALLBACK_SECRET`: 与 `.env` 中 `CALLBACK_SECRET` 一致
 
+### 5. 服务器防火墙配置（iptables）
+
+服务器使用 iptables 控制 19527 端口访问，存在专用的 `GITHUB_WEBHOOK` 链：
+
+```bash
+# 查看当前规则
+sudo iptables -L GITHUB_WEBHOOK -n -v
+
+# 查看 INPUT 链如何调用 GITHUB_WEBHOOK
+sudo iptables -L INPUT -n --line-numbers | grep 19527
+```
+
+**当前配置**：全放行（由腾讯云安全组控制访问）
+
+```bash
+# 设置全放行
+sudo iptables -F GITHUB_WEBHOOK
+sudo iptables -A GITHUB_WEBHOOK -j ACCEPT
+sudo netfilter-persistent save
+```
+
+**如需限制 IP（可选）**：
+
+```bash
+# 清空后添加 GitHub IP 白名单
+sudo iptables -F GITHUB_WEBHOOK
+sudo iptables -A GITHUB_WEBHOOK -s 192.30.252.0/22 -j ACCEPT
+sudo iptables -A GITHUB_WEBHOOK -s 185.199.108.0/22 -j ACCEPT
+sudo iptables -A GITHUB_WEBHOOK -s 140.82.112.0/20 -j ACCEPT
+sudo iptables -A GITHUB_WEBHOOK -s 143.55.64.0/20 -j ACCEPT
+sudo iptables -A GITHUB_WEBHOOK -j DROP  # 最后丢弃其他流量
+sudo netfilter-persistent save
+```
+
+> ⚠️ **注意**：如果本地 IP 不固定且需要直接测试，使用全放行模式，由腾讯云安全组控制。
+
 ---
 
 ## 故障排查
@@ -426,6 +462,8 @@ sudo systemctl status webhook
 | 额度耗尽 | 单账号使用过多 | 配置多账号轮换 |
 | 回调失败 | 签名验证失败 | 检查 CALLBACK_SECRET |
 | 任务找不到 | 服务重启丢失状态 | 正常现象（内存存储） |
+| **TCP 连接失败但 Ping 正常** | **iptables 阻止端口访问** | **检查 GITHUB_WEBHOOK 链规则** |
+| **unexpected EOF** | **代理转发失败或目标不可达** | **检查直连规则和 iptables** |
 
 ### 日志关键词
 
