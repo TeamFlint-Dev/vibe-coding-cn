@@ -20,11 +20,11 @@ jobs:
 
     steps:
       - name: Display PR Info
-        shell: bash
+        shell: pwsh
         run: |
-          echo "PR Number: ${{ github.event.client_payload.pr_number }}"
-          echo "PR Title: ${{ github.event.client_payload.pr_title }}"
-          echo "Head Ref: ${{ github.event.client_payload.head_ref }}"
+          Write-Host "PR Number: ${{ github.event.client_payload.pr_number }}"
+          Write-Host "PR Title: ${{ github.event.client_payload.pr_title }}"
+          Write-Host "Head Ref: ${{ github.event.client_payload.head_ref }}"
 
       - name: Checkout PR branch
         uses: actions/checkout@v4
@@ -102,5 +102,5 @@ jobs:
 
       - name: Fail job if build failed
         if: steps.build.outputs.build_success == 'false'
-        shell: bash
+        shell: pwsh
         run: exit 1
