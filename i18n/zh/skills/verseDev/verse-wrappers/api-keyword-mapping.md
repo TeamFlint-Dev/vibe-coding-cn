@@ -146,20 +146,23 @@
 
 ---
 
-### AI 行为域 → AIWrapper 🔲
+### AI 行为域 → NPCWrapper ✅
 
 | 关键词 | 关联 API | digest 位置 |
 |--------|----------|-------------|
-| AI | ai 模块 | Fortnite L7000 |
-| NPC | npc 相关 | Fortnite L7100 |
-| 巡逻 | patrol 相关 | Fortnite L7200 |
-| 追击 | chase 相关 | Fortnite L7300 |
-| 寻路 | navigation | Fortnite L7400 |
-| 行为树 | behavior tree | Fortnite L7500 |
-| 敌人 | enemy 相关 | Fortnite L7600 |
+| AI | npc_behavior, npc_actions_component | Fortnite L4473-4533 |
+| NPC | npc_spawner_device | Fortnite L10396-10428 |
+| 巡逻 | guard_actions_component.RoamAround | Fortnite L4340 |
+| 追击 | guard_actions_component.Attack | Fortnite L4361 |
+| 寻路 | npc_actions_component.NavigateTo | Fortnite L4479 |
+| 行为树 | npc_behavior, guard_actions_component | Fortnite L4517-4372 |
+| 敌人 | npc_awareness_component.DetectedTargets | Fortnite L4500 |
+| 感知 | npc_awareness/guard_awareness_component | Fortnite L4498-4400 |
+| 警戒 | guard_awareness_component.AlertLevel | Fortnite L4393 |
+| 拴系 | guard_actions_component.Tether | Fortnite L4365-4372 |
 
-**Wrapper 状态**: 🔲 待创建  
-**触发需求**: 需要自定义 AI 行为逻辑时
+**Wrapper 状态**: ✅ 已实现  
+**位置**: `shared/code-library/Wrappers/NPCWrapper.verse`
 
 ---
 
@@ -201,4 +204,4 @@
 
 ---
 
-*最后更新: 2025-12-28*
+*最后更新: 2025-12-31*
