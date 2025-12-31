@@ -1,7 +1,7 @@
 # PR Builder - Dispatch Trigger Workflow
 #
-# 此工作流通过 repository_dispatch 事件触发，绕过 Copilot 审批限制
-# Webhook 服务器接收 GitHub PR 事件后调用此工作流
+# This workflow is triggered by repository_dispatch events from the external
+# Webhook service, bypassing GitHub's Copilot workflow approval requirement.
 
 name: "PR Builder - Dispatch Trigger"
 
@@ -43,10 +43,10 @@ jobs:
         run: |
           $ErrorActionPreference = "Continue"
           
-          # 设置 UEFN 仓库路径环境变量
+          # Set UEFN repository path environment variable
           $env:UEFN_REPO_PATH = "E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN"
           
-          # 运行编译脚本
+          # Build script path
           $buildScript = ".\i18n\zh\skills\verseDev\verse-cli\verse-build.ps1"
           
           if (Test-Path $buildScript) {
@@ -54,25 +54,25 @@ jobs:
               $output = & $buildScript 2>&1 | Out-String
               $exitCode = $LASTEXITCODE
               
-              # 保存输出到文件（用于后续步骤）
+              # Save output for PR comment
               $output | Out-File -FilePath "build_output.txt" -Encoding utf8
               
               if ($exitCode -eq 0) {
                 echo "build_success=true" >> $env:GITHUB_OUTPUT
-                echo "✅ Build succeeded"
+                echo "Build succeeded"
               } else {
                 echo "build_success=false" >> $env:GITHUB_OUTPUT
-                echo "❌ Build failed with exit code: $exitCode"
+                echo "Build failed with exit code: $exitCode"
               }
             } catch {
               $_.Exception.Message | Out-File -FilePath "build_output.txt" -Encoding utf8
               echo "build_success=false" >> $env:GITHUB_OUTPUT
-              echo "❌ Build threw exception: $_"
+              echo "Build threw exception: $_"
             }
           } else {
             echo "Build script not found: $buildScript" | Out-File -FilePath "build_output.txt" -Encoding utf8
             echo "build_success=false" >> $env:GITHUB_OUTPUT
-            echo "❌ Build script not found"
+            echo "Build script not found"
           }
 
       - name: Comment on PR - Success
@@ -89,17 +89,17 @@ jobs:
               buildOutput = 'Build output not available';
             }
             
-            // 截断过长的输出
+            // Truncate if too long
             if (buildOutput.length > 60000) {
-              buildOutput = buildOutput.substring(0, 60000) + '\n\n... (输出已截断)';
+              buildOutput = buildOutput.substring(0, 60000) + '\n\n... (truncated)';
             }
             
-            const body = `## ✅ 编译成功
+            const body = `## Build Succeeded
 
-本地编译验证通过！
+The Verse build completed successfully!
 
 <details>
-<summary>编译输出</summary>
+<summary>Build Output</summary>
 
 \`\`\`
 ${buildOutput}
@@ -107,7 +107,7 @@ ${buildOutput}
 
 </details>
 
-@Maybank01 请审阅此 PR。`;
+@Maybank01 Please review and merge this PR.`;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -130,20 +130,20 @@ ${buildOutput}
               buildOutput = 'Build output not available';
             }
             
-            // 截断过长的输出
+            // Truncate if too long
             if (buildOutput.length > 60000) {
-              buildOutput = buildOutput.substring(0, 60000) + '\n\n... (输出已截断)';
+              buildOutput = buildOutput.substring(0, 60000) + '\n\n... (truncated)';
             }
             
-            const body = `## ❌ 编译失败
+            const body = `## Build Failed
 
-@copilot 编译未通过，请根据以下错误信息修复代码：
+@copilot The build failed. Please analyze the error and fix it:
 
 \`\`\`
 ${buildOutput}
 \`\`\`
 
-请分析错误原因并推送修复后的代码。`;
+Please fix the issues and push a new commit.`;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
