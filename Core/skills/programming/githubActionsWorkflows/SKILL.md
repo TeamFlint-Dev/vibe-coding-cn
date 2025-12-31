@@ -113,6 +113,37 @@ runs-on: [self-hosted, windows, verse-builder]
 .\run.cmd
 ```
 
+### 腾讯云服务器 SSH 连接
+
+**快速连接命令（PowerShell）：**
+```powershell
+# SSH 密钥路径：C:\Users\Administrator\.ssh\tencent-agent.pem
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" ubuntu@193.112.183.143
+```
+
+**检查 Webhook 服务状态：**
+```powershell
+# 一行命令查看状态
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" ubuntu@193.112.183.143 "sudo systemctl status webhook --no-pager"
+```
+
+**常用运维命令（连接后执行）：**
+```bash
+# 查看服务状态
+sudo systemctl status webhook
+
+# 查看实时日志
+sudo journalctl -u webhook -f
+
+# 重启服务
+sudo systemctl restart webhook
+
+# 查看 Webhook 日志文件
+tail -f /opt/webhook/webhook.log
+```
+
+> 📁 完整服务器配置信息请查看本地文件：`.secrets/tencent-webhook-config.md`
+
 ### Copilot Agent PR 自动运行
 
 **问题：** Copilot 创建的 PR 工作流默认需要手动批准。

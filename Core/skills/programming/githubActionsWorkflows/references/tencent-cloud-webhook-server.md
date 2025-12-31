@@ -31,11 +31,15 @@ GitHub PR Event → Webhook → Tencent Cloud Server → GitHub API → reposito
 ### 1. 准备工作目录
 
 ```bash
+# SSH 连接（使用默认 22 端口，不是 Webhook 的 19527 端口）
 ssh -i ~/.ssh/your-key.pem ubuntu@your-server-ip
+
 sudo mkdir -p /opt/webhook
 sudo chown ubuntu:ubuntu /opt/webhook
 cd /opt/webhook
 ```
+
+> ⚠️ **注意**：SSH 端口是 22（默认），19527 是 Webhook 服务端口，不要混淆！
 
 ### 2. 创建环境变量文件
 
