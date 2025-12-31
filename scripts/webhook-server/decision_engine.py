@@ -16,6 +16,7 @@ from enum import Enum
 from state_store import Task, TaskStatus, get_store
 from github_client import get_github_client
 from account_manager import get_account_manager
+from copilot_monitor import get_copilot_monitor
 
 
 def log(message: str):
@@ -120,6 +121,73 @@ class DecisionEngine:
         self.github = get_github_client()
         self.store = get_store()
         self.account_manager = get_account_manager()
+        
+        # 设置 Copilot 监控回调
+        self._setup_copilot_monitor()
+    
+    def _setup_copilot_monitor(self):
+        """设置 Copilot 监控的回调函数"""
+        monitor = get_copilot_monitor()
+        monitor.on_copilot_success = self._on_copilot_success
+        monitor.on_copilot_failure = self._on_copilot_failure
+    
+    def _on_copilot_success(self, pr_number: int, username: str, task_id: str):
+        """Copilot 成功完成的回调"""
+        log(f"Copilot success detected: PR #{pr_number} by {username}")
+        # Copilot 成功后会 push commit，触发 PR synchronize 事件
+        # 不需要额外处理，构建会自动重新触发
+    
+    def _on_copilot_failure(self, pr_number: int, username: str, task_id: str):
+        """Copilot 失败的回调（可能是额度耗尽）"""
+        log(f"Copilot failure detected: PR #{pr_number} by {username}")
+        
+        # 禁用该账号
+        self.account_manager.disable_account_for_quota(username)
+        
+        # 检查是否还有可用账号
+        if self.account_manager.has_available_accounts():
+            next_account = self.account_manager.get_active_account()
+            if next_account:
+                log(f"Switching to account: {next_account.username}")
+                
+                # 发送通知
+                self.github.post_comment(
+                    pr_number,
+                    f"⚠️ **Copilot Request Failed**\n\n"
+                    f"Account `{username}` failed (possibly quota exhausted).\n"
+                    f"Switching to account `{next_account.username}` and retrying...\n\n"
+                    f"<!-- copilot-switch: {username} -> {next_account.username} -->",
+                    use_user_account=False
+                )
+                
+                # 用新账号重新请求
+                success, new_username = self.github.post_comment(
+                    pr_number,
+                    "@copilot Please continue fixing the issues in this PR.",
+                    use_user_account=True
+                )
+                
+                if success and new_username:
+                    # 注册新的监控
+                    monitor = get_copilot_monitor()
+                    monitor.register_request(
+                        pr_number=pr_number,
+                        username=new_username,
+                        task_id=task_id
+                    )
+        else:
+            # 没有可用账号，通知人工
+            log("No more available accounts, escalating to human")
+            notify = f"@{self.notify_user}" if self.notify_user else "maintainer"
+            
+            self.github.post_comment(
+                pr_number,
+                f"🚨 **All Copilot Accounts Exhausted**\n\n"
+                f"All user accounts have failed. Last failure: `{username}`\n\n"
+                f"{notify} Please investigate manually.\n\n"
+                f"<!-- all-accounts-exhausted -->",
+                use_user_account=False
+            )
     
     def process_callback(
         self,
@@ -331,11 +399,13 @@ Please fix the issues and push a new commit.
 
 <!-- copilot-fix-request: {task.task_id} -->"""
         
-        return self._execute_actions([
+        actions = self._execute_actions([
             Action(ActionType.COMMENT_BOT, {"body": system_comment, "pr_number": task.pr_number}),
-            Action(ActionType.COMMENT_USER, {"body": copilot_comment, "pr_number": task.pr_number}),
+            Action(ActionType.COMMENT_USER, {"body": copilot_comment, "pr_number": task.pr_number, "task_id": task.task_id}),
             Action(ActionType.ADD_LABEL, {"label": "build-failed", "pr_number": task.pr_number})
         ])
+        
+        return actions
     
     def _escalate_to_human(
         self,
@@ -415,6 +485,16 @@ The build has failed **{retry_count} times** consecutively. Automatic fixes have
                     if success:
                         executed.append(action)
                         log(f"Copilot request sent by {username}")
+                        
+                        # 注册 Copilot 监控（如果有 task_id）
+                        task_id = action.params.get("task_id")
+                        if task_id and username:
+                            monitor = get_copilot_monitor()
+                            monitor.register_request(
+                                pr_number=action.params["pr_number"],
+                                username=username,
+                                task_id=task_id
+                            )
                 
                 elif action.action_type == ActionType.ADD_LABEL:
                     self.github.add_label(
