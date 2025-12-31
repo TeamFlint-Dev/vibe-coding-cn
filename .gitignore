@@ -102,3 +102,5 @@ logs/
 *.tmp
 backups/gz/
 *.pdf
+
+scripts/webhook-server/.secrets
