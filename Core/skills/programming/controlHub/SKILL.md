@@ -266,19 +266,103 @@ CALLBACK_SECRET: your_callback_secret
 
 ## 部署指南
 
-### 1. 服务器准备
+### 服务器信息
 
-```bash
-# 创建目录
-mkdir -p /root/webhook
-cd /root/webhook
+> ⚠️ **重要**: 密钥和连接信息存储在 `scripts/webhook-server/.secrets`，执行服务器操作前必须先读取该文件。
+
+**当前生产环境**:
+- **服务器 IP**: `193.112.183.143`（腾讯云）
+- **SSH 端口**: `22`
+- **SSH 用户**: `ubuntu`（不是 root）
+- **SSH 密钥**: `C:\Users\Administrator\.ssh\tencent-agent.pem`
+- **Webhook 端口**: `19527`（非标准端口）
+- **服务路径**: `/opt/webhook/`
+
+### SSH 连接命令
+
+```powershell
+# Windows PowerShell 连接命令
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143
+
+# 执行单条命令
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143 "命令"
 
 # 上传文件
-scp -P 22 scripts/webhook-server/*.py user@server:/root/webhook/
+scp -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -P 22 本地文件 ubuntu@193.112.183.143:/opt/webhook/
+```
+
+### 防火墙配置
+
+> ⚠️ **重要**: 服务器防火墙只允许来自 GitHub 的请求访问 Webhook 端口。
+
+**允许的 IP 段**（GitHub Webhook 源 IP）:
+- `192.30.252.0/22`
+- `185.199.108.0/22`
+- `140.82.112.0/20`
+- `143.55.64.0/20`
+
+**这意味着**:
+1. ❌ **本地测试无效** - 你无法从本地 curl 测试 Webhook 端口
+2. ❌ **直接访问 /health 无效** - 防火墙会拦截非 GitHub IP
+3. ✅ **只能通过 SSH 测试** - SSH 进服务器后用 localhost 测试
+4. ✅ **GitHub 事件可达** - 真实 Webhook 事件可以正常接收
+
+### 正确的测试方法
+
+```bash
+# 1. SSH 进入服务器
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143
+
+# 2. 在服务器内部测试
+curl http://localhost:19527/health
+curl http://localhost:19527/accounts
+curl http://localhost:19527/stats
+
+# 3. 查看服务状态
+sudo systemctl status webhook
+
+# 4. 查看实时日志
+sudo journalctl -u webhook -f
+
+# 5. 查看最近日志
+sudo journalctl -u webhook --since "5 minutes ago" --no-pager
+```
+
+### 常用运维命令（一行式）
+
+```powershell
+# 查看服务状态
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143 "sudo systemctl status webhook --no-pager"
+
+# 重启服务
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143 "sudo systemctl restart webhook"
+
+# 查看最近日志
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143 "sudo journalctl -u webhook --since '5 minutes ago' --no-pager"
+
+# 测试健康端点
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143 "curl -s http://localhost:19527/health"
+
+# 查看账号状态
+ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143 "curl -s http://localhost:19527/accounts"
+
+# 上传代码并重启
+scp -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -P 22 scripts/webhook-server/*.py ubuntu@193.112.183.143:/opt/webhook/ ; ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -p 22 ubuntu@193.112.183.143 "sudo systemctl restart webhook"
+```
+
+### 1. 首次部署
+
+```bash
+# 在服务器上创建目录
+sudo mkdir -p /opt/webhook
+sudo chown ubuntu:ubuntu /opt/webhook
+
+# 上传文件（从本地执行）
+scp -i ~/.ssh/tencent-agent.pem -P 22 scripts/webhook-server/*.py ubuntu@193.112.183.143:/opt/webhook/
 
 # 创建 .env
-cp .env.example .env
-nano .env  # 填写实际值
+nano /opt/webhook/.env  # 填写实际值
+chmod 600 /opt/webhook/.env
 ```
 
 ### 2. Systemd 服务
@@ -291,12 +375,19 @@ After=network.target
 
 [Service]
 Type=simple
-User=root
-WorkingDirectory=/root/webhook
-EnvironmentFile=/root/webhook/.env
-ExecStart=/usr/bin/python3 webhook_server.py
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/webhook
+EnvironmentFile=/opt/webhook/.env
+ExecStart=/usr/bin/python3 /opt/webhook/webhook_server.py
 Restart=always
 RestartSec=5
+
+# 安全限制
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
@@ -312,20 +403,16 @@ sudo systemctl status webhook
 ### 3. GitHub Webhook 配置
 
 1. 进入仓库 Settings → Webhooks → Add webhook
-2. Payload URL: `http://your-server:port/webhook`
+2. Payload URL: `http://193.112.183.143:19527/webhook`
 3. Content type: `application/json`
-4. Secret: 与 `WEBHOOK_SECRET` 一致
+4. Secret: 与 `.env` 中 `WEBHOOK_SECRET` 一致
 5. Events: 选择 `Pull requests` 和 `Issue comments`
 
-### 4. 验证部署
+### 4. GitHub Secrets 配置
 
-```bash
-# 检查服务状态
-curl http://your-server:port/health
-
-# 查看日志
-journalctl -u webhook -f
-```
+在仓库 Settings → Secrets and variables → Actions 中添加：
+- `CALLBACK_URL`: `http://193.112.183.143:19527/callback`
+- `CALLBACK_SECRET`: 与 `.env` 中 `CALLBACK_SECRET` 一致
 
 ---
 

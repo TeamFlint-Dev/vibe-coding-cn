@@ -50,13 +50,25 @@ sudo systemctl start webhook
 
 ### 5. 配置 GitHub
 
-**Webhook**:
+#### Webhook 配置
 - URL: `http://your-server:8080/webhook`
+- Secret: 与 `.env` 中 `WEBHOOK_SECRET` 一致
 - Events: `Pull requests`, `Issue comments`
 
-**Secrets**:
-- `CALLBACK_URL`: `http://your-server:8080/callback`
-- `CALLBACK_SECRET`: 与 .env 一致
+#### GitHub Secrets（必须配置）
+
+在 GitHub 仓库 → Settings → Secrets and variables → Actions 中添加：
+
+| Secret 名称 | 值 | 说明 |
+|------------|-----|------|
+| `CALLBACK_URL` | `http://193.112.183.143:19527/callback` | Hub 回调地址 |
+| `CALLBACK_SECRET` | `cb_secret_2026` | 回调签名密钥，与服务器 `.env` 一致 |
+| `RUNNER_PROXY` | `http://127.0.0.1:10808` | Self-hosted runner 代理地址 |
+
+> ⚠️ **RUNNER_PROXY 说明**：
+> - 用于 self-hosted runner 访问 GitHub API（下载 actions 等）
+> - 服务器 IP 已通过 `NO_PROXY` 排除，callback 会直连
+> - 如果你的 runner 在国外或网络良好，可以不配置此项
 
 ### 6. 验证
 

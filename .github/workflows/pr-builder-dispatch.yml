@@ -17,6 +17,12 @@ run-name: "Build PR #${{ github.event.client_payload.pr_number }}"
 jobs:
   build:
     runs-on: [self-hosted, windows, verse-builder]
+    
+    # 代理配置：GitHub API 走代理，腾讯云服务器直连
+    env:
+      HTTP_PROXY: ${{ secrets.RUNNER_PROXY }}
+      HTTPS_PROXY: ${{ secrets.RUNNER_PROXY }}
+      NO_PROXY: "193.112.183.143,localhost,127.0.0.1"
 
     steps:
       - name: Display PR Info

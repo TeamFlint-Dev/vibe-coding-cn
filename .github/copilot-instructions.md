@@ -143,3 +143,24 @@ make lint                          # Pass markdown validation
 # New skills include complete SKILL.md
 # Verify no temp files or secrets
 ```
+
+## Task Context Guidelines（任务上下文指引）
+
+在执行特定类型任务前，**必须先阅读相关 Skill 和配置文件**以获取完整上下文：
+
+| 任务类型 | 需要先阅读的文件 |
+|---------|-----------------|
+| 中控服务器 / Webhook / GitHub Actions | `Core/skills/programming/controlHub/SKILL.md`<br>`scripts/webhook-server/.secrets`（密钥配置）<br>`scripts/webhook-server/.env.example` |
+| Verse 代码开发 | `Core/skills/programming/verseDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
+| 游戏设计 | `Core/skills/design/gameDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
+| 项目开发 | `Games/[项目名]/memory-bank/` 下的所有文件 |
+
+### 服务器相关任务特别说明
+
+执行云服务器相关操作时，`.secrets` 文件包含关键信息：
+- `SERVER_IP` - 服务器地址
+- `SERVER_PORT` - Webhook 端口（非 SSH 端口）
+- `SSH_KEY` - SSH 密钥路径
+- `WEBHOOK_SECRET` - Webhook 签名密钥
+
+> ⚠️ SSH 连接使用端口 22，Webhook 服务使用 `SERVER_PORT`（如 19527）
