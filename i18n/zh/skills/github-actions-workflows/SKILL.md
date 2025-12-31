@@ -34,8 +34,9 @@ description: "Webhook 驱动的 PR 自动构建系统：外部 Webhook 服务器
 **典型流程：**
 ```
 GitHub PR Event → Webhook Server → repository_dispatch(build-pr) → Self-Hosted Runner
-                                                                   → Checkout PR Branch
-                                                                   → Build & Test
+                                                                   → Check Changed Files
+                                                                   → Skip if no Verse files
+                                                                   → Build & Test (if needed)
                                                                    → Comment on PR
 ```
 
@@ -44,6 +45,7 @@ GitHub PR Event → Webhook Server → repository_dispatch(build-pr) → Self-Ho
 - 调用 `gh api repos/{repo}/dispatches` 触发工作流
 - 使用 `client_payload` 传递 PR 信息（`pr_number`, `head_ref`, `pr_title`）
 - 工作流通过 `github.event.client_payload` 访问数据
+- **智能检测**：检查文件变更，只有包含 `.verse` 文件时才执行编译
 
 ### workflow_dispatch vs repository_dispatch
 
@@ -321,6 +323,32 @@ jobs:
 ### Example 2: Self-Hosted Runner 配置
 
 **场景：** 配置本地 Windows Runner 执行编译任务
+
+**智能文件检测（跳过不必要的构建）：**
+```yaml
+- name: Check for Verse files
+  id: check_files
+  shell: pwsh
+  run: |
+    git fetch origin main:main
+    $changedFiles = git diff --name-only main..HEAD
+    
+    $hasVerseFiles = $changedFiles | Where-Object { 
+      $_ -match '\.verse$' -or 
+      $_ -match '^UEFNgame/' -or
+      $_ -match 'verse-cli/'
+    }
+    
+    if ($hasVerseFiles) {
+      echo "should_build=true" >> $env:GITHUB_OUTPUT
+    } else {
+      echo "should_build=false" >> $env:GITHUB_OUTPUT
+    }
+
+- name: Run Build
+  if: steps.check_files.outputs.should_build == 'true'
+  run: ./build-script.ps1
+```
 
 **注册 Runner：**
 ```powershell
