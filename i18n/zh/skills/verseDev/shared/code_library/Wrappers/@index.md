@@ -22,6 +22,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 |------|--------|----------|-------------|------|
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
 | [GameFlowWrapper](./GameFlowWrapper.verse) | 游戏流程生命周期 | fort_playspace, round_settings_device, end_game_device, player_spawner_device, score_manager_device | Fortnite L8145+, L12076-12101 | ✅ |
+| [NPCWrapper](./NPCWrapper.verse) | NPC/AI 行为与感知 | npc_behavior, npc_actions_component, npc_awareness_component, npc_spawner_device, guard_actions_component, guard_awareness_component | Fortnite L4338-4533, L9875-10032, L10396-10428 | ✅ |
 | [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
 | [SidekickWrapper](./SidekickWrapper.verse) | Sidekick 系统 | equipped_sidekick_component, sidekick_component, showable | Fortnite L4247-4279 | ✅ |
 | [VectorWrapper](./VectorWrapper.verse) | 向量操作 | Verse.vector3, UnrealEngine.vector3 | Verse/UnrealEngine SpatialMath | ✅ |
@@ -107,6 +108,56 @@ if (EndDevice:end_game_device = GetEndGameDevice[]):
         Log("游戏已结束")
 ```
 
+### NPCWrapper
+
+**职责**: 封装 NPC/AI 行为与感知相关的所有 API 操作
+
+**功能分组**:
+
+| 分组 | 方法 | 来源接口 |
+|------|------|----------|
+| 行为控制 | GetAgentFromBehavior, GetEntityFromBehavior, GetNPCBehaviorFromAgent | npc_behavior |
+| 导航行动 | NavigateToLocation, NavigateToEntity, GetCurrentDestination | npc_actions_component |
+| 待机注视 | IdleForDuration, IdleIndefinitely, FocusOnLocation, FocusOnEntity | npc_actions_component |
+| 感知系统 | GetDetectedTargets, HasDetectedTargets, SubscribeToDetectTarget, SubscribeToSeeTarget | npc_awareness_component |
+| NPC 生成 | SpawnNPC, SpawnNPCAt, DespawnNPC, DespawnAllNPCs, GetAllSpawnedNPCs | npc_spawner_device |
+| Guard 行动 | GuardRoamAround, GuardMoveInRangeToAttack, GuardAttack, GuardTetherToLocation | guard_actions_component |
+| Guard 感知 | GetPrimaryThreat, GetAlertLevel, IsAlerted, SubscribeToPrimaryThreatChange | guard_awareness_component |
+| 工具查询 | GetNPCInfo, HasValidTarget, GetTargetEntity, GetTargetLastKnownPosition | 组合查询 |
+
+**调用示例**:
+
+```verse
+# 在 Component 中调用
+# 获取 NPC 的 Agent
+if (NPCAgent := NPCWrapper.GetAgentFromBehavior(NPCBehavior)?):
+    Log("NPC Agent 获取成功")
+
+# 导航到目标位置
+spawn:
+    Result := NPCWrapper.NavigateToLocation(
+        ActionsComponent,
+        TargetLocation,
+        movement_type.Walking,
+        100.0  # 到达半径
+    )
+    if Result.Success:
+        Log("导航成功")
+
+# 监听目标检测
+NPCWrapper.SubscribeToDetectTarget(AwarenessComponent, OnTargetDetected)
+
+# Guard 攻击
+spawn:
+    AttackResult := NPCWrapper.GuardAttack(GuardActions, EnemyEntity)
+    if AttackResult.Success:
+        Log("Guard 开始攻击")
+
+# 获取警戒级别
+AlertLevel := NPCWrapper.GetAlertLevel(GuardAwareness)
+if NPCWrapper.IsAlerted(GuardAwareness):
+    Log("Guard 已进入警戒状态")
+```
 
 ### PetWrapper
 
@@ -219,7 +270,6 @@ Log("UE向量: ({UEVec.X}, {UEVec.Y}, {UEVec.Z})")
 | UI 交互 | UIWrapper | 需要自定义 UI 显示或交互 |
 | 设备操作 | DeviceWrapper | 需要程序化控制 Creative 设备 |
 | 音频操作 | AudioWrapper | 需要程序化控制音频播放 |
-| AI 行为 | AIWrapper | 需要自定义 AI 行为逻辑 |
 | 道具物品 | ItemWrapper | 需要自定义道具或背包系统 |
 
 ---
