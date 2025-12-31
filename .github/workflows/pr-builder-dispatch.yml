@@ -17,8 +17,6 @@ run-name: "Build PR #${{ github.event.client_payload.pr_number }}"
 jobs:
   build:
     runs-on: [self-hosted, windows, verse-builder]
-    # 注意: runner 下载 actions 需要在 runner 启动前配置系统代理
-    # job-level env 只对 steps 生效，不影响 actions 下载
 
     steps:
       - name: Display PR Info
@@ -82,20 +80,15 @@ jobs:
           $signature = "sha256=$sig"
           
           if ($env:CALLBACK_URL) {
-            # 保存 body 到临时文件避免转义问题
-            $body | Out-File -FilePath "callback_body.json" -Encoding utf8 -NoNewline
-            
-            # 使用 curl.exe 发送请求，--noproxy 绕过代理
-            $curlResult = curl.exe --noproxy "*" -s -w "%{http_code}" `
-              -X POST "$env:CALLBACK_URL" `
-              -H "Content-Type: application/json" `
-              -H "X-Callback-Signature: $signature" `
-              -d "@callback_body.json"
-            
-            if ($curlResult -match "2\d\d$") {
+            try {
+              $headers = @{
+                "Content-Type" = "application/json"
+                "X-Callback-Signature" = $signature
+              }
+              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers
               Write-Host "Callback sent: skipped"
-            } else {
-              Write-Host "Warning: Callback returned: $curlResult"
+            } catch {
+              Write-Host "Warning: Failed to send callback: $_"
             }
           }
 
@@ -180,20 +173,15 @@ jobs:
           $signature = "sha256=$sig"
           
           if ($env:CALLBACK_URL) {
-            # 保存 body 到临时文件避免转义问题
-            $body | Out-File -FilePath "callback_body.json" -Encoding utf8 -NoNewline
-            
-            # 使用 curl.exe 发送请求，--noproxy 绕过代理
-            $curlResult = curl.exe --noproxy "*" -s -w "%{http_code}" `
-              -X POST "$env:CALLBACK_URL" `
-              -H "Content-Type: application/json" `
-              -H "X-Callback-Signature: $signature" `
-              -d "@callback_body.json"
-            
-            if ($curlResult -match "2\d\d$") {
+            try {
+              $headers = @{
+                "Content-Type" = "application/json"
+                "X-Callback-Signature" = $signature
+              }
+              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers
               Write-Host "Callback sent: $result"
-            } else {
-              Write-Host "Warning: Callback returned: $curlResult"
+            } catch {
+              Write-Host "Warning: Failed to send callback: $_"
             }
           }
 
