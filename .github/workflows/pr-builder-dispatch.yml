@@ -168,8 +168,9 @@ jobs:
               body: `## ✅ Build Succeeded\n\nThe Verse build completed successfully!\n\n<details>\n<summary>Build Output</summary>\n\n\`\`\`\n${output}\n\`\`\`\n\n</details>\n\n@Maybank01 Please review and merge this PR.\n\n<!-- build-sha: ${headSha} -->`
             });
 
-      - name: Comment on PR - Failure
+      - name: Comment on PR - Failure (System Notification)
         if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
+        id: failure_comment
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -180,12 +181,53 @@ jobs:
             try { output = fs.readFileSync('build_output.txt', 'utf8'); } catch (e) {}
             if (output.length > 60000) output = output.substring(0, 60000) + '\n\n... (truncated)';
 
+            // 系统评论：仅记录构建失败信息，不@copilot
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.client_payload.pr_number }},
-              body: `## ❌ Build Failed\n\n@copilot The build failed. Please analyze the error and fix it:\n\n\`\`\`\n${output}\n\`\`\`\n\nPlease fix the issues and push a new commit.\n\n<!-- build-sha: ${headSha} -->`
+              body: `## ❌ Build Failed\n\nThe Verse build failed. See error details below:\n\n\`\`\`\n${output}\n\`\`\`\n\n*Requesting Copilot assistance via webhook...*\n\n<!-- build-sha: ${headSha} -->`
             });
+            
+            // 返回构建输出供 webhook 使用
+            core.setOutput('build_output', output);
+
+      - name: Request Copilot Fix via Webhook
+        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
+        shell: pwsh
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          # 读取构建输出
+          $buildOutput = ""
+          if (Test-Path "build_output.txt") {
+            $buildOutput = Get-Content -Path "build_output.txt" -Raw -Encoding utf8
+            if ($buildOutput.Length -gt 8000) {
+              $buildOutput = $buildOutput.Substring(0, 8000) + "`n`n... (truncated)"
+            }
+          }
+          
+          # 构建请求体
+          $body = @{
+            event_type = "copilot-fix-request"
+            pr_number = ${{ github.event.client_payload.pr_number }}
+            head_ref = "${{ github.event.client_payload.head_ref }}"
+            head_sha = "${{ github.event.client_payload.head_sha }}"
+            build_output = $buildOutput
+          } | ConvertTo-Json -Depth 10
+          
+          # 发送到 webhook 服务器
+          if ($env:WEBHOOK_URL) {
+            try {
+              $response = Invoke-RestMethod -Uri "$env:WEBHOOK_URL/copilot-request" -Method POST -Body $body -ContentType "application/json"
+              Write-Host "Webhook response: $response"
+            } catch {
+              Write-Host "Warning: Failed to send webhook request: $_"
+              # 不要因为 webhook 失败而导致整个 job 失败
+            }
+          } else {
+            Write-Host "WEBHOOK_URL not configured, skipping Copilot request"
+          }
 
       - name: Fail job if build failed
         if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
