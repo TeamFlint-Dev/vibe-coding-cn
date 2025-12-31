@@ -9,6 +9,7 @@
 | Wrapper | 位置 | digest 参考 | 封装接口 | 创建原因 | 状态 |
 |---------|------|-------------|----------|----------|------|
 | CharacterWrapper | `code-library/Wrappers/CharacterWrapper.verse` | Fortnite L11777-12020 | damageable, healable, healthful, shieldable, positional | 角色伤害/治疗系统 | ✅ |
+| NPCWrapper | `code-library/Wrappers/NPCWrapper.verse` | Fortnite L4338-4533, L9875-10428 | npc_behavior, npc_actions_component, npc_awareness_component, npc_spawner_device, guard_actions_component, guard_awareness_component | NPC/AI 行为与感知系统 | ✅ |
 | PetWrapper | `code-library/Wrappers/PetWrapper.verse` | Fortnite (creative_prop, positional) | positional, creative_prop, fort_character | 宠物系统（跟随、行为、交互） | ✅ |
 
 ---
@@ -42,6 +43,7 @@
 
 | 日期 | digest commit | 影响的 Wrapper | 操作 |
 |------|---------------|----------------|------|
+| 2025-12-31 | N/A | NPCWrapper | 新增 NPC/AI 系统封装 |
 | 2025-12-29 | N/A | PetWrapper | 新增宠物系统封装 |
 | 2025-12-28 | `49242330...` | CharacterWrapper | 类型修正 (int→float) |
 
@@ -78,4 +80,4 @@
 
 ---
 
-*最后更新: 2025-12-29*
+*最后更新: 2025-12-31*
