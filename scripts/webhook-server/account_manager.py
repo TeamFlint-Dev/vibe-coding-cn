@@ -156,6 +156,41 @@ class AccountManager:
         error_lower = error_message.lower()
         return any(keyword in error_lower for keyword in quota_keywords)
     
+    def check_copilot_quota_exhausted(self, comment_body: str) -> bool:
+        """
+        检查评论是否表明 Copilot 额度耗尽
+        
+        示例消息：
+        "Copilot stopped work on behalf of XXX due to an error...
+        Your session could not start because you've used up the 300 premium requests allowance..."
+        """
+        copilot_quota_patterns = [
+            "used up the 300 premium requests",
+            "premium requests allowance",
+            "you've used up the",
+            "copilot stopped work",
+            "session could not start",
+            "allowance included in your copilot subscription"
+        ]
+        body_lower = comment_body.lower()
+        return any(pattern in body_lower for pattern in copilot_quota_patterns)
+    
+    def disable_account_for_quota(self, username: str) -> bool:
+        """
+        因 Copilot 额度耗尽禁用账号
+        
+        返回: True 如果成功禁用
+        """
+        for account in self._accounts:
+            if account.username.lower() == username.lower():
+                account.is_active = False
+                account.failure_count = self.MAX_FAILURES  # 直接设为最大
+                account.last_failure_reason = "copilot_premium_quota_exhausted"
+                log_msg = f"Account {username} disabled: Copilot premium quota exhausted"
+                print(f"[account] {log_msg}", flush=True)
+                return True
+        return False
+    
     def has_available_accounts(self) -> bool:
         """检查是否还有可用账号"""
         return any(a.is_active for a in self._accounts)

@@ -261,6 +261,11 @@ class HubHandler(BaseHTTPRequestHandler):
         comment_user = comment.get("user", {}).get("login", "")
         pr_number = issue.get("number", 0)
         
+        # 检测 Copilot 额度耗尽消息
+        if self._check_copilot_quota_message(comment_body, comment_user, pr_number):
+            self._send_json(200, {"message": "Copilot quota exhausted handled"})
+            return
+        
         # 检测构建命令
         if not BUILD_COMMANDS.search(comment_body):
             self._send_json(200, {"message": "No build command"})
@@ -314,6 +319,77 @@ class HubHandler(BaseHTTPRequestHandler):
             })
         else:
             self._send_json(500, {"error": "Failed to dispatch"})
+    
+    def _check_copilot_quota_message(self, comment_body: str, comment_user: str, pr_number: int) -> bool:
+        """
+        检测 Copilot 额度耗尽消息，触发账号切换
+        
+        消息示例：
+        "Copilot stopped work on behalf of Maybank01 due to an error...
+        Your session could not start because you've used up the 300 premium requests allowance..."
+        
+        返回: True 如果检测到并处理了额度耗尽消息
+        """
+        # 检查是否是 Copilot 额度耗尽消息
+        if not self.accounts.check_copilot_quota_exhausted(comment_body):
+            return False
+        
+        # 从消息中提取被禁用的账号名
+        # 格式: "Copilot stopped work on behalf of USERNAME due to an error"
+        import re
+        match = re.search(r"copilot stopped work on behalf of (\w+)", comment_body.lower())
+        
+        if match:
+            exhausted_username = match.group(1)
+            log(f"Detected Copilot quota exhausted for user: {exhausted_username}")
+            
+            # 禁用该账号
+            disabled = self.accounts.disable_account_for_quota(exhausted_username)
+            
+            if disabled:
+                log(f"Account {exhausted_username} disabled due to Copilot quota exhaustion")
+                
+                # 检查是否还有可用账号
+                if self.accounts.has_available_accounts():
+                    # 发送通知并用新账号重新请求 Copilot
+                    next_account = self.accounts.get_active_account()
+                    if next_account:
+                        log(f"Switching to account: {next_account.username}")
+                        
+                        # 发送系统通知
+                        self.github.post_comment(
+                            pr_number,
+                            f"⚠️ **Copilot Quota Exhausted**\n\n"
+                            f"Account `{exhausted_username}` has used up its Copilot premium requests quota.\n"
+                            f"Switching to account `{next_account.username}` and retrying...\n\n"
+                            f"<!-- quota-switch: {exhausted_username} -> {next_account.username} -->",
+                            use_user_account=False  # 用 bot 发通知
+                        )
+                        
+                        # 用新账号重新 @copilot
+                        self.github.post_comment(
+                            pr_number,
+                            "@copilot Please continue fixing the issues in this PR.",
+                            use_user_account=True  # 用新账号发
+                        )
+                else:
+                    # 没有可用账号了，通知人工
+                    log("No more available accounts, escalating to human")
+                    notify_user = os.environ.get("NOTIFY_USER", "")
+                    mention = f"@{notify_user}" if notify_user else "maintainer"
+                    
+                    self.github.post_comment(
+                        pr_number,
+                        f"🚨 **All Copilot Accounts Exhausted**\n\n"
+                        f"All configured user accounts have exceeded their Copilot premium request quotas.\n\n"
+                        f"{mention} Please investigate manually or wait for quota reset.\n\n"
+                        f"<!-- all-accounts-exhausted -->",
+                        use_user_account=False
+                    )
+            
+            return True
+        
+        return False
     
     def _handle_callback(self, payload: bytes):
         """处理 Actions 回调"""
