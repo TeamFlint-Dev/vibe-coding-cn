@@ -99,6 +99,27 @@ jobs:
         run: |
           $ErrorActionPreference = "Continue"
           
+          # 检查 UEFN Workflow Server 是否可用
+          $uefnPort = 1962
+          $uefnAvailable = $false
+          try {
+            $tcpClient = New-Object System.Net.Sockets.TcpClient
+            $tcpClient.Connect("127.0.0.1", $uefnPort)
+            $tcpClient.Close()
+            $uefnAvailable = $true
+            Write-Host "UEFN Workflow Server is available on port $uefnPort"
+          } catch {
+            Write-Host "UEFN Workflow Server not available on port $uefnPort"
+          }
+          
+          if (-not $uefnAvailable) {
+            $msg = "UEFN Workflow Server not running on port $uefnPort. Please ensure UEFN is open with the project loaded."
+            $msg | Out-File -FilePath "build_output.txt" -Encoding utf8
+            echo "build_success=false" >> $env:GITHUB_OUTPUT
+            Write-Host "Build failed: $msg"
+            exit 0  # 不让步骤失败，让 callback 处理
+          }
+          
           # verse-loop.ps1 是交互式脚本，需要 -Requirement 参数
           # PR 构建应使用 verse-build.ps1（无需参数）
           $possiblePaths = @(

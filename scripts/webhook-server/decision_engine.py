@@ -60,6 +60,11 @@ INFRA_ERROR_PATTERNS = [
     "ENOMEM",
     "ENOSPC",
     
+    # UEFN/Verse 环境错误
+    "UEFN Workflow Server not running",
+    "UEFN Workflow Server not available",
+    "Please ensure UEFN is open with the project loaded",
+    
     # 进程/系统错误
     "Access is denied",
     "System.UnauthorizedAccessException",
