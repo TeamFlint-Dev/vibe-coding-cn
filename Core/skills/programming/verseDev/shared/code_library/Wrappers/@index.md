@@ -22,7 +22,7 @@ Wrapper 层负责将 UEFN digest API 封装为统一、安全的接口，供 Hel
 |------|--------|----------|-------------|------|
 | [CharacterWrapper](./CharacterWrapper.verse) | 角色操作 | damageable, healable, healthful, shieldable, positional | Fortnite L11777-12020 | ✅ |
 | [GameFlowWrapper](./GameFlowWrapper.verse) | 游戏流程生命周期 | fort_playspace, round_settings_device, end_game_device, player_spawner_device, score_manager_device | Fortnite L8145+, L12076-12101 | ✅ |
-| [NPCWrapper](./NPCWrapper.verse) | NPC/AI 行为与感知 | npc_behavior, npc_actions_component, npc_awareness_component, npc_spawner_device, guard_actions_component, guard_awareness_component | Fortnite L4338-4533, L9875-10032, L10396-10428 | ✅ |
+| [NPCWrapper](./NPCWrapper.verse) | NPC/AI 完整系统 | npc_behavior, npc_actions_component, npc_awareness_component, npc_spawner_device, guard_actions_component, guard_awareness_component, guard_spawner_device, character_device | Fortnite L4338-4533, L8844-8862, L9875-10032, L10396-10428 | ✅ |
 | [PetWrapper](./PetWrapper.verse) | 宠物系统 | positional, creative_prop, fort_character | Fortnite (creative_prop, positional) | ✅ |
 | [SidekickWrapper](./SidekickWrapper.verse) | Sidekick 系统 | equipped_sidekick_component, sidekick_component, showable | Fortnite L4247-4279 | ✅ |
 | [VectorWrapper](./VectorWrapper.verse) | 向量操作 | Verse.vector3, UnrealEngine.vector3 | Verse/UnrealEngine SpatialMath | ✅ |
@@ -120,9 +120,11 @@ if (EndDevice:end_game_device = GetEndGameDevice[]):
 | 导航行动 | NavigateToLocation, NavigateToEntity, GetCurrentDestination | npc_actions_component |
 | 待机注视 | IdleForDuration, IdleIndefinitely, FocusOnLocation, FocusOnEntity | npc_actions_component |
 | 感知系统 | GetDetectedTargets, HasDetectedTargets, SubscribeToDetectTarget, SubscribeToSeeTarget | npc_awareness_component |
-| NPC 生成 | SpawnNPC, SpawnNPCAt, DespawnNPC, DespawnAllNPCs, GetAllSpawnedNPCs | npc_spawner_device |
+| NPC 生成 | EnableNPCSpawner, SpawnNPCVoid, SpawnNPCAt, DespawnAllNPCs, GetNPCSpawnerAgents | npc_spawner_device |
+| Guard 生成 | EnableGuardSpawner, SpawnGuardVoid, SpawnGuardAt, HireGuards, ForceGuardAttackTarget | guard_spawner_device |
 | Guard 行动 | GuardRoamAround, GuardMoveInRangeToAttack, GuardAttack, GuardTetherToLocation | guard_actions_component |
 | Guard 感知 | GetPrimaryThreat, GetAlertLevel, IsAlerted, SubscribeToPrimaryThreatChange | guard_awareness_component |
+| Character 交互 | EnableCharacterDevice, ShowCharacter, PlayCharacterEmote, SubscribeToCharacterInteracted | character_device |
 | 工具查询 | GetNPCInfo, HasValidTarget, GetTargetEntity, GetTargetLastKnownPosition | 组合查询 |
 
 **调用示例**:
@@ -157,6 +159,12 @@ spawn:
 AlertLevel := NPCWrapper.GetAlertLevel(GuardAwareness)
 if NPCWrapper.IsAlerted(GuardAwareness):
     Log("Guard 已进入警戒状态")
+
+# 生成 Guard 并强制攻击目标
+NPCWrapper.EnableGuardSpawner(GuardSpawner)
+NPCWrapper.SpawnGuardVoid(GuardSpawner)
+if (Target:agent = GetTargetAgent[]):
+    NPCWrapper.ForceGuardAttackTarget(GuardSpawner, Target, option{30.0}, option{5000.0})
 ```
 
 ### PetWrapper

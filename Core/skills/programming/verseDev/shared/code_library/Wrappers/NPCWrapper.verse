@@ -1,6 +1,7 @@
 # NPCWrapper - UEFN NPC/AI API 封装
-# 版本: 1.0
+# 版本: 1.1
 # 创建时间: 2025-12-31
+# 更新时间: 2025-12-31
 # 来源: API 统一封装 (基于 Fortnite.digest.verse)
 #
 # 设计目的:
@@ -14,15 +15,18 @@
 # - NPC 感知系统 (npc_awareness_component)
 # - NPC 生成管理 (npc_spawner_device)
 # - Guard 高级 AI (guard_actions_component, guard_awareness_component)
+# - Guard 生成管理 (guard_spawner_device)
+# - Character 基础交互 (character_device)
 #
 # API 参考:
 # - npc_behavior: Fortnite L4517-4533
 # - npc_actions_component: Fortnite L4473-4494
 # - npc_awareness_component: Fortnite L4498-4515
+# - npc_spawner_device: Fortnite L10396-10428
 # - guard_actions_component: Fortnite L4338-4372
 # - guard_awareness_component: Fortnite L4376-4400
-# - npc_spawner_device: Fortnite L10396-10428
 # - guard_spawner_device: Fortnite L9875-10032
+# - character_device: Fortnite L8844-8862
 
 using { /Verse.org/Simulation }
 using { /Verse.org/Verse }
@@ -231,33 +235,41 @@ NPCWrapper<public> := module:
     # API: npc_spawner_device - Fortnite L10396-10428
     # ═══════════════════════════════════════════════════════
     
-    # 生成 NPC
-    SpawnNPC<public>(Spawner:npc_spawner_device)<suspends>:?agent =
+    # 启用 NPC 生成器（允许开始生成 NPC）
+    EnableNPCSpawner<public>(Spawner:npc_spawner_device):void =
+        Spawner.Enable()
+    
+    # 禁用 NPC 生成器（如果设置了"禁用时清除 AI"，将清除 NPC）
+    DisableNPCSpawner<public>(Spawner:npc_spawner_device):void =
+        Spawner.Disable()
+    
+    # 重置生成计数器（允许生成新一批 NPC）
+    ResetNPCSpawner<public>(Spawner:npc_spawner_device):void =
+        Spawner.Reset()
+    
+    # 尝试生成一个 NPC（无返回值版本）
+    SpawnNPCVoid<public>(Spawner:npc_spawner_device):void =
         Spawner.Spawn()
     
-    # 在指定位置生成 NPC
+    # 在指定位置生成 NPC（返回生成的 Agent）
     SpawnNPCAt<public>(
         Spawner:npc_spawner_device,
-        Position:(/UnrealEngine.com/Temporary/SpatialMath:)vector3,
-        Rotation:?(/UnrealEngine.com/Temporary/SpatialMath:)rotation
+        Position:(/Verse.org/SpatialMath:)vector3,
+        Rotation:?(/Verse.org/SpatialMath:)rotation
     )<suspends>:?agent =
         Spawner.SpawnAt(Position, Rotation)
-    
-    # 清除单个 NPC
-    DespawnNPC<public>(Spawner:npc_spawner_device, Target:agent, Instigator:?agent):void =
-        Spawner.Despawn(Target, Instigator)
     
     # 清除所有 NPC
     DespawnAllNPCs<public>(Spawner:npc_spawner_device, Instigator:?agent):void =
         Spawner.DespawnAll(Instigator)
     
-    # 获取所有生成的 NPC Agent
-    GetAllSpawnedNPCs<public>(Spawner:npc_spawner_device):[]agent =
-        Spawner.GetSpawnedAgents()
+    # 获取所有由此设备创建的 Agent
+    GetNPCSpawnerAgents<public>(Spawner:npc_spawner_device):[]agent =
+        Spawner.GetAgents()
     
     # 获取生成的 NPC 数量
-    GetSpawnedNPCCount<public>(Spawner:npc_spawner_device):int =
-        Spawner.GetSpawnedAgents().Length
+    GetNPCSpawnerCount<public>(Spawner:npc_spawner_device):int =
+        Spawner.GetAgents().Length
     
     # 订阅 NPC 生成事件
     SubscribeToNPCSpawned<public>(
@@ -269,9 +281,203 @@ NPCWrapper<public> := module:
     # 订阅 NPC 消灭事件
     SubscribeToNPCEliminated<public>(
         Spawner:npc_spawner_device,
-        Handler:(elimination_result)->void
+        Handler:(device_ai_interaction_result)->void
     ):void =
         Spawner.EliminatedEvent.Subscribe(Handler)
+    
+    # ═══════════════════════════════════════════════════════
+    # Guard 生成器设备 (guard_spawner_device)
+    # API: guard_spawner_device - Fortnite L9875-10032
+    # ═══════════════════════════════════════════════════════
+    
+    # 启用 Guard 生成器（Guards 开始生成）
+    EnableGuardSpawner<public>(Spawner:guard_spawner_device):void =
+        Spawner.Enable()
+    
+    # 禁用 Guard 生成器（如果设置了"禁用时清除 Guards"，将清除它们）
+    DisableGuardSpawner<public>(Spawner:guard_spawner_device):void =
+        Spawner.Disable()
+    
+    # 重置生成计数器（允许生成新一批 Guards）
+    ResetGuardSpawner<public>(Spawner:guard_spawner_device):void =
+        Spawner.Reset()
+    
+    # 尝试生成一个 Guard（无返回值版本）
+    SpawnGuardVoid<public>(Spawner:guard_spawner_device):void =
+        Spawner.Spawn()
+    
+    # 尝试生成一个 Guard 并指定 Instigator（如果设置了自动雇佣，将雇佣给 Instigator）
+    SpawnGuardWithInstigator<public>(Spawner:guard_spawner_device, Instigator:agent):void =
+        Spawner.Spawn(Instigator)
+    
+    # 在指定位置生成 Guard（返回生成的 Agent）
+    SpawnGuardAt<public>(
+        Spawner:guard_spawner_device,
+        Position:(/Verse.org/SpatialMath:)vector3,
+        Rotation:?(/Verse.org/SpatialMath:)rotation
+    )<suspends>:?agent =
+        Spawner.SpawnAt(Position, Rotation)
+    
+    # 清除 Guards（无 Instigator 版本）
+    DespawnGuards<public>(Spawner:guard_spawner_device):void =
+        Spawner.Despawn()
+    
+    # 清除 Guards（Instigator 将被视为消灭者）
+    DespawnGuardsWithInstigator<public>(Spawner:guard_spawner_device, Instigator:agent):void =
+        Spawner.Despawn(Instigator)
+    
+    # 雇佣 Guards 到 Instigator 的队伍
+    HireGuards<public>(Spawner:guard_spawner_device, Instigator:agent):void =
+        Spawner.Hire(Instigator)
+    
+    # 解雇所有已雇佣的 Guards
+    DismissAllHiredGuards<public>(Spawner:guard_spawner_device):void =
+        Spawner.DismissAllHiredGuards()
+    
+    # 解雇由 Instigator 雇佣的所有 Guards
+    DismissAgentHiredGuards<public>(Spawner:guard_spawner_device, Instigator:agent):void =
+        Spawner.DismissAgentHiredGuards(Instigator)
+    
+    # 强制 Guards 攻击目标（绕过感知检查）
+    # ForgetTime: 0.0-600.0 秒，默认 600.0，目标未找到后多久忽略
+    # ForgetDistance: 0.0-100000.0 厘米，默认 100000.0，目标超过此距离后忽略
+    ForceGuardAttackTarget<public>(
+        Spawner:guard_spawner_device,
+        Target:agent,
+        ForgetTime:?float,
+        ForgetDistance:?float
+    ):void =
+        Spawner.ForceAttackTarget(Target, ForgetTime, ForgetDistance)
+    
+    # 允许 Guards 被雇佣
+    SetGuardsHireable<public>(Spawner:guard_spawner_device):void =
+        Spawner.SetGuardsHireable()
+    
+    # 禁止 Guards 被雇佣
+    SetGuardsNotHireable<public>(Spawner:guard_spawner_device):void =
+        Spawner.SetGuardsNotHireable()
+    
+    # 获取设备的生成限制数量
+    GetGuardSpawnLimit<public>(Spawner:guard_spawner_device):int =
+        Spawner.GetSpawnLimit()
+    
+    # 获取所有由此设备创建的 Guard Agent
+    GetGuardSpawnerAgents<public>(Spawner:guard_spawner_device):[]agent =
+        Spawner.GetAgents()
+    
+    # 获取生成的 Guard 数量
+    GetGuardSpawnerCount<public>(Spawner:guard_spawner_device):int =
+        Spawner.GetAgents().Length
+    
+    # 设置 Guard 名称（用于雇佣对话和消灭反馈）
+    SetGuardName<public>(Spawner:guard_spawner_device, Name:message):void =
+        Spawner.SetName(Name)
+    
+    # 获取 Guard 名称
+    GetGuardName<public>(Spawner:guard_spawner_device):string =
+        Spawner.GetName()
+    
+    # 订阅 Guard 生成事件
+    SubscribeToGuardSpawned<public>(
+        Spawner:guard_spawner_device,
+        Handler:(agent)->void
+    ):void =
+        Spawner.SpawnedEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 识别到敌人事件
+    SubscribeToGuardAlerted<public>(
+        Spawner:guard_spawner_device,
+        Handler:(device_ai_interaction_result)->void
+    ):void =
+        Spawner.AlertedEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 失去目标事件
+    SubscribeToGuardTargetLost<public>(
+        Spawner:guard_spawner_device,
+        Handler:(device_ai_interaction_result)->void
+    ):void =
+        Spawner.TargetLostEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 变为可疑状态事件
+    SubscribeToGuardSuspicious<public>(
+        Spawner:guard_spawner_device,
+        Handler:(agent)->void
+    ):void =
+        Spawner.SuspiciousEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 变为未察觉状态事件
+    SubscribeToGuardUnaware<public>(
+        Spawner:guard_spawner_device,
+        Handler:(agent)->void
+    ):void =
+        Spawner.UnawareEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 受到伤害事件
+    SubscribeToGuardDamaged<public>(
+        Spawner:guard_spawner_device,
+        Handler:(device_ai_interaction_result)->void
+    ):void =
+        Spawner.DamagedEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 被消灭事件
+    SubscribeToGuardEliminated<public>(
+        Spawner:guard_spawner_device,
+        Handler:(device_ai_interaction_result)->void
+    ):void =
+        Spawner.EliminatedEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 消灭其他 Agent 事件
+    SubscribeToGuardEliminating<public>(
+        Spawner:guard_spawner_device,
+        Handler:(device_ai_interaction_result)->void
+    ):void =
+        Spawner.EliminatingEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 被雇佣事件
+    SubscribeToGuardHired<public>(
+        Spawner:guard_spawner_device,
+        Handler:(device_ai_interaction_result)->void
+    ):void =
+        Spawner.HiredEvent.Subscribe(Handler)
+    
+    # 订阅 Guard 被解雇事件
+    SubscribeToGuardDismissed<public>(
+        Spawner:guard_spawner_device,
+        Handler:(device_ai_interaction_result)->void
+    ):void =
+        Spawner.DismissedEvent.Subscribe(Handler)
+    
+    # ═══════════════════════════════════════════════════════
+    # Character 设备 (character_device)
+    # API: character_device - Fortnite L8844-8862
+    # ═══════════════════════════════════════════════════════
+    
+    # 启用 Character 设备
+    EnableCharacterDevice<public>(Device:character_device):void =
+        Device.Enable()
+    
+    # 禁用 Character 设备
+    DisableCharacterDevice<public>(Device:character_device):void =
+        Device.Disable()
+    
+    # 显示 Character
+    ShowCharacter<public>(Device:character_device):void =
+        Device.Show()
+    
+    # 隐藏 Character
+    HideCharacter<public>(Device:character_device):void =
+        Device.Hide()
+    
+    # 播放 Character 表情
+    PlayCharacterEmote<public>(Device:character_device):void =
+        Device.PlayEmote()
+    
+    # 订阅 Character 交互事件
+    SubscribeToCharacterInteracted<public>(
+        Device:character_device,
+        Handler:(agent)->void
+    ):void =
+        Device.InteractedWithEvent.Subscribe(Handler)
     
     # ═══════════════════════════════════════════════════════
     # Guard 行动组件 (guard_actions_component)
