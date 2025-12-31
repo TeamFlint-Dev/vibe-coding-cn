@@ -17,12 +17,8 @@ run-name: "Build PR #${{ github.event.client_payload.pr_number }}"
 jobs:
   build:
     runs-on: [self-hosted, windows, verse-builder]
-    
-    # 代理配置：GitHub API 走代理，腾讯云服务器直连
-    env:
-      HTTP_PROXY: ${{ secrets.RUNNER_PROXY }}
-      HTTPS_PROXY: ${{ secrets.RUNNER_PROXY }}
-      NO_PROXY: "193.112.183.143,localhost,127.0.0.1"
+    # 注意: runner 下载 actions 需要在 runner 启动前配置系统代理
+    # job-level env 只对 steps 生效，不影响 actions 下载
 
     steps:
       - name: Display PR Info
@@ -86,16 +82,20 @@ jobs:
           $signature = "sha256=$sig"
           
           if ($env:CALLBACK_URL) {
-            try {
-              $headers = @{
-                "Content-Type" = "application/json"
-                "X-Callback-Signature" = $signature
-              }
-              # -NoProxy 绕过代理直连服务器
-              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers -NoProxy
+            # 保存 body 到临时文件避免转义问题
+            $body | Out-File -FilePath "callback_body.json" -Encoding utf8 -NoNewline
+            
+            # 使用 curl.exe 发送请求，--noproxy 绕过代理
+            $curlResult = curl.exe --noproxy "*" -s -w "%{http_code}" `
+              -X POST "$env:CALLBACK_URL" `
+              -H "Content-Type: application/json" `
+              -H "X-Callback-Signature: $signature" `
+              -d "@callback_body.json"
+            
+            if ($curlResult -match "2\d\d$") {
               Write-Host "Callback sent: skipped"
-            } catch {
-              Write-Host "Warning: Failed to send callback: $_"
+            } else {
+              Write-Host "Warning: Callback returned: $curlResult"
             }
           }
 
@@ -105,31 +105,47 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = "Continue"
-          $env:UEFN_REPO_PATH = "E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN"
-          $buildScript = ".\i18n\zh\skills\verseDev\verse-cli\verse-build.ps1"
+          
+          # 尝试多个可能的脚本位置
+          $possiblePaths = @(
+            "${{ github.workspace }}\scripts\verse-loop.ps1",
+            "E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN\i18n\zh\skills\verseDev\verse-cli\verse-build.ps1",
+            "${{ github.workspace }}\i18n\zh\skills\verseDev\verse-cli\verse-build.ps1"
+          )
+          
+          $buildScript = $null
+          foreach ($path in $possiblePaths) {
+            if (Test-Path $path) {
+              $buildScript = $path
+              Write-Host "Found build script: $buildScript"
+              break
+            }
+          }
 
-          if (Test-Path $buildScript) {
+          if ($buildScript) {
             try {
+              $env:UEFN_REPO_PATH = "E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN"
               $output = & $buildScript 2>&1 | Out-String
               $exitCode = $LASTEXITCODE
               $output | Out-File -FilePath "build_output.txt" -Encoding utf8
 
               if ($exitCode -eq 0) {
                 echo "build_success=true" >> $env:GITHUB_OUTPUT
-                echo "Build succeeded"
+                Write-Host "Build succeeded"
               } else {
                 echo "build_success=false" >> $env:GITHUB_OUTPUT
-                echo "Build failed with exit code: $exitCode"
+                Write-Host "Build failed with exit code: $exitCode"
               }
             } catch {
               $_.Exception.Message | Out-File -FilePath "build_output.txt" -Encoding utf8
               echo "build_success=false" >> $env:GITHUB_OUTPUT
-              echo "Build threw exception: $_"
+              Write-Host "Build threw exception: $_"
             }
           } else {
-            echo "Build script not found: $buildScript" | Out-File -FilePath "build_output.txt" -Encoding utf8
+            $msg = "Build script not found. Tried: $($possiblePaths -join ', ')"
+            $msg | Out-File -FilePath "build_output.txt" -Encoding utf8
             echo "build_success=false" >> $env:GITHUB_OUTPUT
-            echo "Build script not found"
+            Write-Host $msg
           }
 
       - name: Report Result to Hub
@@ -164,16 +180,20 @@ jobs:
           $signature = "sha256=$sig"
           
           if ($env:CALLBACK_URL) {
-            try {
-              $headers = @{
-                "Content-Type" = "application/json"
-                "X-Callback-Signature" = $signature
-              }
-              # -NoProxy 绕过代理直连服务器
-              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers -NoProxy
+            # 保存 body 到临时文件避免转义问题
+            $body | Out-File -FilePath "callback_body.json" -Encoding utf8 -NoNewline
+            
+            # 使用 curl.exe 发送请求，--noproxy 绕过代理
+            $curlResult = curl.exe --noproxy "*" -s -w "%{http_code}" `
+              -X POST "$env:CALLBACK_URL" `
+              -H "Content-Type: application/json" `
+              -H "X-Callback-Signature: $signature" `
+              -d "@callback_body.json"
+            
+            if ($curlResult -match "2\d\d$") {
               Write-Host "Callback sent: $result"
-            } catch {
-              Write-Host "Warning: Failed to send callback: $_"
+            } else {
+              Write-Host "Warning: Callback returned: $curlResult"
             }
           }
 
