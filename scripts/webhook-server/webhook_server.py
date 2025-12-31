@@ -325,10 +325,9 @@ Please fix the issues and push a new commit.
         
         log(f"Triggering manual build for PR #{pr_number} (branch: {head_ref})")
         
-        # 触发构建
+        # 触发构建（确认消息由 GitHub Actions 发表，不在这里发）
         if trigger_repository_dispatch(pr_number, pr_title, head_ref):
-            # 可选：发表确认评论
-            post_comment_as_user(pr_number, f"🔨 Build triggered manually by @{comment_user}")
+            log(f"Build triggered successfully for PR #{pr_number}")
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"Build triggered")
