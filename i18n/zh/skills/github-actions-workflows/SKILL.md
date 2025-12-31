@@ -1,20 +1,19 @@
 ---
 name: github-actions-workflows
-description: "GitHub Actions 工作流设计与事件驱动架构：包含 workflow_dispatch/repository_dispatch 事件协调、Self-Hosted Runner 配置、gh-aw 实验功能限制绕过、API 调用模式。当需要设计云端任务系统、本地编译服务、AI Agent 工作流时使用此技能。"
+description: "Webhook 驱动的 PR 自动构建系统：外部 Webhook 服务器接收 GitHub PR 事件，通过 repository_dispatch 触发 Self-Hosted Runner 编译并反馈结果到 PR 评论。包含 Webhook 服务器部署、Runner 配置、GitHub API 调用模式。"
 ---
 
 # GitHub Actions Workflows Skill
 
-设计可靠、可维护的 GitHub Actions 工作流，特别是事件驱动的多工作流协调系统。
+设计 Webhook 驱动的 PR 自动构建工作流，实现 Copilot PR 的自动编译和结果反馈。
 
 ## When to Use This Skill
 
 触发条件：
-- 需要设计 GitHub Actions 事件驱动架构
-- 配置 Self-Hosted Runner 执行本地任务
-- 使用 `gh-aw` 创建 AI Agent 工作流
-- 处理 `workflow_dispatch` / `repository_dispatch` 事件
-- 需要工作流之间传递数据和触发链
+- 部署外部 Webhook 服务器接收 GitHub PR 事件
+- 配置 Self-Hosted Runner 执行本地编译任务
+- 使用 `repository_dispatch` 触发工作流
+- 自动化 PR 构建结果评论
 
 ## Not For / Boundaries
 
@@ -22,21 +21,29 @@ description: "GitHub Actions 工作流设计与事件驱动架构：包含 workf
 - GitHub Actions 基础语法（假设已了解）
 - 具体业务逻辑实现（如 Verse 编译细节）
 - 第三方 Actions 的具体配置
+- Webhook 服务器的基础设施部署（服务器购买、域名配置等）
 
 必需输入：
-- 明确的事件流设计需求
-- 目标仓库和权限信息
+- 目标仓库和权限信息（需要 repo 级别的 PAT）
+- Self-Hosted Runner 的运行环境
 
 ## Quick Reference
 
-### 事件驱动架构模式
+### Webhook 触发工作流模式
 
-**事件链设计：**
+**典型流程：**
 ```
-Task Launcher → task:start → Orchestrator → agent:start → AI Agent
-                                         → agent:complete → compile:request → Local Build
-                                                         → compile:complete → Task Complete
+GitHub PR Event → Webhook Server → repository_dispatch(build-pr) → Self-Hosted Runner
+                                                                   → Checkout PR Branch
+                                                                   → Build & Test
+                                                                   → Comment on PR
 ```
+
+**核心配置要点：**
+- Webhook 接收 PR 事件 (`opened`, `synchronize`, `reopened`)
+- 调用 `gh api repos/{repo}/dispatches` 触发工作流
+- 使用 `client_payload` 传递 PR 信息（`pr_number`, `head_ref`, `pr_title`）
+- 工作流通过 `github.event.client_payload` 访问数据
 
 ### workflow_dispatch vs repository_dispatch
 
@@ -58,10 +65,11 @@ gh workflow run <workflow>.yml -f param1=value1 -f param2=value2
 ```powershell
 # 正确格式 - 通过管道传递 JSON
 $payload = @{
-    event_type = "task:start"
+    event_type = "build-pr"
     client_payload = @{
-        task_id = "123"
-        branch = "main"
+        pr_number = 123
+        head_ref = "feature-branch"
+        pr_title = "Fix: build errors"
     }
 } | ConvertTo-Json -Compress
 
@@ -88,29 +96,6 @@ $errorMessage | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
 # ❌ 错误：PowerShell 语法问题
 "result=success" >> $env:GITHUB_OUTPUT
-```
-
-### gh-aw 限制与绕过
-
-**gh-aw 的限制：**
-1. 无法访问 `secrets.*`
-2. 无法使用 `repository_dispatch`（permissions check 失败）
-3. 编译后生成 `.lock.yml` 文件
-
-**绕过方案 - 直接修改 .lock.yml：**
-```yaml
-# 在 .lock.yml 中手动添加
-- name: Event Callback
-  if: always()
-  env:
-    GH_TOKEN: ${{ secrets.ACTIONAGENT }}  # 手动添加 secret
-  run: |
-    gh api repos/${{ github.repository }}/dispatches --input - << 'EOF'
-    {
-      "event_type": "agent:complete",
-      "client_payload": { "status": "${{ steps.xxx.outputs.result }}" }
-    }
-    EOF
 ```
 
 ### Self-Hosted Runner 配置
@@ -219,154 +204,177 @@ run: |
 
 ## Examples
 
-### Example 1: 任务启动器 (Task Launcher)
+### Example 1: Webhook 触发 PR 构建
 
-**输入：** 用户从 GitHub UI 触发任务
+**场景：** Copilot 创建 PR 后自动触发编译
 
-**工作流：**
-```yaml
-name: "Task Launcher"
-on:
-  workflow_dispatch:
-    inputs:
-      task_description:
-        description: "Task description"
-        required: true
+**Webhook 服务器代码片段（Python Flask）：**
+```python
+import hmac
+import hashlib
+import requests
 
-jobs:
-  launch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate Task ID
-        id: task
-        run: echo "task_id=$(date +%s)" >> $GITHUB_OUTPUT
-
-      - name: Send task:start Event
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONAGENT }}  # Classic PAT
-        run: |
-          gh api repos/${{ github.repository }}/dispatches --input - << 'EOF'
-          {
-            "event_type": "task:start",
-            "client_payload": {
-              "task_id": "${{ steps.task.outputs.task_id }}",
-              "description": "${{ inputs.task_description }}"
-            }
-          }
-          EOF
+def handle_pull_request(payload, action):
+    """处理 PR 事件并触发 GitHub Actions"""
+    if action not in ['opened', 'synchronize', 'reopened']:
+        return
+    
+    pr_number = payload['pull_request']['number']
+    head_ref = payload['pull_request']['head']['ref']
+    pr_title = payload['pull_request']['title']
+    
+    # 触发 repository_dispatch
+    dispatch_url = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/dispatches'
+    dispatch_payload = {
+        'event_type': 'build-pr',
+        'client_payload': {
+            'pr_number': pr_number,
+            'head_ref': head_ref,
+            'pr_title': pr_title
+        }
+    }
+    
+    response = requests.post(
+        dispatch_url,
+        headers={
+            'Authorization': f'token {GITHUB_TOKEN}',
+            'Accept': 'application/vnd.github+json'
+        },
+        json=dispatch_payload
+    )
+    return response.status_code
 ```
 
-**预期输出：** 触发 Orchestrator 的 `task:start` 事件
+完整 Webhook 服务器部署详见：[references/tencent-cloud-webhook-server.md](references/tencent-cloud-webhook-server.md)
 
-### Example 2: 事件编排器 (Orchestrator)
-
-**输入：** 接收各类事件并路由
-
-**工作流：**
+**接收工作流（pr-builder-dispatch.yml）：**
 ```yaml
-name: "Orchestrator"
+name: "PR Builder - Dispatch Trigger"
+
 on:
   repository_dispatch:
-    types: [task:start, agent:complete, compile:complete]
+    types: [build-pr]
 
-jobs:
-  route:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Route Event
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
-        run: |
-          EVENT="${{ github.event.action }}"
-          case $EVENT in
-            task:start)
-              gh workflow run verse-dev-loop.yml \
-                -f task_id="${{ github.event.client_payload.task_id }}" \
-                -f next_step="agent"
-              ;;
-            agent:complete)
-              gh workflow run verse-local-build.yml \
-                -f task_id="${{ github.event.client_payload.task_id }}"
-              ;;
-            compile:complete)
-              echo "Task completed!"
-              ;;
-          esac
-```
+permissions:
+  contents: read
+  pull-requests: write
 
-### Example 3: 本地编译服务 (Self-Hosted Runner)
-
-**输入：** 编译请求事件
-
-**工作流：**
-```yaml
-name: "Local Build"
-on:
-  workflow_dispatch:
-    inputs:
-      task_id:
-        required: false
+concurrency:
+  group: "pr-builder-${{ github.event.client_payload.pr_number }}"
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: [self-hosted, windows, verse-builder]
+    
     steps:
-      - name: Check Connection
-        shell: powershell
-        run: |
-          $tcp = New-Object System.Net.Sockets.TcpClient
-          try {
-            $tcp.Connect("127.0.0.1", 1962)
-            Write-Host "Connection OK"
-            $tcp.Close()
-          } catch {
-            Write-Host "::error::Service not running"
-            exit 1
-          }
-
-      - name: Run Build
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.client_payload.head_ref }}
+          fetch-depth: 0
+      
+      - name: Run Build Script
         id: build
-        shell: powershell
+        shell: pwsh
         run: |
-          $output = node build-tool.js 2>&1 | Out-String
+          $output = & .\build-script.ps1 2>&1 | Out-String
+          $output | Out-File -FilePath "build_output.txt" -Encoding utf8
+          
           if ($LASTEXITCODE -eq 0) {
-            'result=success' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            echo "build_success=true" >> $env:GITHUB_OUTPUT
           } else {
-            'result=failure' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+            echo "build_success=false" >> $env:GITHUB_OUTPUT
           }
+      
+      - name: Comment on PR - Success
+        if: steps.build.outputs.build_success == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('build_output.txt', 'utf8');
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.client_payload.pr_number }},
+              body: `## ✅ Build Succeeded\n\n<details><summary>Build Output</summary>\n\n\`\`\`\n${output}\n\`\`\`\n</details>`
+            });
+      
+      - name: Comment on PR - Failure
+        if: steps.build.outputs.build_success == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('build_output.txt', 'utf8');
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.client_payload.pr_number }},
+              body: `## ❌ Build Failed\n\n@copilot Please fix:\n\n\`\`\`\n${output}\n\`\`\``
+            });
+```
 
-      - name: Send Callback
-        if: always()
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONAGENT }}
-        shell: bash
+### Example 2: Self-Hosted Runner 配置
+
+**场景：** 配置本地 Windows Runner 执行编译任务
+
+**注册 Runner：**
+```powershell
+# 下载 Runner
+cd E:\GitHub-Runner
+Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.311.0/actions-runner-win-x64-2.311.0.zip -OutFile actions-runner.zip
+Expand-Archive -Path actions-runner.zip -DestinationPath .
+
+# 配置 Runner
+.\config.cmd --url https://github.com/{owner}/{repo} --token <TOKEN> --labels self-hosted,windows,verse-builder
+
+# 运行 Runner（作为服务）
+.\run.cmd
+```
+
+**工作流中使用：**
+```yaml
+jobs:
+  build:
+    runs-on: [self-hosted, windows, verse-builder]
+    steps:
+      - name: Verify Environment
+        shell: pwsh
         run: |
-          gh api repos/${{ github.repository }}/dispatches --input - << 'EOF'
-          {
-            "event_type": "compile:complete",
-            "client_payload": {
-              "result": "${{ steps.build.outputs.result }}"
-            }
-          }
-          EOF
+          Write-Host "Runner OS: $env:RUNNER_OS"
+          Write-Host "Working Directory: $PWD"
+          Write-Host "Available Disk: $(Get-PSDrive C | Select-Object -ExpandProperty Free)"
 ```
 
 ## References
 
 - [references/index.md](references/index.md): 参考文档导航
-- [references/copilot-agent-pr-workflow.md](references/copilot-agent-pr-workflow.md): **Copilot Agent PR 工作流自动运行战术手册**
-- [references/event-driven-architecture.md](references/event-driven-architecture.md): 事件驱动架构详解
-- [references/gh-aw-workarounds.md](references/gh-aw-workarounds.md): gh-aw 限制与绕过方案
+- [references/tencent-cloud-webhook-server.md](references/tencent-cloud-webhook-server.md): **腾讯云 Webhook 服务器配置指南** ⭐
+- [references/copilot-agent-pr-workflow.md](references/copilot-agent-pr-workflow.md): Copilot Agent PR 工作流自动运行战术手册
+- [references/api-patterns.md](references/api-patterns.md): GitHub API 调用模式与 Webhook 集成
 - [references/self-hosted-runner.md](references/self-hosted-runner.md): Self-Hosted Runner 配置
-- [references/api-patterns.md](references/api-patterns.md): GitHub API 调用模式
 - [references/troubleshooting.md](references/troubleshooting.md): 常见问题排查
 
 ## Maintenance
 
 - 来源：实际项目经验 (vibe-coding-cn 仓库)
 - 最后更新：2024-12-31
-- 已知限制：
-  - gh-aw 为实验性功能，行为可能变化
-  - repository_dispatch 需要 repo 级别的 PAT
-  - Self-Hosted Runner 需要持续运行的主机
-  - Copilot Agent PR 需要特殊配置才能自动运行工作流
+
+### 架构演进
+
+**2024-12-31 重大简化：**
+- 从多工作流事件驱动架构简化为单一 Webhook 触发模式
+- 删除未实施的 `task:start`/`orchestrator`/`agent:start` 事件系统
+- 删除 gh-aw 相关内容（工具已不使用）
+- 聚焦实际工作的 Webhook → repository_dispatch → Runner → PR Comment 流程
+
+### 已知限制
+
+- repository_dispatch 需要 repo 级别的 PAT（Classic Token）
+- Self-Hosted Runner 需要持续运行的主机
+- Webhook 服务器需要公网可访问 IP 或配置内网穿透（Ngrok/FRP）
+- Copilot Agent PR 必须通过外部 Webhook 才能完全自动化（仓库设置方案有限制）
