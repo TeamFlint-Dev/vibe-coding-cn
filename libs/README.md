@@ -9,7 +9,7 @@
 
 ## 目录结构
 
-```
+```text
 libs/
 ├── README.md
 ├── common/
@@ -17,6 +17,12 @@ libs/
 │   ├── __init__.py
 │   ├── models/
 │   │   └── __init__.py
+│   ├── wrappers/
+│   │   ├── README.md
+│   │   ├── __init__.py
+│   │   ├── input_wrapper.py
+│   │   ├── string_input_wrapper.py
+│   │   └── numeric_input_wrapper.py
 │   └── utils/
 │       └── backups/
 │           ├── README.md
@@ -57,8 +63,10 @@ libs/
 
 ## 常用入口
 
-- 提示词批量管理：[`external/prompts-library/`](./external/prompts-library/)（配合 `../prompts/` 使用）
-- 备份工具：优先使用仓库根目录的 `backups/`（当前与 `libs/common/utils/backups/` 内容一致）
+- 提示词批量管理：[`external/prompts-library/`](./external/prompts-library/)
+  （配合 `../prompts/` 使用）
+- 备份工具：优先使用仓库根目录的 `backups/`
+  （当前与 `libs/common/utils/backups/` 内容一致）
 
 ## 贡献约定（最小要求）
 

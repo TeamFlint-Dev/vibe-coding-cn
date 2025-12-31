@@ -4,12 +4,18 @@
 
 ## 目录结构
 
-```
+```text
 libs/common/
 ├── README.md
 ├── __init__.py
 ├── models/                 # 预留：数据模型（当前仅占位）
 │   └── __init__.py
+├── wrappers/               # 输入包装器：统一的输入验证、转换和错误处理
+│   ├── README.md
+│   ├── __init__.py
+│   ├── input_wrapper.py
+│   ├── string_input_wrapper.py
+│   └── numeric_input_wrapper.py
 └── utils/
     └── backups/            # 基于 .gitignore 的快速备份工具
         ├── README.md
@@ -19,6 +25,7 @@ libs/common/
 
 ## 现有内容
 
+- `wrappers/`：输入包装器模块，提供统一的输入验证、转换和错误处理接口（见 [`wrappers/README.md`](./wrappers/README.md)）
 - `utils/backups/`：快速备份工具（当前与仓库根目录 [`backups/`](../../backups/) 内容一致，用于避免脚本散落各处）
 
 ## 约束与约定
@@ -30,7 +37,27 @@ libs/common/
 
 ## 使用方式（当前推荐）
 
-本目录的内容目前主要以“脚本/工具”形式存在，推荐直接运行：
+### 输入包装器
+
+用于标准化输入处理、验证和转换：
+
+```python
+from libs.common.wrappers import StringInputWrapper, NumericInputWrapper
+
+# 字符串输入验证
+username_wrapper = StringInputWrapper(min_length=3, max_length=20)
+username = username_wrapper.wrap(user_input)
+
+# 数值输入验证
+age_wrapper = NumericInputWrapper(min_value=0, max_value=150, allow_float=False)
+age = age_wrapper.wrap(age_input)
+```
+
+详见：[`wrappers/README.md`](./wrappers/README.md)
+
+### 备份工具
+
+本目录的脚本/工具推荐直接运行：
 
 ```bash
 # 备份当前仓库（建议优先使用根目录 backups/ 入口）
