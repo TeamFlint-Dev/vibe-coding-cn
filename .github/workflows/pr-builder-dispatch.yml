@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
+  pull-requests: read  # 只需读取权限，评论由 Hub 发表
 
 concurrency:
   group: "pr-builder-${{ github.event.client_payload.pr_number }}"
@@ -26,57 +26,15 @@ jobs:
           Write-Host "PR Title: ${{ github.event.client_payload.pr_title }}"
           Write-Host "Head Ref: ${{ github.event.client_payload.head_ref }}"
           Write-Host "Head SHA: ${{ github.event.client_payload.head_sha }}"
-
-      - name: Check for duplicate run
-        id: check_duplicate
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const headSha = '${{ github.event.client_payload.head_sha }}';
-            const prNumber = ${{ github.event.client_payload.pr_number }};
-            
-            if (!headSha) {
-              console.log('No head_sha provided, proceeding with build');
-              return 'proceed';
-            }
-            
-            // 检查是否已有包含此 SHA 的评论
-            const comments = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber,
-              per_page: 20
-            });
-            
-            const shaMarker = `<!-- build-sha: ${headSha} -->`;
-            const hasDuplicate = comments.data.some(c => c.body.includes(shaMarker));
-            
-            if (hasDuplicate) {
-              console.log(`Found existing comment for SHA ${headSha.substring(0, 7)}, skipping`);
-              return 'skip';
-            }
-            
-            console.log(`No duplicate found for SHA ${headSha.substring(0, 7)}, proceeding`);
-            return 'proceed';
-          result-encoding: string
-
-      - name: Skip duplicate notification
-        if: steps.check_duplicate.outputs.result == 'skip'
-        shell: pwsh
-        run: |
-          Write-Host "Skipping duplicate build for same commit SHA"
-          exit 0
+          Write-Host "Task ID: ${{ github.event.client_payload.task_id }}"
 
       - name: Checkout PR branch
-        if: steps.check_duplicate.outputs.result != 'skip'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.client_payload.head_ref }}
           fetch-depth: 0
 
       - name: Check for Verse files
-        if: steps.check_duplicate.outputs.result != 'skip'
         id: check_files
         shell: pwsh
         run: |
@@ -102,22 +60,40 @@ jobs:
             echo "should_build=false" >> $env:GITHUB_OUTPUT
           }
 
-      - name: Skip Build Comment
-        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'false'
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const headSha = '${{ github.event.client_payload.head_sha }}' || 'unknown';
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ github.event.client_payload.pr_number }},
-              body: `## ⏭️ Build Skipped\n\nNo Verse code changes detected. Build skipped automatically.\n\n*Changed files do not include \`.verse\` files or Verse-related directories.*\n\n<!-- build-sha: ${headSha} -->`
-            });
+      - name: Report Skipped to Hub
+        if: steps.check_files.outputs.should_build == 'false'
+        shell: pwsh
+        env:
+          CALLBACK_URL: ${{ secrets.CALLBACK_URL }}
+          CALLBACK_SECRET: ${{ secrets.CALLBACK_SECRET }}
+        run: |
+          $body = @{
+            task_id = "${{ github.event.client_payload.task_id }}"
+            result = "skipped"
+            build_output = "No Verse code changes detected. Build skipped automatically."
+          } | ConvertTo-Json -Compress
+          
+          # 计算签名
+          $hmac = New-Object System.Security.Cryptography.HMACSHA256
+          $hmac.Key = [Text.Encoding]::UTF8.GetBytes($env:CALLBACK_SECRET)
+          $sig = [BitConverter]::ToString($hmac.ComputeHash([Text.Encoding]::UTF8.GetBytes($body))).Replace("-", "").ToLower()
+          $signature = "sha256=$sig"
+          
+          if ($env:CALLBACK_URL) {
+            try {
+              $headers = @{
+                "Content-Type" = "application/json"
+                "X-Callback-Signature" = $signature
+              }
+              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers
+              Write-Host "Callback sent: skipped"
+            } catch {
+              Write-Host "Warning: Failed to send callback: $_"
+            }
+          }
 
       - name: Run Verse Build Script
-        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true'
+        if: steps.check_files.outputs.should_build == 'true'
         id: build
         shell: pwsh
         run: |
@@ -149,54 +125,12 @@ jobs:
             echo "Build script not found"
           }
 
-      - name: Comment on PR - Success
-        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'true'
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const headSha = '${{ github.event.client_payload.head_sha }}' || 'unknown';
-            let output = 'Build output not available';
-            try { output = fs.readFileSync('build_output.txt', 'utf8'); } catch (e) {}
-            if (output.length > 60000) output = output.substring(0, 60000) + '\n\n... (truncated)';
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ github.event.client_payload.pr_number }},
-              body: `## ✅ Build Succeeded\n\nThe Verse build completed successfully!\n\n<details>\n<summary>Build Output</summary>\n\n\`\`\`\n${output}\n\`\`\`\n\n</details>\n\n@Maybank01 Please review and merge this PR.\n\n<!-- build-sha: ${headSha} -->`
-            });
-
-      - name: Comment on PR - Failure (System Notification)
-        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
-        id: failure_comment
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const headSha = '${{ github.event.client_payload.head_sha }}' || 'unknown';
-            let output = 'Build output not available';
-            try { output = fs.readFileSync('build_output.txt', 'utf8'); } catch (e) {}
-            if (output.length > 60000) output = output.substring(0, 60000) + '\n\n... (truncated)';
-
-            // 系统评论：仅记录构建失败信息，不@copilot
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ github.event.client_payload.pr_number }},
-              body: `## ❌ Build Failed\n\nThe Verse build failed. See error details below:\n\n\`\`\`\n${output}\n\`\`\`\n\n*Requesting Copilot assistance via webhook...*\n\n<!-- build-sha: ${headSha} -->`
-            });
-            
-            // 返回构建输出供 webhook 使用
-            core.setOutput('build_output', output);
-
-      - name: Request Copilot Fix via Webhook
-        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
+      - name: Report Result to Hub
+        if: steps.check_files.outputs.should_build == 'true'
         shell: pwsh
         env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          CALLBACK_URL: ${{ secrets.CALLBACK_URL }}
+          CALLBACK_SECRET: ${{ secrets.CALLBACK_SECRET }}
         run: |
           # 读取构建输出
           $buildOutput = ""
@@ -207,29 +141,35 @@ jobs:
             }
           }
           
-          # 构建请求体
-          $body = @{
-            event_type = "copilot-fix-request"
-            pr_number = ${{ github.event.client_payload.pr_number }}
-            head_ref = "${{ github.event.client_payload.head_ref }}"
-            head_sha = "${{ github.event.client_payload.head_sha }}"
-            build_output = $buildOutput
-          } | ConvertTo-Json -Depth 10
+          # 确定结果
+          $result = if ("${{ steps.build.outputs.build_success }}" -eq "true") { "success" } else { "failure" }
           
-          # 发送到 webhook 服务器
-          if ($env:WEBHOOK_URL) {
+          $body = @{
+            task_id = "${{ github.event.client_payload.task_id }}"
+            result = $result
+            build_output = $buildOutput
+          } | ConvertTo-Json -Compress
+          
+          # 计算签名
+          $hmac = New-Object System.Security.Cryptography.HMACSHA256
+          $hmac.Key = [Text.Encoding]::UTF8.GetBytes($env:CALLBACK_SECRET)
+          $sig = [BitConverter]::ToString($hmac.ComputeHash([Text.Encoding]::UTF8.GetBytes($body))).Replace("-", "").ToLower()
+          $signature = "sha256=$sig"
+          
+          if ($env:CALLBACK_URL) {
             try {
-              $response = Invoke-RestMethod -Uri "$env:WEBHOOK_URL/copilot-request" -Method POST -Body $body -ContentType "application/json"
-              Write-Host "Webhook response: $response"
+              $headers = @{
+                "Content-Type" = "application/json"
+                "X-Callback-Signature" = $signature
+              }
+              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers
+              Write-Host "Callback sent: $result"
             } catch {
-              Write-Host "Warning: Failed to send webhook request: $_"
-              # 不要因为 webhook 失败而导致整个 job 失败
+              Write-Host "Warning: Failed to send callback: $_"
             }
-          } else {
-            Write-Host "WEBHOOK_URL not configured, skipping Copilot request"
           }
 
       - name: Fail job if build failed
-        if: steps.check_duplicate.outputs.result != 'skip' && steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
+        if: steps.check_files.outputs.should_build == 'true' && steps.build.outputs.build_success == 'false'
         shell: pwsh
         run: exit 1
