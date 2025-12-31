@@ -91,7 +91,8 @@ jobs:
                 "Content-Type" = "application/json"
                 "X-Callback-Signature" = $signature
               }
-              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers
+              # -NoProxy 绕过代理直连服务器
+              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers -NoProxy
               Write-Host "Callback sent: skipped"
             } catch {
               Write-Host "Warning: Failed to send callback: $_"
@@ -168,7 +169,8 @@ jobs:
                 "Content-Type" = "application/json"
                 "X-Callback-Signature" = $signature
               }
-              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers
+              # -NoProxy 绕过代理直连服务器
+              Invoke-RestMethod -Uri $env:CALLBACK_URL -Method POST -Body $body -Headers $headers -NoProxy
               Write-Host "Callback sent: $result"
             } catch {
               Write-Host "Warning: Failed to send callback: $_"
