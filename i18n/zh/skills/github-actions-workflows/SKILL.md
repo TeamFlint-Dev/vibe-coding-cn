@@ -130,7 +130,7 @@ runs-on: [self-hosted, windows, verse-builder]
 
 **问题：** Copilot 创建的 PR 工作流默认需要手动批准。
 
-**解决方案（同时配置）：**
+**解决方案 A - 仓库设置（简单但有限制）：**
 
 1. **仓库设置**（`Settings → Actions → General`）：
    - ✅ Run workflows from fork pull requests
@@ -151,6 +151,43 @@ jobs:
   build:
     runs-on: [self-hosted, windows, verse-builder]
 ```
+
+**解决方案 B - 外部 Webhook（推荐，完全自动化）：**
+
+部署外部 Webhook 服务器接收 PR 事件，通过 `repository_dispatch` 触发工作流：
+
+```
+GitHub PR → Webhook Server → GitHub API → repository_dispatch → Runner
+```
+
+核心配置：
+```python
+# /opt/webhook/webhook_server.py
+def trigger_repository_dispatch(self, pr_number, action):
+    url = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/dispatches'
+    payload = json.dumps({
+        'event_type': 'build-pr',
+        'client_payload': {'pr_number': pr_number, 'action': action}
+    }).encode()
+    # ... API 调用
+```
+
+接收工作流：
+```yaml
+on:
+  repository_dispatch:
+    types: [build-pr]
+
+jobs:
+  build:
+    runs-on: [self-hosted, windows, verse-builder]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.client_payload.pr_number }}/head
+```
+
+详见：[references/tencent-cloud-webhook-server.md](references/tencent-cloud-webhook-server.md)
 
 **验证：**
 ```bash

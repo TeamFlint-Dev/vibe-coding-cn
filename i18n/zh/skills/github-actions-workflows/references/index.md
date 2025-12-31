@@ -7,6 +7,7 @@ GitHub Actions Workflows 技能的参考文档导航。
 | 文档 | 描述 | 适用场景 |
 |------|------|----------|
 | [copilot-agent-pr-workflow.md](copilot-agent-pr-workflow.md) | **Copilot Agent PR 工作流自动运行战术手册** | Copilot PR 需要批准时 |
+| [tencent-cloud-webhook-server.md](tencent-cloud-webhook-server.md) | **腾讯云 Webhook 服务器配置指南** ⭐ | 部署外部 Webhook 绕过批准 |
 | [event-driven-architecture.md](event-driven-architecture.md) | 事件驱动架构设计原理与模式 | 设计多工作流协调系统 |
 | [gh-aw-workarounds.md](gh-aw-workarounds.md) | gh-aw 实验功能的限制与绕过方案 | 使用 AI Agent 工作流 |
 | [self-hosted-runner.md](self-hosted-runner.md) | Self-Hosted Runner 配置与管理 | 本地编译/测试服务 |
@@ -18,6 +19,7 @@ GitHub Actions Workflows 技能的参考文档导航。
 ### 按任务类型
 
 - **Copilot PR 需要批准** → [copilot-agent-pr-workflow.md](copilot-agent-pr-workflow.md) ⭐
+- **部署外部 Webhook 服务** → [tencent-cloud-webhook-server.md](tencent-cloud-webhook-server.md) ⭐ 新
 - **设计事件流** → [event-driven-architecture.md](event-driven-architecture.md)
 - **配置本地 Runner** → [self-hosted-runner.md](self-hosted-runner.md)
 - **使用 gh-aw 创建 Agent** → [gh-aw-workarounds.md](gh-aw-workarounds.md)
