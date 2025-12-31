@@ -104,3 +104,5 @@ backups/gz/
 *.pdf
 
 scripts/webhook-server/.secrets
+# Secrets directory (local sensitive configs)
+.secrets/

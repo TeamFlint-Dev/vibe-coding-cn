@@ -4,6 +4,9 @@
 
 本文档记录如何在腾讯云服务器上部署 Webhook 服务，用于接收 GitHub PR 事件并触发 `repository_dispatch`，从而绕过 Copilot Agent 创建的 PR 需要人工批准才能运行 workflow 的限制。
 
+> 📁 **当前部署的配置信息**（IP、端口、密钥等）请查看本地文件：
+> `.secrets/tencent-webhook-config.md`（已添加到 .gitignore，不会提交到仓库）
+
 ## 问题背景
 
 GitHub Copilot Agent 创建的 PR 会触发 `pull_request` 事件，但由于安全策略，这些 workflow 需要人工批准才能运行。这对于需要全自动化的场景是一个障碍。
