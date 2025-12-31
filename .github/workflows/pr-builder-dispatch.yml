@@ -1,8 +1,3 @@
-# PR Builder - Dispatch Trigger Workflow
-#
-# This workflow is triggered by repository_dispatch events from the external
-# Webhook service, bypassing GitHub's Copilot workflow approval requirement.
-
 name: "PR Builder - Dispatch Trigger"
 
 on:
@@ -22,14 +17,14 @@ run-name: "Build PR #${{ github.event.client_payload.pr_number }}"
 jobs:
   build:
     runs-on: [self-hosted, windows, verse-builder]
-    
+
     steps:
       - name: Display PR Info
+        shell: bash
         run: |
           echo "PR Number: ${{ github.event.client_payload.pr_number }}"
           echo "PR Title: ${{ github.event.client_payload.pr_title }}"
           echo "Head Ref: ${{ github.event.client_payload.head_ref }}"
-        shell: bash
 
       - name: Checkout PR branch
         uses: actions/checkout@v4
@@ -42,21 +37,15 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = "Continue"
-          
-          # Set UEFN repository path environment variable
           $env:UEFN_REPO_PATH = "E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN"
-          
-          # Build script path
           $buildScript = ".\i18n\zh\skills\verseDev\verse-cli\verse-build.ps1"
-          
+
           if (Test-Path $buildScript) {
             try {
               $output = & $buildScript 2>&1 | Out-String
               $exitCode = $LASTEXITCODE
-              
-              # Save output for PR comment
               $output | Out-File -FilePath "build_output.txt" -Encoding utf8
-              
+
               if ($exitCode -eq 0) {
                 echo "build_success=true" >> $env:GITHUB_OUTPUT
                 echo "Build succeeded"
@@ -82,38 +71,15 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            let buildOutput = '';
-            try {
-              buildOutput = fs.readFileSync('build_output.txt', 'utf8');
-            } catch (e) {
-              buildOutput = 'Build output not available';
-            }
-            
-            // Truncate if too long
-            if (buildOutput.length > 60000) {
-              buildOutput = buildOutput.substring(0, 60000) + '\n\n... (truncated)';
-            }
-            
-            const body = `## Build Succeeded
-
-The Verse build completed successfully!
-
-<details>
-<summary>Build Output</summary>
-
-\`\`\`
-${buildOutput}
-\`\`\`
-
-</details>
-
-@Maybank01 Please review and merge this PR.`;
+            let output = 'Build output not available';
+            try { output = fs.readFileSync('build_output.txt', 'utf8'); } catch (e) {}
+            if (output.length > 60000) output = output.substring(0, 60000) + '\n\n... (truncated)';
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.client_payload.pr_number }},
-              body: body
+              body: '## Build Succeeded\n\nThe Verse build completed successfully!\n\n<details>\n<summary>Build Output</summary>\n\n```\n' + output + '\n```\n\n</details>\n\n@Maybank01 Please review and merge this PR.'
             });
 
       - name: Comment on PR - Failure
@@ -123,36 +89,18 @@ ${buildOutput}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            let buildOutput = '';
-            try {
-              buildOutput = fs.readFileSync('build_output.txt', 'utf8');
-            } catch (e) {
-              buildOutput = 'Build output not available';
-            }
-            
-            // Truncate if too long
-            if (buildOutput.length > 60000) {
-              buildOutput = buildOutput.substring(0, 60000) + '\n\n... (truncated)';
-            }
-            
-            const body = `## Build Failed
-
-@copilot The build failed. Please analyze the error and fix it:
-
-\`\`\`
-${buildOutput}
-\`\`\`
-
-Please fix the issues and push a new commit.`;
+            let output = 'Build output not available';
+            try { output = fs.readFileSync('build_output.txt', 'utf8'); } catch (e) {}
+            if (output.length > 60000) output = output.substring(0, 60000) + '\n\n... (truncated)';
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ github.event.client_payload.pr_number }},
-              body: body
+              body: '## Build Failed\n\n@copilot The build failed. Please analyze the error and fix it:\n\n```\n' + output + '\n```\n\nPlease fix the issues and push a new commit.'
             });
 
       - name: Fail job if build failed
         if: steps.build.outputs.build_success == 'false'
-        run: exit 1
         shell: bash
+        run: exit 1
