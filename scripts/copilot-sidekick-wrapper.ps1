@@ -22,9 +22,9 @@ $TaskPrompt = @"
 
 Read the following Skill docs and create SidekickWrapper:
 
-1. Read Skill definition: i18n/zh/skills/verseDev/verse-wrappers/SKILL.md
-2. Reference API docs: i18n/zh/skills/verseDev/api-digests/README.md (Sidekick APIs)
-3. Check existing Wrapper examples: i18n/zh/skills/verseDev/verse-wrappers/references/
+1. Read Skill definition: Core/skills/programming/verseDev/verseWrappers/SKILL.md
+2. Reference API docs: Core/skills/programming/verseDev/shared/api-digests/README.md (Sidekick APIs)
+3. Check existing Wrapper examples: Core/skills/programming/verseDev/verseWrappers/references/
 
 ### Requirements:
 - Create SidekickWrapper.verse file
