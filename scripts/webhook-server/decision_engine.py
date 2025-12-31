@@ -23,6 +23,77 @@ def log(message: str):
     print(f"[decision] {message}", flush=True)
 
 
+# ==================== 错误分类 ====================
+
+# 基础设施错误模式 - 这些错误不应该让 Copilot 修复
+INFRA_ERROR_PATTERNS = [
+    # PowerShell/脚本参数错误
+    "missing mandatory parameters",
+    "Cannot process command because of one or more missing",
+    "A parameter cannot be found that matches parameter name",
+    
+    # 脚本/文件未找到
+    "Build script not found",
+    "cannot be loaded because running scripts is disabled",
+    "The term '.*' is not recognized",
+    "CommandNotFoundException",
+    "cannot find path",
+    
+    # 网络/连接错误
+    "Failed to download action",
+    "不知道这样的主机",
+    "Unable to resolve host",
+    "Connection timed out",
+    "ETIMEDOUT",
+    "ECONNREFUSED",
+    
+    # Git/GitHub 错误
+    "fatal: unable to access",
+    "fatal: repository",
+    "Authentication failed",
+    "Permission denied",
+    
+    # Runner/环境错误
+    "No space left on device",
+    "Out of memory",
+    "ENOMEM",
+    "ENOSPC",
+    
+    # 进程/系统错误
+    "Access is denied",
+    "System.UnauthorizedAccessException",
+]
+
+
+def is_infra_error(build_output: str) -> bool:
+    """
+    判断是否为基础设施错误（不应让 Copilot 修复的错误）
+    
+    基础设施错误包括：
+    - 脚本参数缺失
+    - 文件/脚本未找到
+    - 网络连接问题
+    - 权限问题
+    - 磁盘/内存不足
+    
+    这些错误需要人工修复环境，而不是让 Copilot 修改代码。
+    """
+    import re
+    
+    if not build_output:
+        return False
+    
+    output_lower = build_output.lower()
+    
+    for pattern in INFRA_ERROR_PATTERNS:
+        # 支持正则表达式模式
+        if re.search(pattern.lower(), output_lower):
+            log(f"Detected infra error pattern: {pattern}")
+            return True
+    
+    return False
+
+
 class ActionType(Enum):
     """操作类型"""
     COMMENT_BOT = "comment_bot"       # Bot 发评论
@@ -156,10 +227,66 @@ No Verse code changes detected. Build skipped automatically.
         
         log(f"PR #{task.pr_number} failure count: {retry_count}/{self.max_retry}")
         
+        # 检查是否为基础设施错误
+        if build_output and is_infra_error(build_output):
+            log(f"Detected infrastructure error, escalating directly to human")
+            return self._escalate_infra_error(task, build_output)
+        
         if retry_count >= self.max_retry:
             return self._escalate_to_human(task, build_output, retry_count)
         else:
             return self._request_copilot_fix(task, build_output, retry_count)
+    
+    def _escalate_infra_error(
+        self,
+        task: Task,
+        build_output: Optional[str]
+    ) -> List[Action]:
+        """基础设施错误，直接通知人工处理，不请求 Copilot"""
+        self.store.update_task(
+            task.task_id,
+            status=TaskStatus.ESCALATED,
+            event="infra_error_escalated",
+            event_details="Infrastructure error detected"
+        )
+        
+        output_preview = ""
+        if build_output:
+            output_preview = build_output[:4000] if len(build_output) > 4000 else build_output
+        
+        notify_mention = f"@{self.notify_user}" if self.notify_user else "maintainer"
+        
+        comment = f"""## 🔧 Build Failed - Infrastructure Error
+
+This appears to be an **infrastructure/environment error**, not a code issue.
+
+{notify_mention} Please check the build environment.
+
+**Common causes:**
+- Missing script parameters or configuration
+- Build script not found
+- Network/connectivity issues
+- Permission problems
+- Disk/memory issues
+
+<details>
+<summary>Error Output</summary>
+
+```
+{output_preview}
+```
+
+</details>
+
+*Copilot fix was NOT requested because this is not a code error.*
+
+<!-- task-id: {task.task_id} -->
+<!-- infra-error: true -->"""
+        
+        return self._execute_actions([
+            Action(ActionType.COMMENT_BOT, {"body": comment, "pr_number": task.pr_number}),
+            Action(ActionType.ADD_LABEL, {"label": "infra-error", "pr_number": task.pr_number})
+        ])
     
     def _request_copilot_fix(
         self,

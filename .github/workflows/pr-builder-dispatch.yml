@@ -99,10 +99,11 @@ jobs:
         run: |
           $ErrorActionPreference = "Continue"
           
-          # 尝试多个可能的脚本位置
+          # verse-loop.ps1 是交互式脚本，需要 -Requirement 参数
+          # PR 构建应使用 verse-build.ps1（无需参数）
           $possiblePaths = @(
-            "${{ github.workspace }}\scripts\verse-loop.ps1",
-            "E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN\i18n\zh\skills\verseDev\verse-cli\verse-build.ps1",
+            "${{ github.workspace }}\Core\skills\programming\verseDev\verseCli\verse-build.ps1",
+            "E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN\Core\skills\programming\verseDev\verseCli\verse-build.ps1",
             "${{ github.workspace }}\i18n\zh\skills\verseDev\verse-cli\verse-build.ps1"
           )
           
