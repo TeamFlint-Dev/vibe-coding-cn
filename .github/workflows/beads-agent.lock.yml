@@ -20,7 +20,7 @@
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
 
-name: "Beads Agent 测试"
+name: "Beads Task Executor"
 "on":
   workflow_dispatch:
     inputs:
@@ -34,7 +34,7 @@ permissions: {}
 concurrency:
   group: "gh-aw-${{ github.workflow }}"
 
-run-name: "Beads Agent 测试"
+run-name: "Beads Task Executor"
 
 jobs:
   activation:
@@ -254,47 +254,17 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/githubnext/gh-aw-firewall/main/install.sh | sudo AWF_VERSION=v0.7.0 bash
           which awf
           awf --version
-      - name: Downloading container images
-        run: |
-          set -e
-          # Helper function to pull Docker images with retry logic
-          docker_pull_with_retry() {
-            local image="$1"
-            local max_attempts=3
-            local attempt=1
-            local wait_time=5
-            
-            while [ $attempt -le $max_attempts ]; do
-              echo "Attempt $attempt of $max_attempts: Pulling $image..."
-              if docker pull --quiet "$image"; then
-                echo "Successfully pulled $image"
-                return 0
-              fi
-              
-              if [ $attempt -lt $max_attempts ]; then
-                echo "Failed to pull $image. Retrying in ${wait_time}s..."
-                sleep $wait_time
-                wait_time=$((wait_time * 2))  # Exponential backoff
-              else
-                echo "Failed to pull $image after $max_attempts attempts"
-                return 1
-              fi
-              attempt=$((attempt + 1))
-            done
-          }
-          
-          docker_pull_with_retry ghcr.io/github/github-mcp-server:v0.26.3
       - name: Write Safe Outputs Config
         run: |
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /tmp/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":3},"create_issue":{"max":5},"create_pull_request":{},"missing_tool":{"max":0},"noop":{"max":1}}
+          {"add_comment":{"max":1},"create_issue":{"max":1},"create_pull_request":{},"missing_tool":{"max":0},"noop":{"max":1}}
           EOF
           cat > /tmp/gh-aw/safeoutputs/tools.json << 'EOF'
           [
             {
-              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 5 issue(s) can be created.",
+              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 1 issue(s) can be created.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -334,7 +304,7 @@ jobs:
               "name": "create_issue"
             },
             {
-              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 3 comment(s) can be added.",
+              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -1894,20 +1864,13 @@ jobs:
           {
             "mcpServers": {
               "github": {
-                "type": "local",
-                "command": "docker",
-                "args": [
-                  "run",
-                  "-i",
-                  "--rm",
-                  "-e",
-                  "GITHUB_PERSONAL_ACCESS_TOKEN",
-                  "-e",
-                  "GITHUB_READ_ONLY=1",
-                  "-e",
-                  "GITHUB_TOOLSETS=context,repos,issues,pull_requests",
-                  "ghcr.io/github/github-mcp-server:v0.26.3"
-                ],
+                "type": "http",
+                "url": "https://api.githubcopilot.com/mcp/",
+                "headers": {
+                  "Authorization": "Bearer \${GITHUB_PERSONAL_ACCESS_TOKEN}",
+                  "X-MCP-Readonly": "true",
+                  "X-MCP-Toolsets": "repos,issues,pull_requests"
+                },
                 "tools": ["*"],
                 "env": {
                   "GITHUB_PERSONAL_ACCESS_TOKEN": "\${GITHUB_MCP_SERVER_TOKEN}"
@@ -1956,7 +1919,7 @@ jobs:
               model: process.env.GH_AW_MODEL_AGENT_COPILOT || "",
               version: "",
               agent_version: "0.0.372",
-              workflow_name: "Beads Agent 测试",
+              workflow_name: "Beads Task Executor",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -1970,7 +1933,7 @@ jobs:
               event_name: context.eventName,
               staged: false,
               network_mode: "defaults",
-              allowed_domains: [],
+              allowed_domains: ["raw.githubusercontent.com"],
               firewall_enabled: true,
               awf_version: "v0.7.0",
               steps: {
@@ -2034,40 +1997,68 @@ jobs:
           PROMPT_DIR="$(dirname "$GH_AW_PROMPT")"
           mkdir -p "$PROMPT_DIR"
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
-          # Beads Agent 测试
+          # Beads Task Executor
           
-          这是一个验证 Beads CLI 集成的测试 Agent。
+          自动从 Beads 任务队列获取任务并执行。
           
-          ## 任务
+          ## 环境准备
           
-          1. 首先安装 Beads CLI：
+          1. 安装 Beads CLI：
              ```bash
              curl -sSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+             export PATH="$HOME/.beads/bin:$PATH"
              ```
           
-          2. 运行 `bd ready --json` 查看可用任务
+          2. 验证安装：
+             ```bash
+             bd --version
+             ```
           
-          3. 如果有任务，选择优先级最高的任务，运行：
+          ## 获取任务
+          
+          1. 查看可用任务：
+             ```bash
+             bd ready --json --limit 1
+             ```
+          
+          2. 如果指定了 task_id 输入，使用该任务；否则选择第一个可用任务
+          
+          3. 认领任务：
              ```bash
              bd update <task-id> --status in_progress
              ```
           
-          4. 报告你看到的任务信息
+          ## 执行任务
           
-          5. 关闭任务：
+          1. 阅读任务描述和 labels
+          2. 根据任务类型执行：
+             - 如果是 `doc` 任务：创建或更新文档
+             - 如果有 `skill:xxx` label：参考 `Core/skills/` 下对应目录
+          3. 使用 `edit` 工具修改文件
+          
+          ## 完成任务
+          
+          1. 关闭任务：
              ```bash
-             bd close <task-id> --reason "Agent 验证测试完成"
+             bd close <task-id> --reason "完成描述"
              ```
           
-          6. 同步状态：
+          2. 同步状态：
              ```bash
              bd sync
              ```
           
-          ## 输出要求
+          3. 通过 `create-pull-request` 提交代码变更
           
-          在 Issue #38 添加评论，报告：
-          - Beads CLI 是否安装成功
+          4. 通过 `add-comment` 报告执行结果
+          
+          ## 输出格式
+          
+          在评论中包含：
+          - 任务 ID 和标题
+          - 执行的步骤摘要
+          - 创建或修改的文件
+          - 下一步建议
           - `bd ready` 输出了什么
           - 任务是否成功 claim 和 close
           - 完整的 Beads 工作流是否可用
@@ -2420,34 +2411,11 @@ jobs:
       - name: Execute GitHub Copilot CLI
         id: agentic_execution
         # Copilot CLI tool arguments (sorted):
-        # --allow-tool github
-        # --allow-tool safeoutputs
-        # --allow-tool shell(cat)
-        # --allow-tool shell(date)
-        # --allow-tool shell(echo)
-        # --allow-tool shell(git add:*)
-        # --allow-tool shell(git branch:*)
-        # --allow-tool shell(git checkout:*)
-        # --allow-tool shell(git commit:*)
-        # --allow-tool shell(git merge:*)
-        # --allow-tool shell(git rm:*)
-        # --allow-tool shell(git status)
-        # --allow-tool shell(git switch:*)
-        # --allow-tool shell(grep)
-        # --allow-tool shell(head)
-        # --allow-tool shell(ls)
-        # --allow-tool shell(pwd)
-        # --allow-tool shell(sort)
-        # --allow-tool shell(tail)
-        # --allow-tool shell(uniq)
-        # --allow-tool shell(wc)
-        # --allow-tool shell(yq)
-        # --allow-tool write
         timeout-minutes: 20
         run: |
           set -o pipefail
           sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.7.0 \
-            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-tool github --allow-tool safeoutputs --allow-tool 'shell(cat)' --allow-tool 'shell(date)' --allow-tool 'shell(echo)' --allow-tool 'shell(git add:*)' --allow-tool 'shell(git branch:*)' --allow-tool 'shell(git checkout:*)' --allow-tool 'shell(git commit:*)' --allow-tool 'shell(git merge:*)' --allow-tool 'shell(git rm:*)' --allow-tool 'shell(git status)' --allow-tool 'shell(git switch:*)' --allow-tool 'shell(grep)' --allow-tool 'shell(head)' --allow-tool 'shell(ls)' --allow-tool 'shell(pwd)' --allow-tool 'shell(sort)' --allow-tool 'shell(tail)' --allow-tool 'shell(uniq)' --allow-tool 'shell(wc)' --allow-tool 'shell(yq)' --allow-tool write --allow-all-paths --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
+            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-all-tools --allow-all-paths --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
             2>&1 | tee /tmp/gh-aw/agent-stdio.log
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
@@ -5322,7 +5290,7 @@ jobs:
         continue-on-error: true
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: firewall-logs-beads-agent-
+          name: firewall-logs-beads-task-executor
           path: /tmp/gh-aw/sandbox/firewall/logs/
           if-no-files-found: ignore
       - name: Parse firewall logs for step summary
@@ -5773,7 +5741,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "Beads Agent 测试"
+          GH_AW_WORKFLOW_NAME: "Beads Task Executor"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5865,7 +5833,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Beads Agent 测试"
+          GH_AW_WORKFLOW_NAME: "Beads Task Executor"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5976,7 +5944,7 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "Beads Agent 测试"
+          GH_AW_WORKFLOW_NAME: "Beads Task Executor"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
@@ -6269,7 +6237,7 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "Beads Agent 测试"
+          WORKFLOW_NAME: "Beads Task Executor"
           WORKFLOW_DESCRIPTION: "No description provided"
         with:
           script: |
@@ -6507,7 +6475,7 @@ jobs:
     env:
       GH_AW_ENGINE_ID: "copilot"
       GH_AW_WORKFLOW_ID: "beads-agent"
-      GH_AW_WORKFLOW_NAME: "Beads Agent 测试"
+      GH_AW_WORKFLOW_NAME: "Beads Task Executor"
     outputs:
       add_comment_comment_id: ${{ steps.add_comment.outputs.comment_id }}
       add_comment_comment_url: ${{ steps.add_comment.outputs.comment_url }}

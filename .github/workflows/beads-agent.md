@@ -1,5 +1,5 @@
 ---
-# Trigger - 手动触发测试
+# Trigger - 手动触发或定时触发
 on:
   workflow_dispatch:
     inputs:
@@ -14,50 +14,89 @@ permissions:
   issues: read
   pull-requests: read
 
+# Tools - 完整 bash 权限
+tools:
+  bash: [":*"]
+  edit:
+  github:
+    toolsets: [repos, issues, pull_requests]
+    mode: remote
+
+# Network - 允许下载 Beads
+network:
+  allowed:
+    - "raw.githubusercontent.com"
+
 # Outputs
 safe-outputs:
   create-issue:
-    max: 5
   add-comment:
-    max: 3
   create-pull-request:
 
 ---
 
-# Beads Agent 测试
+# Beads Task Executor
 
-这是一个验证 Beads CLI 集成的测试 Agent。
+自动从 Beads 任务队列获取任务并执行。
 
-## 任务
+## 环境准备
 
-1. 首先安装 Beads CLI：
+1. 安装 Beads CLI：
    ```bash
    curl -sSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+   export PATH="$HOME/.beads/bin:$PATH"
    ```
 
-2. 运行 `bd ready --json` 查看可用任务
+2. 验证安装：
+   ```bash
+   bd --version
+   ```
 
-3. 如果有任务，选择优先级最高的任务，运行：
+## 获取任务
+
+1. 查看可用任务：
+   ```bash
+   bd ready --json --limit 1
+   ```
+
+2. 如果指定了 task_id 输入，使用该任务；否则选择第一个可用任务
+
+3. 认领任务：
    ```bash
    bd update <task-id> --status in_progress
    ```
 
-4. 报告你看到的任务信息
+## 执行任务
 
-5. 关闭任务：
+1. 阅读任务描述和 labels
+2. 根据任务类型执行：
+   - 如果是 `doc` 任务：创建或更新文档
+   - 如果有 `skill:xxx` label：参考 `Core/skills/` 下对应目录
+3. 使用 `edit` 工具修改文件
+
+## 完成任务
+
+1. 关闭任务：
    ```bash
-   bd close <task-id> --reason "Agent 验证测试完成"
+   bd close <task-id> --reason "完成描述"
    ```
 
-6. 同步状态：
+2. 同步状态：
    ```bash
    bd sync
    ```
 
-## 输出要求
+3. 通过 `create-pull-request` 提交代码变更
 
-在 Issue #38 添加评论，报告：
-- Beads CLI 是否安装成功
+4. 通过 `add-comment` 报告执行结果
+
+## 输出格式
+
+在评论中包含：
+- 任务 ID 和标题
+- 执行的步骤摘要
+- 创建或修改的文件
+- 下一步建议
 - `bd ready` 输出了什么
 - 任务是否成功 claim 和 close
 - 完整的 Beads 工作流是否可用
