@@ -5,6 +5,8 @@ __pycache__/
 *$py.class
 *.so
 *.jsonl
+# Beads issues file should be tracked
+!.beads/issues.jsonl
 .Python
 build/
 develop-eggs/
@@ -25,7 +27,6 @@ wheels/
 MANIFEST
 *.csv
 *.zip
-*.jsonl
 *.db
 *.pyc
 *.png
