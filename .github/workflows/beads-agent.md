@@ -41,16 +41,13 @@ safe-outputs:
 
 ## 环境准备
 
-1. 安装 Beads CLI：
-   ```bash
-   curl -sSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
-   export PATH="$HOME/.beads/bin:$PATH"
-   ```
+使用仓库中预编译的 Beads CLI：
 
-2. 验证安装：
-   ```bash
-   bd --version
-   ```
+```bash
+chmod +x .github/tools/bd-linux-amd64
+alias bd='.github/tools/bd-linux-amd64'
+bd --version
+```
 
 ## 获取任务
 
