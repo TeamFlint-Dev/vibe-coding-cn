@@ -119,7 +119,7 @@ class RepoSync:
             self.git_env['GIT_TERMINAL_PROMPT'] = '0'
     
     def sync(self) -> bool:
-        """拉取最新代码并导入 Beads"""
+        """拉取最新代码"""
         try:
             # 使用 token URL 进行 fetch
             gh_token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_PAT')
@@ -146,13 +146,8 @@ class RepoSync:
                 capture_output=True
             )
             
-            # Beads sync (JSONL-only mode)
-            subprocess.run(
-                [BD_PATH, '--no-db', 'sync', '--import-only'],
-                cwd=self.repo_path,
-                check=True,
-                capture_output=True
-            )
+            # 注意: 使用 no-db 模式时，bd 命令会直接从 .beads/issues.jsonl 读取
+            # 不需要执行 sync --import-only (那需要 SQLite 后端)
             
             log("Repository synced successfully")
             return True
