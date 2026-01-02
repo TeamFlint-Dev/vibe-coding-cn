@@ -19,9 +19,9 @@ on:
         type: string
 
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
+  contents: read
+  issues: read
+  pull-requests: read
 
 # Tools - 启用 bash 执行权限
 tools:
@@ -38,11 +38,8 @@ network:
 
 safe-outputs:
   create-issue:
-    max: 1
   add-comment:
-    max: 10
   create-pull-request:
-    max: 1
 
 # 环境变量 - 从 GitHub Secrets 注入
 env:
@@ -88,26 +85,22 @@ echo "Pipeline ID: $PIPELINE_ID"
 export PIPELINE_ID
 ```
 
-### Step 2: 创建工作分支
+### Step 2: 确定工作分支
 
-**重要**：为此流水线创建专用工作分支，Worker 可以直接提交到此分支，无需审查。
-最终合并到 main 时才需要人工审查。
+流水线使用专用工作分支，分支由调度器负责创建和管理。
 
 ```bash
 # 分支命名规范: pipeline/<pipeline_id>
 BRANCH_NAME="pipeline/$PIPELINE_ID"
 
-# 创建并推送分支
-git checkout -b "$BRANCH_NAME"
-git push -u origin "$BRANCH_NAME"
-
-echo "✅ Created branch: $BRANCH_NAME"
-echo "   - Workers can commit directly to this branch"
-echo "   - Only merge to main requires review"
-
-# 切回 main（Planner 不在分支上工作）
-git checkout main
+echo "📌 Target branch: $BRANCH_NAME"
+echo "   - Branch will be created by scheduler"
+echo "   - Workers will submit PRs to this branch"
+echo "   - Final merge to main requires review"
 ```
+
+> ⚠️ **注意**: 由于 gh-aw 安全限制，Planner 不能直接创建分支。
+> 分支创建由云端调度器在收到 `/pipeline/ready` 请求时完成。
 
 ### Step 3: 读取流水线定义
 根据 pipeline_type 读取对应的配置：

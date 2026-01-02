@@ -24,6 +24,11 @@ name: "根据任务类型查阅对应 Skill"
 "on":
   workflow_dispatch:
     inputs:
+      branch:
+        default: ""
+        description: 工作分支名称（Worker 将提交到此分支）
+        required: false
+        type: string
       stage_id:
         description: 阶段 ID
         required: true
@@ -263,12 +268,12 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /tmp/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":5},"create_pull_request":{},"missing_tool":{"max":0},"noop":{"max":1}}
+          {"add_comment":{"max":1},"create_pull_request":{},"missing_tool":{"max":0},"noop":{"max":1}}
           EOF
           cat > /tmp/gh-aw/safeoutputs/tools.json << 'EOF'
           [
             {
-              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 5 comment(s) can be added.",
+              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -1924,6 +1929,7 @@ jobs:
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
+          GH_AW_INPUTS_BRANCH: ${{ inputs.branch }}
           GH_AW_INPUTS_STAGE_ID: ${{ inputs.stage_id }}
           GH_AW_INPUTS_TASK_ID: ${{ inputs.task_id }}
         run: |
@@ -2017,11 +2023,27 @@ jobs:
           - 如果通过，复制到最终位置
           
           ### Step 4: 保存产物
+          
+          **重要**：由于安全限制，Worker 不能直接 git push。使用 `create-pull-request` safe-output 提交产物：
+          
+          1. 将产物添加到 git 暂存区
+          2. 使用 safe-output 创建 PR 到工作分支
+          3. PR 会自动合并（如果目标是流水线分支）
+          
           ```bash
+          # 准备产物
           git add artifacts/
+          
+          # 创建提交 (本地)
           git commit -m "Pipeline: $PIPELINE_ID stage:__GH_AW_INPUTS_STAGE_ID__ completed"
-          git push
           ```
+          
+          然后使用 safe-output 创建 PR：
+          - **目标分支**: `__GH_AW_INPUTS_BRANCH__` (流水线工作分支)
+          - **标题**: `[Auto] __GH_AW_INPUTS_STAGE_ID__ completed`
+          - **自动合并**: 是（流水线分支不需要审查）
+          
+          > ⚠️ 如果没有指定 branch，产物会提交到 main 分支的 PR（需要人工审查）
           
           ### Step 5: 完成任务
           ```bash
@@ -2057,6 +2079,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
+          GH_AW_INPUTS_BRANCH: ${{ inputs.branch }}
           GH_AW_INPUTS_STAGE_ID: ${{ inputs.stage_id }}
           GH_AW_INPUTS_TASK_ID: ${{ inputs.task_id }}
         with:
@@ -2088,6 +2111,7 @@ jobs:
             return await substitutePlaceholders({
               file: process.env.GH_AW_PROMPT,
               substitutions: {
+                GH_AW_INPUTS_BRANCH: process.env.GH_AW_INPUTS_BRANCH,
                 GH_AW_INPUTS_STAGE_ID: process.env.GH_AW_INPUTS_STAGE_ID,
                 GH_AW_INPUTS_TASK_ID: process.env.GH_AW_INPUTS_TASK_ID
               }
@@ -2256,6 +2280,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
+          GH_AW_INPUTS_BRANCH: ${{ inputs.branch }}
           GH_AW_INPUTS_STAGE_ID: ${{ inputs.stage_id }}
           GH_AW_INPUTS_TASK_ID: ${{ inputs.task_id }}
         with:

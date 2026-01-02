@@ -338,6 +338,11 @@ class PipelineScheduler:
             branch: 工作分支名称（Worker 将提交到此分支）
         """
         
+        # 如果指定了分支，先创建分支
+        if branch:
+            if not self._create_branch(branch):
+                log(f"Warning: Failed to create branch {branch}, continuing anyway")
+        
         # 创建流水线信息
         pipeline = PipelineInfo(
             pipeline_id=pipeline_id,
@@ -410,6 +415,63 @@ class PipelineScheduler:
             )
         
         return True
+    
+    def _create_branch(self, branch_name: str) -> bool:
+        """创建工作分支
+        
+        Args:
+            branch_name: 分支名称 (如 pipeline/p001)
+            
+        Returns:
+            是否成功创建分支
+        """
+        try:
+            # 先同步仓库
+            self.repo_sync.sync()
+            
+            # 检查分支是否已存在
+            result = subprocess.run(
+                ['git', 'branch', '-r', '--list', f'origin/{branch_name}'],
+                cwd=self.repo_sync.repo_path,
+                capture_output=True
+            )
+            if result.stdout.strip():
+                log(f"Branch {branch_name} already exists")
+                return True
+            
+            # 创建新分支
+            subprocess.run(
+                ['git', 'checkout', '-b', branch_name],
+                cwd=self.repo_sync.repo_path,
+                check=True,
+                capture_output=True
+            )
+            
+            # 推送到远程
+            subprocess.run(
+                ['git', 'push', '-u', 'origin', branch_name],
+                cwd=self.repo_sync.repo_path,
+                check=True,
+                capture_output=True
+            )
+            
+            # 切回 main
+            subprocess.run(
+                ['git', 'checkout', 'main'],
+                cwd=self.repo_sync.repo_path,
+                check=True,
+                capture_output=True
+            )
+            
+            log(f"Created branch: {branch_name}")
+            return True
+            
+        except subprocess.CalledProcessError as e:
+            log(f"Failed to create branch {branch_name}: {e.stderr.decode() if e.stderr else str(e)}")
+            return False
+        except Exception as e:
+            log(f"Error creating branch: {e}")
+            return False
     
     def _create_merge_pr(self, pipeline: PipelineInfo) -> Optional[int]:
         """创建合并 PR，将工作分支合并到 main

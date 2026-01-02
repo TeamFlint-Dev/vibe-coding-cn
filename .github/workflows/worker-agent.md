@@ -20,7 +20,7 @@ on:
         default: ''
 
 permissions:
-  contents: write
+  contents: read
   issues: read
   pull-requests: read
 
@@ -32,9 +32,9 @@ tools:
     toolsets: [repos, issues, pull_requests]
     mode: remote
 
+# Worker 需要提交产物到分支，使用 safe-outputs
 safe-outputs:
   add-comment:
-    max: 5
   create-pull-request:
 ---
 
@@ -126,22 +126,26 @@ cat Core/skills/design/gameDev/Index.md        # 如果是游戏设计相关
 
 ### Step 4: 保存产物
 
-**重要**：如果指定了工作分支，先切换到该分支再提交：
+**重要**：由于安全限制，Worker 不能直接 git push。使用 `create-pull-request` safe-output 提交产物：
+
+1. 将产物添加到 git 暂存区
+2. 使用 safe-output 创建 PR 到工作分支
+3. PR 会自动合并（如果目标是流水线分支）
 
 ```bash
-# 如果指定了分支，切换到工作分支
-BRANCH="${{ inputs.branch }}"
-if [ -n "$BRANCH" ]; then
-    echo "🔀 Switching to branch: $BRANCH"
-    git fetch origin "$BRANCH"
-    git checkout "$BRANCH"
-fi
-
-# 提交产物
+# 准备产物
 git add artifacts/
+
+# 创建提交 (本地)
 git commit -m "Pipeline: $PIPELINE_ID stage:${{ inputs.stage_id }} completed"
-git push
 ```
+
+然后使用 safe-output 创建 PR：
+- **目标分支**: `${{ inputs.branch }}` (流水线工作分支)
+- **标题**: `[Auto] ${{ inputs.stage_id }} completed`
+- **自动合并**: 是（流水线分支不需要审查）
+
+> ⚠️ 如果没有指定 branch，产物会提交到 main 分支的 PR（需要人工审查）
 
 ### Step 5: 完成任务
 ```bash
