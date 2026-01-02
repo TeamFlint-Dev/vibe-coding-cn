@@ -27,9 +27,7 @@ tools:
     toolsets: [repos, issues]
   web-fetch:
 
-engine:
-  id: copilot
-  max-turns: 20  # 允许更多轮对话
+engine: copilot
 
 safe-outputs:
   create-issue:
