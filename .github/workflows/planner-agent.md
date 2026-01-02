@@ -328,6 +328,25 @@ echo "  3. After review → merge to main"
 
 ---
 
+## 第十步：发送完成信号（必须）
+
+> ⚠️ **重要**: 必须调用 `noop` 工具发送完成信号，否则 repo-memory 不会被推送！
+
+使用 `noop` safe-output 工具记录完成状态：
+
+```json
+{
+  "message": "Pipeline $PIPELINE_ID created successfully. 5 stages ready for execution. State saved to memory/pipelines branch."
+}
+```
+
+这个步骤是必须的，因为：
+1. `noop` 触发 detection job 运行
+2. detection 成功后，`push_repo_memory` job 才会执行
+3. 只有 repo-memory 被推送后，调度器才能读取 pipeline 状态
+
+---
+
 ## 通信方式说明
 
 > **架构变更**: 不再依赖 GitHub `workflow_run` webhook 事件。

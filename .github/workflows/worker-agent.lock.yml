@@ -2208,6 +2208,22 @@ jobs:
           
           ---
           
+          ## 第八步：发送完成信号（必须）
+          
+          > ⚠️ **重要**: 必须调用 `noop` 工具发送完成信号！
+          
+          使用 `noop` safe-output 工具记录完成状态：
+          
+          ```json
+          {
+            "message": "Stage $STAGE_ID completed for pipeline $PIPELINE_ID. Output: $ARTIFACT_PATH"
+          }
+          ```
+          
+          这个步骤是必须的，确保工作流正常结束。
+          
+          ---
+          
           ## 参考文档
           
           - [Beads CLI 技能](Core/skills/programming/beadsCLI/SKILL.md)
