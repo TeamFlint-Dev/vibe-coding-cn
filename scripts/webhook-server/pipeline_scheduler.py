@@ -125,6 +125,7 @@ class RepoSync:
             gh_token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_PAT')
             if gh_token:
                 # 使用带 token 的 URL
+                log(f"Syncing with token (first 4 chars: {gh_token[:4]}...)")
                 subprocess.run(
                     ['git', 'fetch', f'https://x-access-token:{gh_token}@github.com/TeamFlint-Dev/vibe-coding-cn.git', 'main'],
                     cwd=self.repo_path,
@@ -133,6 +134,7 @@ class RepoSync:
                     env=self.git_env
                 )
             else:
+                log("WARNING: No GH_TOKEN found, using origin URL")
                 subprocess.run(
                     ['git', 'fetch', 'origin'],
                     cwd=self.repo_path,
