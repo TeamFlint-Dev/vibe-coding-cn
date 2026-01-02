@@ -328,11 +328,127 @@ class HubHandler(BaseHTTPRequestHandler):
             self._handle_pr_event(data)
         elif event_type == "issue_comment":
             self._handle_comment_event(data)
+        elif event_type == "issues":
+            self._handle_issues_event(data)
         elif event_type == "ping":
             self._send_json(200, {"message": "pong"})
         else:
             log(f"Ignoring event: {event_type}")
             self._send_json(200, {"message": "Event ignored"})
+    
+    def _handle_issues_event(self, data: dict):
+        """处理 Issue 事件 - 用于 Pipeline 自动调度"""
+        import asyncio
+        
+        action = data.get("action", "")
+        issue = data.get("issue", {})
+        issue_number = issue.get("number", 0)
+        title = issue.get("title", "")
+        body = issue.get("body", "")
+        labels = [l.get("name", "") for l in issue.get("labels", [])]
+        
+        log(f"Issue #{issue_number}: action={action}, labels={labels}")
+        
+        # 只处理带 pipeline 标签的新 Issue
+        if action != "opened" or "pipeline" not in labels:
+            self._send_json(200, {"message": "Issue ignored (not a pipeline trigger)"})
+            return
+        
+        # 解析 Pipeline 信息
+        pipeline_info = self._parse_pipeline_from_issue(title, body)
+        if not pipeline_info:
+            log(f"Could not parse pipeline info from issue #{issue_number}")
+            self._send_json(200, {"message": "Could not parse pipeline info"})
+            return
+        
+        log(f"Parsed pipeline: {pipeline_info['pipeline_id']}, stages: {pipeline_info['stages']}")
+        
+        # 启动调度器
+        scheduler = get_scheduler()
+        if not scheduler:
+            log("Pipeline scheduler not initialized")
+            self._send_json(503, {"error": "Pipeline scheduler not initialized"})
+            return
+        
+        try:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            pipeline = loop.run_until_complete(
+                scheduler.start_pipeline(
+                    pipeline_id=pipeline_info["pipeline_id"],
+                    pipeline_type=pipeline_info.get("type", "unknown"),
+                    stages=pipeline_info["stages"],
+                    stage_ids=pipeline_info.get("stage_ids", {}),
+                    source_url=pipeline_info.get("source_url", ""),
+                    issue_number=issue_number
+                )
+            )
+            log(f"Pipeline {pipeline_info['pipeline_id']} started from issue #{issue_number}")
+            self._send_json(200, {
+                "message": "Pipeline started",
+                "pipeline_id": pipeline_info["pipeline_id"],
+                "issue_number": issue_number
+            })
+        except Exception as e:
+            log(f"Failed to start pipeline: {e}")
+            self._send_json(500, {"error": str(e)})
+    
+    def _parse_pipeline_from_issue(self, title: str, body: str) -> Optional[dict]:
+        """从 Issue 内容解析 Pipeline 信息"""
+        import re
+        
+        result = {}
+        
+        # 从标题解析 pipeline_id (格式: "Pipeline p20260102150202 ...")
+        title_match = re.search(r'Pipeline\s+(p\d{14})', title, re.IGNORECASE)
+        if title_match:
+            result["pipeline_id"] = title_match.group(1)
+        else:
+            # 尝试从 body 解析
+            body_match = re.search(r'\*\*Pipeline ID\*\*:\s*`?(p\d{14})`?', body)
+            if body_match:
+                result["pipeline_id"] = body_match.group(1)
+            else:
+                return None
+        
+        # 解析 type
+        type_match = re.search(r'\*\*Type\*\*:\s*`?([a-z-]+)`?', body)
+        if type_match:
+            result["type"] = type_match.group(1)
+        
+        # 解析 stages 和 stage_ids 从表格
+        # | Stage | Beads ID | ...
+        # | 1. ingest | `vibe-coding-cn-5yh` | ...
+        stages = []
+        stage_ids = {}
+        stage_pattern = re.compile(
+            r'\|\s*\d+\.\s*(\w+)\s*\|\s*`?([a-z-]+-\w+)`?\s*\|',
+            re.IGNORECASE
+        )
+        for match in stage_pattern.finditer(body):
+            stage_name = match.group(1).lower()
+            stage_id = match.group(2)
+            stages.append(stage_name)
+            stage_ids[stage_name] = stage_id
+        
+        if stages:
+            result["stages"] = stages
+            result["stage_ids"] = stage_ids
+        else:
+            # 尝试从 JSON 块解析
+            json_match = re.search(r'"stages":\s*\[([^\]]+)\]', body)
+            if json_match:
+                try:
+                    stages_str = json_match.group(1)
+                    stages = [s.strip().strip('"').strip("'") for s in stages_str.split(",")]
+                    result["stages"] = stages
+                except:
+                    pass
+        
+        if not result.get("stages"):
+            return None
+        
+        return result
     
     def _handle_pr_event(self, data: dict):
         """处理 PR 事件"""

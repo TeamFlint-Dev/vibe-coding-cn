@@ -7,8 +7,15 @@
 - **Prompt library** (`Core/prompts/`) providing AI interaction templates
 - **Methodology documents** (`Core/documents/`) covering development principles and workflows
 - **Game projects** (`Games/`) with project-specific Memory-bank
+- **Pipeline system** (`pipelines/`, `scripts/webhook-server/`) for multi-stage AI workflows
 
 **Core Philosophy**: Skill-driven development with Memory-bank context isolation. Agent reads Skills for capability, reads Memory-bank for project context, executes tasks, and updates Memory-bank.
+
+### Key Terminology
+- **Skill**: Encapsulated development knowledge in `Core/skills/*/SKILL.md`
+- **Memory-bank**: Project-specific context stored in `Games/[project]/memory-bank/`
+- **Beads**: AI-native issue tracking system (`.beads/` directory, uses `bd` CLI)
+- **Pipeline**: Multi-stage workflow orchestrated via cloud scheduler
 
 ## Project Structure
 
@@ -53,10 +60,29 @@ make lint          # Validate all markdown with markdownlint-cli
                    # REQUIRED before committing any .md changes
 ```
 
+### Beads Issue Tracking (AI-Native)
+```bash
+bd create "Task description"       # Create a new task/issue
+bd list                            # View all issues
+bd update <id> --status in_progress
+bd update <id> --status done
+bd sync                            # Sync with git remote (uses .beads/issues.jsonl)
+bd ready --label "pipeline:xxx"    # Get tasks ready for execution
+```
+
 ### Prompt Library Management
 ```bash
 cd libs/external/prompts-library
 python3 main.py    # Interactive Excel ↔ Markdown converter
+```
+
+### Pipeline Operations
+```bash
+# Trigger via GitHub Actions workflow dispatch
+gh aw run planner-agent --input pipeline_type=skills-distill
+
+# Check pipeline status (cloud server API)
+curl https://<server>/pipeline/status/<pipeline_id>
 ```
 
 ## Development Workflow
@@ -106,6 +132,32 @@ The `gameDev` skill ecosystem (`Core/skills/design/gameDev/`) includes:
 | `Core/skills/` | Skill asset library | When creating/updating skills |
 | `Core/prompts/` | AI interaction templates | When updating prompts |
 | `Games/` | Project Memory-bank collection | When working on game projects |
+| `pipelines/*.yaml` | Pipeline stage definitions | When designing new workflows |
+| `scripts/webhook-server/` | Cloud scheduler & webhook handlers | When modifying pipeline orchestration |
+| `.beads/` | Issue tracking data (issues.jsonl syncs via git) | Auto-managed by `bd` CLI |
+
+## Pipeline System Architecture
+
+Multi-stage AI workflows with cloud-based orchestration:
+
+```
+Trigger → Planner Agent (gh-aw) → creates Beads tasks
+                ↓
+    Cloud Scheduler (pipeline_scheduler.py)
+                ↓
+    Worker Agents (gh-aw) ← serial execution per stage
+                ↓
+    Artifacts → artifacts/<pipeline-id>/<stage>/
+```
+
+**Key Components**:
+- `pipelines/skills-distill.yaml` - Pipeline definition (stages, deps, quality checks)
+- `scripts/webhook-server/pipeline_scheduler.py` - Orchestration logic
+- `scripts/webhook-server/pipeline_recorder.py` - GitHub Issue event logging
+
+**Stage Flow**: `ingest → classify → extract → assemble → validate`
+
+**State Passing**: Artifacts stored in repo, metadata in Beads task reason
 
 ## Skill Architecture
 

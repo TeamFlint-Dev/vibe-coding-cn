@@ -199,24 +199,44 @@ class WorkerRunner:
     def trigger_worker(self, task_id: str, stage_id: str) -> Optional[int]:
         """触发 Worker Agent，返回 run_id"""
         try:
+            # 使用 gh workflow run 触发 workflow（不是 gh aw run）
             result = subprocess.run(
                 [
-                    'gh', 'aw', 'run', 'worker-agent',
-                    '--input', f'task_id={task_id}',
-                    '--input', f'stage_id={stage_id}'
+                    'gh', 'workflow', 'run', 'worker-agent.md',
+                    '-f', f'task_id={task_id}',
+                    '-f', f'stage_id={stage_id}'
                 ],
                 cwd=self.repo_path,
                 capture_output=True,
                 check=True
             )
             
-            # 解析输出获取 run_id
-            output = result.stdout.decode()
-            # gh aw run 输出格式: "Workflow run started: https://github.com/.../actions/runs/12345"
-            if 'runs/' in output:
-                run_id = int(output.split('runs/')[-1].split()[0])
-                log(f"Worker triggered, run_id: {run_id}")
-                return run_id
+            log(f"Worker workflow triggered for task {task_id}, stage {stage_id}")
+            
+            # gh workflow run 不直接返回 run_id，需要等待后查询
+            # 等待几秒后获取最新的 run
+            import time
+            time.sleep(3)
+            
+            # 获取最新的 workflow run
+            list_result = subprocess.run(
+                [
+                    'gh', 'run', 'list',
+                    '--workflow', 'worker-agent.md',
+                    '--limit', '1',
+                    '--json', 'databaseId'
+                ],
+                cwd=self.repo_path,
+                capture_output=True,
+                check=True
+            )
+            
+            if list_result.stdout:
+                runs = json.loads(list_result.stdout)
+                if runs:
+                    run_id = runs[0].get('databaseId')
+                    log(f"Worker triggered, run_id: {run_id}")
+                    return run_id
             
             return None
             

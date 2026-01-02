@@ -83,32 +83,39 @@ cat pipelines/${{ inputs.pipeline_type }}.yaml
 
 示例（skills-distill 流水线）：
 ```bash
-# 第一个阶段没有依赖
-bd create "pipeline:$PIPELINE_ID stage:ingest" \
+# 创建所有阶段任务
+INGEST_ID=$(bd create "pipeline:$PIPELINE_ID stage:ingest - 采集: ${{ inputs.source_url }}" \
   --label "pipeline:$PIPELINE_ID" \
-  --label "stage:ingest" \
-  --description "采集: ${{ inputs.source_url }}"
+  --label "stage:ingest" | grep -oP 'Created task: \K\S+')
 
-# 后续阶段依赖前一个
-bd create "pipeline:$PIPELINE_ID stage:classify" \
+CLASSIFY_ID=$(bd create "pipeline:$PIPELINE_ID stage:classify - 分类分析" \
   --label "pipeline:$PIPELINE_ID" \
-  --label "stage:classify" \
-  --deps "completed:stage:ingest"
+  --label "stage:classify" | grep -oP 'Created task: \K\S+')
 
-bd create "pipeline:$PIPELINE_ID stage:extract" \
+EXTRACT_ID=$(bd create "pipeline:$PIPELINE_ID stage:extract - 模式提取" \
   --label "pipeline:$PIPELINE_ID" \
-  --label "stage:extract" \
-  --deps "completed:stage:classify"
+  --label "stage:extract" | grep -oP 'Created task: \K\S+')
 
-bd create "pipeline:$PIPELINE_ID stage:assemble" \
+ASSEMBLE_ID=$(bd create "pipeline:$PIPELINE_ID stage:assemble - 文档组装" \
   --label "pipeline:$PIPELINE_ID" \
-  --label "stage:assemble" \
-  --deps "completed:stage:extract"
+  --label "stage:assemble" | grep -oP 'Created task: \K\S+')
 
-bd create "pipeline:$PIPELINE_ID stage:validate" \
+VALIDATE_ID=$(bd create "pipeline:$PIPELINE_ID stage:validate - 质量验证" \
   --label "pipeline:$PIPELINE_ID" \
-  --label "stage:validate" \
-  --deps "completed:stage:assemble"
+  --label "stage:validate" | grep -oP 'Created task: \K\S+')
+
+# 设置依赖关系：A depends on B 表示 A 需要 B 先完成
+bd dep add $CLASSIFY_ID $INGEST_ID     # classify 依赖 ingest
+bd dep add $EXTRACT_ID $CLASSIFY_ID    # extract 依赖 classify
+bd dep add $ASSEMBLE_ID $EXTRACT_ID    # assemble 依赖 extract
+bd dep add $VALIDATE_ID $ASSEMBLE_ID   # validate 依赖 assemble
+
+echo "Created pipeline tasks with dependencies:"
+echo "  ingest:   $INGEST_ID"
+echo "  classify: $CLASSIFY_ID (depends on ingest)"
+echo "  extract:  $EXTRACT_ID (depends on classify)"
+echo "  assemble: $ASSEMBLE_ID (depends on extract)"
+echo "  validate: $VALIDATE_ID (depends on assemble)"
 ```
 
 ### Step 4: 同步 Beads 到 Git
@@ -118,7 +125,7 @@ bd sync --message "Pipeline $PIPELINE_ID: Created stages"
 
 ### Step 5: 通知调度器
 ```bash
-curl -X POST http://193.112.183.143/pipeline/ready \
+curl -X POST http://193.112.183.143:19527/pipeline/ready \
   -H "Content-Type: application/json" \
   -d '{
     "pipeline_id": "'"$PIPELINE_ID"'",

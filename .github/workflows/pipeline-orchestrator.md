@@ -1,6 +1,9 @@
 ---
-# Pipeline Orchestrator - 流水线总管
-# 通过 Beads 管理多阶段任务，协调多个 Worker Agent
+# Pipeline Orchestrator - 流水线入口
+# 用户触发入口，验证参数后调用 Planner Agent
+
+name: "Pipeline Orchestrator"
+description: "流水线入口 - 验证参数并启动 Planner"
 
 on:
   workflow_dispatch:
@@ -27,162 +30,131 @@ on:
 
 permissions:
   contents: read
-  issues: read
+  actions: write
 
 tools:
   bash: [":*"]
-  edit:
   github:
-    toolsets: [repos, issues]
+    toolsets: [repos, actions]
+    mode: remote
 
 network:
   allowed:
-    - "raw.githubusercontent.com"
+    - "193.112.183.143"
 
 engine: copilot
 
-safe-outputs:
-  create-issue:
-    max: 10
-  add-comment:
-    max: 20
-
 ---
 
-# Pipeline Orchestrator - 流水线总管
+# Pipeline Orchestrator - 流水线入口
 
-你是一个流水线总管（Orchestrator），负责通过 Beads 任务系统管理多阶段工作流。
+你是**流水线入口**，负责验证用户输入并启动 Planner Agent。
 
-## 你的职责
-
-1. **解析流水线定义** - 根据 `pipeline_type` 确定阶段序列
-2. **创建阶段任务** - 通过 `bd create` 创建 Beads 任务
-3. **监控任务状态** - 轮询任务完成情况
-4. **决策流程走向** - 根据结果决定继续、回退或终止
-5. **汇总最终报告** - 创建 Issue 报告整个流水线执行情况
-
-## 流水线定义
-
-### skills-distill（知识蒸馏流水线）
-
-```
-阶段序列: ingest → classify → extract → assemble → validate
-```
-
-| 阶段 | 任务标签 | 输入 | 输出 | 质检条件 |
-|------|---------|------|------|---------|
-| ingest | `stage:ingest` | source_url | 原始内容摘要 | 内容非空 |
-| classify | `stage:classify` | ingest 产物 | 内容分类 | 可提取模式 ≥ 3 |
-| extract | `stage:extract` | classify 产物 | 模式列表 | 模式数 3-30 |
-| assemble | `stage:assemble` | extract 产物 | SKILL.md 草稿 | 章节完整 |
-| validate | `stage:validate` | assemble 产物 | 质量报告 | 评分 ≥ 24/32 |
-
-### game-design（游戏设计流水线）
-
-```
-阶段序列: concept → mechanics → systems → balance → document
-```
-
-### system-design（系统设计流水线）
-
-```
-阶段序列: requirements → architecture → interfaces → implementation → testing
-```
+> **架构说明**：本系统采用 Planner/Worker 分离架构
+> - **Orchestrator**（你）：入口验证
+> - **Planner Agent**：创建任务和依赖关系
+> - **Worker Agent**：执行单个阶段任务
+> - **Cloud Scheduler**：调度 Worker 执行
 
 ## 执行流程
 
-### 步骤 1: 环境准备
+### Step 1: 验证输入参数
 
-1. 安装 Beads CLI（如果需要）：
-   ```bash
-   curl -sSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
-   export PATH="$HOME/.beads/bin:$PATH"
-   ```
+检查必填参数：
+```bash
+PIPELINE_TYPE="${{ inputs.pipeline_type }}"
+SOURCE_URL="${{ inputs.source_url }}"
+TARGET_NAME="${{ inputs.target_name }}"
 
-2. 验证安装：
-   ```bash
-   bd --version
-   ```
+echo "Pipeline Type: $PIPELINE_TYPE"
+echo "Source URL: $SOURCE_URL"
+echo "Target Name: $TARGET_NAME"
 
-### 步骤 2: 创建 Pipeline Issue
+# 验证 skills-distill 必须有 source_url
+if [ "$PIPELINE_TYPE" = "skills-distill" ] && [ -z "$SOURCE_URL" ]; then
+  echo "❌ Error: skills-distill pipeline requires source_url"
+  exit 1
+fi
+```
 
-创建一个 Issue 作为流水线的"控制中心"：
-- 标题: `[Pipeline] ${{ inputs.pipeline_type }} - ${{ inputs.target_name }}`
-- 标签: `pipeline`, `${{ inputs.pipeline_type }}`
-- 内容: 流水线配置和状态追踪表
-
-### 步骤 3: 创建第一阶段任务
-
-根据流水线类型，创建第一个阶段的 Beads 任务：
+### Step 2: 检查流水线配置存在
 
 ```bash
-bd create "pipeline:${{ inputs.pipeline_type }} stage:ingest target:${{ inputs.target_name }} source:${{ inputs.source_url }}" \
-    --label "pipeline:${{ inputs.pipeline_type }}" \
-    --label "stage:ingest" \
-    --label "target:${{ inputs.target_name }}"
+if [ ! -f "pipelines/$PIPELINE_TYPE.yaml" ]; then
+  echo "❌ Error: Pipeline config not found: pipelines/$PIPELINE_TYPE.yaml"
+  exit 1
+fi
+
+echo "✅ Pipeline config found"
+cat "pipelines/$PIPELINE_TYPE.yaml"
 ```
 
-### 步骤 4: 监控与推进
+### Step 3: 生成 Pipeline ID
 
-**监控循环**（最多 10 轮，每轮间隔检查）：
+```bash
+PIPELINE_ID="p$(date +%Y%m%d%H%M%S)"
+echo "Generated Pipeline ID: $PIPELINE_ID"
+```
 
-1. 查询当前阶段任务状态：
-   ```bash
-   bd list --label "pipeline:${{ inputs.pipeline_type }}" --label "target:${{ inputs.target_name }}" --json
-   ```
+### Step 4: 触发 Planner Agent
 
-2. 如果当前阶段完成（status: done）：
-   - 读取任务的 reason（包含产物信息）
-   - 检查质检条件
-   - 如果通过：创建下一阶段任务
-   - 如果失败：根据失败类型决定回退或终止
+使用 GitHub CLI 触发 planner-agent workflow：
 
-3. 如果当前阶段失败（status: failed）：
-   - 分析失败原因
-   - 决定：重试当前阶段 / 回退到前一阶段 / 终止流水线
+```bash
+gh workflow run planner-agent.md \
+  --field pipeline_type="$PIPELINE_TYPE" \
+  --field source_url="$SOURCE_URL" \
+  --field pipeline_id="$PIPELINE_ID"
 
-4. 如果当前阶段仍在进行（status: in_progress）：
-   - 记录等待
-   - 继续下一轮检查
+echo "✅ Planner Agent triggered"
+echo ""
+echo "Pipeline started successfully!"
+echo "  ID: $PIPELINE_ID"
+echo "  Type: $PIPELINE_TYPE"
+echo "  Source: $SOURCE_URL"
+echo ""
+echo "Next steps:"
+echo "  1. Planner Agent will create Beads tasks with dependencies"
+echo "  2. Cloud Scheduler will poll for ready tasks"
+echo "  3. Worker Agent will execute each stage"
+echo "  4. Results will be in artifacts/$PIPELINE_ID/"
+```
 
-### 步骤 5: 最终报告
-
-无论成功或失败，在 Pipeline Issue 中添加最终报告：
+### Step 5: 输出结果
 
 ```markdown
-## Pipeline Execution Report
+## ✅ Pipeline Initiated
 
-**Pipeline**: ${{ inputs.pipeline_type }}
-**Target**: ${{ inputs.target_name }}
-**Status**: SUCCESS / FAILED / PARTIAL
+| Field | Value |
+|-------|-------|
+| Pipeline ID | $PIPELINE_ID |
+| Type | $PIPELINE_TYPE |
+| Target | $TARGET_NAME |
+| Source | $SOURCE_URL |
 
-### Stage Execution Summary
-| Stage | Status | Duration | Output |
-|-------|--------|----------|--------|
-| ingest | ✅ | 2m | ... |
-| ... | ... | ... | ... |
+### Architecture Flow
 
-### Quality Metrics
-- Patterns extracted: X
-- Skill coverage: Y%
-- Quality score: Z/32
-
-### Next Steps
-- [ ] Review generated artifacts
-- [ ] ...
+```
+[You] → Planner Agent → Cloud Scheduler → Worker Agent(s)
+          ↓                    ↓              ↓
+    Create Tasks          Poll bd ready   Execute & Close
 ```
 
-## 重要规则
+### Monitoring
 
-1. **不要自己执行阶段任务** - 你只负责创建任务，让 Worker Agent 执行
-2. **通过 Beads 传递状态** - 所有阶段间数据通过任务的 reason 或仓库文件传递
-3. **记录所有决策** - 在 Pipeline Issue 中记录你的每个决策和原因
-4. **优雅处理失败** - 失败不是终点，分析原因并决定下一步
+- **Cloud Dashboard**: http://193.112.183.143:19527/pipeline/status/$PIPELINE_ID
+- **Beads Tasks**: `bd list --label pipeline:$PIPELINE_ID`
+- **Artifacts**: `artifacts/$PIPELINE_ID/`
+```
 
-## 开始执行
+## 错误处理
 
-Pipeline Type: `${{ inputs.pipeline_type }}`
-Source URL: `${{ inputs.source_url }}`
-Target Name: `${{ inputs.target_name }}`
+如果参数验证失败：
+1. 输出清晰的错误信息
+2. 提供正确的使用示例
+3. 不触发 Planner Agent
 
-请开始执行流水线编排。
+如果 Planner 触发失败：
+1. 检查 workflow 文件是否存在
+2. 检查权限是否足够
+3. 输出 gh 命令的错误信息
