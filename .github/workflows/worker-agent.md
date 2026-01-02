@@ -20,6 +20,11 @@ on:
         required: false
         type: string
         default: ''
+      pipeline_id:
+        description: 'Pipeline ID（调度器传入）'
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -30,13 +35,23 @@ permissions:
 tools:
   bash: [":*"]
   edit:
+  # repo-memory: 读取和更新 pipeline 状态
+  # Worker 使用只读模式读取状态，通过 HTTP 通知调度器更新
+  repo-memory:
+    branch-name: memory/pipelines
+    file-glob: "pipelines/**/*.json"
+    max-file-size: 102400
+    max-file-count: 50
+    create-orphan: false        # Worker 不需要创建分支
+    description: "Read pipeline state for task context"
 
-# Network - Worker 需要网络访问来获取资料
+# Network - Worker 需要网络访问来获取资料和通知调度器
 network:
   allowed:
     - defaults
     - github
     - python
+    - "193.112.183.143"
 
 # 禁用 sandbox 以允许网络访问
 sandbox:
@@ -46,6 +61,11 @@ sandbox:
 safe-outputs:
   add-comment:
   create-pull-request:
+
+# 环境变量 - 用于状态更新通知
+env:
+  PIPELINE_SECRET: ${{ secrets.PIPELINE_SECRET }}
+  PIPELINE_SERVER_URL: "http://193.112.183.143:19527"
 ---
 
 你是流水线执行 Agent，负责执行单个阶段任务。
@@ -55,10 +75,14 @@ safe-outputs:
 > - 通过 `bd` 获取任务信息，通过 Skill 获取执行方法
 > - 执行完成后更新任务状态，不做额外的事情
 
-## 环境准备
+> ⚠️ **必读**: 执行前先阅读 Beads CLI 技能文档了解 bd 命令的正确用法：
+> `cat Core/skills/programming/beadsCLI/SKILL.md`
+
+---
+
+## 第一步：环境准备
 
 **重要**：项目中已包含 Beads CLI (`bd`)，位于 `.github/tools/bd-linux-amd64`。
-在执行 bd 命令前，先设置可执行权限并添加到 PATH：
 
 ```bash
 chmod +x .github/tools/bd-linux-amd64
@@ -67,10 +91,12 @@ ln -sf bd-linux-amd64 .github/tools/bd
 bd --version
 ```
 
-## 执行流程
+---
 
-### Step 1: 获取任务信息
+## 第二步：获取任务信息
+
 ```bash
+# 获取任务详情（JSON 格式便于解析）
 bd show ${{ inputs.task_id }} --json
 ```
 
@@ -79,23 +105,35 @@ bd show ${{ inputs.task_id }} --json
 - `stage`: 阶段名称（从 label 中解析 `stage:xxx`）
 - `description`: 任务描述（可能包含 source_url 等信息）
 
-### Step 2: 标记任务开始
+---
+
+## 第三步：标记任务开始
+
 ```bash
+# 使用正确的 bd update 语法
 bd update ${{ inputs.task_id }} --status in_progress
 ```
 
-### Step 3: 查阅 Skill 获取执行指南
+---
+
+## 第四步：查阅 Skill 获取执行指南
 
 **重要**：在执行具体工作前，先查阅相关 Skill 获取方法论指导：
 
 ```bash
 # 根据任务类型查阅对应 Skill
-# 例如 skills-distill 流水线的阶段：
-cat Core/skills/programming/verseDev/Index.md  # 如果是 Verse 相关
-cat Core/skills/design/gameDev/Index.md        # 如果是游戏设计相关
+cat Core/skills/programming/beadsCLI/SKILL.md  # bd 命令参考
+
+# 根据阶段类型查阅：
+# 如果是 Verse 相关：
+cat Core/skills/programming/verseDev/Index.md
+
+# 如果是游戏设计相关：
+cat Core/skills/design/gameDev/Index.md
 ```
 
 每个阶段对应的知识来源：
+
 | 阶段 | 应查阅的 Skill/文档 |
 |------|-------------------|
 | ingest | 使用 web-fetch 工具，参考 claudeCookbooks |
@@ -104,37 +142,41 @@ cat Core/skills/design/gameDev/Index.md        # 如果是游戏设计相关
 | assemble | 文档组装，参考 Core/documents/Skill规范/示例与模板/ |
 | validate | 质量验证，参考 Core/documents/Skill规范/基础规范/ |
 
-### Step 4: 根据阶段类型执行
+---
+
+## 第五步：根据阶段类型执行
 
 根据 stage_id 执行对应的工作：
 
-#### ingest (采集阶段)
+### ingest (采集阶段)
 - 使用 web-fetch 获取 source_url 内容
 - 解析并保存到 `artifacts/<pipeline_id>/ingest/result.json`
 - 记录文件数量、内容大小
 
-#### classify (分类阶段)
+### classify (分类阶段)
 - 读取 ingest 阶段的输出
 - 分析内容类型，判断可提取性
 - 输出到 `artifacts/<pipeline_id>/classify/analysis.json`
 
-#### extract (提取阶段)
+### extract (提取阶段)
 - 读取 classify 阶段的分析结果
 - 提取可复用的模式、代码片段
 - 输出到 `artifacts/<pipeline_id>/extract/`
 
-#### assemble (组装阶段)
+### assemble (组装阶段)
 - 读取 extract 阶段的模式
 - 生成 SKILL.md 草稿
 - 输出到 `artifacts/<pipeline_id>/assemble/SKILL-draft.md`
 
-#### validate (验证阶段)
+### validate (验证阶段)
 - 检查 SKILL.md 格式和内容
 - 质量评分
 - 输出报告到 `artifacts/<pipeline_id>/validate/report.json`
 - 如果通过，复制到最终位置
 
-### Step 4: 保存产物
+---
+
+## 第六步：保存产物
 
 **重要**：由于安全限制，Worker 不能直接 git push。使用 `create-pull-request` safe-output 提交产物：
 
@@ -157,31 +199,84 @@ git commit -m "Pipeline: $PIPELINE_ID stage:${{ inputs.stage_id }} completed"
 
 > ⚠️ 如果没有指定 branch，产物会提交到 main 分支的 PR（需要人工审查）
 
-### Step 5: 完成任务
+---
+
+## 第七步：完成任务并通知调度器
+
+### 7.1 更新本地 Beads 状态
+
 ```bash
-bd close ${{ inputs.task_id }} --reason "output: artifacts/<pipeline_id>/${{ inputs.stage_id }}/"
-bd sync --message "Task completed: ${{ inputs.task_id }}"
+# 关闭任务，在 reason 中记录产物路径
+PIPELINE_ID="${{ inputs.pipeline_id }}"
+STAGE_ID="${{ inputs.stage_id }}"
+ARTIFACT_PATH="artifacts/$PIPELINE_ID/$STAGE_ID/"
+
+bd close ${{ inputs.task_id }} --reason "output: $ARTIFACT_PATH"
 ```
+
+### 7.2 通知调度器阶段完成
+
+由于 `bd sync` 无法推送，使用 HTTP 通知调度器更新状态：
+
+```bash
+# 使用 pipeline-notify 工具通知阶段完成
+python3 .github/tools/pipeline-notify.py stage-complete \
+  --pipeline-id "$PIPELINE_ID" \
+  --stage-id "$STAGE_ID" \
+  --task-id "${{ inputs.task_id }}" \
+  --status "completed" \
+  --output "$ARTIFACT_PATH"
+
+if [ $? -ne 0 ]; then
+  echo "⚠️ Warning: Failed to notify scheduler, but task is completed locally."
+fi
+```
+
+> **状态同步机制**:
+> - Worker 通过 HTTP 通知调度器阶段完成
+> - 调度器更新 `memory/pipelines` 分支中的状态
+> - 调度器根据依赖关系触发下一个 Worker
+
+---
 
 ## 错误处理
 
 如果执行失败：
-1. 记录错误信息
-2. 更新任务状态为 failed
-3. 在任务 reason 中记录错误详情
 
 ```bash
+# 1. 更新本地任务状态为 failed
 bd update ${{ inputs.task_id }} --status failed --reason "Error: <error_message>"
-bd sync --message "Task failed: ${{ inputs.task_id }}"
+
+# 2. 通知调度器失败状态
+python3 .github/tools/pipeline-notify.py stage-complete \
+  --pipeline-id "$PIPELINE_ID" \
+  --stage-id "$STAGE_ID" \
+  --task-id "${{ inputs.task_id }}" \
+  --status "failed" \
+  --error "<error_message>"
 ```
+
+调度器会根据配置决定是否重试。
+
+---
 
 ## 质量检查
 
 每个阶段完成前，验证输出质量：
-- ingest: 内容不为空，格式正确
-- classify: 识别出至少 1 个可提取类别
-- extract: 提取出至少 3 个模式
-- assemble: 包含必需的 SKILL.md 章节
-- validate: 质量评分 >= 24
+
+| 阶段 | 质量检查 |
+|------|---------|
+| ingest | 内容不为空，格式正确 |
+| classify | 识别出至少 1 个可提取类别 |
+| extract | 提取出至少 3 个模式 |
+| assemble | 包含必需的 SKILL.md 章节 |
+| validate | 质量评分 >= 24 |
 
 如果质量检查失败，任务标记为 failed，由调度器决定是否重试。
+
+---
+
+## 参考文档
+
+- [Beads CLI 技能](Core/skills/programming/beadsCLI/SKILL.md)
+- [gh-aw 技能](Core/skills/programming/ghAgenticWorkflows/SKILL.md)

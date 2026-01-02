@@ -614,3 +614,17 @@ scripts/webhook-server/
 1. **额度分摊**: Copilot Agent 请求消耗月度额度
 2. **容错**: 单账号出问题不影响整体
 3. **自动恢复**: 账号 24 小时后自动重新启用
+
+---
+
+## 相关技能
+
+与中控服务器配合使用的其他技能：
+
+| 技能 | 路径 | 说明 |
+|------|------|------|
+| **gh-aw** | `../ghAgenticWorkflows/SKILL.md` | GitHub Agentic Workflows |
+| **copilot-cli** | `../ghAgenticWorkflows/shared/gh-aw-raw/skills/copilot-cli/SKILL.md` | Copilot CLI 集成 |
+| **github-script** | `../ghAgenticWorkflows/shared/gh-aw-raw/skills/github-script/SKILL.md` | GitHub Actions 脚本最佳实践 |
+| **github-mcp-server** | `../ghAgenticWorkflows/shared/gh-aw-raw/skills/github-mcp-server/SKILL.md` | GitHub MCP 服务器配置 |
+| **gh-agent-task** | `../ghAgenticWorkflows/shared/gh-aw-raw/skills/gh-agent-task/SKILL.md` | 创建 Copilot 自动任务 |

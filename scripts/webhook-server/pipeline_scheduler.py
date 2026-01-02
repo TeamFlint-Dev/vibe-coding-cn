@@ -212,6 +212,185 @@ class RepoSync:
             return True
         except subprocess.CalledProcessError:
             return False
+    
+    def fetch_memory_branch(self, branch_name: str = "memory/pipelines") -> bool:
+        """拉取 memory 分支的最新内容
+        
+        Args:
+            branch_name: memory 分支名称
+            
+        Returns:
+            是否成功拉取
+        """
+        try:
+            gh_token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_PAT')
+            if not gh_token:
+                log("WARNING: No GH_TOKEN found for memory branch fetch")
+                return False
+            
+            # Fetch memory 分支
+            repo_url = f'https://x-access-token:{gh_token}@github.com/TeamFlint-Dev/vibe-coding-cn.git'
+            subprocess.run(
+                ['git', 'fetch', repo_url, f'{branch_name}:{branch_name}'],
+                cwd=self.repo_path,
+                check=True,
+                capture_output=True,
+                env=self.git_env
+            )
+            
+            log(f"Fetched memory branch: {branch_name}")
+            return True
+            
+        except subprocess.CalledProcessError as e:
+            log(f"Failed to fetch memory branch: {e.stderr.decode() if e.stderr else str(e)}")
+            return False
+    
+    def read_pipeline_state(self, pipeline_id: str, branch_name: str = "memory/pipelines") -> Optional[dict]:
+        """从 memory 分支读取 pipeline 状态
+        
+        Args:
+            pipeline_id: Pipeline ID
+            branch_name: memory 分支名称
+            
+        Returns:
+            Pipeline 状态 JSON，如果不存在返回 None
+        """
+        try:
+            # 先 fetch memory 分支
+            self.fetch_memory_branch(branch_name)
+            
+            # 使用 git show 读取文件内容，无需切换分支
+            file_path = f"pipelines/{pipeline_id}/state.json"
+            result = subprocess.run(
+                ['git', 'show', f'{branch_name}:{file_path}'],
+                cwd=self.repo_path,
+                capture_output=True,
+                check=True
+            )
+            
+            if result.stdout:
+                state = json.loads(result.stdout.decode())
+                log(f"Loaded pipeline state for {pipeline_id} from memory branch")
+                return state
+            return None
+            
+        except subprocess.CalledProcessError as e:
+            # 文件不存在是正常的
+            if "path" in str(e.stderr) or "does not exist" in str(e.stderr):
+                log(f"Pipeline state not found in memory branch: {pipeline_id}")
+            else:
+                log(f"Failed to read pipeline state: {e.stderr.decode() if e.stderr else str(e)}")
+            return None
+        except json.JSONDecodeError as e:
+            log(f"Invalid JSON in pipeline state: {e}")
+            return None
+    
+    def update_pipeline_state(
+        self, 
+        pipeline_id: str, 
+        updates: dict,
+        branch_name: str = "memory/pipelines"
+    ) -> bool:
+        """更新 memory 分支中的 pipeline 状态
+        
+        Args:
+            pipeline_id: Pipeline ID
+            updates: 要更新的字段
+            branch_name: memory 分支名称
+            
+        Returns:
+            是否成功更新
+        """
+        try:
+            # 先读取当前状态
+            current_state = self.read_pipeline_state(pipeline_id, branch_name)
+            if not current_state:
+                log(f"Cannot update non-existent pipeline state: {pipeline_id}")
+                return False
+            
+            # 合并更新
+            current_state.update(updates)
+            current_state["updated_at"] = datetime.utcnow().isoformat() + "Z"
+            
+            # 更新 stages 中的状态
+            if "stage_updates" in updates:
+                for stage_update in updates["stage_updates"]:
+                    stage_id = stage_update.get("id")
+                    for stage in current_state.get("stages", []):
+                        if stage["id"] == stage_id:
+                            stage.update(stage_update)
+                            break
+                del current_state["stage_updates"]
+            
+            gh_token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_PAT')
+            if not gh_token:
+                log("No GH_TOKEN for updating memory branch")
+                return False
+            
+            # 切换到 memory 分支
+            subprocess.run(
+                ['git', 'checkout', branch_name],
+                cwd=self.repo_path,
+                check=True,
+                capture_output=True,
+                env=self.git_env
+            )
+            
+            # 写入文件
+            state_path = self.repo_path / "pipelines" / pipeline_id / "state.json"
+            state_path.parent.mkdir(parents=True, exist_ok=True)
+            state_path.write_text(json.dumps(current_state, indent=2, ensure_ascii=False))
+            
+            # 提交
+            subprocess.run(
+                ['git', 'add', str(state_path)],
+                cwd=self.repo_path,
+                check=True,
+                capture_output=True
+            )
+            subprocess.run(
+                ['git', 'commit', '-m', f'Update pipeline state: {pipeline_id}'],
+                cwd=self.repo_path,
+                check=True,
+                capture_output=True,
+                env=self.git_env
+            )
+            
+            # 推送
+            repo_url = f'https://x-access-token:{gh_token}@github.com/TeamFlint-Dev/vibe-coding-cn.git'
+            subprocess.run(
+                ['git', 'push', repo_url, branch_name],
+                cwd=self.repo_path,
+                check=True,
+                capture_output=True,
+                env=self.git_env
+            )
+            
+            # 切回 main
+            subprocess.run(
+                ['git', 'checkout', 'main'],
+                cwd=self.repo_path,
+                check=True,
+                capture_output=True,
+                env=self.git_env
+            )
+            
+            log(f"Updated pipeline state for {pipeline_id}")
+            return True
+            
+        except subprocess.CalledProcessError as e:
+            log(f"Failed to update pipeline state: {e.stderr.decode() if e.stderr else str(e)}")
+            # 尝试切回 main
+            try:
+                subprocess.run(
+                    ['git', 'checkout', 'main'],
+                    cwd=self.repo_path,
+                    capture_output=True,
+                    env=self.git_env
+                )
+            except Exception:
+                pass
+            return False
 
 
 class WorkerRunner:
@@ -346,7 +525,8 @@ class PipelineScheduler:
         source_url: Optional[str] = None,
         stage_ids: Optional[dict[str, str]] = None,
         issue_number: Optional[int] = None,
-        branch: Optional[str] = None
+        branch: Optional[str] = None,
+        memory_branch: Optional[str] = None
     ) -> PipelineInfo:
         """启动新流水线
         
@@ -358,7 +538,24 @@ class PipelineScheduler:
             stage_ids: 阶段 ID 映射 {stage_name: beads_task_id}
             issue_number: 已创建的 Issue 号（可选，用于关联现有 Issue）
             branch: 工作分支名称（Worker 将提交到此分支）
+            memory_branch: memory 分支名称（用于读取 pipeline 状态）
         """
+        
+        # 尝试从 memory 分支读取 pipeline 状态
+        memory_state = None
+        if memory_branch:
+            memory_state = self.repo_sync.read_pipeline_state(pipeline_id, memory_branch)
+            if memory_state:
+                log(f"Loaded pipeline state from memory branch: {memory_branch}")
+                # 从 memory state 中提取信息
+                if not stages and memory_state.get("stages"):
+                    stages = [s["id"] for s in memory_state["stages"]]
+                if not stage_ids and memory_state.get("stages"):
+                    stage_ids = {s["id"]: s["task_id"] for s in memory_state["stages"] if s.get("task_id")}
+                if not source_url:
+                    source_url = memory_state.get("source_url")
+                if not branch:
+                    branch = memory_state.get("branch")
         
         # 如果指定了分支，先创建分支
         if branch:
@@ -380,6 +577,9 @@ class PipelineScheduler:
                 for stage_name in stages
             ]
         )
+        
+        # 记录 memory 分支（用于后续状态更新）
+        pipeline._memory_branch = memory_branch
         
         # 创建或使用已有的 GitHub Issue 作为仪表板
         if issue_number:

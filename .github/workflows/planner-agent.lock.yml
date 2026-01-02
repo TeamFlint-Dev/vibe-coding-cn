@@ -20,7 +20,7 @@
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
 
-name: "验证工具可用"
+name: "设置可执行权限并添加到 PATH"
 "on":
   workflow_dispatch:
     inputs:
@@ -42,7 +42,7 @@ permissions: {}
 concurrency:
   group: "gh-aw-${{ github.workflow }}"
 
-run-name: "验证工具可用"
+run-name: "设置可执行权限并添加到 PATH"
 
 env:
   PIPELINE_SECRET: ${{ secrets.PIPELINE_SECRET }}
@@ -172,6 +172,35 @@ jobs:
           mkdir -p /tmp/gh-aw/agent
           mkdir -p /tmp/gh-aw/sandbox/agent/logs
           echo "Created /tmp/gh-aw/agent directory for agentic workflow temporary files"
+      # Repo memory git-based storage configuration from frontmatter processed below
+      - name: Clone repo-memory branch (default)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH_NAME: memory/pipelines
+        run: |
+          set +e  # Don't fail if branch doesn't exist
+          git clone --depth 1 --single-branch --branch "memory/pipelines" "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" "/tmp/gh-aw/repo-memory-default" 2>/dev/null
+          CLONE_EXIT_CODE=$?
+          set -e
+          
+          if [ $CLONE_EXIT_CODE -ne 0 ]; then
+            echo "Branch memory/pipelines does not exist, creating orphan branch"
+            mkdir -p "/tmp/gh-aw/repo-memory-default"
+            cd "/tmp/gh-aw/repo-memory-default"
+            git init
+            git checkout --orphan "$BRANCH_NAME"
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          else
+            echo "Successfully cloned memory/pipelines branch"
+            cd "/tmp/gh-aw/repo-memory-default"
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+          fi
+          
+          mkdir -p "/tmp/gh-aw/repo-memory-default/memory/default"
+          echo "Repo memory directory ready at /tmp/gh-aw/repo-memory-default/memory/default"
       - name: Configure Git credentials
         env:
           REPO_NAME: ${{ github.repository }}
@@ -1962,7 +1991,7 @@ jobs:
               model: process.env.GH_AW_MODEL_AGENT_COPILOT || "",
               version: "",
               agent_version: "0.0.372",
-              workflow_name: "验证工具可用",
+              workflow_name: "设置可执行权限并添加到 PATH",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -2049,17 +2078,21 @@ jobs:
           3. 创建 Beads 任务
           4. 通知调度器启动流水线
           
-          ## 环境准备
+          > ⚠️ **必读**: 执行前先阅读 Beads CLI 技能文档了解 bd 命令的正确用法：
+          > `cat Core/skills/programming/beadsCLI/SKILL.md`
+          
+          ---
+          
+          ## 第一步：环境准备
           
           **重要**：项目中已包含以下工具，位于 `.github/tools/`：
           - `bd-linux-amd64` - Beads CLI
           - `pipeline-notify.py` - 流水线通知工具
           
-          在执行命令前，先设置可执行权限并添加到 PATH：
-          
           ```bash
+          # 设置可执行权限并添加到 PATH
           chmod +x .github/tools/bd-linux-amd64
-          chmod +x .github/tools/pipeline-notify
+          chmod +x .github/tools/pipeline-notify.py
           export PATH="$PWD/.github/tools:$PATH"
           ln -sf bd-linux-amd64 .github/tools/bd
           
@@ -2068,10 +2101,10 @@ jobs:
           python3 .github/tools/pipeline-notify.py --help
           ```
           
-          ## 执行步骤
+          ---
           
-          ### Step 1: 生成 Pipeline ID
-          如果没有提供 pipeline_id，生成一个：
+          ## 第二步：生成 Pipeline ID
+          
           ```bash
           PIPELINE_ID="__GH_AW_INPUTS_PIPELINE_ID__"
           if [ -z "$PIPELINE_ID" ]; then
@@ -2081,14 +2114,14 @@ jobs:
           export PIPELINE_ID
           ```
           
-          ### Step 2: 确定工作分支
+          ---
+          
+          ## 第三步：确定工作分支
           
           流水线使用专用工作分支，分支由调度器负责创建和管理。
           
           ```bash
-          # 分支命名规范: pipeline/<pipeline_id>
           BRANCH_NAME="pipeline/$PIPELINE_ID"
-          
           echo "📌 Target branch: $BRANCH_NAME"
           echo "   - Branch will be created by scheduler"
           echo "   - Workers will submit PRs to this branch"
@@ -2098,60 +2131,165 @@ jobs:
           > ⚠️ **注意**: 由于 gh-aw 安全限制，Planner 不能直接创建分支。
           > 分支创建由云端调度器在收到 `/pipeline/ready` 请求时完成。
           
-          ### Step 3: 读取流水线定义
-          根据 pipeline_type 读取对应的配置：
+          ---
+          
+          ## 第四步：读取流水线定义
+          
           ```bash
           cat pipelines/__GH_AW_INPUTS_PIPELINE_TYPE__.yaml
           ```
           
-          ### Step 4: 创建阶段任务
-          为每个阶段创建 Beads 任务，设置依赖关系：
+          ---
           
-          示例（skills-distill 流水线）：
+          ## 第五步：创建阶段任务
+          
+          ### 关于 bd 命令的正确用法
+          
+          **创建任务**:
+          ```bash
+          # bd create 返回格式: "Created task: bd-xxxx"
+          # 使用 grep 提取任务 ID
+          TASK_ID=$(bd create "任务标题" --label "key:value" 2>&1 | grep -oP 'Created task: \K\S+')
+          ```
+          
+          **设置依赖关系**:
+          ```bash
+          # bd dep add <child> <parent>
+          # 语义: child 依赖于 parent (parent 必须先完成)
+          bd dep add $CHILD_ID $PARENT_ID
+          ```
+          
+          ### 执行创建
+          
           ```bash
           # 创建所有阶段任务
           INGEST_ID=$(bd create "pipeline:$PIPELINE_ID stage:ingest - 采集: __GH_AW_INPUTS_SOURCE_URL__" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:ingest" | grep -oP 'Created task: \K\S+')
+            --label "stage:ingest" 2>&1 | grep -oP 'Created task: \K\S+')
           
           CLASSIFY_ID=$(bd create "pipeline:$PIPELINE_ID stage:classify - 分类分析" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:classify" | grep -oP 'Created task: \K\S+')
+            --label "stage:classify" 2>&1 | grep -oP 'Created task: \K\S+')
           
           EXTRACT_ID=$(bd create "pipeline:$PIPELINE_ID stage:extract - 模式提取" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:extract" | grep -oP 'Created task: \K\S+')
+            --label "stage:extract" 2>&1 | grep -oP 'Created task: \K\S+')
           
           ASSEMBLE_ID=$(bd create "pipeline:$PIPELINE_ID stage:assemble - 文档组装" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:assemble" | grep -oP 'Created task: \K\S+')
+            --label "stage:assemble" 2>&1 | grep -oP 'Created task: \K\S+')
           
           VALIDATE_ID=$(bd create "pipeline:$PIPELINE_ID stage:validate - 质量验证" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:validate" | grep -oP 'Created task: \K\S+')
+            --label "stage:validate" 2>&1 | grep -oP 'Created task: \K\S+')
           
-          # 设置依赖关系：A depends on B 表示 A 需要 B 先完成
+          # 验证所有 ID 都已创建
+          echo "Task IDs:"
+          echo "  ingest:   ${INGEST_ID:-FAILED}"
+          echo "  classify: ${CLASSIFY_ID:-FAILED}"
+          echo "  extract:  ${EXTRACT_ID:-FAILED}"
+          echo "  assemble: ${ASSEMBLE_ID:-FAILED}"
+          echo "  validate: ${VALIDATE_ID:-FAILED}"
+          ```
+          
+          ---
+          
+          ## 第六步：设置依赖关系
+          
+          ```bash
+          # 设置依赖关系：child depends on parent
+          # 语义: parent 必须先完成，child 才能开始
           bd dep add $CLASSIFY_ID $INGEST_ID     # classify 依赖 ingest
           bd dep add $EXTRACT_ID $CLASSIFY_ID    # extract 依赖 classify
           bd dep add $ASSEMBLE_ID $EXTRACT_ID    # assemble 依赖 extract
           bd dep add $VALIDATE_ID $ASSEMBLE_ID   # validate 依赖 assemble
           
-          echo "Created pipeline tasks with dependencies:"
-          echo "  ingest:   $INGEST_ID"
-          echo "  classify: $CLASSIFY_ID (depends on ingest)"
-          echo "  extract:  $EXTRACT_ID (depends on classify)"
-          echo "  assemble: $ASSEMBLE_ID (depends on extract)"
-          echo "  validate: $VALIDATE_ID (depends on assemble)"
+          echo "Dependencies set:"
+          echo "  ingest → classify → extract → assemble → validate"
           ```
           
-          ### Step 5: 同步 Beads 到 Git
+          ---
+          
+          ## 第七步：同步 Beads 并写入 Pipeline 状态
+          
+          由于 gh-aw 安全限制，`bd sync` 无法推送到主分支。我们使用 `repo-memory` 工具将 pipeline 状态写入独立的 `memory/pipelines` 分支。
+          
+          ### 7.1 创建 Pipeline 状态 JSON
+          
           ```bash
-          bd sync --message "Pipeline $PIPELINE_ID: Created stages"
+          # 构建 pipeline 状态 JSON (包含完整的依赖图信息)
+          cat > /tmp/pipeline-state.json << EOF
+          {
+            "pipeline_id": "$PIPELINE_ID",
+            "pipeline_type": "__GH_AW_INPUTS_PIPELINE_TYPE__",
+            "source_url": "__GH_AW_INPUTS_SOURCE_URL__",
+            "branch": "pipeline/$PIPELINE_ID",
+            "created_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "status": "pending",
+            "stages": [
+              {
+                "id": "ingest",
+                "task_id": "$INGEST_ID",
+                "status": "pending",
+                "depends_on": []
+              },
+              {
+                "id": "classify",
+                "task_id": "$CLASSIFY_ID",
+                "status": "pending",
+                "depends_on": ["ingest"]
+              },
+              {
+                "id": "extract",
+                "task_id": "$EXTRACT_ID",
+                "status": "pending",
+                "depends_on": ["classify"]
+              },
+              {
+                "id": "assemble",
+                "task_id": "$ASSEMBLE_ID",
+                "status": "pending",
+                "depends_on": ["extract"]
+              },
+              {
+                "id": "validate",
+                "task_id": "$VALIDATE_ID",
+                "status": "pending",
+                "depends_on": ["assemble"]
+              }
+            ]
+          }
+          EOF
+          
+          echo "Pipeline state created:"
+          cat /tmp/pipeline-state.json | head -20
           ```
           
-          ### Step 6: 通知调度器启动流水线
+          ### 7.2 写入 repo-memory
           
-          **使用 pipeline-notify 工具**直接通知云端调度器：
+          使用 repo-memory 工具将状态写入 `memory/pipelines` 分支：
+          
+          ```bash
+          # repo-memory 会自动将文件写入配置的分支
+          # 文件路径: pipelines/<pipeline_id>/state.json
+          mkdir -p pipelines/$PIPELINE_ID
+          cp /tmp/pipeline-state.json pipelines/$PIPELINE_ID/state.json
+          
+          echo "✅ Pipeline state written to repo-memory"
+          echo "   Branch: memory/pipelines"
+          echo "   Path: pipelines/$PIPELINE_ID/state.json"
+          ```
+          
+          > **安全说明**: 
+          > - `repo-memory` 使用独立的 orphan 分支，不影响主分支代码
+          > - 文件路径严格限制在 `pipelines/**/*.json`
+          > - 调度器从此分支读取状态，无需访问 `.beads/` 目录
+          
+          ---
+          
+          ## 第八步：通知调度器启动流水线
+          
+          使用 pipeline-notify 工具直接通知云端调度器：
           
           ```bash
           # 构建 stage_ids 参数
@@ -2159,25 +2297,26 @@ jobs:
           BRANCH_NAME="pipeline/$PIPELINE_ID"
           
           # 调用 pipeline-notify 工具
+          # 注意: 调度器现在会从 memory/pipelines 分支读取完整状态
           python3 .github/tools/pipeline-notify.py ready \
             --pipeline-id "$PIPELINE_ID" \
             --type "__GH_AW_INPUTS_PIPELINE_TYPE__" \
             --stages "ingest,classify,extract,assemble,validate" \
             --stage-ids "$STAGE_IDS" \
             --source-url "__GH_AW_INPUTS_SOURCE_URL__" \
-            --branch "$BRANCH_NAME"
-          ```
+            --branch "$BRANCH_NAME" \
+            --memory-branch "memory/pipelines"
           
-          如果通知失败，记录错误但不阻塞（调度器也支持主动轮询）：
-          
-          ```bash
+          # 检查结果
           if [ $? -ne 0 ]; then
-            echo "⚠️ Warning: Failed to notify scheduler, but tasks are created."
-            echo "Scheduler can still pick up tasks via polling."
+            echo "⚠️ Warning: Failed to notify scheduler via HTTP."
+            echo "Scheduler can read pipeline state from memory/pipelines branch."
           fi
           ```
           
-          ### Step 7: 完成
+          ---
+          
+          ## 第九步：完成总结
           
           ```bash
           echo "=========================================="
@@ -2193,6 +2332,8 @@ jobs:
           echo "  3. After review → merge to main"
           ```
           
+          ---
+          
           ## 通信方式说明
           
           > **架构变更**: 不再依赖 GitHub `workflow_run` webhook 事件。
@@ -2205,11 +2346,21 @@ jobs:
           > - 更简单：一条命令完成通知，无需复杂的 artifact 解析
           > - 可回退：如果 HTTP 失败，调度器仍可通过轮询发现任务
           
+          ---
+          
           ## 注意事项
+          
           - 快速退出，不要等待执行结果
           - 所有等待逻辑由调度器处理
           - 如果 bd sync 失败，在日志中记录错误
           - 使用 `pipeline-notify` 工具通知调度器
+          
+          ---
+          
+          ## 参考文档
+          
+          - [Beads CLI 技能](Core/skills/programming/beadsCLI/SKILL.md)
+          - [gh-aw 技能](Core/skills/programming/ghAgenticWorkflows/SKILL.md)
           
           PROMPT_EOF
       - name: Substitute placeholders
@@ -2300,6 +2451,36 @@ jobs:
           <restriction>Do NOT attempt to edit files outside these directories as you do not have the necessary permissions.</restriction>
           </file-editing>
           
+          PROMPT_EOF
+      - name: Append repo memory instructions to prompt
+        env:
+          GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
+        run: |
+          cat << 'PROMPT_EOF' >> "$GH_AW_PROMPT"
+          
+          ---
+          
+          ## Repo Memory Available
+          
+          You have access to a persistent repo memory folder at `/tmp/gh-aw/repo-memory-default/memory/default/` where you can read and write files that are stored in a git branch. Pipeline state storage - read by scheduler to coordinate workflow execution
+          
+          - **Read/Write Access**: You can freely read from and write to any files in this folder
+          - **Git Branch Storage**: Files are stored in the `memory/pipelines` branch of the current repository
+          - **Automatic Push**: Changes are automatically committed and pushed after the workflow completes
+          - **Merge Strategy**: In case of conflicts, your changes (current version) win
+          - **Persistence**: Files persist across workflow runs via git branch storage
+          
+          **Constraints:**
+          - **Allowed Files**: Only files matching patterns: pipelines/**/*.json
+          - **Max File Size**: 102400 bytes (0.10 MB) per file
+          - **Max File Count**: 50 files per commit
+          
+          Examples of what you can store:
+          - `/tmp/gh-aw/repo-memory-default/memory/default/notes.md` - general notes and observations
+          - `/tmp/gh-aw/repo-memory-default/memory/default/state.json` - structured state data
+          - `/tmp/gh-aw/repo-memory-default/memory/default/history/` - organized history files in subdirectories
+          
+          Feel free to create, read, update, and organize files in this folder as needed for your tasks.
           PROMPT_EOF
       - name: Append safe outputs instructions to prompt
         env:
@@ -5487,6 +5668,15 @@ jobs:
           name: agent-stdio.log
           path: /tmp/gh-aw/agent-stdio.log
           if-no-files-found: warn
+      # Upload repo memory as artifacts for push job
+      - name: Upload repo-memory artifact (default)
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: repo-memory-default
+          path: /tmp/gh-aw/repo-memory-default
+          retention-days: 1
+          if-no-files-found: ignore
       - name: Validate agent logs for errors
         if: always()
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
@@ -5736,6 +5926,7 @@ jobs:
       - activation
       - agent
       - detection
+      - push_repo_memory
       - safe_outputs
     if: (always()) && (needs.agent.result != 'skipped')
     runs-on: ubuntu-slim
@@ -5777,7 +5968,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "验证工具可用"
+          GH_AW_WORKFLOW_NAME: "设置可执行权限并添加到 PATH"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5869,7 +6060,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "验证工具可用"
+          GH_AW_WORKFLOW_NAME: "设置可执行权限并添加到 PATH"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5980,7 +6171,7 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "验证工具可用"
+          GH_AW_WORKFLOW_NAME: "设置可执行权限并添加到 PATH"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
@@ -6273,7 +6464,7 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "验证工具可用"
+          WORKFLOW_NAME: "设置可执行权限并添加到 PATH"
           WORKFLOW_DESCRIPTION: "No description provided"
         with:
           script: |
@@ -6495,6 +6686,200 @@ jobs:
           path: /tmp/gh-aw/threat-detection/detection.log
           if-no-files-found: ignore
 
+  push_repo_memory:
+    needs:
+      - agent
+      - detection
+    if: always() && needs.detection.outputs.success == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .
+      - name: Configure Git credentials
+        env:
+          REPO_NAME: ${{ github.repository }}
+          SERVER_URL: ${{ github.server_url }}
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          # Re-authenticate git with GitHub token
+          SERVER_URL_STRIPPED="${SERVER_URL#https://}"
+          git remote set-url origin "https://x-access-token:${{ github.token }}@${SERVER_URL_STRIPPED}/${REPO_NAME}.git"
+          echo "Git configured with standard GitHub Actions identity"
+      - name: Download repo-memory artifact (default)
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        continue-on-error: true
+        with:
+          name: repo-memory-default
+          path: /tmp/gh-aw/repo-memory-default
+      - name: Push repo-memory changes (default)
+        if: always()
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          ARTIFACT_DIR: /tmp/gh-aw/repo-memory-default
+          MEMORY_ID: default
+          TARGET_REPO: ${{ github.repository }}
+          BRANCH_NAME: memory/pipelines
+          MAX_FILE_SIZE: 102400
+          MAX_FILE_COUNT: 50
+          FILE_GLOB_FILTER: "pipelines/**/*.json"
+        with:
+          script: |
+            const fs = require("fs");
+            const path = require("path");
+            const { execSync } = require("child_process");
+            async function main() {
+              const artifactDir = process.env.ARTIFACT_DIR;
+              const memoryId = process.env.MEMORY_ID;
+              const targetRepo = process.env.TARGET_REPO;
+              const branchName = process.env.BRANCH_NAME;
+              const maxFileSize = parseInt(process.env.MAX_FILE_SIZE || "10240", 10);
+              const maxFileCount = parseInt(process.env.MAX_FILE_COUNT || "100", 10);
+              const fileGlobFilter = process.env.FILE_GLOB_FILTER || "";
+              const ghToken = process.env.GH_TOKEN;
+              const githubRunId = process.env.GITHUB_RUN_ID || "unknown";
+              if (!artifactDir || !memoryId || !targetRepo || !branchName || !ghToken) {
+                core.setFailed("Missing required environment variables: ARTIFACT_DIR, MEMORY_ID, TARGET_REPO, BRANCH_NAME, GH_TOKEN");
+                return;
+              }
+              const sourceMemoryPath = path.join(artifactDir, "memory", memoryId);
+              if (!fs.existsSync(sourceMemoryPath)) {
+                core.info(`Memory directory not found in artifact: ${sourceMemoryPath}`);
+                return;
+              }
+              const workspaceDir = process.env.GITHUB_WORKSPACE || process.cwd();
+              core.info(`Working in repository: ${workspaceDir}`);
+              core.info(`Disabling sparse checkout...`);
+              try {
+                execSync("git sparse-checkout disable", { stdio: "pipe" });
+              } catch (error) {
+                core.info("Sparse checkout was not enabled or already disabled");
+              }
+              core.info(`Checking out branch: ${branchName}...`);
+              try {
+                const repoUrl = `https://x-access-token:${ghToken}@github.com/${targetRepo}.git`;
+                try {
+                  execSync(`git fetch "${repoUrl}" "${branchName}:${branchName}"`, { stdio: "pipe" });
+                  execSync(`git checkout "${branchName}"`, { stdio: "inherit" });
+                  core.info(`Checked out existing branch: ${branchName}`);
+                } catch (fetchError) {
+                  core.info(`Branch ${branchName} does not exist, creating orphan branch...`);
+                  execSync(`git checkout --orphan "${branchName}"`, { stdio: "inherit" });
+                  execSync("git rm -rf . || true", { stdio: "pipe" });
+                  core.info(`Created orphan branch: ${branchName}`);
+                }
+              } catch (error) {
+                core.setFailed(`Failed to checkout branch: ${error instanceof Error ? error.message : String(error)}`);
+                return;
+              }
+              const destMemoryPath = path.join(workspaceDir, "memory", memoryId);
+              fs.mkdirSync(destMemoryPath, { recursive: true });
+              core.info(`Destination directory: ${destMemoryPath}`);
+              let filesToCopy = [];
+              try {
+                const files = fs.readdirSync(sourceMemoryPath, { withFileTypes: true });
+                for (const file of files) {
+                  if (!file.isFile()) {
+                    continue; 
+                  }
+                  const fileName = file.name;
+                  const sourceFilePath = path.join(sourceMemoryPath, fileName);
+                  const stats = fs.statSync(sourceFilePath);
+                  if (fileGlobFilter) {
+                    const patterns = fileGlobFilter.split(/\s+/).map(pattern => {
+                      const regexPattern = pattern.replace(/\./g, "\\.").replace(/\*/g, "[^/]*");
+                      return new RegExp(`^${regexPattern}$`);
+                    });
+                    if (!patterns.some(pattern => pattern.test(fileName))) {
+                      core.error(`File does not match allowed patterns: ${fileName}`);
+                      core.error(`Allowed patterns: ${fileGlobFilter}`);
+                      core.setFailed("File pattern validation failed");
+                      return;
+                    }
+                  }
+                  if (stats.size > maxFileSize) {
+                    core.error(`File exceeds size limit: ${fileName} (${stats.size} bytes > ${maxFileSize} bytes)`);
+                    core.setFailed("File size validation failed");
+                    return;
+                  }
+                  filesToCopy.push({ name: fileName, source: sourceFilePath, size: stats.size });
+                }
+              } catch (error) {
+                core.setFailed(`Failed to read artifact directory: ${error instanceof Error ? error.message : String(error)}`);
+                return;
+              }
+              if (filesToCopy.length > maxFileCount) {
+                core.setFailed(`Too many files (${filesToCopy.length} > ${maxFileCount})`);
+                return;
+              }
+              if (filesToCopy.length === 0) {
+                core.info("No files to copy from artifact");
+                return;
+              }
+              core.info(`Copying ${filesToCopy.length} validated file(s)...`);
+              for (const file of filesToCopy) {
+                const destFilePath = path.join(destMemoryPath, file.name);
+                try {
+                  fs.copyFileSync(file.source, destFilePath);
+                  core.info(`Copied: ${file.name} (${file.size} bytes)`);
+                } catch (error) {
+                  core.setFailed(`Failed to copy file ${file.name}: ${error instanceof Error ? error.message : String(error)}`);
+                  return;
+                }
+              }
+              let hasChanges = false;
+              try {
+                const status = execSync("git status --porcelain", { encoding: "utf8" });
+                hasChanges = status.trim().length > 0;
+              } catch (error) {
+                core.setFailed(`Failed to check git status: ${error instanceof Error ? error.message : String(error)}`);
+                return;
+              }
+              if (!hasChanges) {
+                core.info("No changes detected after copying files");
+                return;
+              }
+              core.info("Changes detected, committing and pushing...");
+              try {
+                execSync("git add .", { stdio: "inherit" });
+              } catch (error) {
+                core.setFailed(`Failed to stage changes: ${error instanceof Error ? error.message : String(error)}`);
+                return;
+              }
+              try {
+                execSync(`git commit -m "Update repo memory from workflow run ${githubRunId}"`, { stdio: "inherit" });
+              } catch (error) {
+                core.setFailed(`Failed to commit changes: ${error instanceof Error ? error.message : String(error)}`);
+                return;
+              }
+              core.info(`Pulling latest changes from ${branchName}...`);
+              try {
+                const repoUrl = `https://x-access-token:${ghToken}@github.com/${targetRepo}.git`;
+                execSync(`git pull --no-rebase -X ours "${repoUrl}" "${branchName}"`, { stdio: "inherit" });
+              } catch (error) {
+                core.warning(`Pull failed (this may be expected): ${error instanceof Error ? error.message : String(error)}`);
+              }
+              core.info(`Pushing changes to ${branchName}...`);
+              try {
+                const repoUrl = `https://x-access-token:${ghToken}@github.com/${targetRepo}.git`;
+                execSync(`git push "${repoUrl}" HEAD:"${branchName}"`, { stdio: "inherit" });
+                core.info(`Successfully pushed changes to ${branchName} branch`);
+              } catch (error) {
+                core.setFailed(`Failed to push changes: ${error instanceof Error ? error.message : String(error)}`);
+                return;
+              }
+            }
+            main().catch(error => {
+              core.setFailed(`Unexpected error: ${error instanceof Error ? error.message : String(error)}`);
+            });
+
   safe_outputs:
     needs:
       - activation
@@ -6511,7 +6896,7 @@ jobs:
     env:
       GH_AW_ENGINE_ID: "copilot"
       GH_AW_WORKFLOW_ID: "planner-agent"
-      GH_AW_WORKFLOW_NAME: "验证工具可用"
+      GH_AW_WORKFLOW_NAME: "设置可执行权限并添加到 PATH"
     outputs:
       add_comment_comment_id: ${{ steps.add_comment.outputs.comment_id }}
       add_comment_comment_url: ${{ steps.add_comment.outputs.comment_url }}

@@ -156,6 +156,10 @@ def cmd_ready(args):
     if args.branch:
         payload["branch"] = args.branch
     
+    # 添加 memory 分支信息（用于调度器读取 pipeline 状态）
+    if hasattr(args, 'memory_branch') and args.memory_branch:
+        payload["memory_branch"] = args.memory_branch
+    
     print(f"[pipeline-notify] Sending ready notification...")
     print(f"  Server: {config['server_url']}")
     print(f"  Pipeline ID: {args.pipeline_id}")
@@ -163,6 +167,8 @@ def cmd_ready(args):
     print(f"  Stages: {stages}")
     if args.branch:
         print(f"  Branch: {args.branch}")
+    if hasattr(args, 'memory_branch') and args.memory_branch:
+        print(f"  Memory Branch: {args.memory_branch}")
     
     result = http_request(
         "POST",
@@ -261,6 +267,47 @@ def cmd_list(args):
         return 1
 
 
+def cmd_stage_complete(args):
+    """通知阶段完成"""
+    config = get_config()
+    
+    payload = {
+        "pipeline_id": args.pipeline_id,
+        "stage_id": args.stage_id,
+        "task_id": args.task_id,
+        "status": args.status,
+    }
+    
+    if args.output:
+        payload["output"] = args.output
+    
+    if args.error:
+        payload["error"] = args.error
+    
+    print(f"[pipeline-notify] Sending stage completion notification...")
+    print(f"  Server: {config['server_url']}")
+    print(f"  Pipeline ID: {args.pipeline_id}")
+    print(f"  Stage ID: {args.stage_id}")
+    print(f"  Status: {args.status}")
+    
+    result = http_request(
+        "POST",
+        f"{config['server_url']}/pipeline/stage-complete",
+        data=payload,
+        secret=config["secret"]
+    )
+    
+    if result["success"]:
+        print(f"[pipeline-notify] ✅ Stage completion notified!")
+        print(f"  Response: {json.dumps(result['data'], indent=2)}")
+        return 0
+    else:
+        print(f"[pipeline-notify] ❌ Failed: {result.get('error', 'Unknown error')}")
+        if result.get("data"):
+            print(f"  Details: {result['data']}")
+        return 1
+
+
 # ==================== 主入口 ====================
 
 def main():
@@ -318,6 +365,16 @@ def main():
     ready_parser.add_argument("--stage-ids", help="阶段 ID 映射，格式: stage:id,stage:id")
     ready_parser.add_argument("--source-url", help="源 URL")
     ready_parser.add_argument("--branch", help="工作分支名称 (如 pipeline/p001)")
+    ready_parser.add_argument("--memory-branch", help="Memory 分支名称 (如 memory/pipelines)")
+    
+    # stage-complete 命令
+    stage_complete_parser = subparsers.add_parser("stage-complete", help="通知阶段完成")
+    stage_complete_parser.add_argument("--pipeline-id", required=True, help="流水线 ID")
+    stage_complete_parser.add_argument("--stage-id", required=True, help="阶段 ID")
+    stage_complete_parser.add_argument("--task-id", required=True, help="Beads 任务 ID")
+    stage_complete_parser.add_argument("--status", required=True, choices=["completed", "failed"], help="完成状态")
+    stage_complete_parser.add_argument("--output", help="产物路径")
+    stage_complete_parser.add_argument("--error", help="错误信息")
     
     # status 命令
     status_parser = subparsers.add_parser("status", help="查询流水线状态")
@@ -337,6 +394,8 @@ def main():
     
     if args.command == "ready":
         sys.exit(cmd_ready(args))
+    elif args.command == "stage-complete":
+        sys.exit(cmd_stage_complete(args))
     elif args.command == "status":
         sys.exit(cmd_status(args))
     elif args.command == "cancel":

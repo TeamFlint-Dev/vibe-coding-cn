@@ -219,6 +219,8 @@ class HubHandler(BaseHTTPRequestHandler):
         # Pipeline 相关端点
         elif self.path == "/pipeline/ready":
             self._handle_pipeline_ready(payload)
+        elif self.path == "/pipeline/stage-complete":
+            self._handle_pipeline_stage_complete(payload)
         elif self.path.startswith("/pipeline/cancel/"):
             pipeline_id = self.path[17:]  # 去掉 "/pipeline/cancel/"
             self._handle_pipeline_cancel(pipeline_id)
@@ -274,12 +276,15 @@ class HubHandler(BaseHTTPRequestHandler):
         stage_ids = data.get("stage_ids", {})
         source_url = data.get("source_url", "")
         branch = data.get("branch", "")  # 工作分支名称
+        memory_branch = data.get("memory_branch", "")  # Memory 分支名称
         
         log(f"Pipeline ready: id={pipeline_id}, type={pipeline_type}, stages={stages}")
         if stage_ids:
             log(f"  stage_ids: {stage_ids}")
         if branch:
             log(f"  branch: {branch}")
+        if memory_branch:
+            log(f"  memory_branch: {memory_branch}")
         
         scheduler = get_scheduler()
         if not scheduler:
@@ -299,7 +304,8 @@ class HubHandler(BaseHTTPRequestHandler):
                     stages=stages,
                     stage_ids=stage_ids,
                     source_url=source_url,
-                    branch=branch if branch else None
+                    branch=branch if branch else None,
+                    memory_branch=memory_branch if memory_branch else None
                 )
             )
             
@@ -339,6 +345,128 @@ class HubHandler(BaseHTTPRequestHandler):
         except Exception as e:
             log(f"Failed to cancel pipeline: {e}")
             self._send_json(500, {"error": str(e)})
+    
+    def _handle_pipeline_stage_complete(self, payload: bytes):
+        """处理 Worker Agent 的阶段完成通知
+        
+        请求格式:
+        {
+            "pipeline_id": "p20260101120000",
+            "stage_id": "ingest",
+            "task_id": "bd-abc123",
+            "status": "completed" | "failed",
+            "output": "artifacts/p.../ingest/",  # 可选
+            "error": "error message"  # 可选，status=failed 时使用
+        }
+        """
+        # 验证签名
+        signature = self.headers.get("X-Pipeline-Signature", "")
+        if not verify_pipeline_signature(payload, signature):
+            log("Stage complete: Invalid signature")
+            self._send_json(401, {"error": "Invalid signature"})
+            return
+        
+        try:
+            data = json.loads(payload)
+        except json.JSONDecodeError as e:
+            log(f"Stage complete: Invalid JSON - {e}")
+            self._send_json(400, {"error": f"Invalid JSON: {e}"})
+            return
+        
+        # 验证必需字段
+        pipeline_id = data.get("pipeline_id")
+        stage_id = data.get("stage_id")
+        task_id = data.get("task_id")
+        status = data.get("status")
+        
+        if not all([pipeline_id, stage_id, task_id, status]):
+            self._send_json(400, {"error": "Missing required fields: pipeline_id, stage_id, task_id, status"})
+            return
+        
+        if status not in ["completed", "failed"]:
+            self._send_json(400, {"error": "Invalid status, must be 'completed' or 'failed'"})
+            return
+        
+        # 可选字段
+        output = data.get("output", "")
+        error = data.get("error", "")
+        
+        log(f"Stage complete: pipeline={pipeline_id}, stage={stage_id}, status={status}")
+        
+        scheduler = get_scheduler()
+        if not scheduler:
+            log("Stage complete: Scheduler not initialized")
+            self._send_json(503, {"error": "Pipeline scheduler not initialized"})
+            return
+        
+        # 获取流水线
+        pipeline = scheduler.get_pipeline(pipeline_id)
+        if not pipeline:
+            log(f"Stage complete: Pipeline {pipeline_id} not found")
+            self._send_json(404, {"error": f"Pipeline {pipeline_id} not found"})
+            return
+        
+        # 更新阶段状态
+        stage_found = False
+        for stage in pipeline.stages:
+            if stage.id == stage_id:
+                stage_found = True
+                if status == "completed":
+                    from pipeline_scheduler import StageStatus
+                    stage.status = StageStatus.COMPLETED
+                    stage.output = output
+                    stage.completed_at = __import__('time').time()
+                    log(f"  Stage {stage_id} marked as completed")
+                else:
+                    from pipeline_scheduler import StageStatus
+                    stage.status = StageStatus.FAILED
+                    stage.error = error
+                    stage.completed_at = __import__('time').time()
+                    log(f"  Stage {stage_id} marked as failed: {error}")
+                break
+        
+        if not stage_found:
+            self._send_json(404, {"error": f"Stage {stage_id} not found in pipeline {pipeline_id}"})
+            return
+        
+        # 更新 memory 分支中的状态（如果有）
+        if hasattr(pipeline, '_memory_branch') and pipeline._memory_branch:
+            try:
+                scheduler.repo_sync.update_pipeline_state(
+                    pipeline_id=pipeline_id,
+                    updates={
+                        "stage_updates": [{
+                            "id": stage_id,
+                            "status": status,
+                            "output": output if status == "completed" else None,
+                            "error": error if status == "failed" else None,
+                            "completed_at": __import__('datetime').datetime.utcnow().isoformat() + "Z"
+                        }]
+                    },
+                    branch_name=pipeline._memory_branch
+                )
+            except Exception as e:
+                log(f"Warning: Failed to update memory branch: {e}")
+        
+        # 记录到 GitHub Issue
+        if pipeline.issue_number:
+            scheduler.recorder.log_pipeline_event(
+                issue_number=pipeline.issue_number,
+                event_type="stage_complete",
+                data={
+                    "stage_id": stage_id,
+                    "status": status,
+                    "output": output,
+                    "error": error
+                }
+            )
+        
+        self._send_json(200, {
+            "status": "updated",
+            "pipeline_id": pipeline_id,
+            "stage_id": stage_id,
+            "stage_status": status
+        })
     
     # ==================== Webhook 处理 ====================
 
