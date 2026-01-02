@@ -228,18 +228,30 @@ class HubHandler(BaseHTTPRequestHandler):
     # ==================== Pipeline POST 端点 ====================
     
     def _handle_pipeline_ready(self, payload: bytes):
-        """处理 Planner Agent 的流水线启动通知"""
+        """处理 Planner Agent 的流水线启动通知
+        
+        请求格式:
+        {
+            "pipeline_id": "p20260101120000",
+            "type": "skills-distill",
+            "stages": ["ingest", "classify", "extract", "assemble", "validate"],
+            "stage_ids": {"ingest": "bd-abc123", "classify": "bd-def456", ...},  # 可选
+            "source_url": "https://..."  # 可选
+        }
+        """
         import asyncio
         
         # 验证签名
         signature = self.headers.get("X-Pipeline-Signature", "")
         if not verify_pipeline_signature(payload, signature):
+            log("Pipeline ready: Invalid signature")
             self._send_json(401, {"error": "Invalid signature"})
             return
         
         try:
             data = json.loads(payload)
         except json.JSONDecodeError as e:
+            log(f"Pipeline ready: Invalid JSON - {e}")
             self._send_json(400, {"error": f"Invalid JSON: {e}"})
             return
         
@@ -248,12 +260,27 @@ class HubHandler(BaseHTTPRequestHandler):
         pipeline_type = data.get("type")
         stages = data.get("stages", [])
         
-        if not pipeline_id or not pipeline_type or not stages:
-            self._send_json(400, {"error": "Missing required fields: pipeline_id, type, stages"})
+        if not pipeline_id:
+            self._send_json(400, {"error": "Missing required field: pipeline_id"})
             return
+        if not pipeline_type:
+            self._send_json(400, {"error": "Missing required field: type"})
+            return
+        if not stages:
+            self._send_json(400, {"error": "Missing required field: stages (must be non-empty array)"})
+            return
+        
+        # 可选字段
+        stage_ids = data.get("stage_ids", {})
+        source_url = data.get("source_url", "")
+        
+        log(f"Pipeline ready: id={pipeline_id}, type={pipeline_type}, stages={stages}")
+        if stage_ids:
+            log(f"  stage_ids: {stage_ids}")
         
         scheduler = get_scheduler()
         if not scheduler:
+            log("Pipeline ready: Scheduler not initialized")
             self._send_json(503, {"error": "Pipeline scheduler not initialized"})
             return
         
@@ -267,19 +294,25 @@ class HubHandler(BaseHTTPRequestHandler):
                     pipeline_id=pipeline_id,
                     pipeline_type=pipeline_type,
                     stages=stages,
-                    source_url=data.get("source_url")
+                    stage_ids=stage_ids,
+                    source_url=source_url
                 )
             )
             
-            log(f"Pipeline {pipeline_id} started")
+            log(f"Pipeline {pipeline_id} started, issue #{pipeline.issue_number}")
             self._send_json(200, {
                 "status": "accepted",
                 "pipeline_id": pipeline_id,
-                "issue_number": pipeline.issue_number
+                "type": pipeline_type,
+                "stages": stages,
+                "issue_number": pipeline.issue_number,
+                "message": f"Pipeline started successfully. Track at issue #{pipeline.issue_number}"
             })
         except Exception as e:
-            log(f"Failed to start pipeline: {e}")
-            self._send_json(500, {"error": str(e)})
+            log(f"Failed to start pipeline {pipeline_id}: {e}")
+            import traceback
+            traceback.print_exc()
+            self._send_json(500, {"error": str(e), "pipeline_id": pipeline_id})
     
     def _handle_pipeline_cancel(self, pipeline_id: str):
         """取消流水线"""
@@ -330,70 +363,146 @@ class HubHandler(BaseHTTPRequestHandler):
             self._handle_comment_event(data)
         elif event_type == "issues":
             self._handle_issues_event(data)
-        elif event_type == "repository_dispatch":
-            self._handle_repository_dispatch(data)
+        elif event_type == "workflow_run":
+            self._handle_workflow_run_event(data)
         elif event_type == "ping":
             self._send_json(200, {"message": "pong"})
         else:
             log(f"Ignoring event: {event_type}")
             self._send_json(200, {"message": "Event ignored"})
     
-    def _handle_repository_dispatch(self, data: dict):
-        """处理 repository_dispatch 事件 - Planner Agent 通知流水线就绪"""
+    def _handle_workflow_run_event(self, data: dict):
+        """处理 workflow_run 事件 - 当 Planner Agent 完成时启动流水线"""
         import asyncio
+        import urllib.request
+        import zipfile
+        import io
         
-        action = data.get("action", "")  # 这是 event_type
-        client_payload = data.get("client_payload", {})
+        action = data.get("action", "")
+        workflow_run = data.get("workflow_run", {})
+        workflow_name = workflow_run.get("name", "")
+        conclusion = workflow_run.get("conclusion", "")
+        run_id = workflow_run.get("id", 0)
         
-        log(f"Repository dispatch: action={action}, payload={client_payload}")
+        log(f"Workflow run: name={workflow_name}, action={action}, conclusion={conclusion}")
         
-        # 只处理 pipeline-ready 事件
-        if action != "pipeline-ready":
-            self._send_json(200, {"message": f"Ignoring dispatch event: {action}"})
+        # 只处理 planner-agent workflow 的成功完成
+        if action != "completed":
+            self._send_json(200, {"message": f"Ignoring workflow action: {action}"})
+            return
+            
+        if workflow_name != "planner-agent":
+            self._send_json(200, {"message": f"Ignoring workflow: {workflow_name}"})
+            return
+            
+        if conclusion != "success":
+            log(f"Planner workflow failed with conclusion: {conclusion}")
+            self._send_json(200, {"message": f"Planner failed: {conclusion}"})
             return
         
-        # 从 client_payload 提取流水线信息
-        pipeline_id = client_payload.get("pipeline_id")
-        pipeline_type = client_payload.get("type", "unknown")
-        stages = client_payload.get("stages", [])
-        stage_ids = client_payload.get("stage_ids", {})
-        source_url = client_payload.get("source_url", "")
+        log(f"Planner Agent completed successfully, fetching artifacts from run {run_id}")
         
-        if not pipeline_id or not stages:
-            log("Missing required fields in client_payload")
-            self._send_json(400, {"error": "Missing pipeline_id or stages"})
-            return
-        
-        log(f"Pipeline ready: {pipeline_id}, type={pipeline_type}, stages={stages}")
-        
-        # 启动调度器
-        scheduler = get_scheduler()
-        if not scheduler:
-            log("Pipeline scheduler not initialized")
-            self._send_json(503, {"error": "Pipeline scheduler not initialized"})
-            return
-        
+        # 从 workflow artifacts 获取 pipeline 信息
         try:
+            pipeline_info = self._fetch_pipeline_artifact(run_id)
+            if not pipeline_info:
+                log("No pipeline artifact found")
+                self._send_json(200, {"message": "No pipeline artifact found"})
+                return
+            
+            log(f"Pipeline info from artifact: {pipeline_info}")
+            
+            # 启动调度器
+            scheduler = get_scheduler()
+            if not scheduler:
+                log("Pipeline scheduler not initialized")
+                self._send_json(503, {"error": "Pipeline scheduler not initialized"})
+                return
+            
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
             pipeline = loop.run_until_complete(
                 scheduler.start_pipeline(
-                    pipeline_id=pipeline_id,
-                    pipeline_type=pipeline_type,
-                    stages=stages,
-                    stage_ids=stage_ids,
-                    source_url=source_url
+                    pipeline_id=pipeline_info["pipeline_id"],
+                    pipeline_type=pipeline_info.get("type", "unknown"),
+                    stages=pipeline_info.get("stages", []),
+                    stage_ids=pipeline_info.get("stage_ids", {}),
+                    source_url=pipeline_info.get("source_url", "")
                 )
             )
-            log(f"Pipeline {pipeline_id} started via repository_dispatch")
+            log(f"Pipeline {pipeline_info['pipeline_id']} started from workflow_run")
             self._send_json(200, {
                 "message": "Pipeline started",
-                "pipeline_id": pipeline_id,
-                "issue_number": pipeline.issue_number if hasattr(pipeline, 'issue_number') else None
+                "pipeline_id": pipeline_info["pipeline_id"]
             })
         except Exception as e:
-            log(f"Failed to start pipeline: {e}")
+            log(f"Failed to start pipeline from workflow_run: {e}")
             self._send_json(500, {"error": str(e)})
+    
+    def _fetch_pipeline_artifact(self, run_id: int) -> Optional[dict]:
+        """从 workflow run 的 artifacts 获取 pipeline 信息"""
+        import urllib.request
+        import zipfile
+        import io
+        
+        # GitHub API: 获取 artifacts 列表
+        token = os.environ.get("GITHUB_TOKEN", "")
+        if not token:
+            log("GITHUB_TOKEN not set, cannot fetch artifacts")
+            return None
+        
+        repo = os.environ.get("GITHUB_REPO", "TeamFlint-Dev/vibe-coding-cn")
+        url = f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/artifacts"
+        
+        req = urllib.request.Request(url)
+        req.add_header("Authorization", f"Bearer {token}")
+        req.add_header("Accept", "application/vnd.github+json")
+        req.add_header("X-GitHub-Api-Version", "2022-11-28")
+        
+        try:
+            with urllib.request.urlopen(req, timeout=30) as response:
+                data = json.loads(response.read().decode())
+        except Exception as e:
+            log(f"Failed to fetch artifacts list: {e}")
+            return None
+        
+        # 查找 pipeline-info artifact
+        artifacts = data.get("artifacts", [])
+        pipeline_artifact = None
+        for artifact in artifacts:
+            if artifact.get("name") == "pipeline-info":
+                pipeline_artifact = artifact
+                break
+        
+        if not pipeline_artifact:
+            log("No pipeline-info artifact found")
+            return None
+        
+        # 下载 artifact (是一个 zip 文件)
+        download_url = pipeline_artifact.get("archive_download_url")
+        if not download_url:
+            log("No download URL for artifact")
+            return None
+        
+        req = urllib.request.Request(download_url)
+        req.add_header("Authorization", f"Bearer {token}")
+        req.add_header("Accept", "application/vnd.github+json")
+        
+        try:
+            with urllib.request.urlopen(req, timeout=60) as response:
+                zip_data = response.read()
+        except Exception as e:
+            log(f"Failed to download artifact: {e}")
+            return None
+        
+        # 解压并读取 pipeline.json
+        try:
+            with zipfile.ZipFile(io.BytesIO(zip_data)) as zf:
+                with zf.open("pipeline.json") as f:
+                    return json.loads(f.read().decode())
+        except Exception as e:
+            log(f"Failed to parse artifact: {e}")
+            return None
 
     def _handle_issues_event(self, data: dict):
         """处理 Issue 事件 - 用于 Pipeline 自动调度"""

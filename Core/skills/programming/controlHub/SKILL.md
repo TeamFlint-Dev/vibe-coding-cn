@@ -221,10 +221,63 @@ class ActionType(Enum):
 |------|------|------|
 | `/webhook` | POST | 接收 GitHub Webhook 事件 |
 | `/callback` | POST | 接收 Actions 构建结果回调 |
+| `/pipeline/ready` | POST | **Planner Agent 通知启动流水线** |
+| `/pipeline/status/<id>` | GET | 查询流水线状态 |
+| `/pipeline/cancel/<id>` | POST | 取消流水线 |
+| `/pipeline/list` | GET | 列出所有流水线 |
 | `/status/<task_id>` | GET | 查询任务状态 |
 | `/accounts` | GET | 查询账号状态 |
 | `/stats` | GET | 查询统计信息 |
 | `/health` | GET | 健康检查 |
+
+---
+
+## Pipeline 通信
+
+### pipeline-notify 工具
+
+Agent 使用 `pipeline-notify` 命令行工具与云端服务器通信，替代不可靠的 Webhook 方式。
+
+**工具位置**: `.github/tools/pipeline-notify.py`
+
+**用法示例**:
+```bash
+# 通知调度器启动流水线
+python3 .github/tools/pipeline-notify.py ready \
+  --pipeline-id p20260101120000 \
+  --type skills-distill \
+  --stages "ingest,classify,extract,assemble,validate" \
+  --stage-ids "ingest:bd-abc,classify:bd-def" \
+  --source-url "https://github.com/..."
+
+# 查询流水线状态
+python3 .github/tools/pipeline-notify.py status --pipeline-id p001
+
+# 取消流水线
+python3 .github/tools/pipeline-notify.py cancel --pipeline-id p001
+```
+
+**环境变量**:
+- `PIPELINE_SERVER_URL`: 服务器地址（默认 `http://193.112.183.143:19527`）
+- `PIPELINE_SECRET`: 签名密钥（必需，与服务器配置一致）
+
+### /pipeline/ready 请求格式
+
+```json
+{
+  "pipeline_id": "p20260101120000",
+  "type": "skills-distill",
+  "stages": ["ingest", "classify", "extract", "assemble", "validate"],
+  "stage_ids": {
+    "ingest": "bd-abc123",
+    "classify": "bd-def456"
+  },
+  "source_url": "https://github.com/anthropics/courses"
+}
+```
+
+**必需字段**: `pipeline_id`, `type`, `stages`  
+**可选字段**: `stage_ids`, `source_url`
 
 ---
 
@@ -242,6 +295,7 @@ GITHUB_USER_PATS=user1:ghp_xxx,user2:ghp_yyy
 # 安全
 WEBHOOK_SECRET=github_webhook_secret
 CALLBACK_SECRET=actions_callback_secret
+PIPELINE_SECRET=pipeline_signing_secret  # Pipeline 请求签名
 
 # 业务配置
 MAX_RETRY_COUNT=5
