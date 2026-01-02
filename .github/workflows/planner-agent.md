@@ -124,15 +124,32 @@ bd sync --message "Pipeline $PIPELINE_ID: Created stages"
 ```
 
 ### Step 5: 通知调度器
+
+**重要**：Pipeline 端点需要 HMAC-SHA256 签名验证。
+
 ```bash
+# 构建 JSON payload
+PAYLOAD=$(cat <<EOF
+{
+  "pipeline_id": "$PIPELINE_ID",
+  "type": "${{ inputs.pipeline_type }}",
+  "stages": ["ingest", "classify", "extract", "assemble", "validate"],
+  "source_url": "${{ inputs.source_url }}"
+}
+EOF
+)
+
+# 获取 Pipeline 密钥（从 GitHub Secrets）
+PIPELINE_SECRET="${{ secrets.PIPELINE_SECRET }}"
+
+# 生成 HMAC-SHA256 签名
+SIGNATURE="sha256=$(echo -n "$PAYLOAD" | openssl dgst -sha256 -hmac "$PIPELINE_SECRET" | cut -d' ' -f2)"
+
+# 发送通知
 curl -X POST http://193.112.183.143:19527/pipeline/ready \
   -H "Content-Type: application/json" \
-  -d '{
-    "pipeline_id": "'"$PIPELINE_ID"'",
-    "type": "${{ inputs.pipeline_type }}",
-    "stages": ["ingest", "classify", "extract", "assemble", "validate"],
-    "source_url": "${{ inputs.source_url }}"
-  }'
+  -H "X-Pipeline-Signature: $SIGNATURE" \
+  -d "$PAYLOAD"
 ```
 
 ### Step 6: 输出结果
