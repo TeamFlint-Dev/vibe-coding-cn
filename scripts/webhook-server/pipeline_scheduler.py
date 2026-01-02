@@ -146,9 +146,9 @@ class RepoSync:
                 capture_output=True
             )
             
-            # Beads sync
+            # Beads sync (JSONL-only mode)
             subprocess.run(
-                [BD_PATH, 'sync', '--import-only'],
+                [BD_PATH, '--no-db', 'sync', '--import-only'],
                 cwd=self.repo_path,
                 check=True,
                 capture_output=True
@@ -165,7 +165,7 @@ class RepoSync:
         """获取可执行的任务"""
         try:
             result = subprocess.run(
-                [BD_PATH, 'ready', '--label', f'pipeline:{pipeline_id}', '--json'],
+                [BD_PATH, '--no-db', 'ready', '--label', f'pipeline:{pipeline_id}', '--json'],
                 cwd=self.repo_path,
                 capture_output=True,
                 check=True
@@ -181,7 +181,7 @@ class RepoSync:
         """获取任务状态"""
         try:
             result = subprocess.run(
-                [BD_PATH, 'show', task_id, '--json'],
+                [BD_PATH, '--no-db', 'show', task_id, '--json'],
                 cwd=self.repo_path,
                 capture_output=True,
                 check=True
@@ -195,7 +195,7 @@ class RepoSync:
     def update_task_status(self, task_id: str, status: str, reason: str = "") -> bool:
         """更新任务状态"""
         try:
-            cmd = [BD_PATH, 'update', task_id, '--status', status]
+            cmd = [BD_PATH, '--no-db', 'update', task_id, '--status', status]
             if reason:
                 cmd.extend(['--reason', reason])
             subprocess.run(cmd, cwd=self.repo_path, check=True, capture_output=True)
@@ -207,7 +207,7 @@ class RepoSync:
         """关闭任务"""
         try:
             subprocess.run(
-                [BD_PATH, 'close', task_id, '--reason', reason],
+                [BD_PATH, '--no-db', 'close', task_id, '--reason', reason],
                 cwd=self.repo_path,
                 check=True,
                 capture_output=True
@@ -522,14 +522,16 @@ class PipelineScheduler:
             return None
         
         try:
-            # 使用 gh pr create 创建 PR
-            result = subprocess.run(
-                [
-                    'gh', 'pr', 'create',
-                    '--base', 'main',
-                    '--head', pipeline.branch,
-                    '--title', f'[Pipeline {pipeline.pipeline_id}] {pipeline.pipeline_type} completed',
-                    '--body', f'''## Pipeline Completion
+            # 使用 GitHub API 创建 PR
+            import urllib.request
+            import urllib.error
+            
+            gh_token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_PAT')
+            if not gh_token:
+                log("No GH_TOKEN for PR creation")
+                return None
+            
+            pr_body = f'''## Pipeline Completion
 
 **Pipeline ID**: `{pipeline.pipeline_id}`
 **Type**: `{pipeline.pipeline_type}`
@@ -544,24 +546,33 @@ class PipelineScheduler:
 - Please review the changes before merging
 - Related Issue: #{pipeline.issue_number}
 '''
-                ],
-                cwd=self.repo_sync.repo_path,
-                capture_output=True,
-                check=True
+            
+            data = json.dumps({
+                "title": f'[Pipeline {pipeline.pipeline_id}] {pipeline.pipeline_type} completed',
+                "body": pr_body,
+                "head": pipeline.branch,
+                "base": "main"
+            }).encode('utf-8')
+            
+            req = urllib.request.Request(
+                "https://api.github.com/repos/TeamFlint-Dev/vibe-coding-cn/pulls",
+                data=data,
+                headers={
+                    "Authorization": f"token {gh_token}",
+                    "Accept": "application/vnd.github.v3+json",
+                    "Content-Type": "application/json"
+                },
+                method="POST"
             )
             
-            # 从输出中提取 PR 号
-            output = result.stdout.decode().strip()
-            # gh pr create 返回 PR URL，格式: https://github.com/owner/repo/pull/123
-            if '/pull/' in output:
-                pr_number = int(output.split('/pull/')[-1])
+            with urllib.request.urlopen(req) as resp:
+                result = json.loads(resp.read().decode())
+                pr_number = result.get('number')
                 log(f"Created PR #{pr_number} for pipeline {pipeline.pipeline_id}")
                 return pr_number
             
-            return None
-            
-        except subprocess.CalledProcessError as e:
-            log(f"Failed to create PR for pipeline {pipeline.pipeline_id}: {e.stderr.decode() if e.stderr else str(e)}")
+        except urllib.error.HTTPError as e:
+            log(f"Failed to create PR for pipeline {pipeline.pipeline_id}: HTTP {e.code} - {e.read().decode()}")
             return None
         except Exception as e:
             log(f"Error creating PR: {e}")
