@@ -152,11 +152,17 @@ def cmd_ready(args):
     if stage_ids:
         payload["stage_ids"] = stage_ids
     
+    # 添加分支信息（用于 Worker 提交）
+    if args.branch:
+        payload["branch"] = args.branch
+    
     print(f"[pipeline-notify] Sending ready notification...")
     print(f"  Server: {config['server_url']}")
     print(f"  Pipeline ID: {args.pipeline_id}")
     print(f"  Type: {args.type}")
     print(f"  Stages: {stages}")
+    if args.branch:
+        print(f"  Branch: {args.branch}")
     
     result = http_request(
         "POST",
@@ -270,6 +276,13 @@ def main():
     --stages "ingest,classify,extract,assemble,validate" \\
     --source-url "https://github.com/anthropics/courses"
 
+  # 带分支信息（Worker 将提交到此分支）
+  pipeline-notify ready \\
+    --pipeline-id p001 \\
+    --type skills-distill \\
+    --stages "ingest,classify" \\
+    --branch "pipeline/p001"
+
   # 带 stage_ids (Beads 任务 ID 映射)
   pipeline-notify ready \\
     --pipeline-id p001 \\
@@ -304,6 +317,7 @@ def main():
     ready_parser.add_argument("--stages", required=True, help="阶段列表，逗号分隔")
     ready_parser.add_argument("--stage-ids", help="阶段 ID 映射，格式: stage:id,stage:id")
     ready_parser.add_argument("--source-url", help="源 URL")
+    ready_parser.add_argument("--branch", help="工作分支名称 (如 pipeline/p001)")
     
     # status 命令
     status_parser = subparsers.add_parser("status", help="查询流水线状态")

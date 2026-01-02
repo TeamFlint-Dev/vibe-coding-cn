@@ -1,6 +1,6 @@
 ---
 # planner-agent - 流水线规划 Agent
-# 解析流水线定义，创建阶段任务，通知调度器
+# 解析流水线定义，创建阶段任务，创建工作分支，通知调度器
 
 on:
   workflow_dispatch:
@@ -19,9 +19,9 @@ on:
         type: string
 
 permissions:
-  contents: read
-  issues: read
-  pull-requests: read
+  contents: write
+  issues: write
+  pull-requests: write
 
 # Tools - 启用 bash 执行权限
 tools:
@@ -41,6 +41,8 @@ safe-outputs:
     max: 1
   add-comment:
     max: 10
+  create-pull-request:
+    max: 1
 
 # 环境变量 - 从 GitHub Secrets 注入
 env:
@@ -49,9 +51,10 @@ env:
 ---
 
 你是流水线规划 Agent，负责：
-1. 读取流水线定义
-2. 创建 Beads 任务
-3. **使用 pipeline-notify 工具通知调度器**（替代 webhook 驱动）
+1. 创建工作分支（Worker 可直接提交，无需审查）
+2. 读取流水线定义
+3. 创建 Beads 任务
+4. 通知调度器启动流水线
 
 ## 环境准备
 
@@ -82,15 +85,37 @@ if [ -z "$PIPELINE_ID" ]; then
   PIPELINE_ID="p$(date +%Y%m%d%H%M%S)"
 fi
 echo "Pipeline ID: $PIPELINE_ID"
+export PIPELINE_ID
 ```
 
-### Step 2: 读取流水线定义
+### Step 2: 创建工作分支
+
+**重要**：为此流水线创建专用工作分支，Worker 可以直接提交到此分支，无需审查。
+最终合并到 main 时才需要人工审查。
+
+```bash
+# 分支命名规范: pipeline/<pipeline_id>
+BRANCH_NAME="pipeline/$PIPELINE_ID"
+
+# 创建并推送分支
+git checkout -b "$BRANCH_NAME"
+git push -u origin "$BRANCH_NAME"
+
+echo "✅ Created branch: $BRANCH_NAME"
+echo "   - Workers can commit directly to this branch"
+echo "   - Only merge to main requires review"
+
+# 切回 main（Planner 不在分支上工作）
+git checkout main
+```
+
+### Step 3: 读取流水线定义
 根据 pipeline_type 读取对应的配置：
 ```bash
 cat pipelines/${{ inputs.pipeline_type }}.yaml
 ```
 
-### Step 3: 创建阶段任务
+### Step 4: 创建阶段任务
 为每个阶段创建 Beads 任务，设置依赖关系：
 
 示例（skills-distill 流水线）：
@@ -130,18 +155,19 @@ echo "  assemble: $ASSEMBLE_ID (depends on extract)"
 echo "  validate: $VALIDATE_ID (depends on assemble)"
 ```
 
-### Step 4: 同步 Beads 到 Git
+### Step 5: 同步 Beads 到 Git
 ```bash
 bd sync --message "Pipeline $PIPELINE_ID: Created stages"
 ```
 
-### Step 5: 通知调度器启动流水线
+### Step 6: 通知调度器启动流水线
 
-**使用 pipeline-notify 工具**直接通知云端调度器，不再依赖 webhook：
+**使用 pipeline-notify 工具**直接通知云端调度器：
 
 ```bash
 # 构建 stage_ids 参数
 STAGE_IDS="ingest:$INGEST_ID,classify:$CLASSIFY_ID,extract:$EXTRACT_ID,assemble:$ASSEMBLE_ID,validate:$VALIDATE_ID"
+BRANCH_NAME="pipeline/$PIPELINE_ID"
 
 # 调用 pipeline-notify 工具
 python3 .github/tools/pipeline-notify.py ready \
@@ -149,7 +175,8 @@ python3 .github/tools/pipeline-notify.py ready \
   --type "${{ inputs.pipeline_type }}" \
   --stages "ingest,classify,extract,assemble,validate" \
   --stage-ids "$STAGE_IDS" \
-  --source-url "${{ inputs.source_url }}"
+  --source-url "${{ inputs.source_url }}" \
+  --branch "$BRANCH_NAME"
 ```
 
 如果通知失败，记录错误但不阻塞（调度器也支持主动轮询）：
@@ -161,17 +188,20 @@ if [ $? -ne 0 ]; then
 fi
 ```
 
-### Step 6: 完成
+### Step 7: 完成
 
 ```bash
 echo "=========================================="
 echo "✅ Pipeline $PIPELINE_ID created successfully"
 echo "Type: ${{ inputs.pipeline_type }}"
+echo "Branch: pipeline/$PIPELINE_ID"
 echo "Stages: 5"
 echo "=========================================="
 echo ""
-echo "Tasks synced to .beads/issues.jsonl"
-echo "Scheduler notified via HTTP API"
+echo "📋 Workflow:"
+echo "  1. Workers will commit to branch: pipeline/$PIPELINE_ID"
+echo "  2. All stages complete → PR created for review"
+echo "  3. After review → merge to main"
 ```
 
 ## 通信方式说明

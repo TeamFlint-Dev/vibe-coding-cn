@@ -70,6 +70,7 @@ class PipelineInfo:
     issue_number: Optional[int] = None
     stages: list[StageInfo] = field(default_factory=list)
     source_url: Optional[str] = None
+    branch: Optional[str] = None  # 工作分支名称（Worker 将提交到此分支）
     created_at: float = field(default_factory=time.time)
     updated_at: float = field(default_factory=time.time)
     
@@ -91,6 +92,7 @@ class PipelineInfo:
                 for s in self.stages
             ],
             "source_url": self.source_url,
+            "branch": self.branch,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
@@ -196,22 +198,34 @@ class WorkerRunner:
     def __init__(self, repo_path: str):
         self.repo_path = Path(repo_path)
     
-    def trigger_worker(self, task_id: str, stage_id: str) -> Optional[int]:
-        """触发 Worker Agent，返回 run_id"""
+    def trigger_worker(self, task_id: str, stage_id: str, branch: Optional[str] = None) -> Optional[int]:
+        """触发 Worker Agent，返回 run_id
+        
+        Args:
+            task_id: Beads 任务 ID
+            stage_id: 阶段 ID
+            branch: 工作分支名称（Worker 将提交到此分支）
+        """
         try:
-            # 使用 gh workflow run 触发 workflow（不是 gh aw run）
+            # 构建参数列表
+            cmd = [
+                'gh', 'workflow', 'run', 'worker-agent.md',
+                '-f', f'task_id={task_id}',
+                '-f', f'stage_id={stage_id}'
+            ]
+            
+            # 添加分支参数
+            if branch:
+                cmd.extend(['-f', f'branch={branch}'])
+            
             result = subprocess.run(
-                [
-                    'gh', 'workflow', 'run', 'worker-agent.md',
-                    '-f', f'task_id={task_id}',
-                    '-f', f'stage_id={stage_id}'
-                ],
+                cmd,
                 cwd=self.repo_path,
                 capture_output=True,
                 check=True
             )
             
-            log(f"Worker workflow triggered for task {task_id}, stage {stage_id}")
+            log(f"Worker workflow triggered for task {task_id}, stage {stage_id}" + (f", branch {branch}" if branch else ""))
             
             # gh workflow run 不直接返回 run_id，需要等待后查询
             # 等待几秒后获取最新的 run
@@ -309,7 +323,8 @@ class PipelineScheduler:
         stages: list[str],
         source_url: Optional[str] = None,
         stage_ids: Optional[dict[str, str]] = None,
-        issue_number: Optional[int] = None
+        issue_number: Optional[int] = None,
+        branch: Optional[str] = None
     ) -> PipelineInfo:
         """启动新流水线
         
@@ -320,6 +335,7 @@ class PipelineScheduler:
             source_url: 源 URL
             stage_ids: 阶段 ID 映射 {stage_name: beads_task_id}
             issue_number: 已创建的 Issue 号（可选，用于关联现有 Issue）
+            branch: 工作分支名称（Worker 将提交到此分支）
         """
         
         # 创建流水线信息
@@ -327,6 +343,7 @@ class PipelineScheduler:
             pipeline_id=pipeline_id,
             pipeline_type=pipeline_type,
             source_url=source_url,
+            branch=branch,
             stages=[
                 StageInfo(
                     id=stage_name, 
@@ -394,6 +411,61 @@ class PipelineScheduler:
         
         return True
     
+    def _create_merge_pr(self, pipeline: PipelineInfo) -> Optional[int]:
+        """创建合并 PR，将工作分支合并到 main
+        
+        Returns:
+            PR 号，如果创建失败返回 None
+        """
+        if not pipeline.branch:
+            return None
+        
+        try:
+            # 使用 gh pr create 创建 PR
+            result = subprocess.run(
+                [
+                    'gh', 'pr', 'create',
+                    '--base', 'main',
+                    '--head', pipeline.branch,
+                    '--title', f'[Pipeline {pipeline.pipeline_id}] {pipeline.pipeline_type} completed',
+                    '--body', f'''## Pipeline Completion
+
+**Pipeline ID**: `{pipeline.pipeline_id}`
+**Type**: `{pipeline.pipeline_type}`
+**Branch**: `{pipeline.branch}`
+**Stages**: {len(pipeline.stages)} completed
+
+### Stages Completed
+{chr(10).join(f'- ✅ {s.name}' for s in pipeline.stages)}
+
+### Review Notes
+- All pipeline stages have completed successfully
+- Please review the changes before merging
+- Related Issue: #{pipeline.issue_number}
+'''
+                ],
+                cwd=self.repo_sync.repo_path,
+                capture_output=True,
+                check=True
+            )
+            
+            # 从输出中提取 PR 号
+            output = result.stdout.decode().strip()
+            # gh pr create 返回 PR URL，格式: https://github.com/owner/repo/pull/123
+            if '/pull/' in output:
+                pr_number = int(output.split('/pull/')[-1])
+                log(f"Created PR #{pr_number} for pipeline {pipeline.pipeline_id}")
+                return pr_number
+            
+            return None
+            
+        except subprocess.CalledProcessError as e:
+            log(f"Failed to create PR for pipeline {pipeline.pipeline_id}: {e.stderr.decode() if e.stderr else str(e)}")
+            return None
+        except Exception as e:
+            log(f"Error creating PR: {e}")
+            return None
+
     async def _run_pipeline_loop(self, pipeline_id: str):
         """流水线调度主循环"""
         pipeline = self._pipelines[pipeline_id]
@@ -423,14 +495,42 @@ class PipelineScheduler:
             pipeline.status = PipelineStatus.COMPLETED
             pipeline.updated_at = time.time()
             
-            self.recorder.log_pipeline_event(
-                issue_number=pipeline.issue_number,
-                event_type="pipeline_completed",
-                data={
-                    "pipeline_id": pipeline_id,
-                    "duration": time.time() - pipeline.created_at
-                }
-            )
+            # 如果有工作分支，创建 PR
+            if pipeline.branch:
+                pr_number = self._create_merge_pr(pipeline)
+                if pr_number:
+                    log(f"Pipeline {pipeline_id} completed, PR #{pr_number} created")
+                    self.recorder.log_pipeline_event(
+                        issue_number=pipeline.issue_number,
+                        event_type="pipeline_completed",
+                        data={
+                            "pipeline_id": pipeline_id,
+                            "duration": time.time() - pipeline.created_at,
+                            "pr_number": pr_number,
+                            "branch": pipeline.branch
+                        }
+                    )
+                else:
+                    log(f"Pipeline {pipeline_id} completed, but PR creation failed")
+                    self.recorder.log_pipeline_event(
+                        issue_number=pipeline.issue_number,
+                        event_type="pipeline_completed",
+                        data={
+                            "pipeline_id": pipeline_id,
+                            "duration": time.time() - pipeline.created_at,
+                            "pr_creation_failed": True,
+                            "branch": pipeline.branch
+                        }
+                    )
+            else:
+                self.recorder.log_pipeline_event(
+                    issue_number=pipeline.issue_number,
+                    event_type="pipeline_completed",
+                    data={
+                        "pipeline_id": pipeline_id,
+                        "duration": time.time() - pipeline.created_at
+                    }
+                )
             log(f"Pipeline {pipeline_id} completed successfully")
             
         except asyncio.CancelledError:
@@ -481,8 +581,8 @@ class PipelineScheduler:
             }
         )
         
-        # 触发 Worker
-        run_id = self.worker.trigger_worker(stage.task_id, stage.id)
+        # 触发 Worker（传递分支信息）
+        run_id = self.worker.trigger_worker(stage.task_id, stage.id, pipeline.branch)
         if not run_id:
             stage.status = StageStatus.FAILED
             stage.error = "Failed to trigger worker"

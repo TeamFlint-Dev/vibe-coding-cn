@@ -273,10 +273,13 @@ class HubHandler(BaseHTTPRequestHandler):
         # 可选字段
         stage_ids = data.get("stage_ids", {})
         source_url = data.get("source_url", "")
+        branch = data.get("branch", "")  # 工作分支名称
         
         log(f"Pipeline ready: id={pipeline_id}, type={pipeline_type}, stages={stages}")
         if stage_ids:
             log(f"  stage_ids: {stage_ids}")
+        if branch:
+            log(f"  branch: {branch}")
         
         scheduler = get_scheduler()
         if not scheduler:
@@ -295,7 +298,8 @@ class HubHandler(BaseHTTPRequestHandler):
                     pipeline_type=pipeline_type,
                     stages=stages,
                     stage_ids=stage_ids,
-                    source_url=source_url
+                    source_url=source_url,
+                    branch=branch if branch else None
                 )
             )
             

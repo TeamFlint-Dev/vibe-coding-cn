@@ -13,9 +13,14 @@ on:
         description: '阶段 ID'
         required: true
         type: string
+      branch:
+        description: '工作分支名称（Worker 将提交到此分支）'
+        required: false
+        type: string
+        default: ''
 
 permissions:
-  contents: read
+  contents: write
   issues: read
   pull-requests: read
 
@@ -120,7 +125,19 @@ cat Core/skills/design/gameDev/Index.md        # 如果是游戏设计相关
 - 如果通过，复制到最终位置
 
 ### Step 4: 保存产物
+
+**重要**：如果指定了工作分支，先切换到该分支再提交：
+
 ```bash
+# 如果指定了分支，切换到工作分支
+BRANCH="${{ inputs.branch }}"
+if [ -n "$BRANCH" ]; then
+    echo "🔀 Switching to branch: $BRANCH"
+    git fetch origin "$BRANCH"
+    git checkout "$BRANCH"
+fi
+
+# 提交产物
 git add artifacts/
 git commit -m "Pipeline: $PIPELINE_ID stage:${{ inputs.stage_id }} completed"
 git push
