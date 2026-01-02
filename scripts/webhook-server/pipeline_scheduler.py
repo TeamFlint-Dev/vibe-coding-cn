@@ -28,6 +28,10 @@ def log(message: str):
     print(f"[scheduler] {message}", flush=True)
 
 
+# Beads CLI 路径 - 在 webhook 服务目录下
+BD_PATH = os.environ.get('BD_PATH', '/opt/webhook/bd')
+
+
 class PipelineStatus(Enum):
     """流水线状态"""
     PENDING = "pending"          # 等待开始
@@ -123,7 +127,7 @@ class RepoSync:
             
             # Beads sync
             subprocess.run(
-                ['bd', 'sync', '--import-only'],
+                [BD_PATH, 'sync', '--import-only'],
                 cwd=self.repo_path,
                 check=True,
                 capture_output=True
@@ -140,7 +144,7 @@ class RepoSync:
         """获取可执行的任务"""
         try:
             result = subprocess.run(
-                ['bd', 'ready', '--label', f'pipeline:{pipeline_id}', '--json'],
+                [BD_PATH, 'ready', '--label', f'pipeline:{pipeline_id}', '--json'],
                 cwd=self.repo_path,
                 capture_output=True,
                 check=True
@@ -156,7 +160,7 @@ class RepoSync:
         """获取任务状态"""
         try:
             result = subprocess.run(
-                ['bd', 'show', task_id, '--json'],
+                [BD_PATH, 'show', task_id, '--json'],
                 cwd=self.repo_path,
                 capture_output=True,
                 check=True
@@ -170,7 +174,7 @@ class RepoSync:
     def update_task_status(self, task_id: str, status: str, reason: str = "") -> bool:
         """更新任务状态"""
         try:
-            cmd = ['bd', 'update', task_id, '--status', status]
+            cmd = [BD_PATH, 'update', task_id, '--status', status]
             if reason:
                 cmd.extend(['--reason', reason])
             subprocess.run(cmd, cwd=self.repo_path, check=True, capture_output=True)
@@ -182,7 +186,7 @@ class RepoSync:
         """关闭任务"""
         try:
             subprocess.run(
-                ['bd', 'close', task_id, '--reason', reason],
+                [BD_PATH, 'close', task_id, '--reason', reason],
                 cwd=self.repo_path,
                 check=True,
                 capture_output=True
