@@ -28,7 +28,7 @@ tools:
   web-fetch:
 
 engine:
-  id: claude
+  id: copilot
   max-turns: 20  # 允许更多轮对话
 
 safe-outputs:
