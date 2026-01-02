@@ -549,24 +549,32 @@ class PipelineScheduler:
                 "body": pr_body,
                 "head": pipeline.branch,
                 "base": "main"
-            }).encode('utf-8')
+            })
             
-            req = urllib.request.Request(
-                "https://api.github.com/repos/TeamFlint-Dev/vibe-coding-cn/pulls",
-                data=data,
-                headers={
-                    "Authorization": f"token {gh_token}",
-                    "Accept": "application/vnd.github.v3+json",
-                    "Content-Type": "application/json"
-                },
-                method="POST"
-            )
+            # 使用 curl 发送请求（支持代理）
+            proxy = os.environ.get('HTTPS_PROXY', '')
+            curl_cmd = ['curl', '-s', '-X', 'POST',
+                        'https://api.github.com/repos/TeamFlint-Dev/vibe-coding-cn/pulls',
+                        '-H', f'Authorization: token {gh_token}',
+                        '-H', 'Accept: application/vnd.github.v3+json',
+                        '-H', 'Content-Type: application/json',
+                        '-d', data]
+            if proxy:
+                curl_cmd.extend(['--proxy', proxy])
             
-            with urllib.request.urlopen(req) as resp:
-                result = json.loads(resp.read().decode())
-                pr_number = result.get('number')
-                log(f"Created PR #{pr_number} for pipeline {pipeline.pipeline_id}")
-                return pr_number
+            result = subprocess.run(curl_cmd, capture_output=True)
+            if result.returncode == 0:
+                resp = json.loads(result.stdout.decode())
+                if 'number' in resp:
+                    pr_number = resp['number']
+                    log(f"Created PR #{pr_number} for pipeline {pipeline.pipeline_id}")
+                    return pr_number
+                else:
+                    log(f"PR creation response: {resp}")
+                    return None
+            else:
+                log(f"curl failed: {result.stderr.decode()}")
+                return None
             
         except urllib.error.HTTPError as e:
             log(f"Failed to create PR for pipeline {pipeline.pipeline_id}: HTTP {e.code} - {e.read().decode()}")
