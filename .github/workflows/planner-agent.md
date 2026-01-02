@@ -22,7 +22,7 @@ inputs:
 
 network:
   allowed:
-    - "your-server-domain.com"  # TODO: 替换为实际服务器域名
+    - "193.112.183.143"  # 云服务器 IP
 
 instructions: |
   你是流水线规划 Agent，负责：
@@ -88,9 +88,8 @@ instructions: |
 
   ### Step 5: 通知调度器
   ```bash
-  curl -X POST https://your-server-domain.com/pipeline/ready \
+  curl -X POST http://193.112.183.143:19527/pipeline/ready \
     -H "Content-Type: application/json" \
-    -H "X-Pipeline-Signature: sha256=$(echo -n '...' | openssl dgst -sha256 -hmac '$PIPELINE_SECRET')" \
     -d '{
       "pipeline_id": "'"$PIPELINE_ID"'",
       "type": "${{ inputs.pipeline_type }}",
