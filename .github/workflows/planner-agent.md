@@ -2,6 +2,8 @@
 # planner-agent - 流水线规划 Agent
 # 解析流水线定义，创建阶段任务，创建工作分支，通知调度器
 
+strict: false
+
 on:
   workflow_dispatch:
     inputs:
@@ -34,7 +36,14 @@ tools:
 # Network - 允许访问调度器 (用于 pipeline-notify 工具)
 network:
   allowed:
+    - defaults
+    - github
+    - python
     - "193.112.183.143"
+
+# 禁用 sandbox 以允许网络访问
+sandbox:
+  agent: false
 
 safe-outputs:
   create-issue:

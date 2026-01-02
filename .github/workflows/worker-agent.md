@@ -2,6 +2,8 @@
 # worker-agent - 流水线执行 Agent
 # 执行单个流水线阶段任务
 
+strict: false
+
 on:
   workflow_dispatch:
     inputs:
@@ -31,6 +33,17 @@ tools:
   github:
     toolsets: [repos, issues, pull_requests]
     mode: remote
+
+# Network - Worker 需要网络访问来获取资料
+network:
+  allowed:
+    - defaults
+    - github
+    - python
+
+# 禁用 sandbox 以允许网络访问
+sandbox:
+  agent: false
 
 # Worker 需要提交产物到分支，使用 safe-outputs
 safe-outputs:
