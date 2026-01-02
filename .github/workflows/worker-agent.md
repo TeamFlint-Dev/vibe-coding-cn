@@ -1,22 +1,27 @@
 ---
-name: worker-agent
-description: 执行单个流水线阶段任务
-engine: copilot
-model: claude-sonnet-4
+# worker-agent - 流水线执行 Agent
+# 执行单个流水线阶段任务
 
-tools:
-  - bash: ["git:*", "bd:*", "cat:*", "ls:*", "mkdir:*", "cp:*"]
-  - github
-  - edit
-  - web-fetch
+on:
+  workflow_dispatch:
+    inputs:
+      task_id:
+        description: 'Beads 任务 ID'
+        required: true
+        type: string
+      stage_id:
+        description: '阶段 ID'
+        required: true
+        type: string
 
-inputs:
-  - name: task_id
-    description: Beads 任务 ID
-    required: true
-  - name: stage_id
-    description: 阶段 ID
-    required: true
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+safe-outputs:
+  add-comment:
+    max: 5
 ---
 
 你是流水线执行 Agent，负责执行单个阶段任务。

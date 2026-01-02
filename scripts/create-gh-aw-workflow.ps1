@@ -4,19 +4,21 @@
 
 .DESCRIPTION
     生成符合 gh-aw 格式规范的 Markdown 工作流文件。
-    gh-aw 使用 YAML frontmatter + Markdown 正文格式，frontmatter 必须用 --- 正确关闭。
+    gh-aw 使用 YAML frontmatter + Markdown 正文格式。
+    
+    必需字段：
+    - on: 触发器（workflow_dispatch, issues, pull_request 等）
+    - permissions: 权限声明
+    - safe-outputs: 输出限制
 
 .PARAMETER Name
-    工作流名称（用于文件名和 name 字段）
+    工作流名称（用于文件名）
 
 .PARAMETER Description
     工作流描述
 
-.PARAMETER Model
-    使用的模型，默认 claude-sonnet-4
-
-.PARAMETER Tools
-    工具列表，默认 ["bash", "github", "edit"]
+.PARAMETER Trigger
+    触发器类型，默认 workflow_dispatch
 
 .EXAMPLE
     .\create-gh-aw-workflow.ps1 -Name "my-agent" -Description "我的自定义 Agent"
@@ -24,8 +26,10 @@
 .NOTES
     gh-aw 格式要点：
     - frontmatter 用 --- 开头和结尾
-    - instructions 作为 Markdown 正文，不是 YAML 字段
-    - inputs 是数组格式
+    - on: 触发器是必需的
+    - permissions: 声明需要的权限
+    - safe-outputs: 限制 AI 可以执行的操作
+    - 正文是给 AI 的指令
 #>
 
 param(
@@ -35,9 +39,8 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$Description,
     
-    [string]$Model = "claude-sonnet-4",
-    
-    [string[]]$Tools = @("bash", "github", "edit"),
+    [ValidateSet("workflow_dispatch", "issues", "pull_request", "schedule")]
+    [string]$Trigger = "workflow_dispatch",
     
     [string]$OutputDir = ".github/workflows"
 )
@@ -49,29 +52,64 @@ if (-not (Test-Path $OutputDir)) {
 
 $outputFile = Join-Path $OutputDir "$Name.md"
 
-# 构建工具列表 YAML
-$toolsYaml = ($Tools | ForEach-Object { "  - $_" }) -join "`n"
+# 根据触发器类型生成不同的配置
+$triggerYaml = switch ($Trigger) {
+    "workflow_dispatch" {
+@"
+on:
+  workflow_dispatch:
+    inputs:
+      input_param:
+        description: '输入参数描述'
+        required: true
+        type: string
+"@
+    }
+    "issues" {
+@"
+on:
+  issues:
+    types: [opened, reopened]
+"@
+    }
+    "pull_request" {
+@"
+on:
+  pull_request:
+    types: [opened, synchronize]
+"@
+    }
+    "schedule" {
+@"
+on:
+  schedule:
+    - cron: "0 9 * * 1"  # Every Monday at 9 AM UTC
+"@
+    }
+}
 
 # 生成工作流模板
 $template = @"
 ---
-name: $Name
-description: $Description
-engine: copilot
-model: $Model
+# $Name - $Description
 
-tools:
-$toolsYaml
+$triggerYaml
 
-inputs:
-  - name: input_param
-    description: 输入参数描述
-    required: true
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+safe-outputs:
+  create-issue:
+    max: 1
+  add-comment:
+    max: 5
 ---
 
 # $Name
 
-你是 $Description 的执行 Agent。
+$Description
 
 ## 任务目标
 
@@ -80,17 +118,13 @@ inputs:
 ## 执行步骤
 
 ### Step 1: 准备
-```bash
-echo "开始执行..."
-```
+分析输入参数和当前环境。
 
 ### Step 2: 执行
 在这里描述主要执行逻辑。
 
 ### Step 3: 完成
-```bash
-echo "执行完成"
-```
+输出结果并清理。
 
 ## 注意事项
 

@@ -1,28 +1,33 @@
 ---
-name: planner-agent
-description: 解析流水线定义，创建阶段任务，通知调度器
-engine: copilot
-model: claude-sonnet-4
+# planner-agent - 流水线规划 Agent
+# 解析流水线定义，创建阶段任务，通知调度器
 
-tools:
-  - bash: ["git:*", "bd:*", "curl:*", "cat:*", "ls:*"]
-  - github
-  - edit
+on:
+  workflow_dispatch:
+    inputs:
+      pipeline_type:
+        description: '流水线类型 (如 skills-distill, game-design)'
+        required: true
+        type: string
+      source_url:
+        description: '原料来源 URL'
+        required: false
+        type: string
+      pipeline_id:
+        description: '自定义流水线 ID（可选，默认自动生成）'
+        required: false
+        type: string
 
-inputs:
-  - name: pipeline_type
-    description: 流水线类型 (如 skills-distill, game-design)
-    required: true
-  - name: source_url
-    description: 原料来源 URL
-    required: false
-  - name: pipeline_id
-    description: 自定义流水线 ID（可选，默认自动生成）
-    required: false
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
 
-network:
-  allowed:
-    - "193.112.183.143"  # 云服务器 IP
+safe-outputs:
+  create-issue:
+    max: 1
+  add-comment:
+    max: 10
 ---
 
 你是流水线规划 Agent，负责：
