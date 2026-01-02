@@ -100,6 +100,19 @@ permissions:
   issues: read
   pull-requests: read
 
+# Tools - 启用 bash 执行权限（按需取消注释）
+# tools:
+#   bash: [":*"]
+#   edit:
+#   github:
+#     toolsets: [repos, issues, pull_requests]
+#     mode: remote
+
+# Network - 允许访问外部域名（按需配置）
+# network:
+#   allowed:
+#     - "api.example.com"
+
 safe-outputs:
   create-issue:
     max: 1

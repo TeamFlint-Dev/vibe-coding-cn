@@ -19,9 +19,18 @@ permissions:
   issues: read
   pull-requests: read
 
+# Tools - 启用 bash 执行权限
+tools:
+  bash: [":*"]
+  edit:
+  github:
+    toolsets: [repos, issues, pull_requests]
+    mode: remote
+
 safe-outputs:
   add-comment:
     max: 5
+  create-pull-request:
 ---
 
 你是流水线执行 Agent，负责执行单个阶段任务。

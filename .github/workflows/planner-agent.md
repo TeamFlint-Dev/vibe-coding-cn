@@ -23,6 +23,19 @@ permissions:
   issues: read
   pull-requests: read
 
+# Tools - 启用 bash 执行权限
+tools:
+  bash: [":*"]
+  edit:
+  github:
+    toolsets: [repos, issues, pull_requests]
+    mode: remote
+
+# Network - 允许访问调度器
+network:
+  allowed:
+    - "193.112.183.143"
+
 safe-outputs:
   create-issue:
     max: 1
