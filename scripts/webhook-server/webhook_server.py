@@ -458,30 +458,37 @@ class HubHandler(BaseHTTPRequestHandler):
         
         result = {}
         
-        # 从标题解析 pipeline_id (格式: "Pipeline p20260102150202 ...")
-        title_match = re.search(r'Pipeline\s+(p\d{14})', title, re.IGNORECASE)
+        # 从标题解析 pipeline_id (格式: "Pipeline xxx ...")
+        # 支持多种格式: p20260102150202, test004, my-pipeline-1 等
+        title_match = re.search(r'Pipeline\s+([^\s-]+(?:-[^\s]+)?)', title, re.IGNORECASE)
         if title_match:
             result["pipeline_id"] = title_match.group(1)
         else:
             # 尝试从 body 解析
-            body_match = re.search(r'\*\*Pipeline ID\*\*:\s*`?(p\d{14})`?', body)
+            body_match = re.search(r'\*\*Pipeline ID\*\*:\s*`?([^`\s]+)`?', body)
             if body_match:
                 result["pipeline_id"] = body_match.group(1)
             else:
+                log(f"Could not find pipeline_id in title or body")
                 return None
         
         # 解析 type
-        type_match = re.search(r'\*\*Type\*\*:\s*`?([a-z-]+)`?', body)
+        type_match = re.search(r'\*\*Type\*\*:\s*`?([a-z0-9-]+)`?', body, re.IGNORECASE)
         if type_match:
             result["type"] = type_match.group(1)
         
+        # 解析 source_url
+        source_match = re.search(r'\*\*Source\*\*:\s*`?([^`\s]+)`?', body)
+        if source_match:
+            result["source_url"] = source_match.group(1)
+        
         # 解析 stages 和 stage_ids 从表格
         # | Stage | Beads ID | ...
-        # | 1. ingest | `vibe-coding-cn-5yh` | ...
+        # | 1. ingest | `xxx-yyy-zzz` | ...
         stages = []
         stage_ids = {}
         stage_pattern = re.compile(
-            r'\|\s*\d+\.\s*(\w+)\s*\|\s*`?([a-z-]+-\w+)`?\s*\|',
+            r'\|\s*\d+\.\s*(\w+)\s*\|\s*`([^`]+)`\s*\|',
             re.IGNORECASE
         )
         for match in stage_pattern.finditer(body):
@@ -489,6 +496,7 @@ class HubHandler(BaseHTTPRequestHandler):
             stage_id = match.group(2)
             stages.append(stage_name)
             stage_ids[stage_name] = stage_id
+            log(f"Parsed stage: {stage_name} -> {stage_id}")
         
         if stages:
             result["stages"] = stages
