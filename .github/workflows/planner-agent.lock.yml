@@ -1988,6 +1988,18 @@ jobs:
           2. 创建 Beads 任务
           3. 通知调度器启动执行
           
+          ## 环境准备
+          
+          **重要**：项目中已包含 Beads CLI (`bd`)，位于 `.github/tools/bd-linux-amd64`。
+          在执行 bd 命令前，先设置可执行权限并添加到 PATH：
+          
+          ```bash
+          chmod +x .github/tools/bd-linux-amd64
+          export PATH="$PWD/.github/tools:$PATH"
+          ln -sf bd-linux-amd64 .github/tools/bd
+          bd --version
+          ```
+          
           ## 执行步骤
           
           ### Step 1: 生成 Pipeline ID
