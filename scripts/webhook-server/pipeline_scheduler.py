@@ -107,19 +107,40 @@ class RepoSync:
     
     def __init__(self, repo_path: str):
         self.repo_path = Path(repo_path)
+        # Git 认证 - 使用 GH_TOKEN 环境变量
+        self.git_env = os.environ.copy()
+        gh_token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_PAT')
+        if gh_token:
+            # 配置 git 使用 token 进行认证
+            self.git_env['GIT_ASKPASS'] = '/bin/echo'
+            self.git_env['GIT_USERNAME'] = 'x-access-token'
+            self.git_env['GIT_PASSWORD'] = gh_token
+            # 使用 credential helper
+            self.git_env['GIT_TERMINAL_PROMPT'] = '0'
     
     def sync(self) -> bool:
         """拉取最新代码并导入 Beads"""
         try:
-            # Git fetch and reset
+            # 使用 token URL 进行 fetch
+            gh_token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_PAT')
+            if gh_token:
+                # 使用带 token 的 URL
+                subprocess.run(
+                    ['git', 'fetch', f'https://x-access-token:{gh_token}@github.com/TeamFlint-Dev/vibe-coding-cn.git', 'main'],
+                    cwd=self.repo_path,
+                    check=True,
+                    capture_output=True,
+                    env=self.git_env
+                )
+            else:
+                subprocess.run(
+                    ['git', 'fetch', 'origin'],
+                    cwd=self.repo_path,
+                    check=True,
+                    capture_output=True
+                )
             subprocess.run(
-                ['git', 'fetch', 'origin'],
-                cwd=self.repo_path,
-                check=True,
-                capture_output=True
-            )
-            subprocess.run(
-                ['git', 'reset', '--hard', 'origin/main'],
+                ['git', 'reset', '--hard', 'FETCH_HEAD'],
                 cwd=self.repo_path,
                 check=True,
                 capture_output=True
@@ -448,23 +469,37 @@ class PipelineScheduler:
                 ['git', 'checkout', '-b', branch_name],
                 cwd=self.repo_sync.repo_path,
                 check=True,
-                capture_output=True
+                capture_output=True,
+                env=self.repo_sync.git_env
             )
             
-            # 推送到远程
-            subprocess.run(
-                ['git', 'push', '-u', 'origin', branch_name],
-                cwd=self.repo_sync.repo_path,
-                check=True,
-                capture_output=True
-            )
+            # 推送到远程 - 使用 token URL
+            gh_token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_PAT')
+            if gh_token:
+                push_url = f'https://x-access-token:{gh_token}@github.com/TeamFlint-Dev/vibe-coding-cn.git'
+                subprocess.run(
+                    ['git', 'push', '-u', push_url, branch_name],
+                    cwd=self.repo_sync.repo_path,
+                    check=True,
+                    capture_output=True,
+                    env=self.repo_sync.git_env
+                )
+            else:
+                subprocess.run(
+                    ['git', 'push', '-u', 'origin', branch_name],
+                    cwd=self.repo_sync.repo_path,
+                    check=True,
+                    capture_output=True,
+                    env=self.repo_sync.git_env
+                )
             
             # 切回 main
             subprocess.run(
                 ['git', 'checkout', 'main'],
                 cwd=self.repo_sync.repo_path,
                 check=True,
-                capture_output=True
+                capture_output=True,
+                env=self.repo_sync.git_env
             )
             
             log(f"Created branch: {branch_name}")
