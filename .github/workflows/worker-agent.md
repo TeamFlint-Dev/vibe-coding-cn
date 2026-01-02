@@ -30,9 +30,6 @@ permissions:
 tools:
   bash: [":*"]
   edit:
-  github:
-    toolsets: [repos, issues, pull_requests]
-    mode: remote
 
 # Network - Worker 需要网络访问来获取资料
 network:

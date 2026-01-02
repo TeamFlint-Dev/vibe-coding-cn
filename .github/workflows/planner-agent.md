@@ -29,9 +29,6 @@ permissions:
 tools:
   bash: [":*"]
   edit:
-  github:
-    toolsets: [repos, issues, pull_requests]
-    mode: remote
 
 # Network - 允许访问调度器 (用于 pipeline-notify 工具)
 network:
