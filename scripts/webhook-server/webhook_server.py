@@ -28,11 +28,16 @@ from state_store import get_store, TaskStatus
 from account_manager import get_account_manager
 from github_client import get_github_client
 from decision_engine import get_decision_engine
+from pipeline_scheduler import get_scheduler, init_scheduler
 
 # ==================== 配置 ====================
 WEBHOOK_SECRET = os.environ.get("WEBHOOK_SECRET", "")
 CALLBACK_SECRET = os.environ.get("CALLBACK_SECRET", "")
+PIPELINE_SECRET = os.environ.get("PIPELINE_SECRET", "")  # Pipeline 专用密钥
 PORT = int(os.environ.get("PORT", "8080"))
+
+# Pipeline 配置
+PIPELINE_REPO_PATH = os.environ.get("PIPELINE_REPO_PATH", "/opt/pipeline-repo")
 
 # 手动构建命令模式
 BUILD_COMMANDS = re.compile(r"^\s*(/build|/编译)\s*$", re.MULTILINE)
@@ -83,6 +88,25 @@ def verify_callback_signature(payload: bytes, signature: str) -> bool:
     return hmac.compare_digest(expected, signature)
 
 
+def verify_pipeline_signature(payload: bytes, signature: str) -> bool:
+    """验证 Pipeline 请求签名"""
+    if not PIPELINE_SECRET:
+        log("WARNING: PIPELINE_SECRET not set, skipping verification")
+        return True
+    
+    if not signature or not signature.startswith("sha256="):
+        log("ERROR: Invalid pipeline signature format")
+        return False
+    
+    expected = "sha256=" + hmac.new(
+        PIPELINE_SECRET.encode(),
+        payload,
+        hashlib.sha256
+    ).hexdigest()
+    
+    return hmac.compare_digest(expected, signature)
+
+
 # ==================== HTTP Handler ====================
 class HubHandler(BaseHTTPRequestHandler):
     """中转站 HTTP 处理器"""
@@ -118,6 +142,12 @@ class HubHandler(BaseHTTPRequestHandler):
             self._handle_accounts()
         elif self.path == "/stats":
             self._handle_stats()
+        # Pipeline 相关端点
+        elif self.path.startswith("/pipeline/status/"):
+            pipeline_id = self.path[17:]  # 去掉 "/pipeline/status/"
+            self._handle_pipeline_status(pipeline_id)
+        elif self.path == "/pipeline/list":
+            self._handle_pipeline_list()
         else:
             self._send_json(404, {"error": "Not found"})
     
@@ -147,6 +177,34 @@ class HubHandler(BaseHTTPRequestHandler):
             "accounts": self.accounts.get_stats()
         })
     
+    # ==================== Pipeline GET 端点 ====================
+    
+    def _handle_pipeline_status(self, pipeline_id: str):
+        """查询流水线状态"""
+        scheduler = get_scheduler()
+        if not scheduler:
+            self._send_json(503, {"error": "Pipeline scheduler not initialized"})
+            return
+        
+        pipeline = scheduler.get_pipeline(pipeline_id)
+        if pipeline:
+            self._send_json(200, pipeline.to_dict())
+        else:
+            self._send_json(404, {"error": "Pipeline not found"})
+    
+    def _handle_pipeline_list(self):
+        """列出所有流水线"""
+        scheduler = get_scheduler()
+        if not scheduler:
+            self._send_json(503, {"error": "Pipeline scheduler not initialized"})
+            return
+        
+        pipelines = scheduler.get_all_pipelines()
+        self._send_json(200, {
+            "count": len(pipelines),
+            "pipelines": [p.to_dict() for p in pipelines]
+        })
+    
     # ==================== POST 端点 ====================
     
     def do_POST(self):
@@ -158,9 +216,95 @@ class HubHandler(BaseHTTPRequestHandler):
             self._handle_webhook(payload)
         elif self.path == "/callback":
             self._handle_callback(payload)
+        # Pipeline 相关端点
+        elif self.path == "/pipeline/ready":
+            self._handle_pipeline_ready(payload)
+        elif self.path.startswith("/pipeline/cancel/"):
+            pipeline_id = self.path[17:]  # 去掉 "/pipeline/cancel/"
+            self._handle_pipeline_cancel(pipeline_id)
         else:
             self._send_json(404, {"error": "Not found"})
     
+    # ==================== Pipeline POST 端点 ====================
+    
+    def _handle_pipeline_ready(self, payload: bytes):
+        """处理 Planner Agent 的流水线启动通知"""
+        import asyncio
+        
+        # 验证签名
+        signature = self.headers.get("X-Pipeline-Signature", "")
+        if not verify_pipeline_signature(payload, signature):
+            self._send_json(401, {"error": "Invalid signature"})
+            return
+        
+        try:
+            data = json.loads(payload)
+        except json.JSONDecodeError as e:
+            self._send_json(400, {"error": f"Invalid JSON: {e}"})
+            return
+        
+        # 验证必需字段
+        pipeline_id = data.get("pipeline_id")
+        pipeline_type = data.get("type")
+        stages = data.get("stages", [])
+        
+        if not pipeline_id or not pipeline_type or not stages:
+            self._send_json(400, {"error": "Missing required fields: pipeline_id, type, stages"})
+            return
+        
+        scheduler = get_scheduler()
+        if not scheduler:
+            self._send_json(503, {"error": "Pipeline scheduler not initialized"})
+            return
+        
+        # 启动流水线
+        try:
+            # 在事件循环中运行
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            pipeline = loop.run_until_complete(
+                scheduler.start_pipeline(
+                    pipeline_id=pipeline_id,
+                    pipeline_type=pipeline_type,
+                    stages=stages,
+                    source_url=data.get("source_url")
+                )
+            )
+            
+            log(f"Pipeline {pipeline_id} started")
+            self._send_json(200, {
+                "status": "accepted",
+                "pipeline_id": pipeline_id,
+                "issue_number": pipeline.issue_number
+            })
+        except Exception as e:
+            log(f"Failed to start pipeline: {e}")
+            self._send_json(500, {"error": str(e)})
+    
+    def _handle_pipeline_cancel(self, pipeline_id: str):
+        """取消流水线"""
+        import asyncio
+        
+        scheduler = get_scheduler()
+        if not scheduler:
+            self._send_json(503, {"error": "Pipeline scheduler not initialized"})
+            return
+        
+        try:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            success = loop.run_until_complete(scheduler.cancel_pipeline(pipeline_id))
+            
+            if success:
+                self._send_json(200, {"status": "cancelled", "pipeline_id": pipeline_id})
+            else:
+                self._send_json(404, {"error": "Pipeline not found"})
+        except Exception as e:
+            log(f"Failed to cancel pipeline: {e}")
+            self._send_json(500, {"error": str(e)})
+    
+    # ==================== Webhook 处理 ====================
+
     def _handle_webhook(self, payload: bytes):
         """处理 GitHub Webhook"""
         # 验证签名
@@ -444,10 +588,25 @@ def main():
     if not CALLBACK_SECRET:
         log("WARNING: CALLBACK_SECRET not set")
     
+    if not PIPELINE_SECRET:
+        log("WARNING: PIPELINE_SECRET not set")
+    
     # 初始化组件
     store = get_store()
     accounts = get_account_manager()
     github = get_github_client()
+    
+    # 初始化 Pipeline Scheduler
+    if PIPELINE_REPO_PATH and os.path.exists(PIPELINE_REPO_PATH):
+        scheduler = init_scheduler(
+            repo_path=PIPELINE_REPO_PATH,
+            github_token=github_pat,
+            repo_owner=github.repo_owner,
+            repo_name=github.repo_name
+        )
+        log(f"Pipeline Scheduler initialized: {PIPELINE_REPO_PATH}")
+    else:
+        log(f"WARNING: Pipeline repo not found at {PIPELINE_REPO_PATH}, scheduler disabled")
     
     log("=" * 60)
     log("GitHub Webhook Hub Starting")
@@ -463,6 +622,12 @@ def main():
     log("  GET  /accounts  - Account status")
     log("  GET  /stats     - Statistics")
     log("  GET  /health    - Health check")
+    log("")
+    log("Pipeline Endpoints:")
+    log("  POST /pipeline/ready      - Start pipeline")
+    log("  POST /pipeline/cancel/<id> - Cancel pipeline")
+    log("  GET  /pipeline/status/<id> - Pipeline status")
+    log("  GET  /pipeline/list       - List pipelines")
     log("=" * 60)
     
     server = HTTPServer(("0.0.0.0", PORT), HubHandler)
