@@ -32,16 +32,16 @@ tools:
   # repo-memory: 持久化 pipeline 状态到独立分支
   # 安全设计:
   #   1. 使用独立的 orphan 分支，不影响主分支
-  #   2. 严格限制文件路径，只允许 pipelines/<id>/*.json
+  #   2. 文件名格式: <pipeline_id>.json（扁平结构，gh-aw push 只支持直接子文件）
   #   3. 限制单文件大小 (100KB) 和文件数量 (50)
   #   4. 分支名称包含 "memory/" 前缀，便于识别和权限管理
   repo-memory:
     branch-name: memory/pipelines
-    file-glob: "pipelines/**/*.json"
+    file-glob: "*.json"
     max-file-size: 102400      # 100KB per file
     max-file-count: 50         # max 50 files
     create-orphan: true        # 创建独立分支，不继承主分支历史
-    description: "Pipeline state storage - read by scheduler to coordinate workflow execution"
+    description: "Pipeline state storage. Write files as <pipeline_id>.json to /tmp/gh-aw/repo-memory-default/memory/default/"
 
 # Network - 允许访问调度器 (用于 pipeline-notify 工具)
 network:
@@ -264,20 +264,25 @@ cat /tmp/pipeline-state.json | head -20
 使用 repo-memory 工具将状态写入 `memory/pipelines` 分支：
 
 ```bash
-# repo-memory 会自动将文件写入配置的分支
-# 文件路径: pipelines/<pipeline_id>/state.json
-mkdir -p pipelines/$PIPELINE_ID
-cp /tmp/pipeline-state.json pipelines/$PIPELINE_ID/state.json
+# repo-memory 工作目录: /tmp/gh-aw/repo-memory-default/memory/default/
+# 重要: gh-aw push 脚本只处理该目录下的直接子文件，不支持子目录！
+# 因此使用扁平化文件名: <pipeline_id>.json
+REPO_MEMORY_DIR="/tmp/gh-aw/repo-memory-default/memory/default"
+mkdir -p "$REPO_MEMORY_DIR"
+
+# 将状态文件复制到 repo-memory 目录（扁平化命名）
+cp /tmp/pipeline-state.json "$REPO_MEMORY_DIR/${PIPELINE_ID}.json"
 
 echo "✅ Pipeline state written to repo-memory"
-echo "   Branch: memory/pipelines"
-echo "   Path: pipelines/$PIPELINE_ID/state.json"
+echo "   Directory: $REPO_MEMORY_DIR"
+echo "   File: ${PIPELINE_ID}.json"
+ls -la "$REPO_MEMORY_DIR/"
 ```
 
 > **安全说明**: 
 > - `repo-memory` 使用独立的 orphan 分支，不影响主分支代码
-> - 文件路径严格限制在 `pipelines/**/*.json`
-> - 调度器从此分支读取状态，无需访问 `.beads/` 目录
+> - 文件名格式: `<pipeline_id>.json`（扁平结构）
+> - 调度器从 `memory/pipelines` 分支读取状态
 
 ---
 

@@ -260,7 +260,9 @@ class RepoSync:
             self.fetch_memory_branch(branch_name)
             
             # 使用 git show 读取文件内容，无需切换分支
-            file_path = f"pipelines/{pipeline_id}/state.json"
+            # 注意: gh-aw repo-memory 使用扁平文件结构
+            # 文件路径: memory/default/<pipeline_id>.json
+            file_path = f"memory/default/{pipeline_id}.json"
             result = subprocess.run(
                 ['git', 'show', f'{branch_name}:{file_path}'],
                 cwd=self.repo_path,
@@ -336,8 +338,8 @@ class RepoSync:
                 env=self.git_env
             )
             
-            # 写入文件
-            state_path = self.repo_path / "pipelines" / pipeline_id / "state.json"
+            # 写入文件（扁平结构: memory/default/<pipeline_id>.json）
+            state_path = self.repo_path / "memory" / "default" / f"{pipeline_id}.json"
             state_path.parent.mkdir(parents=True, exist_ok=True)
             state_path.write_text(json.dumps(current_state, indent=2, ensure_ascii=False))
             
