@@ -20,7 +20,7 @@
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
 
-name: "Worker Agent"
+name: "根据任务类型查阅对应 Skill"
 "on":
   workflow_dispatch:
     inputs:
@@ -38,7 +38,7 @@ permissions: {}
 concurrency:
   group: "gh-aw-${{ github.workflow }}"
 
-run-name: "Worker Agent"
+run-name: "根据任务类型查阅对应 Skill"
 
 jobs:
   activation:
@@ -1850,7 +1850,7 @@ jobs:
               model: process.env.GH_AW_MODEL_AGENT_COPILOT || "",
               version: "",
               agent_version: "0.0.372",
-              workflow_name: "Worker Agent",
+              workflow_name: "根据任务类型查阅对应 Skill",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -1932,6 +1932,11 @@ jobs:
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
           你是流水线执行 Agent，负责执行单个阶段任务。
           
+          > ⚠️ **重要原则**：你是一个拥有**干净上下文**的执行者。
+          > - 你不知道流水线的全貌，只负责执行分配给你的单个任务
+          > - 通过 `bd` 获取任务信息，通过 Skill 获取执行方法
+          > - 执行完成后更新任务状态，不做额外的事情
+          
           ## 环境准备
           
           **重要**：项目中已包含 Beads CLI (`bd`)，位于 `.github/tools/bd-linux-amd64`。
@@ -1951,12 +1956,37 @@ jobs:
           bd show __GH_AW_INPUTS_TASK_ID__ --json
           ```
           
+          从任务信息中提取：
+          - `pipeline_id`: 流水线 ID（从 label 中解析 `pipeline:xxx`）
+          - `stage`: 阶段名称（从 label 中解析 `stage:xxx`）
+          - `description`: 任务描述（可能包含 source_url 等信息）
+          
           ### Step 2: 标记任务开始
           ```bash
           bd update __GH_AW_INPUTS_TASK_ID__ --status in_progress
           ```
           
-          ### Step 3: 根据阶段类型执行
+          ### Step 3: 查阅 Skill 获取执行指南
+          
+          **重要**：在执行具体工作前，先查阅相关 Skill 获取方法论指导：
+          
+          ```bash
+          # 根据任务类型查阅对应 Skill
+          # 例如 skills-distill 流水线的阶段：
+          cat Core/skills/programming/verseDev/Index.md  # 如果是 Verse 相关
+          cat Core/skills/design/gameDev/Index.md        # 如果是游戏设计相关
+          ```
+          
+          每个阶段对应的知识来源：
+          | 阶段 | 应查阅的 Skill/文档 |
+          |------|-------------------|
+          | ingest | 使用 web-fetch 工具，参考 claudeCookbooks |
+          | classify | 内容分类，参考 Core/documents/Skill规范/ |
+          | extract | 模式提取，参考 claudeSkills/pattern-extraction |
+          | assemble | 文档组装，参考 Core/documents/Skill规范/示例与模板/ |
+          | validate | 质量验证，参考 Core/documents/Skill规范/基础规范/ |
+          
+          ### Step 4: 根据阶段类型执行
           
           根据 stage_id 执行对应的工作：
           
@@ -5290,7 +5320,7 @@ jobs:
         continue-on-error: true
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: firewall-logs-worker-agent
+          name: firewall-logs--skill
           path: /tmp/gh-aw/sandbox/firewall/logs/
           if-no-files-found: ignore
       - name: Parse firewall logs for step summary
@@ -5741,7 +5771,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "Worker Agent"
+          GH_AW_WORKFLOW_NAME: "根据任务类型查阅对应 Skill"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5833,7 +5863,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Worker Agent"
+          GH_AW_WORKFLOW_NAME: "根据任务类型查阅对应 Skill"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5944,7 +5974,7 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "Worker Agent"
+          GH_AW_WORKFLOW_NAME: "根据任务类型查阅对应 Skill"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
@@ -6237,7 +6267,7 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "Worker Agent"
+          WORKFLOW_NAME: "根据任务类型查阅对应 Skill"
           WORKFLOW_DESCRIPTION: "No description provided"
         with:
           script: |
@@ -6475,7 +6505,7 @@ jobs:
     env:
       GH_AW_ENGINE_ID: "copilot"
       GH_AW_WORKFLOW_ID: "worker-agent"
-      GH_AW_WORKFLOW_NAME: "Worker Agent"
+      GH_AW_WORKFLOW_NAME: "根据任务类型查阅对应 Skill"
     outputs:
       add_comment_comment_id: ${{ steps.add_comment.outputs.comment_id }}
       add_comment_comment_url: ${{ steps.add_comment.outputs.comment_url }}

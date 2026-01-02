@@ -20,7 +20,7 @@
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
 
-name: "第一个阶段没有依赖"
+name: "创建所有阶段任务"
 "on":
   workflow_dispatch:
     inputs:
@@ -42,7 +42,7 @@ permissions: {}
 concurrency:
   group: "gh-aw-${{ github.workflow }}"
 
-run-name: "第一个阶段没有依赖"
+run-name: "创建所有阶段任务"
 
 jobs:
   activation:
@@ -1865,7 +1865,7 @@ jobs:
               model: process.env.GH_AW_MODEL_AGENT_COPILOT || "",
               version: "",
               agent_version: "0.0.372",
-              workflow_name: "第一个阶段没有依赖",
+              workflow_name: "创建所有阶段任务",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -1986,32 +1986,39 @@ jobs:
           
           示例（skills-distill 流水线）：
           ```bash
-          # 第一个阶段没有依赖
-          bd create "pipeline:$PIPELINE_ID stage:ingest" \
+          # 创建所有阶段任务
+          INGEST_ID=$(bd create "pipeline:$PIPELINE_ID stage:ingest - 采集: __GH_AW_INPUTS_SOURCE_URL__" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:ingest" \
-            --description "采集: __GH_AW_INPUTS_SOURCE_URL__"
+            --label "stage:ingest" | grep -oP 'Created task: \K\S+')
           
-          # 后续阶段依赖前一个
-          bd create "pipeline:$PIPELINE_ID stage:classify" \
+          CLASSIFY_ID=$(bd create "pipeline:$PIPELINE_ID stage:classify - 分类分析" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:classify" \
-            --deps "completed:stage:ingest"
+            --label "stage:classify" | grep -oP 'Created task: \K\S+')
           
-          bd create "pipeline:$PIPELINE_ID stage:extract" \
+          EXTRACT_ID=$(bd create "pipeline:$PIPELINE_ID stage:extract - 模式提取" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:extract" \
-            --deps "completed:stage:classify"
+            --label "stage:extract" | grep -oP 'Created task: \K\S+')
           
-          bd create "pipeline:$PIPELINE_ID stage:assemble" \
+          ASSEMBLE_ID=$(bd create "pipeline:$PIPELINE_ID stage:assemble - 文档组装" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:assemble" \
-            --deps "completed:stage:extract"
+            --label "stage:assemble" | grep -oP 'Created task: \K\S+')
           
-          bd create "pipeline:$PIPELINE_ID stage:validate" \
+          VALIDATE_ID=$(bd create "pipeline:$PIPELINE_ID stage:validate - 质量验证" \
             --label "pipeline:$PIPELINE_ID" \
-            --label "stage:validate" \
-            --deps "completed:stage:assemble"
+            --label "stage:validate" | grep -oP 'Created task: \K\S+')
+          
+          # 设置依赖关系：A depends on B 表示 A 需要 B 先完成
+          bd dep add $CLASSIFY_ID $INGEST_ID     # classify 依赖 ingest
+          bd dep add $EXTRACT_ID $CLASSIFY_ID    # extract 依赖 classify
+          bd dep add $ASSEMBLE_ID $EXTRACT_ID    # assemble 依赖 extract
+          bd dep add $VALIDATE_ID $ASSEMBLE_ID   # validate 依赖 assemble
+          
+          echo "Created pipeline tasks with dependencies:"
+          echo "  ingest:   $INGEST_ID"
+          echo "  classify: $CLASSIFY_ID (depends on ingest)"
+          echo "  extract:  $EXTRACT_ID (depends on classify)"
+          echo "  assemble: $ASSEMBLE_ID (depends on extract)"
+          echo "  validate: $VALIDATE_ID (depends on assemble)"
           ```
           
           ### Step 4: 同步 Beads 到 Git
@@ -2020,8 +2027,12 @@ jobs:
           ```
           
           ### Step 5: 通知调度器
+          
+          > **注意**: 服务器端签名验证已禁用（`PIPELINE_SECRET` 未设置时自动跳过）
+          
           ```bash
-          curl -X POST http://193.112.183.143/pipeline/ready \
+          # 发送通知到调度器
+          curl -X POST http://193.112.183.143:19527/pipeline/ready \
             -H "Content-Type: application/json" \
             -d '{
               "pipeline_id": "'"$PIPELINE_ID"'",
@@ -5757,7 +5768,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "第一个阶段没有依赖"
+          GH_AW_WORKFLOW_NAME: "创建所有阶段任务"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5849,7 +5860,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "第一个阶段没有依赖"
+          GH_AW_WORKFLOW_NAME: "创建所有阶段任务"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5960,7 +5971,7 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "第一个阶段没有依赖"
+          GH_AW_WORKFLOW_NAME: "创建所有阶段任务"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
@@ -6253,7 +6264,7 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "第一个阶段没有依赖"
+          WORKFLOW_NAME: "创建所有阶段任务"
           WORKFLOW_DESCRIPTION: "No description provided"
         with:
           script: |
@@ -6490,7 +6501,7 @@ jobs:
     env:
       GH_AW_ENGINE_ID: "copilot"
       GH_AW_WORKFLOW_ID: "planner-agent"
-      GH_AW_WORKFLOW_NAME: "第一个阶段没有依赖"
+      GH_AW_WORKFLOW_NAME: "创建所有阶段任务"
     outputs:
       add_comment_comment_id: ${{ steps.add_comment.outputs.comment_id }}
       add_comment_comment_url: ${{ steps.add_comment.outputs.comment_url }}
