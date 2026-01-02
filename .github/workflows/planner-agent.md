@@ -118,7 +118,7 @@ bd sync --message "Pipeline $PIPELINE_ID: Created stages"
 
 ### Step 5: 通知调度器
 ```bash
-curl -X POST http://193.112.183.143:19527/pipeline/ready \
+curl -X POST http://193.112.183.143:443/pipeline/ready \
   -H "Content-Type: application/json" \
   -d '{
     "pipeline_id": "'"$PIPELINE_ID"'",
