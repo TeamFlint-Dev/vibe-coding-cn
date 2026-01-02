@@ -2026,32 +2026,43 @@ jobs:
           bd sync --message "Pipeline $PIPELINE_ID: Created stages"
           ```
           
-          ### Step 5: 通知调度器
+          ### Step 5: 通知调度器（通过 repository_dispatch）
           
-          > **注意**: 服务器端签名验证已禁用（`PIPELINE_SECRET` 未设置时自动跳过）
+          使用 GitHub API 发送 `repository_dispatch` 事件，Webhook 服务器会自动接收并启动调度：
           
           ```bash
-          # 发送通知到调度器
-          curl -X POST http://193.112.183.143:19527/pipeline/ready \
-            -H "Content-Type: application/json" \
-            -d '{
-              "pipeline_id": "'"$PIPELINE_ID"'",
-              "type": "__GH_AW_INPUTS_PIPELINE_TYPE__",
-              "stages": ["ingest", "classify", "extract", "assemble", "validate"],
-              "source_url": "__GH_AW_INPUTS_SOURCE_URL__"
-            }'
+          # 通过 GitHub API 发送 repository_dispatch 事件
+          # 这会触发仓库的 webhook，服务器收到后启动流水线调度
+          gh api repos/$GITHUB_REPOSITORY/dispatches \
+            --method POST \
+            -f event_type="pipeline-ready" \
+            -f client_payload[pipeline_id]="$PIPELINE_ID" \
+            -f client_payload[type]="__GH_AW_INPUTS_PIPELINE_TYPE__" \
+            -f client_payload[stages]='["ingest", "classify", "extract", "assemble", "validate"]' \
+            -f client_payload[stage_ids][ingest]="$INGEST_ID" \
+            -f client_payload[stage_ids][classify]="$CLASSIFY_ID" \
+            -f client_payload[stage_ids][extract]="$EXTRACT_ID" \
+            -f client_payload[stage_ids][assemble]="$ASSEMBLE_ID" \
+            -f client_payload[stage_ids][validate]="$VALIDATE_ID" \
+            -f client_payload[source_url]="__GH_AW_INPUTS_SOURCE_URL__"
+          
+          echo "✅ repository_dispatch event sent: pipeline-ready"
           ```
+          
+          > **原理**: `repository_dispatch` 事件会通过 GitHub Webhook 发送到我们的服务器，
+          > 服务器接收后解析 `client_payload` 并启动调度器。这样完全通过 GitHub 事件系统通信，
+          > 不需要直接 HTTP 调用和签名验证。
           
           ### Step 6: 输出结果
           创建一个简短的摘要：
           - Pipeline ID
           - 阶段数量
-          - 调度器响应状态
+          - 各阶段任务 ID
           
           ## 注意事项
           - 快速退出，不要等待执行结果
           - 所有等待逻辑由调度器处理
-          - 如果调度器通知失败，在 Issue 中记录错误
+          - 如果 bd sync 失败，在 Issue 中记录错误
           
           PROMPT_EOF
       - name: Substitute placeholders

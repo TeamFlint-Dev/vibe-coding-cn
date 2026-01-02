@@ -330,12 +330,71 @@ class HubHandler(BaseHTTPRequestHandler):
             self._handle_comment_event(data)
         elif event_type == "issues":
             self._handle_issues_event(data)
+        elif event_type == "repository_dispatch":
+            self._handle_repository_dispatch(data)
         elif event_type == "ping":
             self._send_json(200, {"message": "pong"})
         else:
             log(f"Ignoring event: {event_type}")
             self._send_json(200, {"message": "Event ignored"})
     
+    def _handle_repository_dispatch(self, data: dict):
+        """处理 repository_dispatch 事件 - Planner Agent 通知流水线就绪"""
+        import asyncio
+        
+        action = data.get("action", "")  # 这是 event_type
+        client_payload = data.get("client_payload", {})
+        
+        log(f"Repository dispatch: action={action}, payload={client_payload}")
+        
+        # 只处理 pipeline-ready 事件
+        if action != "pipeline-ready":
+            self._send_json(200, {"message": f"Ignoring dispatch event: {action}"})
+            return
+        
+        # 从 client_payload 提取流水线信息
+        pipeline_id = client_payload.get("pipeline_id")
+        pipeline_type = client_payload.get("type", "unknown")
+        stages = client_payload.get("stages", [])
+        stage_ids = client_payload.get("stage_ids", {})
+        source_url = client_payload.get("source_url", "")
+        
+        if not pipeline_id or not stages:
+            log("Missing required fields in client_payload")
+            self._send_json(400, {"error": "Missing pipeline_id or stages"})
+            return
+        
+        log(f"Pipeline ready: {pipeline_id}, type={pipeline_type}, stages={stages}")
+        
+        # 启动调度器
+        scheduler = get_scheduler()
+        if not scheduler:
+            log("Pipeline scheduler not initialized")
+            self._send_json(503, {"error": "Pipeline scheduler not initialized"})
+            return
+        
+        try:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            pipeline = loop.run_until_complete(
+                scheduler.start_pipeline(
+                    pipeline_id=pipeline_id,
+                    pipeline_type=pipeline_type,
+                    stages=stages,
+                    stage_ids=stage_ids,
+                    source_url=source_url
+                )
+            )
+            log(f"Pipeline {pipeline_id} started via repository_dispatch")
+            self._send_json(200, {
+                "message": "Pipeline started",
+                "pipeline_id": pipeline_id,
+                "issue_number": pipeline.issue_number if hasattr(pipeline, 'issue_number') else None
+            })
+        except Exception as e:
+            log(f"Failed to start pipeline: {e}")
+            self._send_json(500, {"error": str(e)})
+
     def _handle_issues_event(self, data: dict):
         """处理 Issue 事件 - 用于 Pipeline 自动调度"""
         import asyncio

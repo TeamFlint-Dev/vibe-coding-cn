@@ -307,9 +307,20 @@ class PipelineScheduler:
         pipeline_id: str,
         pipeline_type: str,
         stages: list[str],
-        source_url: Optional[str] = None
+        source_url: Optional[str] = None,
+        stage_ids: Optional[dict[str, str]] = None,
+        issue_number: Optional[int] = None
     ) -> PipelineInfo:
-        """启动新流水线"""
+        """启动新流水线
+        
+        Args:
+            pipeline_id: 流水线 ID
+            pipeline_type: 流水线类型
+            stages: 阶段名称列表
+            source_url: 源 URL
+            stage_ids: 阶段 ID 映射 {stage_name: beads_task_id}
+            issue_number: 已创建的 Issue 号（可选，用于关联现有 Issue）
+        """
         
         # 创建流水线信息
         pipeline = PipelineInfo(
@@ -317,21 +328,28 @@ class PipelineScheduler:
             pipeline_type=pipeline_type,
             source_url=source_url,
             stages=[
-                StageInfo(id=stage_id, name=stage_id)
-                for stage_id in stages
+                StageInfo(
+                    id=stage_name, 
+                    name=stage_name,
+                    task_id=stage_ids.get(stage_name) if stage_ids else None
+                )
+                for stage_name in stages
             ]
         )
         
-        # 创建 GitHub Issue 作为仪表板
-        issue_number = self.recorder.create_pipeline_issue(
-            pipeline_id=pipeline_id,
-            config={
-                "type": pipeline_type,
-                "source_url": source_url,
-                "stages": stages
-            }
-        )
-        pipeline.issue_number = issue_number
+        # 创建或使用已有的 GitHub Issue 作为仪表板
+        if issue_number:
+            pipeline.issue_number = issue_number
+        else:
+            pipeline.issue_number = self.recorder.create_pipeline_issue(
+                pipeline_id=pipeline_id,
+                config={
+                    "type": pipeline_type,
+                    "source_url": source_url,
+                    "stages": stages,
+                    "stage_ids": stage_ids
+                }
+            )
         
         # 保存并启动
         self._pipelines[pipeline_id] = pipeline
@@ -340,7 +358,7 @@ class PipelineScheduler:
         task = asyncio.create_task(self._run_pipeline_loop(pipeline_id))
         self._running_tasks[pipeline_id] = task
         
-        log(f"Pipeline {pipeline_id} started, issue #{issue_number}")
+        log(f"Pipeline {pipeline_id} started, issue #{pipeline.issue_number}")
         return pipeline
     
     def get_pipeline(self, pipeline_id: str) -> Optional[PipelineInfo]:
