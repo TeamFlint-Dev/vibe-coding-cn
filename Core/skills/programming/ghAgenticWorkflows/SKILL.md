@@ -3,6 +3,16 @@
 > **适用范围**: 使用 gh-aw 创建和运行 AI Agent 工作流的开发者
 > **参考**: https://github.com/githubnext/gh-aw
 
+## 🚀 快速入口
+
+| 文档 | 用途 |
+|------|------|
+| **[能力边界文档](CAPABILITY-BOUNDARIES.md)** | ⭐ 判断某任务能否用 gh-aw 完成 |
+| [官方案例解读](shared/references/official-examples.md) | 学习常见工作流模式 |
+| [技能索引](shared/gh-aw-raw/skills/INDEX.md) | 查找 Agent 行为指导 |
+
+---
+
 ## 概述
 
 GitHub Agentic Workflows (`gh-aw`) 是一个 CLI 工具和 GitHub 扩展，允许开发者使用自然语言 Markdown 文件创建 AI 驱动的自动化工作流。

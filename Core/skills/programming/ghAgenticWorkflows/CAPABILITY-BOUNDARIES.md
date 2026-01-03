@@ -1,0 +1,355 @@
+# GitHub Agentic Workflows 能力边界文档
+
+> **版本**: 1.0 | **更新日期**: 2026-01-02
+>
+> **目标**: 快速判断某项任务是否能用 gh-aw 完成，避免无效调研
+
+---
+
+## 能力速查矩阵
+
+### 能做的事（绿灯区）
+
+| 类别           | 具体能力                                | 适用场景                          |
+| -------------- | --------------------------------------- | --------------------------------- |
+| GitHub 读取    | Issue/PR/Discussion 查询、仓库内容读取  | 分析 Issue、审查 PR、搜索代码     |
+| GitHub 写入    | 创建/更新 Issue、评论、PR、Discussion   | 自动分类、Bot 回复、自动创建 PR   |
+| 文件操作       | 读取、创建、修改仓库文件                | 生成报告、代码重构、文档更新      |
+| Shell 命令     | 执行允许的 bash 命令                    | git 操作、构建、测试、lint        |
+| 网络获取       | 爬取网页、调用 API                      | 文档爬虫、外部数据获取            |
+| 网络搜索       | 执行网络搜索                            | 研究任务、信息收集                |
+| 定时任务       | 按计划执行工作流                        | 每日报告、每周审计、定期清理      |
+| 事件响应       | 响应 GitHub 事件                        | Issue 分类、PR 自动审查           |
+| 斜杠命令       | `/command` 触发                         | 交互式 Bot、按需执行任务          |
+| 浏览器自动化   | Playwright 操作                         | 截图、UI 测试、动态页面爬取       |
+| 持久记忆       | cache-memory MCP                        | 跨运行保存状态、学习优化          |
+| 多仓库操作     | 跨仓库创建 Issue/PR                     | 统一管理多个项目                  |
+| 项目管理       | GitHub Projects v2 操作                 | 自动添加卡片、更新状态            |
+
+### 不能做的事（红灯区）
+
+| 类别           | 限制说明                       | 替代方案                              |
+| -------------- | ------------------------------ | ------------------------------------- |
+| 实时交互       | 无法等待用户输入后继续         | 使用斜杠命令分多次交互                |
+| 长时间运行     | 最长 360 分钟（6小时）         | 拆分为多个工作流                      |
+| 大文件处理     | Artifact 有大小限制            | 使用外部存储                          |
+| 私有网络访问   | 沙箱限制内网访问               | 禁用沙箱或使用 self-hosted runner     |
+| 数据库直连     | 无持久化数据库                 | 使用 GitHub Issue/Discussion          |
+| GUI 应用       | 无桌面环境                     | 仅支持 headless 浏览器                |
+| 多并发 Agent   | 单工作流单 Agent               | 使用 workflow_run 串联                |
+| 任意代码执行   | bash 命令可被限制              | 明确声明需要的命令                    |
+| 密钥管理       | Secrets 只能读不能写           | 使用 GitHub Secrets 管理界面          |
+| 账户操作       | 无法修改用户/组织设置          | 需手动操作或专用 API                  |
+
+### 有条件能做的事（黄灯区）
+
+| 类别             | 条件                     | 配置方式                            |
+| ---------------- | ------------------------ | ----------------------------------- |
+| 外部 API 调用    | 需要配置网络白名单       | `network.allowed: [domain]`         |
+| 写入仓库         | 需要 safe-outputs 配置   | `safe-outputs: create-pull-request` |
+| 执行危险命令     | 需明确声明允许           | `tools.bash: ["rm *"]`              |
+| 跨仓库操作       | 需要正确的 Token 权限    | `github-token: ${{ secrets.PAT }}`  |
+| 禁用沙箱         | 允许网络/文件系统访问    | `sandbox.agent: false`              |
+| 使用 Claude 引擎 | 需要额外配置             | `engine: claude`                    |
+
+---
+
+## 工具（Tools）能力详解
+
+### 内置工具
+
+| 工具名            | 功能           | 配置示例                                     |
+| ----------------- | -------------- | -------------------------------------------- |
+| github            | GitHub API     | `github: { toolsets: [issues] }`             |
+| bash              | Shell 命令     | `bash: [":*"]` 或 `bash: ["git *"]`          |
+| edit              | 文件读写       | `edit:`                                      |
+| web-fetch         | 网页抓取       | `web-fetch:`                                 |
+| web-search        | 网络搜索       | `web-search:`                                |
+| playwright        | 浏览器自动化   | `playwright: { allowed_domains: [*.com] }`   |
+| agentic-workflows | 工作流自省     | `agentic-workflows: true`                    |
+| cache-memory      | 持久化记忆     | `cache-memory: { key: "memory-xxx" }`        |
+| serena            | 代码智能分析   | `serena: [go, typescript]`                   |
+
+### GitHub 工具集（Toolsets）
+
+```yaml
+tools:
+  github:
+    toolsets:
+      - all              # 所有功能
+      - default          # 默认功能集
+      - action-friendly  # Actions 友好
+      - context          # 上下文信息
+      - repos            # 仓库操作
+      - issues           # Issue 操作
+      - pull_requests    # PR 操作
+      - actions          # Actions 操作
+      - code_security    # 代码安全
+      - dependabot       # Dependabot
+      - discussions      # Discussion 操作
+      - experiments      # 实验功能
+      - gists            # Gist 操作
+      - labels           # 标签管理
+      - notifications    # 通知
+      - orgs             # 组织操作
+      - projects         # 项目管理
+      - search           # 搜索
+      - secret_protection # 密钥保护
+      - security_advisories # 安全公告
+      - stargazers       # Star 管理
+      - users            # 用户信息
+```
+
+---
+
+## 安全输出（Safe-Outputs）详解
+
+Safe-outputs 是 gh-aw 的核心安全机制，所有写操作都通过这个沙箱执行。
+
+### 支持的操作
+
+| 操作类型                       | 功能                  | 关键参数                              |
+| ------------------------------ | --------------------- | ------------------------------------- |
+| create-issue                   | 创建 Issue            | title-prefix, labels, assignees, max  |
+| update-issue                   | 更新 Issue            | target, title, body, labels           |
+| close-issue                    | 关闭 Issue            | required-labels, required-title-prefix|
+| add-comment                    | 添加评论              | max, target, hide-older-comments      |
+| create-pull-request            | 创建 PR               | title-prefix, labels, reviewers       |
+| update-pull-request            | 更新 PR               | target, title, body                   |
+| close-pull-request             | 关闭 PR               | required-labels                       |
+| push-to-pull-request-branch    | 推送到 PR 分支        | -                                     |
+| create-discussion              | 创建 Discussion       | category, labels                      |
+| update-discussion              | 更新 Discussion       | target, title, body, labels           |
+| close-discussion               | 关闭 Discussion       | required-labels, required-category    |
+| add-labels                     | 添加标签              | allowed-labels                        |
+| add-reviewer                   | 添加审查者            | -                                     |
+| assign-milestone               | 分配里程碑            | -                                     |
+| assign-to-agent                | 分配给 Copilot        | -                                     |
+| create-agent-task              | 创建 Agent 任务       | base, target-repo                     |
+| update-project                 | 更新项目看板          | max                                   |
+| create-pull-request-review-comment | 创建 PR 审查评论  | max, side                             |
+| link-sub-issue                 | 链接子 Issue          | -                                     |
+| upload-asset                   | 上传资产              | -                                     |
+| update-release                 | 更新 Release          | -                                     |
+| hide-comment                   | 隐藏评论              | -                                     |
+
+### Safe-Outputs 配置示例
+
+```yaml
+safe-outputs:
+  create-issue:
+    title-prefix: "[bot] "
+    labels: [automation, bot-created]
+    assignees: copilot
+    max: 5
+    allowed-repos: [org/other-repo]
+
+  add-comment:
+    max: 10
+    target: "*"  # 任意 Issue/PR
+    hide-older-comments: true
+
+  create-pull-request:
+    title-prefix: "[auto] "
+    labels: [automated]
+    reviewers: copilot
+    draft: true
+```
+
+---
+
+## 网络访问控制
+
+### 生态系统标识符
+
+| 标识符   | 包含域名                                        |
+| -------- | ----------------------------------------------- |
+| defaults | 基础设施（证书、JSON Schema、Ubuntu 镜像等）    |
+| github   | `*.github.com`, `*.githubusercontent.com`       |
+| python   | `pypi.org`, `pythonhosted.org`                  |
+| node     | `npmjs.org`, `registry.npmjs.org`               |
+| rust     | `crates.io`, `static.crates.io`                 |
+| go       | `go.dev`, `proxy.golang.org`                    |
+
+### 网络配置示例
+
+```yaml
+# 最小权限
+network:
+  allowed:
+    - defaults
+    - github
+
+# 允许 Python 生态
+network:
+  allowed:
+    - defaults
+    - github
+    - python
+
+# 允许特定域名
+network:
+  allowed:
+    - defaults
+    - "api.openai.com"
+    - "*.example.com"
+
+# 禁用沙箱（完全开放网络）
+sandbox:
+  agent: false
+```
+
+---
+
+## 触发器（Triggers）能力
+
+### 事件触发
+
+| 触发器            | 事件类型                                 | 典型用途        |
+| ----------------- | ---------------------------------------- | --------------- |
+| workflow_dispatch | 手动触发                                 | 按需任务、测试  |
+| issues            | opened, edited, labeled, closed...       | Issue 自动化    |
+| issue_comment     | created, edited, deleted                 | 评论响应        |
+| pull_request      | opened, synchronize, ready_for_review... | PR 自动化       |
+| pull_request_review | submitted, edited, dismissed           | 审查响应        |
+| push              | 代码推送                                 | CI/CD           |
+| discussion        | created, answered...                     | Discussion 自动化 |
+| schedule          | cron 表达式                              | 定时任务        |
+| workflow_run      | 其他工作流完成                           | 工作流串联      |
+| release           | published, created...                    | 发布自动化      |
+| slash_command     | `/command`                               | 斜杠命令 Bot    |
+
+### 定时任务语法
+
+```yaml
+# 人类友好格式
+on:
+  schedule: "daily at 3pm"
+
+# cron 格式
+on:
+  schedule:
+    - cron: "0 9 * * 1"  # 每周一 9:00
+
+# 支持的友好格式
+# - "daily at 02:00"
+# - "daily at 3pm"
+# - "weekly on monday at 06:30"
+# - "monthly on 15 at 09:00"
+# - "every 10 minutes"  # 最小 5 分钟
+# - "daily at 02:00 utc+9"
+```
+
+---
+
+## 权限与安全
+
+### 权限级别
+
+```yaml
+# 简单格式
+permissions: read-all    # 所有只读
+permissions: write-all   # 所有读写（不推荐）
+
+# 详细格式（推荐）
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  actions: read
+```
+
+### 安全最佳实践
+
+1. **最小权限原则**: 只请求必需的权限
+2. **使用 safe-outputs**: 避免直接写操作
+3. **限制 bash 命令**: 明确列出允许的命令
+4. **网络白名单**: 只允许必要的域名
+5. **设置 timeout-minutes**: 防止无限运行
+6. **使用 Secrets**: 敏感信息存储在 GitHub Secrets
+
+---
+
+## 场景决策树
+
+```text
+需要 GitHub 操作?
+├── 读取 → ✅ 直接配置 permissions 和 tools.github
+└── 写入 → 使用 safe-outputs
+
+需要执行命令?
+├── 常用命令 → ✅ tools.bash: [":*"] 或指定列表
+└── 危险命令 → 🟡 明确声明，慎重使用
+
+需要网络访问?
+├── GitHub API → ✅ 默认支持
+├── 外部 API → 🟡 配置 network.allowed
+└── 私有网络 → ❌ 需 self-hosted runner
+
+需要用户交互?
+├── 单次触发 → ✅ 斜杠命令
+├── 多轮对话 → ❌ 不支持，拆分为多个命令
+└── 审批流程 → 🟡 使用 manual-approval
+
+需要持久化?
+├── 跨运行状态 → ✅ cache-memory
+├── 数据库 → ❌ 使用外部服务
+└── 文件存储 → 🟡 Artifact（有大小限制）
+```
+
+---
+
+## 常见问题速查
+
+### Q: 能不能让 Agent 编写代码并创建 PR
+
+**A**: ✅ 可以。配置 `tools.edit` + `safe-outputs.create-pull-request`
+
+### Q: 能不能访问外部 API (如 OpenAI)
+
+**A**: 🟡 可以，但需要配置网络白名单和禁用沙箱：
+
+```yaml
+network:
+  allowed: ["api.openai.com"]
+sandbox:
+  agent: false
+```
+
+### Q: 能不能在 Issue 评论中等待用户回复后继续
+
+**A**: ❌ 不支持。每次工作流运行是独立的。
+使用 cache-memory 保存状态，在新评论触发时恢复。
+
+### Q: 能不能跨仓库操作
+
+**A**: 🟡 可以，需要：
+
+1. 配置 `target-repo` 或 `allowed-repos`
+2. 使用有权限的 PAT: `github-token: ${{ secrets.PAT }}`
+
+### Q: 能不能运行需要 Docker 的任务
+
+**A**: ✅ GitHub Actions 环境默认支持 Docker。
+
+### Q: 能不能使用 Claude 代替 Copilot
+
+**A**: 🟡 可以，配置 `engine: claude`，但需要确认 Claude 引擎可用。
+
+### Q: 能不能处理私有仓库
+
+**A**: ✅ 可以，GITHUB_TOKEN 自动有当前仓库权限。
+
+### Q: 最长能运行多久
+
+**A**: 默认 360 分钟（6小时），可通过 `timeout-minutes` 调整。
+
+---
+
+## 相关资源
+
+- [主技能文档](SKILL.md)
+- [官方案例解读](shared/references/official-examples.md)
+- [Frontmatter Schema](shared/gh-aw-raw/aw/main_workflow_schema.json)
+- [技能索引](shared/gh-aw-raw/skills/INDEX.md)
+- [gh-aw 官方文档](https://githubnext.github.io/gh-aw/)

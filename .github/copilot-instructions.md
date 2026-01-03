@@ -248,6 +248,7 @@ TASK_ID=$(bd create "Title" 2>&1 | grep -oP 'Created task: \K\S+')
 
 #### GitHub Agentic Workflows (gh-aw)
 > 详细文档: `Core/skills/programming/ghAgenticWorkflows/SKILL.md`
+> **⭐ 能力边界**: `Core/skills/programming/ghAgenticWorkflows/CAPABILITY-BOUNDARIES.md`（快速判断能否做）
 > **官方案例**: `Core/skills/programming/ghAgenticWorkflows/shared/references/official-examples.md`
 > **原始文件库**: `Core/skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/` (235+ 文件)
 
@@ -333,3 +334,314 @@ safe-outputs: { add-comment: }
 3. 执行工作
 4. `bd close --reason "output: ..."`
 5. `bd sync`
+
+---
+
+## 知识沉淀系统（Knowledge Capture System）
+
+> **核心理念**：经验不记录就会丢失。每次任务都是学习机会，必须将隐性知识显性化。
+
+### ⛔ 能力边界优先原则（强制执行）
+
+**在没有能力边界信息的情况下，严禁直接出方案。**
+
+```
+收到任务
+    │
+    ▼
+检查是否有对应的 Skill
+    │
+    ├─ 有 Skill → 检查 CAPABILITY-BOUNDARIES.md
+    │               │
+    │               ├─ 有 → 阅读后继续
+    │               │
+    │               └─ 没有 → ⛔ 停止！先调研能力边界
+    │
+    └─ 没有 Skill → ⚠️ 进入探索模式
+                     │
+                     ▼
+                判断任务性质
+                     │
+                     ├─ 一次性任务 → 探索执行，完成后评估是否建 Skill
+                     │
+                     └─ 可复用任务 → 先创建 Skill 骨架再执行
+```
+
+#### 发现没有对应 Skill 时的处理
+
+当任务涉及的领域没有对应的 Skill 时：
+
+##### 情况 1：一次性/探索性任务
+
+1. **告知用户**："该任务没有对应的 Skill 支撑，将以探索模式执行"
+2. **标注风险**：明确这是无经验沉淀的首次尝试
+3. **执行任务**：边做边记录发现
+4. **任务后评估**：
+   - 该任务是否可能重复出现？
+   - 是否值得创建 Skill？
+   - 至少将踩坑记录到通用的 `FAILURE-CASES.md`
+
+##### 情况 2：可复用/高频任务
+
+1. **暂停任务**
+2. **告知用户**："该任务类型值得创建 Skill，建议先建立知识骨架"
+3. **创建 Skill 骨架**：
+   ```
+   Core/skills/[programming|design]/[skillName]/
+   ├── SKILL.md                    # 基础技能说明（可先写简版）
+   ├── CAPABILITY-BOUNDARIES.md    # 能力边界（必须先调研）
+   ├── PREFLIGHT-CHECKLIST.md      # 前置检查（边做边补）
+   ├── FAILURE-CASES.md            # 失败案例（边做边记）
+   └── DECISION-LOG.md             # 决策记录（边做边记）
+   ```
+4. **调研能力边界**后再执行任务
+
+##### 如何判断任务性质
+
+| 特征 | 一次性任务 | 可复用任务 |
+|------|-----------|-----------|
+| 频率 | 可能只做一次 | 预计会重复 |
+| 复杂度 | 简单，10分钟内完成 | 复杂，涉及多个步骤 |
+| 通用性 | 仅针对特定场景 | 可推广到其他项目 |
+| 风险 | 失败影响小 | 失败需要返工 |
+
+**原则**：宁可多建一个空 Skill，也不要反复踩同一个坑。
+
+---
+
+#### 为什么这很重要
+
+- ❌ **没有边界调研的方案**：基于假设，容易踩坑，返工成本高
+- ✅ **有边界调研的方案**：基于事实，避开雷区，方案可行性高
+
+#### 发现边界文档缺失时的正确做法
+
+当发现任务涉及的技能没有 `CAPABILITY-BOUNDARIES.md` 时：
+
+1. **立即暂停**当前任务
+2. **告知用户**："该技能缺少能力边界文档，我需要先进行调研"
+3. **创建调研任务**：
+   - 查阅官方文档、Schema、API 定义
+   - 整理"能做/不能做/有条件能做"三类信息
+   - 创建 `CAPABILITY-BOUNDARIES.md`
+4. **调研完成后**，基于已知边界设计方案
+
+#### 调研来源优先级
+
+```
+1. 官方 Schema / OpenAPI 定义  ← 最权威
+2. 官方文档的 Limitations 章节
+3. Changelog / Breaking Changes
+4. GitHub Issues / Discussions
+5. 社区博客和踩坑记录  ← 最真实
+```
+
+#### 最小可用的能力边界文档
+
+即使时间紧迫，也至少要包含：
+
+```markdown
+# [技能名称] 能力边界文档
+
+## 能做的事（绿灯区）
+| 类别 | 具体能力 |
+|------|----------|
+| ... | ... |
+
+## 不能做的事（红灯区）
+| 类别 | 限制说明 |
+|------|----------|
+| ... | ... |
+
+## 待验证（未知区）
+| 类别 | 不确定的能力 | 验证方法 |
+|------|--------------|----------|
+| ... | ... | ... |
+```
+
+---
+
+### 知识文档体系
+
+每个 Skill 目录下维护以下知识文档：
+
+| 文档 | 用途 | 更新时机 |
+|------|------|----------|
+| `CAPABILITY-BOUNDARIES.md` | 能力边界（能做/不能做/有条件能做） | 发现新限制或能力时 |
+| `PREFLIGHT-CHECKLIST.md` | 任务前置检查清单 | 从踩坑中提炼检查项时 |
+| `FAILURE-CASES.md` | 失败案例库（踩坑记录） | 每次踩坑后立即记录 |
+| `DECISION-LOG.md` | 决策记录（重要选择及理由） | 做出重要技术决策时 |
+
+### 任务完成后的知识捕获（强制执行）
+
+**完成任何任务后，必须回答以下问题并执行相应操作：**
+
+#### 1. 踩坑检查
+> 这次任务有没有遇到意料之外的问题？
+
+如果有：
+- ✅ 立即记录到相关 Skill 的 `FAILURE-CASES.md`
+- ✅ 判断是否需要更新 `CAPABILITY-BOUNDARIES.md`
+- ✅ 提炼检查项到 `PREFLIGHT-CHECKLIST.md`
+
+#### 2. 假设验证
+> 这次任务中做了哪些假设？假设是否正确？
+
+- 假设被验证正确 → 可更新 `CAPABILITY-BOUNDARIES.md` 确认能力
+- 假设被推翻 → 必须记录到 `FAILURE-CASES.md`
+
+#### 3. 决策记录
+> 这次任务中是否做出了重要的技术选择？
+
+如果有涉及架构、工具选型、方案取舍的决策：
+- ✅ 记录到 `DECISION-LOG.md`，包含上下文、选项、理由
+
+#### 4. 前置检查提炼
+> 如果下次做类似任务，有什么需要提前检查的？
+
+如果有：
+- ✅ 添加到 `PREFLIGHT-CHECKLIST.md`
+- ✅ 关联对应的失败案例编号
+
+---
+
+### 知识记录规范
+
+#### 失败案例格式 (FAILURE-CASES.md)
+
+```markdown
+## FC-{NNN}: {简短标题}
+
+**日期**: YYYY-MM-DD
+**任务上下文**: {在做什么任务时发生}
+**相关 Skill**: {涉及的 Skill 名称}
+
+### 现象
+{观察到的错误表现}
+
+### 根因
+{问题的根本原因}
+
+### 修复
+{如何解决的}
+
+### 教训
+- [ ] 更新 PREFLIGHT-CHECKLIST.md: {具体检查项}
+- [ ] 更新 CAPABILITY-BOUNDARIES.md: {具体边界}
+```
+
+#### 前置检查项格式 (PREFLIGHT-CHECKLIST.md)
+
+```markdown
+## {检查类别}
+
+- [ ] {检查项描述}
+  - 来源: [FC-{NNN}](FAILURE-CASES.md#fc-nnn-标题)
+  - 验证方法: {如何验证}
+```
+
+#### 决策记录格式 (DECISION-LOG.md)
+
+```markdown
+## DR-{NNN}: {决策标题}
+
+**日期**: YYYY-MM-DD
+**状态**: 已决定 | 待讨论 | 已废弃
+
+### 上下文
+{为什么需要做这个决策}
+
+### 选项
+1. {选项A} - {优缺点}
+2. {选项B} - {优缺点}
+
+### 决策
+{选择了什么}
+
+### 理由
+{为什么这样选}
+
+### 后果
+{这个决策带来的影响}
+```
+
+#### 能力边界格式 (CAPABILITY-BOUNDARIES.md)
+
+```markdown
+## 能做的事（绿灯区）
+| 类别 | 具体能力 | 适用场景 | 验证来源 |
+|------|----------|----------|----------|
+
+## 不能做的事（红灯区）
+| 类别 | 限制说明 | 替代方案 | 发现来源 |
+|------|----------|----------|----------|
+
+## 有条件能做的事（黄灯区）
+| 类别 | 条件 | 配置方式 | 验证来源 |
+|------|------|----------|----------|
+```
+
+---
+
+### 知识索引与检索
+
+#### 快速定位知识文档
+
+| Skill | 知识文档路径前缀 |
+|-------|-----------------|
+| ghAgenticWorkflows | `Core/skills/programming/ghAgenticWorkflows/` |
+| verseDev | `Core/skills/programming/verseDev/` |
+| beadsCLI | `Core/skills/programming/beadsCLI/` |
+| controlHub | `Core/skills/programming/controlHub/` |
+| gameDev | `Core/skills/design/gameDev/` |
+
+#### 搜索踩坑记录
+
+```bash
+# 搜索所有失败案例
+grep -r "## FC-" Core/skills/
+
+# 搜索特定关键词的踩坑
+grep -r "safe-outputs" Core/skills/*/FAILURE-CASES.md
+```
+
+---
+
+### 知识流动闭环
+
+```
+执行任务
+    │
+    ▼
+遇到问题？─是─→ 记录 FAILURE-CASES.md
+    │              │
+    │              ▼
+    │         提炼检查项 → PREFLIGHT-CHECKLIST.md
+    │              │
+    │              ▼
+    │         更新边界 → CAPABILITY-BOUNDARIES.md
+    │
+    ▼
+做了决策？─是─→ 记录 DECISION-LOG.md
+    │
+    ▼
+任务完成
+    │
+    ▼
+下次任务 ←───── 读取知识文档
+```
+
+---
+
+### 知识捕获检查清单（每次任务结束时）
+
+```markdown
+## 任务完成检查
+
+- [ ] 踩坑记录：本次任务的问题已记录到 FAILURE-CASES.md
+- [ ] 假设验证：验证/推翻的假设已更新到相关文档
+- [ ] 决策记录：重要决策已记录到 DECISION-LOG.md
+- [ ] 检查项提炼：新的检查项已添加到 PREFLIGHT-CHECKLIST.md
+- [ ] 边界更新：能力边界变化已更新到 CAPABILITY-BOUNDARIES.md
+- [ ] bd sync：知识变更已同步到 Git
+```
