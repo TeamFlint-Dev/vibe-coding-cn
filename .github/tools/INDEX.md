@@ -6,4 +6,5 @@
 
 | 工具 | 来源 Skill | 说明 |
 |------|-----------|------|
-| `pipeline-notify` | programming/pipelineOps | Pipeline Notify CLI - 流水线事件通知工具 |
+| `pipeline-notify` | programming/pipelineOps | !/bin/bash |
+| `pipeline-notify.py` | programming/pipelineOps | Pipeline Notify CLI - 流水线事件通知工具 |
