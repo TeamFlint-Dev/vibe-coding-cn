@@ -1,0 +1,40 @@
+{
+  "pipeline_id": "test-20260103204957",
+  "pipeline_type": "skills-distill",
+  "source_url": "https://raw.githubusercontent.com/beads-org/beads/main/README.md",
+  "branch": "pipeline/test-20260103204957",
+  "created_at": "2026-01-03T12:51:29Z",
+  "status": "pending",
+  "stages": [
+    {
+      "id": "ingest",
+      "task_id": "vibe-1",
+      "status": "pending",
+      "depends_on": []
+    },
+    {
+      "id": "classify",
+      "task_id": "vibe-2",
+      "status": "pending",
+      "depends_on": ["ingest"]
+    },
+    {
+      "id": "extract",
+      "task_id": "vibe-3",
+      "status": "pending",
+      "depends_on": ["classify"]
+    },
+    {
+      "id": "assemble",
+      "task_id": "vibe-4",
+      "status": "pending",
+      "depends_on": ["extract"]
+    },
+    {
+      "id": "validate",
+      "task_id": "vibe-5",
+      "status": "pending",
+      "depends_on": ["assemble"]
+    }
+  ]
+}
