@@ -8,7 +8,7 @@
 | 文档 | 用途 |
 |------|------|
 | **[能力边界文档](CAPABILITY-BOUNDARIES.md)** | ⭐ 判断某任务能否用 gh-aw 完成 |
-| **[架构洞察](ARCHITECTURE-INSIGHTS.md)** | ⭐ 理解单 Agent 设计哲学与 cache-memory |
+| **[架构洞察](架构洞察.md)** | ⭐ 理解单 Agent 设计哲学与 cache-memory |
 | [官方案例解读](shared/references/official-examples.md) | 学习常见工作流模式 |
 | [技能索引](shared/gh-aw-raw/skills/INDEX.md) | 查找 Agent 行为指导 |
 
