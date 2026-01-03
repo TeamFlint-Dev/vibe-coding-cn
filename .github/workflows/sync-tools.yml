@@ -23,19 +23,21 @@ jobs:
           # 确保目标目录存在
           mkdir -p .github/tools
           
-          # 查找所有 Skill 下的 tools 目录中的 .py 文件
-          find Core/skills -path "*/tools/*.py" | while read src; do
+          # 查找所有 Skill 下的 tools 目录中的文件（排除 __pycache__ 等）
+          find Core/skills -path "*/tools/*" -type f \
+            ! -name "*.pyc" \
+            ! -name "__pycache__" \
+            ! -path "*/__pycache__/*" \
+            | while read src; do
             filename=$(basename "$src")
             echo "  → 复制 $src → .github/tools/$filename"
             cp "$src" ".github/tools/$filename"
           done
           
-          # 查找所有 .sh 文件
-          find Core/skills -path "*/tools/*.sh" | while read src; do
-            filename=$(basename "$src")
-            echo "  → 复制 $src → .github/tools/$filename"
-            cp "$src" ".github/tools/$filename"
-          done
+          # 设置可执行权限（对 .sh 和无扩展名的脚本）
+          find .github/tools -type f \( -name "*.sh" -o ! -name "*.*" \) -exec chmod +x {} \;
+          # 对 .py 文件也设置可执行权限（如果有 shebang）
+          find .github/tools -name "*.py" -exec sh -c 'head -1 "$1" | grep -q "^#!" && chmod +x "$1"' _ {} \;
           
           echo "✅ 工具收集完成"
       
@@ -54,16 +56,26 @@ jobs:
           |------|-----------|------|
           EOF
           
-          # 解析每个 .py 文件的 docstring 生成索引
-          for tool in .github/tools/*.py; do
-            if [ -f "$tool" ]; then
-              name=$(basename "$tool" .py)
-              # 提取第一行 docstring 作为说明
-              desc=$(grep -m1 '"""' -A1 "$tool" | tail -1 | sed 's/^[[:space:]]*//')
-              # 查找来源
-              source=$(find Core/skills -name "$(basename $tool)" -path "*/tools/*" | head -1 | sed 's|Core/skills/||' | sed 's|/tools/.*||')
-              echo "| \`$name\` | $source | $desc |" >> .github/tools/INDEX.md
+          # 遍历所有工具文件生成索引
+          for tool in .github/tools/*; do
+            [ -f "$tool" ] || continue
+            name=$(basename "$tool")
+            # 跳过 INDEX.md 和 README.md
+            [[ "$name" == "INDEX.md" || "$name" == "README.md" ]] && continue
+            
+            # 提取说明（从 docstring 或注释）
+            desc=""
+            if [[ "$name" == *.py ]]; then
+              desc=$(grep -m1 '"""' -A1 "$tool" 2>/dev/null | tail -1 | sed 's/^[[:space:]]*//' || echo "")
+            else
+              desc=$(grep -m1 '^#' "$tool" 2>/dev/null | sed 's/^#[[:space:]]*//' | head -c 50 || echo "")
             fi
+            
+            # 查找来源 Skill
+            source=$(find Core/skills -name "$name" -path "*/tools/*" 2>/dev/null | head -1 | sed 's|Core/skills/||' | sed 's|/tools/.*||')
+            [ -z "$source" ] && source="unknown"
+            
+            echo "| \`$name\` | $source | $desc |" >> .github/tools/INDEX.md
           done
           
           echo "✅ 索引生成完成"
