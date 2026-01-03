@@ -34,8 +34,16 @@ tools:
 
 safe-outputs:
   create-issue:
+    max: 10
   add-comment:
+    target: "*"
+    max: 10
   update-issue:
+    target: "*"
+    status:
+  add-labels:
+    target: "*"
+    max: 20
 
 ---
 

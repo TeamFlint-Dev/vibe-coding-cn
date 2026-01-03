@@ -40,7 +40,14 @@ network:
 
 safe-outputs:
   add-comment:
+    target: "*"
+    max: 5
   update-issue:
+    target: "*"
+    status:
+  add-labels:
+    target: "*"
+    max: 10
   create-pull-request:
 
 ---

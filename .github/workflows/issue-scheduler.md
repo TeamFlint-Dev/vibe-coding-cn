@@ -33,7 +33,14 @@ tools:
 
 safe-outputs:
   add-comment:
+    target: "*"
+    max: 10
   update-issue:
+    target: "*"
+    status:
+  add-labels:
+    target: "*"
+    max: 10
 
 ---
 
