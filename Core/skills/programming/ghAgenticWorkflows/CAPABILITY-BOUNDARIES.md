@@ -346,6 +346,126 @@ sandbox:
 
 ---
 
+## 架构洞察：单 Agent 设计哲学
+
+### 为什么 gh-aw 采用单 Agent 模式？
+
+gh-aw 选择"单 Agent + 多工具"而非"多 Agent 协作"的核心原因：
+
+| 对比项 | Subagent 模式 | 单 Agent 模式（gh-aw）|
+|-------|--------------|---------------------|
+| 编排逻辑 | 外部 Orchestrator 硬编码 | LLM 内部动态决策 |
+| 任务结构 | 假设可预知 | 承认不可预知 |
+| 状态管理 | 跨进程同步 | 无需同步 |
+| 调试复杂度 | 多日志流交织 | 单一日志流 |
+
+**核心洞察**：
+
+> 对于调研等非线性任务，单 Agent 让 LLM 自己探索比预编排更自然。
+
+### 复杂任务的处理方式
+
+```
+用"工作流组合"取代"Agent 组合"
+
+Workflow A ──(artifact/issue)──> Workflow B
+    ↑                                 │
+    └────────(workflow_run)───────────┘
+```
+
+- **天然持久化**：GitHub 帮你管理状态
+- **可审计**：每个阶段是独立的 Action run
+- **易恢复**：某阶段失败只需重跑那个 workflow
+
+---
+
+## cache-memory 深度指南
+
+### 工作机制
+
+```
+Workflow A (run 1)
+    ├── 写入 → /tmp/gh-aw/cache-memory/
+    └── 结束 → actions/cache 上传到 GitHub
+
+Workflow B (run 2)
+    ├── 开始 → actions/cache 下载
+    └── 读取 ← /tmp/gh-aw/cache-memory/
+```
+
+**关键**：cache-memory 通过 GitHub Actions Cache 实现，不是实时共享内存！
+
+### Key 设计策略
+
+| 场景 | Key 设计 | 并发策略 |
+|------|---------|---------|
+| 轻量查询（不续传） | `scout-${{ github.run_id }}` | 允许并发 |
+| 深度调研（需续传） | `scout-issue-${{ github.event.issue.number }}` | `concurrency` 串行 |
+| 全局知识库 | `knowledge-${{ github.repository }}` | 接受最终一致性 |
+
+### 并发冲突解决
+
+```yaml
+---
+on:
+  slash_command:
+    name: scout
+
+# 同一 Issue 的调研串行执行
+concurrency:
+  group: scout-${{ github.event.issue.number }}
+  cancel-in-progress: false  # 排队等待
+
+tools:
+  cache-memory:
+    key: scout-issue-${{ github.event.issue.number }}
+---
+```
+
+### 多 Workflow 协作模式
+
+```yaml
+# workflow-synthesize.md（汇总多个调研）
+---
+tools:
+  cache-memory:
+    - id: api
+      key: research-api-layer
+      restore-only: true  # 只读取，不写入
+    - id: db
+      key: research-db-layer
+      restore-only: true
+---
+# Agent 读取两个 cache，综合分析
+```
+
+### 上下文管理最佳实践
+
+**只存结论，不存原始资料**：
+
+```
+原始资料                 Memory 存储
+─────────                ─────────
+10 篇搜索结果      →    facts.json: ["关键事实1", "关键事实2"]
+(每篇 5000 字)           open_questions.json: ["问题X", "问题Y"]
+                         sources.json: [{url, summary}, ...]
+
+压缩比: ~100:1
+```
+
+在 Prompt 中明确写入规范：
+
+```markdown
+## 记忆使用规范
+将以下内容写入 memory：
+1. **已确认的事实** → `facts.json`
+2. **待验证的假设** → `hypotheses.json`
+3. **发现的新问题** → `open_questions.json`
+4. **关键信息来源** → `sources.json`
+```
+
+---
+
 ## 相关资源
 
 - [主技能文档](SKILL.md)
