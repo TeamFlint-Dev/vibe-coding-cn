@@ -205,6 +205,7 @@ make lint                          # Pass markdown validation
 
 | 任务类型 | 需要先阅读的文件 |
 |---------|-----------------|
+| **创建 GitHub Agentic Workflow** | **⚠️ 必须先读** `Core/skills/programming/ghAgenticWorkflows/WORKFLOW-INDEX.md`<br>根据需求选择模板后，再读取对应的源文件作为参考 |
 | 中控服务器 / Webhook / GitHub Actions | `Core/skills/programming/controlHub/SKILL.md`<br>`scripts/webhook-server/.secrets`（密钥配置）<br>`scripts/webhook-server/.env.example` |
 | Verse 代码开发 | `Core/skills/programming/verseDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
 | 游戏设计 | `Core/skills/design/gameDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
@@ -248,6 +249,7 @@ TASK_ID=$(bd create "Title" 2>&1 | grep -oP 'Created task: \K\S+')
 
 #### GitHub Agentic Workflows (gh-aw)
 > 详细文档: `Core/skills/programming/ghAgenticWorkflows/SKILL.md`
+> **⭐ 工作流模板索引**: `Core/skills/programming/ghAgenticWorkflows/WORKFLOW-INDEX.md`（创建新工作流必读！）
 > **⭐ 能力边界**: `Core/skills/programming/ghAgenticWorkflows/CAPABILITY-BOUNDARIES.md`（快速判断能否做）
 > **官方案例**: `Core/skills/programming/ghAgenticWorkflows/shared/references/official-examples.md`
 > **原始文件库**: `Core/skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/` (235+ 文件)
@@ -256,6 +258,12 @@ TASK_ID=$(bd create "Title" 2>&1 | grep -oP 'Created task: \K\S+')
 gh aw compile                # 编译 .md → .lock.yml
 gh aw run <workflow> -f key=value    # 运行工作流
 ```
+
+**⚠️ 创建新 Workflow 必须步骤**:
+1. 先阅读 `WORKFLOW-INDEX.md` 选择合适的模板类型
+2. 复制模板的 Frontmatter 结构
+3. 根据需求修改配置
+4. 编写 Prompt Body
 
 **Workflow 文件结构** (`.github/workflows/*.md`):
 ```yaml
