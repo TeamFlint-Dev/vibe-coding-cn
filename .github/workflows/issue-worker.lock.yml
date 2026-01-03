@@ -20,13 +20,21 @@
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
 
-name: "Builder Agent - 能力封装构建者"
+name: "Issue Worker Agent - 流水线执行者"
 "on":
   workflow_dispatch:
     inputs:
       issue_number:
-        description: Issue 编号（留空则自动获取 agent:builder 类任务）
-        required: false
+        description: Issue 编号
+        required: true
+        type: string
+      pipeline_id:
+        description: Pipeline ID
+        required: true
+        type: string
+      stage:
+        description: 阶段 ID (ingest/classify/extract/assemble/validate)
+        required: true
         type: string
 
 permissions: {}
@@ -34,7 +42,7 @@ permissions: {}
 concurrency:
   group: "gh-aw-${{ github.workflow }}"
 
-run-name: "Builder Agent - 能力封装构建者"
+run-name: "Issue Worker Agent - 流水线执行者"
 
 jobs:
   activation:
@@ -48,7 +56,7 @@ jobs:
       - name: Check workflow file timestamps
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          GH_AW_WORKFLOW_FILE: "builder-agent.lock.yml"
+          GH_AW_WORKFLOW_FILE: "issue-worker.lock.yml"
         with:
           script: |
             async function main() {
@@ -259,50 +267,10 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /tmp/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1},"create_issue":{"max":1},"create_pull_request":{},"missing_tool":{"max":0},"noop":{"max":1},"update_issue":{"max":1}}
+          {"add_comment":{"max":1},"create_pull_request":{},"missing_tool":{"max":0},"noop":{"max":1},"update_issue":{"max":1}}
           EOF
           cat > /tmp/gh-aw/safeoutputs/tools.json << 'EOF'
           [
-            {
-              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 1 issue(s) can be created.",
-              "inputSchema": {
-                "additionalProperties": false,
-                "properties": {
-                  "body": {
-                    "description": "Detailed issue description in Markdown. Do NOT repeat the title as a heading since it already appears as the issue's h1. Include context, reproduction steps, or acceptance criteria as appropriate.",
-                    "type": "string"
-                  },
-                  "labels": {
-                    "description": "Labels to categorize the issue (e.g., 'bug', 'enhancement'). Labels must exist in the repository.",
-                    "items": {
-                      "type": "string"
-                    },
-                    "type": "array"
-                  },
-                  "parent": {
-                    "description": "Parent issue number for creating sub-issues. Can be a real issue number (e.g., 42) or a temporary_id (e.g., 'aw_abc123def456') from a previously created issue in the same workflow run.",
-                    "type": [
-                      "number",
-                      "string"
-                    ]
-                  },
-                  "temporary_id": {
-                    "description": "Unique temporary identifier for referencing this issue before it's created. Format: 'aw_' followed by 12 hex characters (e.g., 'aw_abc123def456'). Use '#aw_ID' in body text to reference other issues by their temporary_id; these are replaced with actual issue numbers after creation.",
-                    "type": "string"
-                  },
-                  "title": {
-                    "description": "Concise issue title summarizing the bug, feature, or task. The title appears as the main heading, so keep it brief and descriptive.",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "title",
-                  "body"
-                ],
-                "type": "object"
-              },
-              "name": "create_issue"
-            },
             {
               "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added.",
               "inputSchema": {
@@ -449,39 +417,6 @@ jobs:
                 },
                 "item_number": {
                   "issueOrPRNumber": true
-                }
-              }
-            },
-            "create_issue": {
-              "defaultMax": 1,
-              "fields": {
-                "body": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 65000
-                },
-                "labels": {
-                  "type": "array",
-                  "itemType": "string",
-                  "itemSanitize": true,
-                  "itemMaxLength": 128
-                },
-                "parent": {
-                  "issueOrPRNumber": true
-                },
-                "repo": {
-                  "type": "string",
-                  "maxLength": 256
-                },
-                "temporary_id": {
-                  "type": "string"
-                },
-                "title": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 128
                 }
               }
             },
@@ -1978,7 +1913,7 @@ jobs:
               model: process.env.GH_AW_MODEL_AGENT_COPILOT || "",
               version: "",
               agent_version: "0.0.372",
-              workflow_name: "Builder Agent - 能力封装构建者",
+              workflow_name: "Issue Worker Agent - 流水线执行者",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -1992,7 +1927,7 @@ jobs:
               event_name: context.eventName,
               staged: false,
               network_mode: "defaults",
-              allowed_domains: ["raw.githubusercontent.com"],
+              allowed_domains: ["defaults","github","python"],
               firewall_enabled: true,
               awf_version: "v0.7.0",
               steps: {
@@ -2052,133 +1987,267 @@ jobs:
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
+          GH_AW_INPUTS_ISSUE_NUMBER: ${{ inputs.issue_number }}
+          GH_AW_INPUTS_PIPELINE_ID: ${{ inputs.pipeline_id }}
+          GH_AW_INPUTS_STAGE: ${{ inputs.stage }}
         run: |
           PROMPT_DIR="$(dirname "$GH_AW_PROMPT")"
           mkdir -p "$PROMPT_DIR"
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
-          # Builder Agent - 能力封装构建者
+          # Issue Worker Agent - 流水线执行者
           
-          将探索发现的 API 封装为可复用的 Skill/Wrapper/Helper。
+          执行单个阶段任务，更新 Issue 状态，自动解锁后续阶段。
           
-          ## 环境准备
+          ## 核心原则
+          
+          > ⚠️ **你是一个拥有干净上下文的执行者**
+          > - 你只负责执行分配给你的单个任务
+          > - 通过 Issue 获取任务信息
+          > - 通过 Skill 获取执行方法
+          > - 执行完成后更新 Issue 状态
+          
+          ---
+          
+          ## 第一步：环境准备
           
           ```bash
           # 加载 Issue 操作脚本
           chmod +x .github/scripts/issue-ops.sh
           source .github/scripts/issue-ops.sh
           
-          # 验证 gh CLI
+          # 验证环境
           gh --version
+          echo "📋 Issue: #__GH_AW_INPUTS_ISSUE_NUMBER__"
+          echo "🔧 Stage: __GH_AW_INPUTS_STAGE__"
+          echo "📦 Pipeline: __GH_AW_INPUTS_PIPELINE_ID__"
           ```
           
-          ## 任务获取
+          ---
           
-          1. 如果指定了 issue_number，使用该任务
-          2. 否则获取 builder 类任务：
-             ```bash
-             gh issue list --label "agent:builder,status:ready" --state open --json number,title --limit 1
-             ```
+          ## 第二步：获取任务信息
           
-          3. 认领任务：
-             ```bash
-             gh issue edit <number> --remove-label "status:ready" --add-label "status:running"
-             ```
+          ```bash
+          source .github/scripts/issue-ops.sh
           
-          ## 封装流程
+          # 获取 Issue 详情
+          ISSUE_INFO=$(issue_info __GH_AW_INPUTS_ISSUE_NUMBER__)
+          echo "$ISSUE_INFO" | jq '.'
           
-          ### 1. 理解 API
+          # 提取关键信息
+          ISSUE_TITLE=$(echo "$ISSUE_INFO" | jq -r '.title')
+          ISSUE_BODY=$(echo "$ISSUE_INFO" | jq -r '.body')
           
-          1. 读取任务描述中的 API 信息
-          2. 查找对应的 api-digest：`Core/skills/programming/verseDev/shared/api-digests/`
-          3. 分析参数、返回值、约束
-          
-          ### 2. 确定封装层级
-          
-          | 层级 | 适用场景 | 输出位置 |
-          |------|----------|----------|
-          | Helper | 原子操作、简单封装 | `verseHelpers/` |
-          | Wrapper | 组件级封装、事件集成 | `verseWrappers/` |
-          | Component | 完整功能模块 | `verseComponent/` |
-          
-          ### 3. 实现代码
-          
-          遵循 Skill 规范：
-          - 使用 SceneGraph 五层架构
-          - 事件使用 Scene Event 机制
-          - 错误处理完整
-          - 添加中文注释
-          
-          ### 4. 创建 SKILL.md
-          
-          每个新封装必须包含：
-          - 概述和用途
-          - API 签名
-          - 使用示例
-          - 常见问题
-          
-          ### 5. 验证
-          
-          1. 检查代码格式
-          2. 验证 SKILL.md 完整性
-          3. 更新相关索引
-          
-          ## 完成任务
-          
-          1. 创建 PR：
-             - 分支名: `build/<capability-name>`
-             - 标题: `feat: <skill> – add <capability-name>`
-             - 内容: Issue 编号、完成内容、使用说明
-          
-          2. 关闭任务：
-             ```bash
-             gh issue close <number> --reason completed --comment "封装完成: 创建了 <文件列表>"
-             ```
-          
-          ## 封装模板
-          
-          ### Helper 模板
-          
-          ```verse
-          # {HelperName} - {简短描述}
-          # 用途: {详细用途}
-          # 依赖: {依赖的模块}
-          
-          {HelperName}_helper := module:
-              
-              # 主要函数
-              {FunctionName}({Params}): {ReturnType} =
-                  # 实现
+          echo "📌 Task: $ISSUE_TITLE"
           ```
           
-          ### Wrapper 模板
+          ---
           
-          ```verse
-          # {WrapperName} - {简短描述}
-          # 层级: Layer 3 (Component)
-          # 事件: {提供的事件列表}
+          ## 第三步：标记任务开始
           
-          {WrapperName}_wrapper := class:
-              
-              # 事件
-              On{EventName}: event() = event(){}
-              
-              # 配置
-              @editable {ConfigName}: {Type} = {DefaultValue}
-              
-              # 方法
-              {MethodName}({Params}): void =
-                  # 实现
-                  On{EventName}.Signal()
+          ```bash
+          source .github/scripts/issue-ops.sh
+          
+          issue_start __GH_AW_INPUTS_ISSUE_NUMBER__
+          echo "🚀 Task started"
           ```
           
-          ## 质量检查
+          ---
           
-          - [ ] 代码遵循 SceneGraph 架构
-          - [ ] SKILL.md 包含完整文档
-          - [ ] 有使用示例
-          - [ ] 更新了相关索引
+          ## 第四步：执行阶段任务
+          
+          根据阶段 ID 执行对应的工作：
+          
+          ### Stage: ingest (采集)
+          
+          如果是 `ingest` 阶段:
+          
+          1. 从 Issue body 中提取 source_url
+          2. 获取并解析信息源内容
+          3. 输出到 `artifacts/__GH_AW_INPUTS_PIPELINE_ID__/ingest/result.json`
+          
+          ```bash
+          STAGE="__GH_AW_INPUTS_STAGE__"
+          PIPELINE_ID="__GH_AW_INPUTS_PIPELINE_ID__"
+          ARTIFACT_DIR="artifacts/${PIPELINE_ID}/${STAGE}"
+          
+          mkdir -p "$ARTIFACT_DIR"
+          
+          case "$STAGE" in
+            ingest)
+              echo "📥 Ingesting content..."
+              # 从 Issue body 提取 source URL
+              SOURCE_URL=$(echo "$ISSUE_BODY" | grep -oP 'https?://[^\s]+' | head -1)
+              echo "Source: $SOURCE_URL"
+              
+              # TODO: 实际采集逻辑
+              # 这里放置采集代码
+              
+              echo '{"status": "ingested", "source": "'$SOURCE_URL'"}' > "$ARTIFACT_DIR/result.json"
+              ;;
+              
+            classify)
+              echo "🏷️ Classifying content..."
+              # 读取上一阶段产物
+              PREV_RESULT="artifacts/${PIPELINE_ID}/ingest/result.json"
+              
+              # TODO: 实际分类逻辑
+              
+              echo '{"status": "classified", "extractable": true}' > "$ARTIFACT_DIR/analysis.json"
+              ;;
+              
+            extract)
+              echo "🔍 Extracting patterns..."
+              
+              # TODO: 实际提取逻辑
+              
+              echo '{"patterns": [], "count": 0}' > "$ARTIFACT_DIR/patterns.json"
+              ;;
+              
+            assemble)
+              echo "📝 Assembling SKILL.md..."
+              
+              # TODO: 实际组装逻辑
+              
+              echo "# Skill Draft" > "$ARTIFACT_DIR/SKILL-draft.md"
+              ;;
+              
+            validate)
+              echo "✅ Validating quality..."
+              
+              # TODO: 实际验证逻辑
+              
+              echo '{"score": 25, "passed": true}' > "$ARTIFACT_DIR/report.json"
+              ;;
+          esac
+          
+          ARTIFACT_PATH="$ARTIFACT_DIR"
+          echo "📦 Artifacts saved to: $ARTIFACT_PATH"
+          ```
+          
+          ---
+          
+          ## 第五步：完成任务
+          
+          ```bash
+          source .github/scripts/issue-ops.sh
+          
+          # 完成任务并自动解锁后续阶段
+          issue_complete __GH_AW_INPUTS_ISSUE_NUMBER__ "__GH_AW_INPUTS_STAGE__" "__GH_AW_INPUTS_PIPELINE_ID__" "Completed. Artifacts: $ARTIFACT_PATH"
+          
+          echo "✅ Task completed, downstream tasks unblocked"
+          ```
+          
+          ---
+          
+          ## 第六步：验证后续任务
+          
+          ```bash
+          source .github/scripts/issue-ops.sh
+          
+          # 检查是否有新的就绪任务
+          NEXT_READY=$(issue_ready "__GH_AW_INPUTS_PIPELINE_ID__")
+          if [ -n "$NEXT_READY" ]; then
+            echo "🔜 Next ready task:"
+            echo "$NEXT_READY" | jq '.'
+          else
+            echo "🏁 No more ready tasks. Pipeline may be complete or waiting for other stages."
+          fi
+          ```
+          
+          ---
+          
+          ## 错误处理
+          
+          如果执行失败:
+          
+          ```bash
+          source .github/scripts/issue-ops.sh
+          
+          # 标记任务失败
+          issue_fail __GH_AW_INPUTS_ISSUE_NUMBER__ "Error: <具体错误信息>"
+          ```
+          
+          失败后:
+          1. Issue 会被标记为 `status:failed`
+          2. 后续阶段保持 `status:blocked`
+          3. 可以手动修复后重新触发
+          
+          ---
+          
+          ## 重试机制
+          
+          手动重试:
+          
+          ```bash
+          # 1. 将失败任务改回 ready
+          gh issue edit <number> --remove-label "status:failed" --add-label "status:ready"
+          
+          # 2. 重新触发 worker
+          gh workflow run issue-worker -f issue_number=<number> -f stage=<stage> -f pipeline_id=<id>
+          ```
+          
+          ---
+          
+          ## Skill 参考
+          
+          根据阶段类型，参考对应的 Skill 文档:
+          
+          | 阶段 | 参考 Skill |
+          |------|-----------|
+          | ingest | `Core/skills/programming/*/` 中的爬虫/采集相关 |
+          | classify | AI 分类判断 |
+          | extract | 模式提取 |
+          | assemble | 文档组装 |
+          | validate | 质量检查 |
+          
+          ```bash
+          # 列出可用 Skill
+          ls Core/skills/programming/
+          ls Core/skills/design/
+          ```
           
           PROMPT_EOF
+      - name: Substitute placeholders
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
+          GH_AW_INPUTS_ISSUE_NUMBER: ${{ inputs.issue_number }}
+          GH_AW_INPUTS_PIPELINE_ID: ${{ inputs.pipeline_id }}
+          GH_AW_INPUTS_STAGE: ${{ inputs.stage }}
+        with:
+          script: |
+            const fs = require("fs"),
+              substitutePlaceholders = async ({ file, substitutions }) => {
+                if (!file) throw new Error("file parameter is required");
+                if (!substitutions || "object" != typeof substitutions) throw new Error("substitutions parameter must be an object");
+                let content;
+                try {
+                  content = fs.readFileSync(file, "utf8");
+                } catch (error) {
+                  throw new Error(`Failed to read file ${file}: ${error.message}`);
+                }
+                for (const [key, value] of Object.entries(substitutions)) {
+                  const placeholder = `__${key}__`;
+                  content = content.split(placeholder).join(value);
+                }
+                try {
+                  fs.writeFileSync(file, content, "utf8");
+                } catch (error) {
+                  throw new Error(`Failed to write file ${file}: ${error.message}`);
+                }
+                return `Successfully substituted ${Object.keys(substitutions).length} placeholder(s) in ${file}`;
+              };
+            
+            
+            // Call the substitution function
+            return await substitutePlaceholders({
+              file: process.env.GH_AW_PROMPT,
+              substitutions: {
+                GH_AW_INPUTS_ISSUE_NUMBER: process.env.GH_AW_INPUTS_ISSUE_NUMBER,
+                GH_AW_INPUTS_PIPELINE_ID: process.env.GH_AW_INPUTS_PIPELINE_ID,
+                GH_AW_INPUTS_STAGE: process.env.GH_AW_INPUTS_STAGE
+              }
+            });
       - name: Append XPIA security instructions to prompt
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
@@ -2240,7 +2309,7 @@ jobs:
           <instructions>
           To create or modify GitHub resources (issues, discussions, pull requests, etc.), you MUST call the appropriate safe output tool. Simply writing content will NOT work - the workflow requires actual tool calls.
           
-          **Available tools**: add_comment, create_issue, create_pull_request, missing_tool, noop, update_issue
+          **Available tools**: add_comment, create_pull_request, missing_tool, noop, update_issue
           
           **Critical**: Tool calls write structured data that downstream jobs process. Without tool calls, follow-up actions will be skipped.
           </instructions>
@@ -2343,6 +2412,9 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
+          GH_AW_INPUTS_ISSUE_NUMBER: ${{ inputs.issue_number }}
+          GH_AW_INPUTS_PIPELINE_ID: ${{ inputs.pipeline_id }}
+          GH_AW_INPUTS_STAGE: ${{ inputs.stage }}
         with:
           script: |
             const fs = require("fs");
@@ -2529,7 +2601,7 @@ jobs:
         timeout-minutes: 20
         run: |
           set -o pipefail
-          sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.7.0 \
+          sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --allow-domains '*.githubusercontent.com,*.pythonhosted.org,anaconda.org,api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,api.snapcraft.io,archive.ubuntu.com,azure.archive.ubuntu.com,binstar.org,bootstrap.pypa.io,codeload.github.com,conda.anaconda.org,conda.binstar.org,crl.geotrust.com,crl.globalsign.com,crl.identrust.com,crl.sectigo.com,crl.thawte.com,crl.usertrust.com,crl.verisign.com,crl3.digicert.com,crl4.digicert.com,crls.ssl.com,files.pythonhosted.org,github-cloud.githubusercontent.com,github-cloud.s3.amazonaws.com,github.com,github.githubassets.com,host.docker.internal,json-schema.org,json.schemastore.org,keyserver.ubuntu.com,lfs.github.com,objects.githubusercontent.com,ocsp.digicert.com,ocsp.geotrust.com,ocsp.globalsign.com,ocsp.identrust.com,ocsp.sectigo.com,ocsp.ssl.com,ocsp.thawte.com,ocsp.usertrust.com,ocsp.verisign.com,packagecloud.io,packages.cloud.google.com,packages.microsoft.com,pip.pypa.io,ppa.launchpad.net,pypi.org,pypi.python.org,raw.githubusercontent.com,registry.npmjs.org,repo.anaconda.com,repo.continuum.io,s.symcb.com,s.symcd.com,security.ubuntu.com,ts-crl.ws.symantec.com,ts-ocsp.ws.symantec.com' --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.7.0 \
             -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-all-tools --allow-all-paths --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
             2>&1 | tee /tmp/gh-aw/agent-stdio.log
         env:
@@ -2673,7 +2745,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
-          GH_AW_ALLOWED_DOMAINS: "api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org"
+          GH_AW_ALLOWED_DOMAINS: "*.githubusercontent.com,*.pythonhosted.org,anaconda.org,api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,api.snapcraft.io,archive.ubuntu.com,azure.archive.ubuntu.com,binstar.org,bootstrap.pypa.io,codeload.github.com,conda.anaconda.org,conda.binstar.org,crl.geotrust.com,crl.globalsign.com,crl.identrust.com,crl.sectigo.com,crl.thawte.com,crl.usertrust.com,crl.verisign.com,crl3.digicert.com,crl4.digicert.com,crls.ssl.com,files.pythonhosted.org,github-cloud.githubusercontent.com,github-cloud.s3.amazonaws.com,github.com,github.githubassets.com,host.docker.internal,json-schema.org,json.schemastore.org,keyserver.ubuntu.com,lfs.github.com,objects.githubusercontent.com,ocsp.digicert.com,ocsp.geotrust.com,ocsp.globalsign.com,ocsp.identrust.com,ocsp.sectigo.com,ocsp.ssl.com,ocsp.thawte.com,ocsp.usertrust.com,ocsp.verisign.com,packagecloud.io,packages.cloud.google.com,packages.microsoft.com,pip.pypa.io,ppa.launchpad.net,pypi.org,pypi.python.org,raw.githubusercontent.com,registry.npmjs.org,repo.anaconda.com,repo.continuum.io,s.symcb.com,s.symcd.com,security.ubuntu.com,ts-crl.ws.symantec.com,ts-ocsp.ws.symantec.com"
           GITHUB_SERVER_URL: ${{ github.server_url }}
           GITHUB_API_URL: ${{ github.api_url }}
         with:
@@ -5405,7 +5477,7 @@ jobs:
         continue-on-error: true
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: firewall-logs-builder-agent-
+          name: firewall-logs-issue-worker-agent-
           path: /tmp/gh-aw/sandbox/firewall/logs/
           if-no-files-found: ignore
       - name: Parse firewall logs for step summary
@@ -5856,7 +5928,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+          GH_AW_WORKFLOW_NAME: "Issue Worker Agent - 流水线执行者"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5948,7 +6020,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+          GH_AW_WORKFLOW_NAME: "Issue Worker Agent - 流水线执行者"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -6059,7 +6131,7 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+          GH_AW_WORKFLOW_NAME: "Issue Worker Agent - 流水线执行者"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
@@ -6352,7 +6424,7 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+          WORKFLOW_NAME: "Issue Worker Agent - 流水线执行者"
           WORKFLOW_DESCRIPTION: "No description provided"
         with:
           script: |
@@ -6589,14 +6661,11 @@ jobs:
     timeout-minutes: 15
     env:
       GH_AW_ENGINE_ID: "copilot"
-      GH_AW_WORKFLOW_ID: "builder-agent"
-      GH_AW_WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+      GH_AW_WORKFLOW_ID: "issue-worker"
+      GH_AW_WORKFLOW_NAME: "Issue Worker Agent - 流水线执行者"
     outputs:
       add_comment_comment_id: ${{ steps.add_comment.outputs.comment_id }}
       add_comment_comment_url: ${{ steps.add_comment.outputs.comment_url }}
-      create_issue_issue_number: ${{ steps.create_issue.outputs.issue_number }}
-      create_issue_issue_url: ${{ steps.create_issue.outputs.issue_url }}
-      create_issue_temporary_id_map: ${{ steps.create_issue.outputs.temporary_id_map }}
       create_pull_request_pull_request_number: ${{ steps.create_pull_request.outputs.pull_request_number }}
       create_pull_request_pull_request_url: ${{ steps.create_pull_request.outputs.pull_request_url }}
     steps:
@@ -6653,104 +6722,6 @@ jobs:
           };
           
           EOF_33eff070
-          mkdir -p \tmp\gh-aw\scripts
-          cat > /tmp/gh-aw/scripts/generate_footer.cjs << 'EOF_88f9d2d4'
-          // @ts-check
-          /// <reference types="@actions/github-script" />
-          
-          /**
-           * Generates an XML comment marker with agentic workflow metadata for traceability.
-           * This marker enables searching and tracing back items generated by an agentic workflow.
-           *
-           * Note: This function is duplicated in messages_footer.cjs. While normally we would
-           * consolidate to a shared module, importing messages_footer.cjs here would cause the
-           * bundler to inline messages_core.cjs which contains 'GH_AW_SAFE_OUTPUT_MESSAGES:' in
-           * a warning message, breaking tests that check for env var declarations.
-           *
-           * @param {string} workflowName - Name of the workflow
-           * @param {string} runUrl - URL of the workflow run
-           * @returns {string} XML comment marker with workflow metadata
-           */
-          function generateXMLMarker(workflowName, runUrl) {
-            // Read engine metadata from environment variables
-            const engineId = process.env.GH_AW_ENGINE_ID || "";
-            const engineVersion = process.env.GH_AW_ENGINE_VERSION || "";
-            const engineModel = process.env.GH_AW_ENGINE_MODEL || "";
-            const trackerId = process.env.GH_AW_TRACKER_ID || "";
-          
-            // Build the key-value pairs for the marker
-            const parts = [];
-          
-            // Always include agentic-workflow name
-            parts.push(`agentic-workflow: ${workflowName}`);
-          
-            // Add tracker-id if available (for searchability and tracing)
-            if (trackerId) {
-              parts.push(`tracker-id: ${trackerId}`);
-            }
-          
-            // Add engine ID if available
-            if (engineId) {
-              parts.push(`engine: ${engineId}`);
-            }
-          
-            // Add version if available
-            if (engineVersion) {
-              parts.push(`version: ${engineVersion}`);
-            }
-          
-            // Add model if available
-            if (engineModel) {
-              parts.push(`model: ${engineModel}`);
-            }
-          
-            // Always include run URL
-            parts.push(`run: ${runUrl}`);
-          
-            // Return the XML comment marker
-            return `<!-- ${parts.join(", ")} -->`;
-          }
-          
-          /**
-           * Generate footer with AI attribution and workflow installation instructions
-           * @param {string} workflowName - Name of the workflow
-           * @param {string} runUrl - URL of the workflow run
-           * @param {string} workflowSource - Source of the workflow (owner/repo/path@ref)
-           * @param {string} workflowSourceURL - GitHub URL for the workflow source
-           * @param {number|undefined} triggeringIssueNumber - Issue number that triggered this workflow
-           * @param {number|undefined} triggeringPRNumber - Pull request number that triggered this workflow
-           * @param {number|undefined} triggeringDiscussionNumber - Discussion number that triggered this workflow
-           * @returns {string} Footer text
-           */
-          function generateFooter(workflowName, runUrl, workflowSource, workflowSourceURL, triggeringIssueNumber, triggeringPRNumber, triggeringDiscussionNumber) {
-            let footer = `\n\n> AI generated by [${workflowName}](${runUrl})`;
-          
-            // Add reference to triggering issue/PR/discussion if available
-            if (triggeringIssueNumber) {
-              footer += ` for #${triggeringIssueNumber}`;
-            } else if (triggeringPRNumber) {
-              footer += ` for #${triggeringPRNumber}`;
-            } else if (triggeringDiscussionNumber) {
-              footer += ` for discussion #${triggeringDiscussionNumber}`;
-            }
-          
-            if (workflowSource && workflowSourceURL) {
-              footer += `\n>\n> To add this workflow in your repository, run \`gh aw add ${workflowSource}\`. See [usage guide](https://githubnext.github.io/gh-aw/tools/cli/).`;
-            }
-          
-            // Add XML comment marker for traceability
-            footer += "\n\n" + generateXMLMarker(workflowName, runUrl);
-          
-            footer += "\n";
-            return footer;
-          }
-          
-          module.exports = {
-            generateFooter,
-            generateXMLMarker,
-          };
-          
-          EOF_88f9d2d4
           mkdir -p \tmp\gh-aw\scripts
           cat > /tmp/gh-aw/scripts/get_repository_url.cjs << 'EOF_75ff5f42'
           // @ts-check
@@ -7226,123 +7197,6 @@ jobs:
           module.exports = { removeDuplicateTitleFromDescription };
           
           EOF_bb4a8126
-          mkdir -p \tmp\gh-aw\scripts
-          cat > /tmp/gh-aw/scripts/repo_helpers.cjs << 'EOF_0e3d051f'
-          // @ts-check
-          /// <reference types="@actions/github-script" />
-          
-          /**
-           * Repository-related helper functions for safe-output scripts
-           * Provides common repository parsing, validation, and resolution logic
-           */
-          
-          /**
-           * Parse the allowed repos from environment variable
-           * @returns {Set<string>} Set of allowed repository slugs
-           */
-          function parseAllowedRepos() {
-            const allowedReposEnv = process.env.GH_AW_ALLOWED_REPOS;
-            const set = new Set();
-            if (allowedReposEnv) {
-              allowedReposEnv
-                .split(",")
-                .map(repo => repo.trim())
-                .filter(repo => repo)
-                .forEach(repo => set.add(repo));
-            }
-            return set;
-          }
-          
-          /**
-           * Get the default target repository
-           * @returns {string} Repository slug in "owner/repo" format
-           */
-          function getDefaultTargetRepo() {
-            // First check if there's a target-repo override
-            const targetRepoSlug = process.env.GH_AW_TARGET_REPO_SLUG;
-            if (targetRepoSlug) {
-              return targetRepoSlug;
-            }
-            // Fall back to context repo
-            return `${context.repo.owner}/${context.repo.repo}`;
-          }
-          
-          /**
-           * Validate that a repo is allowed for operations
-           * @param {string} repo - Repository slug to validate
-           * @param {string} defaultRepo - Default target repository
-           * @param {Set<string>} allowedRepos - Set of explicitly allowed repos
-           * @returns {{valid: boolean, error: string|null}}
-           */
-          function validateRepo(repo, defaultRepo, allowedRepos) {
-            // Default repo is always allowed
-            if (repo === defaultRepo) {
-              return { valid: true, error: null };
-            }
-            // Check if it's in the allowed repos list
-            if (allowedRepos.has(repo)) {
-              return { valid: true, error: null };
-            }
-            return {
-              valid: false,
-              error: `Repository '${repo}' is not in the allowed-repos list. Allowed: ${defaultRepo}${allowedRepos.size > 0 ? ", " + Array.from(allowedRepos).join(", ") : ""}`,
-            };
-          }
-          
-          /**
-           * Parse owner and repo from a repository slug
-           * @param {string} repoSlug - Repository slug in "owner/repo" format
-           * @returns {{owner: string, repo: string}|null}
-           */
-          function parseRepoSlug(repoSlug) {
-            const parts = repoSlug.split("/");
-            if (parts.length !== 2 || !parts[0] || !parts[1]) {
-              return null;
-            }
-            return { owner: parts[0], repo: parts[1] };
-          }
-          
-          module.exports = {
-            parseAllowedRepos,
-            getDefaultTargetRepo,
-            validateRepo,
-            parseRepoSlug,
-          };
-          
-          EOF_0e3d051f
-          mkdir -p \tmp\gh-aw\scripts
-          cat > /tmp/gh-aw/scripts/sanitize_label_content.cjs << 'EOF_4b431e5e'
-          // @ts-check
-          /**
-           * Sanitize label content for GitHub API
-           * Removes control characters, ANSI codes, and neutralizes @mentions
-           * @module sanitize_label_content
-           */
-          
-          /**
-           * Sanitizes label content by removing control characters, ANSI escape codes,
-           * and neutralizing @mentions to prevent unintended notifications.
-           *
-           * @param {string} content - The label content to sanitize
-           * @returns {string} The sanitized label content
-           */
-          function sanitizeLabelContent(content) {
-            if (!content || typeof content !== "string") {
-              return "";
-            }
-            let sanitized = content.trim();
-            // Remove ANSI escape sequences FIRST (before removing control chars)
-            sanitized = sanitized.replace(/\x1b\[[0-9;]*[mGKH]/g, "");
-            // Then remove control characters (except newlines and tabs)
-            sanitized = sanitized.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
-            sanitized = sanitized.replace(/(^|[^\w`])@([A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?(?:\/[A-Za-z0-9._-]+)?)/g, (_m, p1, p2) => `${p1}\`@${p2}\``);
-            sanitized = sanitized.replace(/[<>&'"]/g, "");
-            return sanitized.trim();
-          }
-          
-          module.exports = { sanitizeLabelContent };
-          
-          EOF_4b431e5e
           mkdir -p \tmp\gh-aw\scripts
           cat > /tmp/gh-aw/scripts/staged_preview.cjs << 'EOF_8386ee20'
           // @ts-check
@@ -8251,304 +8105,6 @@ jobs:
           };
           
           EOF_5e2e1ea7
-      - name: Create Issue
-        id: create_issue
-        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_issue'))
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
-        env:
-          GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-        with:
-          github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
-          script: |
-            globalThis.github = github;
-            globalThis.context = context;
-            globalThis.core = core;
-            globalThis.exec = exec;
-            globalThis.io = io;
-            const { sanitizeLabelContent } = require('/tmp/gh-aw/scripts/sanitize_label_content.cjs');
-            const { loadAgentOutput } = require('/tmp/gh-aw/scripts/load_agent_output.cjs');
-            const { generateStagedPreview } = require('/tmp/gh-aw/scripts/staged_preview.cjs');
-            const { generateFooter } = require('/tmp/gh-aw/scripts/generate_footer.cjs');
-            const { getTrackerID } = require('/tmp/gh-aw/scripts/get_tracker_id.cjs');
-            const { generateTemporaryId, isTemporaryId, normalizeTemporaryId, replaceTemporaryIdReferences, serializeTemporaryIdMap } = require('/tmp/gh-aw/scripts/temporary_id.cjs');
-            const { parseAllowedRepos, getDefaultTargetRepo, validateRepo, parseRepoSlug } = require('/tmp/gh-aw/scripts/repo_helpers.cjs');
-            const { addExpirationComment } = require('/tmp/gh-aw/scripts/expiration_helpers.cjs');
-            const { removeDuplicateTitleFromDescription } = require('/tmp/gh-aw/scripts/remove_duplicate_title.cjs');
-            async function main() {
-              core.setOutput("issue_number", "");
-              core.setOutput("issue_url", "");
-              core.setOutput("temporary_id_map", "{}");
-              core.setOutput("issues_to_assign_copilot", "");
-              const isStaged = process.env.GH_AW_SAFE_OUTPUTS_STAGED === "true";
-              const result = loadAgentOutput();
-              if (!result.success) {
-                return;
-              }
-              const createIssueItems = result.items.filter(item => item.type === "create_issue");
-              if (createIssueItems.length === 0) {
-                core.info("No create-issue items found in agent output");
-                return;
-              }
-              core.info(`Found ${createIssueItems.length} create-issue item(s)`);
-              const allowedRepos = parseAllowedRepos();
-              const defaultTargetRepo = getDefaultTargetRepo();
-              core.info(`Default target repo: ${defaultTargetRepo}`);
-              if (allowedRepos.size > 0) {
-                core.info(`Allowed repos: ${Array.from(allowedRepos).join(", ")}`);
-              }
-              if (isStaged) {
-                await generateStagedPreview({
-                  title: "Create Issues",
-                  description: "The following issues would be created if staged mode was disabled:",
-                  items: createIssueItems,
-                  renderItem: (item, index) => {
-                    let content = `#### Issue ${index + 1}\n`;
-                    content += `**Title:** ${item.title || "No title provided"}\n\n`;
-                    if (item.temporary_id) {
-                      content += `**Temporary ID:** ${item.temporary_id}\n\n`;
-                    }
-                    if (item.repo) {
-                      content += `**Repository:** ${item.repo}\n\n`;
-                    }
-                    if (item.body) {
-                      content += `**Body:**\n${item.body}\n\n`;
-                    }
-                    if (item.labels && item.labels.length > 0) {
-                      content += `**Labels:** ${item.labels.join(", ")}\n\n`;
-                    }
-                    if (item.parent) {
-                      content += `**Parent:** ${item.parent}\n\n`;
-                    }
-                    return content;
-                  },
-                });
-                return;
-              }
-              const parentIssueNumber = context.payload?.issue?.number;
-              const temporaryIdMap = new Map();
-              const triggeringIssueNumber = context.payload?.issue?.number && !context.payload?.issue?.pull_request ? context.payload.issue.number : undefined;
-              const triggeringPRNumber = context.payload?.pull_request?.number || (context.payload?.issue?.pull_request ? context.payload.issue.number : undefined);
-              const triggeringDiscussionNumber = context.payload?.discussion?.number;
-              const labelsEnv = process.env.GH_AW_ISSUE_LABELS;
-              let envLabels = labelsEnv
-                ? labelsEnv
-                    .split(",")
-                    .map(label => label.trim())
-                    .filter(label => label)
-                : [];
-              const createdIssues = [];
-              for (let i = 0; i < createIssueItems.length; i++) {
-                const createIssueItem = createIssueItems[i];
-                const itemRepo = createIssueItem.repo ? String(createIssueItem.repo).trim() : defaultTargetRepo;
-                const repoValidation = validateRepo(itemRepo, defaultTargetRepo, allowedRepos);
-                if (!repoValidation.valid) {
-                  core.warning(`Skipping issue: ${repoValidation.error}`);
-                  continue;
-                }
-                const repoParts = parseRepoSlug(itemRepo);
-                if (!repoParts) {
-                  core.warning(`Skipping issue: Invalid repository format '${itemRepo}'. Expected 'owner/repo'.`);
-                  continue;
-                }
-                const temporaryId = createIssueItem.temporary_id || generateTemporaryId();
-                core.info(`Processing create-issue item ${i + 1}/${createIssueItems.length}: title=${createIssueItem.title}, bodyLength=${createIssueItem.body.length}, temporaryId=${temporaryId}, repo=${itemRepo}`);
-                core.info(`Debug: createIssueItem.parent = ${JSON.stringify(createIssueItem.parent)}`);
-                core.info(`Debug: parentIssueNumber from context = ${JSON.stringify(parentIssueNumber)}`);
-                let effectiveParentIssueNumber;
-                let effectiveParentRepo = itemRepo; 
-                if (createIssueItem.parent !== undefined) {
-                  if (isTemporaryId(createIssueItem.parent)) {
-                    const resolvedParent = temporaryIdMap.get(normalizeTemporaryId(createIssueItem.parent));
-                    if (resolvedParent !== undefined) {
-                      effectiveParentIssueNumber = resolvedParent.number;
-                      effectiveParentRepo = resolvedParent.repo;
-                      core.info(`Resolved parent temporary ID '${createIssueItem.parent}' to ${effectiveParentRepo}#${effectiveParentIssueNumber}`);
-                    } else {
-                      core.warning(`Parent temporary ID '${createIssueItem.parent}' not found in map. Ensure parent issue is created before sub-issues.`);
-                      effectiveParentIssueNumber = undefined;
-                    }
-                  } else {
-                    effectiveParentIssueNumber = parseInt(String(createIssueItem.parent), 10);
-                    if (isNaN(effectiveParentIssueNumber)) {
-                      core.warning(`Invalid parent value: ${createIssueItem.parent}`);
-                      effectiveParentIssueNumber = undefined;
-                    }
-                  }
-                } else {
-                  const contextRepo = `${context.repo.owner}/${context.repo.repo}`;
-                  if (itemRepo === contextRepo) {
-                    effectiveParentIssueNumber = parentIssueNumber;
-                  }
-                }
-                core.info(`Debug: effectiveParentIssueNumber = ${JSON.stringify(effectiveParentIssueNumber)}, effectiveParentRepo = ${effectiveParentRepo}`);
-                if (effectiveParentIssueNumber && createIssueItem.parent !== undefined) {
-                  core.info(`Using explicit parent issue number from item: ${effectiveParentRepo}#${effectiveParentIssueNumber}`);
-                }
-                let labels = [...envLabels];
-                if (createIssueItem.labels && Array.isArray(createIssueItem.labels)) {
-                  labels = [...labels, ...createIssueItem.labels];
-                }
-                labels = labels
-                  .filter(label => !!label)
-                  .map(label => String(label).trim())
-                  .filter(label => label)
-                  .map(label => sanitizeLabelContent(label))
-                  .filter(label => label)
-                  .map(label => (label.length > 64 ? label.substring(0, 64) : label))
-                  .filter((label, index, arr) => arr.indexOf(label) === index);
-                let title = createIssueItem.title ? createIssueItem.title.trim() : "";
-                let processedBody = replaceTemporaryIdReferences(createIssueItem.body, temporaryIdMap, itemRepo);
-                processedBody = removeDuplicateTitleFromDescription(title, processedBody);
-                let bodyLines = processedBody.split("\n");
-                if (!title) {
-                  title = createIssueItem.body || "Agent Output";
-                }
-                const titlePrefix = process.env.GH_AW_ISSUE_TITLE_PREFIX;
-                if (titlePrefix && !title.startsWith(titlePrefix)) {
-                  title = titlePrefix + title;
-                }
-                if (effectiveParentIssueNumber) {
-                  core.info("Detected issue context, parent issue " + effectiveParentRepo + "#" + effectiveParentIssueNumber);
-                  if (effectiveParentRepo === itemRepo) {
-                    bodyLines.push(`Related to #${effectiveParentIssueNumber}`);
-                  } else {
-                    bodyLines.push(`Related to ${effectiveParentRepo}#${effectiveParentIssueNumber}`);
-                  }
-                }
-                const workflowName = process.env.GH_AW_WORKFLOW_NAME || "Workflow";
-                const workflowSource = process.env.GH_AW_WORKFLOW_SOURCE || "";
-                const workflowSourceURL = process.env.GH_AW_WORKFLOW_SOURCE_URL || "";
-                const runId = context.runId;
-                const githubServer = process.env.GITHUB_SERVER_URL || "https://github.com";
-                const runUrl = context.payload.repository ? `${context.payload.repository.html_url}/actions/runs/${runId}` : `${githubServer}/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId}`;
-                const trackerIDComment = getTrackerID("markdown");
-                if (trackerIDComment) {
-                  bodyLines.push(trackerIDComment);
-                }
-                addExpirationComment(bodyLines, "GH_AW_ISSUE_EXPIRES", "Issue");
-                bodyLines.push(``, ``, generateFooter(workflowName, runUrl, workflowSource, workflowSourceURL, triggeringIssueNumber, triggeringPRNumber, triggeringDiscussionNumber).trimEnd(), "");
-                const body = bodyLines.join("\n").trim();
-                core.info(`Creating issue in ${itemRepo} with title: ${title}`);
-                core.info(`Labels: ${labels}`);
-                core.info(`Body length: ${body.length}`);
-                try {
-                  const { data: issue } = await github.rest.issues.create({
-                    owner: repoParts.owner,
-                    repo: repoParts.repo,
-                    title: title,
-                    body: body,
-                    labels: labels,
-                  });
-                  core.info(`Created issue ${itemRepo}#${issue.number}: ${issue.html_url}`);
-                  createdIssues.push({ ...issue, _repo: itemRepo });
-                  temporaryIdMap.set(normalizeTemporaryId(temporaryId), { repo: itemRepo, number: issue.number });
-                  core.info(`Stored temporary ID mapping: ${temporaryId} -> ${itemRepo}#${issue.number}`);
-                  core.info(`Debug: About to check if sub-issue linking is needed. effectiveParentIssueNumber = ${effectiveParentIssueNumber}`);
-                  if (effectiveParentIssueNumber && effectiveParentRepo === itemRepo) {
-                    core.info(`Attempting to link issue #${issue.number} as sub-issue of #${effectiveParentIssueNumber}`);
-                    try {
-                      core.info(`Fetching node ID for parent issue #${effectiveParentIssueNumber}...`);
-                      const getIssueNodeIdQuery = `
-                        query($owner: String!, $repo: String!, $issueNumber: Int!) {
-                          repository(owner: $owner, name: $repo) {
-                            issue(number: $issueNumber) {
-                              id
-                            }
-                          }
-                        }
-                      `;
-                      const parentResult = await github.graphql(getIssueNodeIdQuery, {
-                        owner: repoParts.owner,
-                        repo: repoParts.repo,
-                        issueNumber: effectiveParentIssueNumber,
-                      });
-                      const parentNodeId = parentResult.repository.issue.id;
-                      core.info(`Parent issue node ID: ${parentNodeId}`);
-                      core.info(`Fetching node ID for child issue #${issue.number}...`);
-                      const childResult = await github.graphql(getIssueNodeIdQuery, {
-                        owner: repoParts.owner,
-                        repo: repoParts.repo,
-                        issueNumber: issue.number,
-                      });
-                      const childNodeId = childResult.repository.issue.id;
-                      core.info(`Child issue node ID: ${childNodeId}`);
-                      core.info(`Executing addSubIssue mutation...`);
-                      const addSubIssueMutation = `
-                        mutation($issueId: ID!, $subIssueId: ID!) {
-                          addSubIssue(input: {
-                            issueId: $issueId,
-                            subIssueId: $subIssueId
-                          }) {
-                            subIssue {
-                              id
-                              number
-                            }
-                          }
-                        }
-                      `;
-                      await github.graphql(addSubIssueMutation, {
-                        issueId: parentNodeId,
-                        subIssueId: childNodeId,
-                      });
-                      core.info("✓ Successfully linked issue #" + issue.number + " as sub-issue of #" + effectiveParentIssueNumber);
-                    } catch (error) {
-                      core.info(`Warning: Could not link sub-issue to parent: ${error instanceof Error ? error.message : String(error)}`);
-                      core.info(`Error details: ${error instanceof Error ? error.stack : String(error)}`);
-                      try {
-                        core.info(`Attempting fallback: adding comment to parent issue #${effectiveParentIssueNumber}...`);
-                        await github.rest.issues.createComment({
-                          owner: repoParts.owner,
-                          repo: repoParts.repo,
-                          issue_number: effectiveParentIssueNumber,
-                          body: `Created related issue: #${issue.number}`,
-                        });
-                        core.info("✓ Added comment to parent issue #" + effectiveParentIssueNumber + " (sub-issue linking not available)");
-                      } catch (commentError) {
-                        core.info(`Warning: Could not add comment to parent issue: ${commentError instanceof Error ? commentError.message : String(commentError)}`);
-                      }
-                    }
-                  } else if (effectiveParentIssueNumber && effectiveParentRepo !== itemRepo) {
-                    core.info(`Skipping sub-issue linking: parent is in different repository (${effectiveParentRepo})`);
-                  } else {
-                    core.info(`Debug: No parent issue number set, skipping sub-issue linking`);
-                  }
-                  if (i === createIssueItems.length - 1) {
-                    core.setOutput("issue_number", issue.number);
-                    core.setOutput("issue_url", issue.html_url);
-                  }
-                } catch (error) {
-                  const errorMessage = error instanceof Error ? error.message : String(error);
-                  if (errorMessage.includes("Issues has been disabled in this repository")) {
-                    core.info(`⚠ Cannot create issue "${title}" in ${itemRepo}: Issues are disabled for this repository`);
-                    core.info("Consider enabling issues in repository settings if you want to create issues automatically");
-                    continue;
-                  }
-                  core.error(`✗ Failed to create issue "${title}" in ${itemRepo}: ${errorMessage}`);
-                  throw error;
-                }
-              }
-              if (createdIssues.length > 0) {
-                let summaryContent = "\n\n## GitHub Issues\n";
-                for (const issue of createdIssues) {
-                  const repoLabel = issue._repo !== defaultTargetRepo ? ` (${issue._repo})` : "";
-                  summaryContent += `- Issue #${issue.number}${repoLabel}: [${issue.title}](${issue.html_url})\n`;
-                }
-                await core.summary.addRaw(summaryContent).write();
-              }
-              const tempIdMapOutput = serializeTemporaryIdMap(temporaryIdMap);
-              core.setOutput("temporary_id_map", tempIdMapOutput);
-              core.info(`Temporary ID map: ${tempIdMapOutput}`);
-              const assignCopilot = process.env.GH_AW_ASSIGN_COPILOT === "true";
-              if (assignCopilot && createdIssues.length > 0) {
-                const issuesToAssign = createdIssues.map(issue => `${issue._repo}:${issue.number}`).join(",");
-                core.setOutput("issues_to_assign_copilot", issuesToAssign);
-                core.info(`Issues to assign copilot: ${issuesToAssign}`);
-              }
-              core.info(`Successfully created ${createdIssues.length} issue(s)`);
-            }
-            (async () => {
-              await main();
-            })();
       - name: Checkout repository
         if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
@@ -9078,9 +8634,6 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_CREATED_ISSUE_URL: ${{ steps.create_issue.outputs.issue_url }}
-          GH_AW_CREATED_ISSUE_NUMBER: ${{ steps.create_issue.outputs.issue_number }}
-          GH_AW_TEMPORARY_ID_MAP: ${{ steps.create_issue.outputs.temporary_id_map }}
           GH_AW_CREATED_PULL_REQUEST_URL: ${{ steps.create_pull_request.outputs.pull_request_url }}
           GH_AW_CREATED_PULL_REQUEST_NUMBER: ${{ steps.create_pull_request.outputs.pull_request_number }}
         with:

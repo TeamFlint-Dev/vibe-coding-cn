@@ -22,7 +22,7 @@ on:
 
 permissions:
   contents: read
-  issues: write
+  issues: read
   pull-requests: read
 
 tools:
@@ -40,6 +40,7 @@ network:
 
 safe-outputs:
   add-comment:
+  update-issue:
   create-pull-request:
 
 ---

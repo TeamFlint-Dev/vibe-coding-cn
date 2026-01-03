@@ -16,13 +16,14 @@ on:
       dry_run:
         description: '仅检查不执行'
         required: false
-        type: boolean
-        default: false
+        type: string
+        default: 'false'
 
 permissions:
   contents: read
-  issues: write
-  actions: write
+  issues: read
+  actions: read
+  pull-requests: read
 
 tools:
   bash: [":*"]
@@ -32,6 +33,7 @@ tools:
 
 safe-outputs:
   add-comment:
+  update-issue:
 
 ---
 

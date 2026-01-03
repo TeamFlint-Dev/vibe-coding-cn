@@ -30,6 +30,7 @@ network:
 safe-outputs:
   create-issue:
   add-comment:
+  update-issue:
   create-pull-request:
 
 ---

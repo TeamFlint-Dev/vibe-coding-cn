@@ -20,12 +20,12 @@
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
 
-name: "Builder Agent - 能力封装构建者"
+name: "Task Agent - 通用任务执行者"
 "on":
   workflow_dispatch:
     inputs:
       issue_number:
-        description: Issue 编号（留空则自动获取 agent:builder 类任务）
+        description: Issue 编号（可选，留空则自动获取）
         required: false
         type: string
 
@@ -34,7 +34,7 @@ permissions: {}
 concurrency:
   group: "gh-aw-${{ github.workflow }}"
 
-run-name: "Builder Agent - 能力封装构建者"
+run-name: "Task Agent - 通用任务执行者"
 
 jobs:
   activation:
@@ -48,7 +48,7 @@ jobs:
       - name: Check workflow file timestamps
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          GH_AW_WORKFLOW_FILE: "builder-agent.lock.yml"
+          GH_AW_WORKFLOW_FILE: "task-agent.lock.yml"
         with:
           script: |
             async function main() {
@@ -1978,7 +1978,7 @@ jobs:
               model: process.env.GH_AW_MODEL_AGENT_COPILOT || "",
               version: "",
               agent_version: "0.0.372",
-              workflow_name: "Builder Agent - 能力封装构建者",
+              workflow_name: "Task Agent - 通用任务执行者",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -2056,9 +2056,9 @@ jobs:
           PROMPT_DIR="$(dirname "$GH_AW_PROMPT")"
           mkdir -p "$PROMPT_DIR"
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
-          # Builder Agent - 能力封装构建者
+          # Task Agent - 通用任务执行者
           
-          将探索发现的 API 封装为可复用的 Skill/Wrapper/Helper。
+          从 GitHub Issues 获取任务并执行。
           
           ## 环境准备
           
@@ -2069,114 +2069,83 @@ jobs:
           
           # 验证 gh CLI
           gh --version
+          gh auth status
           ```
           
-          ## 任务获取
+          ## 获取任务
           
-          1. 如果指定了 issue_number，使用该任务
-          2. 否则获取 builder 类任务：
+          1. 查看可用任务：
              ```bash
-             gh issue list --label "agent:builder,status:ready" --state open --json number,title --limit 1
+             gh issue list --label "status:ready" --state open --json number,title,labels --limit 5
              ```
+          
+          2. 如果指定了 issue_number 输入，使用该任务；否则选择第一个可用任务
           
           3. 认领任务：
              ```bash
-             gh issue edit <number> --remove-label "status:ready" --add-label "status:running"
+             source .github/scripts/issue-ops.sh
+             issue_start <number>
              ```
           
-          ## 封装流程
+          ## 执行任务
           
-          ### 1. 理解 API
+          1. 读取任务描述和 labels：
+             ```bash
+             gh issue view <number> --json title,body,labels
+             ```
           
-          1. 读取任务描述中的 API 信息
-          2. 查找对应的 api-digest：`Core/skills/programming/verseDev/shared/api-digests/`
-          3. 分析参数、返回值、约束
+          2. 根据任务类型执行：
+             - 如果有 `agent:explorer` label：执行探索任务
+             - 如果有 `agent:builder` label：执行构建任务
+             - 如果有 `agent:integrator` label：执行集成任务
+             - 如果有 `stage:xxx` label：执行流水线阶段任务
           
-          ### 2. 确定封装层级
-          
-          | 层级 | 适用场景 | 输出位置 |
-          |------|----------|----------|
-          | Helper | 原子操作、简单封装 | `verseHelpers/` |
-          | Wrapper | 组件级封装、事件集成 | `verseWrappers/` |
-          | Component | 完整功能模块 | `verseComponent/` |
-          
-          ### 3. 实现代码
-          
-          遵循 Skill 规范：
-          - 使用 SceneGraph 五层架构
-          - 事件使用 Scene Event 机制
-          - 错误处理完整
-          - 添加中文注释
-          
-          ### 4. 创建 SKILL.md
-          
-          每个新封装必须包含：
-          - 概述和用途
-          - API 签名
-          - 使用示例
-          - 常见问题
-          
-          ### 5. 验证
-          
-          1. 检查代码格式
-          2. 验证 SKILL.md 完整性
-          3. 更新相关索引
+          3. 使用 `edit` 工具修改文件
           
           ## 完成任务
           
-          1. 创建 PR：
-             - 分支名: `build/<capability-name>`
-             - 标题: `feat: <skill> – add <capability-name>`
-             - 内容: Issue 编号、完成内容、使用说明
-          
-          2. 关闭任务：
+          1. 关闭任务：
              ```bash
-             gh issue close <number> --reason completed --comment "封装完成: 创建了 <文件列表>"
+             source .github/scripts/issue-ops.sh
+             
+             # 获取阶段和流水线信息（如果有）
+             STAGE=$(issue_get_stage <number>)
+             PIPELINE=$(issue_get_pipeline <number>)
+             
+             if [ -n "$PIPELINE" ]; then
+               # 流水线任务，使用完整的 complete 函数（会解锁后续阶段）
+               issue_complete <number> "$STAGE" "$PIPELINE" "完成描述"
+             else
+               # 普通任务，直接关闭
+               gh issue close <number> --reason completed --comment "✅ 完成描述"
+             fi
              ```
           
-          ## 封装模板
+          2. 通过 `create-pull-request` 提交代码变更（如果有）
           
-          ### Helper 模板
+          3. 通过 `add-comment` 报告执行结果
           
-          ```verse
-          # {HelperName} - {简短描述}
-          # 用途: {详细用途}
-          # 依赖: {依赖的模块}
+          ## 输出格式
           
-          {HelperName}_helper := module:
-              
-              # 主要函数
-              {FunctionName}({Params}): {ReturnType} =
-                  # 实现
-          ```
+          在评论中包含：
+          - Issue 编号和标题
+          - 执行的步骤摘要
+          - 创建或修改的文件
+          - 下一步建议
           
-          ### Wrapper 模板
+          ## 标签体系
           
-          ```verse
-          # {WrapperName} - {简短描述}
-          # 层级: Layer 3 (Component)
-          # 事件: {提供的事件列表}
-          
-          {WrapperName}_wrapper := class:
-              
-              # 事件
-              On{EventName}: event() = event(){}
-              
-              # 配置
-              @editable {ConfigName}: {Type} = {DefaultValue}
-              
-              # 方法
-              {MethodName}({Params}): void =
-                  # 实现
-                  On{EventName}.Signal()
-          ```
-          
-          ## 质量检查
-          
-          - [ ] 代码遵循 SceneGraph 架构
-          - [ ] SKILL.md 包含完整文档
-          - [ ] 有使用示例
-          - [ ] 更新了相关索引
+          | 标签 | 说明 |
+          |------|------|
+          | `status:ready` | 可执行 |
+          | `status:running` | 执行中 |
+          | `status:blocked` | 等待依赖 |
+          | `status:failed` | 失败 |
+          | `agent:explorer` | 探索类任务 |
+          | `agent:builder` | 构建类任务 |
+          | `agent:integrator` | 集成类任务 |
+          | `pipeline:<id>` | 流水线任务 |
+          | `stage:<name>` | 流水线阶段 |
           
           PROMPT_EOF
       - name: Append XPIA security instructions to prompt
@@ -5405,7 +5374,7 @@ jobs:
         continue-on-error: true
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: firewall-logs-builder-agent-
+          name: firewall-logs-task-agent-
           path: /tmp/gh-aw/sandbox/firewall/logs/
           if-no-files-found: ignore
       - name: Parse firewall logs for step summary
@@ -5856,7 +5825,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+          GH_AW_WORKFLOW_NAME: "Task Agent - 通用任务执行者"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -5948,7 +5917,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+          GH_AW_WORKFLOW_NAME: "Task Agent - 通用任务执行者"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -6059,7 +6028,7 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+          GH_AW_WORKFLOW_NAME: "Task Agent - 通用任务执行者"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
@@ -6352,7 +6321,7 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+          WORKFLOW_NAME: "Task Agent - 通用任务执行者"
           WORKFLOW_DESCRIPTION: "No description provided"
         with:
           script: |
@@ -6589,8 +6558,8 @@ jobs:
     timeout-minutes: 15
     env:
       GH_AW_ENGINE_ID: "copilot"
-      GH_AW_WORKFLOW_ID: "builder-agent"
-      GH_AW_WORKFLOW_NAME: "Builder Agent - 能力封装构建者"
+      GH_AW_WORKFLOW_ID: "task-agent"
+      GH_AW_WORKFLOW_NAME: "Task Agent - 通用任务执行者"
     outputs:
       add_comment_comment_id: ${{ steps.add_comment.outputs.comment_id }}
       add_comment_comment_url: ${{ steps.add_comment.outputs.comment_url }}

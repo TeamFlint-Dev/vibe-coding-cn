@@ -10,7 +10,7 @@ on:
 
 permissions:
   contents: read
-  issues: write
+  issues: read
   pull-requests: read
 
 tools:
@@ -27,6 +27,7 @@ network:
 safe-outputs:
   create-issue:
   add-comment:
+  update-issue:
   create-pull-request:
 
 ---
