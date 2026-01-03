@@ -403,6 +403,211 @@ safe-outputs:
 | 串行执行多个阶段 | 多个 `jobs:` + `needs:` 链 |
 | 自定义外部服务写操作 | `safe-outputs.jobs:` ⚠️ |
 | 条件执行 AI Agent | 顶层 `if:` + 前置 Job outputs |
+| 分配任务给其他 Agent | `assign-to-agent` 或 `create-agent-task` |
+
+---
+
+## 多 Agent 协作：分配任务给其他 Agent
+
+### ⚠️ 核心限制
+
+**每个工作流只能有一个 AI Agent**。官方明确规定：
+
+> "Only one agent file is allowed per workflow"
+
+如果需要多个 Agent 协作，必须通过**任务分配机制**将工作交给其他工作流中的 Agent。
+
+---
+
+### 方式 1：`assign-to-agent` - 分配现有 Issue
+
+将一个**已存在**的 GitHub Issue 分配给 `copilot-swe-agent`。
+
+**配置**：
+
+```yaml
+safe-outputs:
+  assign-to-agent:
+    max: 3  # 最多分配 3 个 Issue
+    name: "copilot"  # 可选：指定 agent 名称
+    target-repo: "owner/repo"  # 可选：跨仓库
+```
+
+**Agent 输出格式**：
+
+```json
+{
+  "type": "assign_to_agent",
+  "issue_number": 123
+}
+```
+
+**工作原理**：
+1. Agent 分析并选择要处理的 Issue
+2. 输出 `assign_to_agent` 类型的 JSON
+3. Safe Output Job 调用 GitHub API 将 `@copilot` 添加为 assignee
+4. GitHub Copilot 服务检测到分配后自动处理
+5. Copilot 创建分支、编写代码、提交 PR
+
+**认证要求**：需要 `GH_AW_AGENT_TOKEN` (PAT with elevated permissions)
+
+---
+
+### 方式 2：`create-agent-task` - 创建新任务
+
+创建一个**全新的** GitHub Issue 作为 Agent 任务。
+
+**配置**：
+
+```yaml
+safe-outputs:
+  create-agent-task:
+    base: main  # PR 的目标分支
+    target-repo: "owner/repo"  # 可选：跨仓库创建
+```
+
+**Agent 输出格式**：
+
+```json
+{
+  "type": "create_agent_task",
+  "title": "Refactor authentication flow",
+  "body": "详细的任务描述...\n\n1. 使用 async/await\n2. 添加错误处理\n..."
+}
+```
+
+**工作原理**：
+1. Agent 生成详细的任务描述
+2. 输出 `create_agent_task` 类型的 JSON
+3. Safe Output Job 执行 `gh agent-task create --from-file <file> --base <branch>`
+4. 创建新 Issue 并自动分配给 Copilot
+5. Copilot 根据任务描述开始工作
+
+**认证要求**：需要 `COPILOT_GITHUB_TOKEN` 或 `GH_AW_GITHUB_TOKEN`
+
+**权限要求**：
+- `contents: write` - 创建分支和提交
+- `issues: write` - 创建/分配 Issue
+- `pull-requests: write` - 创建 PR
+
+---
+
+### 两种方式对比
+
+| 特性 | `assign-to-agent` | `create-agent-task` |
+|------|------------------|---------------------|
+| 适用场景 | 分配已存在的 Issue | 创建全新的任务 |
+| 是否需要 Issue 存在 | ✅ 必须存在 | ❌ 自动创建 |
+| 任务描述来源 | 原 Issue 内容 | Agent 生成的详细指令 |
+| 跨仓库支持 | ✅ | ✅ |
+| 所需 Secret | `GH_AW_AGENT_TOKEN` | `COPILOT_GITHUB_TOKEN` |
+
+---
+
+### 实战示例：Issue Monster 分配任务
+
+```yaml
+---
+name: Issue Monster
+on:
+  schedule: every 1h
+  skip-if-match:
+    query: "is:pr is:open is:draft author:app/copilot-swe-agent"
+    max: 9  # 如果 Copilot 已有 9 个 PR 在处理，跳过
+
+permissions:
+  contents: read
+  issues: read
+
+# 前置 Job：搜索候选 Issue
+jobs:
+  search_issues:
+    needs: ["pre_activation"]
+    runs-on: ubuntu-latest
+    outputs:
+      issue_list: ${{ steps.search.outputs.issue_list }}
+      has_issues: ${{ steps.search.outputs.has_issues }}
+    steps:
+      - name: Search for candidate issues
+        id: search
+        uses: actions/github-script@v8
+        with:
+          script: |
+            // 搜索并评分 Issue
+            // 排除：wontfix, duplicate, blocked 等标签
+            // 排除：已有 assignee 的 Issue
+            // 排除：有 sub-issue 的父 Issue
+            core.setOutput('has_issues', scoredIssues.length > 0 ? 'true' : 'false');
+            core.setOutput('issue_list', issueList);
+
+# 只有找到 Issue 才运行 Agent
+if: needs.search_issues.outputs.has_issues == 'true'
+
+engine: copilot
+timeout-minutes: 30
+
+safe-outputs:
+  assign-to-agent:
+    max: 3  # 一次最多分配 3 个
+  add-comment:
+    max: 3
+---
+
+# 🍪 Issue Monster
+
+你是 Issue Monster - 专门"吃掉"Issue 的怪兽！
+
+## 任务
+
+从预搜索的列表中选择最多 3 个 Issue，分配给 Copilot Agent 处理。
+
+## 可用 Issue 列表（按优先级排序）
+
+${{ needs.search_issues.outputs.issue_list }}
+
+## 执行步骤
+
+1. 分析每个 Issue 的复杂度和可行性
+2. 选择最适合自动处理的 Issue（最多 3 个）
+3. 确保选择的 Issue 主题不同，避免冲突
+4. 使用 `assign-to-agent` 分配给 Copilot
+5. 添加评论说明已分配给 Copilot 处理
+```
+
+---
+
+### 完整工作流程图
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Agentic Workflow                          │
+├─────────────────────────────────────────────────────────────┤
+│  1. 触发器 (schedule/issue/workflow_dispatch)               │
+│       ↓                                                      │
+│  2. 前置 Job：搜索/准备数据                                  │
+│       ↓                                                      │
+│  3. 🤖 主 Agent Job：分析并决定分配哪些任务                 │
+│       ↓                                                      │
+│  4. Safe Output Job：执行分配                               │
+│       │                                                      │
+│       ├─→ assign-to-agent: 分配现有 Issue                   │
+│       │     └─→ GitHub API: 添加 @copilot 为 assignee       │
+│       │                                                      │
+│       └─→ create-agent-task: 创建新任务                     │
+│             └─→ gh agent-task create --from-file ...        │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                 GitHub Copilot 服务                          │
+├─────────────────────────────────────────────────────────────┤
+│  1. 检测到新分配的任务                                       │
+│  2. 分析 Issue 内容和代码库                                  │
+│  3. 创建新分支                                               │
+│  4. 编写代码实现                                             │
+│  5. 提交 PR (author: copilot-swe-agent)                     │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
