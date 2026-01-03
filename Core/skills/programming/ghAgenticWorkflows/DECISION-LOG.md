@@ -189,7 +189,7 @@ cache-memory:
 - 缺点: 所有调研共享，互相覆盖
 - 适用: 单一用途的全局知识库
 
-#### 选项 B: 完全隔离（run_id）
+#### 选项 B: 完全隔离（run_id）❌ 反模式
 
 ```yaml
 cache-memory:
@@ -197,8 +197,8 @@ cache-memory:
 ```
 
 - 优点: 绝对不冲突
-- 缺点: 无法跨运行续传
-- 适用: 一次性查询
+- 缺点: 无法跨运行续传，每次都是空 memory
+- **结论: 没有意义！** cache-memory 的价值在于持久化，完全隔离等于不用。如果是一次性查询，根本不需要 cache-memory
 
 #### 选项 C: 按 Issue 隔离
 
@@ -213,19 +213,24 @@ cache-memory:
 
 ### 决策
 
-**推荐组合方案**:
+**推荐方案**（选项 C 为主）:
 
-| 场景 | Key 设计 | 并发策略 |
-|------|---------|---------|
-| 轻量查询 | `scout-${{ github.run_id }}` | 允许并发 |
-| 深度调研 | `scout-issue-${{ github.event.issue.number }}` | `concurrency` 串行 |
-| 全局知识库 | `knowledge-${{ github.repository }}` | 接受最终一致性 |
+| 场景 | Key 设计 | 并发策略 | cache-memory |
+|------|---------|----------|-------------|
+| 一次性查询 | N/A | 允许并发 | **不需要** |
+| 多轮调研（按 Issue） | `scout-issue-${{ github.event.issue.number }}` | `concurrency` 串行 | ✅ 需要 |
+| 多轮调研（按用户） | `scout-${{ github.actor }}` | `concurrency` 串行 | ✅ 需要 |
+| 全局知识库 | `knowledge-${{ github.repository }}` | 接受最终一致性 | ✅ 需要 |
+
+> **核心原则**：cache-memory 只用于需要跨运行累积或传递状态的场景。一次性任务不需要它。
 
 ### 理由
 
-1. **用 GitHub 变量动态化 key** 是核心思路
-2. **Issue 号是天然的任务边界**：同一问题的多轮调研应该共享进度
-3. **并发用 concurrency 解决**：同一 Issue 的调研排队执行
+1. **cache-memory 的价值 = 持久化**：只有需要跨运行共享状态时才用
+2. **用 GitHub 变量动态化 key**：按任务边界（Issue/用户/主题）隔离
+3. **Issue 号是天然的任务边界**：同一问题的多轮调研应该共享进度
+4. **并发用 concurrency 解决**：同一 Issue 的调研排队执行
+5. **run_id 隔离是反模式**：等于没用 cache-memory，浪费 Actions Cache 空间
 
 ### 后果
 

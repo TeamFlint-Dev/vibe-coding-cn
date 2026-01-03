@@ -395,13 +395,26 @@ Workflow B (run 2)
 
 **关键**：cache-memory 通过 GitHub Actions Cache 实现，不是实时共享内存！
 
+### 何时使用 cache-memory？
+
+> **核心原则**：cache-memory 的价值 = 持久化。只用于需要跨运行累积或传递状态的场景。
+
+| 场景 | 需要 cache-memory? | 说明 |
+|------|-------------------|------|
+| 一次性查询 | ❌ 不需要 | 没有跨运行需求 |
+| 多轮调研 | ✅ 需要 | 续传上一轮的发现 |
+| 跨 workflow 传递 | ✅ 需要 | Workflow A 的输出给 B |
+| 全局知识积累 | ✅ 需要 | 持续学习优化 |
+
 ### Key 设计策略
 
 | 场景 | Key 设计 | 并发策略 |
 |------|---------|---------|
-| 轻量查询（不续传） | `scout-${{ github.run_id }}` | 允许并发 |
-| 深度调研（需续传） | `scout-issue-${{ github.event.issue.number }}` | `concurrency` 串行 |
+| 多轮调研（按 Issue） | `scout-issue-${{ github.event.issue.number }}` | `concurrency` 串行 |
+| 多轮调研（按用户） | `scout-${{ github.actor }}` | `concurrency` 串行 |
 | 全局知识库 | `knowledge-${{ github.repository }}` | 接受最终一致性 |
+
+> ⚠️ **反模式**：`key: xxx-${{ github.run_id }}` 完全隔离等于没用 cache-memory，浪费 Actions Cache 空间。
 
 ### 并发冲突解决
 
