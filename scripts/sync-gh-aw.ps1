@@ -41,13 +41,19 @@ $ErrorActionPreference = "Stop"
 # 获取仓库根目录
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 
-# 目录映射配置
+# 目录映射配置（不包括 agents，agents 需要特殊处理）
 $SyncMappings = @{
     ".github/skills"    = "Core/skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/skills"
     ".github/workflows" = "Core/skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/workflows"
-    ".github/agents"    = ".github/agents/gh-aw-official"
     ".github/aw"        = "Core/skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/aw"
 }
+
+# Agents 目录需要扁平化同步（VS Code 不支持子目录识别）
+$AgentsSource = ".github/agents"
+$AgentsTarget = ".github/agents"
+
+# 官方 Agent 文件列表（用于区分官方和定制 Agent）
+$OfficialAgentFiles = @()
 
 # 需要过滤的文件模式（仅同步 .md 文件）
 $WorkflowsOnlyMd = ".github/workflows"
@@ -149,6 +155,38 @@ try {
             $count = (Get-ChildItem $dst -Recurse -File | Measure-Object).Count
             Write-Success "同步 $count 个文件"
         }
+    }
+
+    # 同步 Agents（扁平化到根目录，不删除定制 Agent）
+    Write-Step "同步 Agents (扁平化)..."
+    
+    $agentsSrcPath = Join-Path $TempDir $AgentsSource
+    $agentsDstPath = Join-Path $RepoRoot $AgentsTarget
+    
+    if ($DryRun) {
+        Write-Info "[DryRun] 源: $agentsSrcPath"
+        Write-Info "[DryRun] 目标: $agentsDstPath (扁平化)"
+    } elseif (Test-Path $agentsSrcPath) {
+        # 确保目标目录存在
+        if (-not (Test-Path $agentsDstPath)) {
+            New-Item -ItemType Directory -Path $agentsDstPath -Force | Out-Null
+        }
+        
+        # 获取官方 Agent 文件列表
+        $officialAgents = Get-ChildItem $agentsSrcPath -Filter "*.agent.md" -File
+        $count = 0
+        
+        foreach ($agent in $officialAgents) {
+            $destPath = Join-Path $agentsDstPath $agent.Name
+            Copy-Item $agent.FullName $destPath -Force
+            $script:OfficialAgentFiles += $agent.Name
+            $count++
+        }
+        
+        Write-Success "同步 $count 个官方 Agent"
+        Write-Info "官方 Agent 列表: $($officialAgents.Name -join ', ')"
+    } else {
+        Write-Warning "Agents 源目录不存在: $agentsSrcPath"
     }
 
     # 更新 README.md 的版本日期
