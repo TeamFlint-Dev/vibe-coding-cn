@@ -7,10 +7,13 @@
 
 | 文档 | 用途 |
 |------|------|
+| **[官方指引（中文）](官方指引.md)** | ⭐⭐ **完整的 frontmatter schema 和 API 文档** |
 | **[能力边界文档](CAPABILITY-BOUNDARIES.md)** | ⭐ 判断某任务能否用 gh-aw 完成 |
 | **[架构洞察](架构洞察.md)** | ⭐ 理解单 Agent 设计哲学与 cache-memory |
 | [官方案例解读](shared/references/official-examples.md) | 学习常见工作流模式 |
 | [技能索引](shared/gh-aw-raw/skills/INDEX.md) | 查找 Agent 行为指导 |
+
+> **注**: [官方指引](官方指引.md) 翻译自 [shared/gh-aw-raw/aw/github-agentic-workflows.md](shared/gh-aw-raw/aw/github-agentic-workflows.md)，包含完整的字段说明、safe-outputs 配置、触发器模式、安全考虑等内容。
 
 ---
 
