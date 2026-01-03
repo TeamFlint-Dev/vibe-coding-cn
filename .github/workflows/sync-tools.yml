@@ -1,0 +1,84 @@
+name: Sync Tools from Skills
+# 自动收集所有 Skill 下的 tools 到 .github/tools/
+
+on:
+  push:
+    paths:
+      - 'Core/skills/**/tools/**'
+  workflow_dispatch:
+
+jobs:
+  sync-tools:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Collect tools from Skills
+        run: |
+          echo "📦 收集所有 Skill 下的工具..."
+          
+          # 确保目标目录存在
+          mkdir -p .github/tools
+          
+          # 查找所有 Skill 下的 tools 目录中的 .py 文件
+          find Core/skills -path "*/tools/*.py" | while read src; do
+            filename=$(basename "$src")
+            echo "  → 复制 $src → .github/tools/$filename"
+            cp "$src" ".github/tools/$filename"
+          done
+          
+          # 查找所有 .sh 文件
+          find Core/skills -path "*/tools/*.sh" | while read src; do
+            filename=$(basename "$src")
+            echo "  → 复制 $src → .github/tools/$filename"
+            cp "$src" ".github/tools/$filename"
+          done
+          
+          echo "✅ 工具收集完成"
+      
+      - name: Generate tools index
+        run: |
+          echo "📝 生成工具索引..."
+          
+          cat > .github/tools/INDEX.md << 'EOF'
+          # CLI Tools 索引
+          
+          > 此文件由 CI 自动生成，请勿手动编辑
+          
+          ## 可用工具
+          
+          | 工具 | 来源 Skill | 说明 |
+          |------|-----------|------|
+          EOF
+          
+          # 解析每个 .py 文件的 docstring 生成索引
+          for tool in .github/tools/*.py; do
+            if [ -f "$tool" ]; then
+              name=$(basename "$tool" .py)
+              # 提取第一行 docstring 作为说明
+              desc=$(grep -m1 '"""' -A1 "$tool" | tail -1 | sed 's/^[[:space:]]*//')
+              # 查找来源
+              source=$(find Core/skills -name "$(basename $tool)" -path "*/tools/*" | head -1 | sed 's|Core/skills/||' | sed 's|/tools/.*||')
+              echo "| \`$name\` | $source | $desc |" >> .github/tools/INDEX.md
+            fi
+          done
+          
+          echo "✅ 索引生成完成"
+      
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add .github/tools/
+          
+          if git diff --staged --quiet; then
+            echo "📭 没有需要同步的更改"
+          else
+            git commit -m "chore: sync tools from Skills [skip ci]"
+            git push
+            echo "✅ 工具已同步"
+          fi
