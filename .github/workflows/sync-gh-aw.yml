@@ -1,0 +1,135 @@
+# 每日同步 gh-aw 官方仓库
+# 
+# 功能：
+# - 从 githubnext/gh-aw 拉取最新的 skills/workflows/agents/aw
+# - 同步到本地 gh-aw-raw 目录和 .github/agents/gh-aw-official/
+# - 编译项目工作流
+# - 同步失败时创建 Issue 通知
+#
+# 触发方式：
+# - 每日 UTC 6:00 (北京 14:00) 定时执行
+# - 手动触发 (workflow_dispatch)
+
+name: Sync gh-aw
+
+on:
+  schedule:
+    # 每天 UTC 6:00 (北京时间 14:00)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '仅预览，不实际同步'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - name: Setup PowerShell
+        shell: pwsh
+        run: |
+          Write-Host "PowerShell version: $($PSVersionTable.PSVersion)"
+
+      - name: Sync gh-aw files
+        id: sync
+        shell: pwsh
+        run: |
+          $dryRun = "${{ github.event.inputs.dry_run }}" -eq "true"
+          
+          if ($dryRun) {
+            Write-Host "=== DRY RUN MODE ===" -ForegroundColor Yellow
+            ./scripts/sync-gh-aw.ps1 -DryRun
+          } else {
+            ./scripts/sync-gh-aw.ps1
+          }
+
+      - name: Install gh-aw extension
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          gh extension install githubnext/gh-aw || true
+          gh aw version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compile workflows
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        shell: pwsh
+        run: |
+          ./scripts/compile-gh-aw.ps1 -Strict
+
+      - name: Check for changes
+        id: check_changes
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected:"
+            git status --short
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          fi
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add -A
+          
+          # 生成提交信息
+          COMMIT_MSG="chore: sync gh-aw from official repo
+
+          Synced at: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          Source: githubnext/gh-aw@main
+          
+          Directories synced:
+          - skills/ → gh-aw-raw/skills/
+          - workflows/ → gh-aw-raw/workflows/
+          - agents/ → .github/agents/gh-aw-official/
+          - aw/ → gh-aw-raw/aw/"
+          
+          git commit -m "$COMMIT_MSG"
+          git push
+
+      - name: Create failure issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "[Sync Failed] gh-aw 同步失败 - $(date +%Y-%m-%d)" \
+            --body "## 🔴 gh-aw 同步失败通知
+
+          ### 基本信息
+          - **时间**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          - **触发方式**: ${{ github.event_name }}
+          - **Run ID**: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          
+          ### 问题排查
+          请检查工作流日志排查问题：
+          1. 网络连接是否正常
+          2. githubnext/gh-aw 仓库是否可访问
+          3. 脚本是否有语法错误
+          
+          ### 相关文件
+          - 同步脚本: \`scripts/sync-gh-aw.ps1\`
+          - 编译脚本: \`scripts/compile-gh-aw.ps1\`
+          - 工作流: \`.github/workflows/sync-gh-aw.yml\`
+          " \
+            --label "sync-failure,automated"

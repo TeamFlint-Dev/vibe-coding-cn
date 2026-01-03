@@ -1,7 +1,20 @@
 # gh-aw 官方原始文件
 
 > 来源: https://github.com/githubnext/gh-aw
-> 版本: 2025-01-03 同步
+> 最后更新: 2025-01-03
+
+## 🔒 只读目录
+
+**请勿直接修改此目录中的文件！**
+
+这些文件由 `scripts/sync-gh-aw.ps1` 脚本自动同步，任何手动修改都会在下次同步时被覆盖。
+
+如需定制，请参考：
+- **定制 Agent**: `.github/agents/custom/`
+- **定制工作流**: `.github/workflows/`
+- **本地模板**: `shared/local-templates/`（待创建）
+
+---
 
 本目录包含 GitHub Agentic Workflows (gh-aw) 官方仓库的原始文件，用于参考学习。
 
@@ -76,10 +89,29 @@ gh-aw-raw/
 
 ## 注意事项
 
-1. **只包含源文件** - 已排除 `.lock.yml` 编译产物
-2. **保持原始格式** - 文件内容未经修改
-3. **作为参考使用** - 不要直接运行这些工作流
-4. **定期更新** - 建议定期从官方仓库同步
+1. **🔒 只读目录** - 由同步脚本管理，请勿手动修改
+2. **只包含源文件** - 已排除 `.lock.yml` 编译产物
+3. **保持原始格式** - 文件内容未经修改
+4. **作为参考使用** - 不要直接运行这些工作流
+
+## 同步机制
+
+| 项目 | 说明 |
+|------|------|
+| **同步脚本** | `scripts/sync-gh-aw.ps1` |
+| **定时同步** | 每日 UTC 6:00 (北京 14:00) |
+| **Action 配置** | `.github/workflows/sync-gh-aw.yml` |
+| **失败通知** | 自动创建 GitHub Issue |
+
+### 手动同步
+
+```powershell
+# 预览同步（不实际执行）
+.\scripts\sync-gh-aw.ps1 -DryRun
+
+# 执行同步
+.\scripts\sync-gh-aw.ps1
+```
 
 ## 快速查看
 
