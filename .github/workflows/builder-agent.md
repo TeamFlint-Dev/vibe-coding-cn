@@ -3,14 +3,14 @@
 on:
   workflow_dispatch:
     inputs:
-      task_id:
-        description: 'Beads 任务 ID（留空则自动获取 build 类任务）'
+      issue_number:
+        description: 'Issue 编号（留空则自动获取 agent:builder 类任务）'
         required: false
         type: string
 
 permissions:
   contents: read
-  issues: read
+  issues: write
   pull-requests: read
 
 tools:
@@ -38,22 +38,25 @@ safe-outputs:
 ## 环境准备
 
 ```bash
-chmod +x .github/tools/bd-linux-amd64
-alias bd='.github/tools/bd-linux-amd64'
-bd --version
+# 加载 Issue 操作脚本
+chmod +x .github/scripts/issue-ops.sh
+source .github/scripts/issue-ops.sh
+
+# 验证 gh CLI
+gh --version
 ```
 
 ## 任务获取
 
-1. 如果指定了 task_id，使用该任务
-2. 否则获取 build 类任务：
+1. 如果指定了 issue_number，使用该任务
+2. 否则获取 builder 类任务：
    ```bash
-   bd ready --json | jq '.[] | select(.labels | contains(["build"]))'
+   gh issue list --label "agent:builder,status:ready" --state open --json number,title --limit 1
    ```
 
 3. 认领任务：
    ```bash
-   bd update <task-id> --status in_progress
+   gh issue edit <number> --remove-label "status:ready" --add-label "status:running"
    ```
 
 ## 封装流程
@@ -99,16 +102,11 @@ bd --version
 1. 创建 PR：
    - 分支名: `build/<capability-name>`
    - 标题: `feat: <skill> – add <capability-name>`
-   - 内容: 任务 ID、完成内容、使用说明
+   - 内容: Issue 编号、完成内容、使用说明
 
 2. 关闭任务：
    ```bash
-   bd close <task-id> --reason "封装完成: 创建了 <文件列表>"
-   ```
-
-3. 同步状态：
-   ```bash
-   bd sync
+   gh issue close <number> --reason completed --comment "封装完成: 创建了 <文件列表>"
    ```
 
 ## 封装模板

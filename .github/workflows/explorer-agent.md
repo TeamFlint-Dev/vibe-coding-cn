@@ -41,19 +41,29 @@ safe-outputs:
 ## 环境准备
 
 ```bash
-chmod +x .github/tools/bd-linux-amd64
-alias bd='.github/tools/bd-linux-amd64'
-bd --version
+# 加载 Issue 操作脚本
+chmod +x .github/scripts/issue-ops.sh
+source .github/scripts/issue-ops.sh
+
+# 验证 gh CLI
+gh --version
+gh auth status
 ```
 
 ## 任务获取
 
 1. 查看探索类任务：
    ```bash
-   bd ready --json | jq '.[] | select(.labels | contains(["explore"]))'
+   gh issue list --label "agent:explorer,status:ready" --state open --json number,title
    ```
 
-2. 如果有探索任务则认领，否则进入自主探索模式
+2. 如果有探索任务则认领：
+   ```bash
+   # 标记为运行中
+   gh issue edit <number> --remove-label "status:ready" --add-label "status:running"
+   ```
+
+3. 否则进入自主探索模式
 
 ## 探索策略
 
@@ -79,11 +89,14 @@ bd --version
 
 对于每个发现的新 API 或能力：
 
-1. 创建 Beads 任务：
+1. 创建 Issue 任务：
    ```bash
-   bd create "封装 {API名称} 能力" \
-     --labels "evolution,build,skill:verseHelpers" \
-     --description "发现的 API: {描述}\n预期用途: {用途}\n参考文档: {链接}"
+   gh issue create \
+     --title "封装 {API名称} 能力" \
+     --label "agent:builder,status:ready" \
+     --body "发现的 API: {描述}
+预期用途: {用途}
+参考文档: {链接}"
    ```
 
 2. 更新探索报告：
@@ -93,17 +106,12 @@ bd --version
 
 ## 完成任务
 
-1. 如果认领了任务：
+1. 如果认领了任务，完成并关闭：
    ```bash
-   bd close <task-id> --reason "探索完成: 发现 N 个新 API，创建了 M 个封装任务"
+   gh issue close <number> --reason completed --comment "探索完成: 发现 N 个新 API，创建了 M 个封装任务"
    ```
 
-2. 同步状态：
-   ```bash
-   bd sync
-   ```
-
-3. 通过 `add-comment` 报告探索结果
+2. 通过 `add-comment` 报告探索结果
 
 ## 探索方向优先级
 

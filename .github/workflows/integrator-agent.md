@@ -3,14 +3,14 @@
 on:
   workflow_dispatch:
     inputs:
-      task_id:
-        description: 'Beads 任务 ID（留空则自动获取 feature 类任务）'
+      issue_number:
+        description: 'Issue 编号（留空则自动获取 agent:integrator 类任务）'
         required: false
         type: string
 
 permissions:
   contents: read
-  issues: read
+  issues: write
   pull-requests: read
 
 tools:
@@ -49,22 +49,25 @@ safe-outputs:
 ## 环境准备
 
 ```bash
-chmod +x .github/tools/bd-linux-amd64
-alias bd='.github/tools/bd-linux-amd64'
-bd --version
+# 加载 Issue 操作脚本
+chmod +x .github/scripts/issue-ops.sh
+source .github/scripts/issue-ops.sh
+
+# 验证 gh CLI
+gh --version
 ```
 
 ## 任务获取
 
-1. 如果指定了 task_id，使用该任务
-2. 否则获取 feature 类任务：
+1. 如果指定了 issue_number，使用该任务
+2. 否则获取 integrator 类任务：
    ```bash
-   bd ready --json | jq '.[] | select(.labels | contains(["feature"]) or .issue_type == "task")'
+   gh issue list --label "agent:integrator,status:ready" --state open --json number,title --limit 1
    ```
 
 3. 认领任务：
    ```bash
-   bd update <task-id> --status in_progress
+   gh issue edit <number> --remove-label "status:ready" --add-label "status:running"
    ```
 
 ## 胶水编程流程
@@ -107,21 +110,23 @@ find Core/skills -name "*wrapper*" -o -name "*helper*"
 
 1. 创建 explore 任务：
    ```bash
-   bd create "探索 {能力名称} 相关 API" \
-     --labels "evolution,explore" \
-     --description "原始需求: {task_id}\n需要能力: {描述}"
+   gh issue create \
+     --title "探索 {能力名称} 相关 API" \
+     --label "agent:explorer,status:ready" \
+     --body "原始需求: #<current_issue>\n需要能力: {描述}"
    ```
 
 2. 或创建 build 任务：
    ```bash
-   bd create "封装 {能力名称}" \
-     --labels "evolution,build" \
-     --deps "blocks:{current_task_id}"
+   gh issue create \
+     --title "封装 {能力名称}" \
+     --label "agent:builder,status:ready" \
+     --body "依赖: #<current_issue>"
    ```
 
-3. 更新当前任务状态：
+3. 更新当前任务状态为阻塞：
    ```bash
-   bd update <task-id> --status blocked
+   gh issue edit <number> --remove-label "status:running" --add-label "status:blocked"
    ```
 
 ### 4. 组装方案
@@ -178,12 +183,7 @@ PR 内容模板：
 
 1. 关闭任务：
    ```bash
-   bd close <task-id> --reason "胶水组装完成: 使用了 X 个现有能力，创建了 Y 个子任务"
-   ```
-
-2. 同步状态：
-   ```bash
-   bd sync
+   gh issue close <number> --reason completed --comment "胶水组装完成: 使用了 X 个现有能力，创建了 Y 个子任务"
    ```
 
 ## 质量检查

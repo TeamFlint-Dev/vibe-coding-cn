@@ -1,0 +1,57 @@
+name: 'Setup Server SSH'
+description: 'Configure SSH access to the webhook server using repository secrets'
+author: 'TeamFlint-Dev'
+
+inputs:
+  ssh-private-key:
+    description: 'SSH private key for server access'
+    required: true
+  server-ip:
+    description: 'Server IP address'
+    required: true
+  ssh-user:
+    description: 'SSH username'
+    required: false
+    default: 'ubuntu'
+  ssh-port:
+    description: 'SSH port'
+    required: false
+    default: '22'
+
+outputs:
+  ssh-config-path:
+    description: 'Path to the SSH config file'
+    value: ${{ steps.setup.outputs.ssh-config-path }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup SSH
+      id: setup
+      shell: bash
+      run: |
+        # Create SSH directory
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        
+        # Write private key
+        echo "${{ inputs.ssh-private-key }}" > ~/.ssh/server_key
+        chmod 600 ~/.ssh/server_key
+        
+        # Add to known_hosts
+        ssh-keyscan -H ${{ inputs.server-ip }} >> ~/.ssh/known_hosts 2>/dev/null || true
+        
+        # Create SSH config
+        cat > ~/.ssh/config << EOF
+        Host server
+            HostName ${{ inputs.server-ip }}
+            User ${{ inputs.ssh-user }}
+            Port ${{ inputs.ssh-port }}
+            IdentityFile ~/.ssh/server_key
+            StrictHostKeyChecking no
+        EOF
+        
+        chmod 600 ~/.ssh/config
+        
+        echo "ssh-config-path=~/.ssh/config" >> $GITHUB_OUTPUT
+        echo "✅ SSH configured for ${{ inputs.server-ip }}"

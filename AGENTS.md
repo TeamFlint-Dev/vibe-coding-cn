@@ -14,7 +14,6 @@
 │   └── skills/                     # 技能库（双层分类）
 │       ├── programming/            # 程序类技能
 │       │   ├── verseDev/           # Verse 开发核心（17个子技能）
-│       │   ├── beadsCLI/           # Beads 任务管理 CLI
 │       │   ├── ghAgenticWorkflows/ # GitHub Agentic Workflows
 │       │   ├── claudeCodeGuide/    # Claude 编程指南
 │       │   ├── claudeCookbooks/    # Claude 使用技巧
@@ -31,6 +30,9 @@
 ├── Games/                          # 游戏项目 Memory-bank 集合
 │   └── trophyFishing/              # 项目实例
 │       └── memory-bank/
+│
+├── archive/                        # 归档（已弃用的组件）
+│   └── beads-era/                  # Beads 时代的组件
 │
 └── libs/external/                  # 外部工具
     ├── epic-docs-crawler/          # UEFN 文档爬虫
@@ -82,55 +84,59 @@ python3 main.py    # 交互式 Excel ↔ Markdown 转换
 
 ---
 
-## Beads CLI (bd) 任务管理
+## GitHub Issues 任务管理
 
-本项目使用 **Beads (`bd`)** 进行任务跟踪。bd 是一个分布式、基于 Git 的图任务跟踪器，专为 AI Agent 设计。
+本项目使用 **GitHub Issues** 进行任务跟踪，配合 `.github/scripts/issue-ops.sh` 脚本封装。
+
+### 标签体系
+
+| 标签 | 说明 |
+|------|------|
+| `pipeline:<id>` | 流水线标识 |
+| `stage:<name>` | 阶段标识 (ingest/classify/extract/assemble/validate) |
+| `status:ready` | 可执行 |
+| `status:running` | 执行中 |
+| `status:blocked` | 等待依赖 |
+| `status:failed` | 失败 |
+| `after:stage:<name>` | 依赖的前置阶段 |
+| `agent:explorer` | 探索类任务 |
+| `agent:builder` | 构建类任务 |
+| `agent:integrator` | 集成类任务 |
 
 ### 快速参考
 
 ```bash
-# 查找就绪任务（无阻塞依赖）
-bd ready --json
+# 加载操作脚本
+source .github/scripts/issue-ops.sh
 
-# 创建任务
-bd create "任务标题" -p 1 --json
+# 查找就绪任务
+issue_ready "pipeline_id"
 
-# 开始工作
-bd update <id> --status in_progress
+# 开始任务
+issue_start <number>
 
-# 完成任务
-bd close <id> --reason "完成说明"
+# 完成任务（自动解锁后续阶段）
+issue_complete <number> "stage" "pipeline_id" "完成说明"
 
-# 同步到 Git（必须在会话结束时执行）
-bd sync
+# 标记失败
+issue_fail <number> "错误原因"
 ```
 
-### 关键命令
-
-| 命令 | 作用 |
-|------|------|
-| `bd ready` | 列出无阻塞依赖的任务 |
-| `bd create "Title"` | 创建任务 |
-| `bd update <id> --status in_progress` | 标记任务开始 |
-| `bd close <id> --reason "Done"` | 完成任务 |
-| `bd dep add <child> <parent>` | 设置依赖（child 依赖 parent） |
-| `bd sync` | 同步到 Git |
-
-### 依赖关系说明
+### 手动命令
 
 ```bash
-# bd dep add A B 表示: A 依赖于 B (B 必须先完成)
-bd dep add $CLASSIFY_ID $INGEST_ID  # classify 等 ingest 完成后才能开始
+# 创建流水线
+source .github/scripts/issue-ops.sh
+pipeline_create_stages "p20260103" "https://example.com/source"
+
+# 查看流水线状态
+pipeline_status "p20260103"
+
+# 列出所有就绪任务
+gh issue list --label "status:ready" --state open
 ```
 
-### Agent 工作流最佳实践
-
-1. **始终使用 `--json` 标志** - 便于程序解析
-2. **工作结束必须 `bd sync`** - 确保数据持久化
-3. **使用 `bd ready` 查找可执行任务** - 自动处理依赖
-4. **在 reason 中记录产物路径** - 便于追踪
-
-> 详细文档: `Core/skills/programming/beadsCLI/SKILL.md`
+> 详细文档: `.github/scripts/issue-ops.sh`
 
 ---
 
@@ -146,8 +152,13 @@ bd dep add $CLASSIFY_ID $INGEST_ID  # classify 等 ingest 完成后才能开始
 
 | Agent | 职责 |
 |-------|------|
-| `planner-agent` | 创建流水线任务，设置依赖关系 |
-| `worker-agent` | 执行单个阶段任务 |
+| `issue-planner` | 创建流水线任务（基于 GitHub Issues） |
+| `issue-worker` | 执行单个阶段任务 |
+| `issue-scheduler` | 自动调度就绪任务 |
+| `explorer-agent` | 探索 UEFN API 边界 |
+| `builder-agent` | 封装能力 |
+| `integrator-agent` | 胶水编程集成 |
+| `task-agent` | 通用任务执行 |
 
 ### 运行工作流
 
@@ -155,11 +166,14 @@ bd dep add $CLASSIFY_ID $INGEST_ID  # classify 等 ingest 完成后才能开始
 # 编译工作流
 gh aw compile
 
-# 运行 Planner
-gh aw run planner-agent -f pipeline_type=skills-distill -f source_url=https://...
+# 运行 Planner（创建流水线任务）
+gh aw run issue-planner -f pipeline_type=skills-distill -f source_url=https://...
 
-# 运行 Worker
-gh aw run worker-agent -f task_id=bd-abc -f stage_id=ingest
+# 运行 Worker（执行单个阶段）
+gh aw run issue-worker -f issue_number=123 -f stage=ingest -f pipeline_id=p20260103
+
+# 运行调度器（自动发现并执行就绪任务）
+gh aw run issue-scheduler
 ```
 
 > 详细文档: `Core/skills/programming/ghAgenticWorkflows/SKILL.md`
