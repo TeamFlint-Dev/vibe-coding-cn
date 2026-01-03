@@ -1,0 +1,394 @@
+# GitHub Agentic Workflows 架构洞察
+
+> **版本**: 1.0 | **更新日期**: 2026-01-03
+>
+> **目标**: 理解 gh-aw 的核心设计哲学，做出正确的架构决策
+
+---
+
+## 核心洞察
+
+> **Subagent 模式假设你能预知任务结构；**
+> **单 Agent 模式承认你不能，让 LLM 自己探索。**
+
+---
+
+## 1. 单 Agent 设计哲学
+
+### 为什么 gh-aw 采用单 Agent 模式？
+
+gh-aw 选择"单 Agent + 多工具"而非"多 Agent 协作"：
+
+| 对比项 | Subagent 模式 | 单 Agent 模式（gh-aw）|
+|-------|--------------|---------------------|
+| 编排逻辑 | 外部 Orchestrator 硬编码 | LLM 内部动态决策 |
+| 任务结构 | 假设可预知 | 承认不可预知 |
+| 状态管理 | 跨进程同步 | 无需同步 |
+| 调试复杂度 | 多日志流交织 | 单一日志流 |
+| 成本 | 多次 LLM 调用 | 单次调用链 |
+
+### 非线性任务的天然适配
+
+调研类任务具有非线性特征：
+
+```
+固定流程任务:     A → B → C → D (可预编排)
+
+调研任务:         A → 发现X → 深挖X → 发现Y → 回到A → B...
+                  (不可预编排，动态决策)
+```
+
+单 Agent 模式让 LLM 自己决定何时调用什么工具：
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              单 Agent 模式 (LLM 自编排)                   │
+│                                                          │
+│   Agent: "我来调研这个问题..."                           │
+│      │                                                   │
+│      ├─> 调用 search() → 结果不够                        │
+│      │                                                   │
+│      ├─> 自己决定: 再搜一次，换个关键词                  │
+│      │                                                   │
+│      ├─> 调用 search() → 发现新问题                      │
+│      │                                                   │
+│      ├─> 自己决定: 先深挖这个新问题                      │
+│      │                                                   │
+│      └─> ... (完全动态)                                  │
+│                                                          │
+│   ✅ 编排逻辑在 LLM 推理中，天然支持非线性               │
+└─────────────────────────────────────────────────────────┘
+```
+
+### 复杂任务的处理方式
+
+**用"工作流组合"取代"Agent 组合"**：
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     常规做法 (Subagent)                   │
+│                                                          │
+│   Main Agent ─┬─> Subagent A ─┐                         │
+│               ├─> Subagent B ─┼─> 聚合 → 返回            │
+│               └─> Subagent C ─┘                         │
+│                                                          │
+│   问题：需要复杂的编排层、状态同步、失败回滚              │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│                gh-aw 做法 (Workflow 串联)                 │
+│                                                          │
+│   Workflow A ──(artifact/issue)──> Workflow B           │
+│       ↑                                 │                │
+│       └────────(workflow_run)───────────┘                │
+│                                                          │
+│   优势：利用 GitHub 原生基础设施，天然持久化             │
+└─────────────────────────────────────────────────────────┘
+```
+
+好处：
+- **天然持久化**：GitHub 帮你管理状态
+- **可审计**：每个阶段是独立的 Action run
+- **易恢复**：某阶段失败只需重跑那个 workflow
+- **成本可控**：每个 workflow 独立计费，易于追踪
+
+---
+
+## 2. cache-memory 深度指南
+
+### 工作机制
+
+cache-memory 通过 **GitHub Actions Cache** 实现，不是实时共享内存：
+
+```
+Workflow A (run 1)
+    │
+    ├── 运行时写入 → /tmp/gh-aw/cache-memory/
+    │
+    └── 运行结束 → actions/cache 上传到 GitHub
+                           ↓
+                    (持久化存储)
+                           ↓
+Workflow B (run 2)
+    │
+    ├── 运行开始 → actions/cache 下载
+    │                      ↓
+    └── 读取 ← /tmp/gh-aw/cache-memory/
+```
+
+**关键特性**：
+- 非实时：必须等 workflow 结束才保存
+- 最后写入胜出：同 key 并发会覆盖
+- 大小限制：GitHub Cache 10GB 上限
+- 90 天过期：默认保留期限
+
+### 何时使用 cache-memory？
+
+> **核心原则**：cache-memory 的价值 = 持久化。
+> 只用于需要跨运行累积或传递状态的场景。
+
+| 场景 | 需要 cache-memory? | 说明 |
+|------|-------------------|------|
+| 一次性查询 | ❌ 不需要 | 没有跨运行需求 |
+| 多轮调研 | ✅ 需要 | 续传上一轮的发现 |
+| 跨 workflow 传递 | ✅ 需要 | Workflow A 的输出给 B |
+| 全局知识积累 | ✅ 需要 | 持续学习优化 |
+
+### Key 设计策略
+
+| 场景 | Key 设计 | 并发策略 |
+|------|---------|---------|
+| 多轮调研（按 Issue） | `scout-issue-${{ github.event.issue.number }}` | `concurrency` 串行 |
+| 多轮调研（按用户） | `scout-${{ github.actor }}` | `concurrency` 串行 |
+| 全局知识库 | `knowledge-${{ github.repository }}` | 接受最终一致性 |
+
+> ⚠️ **反模式**：`key: xxx-${{ github.run_id }}` 
+> 
+> 完全隔离 = 每次都是新 memory = 无法跨运行续传 = 等于没用 cache-memory。
+> 如果是一次性任务，根本不需要 cache-memory，用了反而浪费 Actions Cache 空间。
+
+### 常用隔离变量
+
+| 变量 | 用途 | 隔离粒度 |
+|------|------|---------|
+| `${{ github.event.issue.number }}` | 按 Issue 隔离 | 同一 Issue 的多轮共享 |
+| `${{ github.actor }}` | 按用户隔离 | 同一用户的调研共享 |
+| `${{ github.event.inputs.topic }}` | 按输入隔离 | 同一主题共享 |
+| `${{ github.repository }}` | 按仓库隔离 | 全局知识库 |
+
+### 并发冲突问题
+
+如果两个人同时触发同一 Issue 的调研：
+
+```
+时间线:
+  
+  t0: Agent A 开始，读取 cache (空)
+  t1: Agent B 开始，读取 cache (空)  ← 同时读到空
+  t2: Agent A 写入发现 X
+  t3: Agent B 写入发现 Y
+  t4: Agent A 结束，上传 cache (含 X)
+  t5: Agent B 结束，上传 cache (含 Y)  ← 覆盖 A 的结果！
+
+结果：X 丢失了
+```
+
+**解决方案：使用 `concurrency` 串行化**
+
+```yaml
+---
+on:
+  slash_command:
+    name: scout
+
+# 同一 Issue 的调研排队执行
+concurrency:
+  group: scout-${{ github.event.issue.number }}
+  cancel-in-progress: false  # 排队等待，不取消前一个
+
+tools:
+  cache-memory:
+    key: scout-issue-${{ github.event.issue.number }}
+    description: "Issue #${{ github.event.issue.number }} 调研进度"
+
+safe-outputs:
+  add-comment:
+    max: 1
+---
+```
+
+### 多 Workflow 协作模式
+
+#### 模式 1：顺序协作（同一个 key）
+
+```yaml
+# workflow-1: 初步调研
+---
+tools:
+  cache-memory:
+    key: research-project-alpha
+---
+# Agent 1: 调研基础概念，写入 memory
+
+# workflow-2: 深度调研（手动或 workflow_run 触发）
+---
+tools:
+  cache-memory:
+    key: research-project-alpha  # 同一个 key，继承上一轮
+---
+# Agent 2: 读取上一轮结论，继续深挖
+```
+
+#### 模式 2：分工协作（多个 key，最后合并）
+
+```yaml
+# workflow-api-research
+---
+tools:
+  cache-memory:
+    key: research-api-layer
+---
+# Agent: 专注调研 API 层
+
+# workflow-db-research  
+---
+tools:
+  cache-memory:
+    key: research-db-layer
+---
+# Agent: 专注调研数据库层
+
+# workflow-synthesize（汇总）
+---
+tools:
+  cache-memory:
+    - id: api
+      key: research-api-layer
+      restore-only: true  # 只读取，不写入
+    - id: db
+      key: research-db-layer
+      restore-only: true
+---
+# Agent: 读取两个 cache，综合分析
+```
+
+### 上下文管理最佳实践
+
+**核心策略：只存结论，不存原始资料**
+
+```
+原始资料                 Memory 存储
+─────────                ─────────
+10 篇搜索结果      →    facts.json: ["关键事实1", "关键事实2"]
+(每篇 5000 字)           hypotheses.json: ["假设A", "假设B"]
+                         open_questions.json: ["问题X", "问题Y"]
+                         sources.json: [{url, summary}, ...]
+
+压缩比: ~100:1
+```
+
+Agent 在**当前 context** 里处理原始资料，但只把**精炼结论**写入 memory。
+下一轮 Agent 从 memory 读取时，拿到的是压缩后的知识。
+
+**在 Prompt 中明确写入规范**：
+
+```markdown
+## 记忆使用规范
+
+在调研过程中，将以下内容写入 memory：
+
+1. **已确认的事实** → `facts.json`
+2. **待验证的假设** → `hypotheses.json`
+3. **发现的新问题** → `open_questions.json`
+4. **关键信息来源** → `sources.json`
+
+注意：不要存储原始搜索结果，只存储提炼后的结论。
+```
+
+---
+
+## 3. 调研任务的官方模式
+
+### Scout 工作流分析
+
+官方 Scout 工作流的设计：
+
+```yaml
+---
+name: Scout
+engine: claude              # 200K context
+timeout-minutes: 10         # 时间约束倒逼精简
+tools:
+  cache-memory: true        # 可跨运行续传
+  edit:                     # 文件操作
+imports:
+  - shared/mcp/tavily.md    # 搜索工具
+  - shared/mcp/deepwiki.md  # 文档工具
+  - shared/mcp/arxiv.md     # 学术工具
+safe-outputs:
+  add-comment:
+    max: 1
+---
+
+## SHORTER IS BETTER
+
+Focus on the most relevant and actionable information.
+Avoid overwhelming detail. Keep it concise and to the point.
+```
+
+**关键设计**：
+1. **工具端压缩**：Tavily 返回摘要+片段，不是全文
+2. **时间约束**：10 分钟强制精简
+3. **Prompt 要求**："SHORTER IS BETTER"
+4. **输出折叠**：用 `<details>` 包裹详细内容
+
+### 局限性
+
+官方调研工作流是**轻量级调研**，适合 10 分钟内能回答的问题。
+
+如果需要深度调研，用**多轮 workflow**：
+
+```
+第一轮: /scout "UEFN 物理引擎概述" 
+         → 产出: 3 个值得深挖的方向
+
+第二轮: /scout "UEFN chaos physics 版本差异"
+         → 产出: 具体限制清单
+
+第三轮: /scout "UEFN rigid body vs skeletal mesh"
+         → 产出: 选型建议
+```
+
+每轮独立运行，人类（或另一个 Agent）负责串联。
+
+---
+
+## 4. 决策速查表
+
+### 该用 Subagent 还是单 Agent？
+
+```
+任务结构可预知？
+├── 是 → 可以用 Subagent（但 gh-aw 不原生支持）
+└── 否 → 用单 Agent + 多工具
+
+任务需要并行？
+├── 是 → gh-aw 不擅长，考虑其他方案
+└── 否 → 单 Agent 顺序执行足够
+
+任务超长？
+├── 是 → 拆成多个 workflow，用 cache-memory 传递
+└── 否 → 单个 workflow 搞定
+```
+
+### 该用 cache-memory 吗？
+
+```
+需要跨运行保持状态？
+├── 是 → 用 cache-memory
+│        └── 需要防止并发覆盖？
+│            ├── 是 → 加 concurrency
+│            └── 否 → 接受最终一致性
+└── 否 → 不用 cache-memory
+```
+
+### Key 怎么设计？
+
+```
+任务边界是什么？
+├── 按 Issue → key: xxx-${{ github.event.issue.number }}
+├── 按用户 → key: xxx-${{ github.actor }}
+├── 按主题 → key: xxx-${{ github.event.inputs.topic }}
+└── 全局 → key: xxx-${{ github.repository }}
+
+⚠️ 不要用 run_id，那是反模式！
+```
+
+---
+
+## 相关资源
+
+- [能力边界文档](CAPABILITY-BOUNDARIES.md) - 快速判断能否做
+- [决策记录](DECISION-LOG.md) - 详细决策理由
+- [官方案例解读](shared/references/official-examples.md) - 学习常见模式
+- [Scout 工作流源码](shared/gh-aw-raw/workflows/scout.md) - 调研最佳实践
