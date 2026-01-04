@@ -15,7 +15,7 @@ on:
 permissions:
   contents: read
   issues: read
-engine: claude
+engine: copilot
 tools:
   github:
     toolsets: [issues, repos]
