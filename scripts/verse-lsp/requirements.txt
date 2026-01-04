@@ -1,0 +1,18 @@
+# Verse LSP Checker Python Dependencies
+# 用于 Verse 代码语法检查
+
+# 无额外依赖，仅使用 Python 标准库
+# Python 3.7+ 标准库包含所需的所有模块:
+# - asyncio (异步 IO)
+# - json (JSON 处理)
+# - pathlib (路径操作)
+# - dataclasses (数据类，Python 3.7+)
+
+# 如果需要更好的类型检查支持，可选安装:
+# typing-extensions>=4.0.0  # Python < 3.10 的类型提示扩展
+
+# 开发依赖（可选）
+# pytest>=7.0.0            # 单元测试
+# pytest-asyncio>=0.21.0   # 异步测试支持
+# black>=23.0.0            # 代码格式化
+# mypy>=1.0.0              # 类型检查
