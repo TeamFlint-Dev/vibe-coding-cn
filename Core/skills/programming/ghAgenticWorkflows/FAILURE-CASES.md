@@ -10,9 +10,10 @@
 
 | ID | 标题 | 根因类别 | 日期 | 状态 |
 |----|------|----------|------|------|
-| FC-001 | assign_to_agent 不支持临时 ID | 边界 | 2026-01-04 | 已解决 |
+| FC-001 | assign_to_agent 不支持临时 ID | 架构限制 | 2026-01-04 | 已解决(事件驱动分离) |
 | FC-002 | create-issue assignees: copilot 配置不生效 | 编译器缺陷 | 2026-01-04 | 已确认(v0.34.3仍存在) |
 | FC-003 | create-issue safe-output 返回 404 Not Found | 权限 | 2026-01-05 | 已解决 |
+| FC-004 | create-issue 与 assign-to-agent 无法链式执行 | 架构限制 | 2026-01-05 | 已解决(事件驱动分离) |
 
 <!-- 案例索引模板：
 | FC-001 | 标题 | 权限/配置/数据/环境 | YYYY-MM-DD | 已解决 |
@@ -30,6 +31,7 @@
 | 环境 | 运行环境问题 | command not found, 网络不通 |
 | 逻辑 | 业务逻辑缺陷 | 重复执行, 顺序错误 |
 | 边界 | 超出系统能力边界 | 不支持的操作 |
+| 架构限制 | 系统设计导致的固有限制 | 时序问题, 无法链式执行 |
 
 ---
 
@@ -409,6 +411,132 @@ permissions:
 
 ---
 
+### FC-004: create-issue 与 assign-to-agent 无法链式执行
+
+**日期**: 2026-01-05
+**任务上下文**: goal-planner 工作流（创建 Issue 后分配给 Copilot 和用户）
+**根因类别**: 架构限制
+**状态**: 已解决（事件驱动分离架构）
+
+#### 现象
+
+在同一 workflow 中配置 `create-issue` 和 `assign-to-agent` / `assign-to-user`，Agent 尝试分配时报错：
+
+```
+assign_to_agent 'issue_number' must be a valid positive integer (got: aw_abc123def456)
+```
+
+Agent 输出序列：
+```json
+{"type": "create_issue", "temporary_id": "aw_abc123def456", "title": "[Plan] 测试目标"}
+{"type": "assign_to_agent", "issue_number": "aw_abc123def456", "agent": "copilot"}
+{"type": "assign_to_user", "issue_number": "aw_abc123def456", "username": "Maybank01"}
+```
+
+#### 根因分析（架构级别）
+
+**核心问题：Safe-outputs 执行时序导致 Agent 无法获取真实 Issue 编号**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Main Agent Job (Agent 运行阶段)                            │
+│  ├─ Agent 决定创建 Issue                                    │
+│  ├─ 输出 create_issue → 只有临时 ID: aw_abc123def456        │
+│  ├─ Agent 决定分配 Copilot                                  │
+│  └─ 输出 assign_to_agent(issue_number=aw_abc123def456) ❌   │
+│                                                             │
+│  ⚠️ Agent 此时无法知道真实 Issue 编号，因为 Issue 还没创建！ │
+└─────────────────────────────────────────────────────────────┘
+                           ↓ Agent Job 结束
+┌─────────────────────────────────────────────────────────────┐
+│  Safe Outputs Job (后续执行)                                 │
+│  ├─ 处理 create_issue → 创建真实 Issue #123                 │
+│  └─ 处理 assign_to_agent → 期望 issue_number=123            │
+│                            但收到 aw_abc123def456 ❌        │
+│                                                             │
+│  ⚠️ assign_to_agent 不支持临时 ID 解析                       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**关键约束**：
+1. Agent 在输出时只能看到临时 ID（`aw_*` 格式）
+2. 真实 Issue 编号在 safe-output job 执行 `create_issue` 后才产生
+3. 此时 Agent Job 已经结束，无法获取真实编号
+4. `assign-to-agent` 和 `assign-to-user` 不支持临时 ID 解析（只有 `link_sub_issue`、`add_comment` 支持）
+
+#### 尝试过的方案
+
+| 方案 | 结果 |
+|------|------|
+| 在 Prompt 中指示 Agent 先创建再分配 | ❌ Agent 只能输出临时 ID |
+| 使用 `create-issue.assignees: copilot` | ❌ 编译器 Bug，不生效（FC-002） |
+| 配置 `assign-to-agent` 的 `target: "*"` | ❌ 仍然需要真实编号 |
+
+#### 解决方案：事件驱动分离架构
+
+**核心思路**：将"创建 Issue"和"分配 Issue"拆分到两个独立的 workflow，通过 GitHub 事件触发链接。
+
+```
+goal-planner                    issue-assigner
+     │                               │
+     ▼                               │
+创建 [Plan] Issue ─────────────────►│
+                     issues:opened   │
+                     标题匹配        │
+                                     ▼
+                              分配 Copilot
+                              分配 Maybank01
+```
+
+**Workflow 1: goal-planner.md**（创建 Issue）
+```yaml
+safe-outputs:
+  create-issue:
+    max: 1
+    title-prefix: "[Plan] "
+  # 不配置 assign-to-agent / assign-to-user
+```
+
+**Workflow 2: issue-assigner.md**（自动分配）
+```yaml
+on:
+  issues:
+    types: [opened]
+
+# 只处理 [Plan] 前缀的 Issue
+if: startsWith(github.event.issue.title, '[Plan]')
+
+safe-outputs:
+  assign-to-agent:
+    name: copilot
+    max: 1
+  assign-to-user:
+    allowed:
+      - Maybank01
+    max: 1
+```
+
+**优势**：
+1. ✅ `issue-assigner` 触发时，真实 Issue 编号已存在（`github.event.issue.number`）
+2. ✅ 无需临时 ID 解析
+3. ✅ 绕过 `create-issue.assignees` 编译器 Bug（FC-002）
+4. ✅ 可复用：任何创建 `[Plan]` Issue 的 workflow 都会自动触发分配
+
+#### 教训与行动
+
+- [x] 更新 CAPABILITY-BOUNDARIES.md: 标记"同一 workflow 中 create-issue 与 assign 操作无法链式执行"
+- [x] 创建 issue-assigner.md workflow 作为通用解决方案
+- [ ] 考虑向上游建议支持 assign-to-agent 临时 ID 解析
+
+#### 参考
+
+- FC-001: assign_to_agent 不支持临时 ID
+- FC-002: create-issue assignees 配置不生效
+- [goal-planner.md](/.github/workflows/goal-planner.md)
+- [issue-assigner.md](/.github/workflows/issue-assigner.md)
+
+---
+
 *暂无更多记录。*
 
 ---
@@ -426,6 +554,6 @@ permissions:
 
 ## 统计
 
-- 总案例数: 3
-- 按类别分布: 边界(1), 配置(1), 权限(1)
+- 总案例数: 4
+- 按类别分布: 架构限制(2), 编译器缺陷(1), 权限(1)
 - 最近更新: 2026-01-05

@@ -74,7 +74,14 @@
 
 - [ ] `assign-to-agent` 不支持临时 ID，需要真实 Issue 编号
   - 来源: [FC-001](FAILURE-CASES.md#fc-001-assign_to_agent-不支持临时-id)
-  - 替代: 使用 `create-issue` 的 `assignees: copilot` 配置
+  - 替代: 使用事件驱动分离架构（见下方）
+
+- [ ] **同一 workflow 中 create-issue 与 assign 操作无法链式执行**
+  - 来源: [FC-004](FAILURE-CASES.md#fc-004-create-issue-与-assign-to-agent-无法链式执行)
+  - 原因: Agent 只能获得临时 ID，真实编号在 safe-output job 执行后才产生
+  - **解决方案**: 事件驱动分离架构
+    1. Workflow A: 只负责 `create-issue`，配置 `title-prefix: "[Plan] "`
+    2. Workflow B: 监听 `issues: opened` + 标题匹配，执行 `assign-to-agent` 和 `assign-to-user`
 
 ---
 
@@ -155,6 +162,7 @@
 
 | 日期 | 更新内容 | 关联案例 |
 |------|----------|----------|
+| 2026-01-05 | 添加 create-issue 与 assign 链式执行限制 | FC-004 |
 | 2026-01-05 | 添加 Fine-grained PAT 权限检查项 | FC-003 |
 | 2026-01-04 | 添加 assignees: copilot 需要 Token 检查项 | FC-002 |
 | 2026-01-04 | 添加 assign-to-agent 临时 ID 限制检查项 | FC-001 |

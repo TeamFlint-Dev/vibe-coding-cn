@@ -173,6 +173,64 @@ Safe-outputs 是 gh-aw 的核心安全机制，所有写操作都通过这个沙
 > - `⚠️ 不支持`: 明确不支持临时 ID，使用时需确保传入真实 issue_number
 > - `❌`: 未实现临时 ID 支持（可能在未来版本添加）
 
+### 🚨 create-issue 与 assign 操作无法链式执行（架构限制）
+
+> **状态**: 架构级别限制，无法通过配置绕过
+> **发现日期**: 2026-01-05
+> **失败案例**: [FC-004](FAILURE-CASES.md#fc-004-create-issue-与-assign-to-agent-无法链式执行)
+
+**在同一 workflow 中，无法先 create-issue 再 assign-to-agent/assign-to-user**。
+
+#### 原因
+
+Safe-outputs 执行时序导致 Agent 无法获取真实 Issue 编号：
+
+```
+┌──────────────────────────────────────┐
+│  Agent Job                           │
+│  ├─ 输出 create_issue                │
+│  │   └─ 只有临时 ID: aw_abc123...    │
+│  └─ 输出 assign_to_agent             │
+│       └─ issue_number=aw_abc123... ❌│
+└──────────────────────────────────────┘
+              ↓ Agent Job 结束
+┌──────────────────────────────────────┐
+│  Safe Outputs Job                    │
+│  ├─ 执行 create_issue → Issue #123   │
+│  └─ 执行 assign_to_agent             │
+│       └─ 期望真实编号，但收到临时 ID  │
+└──────────────────────────────────────┘
+```
+
+#### 解决方案：事件驱动分离架构
+
+将"创建"和"分配"拆分到两个 workflow：
+
+```yaml
+# Workflow 1: goal-planner.md - 只创建 Issue
+safe-outputs:
+  create-issue:
+    max: 1
+    title-prefix: "[Plan] "
+
+# Workflow 2: issue-assigner.md - 自动分配
+on:
+  issues:
+    types: [opened]
+if: startsWith(github.event.issue.title, '[Plan]')
+
+safe-outputs:
+  assign-to-agent:
+    name: copilot
+  assign-to-user:
+    allowed: [Maybank01]
+```
+
+**优势**：
+- `issue-assigner` 触发时，真实 Issue 编号已存在于 `github.event.issue.number`
+- 绕过 `create-issue.assignees` 编译器 Bug
+- 可复用：任何创建 `[Plan]` 前缀 Issue 的 workflow 都会自动触发分配
+
 ### 🚨 create-agent-task 完全不工作（环境变量 Bug）
 
 > **状态**: 已确认 (gh-aw v0.34.3)
