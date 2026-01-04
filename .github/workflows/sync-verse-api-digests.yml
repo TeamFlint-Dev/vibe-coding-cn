@@ -1,0 +1,142 @@
+name: Sync Verse API Digests
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-api-digests:
+    name: Sync API Digest Files
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Clone vz-creates/uefn repository
+        run: |
+          echo "Cloning vz-creates/uefn repository..."
+          git clone --depth 1 https://github.com/vz-creates/uefn.git /tmp/uefn-repo
+          
+          # Get the latest commit info
+          cd /tmp/uefn-repo
+          LATEST_COMMIT=$(git rev-parse --short HEAD)
+          LATEST_DATE=$(git log -1 --format=%cd --date=short)
+          echo "Latest commit: $LATEST_COMMIT on $LATEST_DATE"
+          echo "UEFN_COMMIT=$LATEST_COMMIT" >> $GITHUB_ENV
+          echo "UEFN_DATE=$LATEST_DATE" >> $GITHUB_ENV
+      
+      - name: Check for digest file updates
+        id: check-updates
+        run: |
+          DIGEST_SOURCE="/tmp/uefn-repo/Modules/FortniteGame"
+          DIGEST_TARGET="Core/skills/programming/verseDev/shared/api-digests"
+          
+          # Check if digest files exist in source
+          if [ ! -d "$DIGEST_SOURCE" ]; then
+            echo "❌ Digest source directory not found"
+            exit 1
+          fi
+          
+          HAS_CHANGES=false
+          
+          # Check each digest file
+          for digest_name in Fortnite UnrealEngine Verse; do
+            SOURCE_FILE="$DIGEST_SOURCE/$digest_name/$digest_name.digest.verse"
+            TARGET_FILE="$DIGEST_TARGET/$digest_name.digest.verse.md"
+            
+            if [ -f "$SOURCE_FILE" ]; then
+              # Copy source file to target with .md extension
+              cp "$SOURCE_FILE" "$TARGET_FILE"
+              echo "Copied $digest_name.digest.verse"
+            else
+              echo "⚠️ Source file not found: $SOURCE_FILE"
+            fi
+          done
+          
+          # Check if there are any changes
+          if git diff --quiet "$DIGEST_TARGET"; then
+            echo "✅ No changes detected in digest files"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "📝 Changes detected in digest files"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            HAS_CHANGES=true
+          fi
+          
+          # Get version info from digest file
+          if [ -f "$DIGEST_TARGET/Fortnite.digest.verse.md" ]; then
+            VERSION_INFO=$(grep -E "build: \+\+Fortnite\+Release" "$DIGEST_TARGET/Fortnite.digest.verse.md" | head -1)
+            echo "Version: $VERSION_INFO"
+            echo "version_info=$VERSION_INFO" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Pull Request
+        if: steps.check-updates.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            chore: sync Verse API digest files from vz-creates/uefn
+            
+            Updated API digest files from vz-creates/uefn repository
+            Commit: ${{ env.UEFN_COMMIT }}
+            Date: ${{ env.UEFN_DATE }}
+          branch: auto/sync-verse-api-digests
+          delete-branch: true
+          title: 'chore: 同步 Verse API Digest 文件'
+          body: |
+            ## 🔄 自动同步 Verse API Digest 文件
+            
+            此 PR 由自动化工作流创建，同步最新的 Verse API digest 文件。
+            
+            ### 更新来源
+            - **仓库**: [vz-creates/uefn](https://github.com/vz-creates/uefn)
+            - **提交**: `${{ env.UEFN_COMMIT }}`
+            - **日期**: `${{ env.UEFN_DATE }}`
+            
+            ### 版本信息
+            ```
+            ${{ steps.check-updates.outputs.version_info }}
+            ```
+            
+            ### 更新的文件
+            - `Core/skills/programming/verseDev/shared/api-digests/Fortnite.digest.verse.md`
+            - `Core/skills/programming/verseDev/shared/api-digests/UnrealEngine.digest.verse.md`
+            - `Core/skills/programming/verseDev/shared/api-digests/Verse.digest.verse.md`
+            
+            ### 检查清单
+            - [ ] 验证 API 变更是否需要更新相关文档
+            - [ ] 检查是否影响现有 Verse 技能和示例代码
+            - [ ] 确认 digest 文件格式正确
+            
+            ---
+            *此 PR 由 [Sync Verse API Digests](.github/workflows/sync-verse-api-digests.yml) 工作流自动创建*
+          labels: |
+            automated
+            dependencies
+            verse-api
+          assignees: anawairu
+      
+      - name: Workflow summary
+        if: always()
+        run: |
+          echo "## 🔄 Verse API Digest 同步结果" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.check-updates.outputs.has_changes }}" == "true" ]; then
+            echo "✅ **检测到更新，已创建 PR**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- 来源提交: ${{ env.UEFN_COMMIT }}" >> $GITHUB_STEP_SUMMARY
+            echo "- 更新日期: ${{ env.UEFN_DATE }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ **无更新，digest 文件已是最新**" >> $GITHUB_STEP_SUMMARY
+          fi
