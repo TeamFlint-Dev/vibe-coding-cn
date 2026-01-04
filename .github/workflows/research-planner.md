@@ -1,6 +1,6 @@
 ---
 name: Research Planner
-description: 科研规划者 - 创建跟踪 Issue 并启动 Agent Task
+description: 科研规划者 - 创建跟踪 Issue 并启动 Agent Task，自动分配 Copilot 和人类监督者
 on:
   workflow_dispatch:
     inputs:
@@ -16,6 +16,11 @@ permissions:
   contents: read
   issues: read
 engine: copilot
+
+# assign-to-agent 和 create-agent-task 需要 PAT，默认 GITHUB_TOKEN 权限不足
+# 需要在仓库 Secrets 中配置 COPILOT_GITHUB_TOKEN（Fine-grained PAT，需 contents:write, issues:write, pull-requests:write）
+github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+
 tools:
   github:
     toolsets: [issues, repos]
@@ -29,6 +34,14 @@ safe-outputs:
     base: main
   add-comment:
     max: 1
+  # 自动分配 Copilot Agent 到 Issue
+  assign-to-agent:
+    name: copilot
+    max: 1
+  # 自动分配人类监督者到 Issue
+  assign-to-user:
+    allowed: [Maybank01]
+    max: 1
 timeout-minutes: 15
 strict: true
 ---
@@ -37,8 +50,9 @@ strict: true
 
 你是调研任务的规划者。流程：
 1. 创建一个跟踪用的 Issue
-2. 创建一个 Agent Task 让 Copilot 执行调研
-3. Task 执行时会自动在 Issue 中评论结果
+2. **分配 Copilot 和人类监督者到 Issue**
+3. 创建一个 Agent Task 让 Copilot 执行调研
+4. Task 执行时会自动在 Issue 中评论结果
 
 ## 📋 输入参数
 
@@ -51,7 +65,7 @@ strict: true
 
 ### 步骤 1: 创建跟踪 Issue
 
-使用 `create-issue` 创建一个 Issue 用于跟踪调研进度：
+使用 `create_issue` 创建一个 Issue 用于跟踪调研进度：
 
 **标题**: `[Research] ${{ github.event.inputs.topic }}`
 
@@ -65,8 +79,14 @@ strict: true
 
 文件路径: `${{ github.event.inputs.output_path }}`
 
+## 👥 分配
+
+- **Copilot Agent**: 负责执行调研任务
+- **人类监督者**: @Maybank01
+
 ## 📊 状态
 
+- [ ] Issue 已创建并分配
 - [ ] Agent Task 已创建
 - [ ] 调研完成
 - [ ] PR 已创建
@@ -79,7 +99,29 @@ strict: true
 
 创建 Issue 后，**记住这个 Issue 的编号**（如 #123）。
 
-### 步骤 3: 创建 Agent Task
+### 步骤 3: 分配 Copilot 和人类监督者
+
+创建 Issue 后，立即执行分配操作：
+
+1. **分配 Copilot Agent**：使用 `assign_to_agent` 工具，将 Copilot 分配到刚创建的 Issue：
+   ```json
+   {
+     "type": "assign_to_agent",
+     "issue_number": <刚创建的 Issue 编号>,
+     "agent": "copilot"
+   }
+   ```
+
+2. **分配人类监督者**：使用 `assign_to_user` 工具，将 Maybank01 分配到 Issue：
+   ```json
+   {
+     "type": "assign_to_user",
+     "issue_number": <刚创建的 Issue 编号>,
+     "assignees": ["Maybank01"]
+   }
+   ```
+
+### 步骤 4: 创建 Agent Task
 
 使用 `create-agent-task` 创建任务，在任务描述中包含 Issue 编号，要求任务完成后在 Issue 中评论：
 
@@ -138,6 +180,19 @@ strict: true
 
 ## ⚠️ 规则
 
-- 先创建 Issue，再创建 Agent Task
+- 先创建 Issue，再分配 Assignees，最后创建 Agent Task
+- **必须执行分配**：创建 Issue 后，使用 `assign_to_agent` 和 `assign_to_user` 工具完成分配
 - Agent Task 描述中必须包含 Issue 编号
 - 明确要求 Agent 完成后在 Issue 中评论
+
+## 🔧 可用工具
+
+本工作流启用了以下 safe-output 工具：
+
+| 工具 | 用途 |
+|------|------|
+| `create_issue` | 创建跟踪 Issue |
+| `assign_to_agent` | 将 Copilot 分配到 Issue |
+| `assign_to_user` | 将人类用户分配到 Issue |
+| `create_agent_task` | 创建 Copilot 执行任务 |
+| `add_comment` | 添加评论 |

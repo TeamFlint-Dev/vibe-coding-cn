@@ -19,7 +19,7 @@
 #   gh aw compile
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
-# 科研规划者 - 创建跟踪 Issue 并启动 Agent Task
+# 科研规划者 - 创建跟踪 Issue 并启动 Agent Task，自动分配 Copilot 和人类监督者
 
 name: "Research Planner"
 "on":
@@ -112,9 +112,9 @@ jobs:
           github.event.pull_request
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          GH_TOKEN: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
         with:
-          github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
@@ -160,7 +160,7 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /tmp/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1},"create_agent_task":{"max":1},"create_issue":{"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
+          {"add_comment":{"max":1},"assign_to_agent":{"default_agent":"copilot","max":1},"assign_to_user":{"allowed":["Maybank01"],"max":1},"create_agent_task":{"max":1},"create_issue":{"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
           EOF
           cat > /tmp/gh-aw/safeoutputs/tools.json << 'EOF'
           [
@@ -244,6 +244,61 @@ jobs:
               "name": "add_comment"
             },
             {
+              "description": "Assign the GitHub Copilot coding agent to work on an issue. The agent will analyze the issue and attempt to implement a solution, creating a pull request when complete. Use this to delegate coding tasks to Copilot. CONSTRAINTS: Maximum 1 issue(s) can be assigned to agent.",
+              "inputSchema": {
+                "additionalProperties": false,
+                "properties": {
+                  "agent": {
+                    "description": "Agent identifier to assign. Defaults to 'copilot' (the Copilot coding agent) if not specified.",
+                    "type": "string"
+                  },
+                  "issue_number": {
+                    "description": "Issue number to assign the Copilot agent to. This is the numeric ID from the GitHub URL (e.g., 234 in github.com/owner/repo/issues/234). The issue should contain clear, actionable requirements.",
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  }
+                },
+                "required": [
+                  "issue_number"
+                ],
+                "type": "object"
+              },
+              "name": "assign_to_agent"
+            },
+            {
+              "description": "Assign one or more GitHub users to an issue. Use this to delegate work to specific team members. Users must have access to the repository.",
+              "inputSchema": {
+                "additionalProperties": false,
+                "properties": {
+                  "assignee": {
+                    "description": "Single GitHub username to assign. Use 'assignees' array for multiple users.",
+                    "type": "string"
+                  },
+                  "assignees": {
+                    "description": "GitHub usernames to assign to the issue (e.g., ['octocat', 'mona']). Users must have access to the repository.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "issue_number": {
+                    "description": "Issue number to assign users to. This is the numeric ID from the GitHub URL (e.g., 543 in github.com/owner/repo/issues/543). If omitted, assigns to the issue that triggered this workflow.",
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  }
+                },
+                "required": [
+                  "issue_number"
+                ],
+                "type": "object"
+              },
+              "name": "assign_to_user"
+            },
+            {
               "description": "Report that a tool or capability needed to complete the task is not available. Use this when you cannot accomplish what was requested because the required functionality is missing or access is restricted.",
               "inputSchema": {
                 "additionalProperties": false,
@@ -300,6 +355,38 @@ jobs:
                   "maxLength": 65000
                 },
                 "item_number": {
+                  "issueOrPRNumber": true
+                }
+              }
+            },
+            "assign_to_agent": {
+              "defaultMax": 1,
+              "fields": {
+                "agent": {
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 128
+                },
+                "issue_number": {
+                  "required": true,
+                  "positiveInteger": true
+                }
+              }
+            },
+            "assign_to_user": {
+              "defaultMax": 1,
+              "fields": {
+                "assignee": {
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 39
+                },
+                "assignees": {
+                  "type": "[]string",
+                  "sanitize": true,
+                  "maxLength": 39
+                },
+                "issue_number": {
                   "issueOrPRNumber": true
                 }
               }
@@ -386,7 +473,7 @@ jobs:
       - name: Setup MCPs
         env:
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
-          GITHUB_MCP_SERVER_TOKEN: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_MCP_SERVER_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
         run: |
           mkdir -p /tmp/gh-aw/mcp-config
           mkdir -p /home/runner/.copilot
@@ -509,8 +596,9 @@ jobs:
           
           你是调研任务的规划者。流程：
           1. 创建一个跟踪用的 Issue
-          2. 创建一个 Agent Task 让 Copilot 执行调研
-          3. Task 执行时会自动在 Issue 中评论结果
+          2. **分配 Copilot 和人类监督者到 Issue**
+          3. 创建一个 Agent Task 让 Copilot 执行调研
+          4. Task 执行时会自动在 Issue 中评论结果
           
           ## 📋 输入参数
           
@@ -523,7 +611,7 @@ jobs:
           
           ### 步骤 1: 创建跟踪 Issue
           
-          使用 `create-issue` 创建一个 Issue 用于跟踪调研进度：
+          使用 `create_issue` 创建一个 Issue 用于跟踪调研进度：
           
           **标题**: `[Research] __GH_AW_GITHUB_EVENT_INPUTS_TOPIC__`
           
@@ -537,8 +625,14 @@ jobs:
           
           文件路径: `__GH_AW_GITHUB_EVENT_INPUTS_OUTPUT_PATH__`
           
+          ## 👥 分配
+          
+          - **Copilot Agent**: 负责执行调研任务
+          - **人类监督者**: @Maybank01
+          
           ## 📊 状态
           
+          - [ ] Issue 已创建并分配
           - [ ] Agent Task 已创建
           - [ ] 调研完成
           - [ ] PR 已创建
@@ -551,7 +645,29 @@ jobs:
           
           创建 Issue 后，**记住这个 Issue 的编号**（如 #123）。
           
-          ### 步骤 3: 创建 Agent Task
+          ### 步骤 3: 分配 Copilot 和人类监督者
+          
+          创建 Issue 后，立即执行分配操作：
+          
+          1. **分配 Copilot Agent**：使用 `assign_to_agent` 工具，将 Copilot 分配到刚创建的 Issue：
+             ```json
+             {
+               "type": "assign_to_agent",
+               "issue_number": <刚创建的 Issue 编号>,
+               "agent": "copilot"
+             }
+             ```
+          
+          2. **分配人类监督者**：使用 `assign_to_user` 工具，将 Maybank01 分配到 Issue：
+             ```json
+             {
+               "type": "assign_to_user",
+               "issue_number": <刚创建的 Issue 编号>,
+               "assignees": ["Maybank01"]
+             }
+             ```
+          
+          ### 步骤 4: 创建 Agent Task
           
           使用 `create-agent-task` 创建任务，在任务描述中包含 Issue 编号，要求任务完成后在 Issue 中评论：
           
@@ -610,9 +726,22 @@ jobs:
           
           ## ⚠️ 规则
           
-          - 先创建 Issue，再创建 Agent Task
+          - 先创建 Issue，再分配 Assignees，最后创建 Agent Task
+          - **必须执行分配**：创建 Issue 后，使用 `assign_to_agent` 和 `assign_to_user` 工具完成分配
           - Agent Task 描述中必须包含 Issue 编号
           - 明确要求 Agent 完成后在 Issue 中评论
+          
+          ## 🔧 可用工具
+          
+          本工作流启用了以下 safe-output 工具：
+          
+          | 工具 | 用途 |
+          |------|------|
+          | `create_issue` | 创建跟踪 Issue |
+          | `assign_to_agent` | 将 Copilot 分配到 Issue |
+          | `assign_to_user` | 将人类用户分配到 Issue |
+          | `create_agent_task` | 创建 Copilot 执行任务 |
+          | `add_comment` | 添加评论 |
           
           PROMPT_EOF
       - name: Substitute placeholders
@@ -656,7 +785,7 @@ jobs:
           <instructions>
           To create or modify GitHub resources (issues, discussions, pull requests, etc.), you MUST call the appropriate safe output tool. Simply writing content will NOT work - the workflow requires actual tool calls.
           
-          **Available tools**: add_comment, create_agent_task, create_issue, missing_tool, noop
+          **Available tools**: add_comment, assign_to_agent, assign_to_user, create_agent_task, create_issue, missing_tool, noop
           
           **Critical**: Tool calls write structured data that downstream jobs process. Without tool calls, follow-up actions will be skipped.
           </instructions>
@@ -781,7 +910,7 @@ jobs:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
-          GITHUB_MCP_SERVER_TOKEN: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_MCP_SERVER_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
           GITHUB_STEP_SUMMARY: ${{ env.GITHUB_STEP_SUMMARY }}
           GITHUB_WORKSPACE: ${{ github.workspace }}
@@ -796,11 +925,9 @@ jobs:
             const { main } = require('/tmp/gh-aw/actions/redact_secrets.cjs');
             await main();
         env:
-          GH_AW_SECRET_NAMES: 'COPILOT_GITHUB_TOKEN,GH_AW_GITHUB_MCP_SERVER_TOKEN,GH_AW_GITHUB_TOKEN,GITHUB_TOKEN'
+          GH_AW_SECRET_NAMES: 'COPILOT_GITHUB_TOKEN,GH_AW_GITHUB_MCP_SERVER_TOKEN'
           SECRET_COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           SECRET_GH_AW_GITHUB_MCP_SERVER_TOKEN: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN }}
-          SECRET_GH_AW_GITHUB_TOKEN: ${{ secrets.GH_AW_GITHUB_TOKEN }}
-          SECRET_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Safe Outputs
         if: always()
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
@@ -944,7 +1071,7 @@ jobs:
           GH_AW_NOOP_MAX: 1
           GH_AW_WORKFLOW_NAME: "Research Planner"
         with:
-          github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
@@ -957,7 +1084,7 @@ jobs:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_WORKFLOW_NAME: "Research Planner"
         with:
-          github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
@@ -975,7 +1102,7 @@ jobs:
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
-          github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
@@ -1025,7 +1152,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           WORKFLOW_NAME: "Research Planner"
-          WORKFLOW_DESCRIPTION: "科研规划者 - 创建跟踪 Issue 并启动 Agent Task"
+          WORKFLOW_DESCRIPTION: "科研规划者 - 创建跟踪 Issue 并启动 Agent Task，自动分配 Copilot 和人类监督者"
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
@@ -1158,6 +1285,8 @@ jobs:
       GH_AW_WORKFLOW_ID: "research-planner"
       GH_AW_WORKFLOW_NAME: "Research Planner"
     outputs:
+      assign_to_agent_assigned: ${{ steps.assign_to_agent.outputs.assigned }}
+      assign_to_user_assigned: ${{ steps.assign_to_user.outputs.assigned }}
       create_agent_task_task_number: ${{ steps.create_agent_task.outputs.task_number }}
       create_agent_task_task_url: ${{ steps.create_agent_task.outputs.task_url }}
       process_safe_outputs_processed_count: ${{ steps.process_safe_outputs.outputs.processed_count }}
@@ -1185,11 +1314,25 @@ jobs:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"research-task\"],\"max\":1,\"title_prefix\":\"[Research] \"}}"
         with:
-          github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
             const { main } = require('/tmp/gh-aw/actions/safe_output_handler_manager.cjs');
+            await main();
+      - name: Assign To Agent
+        id: assign_to_agent
+        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'assign_to_agent'))
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
+          GH_AW_AGENT_MAX_COUNT: 1
+        with:
+          github-token: ${{ secrets.GH_AW_AGENT_TOKEN }}
+          script: |
+            const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
+            setupGlobals(core, github, context, exec, io);
+            const { main } = require('/tmp/gh-aw/actions/assign_to_agent.cjs');
             await main();
       - name: Create Agent Task
         id: create_agent_task
@@ -1198,7 +1341,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
         with:
-          github-token: ${{ secrets.COPILOT_GITHUB_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
+          github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
