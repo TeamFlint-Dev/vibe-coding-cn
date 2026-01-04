@@ -15,7 +15,8 @@
 
 ## 概述
 
-Verse 语言的失败机制是其控制流的核心特性。与传统编程语言使用布尔值（true/false）来控制程序流不同，Verse 使用**可失败表达式 (Failable Expressions)** 和**失败上下文 (Failure Context)** 来实现控制流。
+Verse 语言的失败机制是其控制流的核心特性。与传统编程语言使用布尔值（true/false）来控制程序流不同，
+Verse 使用**可失败表达式 (Failable Expressions)** 和**失败上下文 (Failure Context)** 来实现控制流。
 
 ### 核心理念
 
@@ -355,7 +356,7 @@ Main() : void =
         Bar()
 ```
 
-4. **可以引入常量**: 谓词中可以引入新的常量，其作用域包括 `then` 分支
+1. **可以引入常量**: 谓词中可以引入新的常量，其作用域包括 `then` 分支
 
 ```verse
 Main(X : int) : void =
