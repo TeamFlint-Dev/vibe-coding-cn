@@ -2,14 +2,67 @@
 
 `Core/skills/` 目录存放 AI 技能（Skills），这些是比提示词更高级的能力封装，可以让 AI 在特定领域表现出专家级水平。本仓库专注于 **UEFN/Verse 游戏开发**。
 
+## ⚠️ 重要更新：模块化期刊系统
+
+**从 v1.0.0 开始，本技能库采用"模块化期刊系统"架构：**
+
+- **期刊（Journal）** = Skill 目录 = 模块库
+- **综述（SKILL.md）** = 模块索引 + 组装指南
+- **论文（research/）** = 研究记录
+- **核心产出（modules/）** = 可直接复制使用的代码模块
+
+**核心理念**: **研究 → 验证 → 生产可复用模块 → 项目直接组装（胶水开发）**
+
+### 期刊结构示例
+
+```text
+verseEventFlow/                  # 期刊（模块库）
+├── SKILL.md                     # 综述：模块索引 + 组装指南
+├── JOURNAL.yaml                 # 期刊元数据
+│
+├── modules/                     # ⭐ 核心产出：可组装的代码模块
+│   ├── _INDEX.yaml              # 模块索引
+│   ├── EventBus/                # 模块1
+│   │   ├── MODULE.yaml          # 模块元数据
+│   │   ├── README.md            # 使用说明
+│   │   └── *.verse              # 代码文件
+│   └── LifecycleManager/        # 模块2
+│
+├── research/                    # 研究记录
+│   └── scenegraph-event-system.md
+│
+└── drafts/                      # 待研究
+```
+
+### 全局模块注册表
+
+查看 [`_REGISTRY.yaml`](_REGISTRY.yaml) 获取所有期刊和模块的快速索引。
+
+### 模板文件
+
+创建新期刊或模块时，参考 [`_templates/`](_templates/) 目录中的模板：
+
+- `JOURNAL.template.yaml` - 期刊元数据模板
+- `MODULE.template.yaml` - 模块元数据模板
+- `_INDEX.template.yaml` - 模块索引模板
+- `SKILL.template.md` - SKILL.md 模板（组装指南格式）
+
+---
+
 ## 目录结构
 
-```
+```text
 Core/skills/
 ├── README.md                # 本文件
+├── _REGISTRY.yaml           # 🆕 全局模块注册表
+├── _templates/              # 🆕 模板文件
 │
 ├── programming/             # 编程类技能
 │   ├── verseDev/           # ⭐ Verse 开发核心技能体系（17个子技能）
+│   │   ├── verseEventFlow/      # 🆕 事件流模块库（已重构）
+│   │   ├── verseComponent/      # 🆕 组件模块库（占位）
+│   │   ├── verseHelpers/        # 🆕 Helper 模块库（占位）
+│   │   └── ...                  # 其他子技能
 │   ├── claudeSkills/       # ⭐ 元技能：生成 Skills 的 Skills
 │   ├── claudeCodeGuide/    # Claude Code 使用指南
 │   ├── claudeCookbooks/    # Claude API 最佳实践
@@ -82,35 +135,116 @@ Core/skills/
 
 在对话中引用技能文件：
 
-```
+```text
 @Core/skills/programming/verseDev/verseOrchestrator/SKILL.md
 ```
 
 ### 2. 常用技能组合
 
 **Verse 开发**:
-```
+
+```text
 @Core/skills/programming/verseDev/verseOrchestrator/SKILL.md
 @Core/skills/programming/verseDev/shared/api-digests/Fortnite.digest.verse.md
 ```
 
 **游戏设计**:
-```
+
+```text
 @Core/skills/design/gameDev/gameDevOrchestrator/SKILL.md
 ```
 
 **创建新技能**:
-```
+
+```text
 @Core/skills/programming/claudeSkills/SKILL.md
+```
+
+---
+
+## 模块化期刊系统详细说明
+
+### 1. 期刊（Journal）= 模块库
+
+每个 Skill 现在是一个"期刊"，专注于特定领域的模块收录。
+
+**已重构的期刊**:
+
+- `verseEventFlow` - 事件流模块库（✅ 已完成，包含 EventBus 和 LifecycleManager）
+- `verseComponent` - 组件模块库（占位）
+- `verseHelpers` - Helper 模块库（占位）
+
+### 2. 期刊结构（新规范）
+
+```text
+skillName/                       # 期刊目录
+├── SKILL.md                     # 📖 综述：模块索引 + 组装指南
+├── JOURNAL.yaml                 # 📋 期刊元数据
+│
+├── modules/                     # 🎯 核心产出：可复用模块
+│   ├── _INDEX.yaml              # 模块索引
+│   │
+│   └── ModuleName/              # 单个模块
+│       ├── MODULE.yaml          # 模块元数据
+│       ├── README.md            # 使用说明
+│       └── *.verse              # 代码文件
+│
+├── research/                    # 📚 研究记录
+│   └── *.md
+│
+└── drafts/                      # 🚧 待研究问题
+    └── *.md
+```
+
+### 3. 与传统 Skill 结构的对比
+
+| 方面 | 传统 Skill | 模块化期刊 |
+|------|-----------|-----------|
+| SKILL.md | 完整的技能说明 | 模块索引 + 组装指南 |
+| 产出物 | 知识和指导 | 可复用代码模块 |
+| 使用方式 | 阅读理解后编码 | 直接复制模块组装 |
+| 知识组织 | 单文件 | 分层（research/、modules/） |
+| 可复用性 | 需要改写 | 开箱即用 |
+
+### 4. 快速开始
+
+#### 使用现有模块
+
+1. 浏览 [`_REGISTRY.yaml`](_REGISTRY.yaml) 查找模块
+2. 进入期刊目录（如 `verseEventFlow/`）
+3. 查看 `SKILL.md` 了解可用模块
+4. 选择套餐或单个模块
+5. 参考模块的 `README.md` 进行组装
+
+#### 贡献新模块
+
+1. 选择或创建期刊（Skill 目录）
+2. 参考 `_templates/` 中的模板
+3. 在 `modules/` 下创建模块
+4. 更新 `modules/_INDEX.yaml`
+5. 更新期刊的 `SKILL.md`
+6. 更新 `_REGISTRY.yaml`
+
+### 5. 示例：使用 EventBus 模块
+
+```bash
+# 1. 查看期刊
+cd Core/skills/programming/verseDev/verseEventFlow
+
+# 2. 阅读模块说明
+cat modules/EventBus/README.md
+
+# 3. 复制代码示例（EventBus 基于内置系统，无需复制文件）
+# 直接参考示例代码实现事件通信
 ```
 
 ---
 
 ## 技能结构规范
 
-每个技能目录应包含：
+### 传统 Skill 结构（旧）
 
-```
+```text
 skillName/
 ├── SKILL.md              # 技能主文档（必须）
 ├── shared/               # 共享资源（可选）
@@ -119,6 +253,27 @@ skillName/
 │   └── checklists/       # 检查清单
 └── [subSkill]/           # 子技能目录（可选）
     └── SKILL.md
+```
+
+### 模块化期刊结构（新）
+
+```text
+journalName/                     # 期刊目录
+├── SKILL.md                     # 综述：模块索引 + 组装指南
+├── JOURNAL.yaml                 # 期刊元数据
+│
+├── modules/                     # 可复用模块
+│   ├── _INDEX.yaml              # 模块索引
+│   └── ModuleName/              # 单个模块
+│       ├── MODULE.yaml
+│       ├── README.md
+│       └── *.verse
+│
+├── research/                    # 研究记录
+│   └── *.md
+│
+└── drafts/                      # 待研究
+    └── *.md
 ```
 
 ### SKILL.md 模板

@@ -1,0 +1,249 @@
+# ==========================================
+# 模块索引模板 (Module Index Template)
+# ==========================================
+# 说明: 期刊内所有模块的索引文件
+# 位置: Core/skills/[category]/[skillName]/modules/_INDEX.yaml
+# ==========================================
+
+# 索引基本信息
+index:
+  # 期刊名称
+  journal: "skillName"
+  
+  # 索引版本
+  version: "1.0.0"
+  
+  # 最后更新
+  last_updated: "2026-01-04"
+  
+  # 模块总数
+  total_modules: 0
+
+# 模块分类
+categories:
+  # 核心模块（必备，优先级最高）
+  core:
+    description: "核心模块，提供基础功能，建议必备"
+    modules:
+      - name: "CoreModule1"
+        path: "CoreModule1/"
+        status: "stable"
+        description: "核心功能描述"
+        priority: 1  # 1=最高优先级
+      
+      # 示例：
+      # - name: "EventBus"
+      #   path: "EventBus/"
+      #   status: "stable"
+      #   description: "全局事件总线，提供发布/订阅机制"
+      #   priority: 1
+  
+  # 高级模块（常用但非必须）
+  advanced:
+    description: "高级模块，提供增强功能，可根据需求选择"
+    modules:
+      - name: "AdvancedModule1"
+        path: "AdvancedModule1/"
+        status: "beta"
+        description: "高级功能描述"
+        priority: 2  # 2=中优先级
+      
+      # 示例：
+      # - name: "EventQueue"
+      #   path: "EventQueue/"
+      #   status: "beta"
+      #   description: "事件队列，支持异步处理"
+      #   priority: 2
+  
+  # 实验模块（尝鲜，可能不稳定）
+  experimental:
+    description: "实验模块，新功能试验，API 可能变动"
+    modules:
+      - name: "ExperimentalModule1"
+        path: "ExperimentalModule1/"
+        status: "experimental"
+        description: "实验功能描述"
+        priority: 3  # 3=低优先级
+      
+      # 示例：
+      # - name: "EventRecorder"
+      #   path: "EventRecorder/"
+      #   status: "experimental"
+      #   description: "事件录制与回放（实验性）"
+      #   priority: 3
+  
+  # 工具模块（辅助工具）
+  utility:
+    description: "工具模块，提供辅助功能"
+    modules:
+      - name: "UtilityModule1"
+        path: "UtilityModule1/"
+        status: "stable"
+        description: "工具功能描述"
+        priority: 2
+
+# 模块清单（按字母顺序）
+modules:
+  # 完整的模块列表，包含详细元数据
+  - name: "ModuleName"
+    path: "ModuleName/"
+    category: "core"
+    status: "stable"
+    version: "1.0.0"
+    description: "模块简短描述"
+    tags: ["tag1", "tag2"]
+    dependencies:
+      internal: []  # 内部依赖
+      external: []  # 外部依赖
+    last_updated: "2026-01-04"
+
+# 预设套餐（常用模块组合）
+bundles:
+  # 最小套餐
+  minimal:
+    name: "最小配置"
+    description: "最基础的功能集，适合简单项目"
+    modules:
+      - "CoreModule1"
+    use_cases:
+      - "小型游戏"
+      - "原型开发"
+  
+  # 标准套餐
+  standard:
+    name: "标准配置"
+    description: "标准功能集，适合大多数项目"
+    modules:
+      - "CoreModule1"
+      - "AdvancedModule1"
+    use_cases:
+      - "中型游戏"
+      - "完整游戏模式"
+  
+  # 完整套餐
+  complete:
+    name: "完整配置"
+    description: "所有稳定模块，适合复杂项目"
+    modules:
+      - "CoreModule1"
+      - "AdvancedModule1"
+      - "UtilityModule1"
+    use_cases:
+      - "大型游戏"
+      - "多模式游戏"
+  
+  # 自定义场景套餐示例
+  event_driven:
+    name: "事件驱动架构"
+    description: "适合事件驱动型游戏"
+    modules:
+      - "EventBus"
+      - "EventQueue"
+      - "LifecycleManager"
+    use_cases:
+      - "多玩家互动游戏"
+      - "实时响应游戏"
+
+# 模块依赖关系图（用于可视化）
+dependency_graph:
+  # 描述模块间的依赖关系
+  # 格式：模块 -> 依赖的模块列表
+  relationships:
+    - module: "AdvancedModule1"
+      depends_on:
+        - "CoreModule1"
+      reason: "需要核心功能作为基础"
+    
+    # 示例：
+    # - module: "EventQueue"
+    #   depends_on:
+    #     - "EventBus"
+    #   reason: "基于 EventBus 实现异步处理"
+
+# 快速选择指南
+quick_selection:
+  # 按使用场景推荐模块
+  by_use_case:
+    - use_case: "需要事件系统"
+      recommended_modules:
+        - name: "EventBus"
+          reason: "提供核心事件功能"
+        - name: "LifecycleManager"
+          reason: "管理初始化顺序"
+    
+    - use_case: "需要组件通信"
+      recommended_modules:
+        - name: "EventBus"
+          reason: "组件间事件通信"
+    
+    # 添加更多场景
+  
+  # 按项目规模推荐
+  by_project_size:
+    small:
+      description: "小型项目（< 10 个组件）"
+      bundle: "minimal"
+    
+    medium:
+      description: "中型项目（10-50 个组件）"
+      bundle: "standard"
+    
+    large:
+      description: "大型项目（> 50 个组件）"
+      bundle: "complete"
+
+# 兼容性矩阵
+compatibility_matrix:
+  # 描述模块间的兼容性
+  - module1: "ModuleA"
+    module2: "ModuleB"
+    compatible: true
+    notes: "完全兼容"
+  
+  - module1: "ModuleA"
+    module2: "ModuleC"
+    compatible: false
+    notes: "API 命名冲突"
+    workaround: "使用命名空间隔离"
+
+# 更新历史
+changelog:
+  - version: "1.0.0"
+    date: "2026-01-04"
+    changes:
+      - type: "added"
+        description: "添加 CoreModule1"
+      - type: "updated"
+        description: "更新 AdvancedModule1 到 v1.2.0"
+      - type: "deprecated"
+        description: "废弃 OldModule"
+
+# 统计信息
+statistics:
+  total_modules: 0
+  by_status:
+    stable: 0
+    beta: 0
+    experimental: 0
+    deprecated: 0
+  by_category:
+    core: 0
+    advanced: 0
+    experimental: 0
+    utility: 0
+
+# 元数据
+meta:
+  # 模板版本
+  template_version: "1.0.0"
+  
+  # 创建日期
+  created: "2026-01-04"
+  
+  # 最后验证日期
+  last_verified: "2026-01-04"
+  
+  # 索引生成方式
+  # - manual: 手动维护
+  # - automated: 自动生成
+  generation_method: "manual"

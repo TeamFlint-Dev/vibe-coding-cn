@@ -1,0 +1,148 @@
+# ==========================================
+# 期刊元数据模板 (Journal Metadata Template)
+# ==========================================
+# 说明: 每个 Skill 目录对应一个"期刊"（模块库），此文件定义期刊的元数据
+# 位置: Core/skills/[category]/[skillName]/JOURNAL.yaml
+# ==========================================
+
+# 期刊基本信息
+journal:
+  # 期刊名称（与目录名一致）
+  name: "skillName"
+  
+  # 期刊显示名称
+  display_name: "Skill Display Name"
+  
+  # 期刊作用域/领域
+  scope: "领域描述，如：事件流设计、组件开发、Helper 函数库"
+  
+  # 期刊状态
+  # - active: 活跃维护
+  # - experimental: 实验阶段
+  # - deprecated: 已废弃
+  # - archived: 已归档
+  status: "active"
+  
+  # 成熟度级别
+  # - prototype: 原型阶段（0-30% 验证）
+  # - alpha: 早期版本（30-60% 验证）
+  # - beta: 测试版本（60-90% 验证）
+  # - stable: 稳定版本（90%+ 验证）
+  maturity: "beta"
+  
+  # 期刊描述（简短说明）
+  description: |
+    此期刊专注于 [具体领域]，提供可直接组装使用的 [模块类型] 模块。
+    目标是帮助开发者快速构建 [应用场景]。
+
+# 版本信息
+version:
+  # 期刊版本号（语义化版本）
+  current: "1.0.0"
+  
+  # 更新日期
+  last_updated: "2026-01-04"
+  
+  # 兼容的 UEFN 版本
+  uefn_version: ">=31.00"
+  
+  # 兼容的 Verse 版本
+  verse_version: ">=1.0.0"
+
+# 编辑人员
+editors:
+  # 主编（负责期刊整体质量）
+  chief:
+    - name: "编辑名称"
+      github: "github_username"
+  
+  # 贡献者
+  contributors:
+    - name: "贡献者1"
+      github: "github_username"
+      contributions: "具体贡献内容"
+
+# 收录统计
+statistics:
+  # 研究论文数量
+  papers_count: 0
+  
+  # 模块数量
+  modules_count: 0
+  
+  # 核心模块数量（status: stable）
+  core_modules: 0
+  
+  # 高级模块数量（status: beta）
+  advanced_modules: 0
+  
+  # 实验模块数量（status: experimental）
+  experimental_modules: 0
+
+# 期刊关系
+relationships:
+  # 继承/扩展自哪些期刊
+  extends:
+    - journal: "baseSkillName"
+      reason: "继承基础能力"
+  
+  # 被哪些期刊引用
+  cited_by:
+    - journal: "otherSkillName"
+      reason: "依赖本期刊的模块"
+  
+  # 依赖的其他期刊
+  dependencies:
+    - journal: "requiredSkillName"
+      version: ">=1.0.0"
+      required: true
+
+# 开放问题（需要进一步研究的问题）
+open_questions:
+  - id: "OQ-001"
+    title: "问题标题"
+    description: "问题描述"
+    priority: "high"  # high, medium, low
+    status: "open"    # open, investigating, resolved
+    created: "2026-01-04"
+
+# 投稿指南
+submission:
+  # 投稿类型
+  types:
+    - research_paper: "研究记录（放入 research/）"
+    - module: "可复用模块（放入 modules/）"
+    - draft: "待研究问题（放入 drafts/）"
+  
+  # 投稿标准
+  standards:
+    - "模块必须包含完整的 MODULE.yaml 元数据"
+    - "代码必须包含详细注释"
+    - "必须包含使用示例"
+    - "必须通过验证测试"
+  
+  # 审核流程
+  review_process: |
+    1. 提交 Pull Request
+    2. 主编审核元数据完整性
+    3. 技术审核代码质量
+    4. 验证测试通过
+    5. 合并并更新索引
+
+# 标签（用于分类和搜索）
+tags:
+  - "verse"
+  - "uefn"
+  - "game-development"
+  # 添加更多相关标签
+
+# 元数据
+meta:
+  # 模板版本
+  template_version: "1.0.0"
+  
+  # 创建日期
+  created: "2026-01-04"
+  
+  # 最后验证日期
+  last_verified: "2026-01-04"
