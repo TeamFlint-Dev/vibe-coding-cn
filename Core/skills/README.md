@@ -15,7 +15,7 @@
 
 ### 期刊结构示例
 
-```
+```text
 verseEventFlow/                  # 期刊（模块库）
 ├── SKILL.md                     # 综述：模块索引 + 组装指南
 ├── JOURNAL.yaml                 # 期刊元数据
@@ -51,7 +51,7 @@ verseEventFlow/                  # 期刊（模块库）
 
 ## 目录结构
 
-```
+```text
 Core/skills/
 ├── README.md                # 本文件
 ├── _REGISTRY.yaml           # 🆕 全局模块注册表
@@ -135,25 +135,28 @@ Core/skills/
 
 在对话中引用技能文件：
 
-```
+```text
 @Core/skills/programming/verseDev/verseOrchestrator/SKILL.md
 ```
 
 ### 2. 常用技能组合
 
 **Verse 开发**:
-```
+
+```text
 @Core/skills/programming/verseDev/verseOrchestrator/SKILL.md
 @Core/skills/programming/verseDev/shared/api-digests/Fortnite.digest.verse.md
 ```
 
 **游戏设计**:
-```
+
+```text
 @Core/skills/design/gameDev/gameDevOrchestrator/SKILL.md
 ```
 
 **创建新技能**:
-```
+
+```text
 @Core/skills/programming/claudeSkills/SKILL.md
 ```
 
@@ -173,7 +176,7 @@ Core/skills/
 
 ### 2. 期刊结构（新规范）
 
-```
+```text
 skillName/                       # 期刊目录
 ├── SKILL.md                     # 📖 综述：模块索引 + 组装指南
 ├── JOURNAL.yaml                 # 📋 期刊元数据
@@ -241,7 +244,7 @@ cat modules/EventBus/README.md
 
 ### 传统 Skill 结构（旧）
 
-```
+```text
 skillName/
 ├── SKILL.md              # 技能主文档（必须）
 ├── shared/               # 共享资源（可选）
@@ -254,7 +257,7 @@ skillName/
 
 ### 模块化期刊结构（新）
 
-```
+```text
 journalName/                     # 期刊目录
 ├── SKILL.md                     # 综述：模块索引 + 组装指南
 ├── JOURNAL.yaml                 # 期刊元数据
