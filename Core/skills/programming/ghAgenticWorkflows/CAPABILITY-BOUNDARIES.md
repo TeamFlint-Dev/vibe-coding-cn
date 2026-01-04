@@ -51,6 +51,40 @@
 | 跨仓库操作       | 需要正确的 Token 权限    | `github-token: ${{ secrets.PAT }}`  |
 | 禁用沙箱         | 允许网络/文件系统访问    | `sandbox.agent: false`              |
 | 使用 Claude 引擎 | 需要额外配置             | `engine: claude`                    |
+| 自定义 PAT       | 需要完整权限配置         | 见下方 Token 权限说明               |
+
+---
+
+## Token 权限详解
+
+### 默认 GITHUB_TOKEN vs 自定义 PAT
+
+| 场景 | 推荐方案 | 说明 |
+|------|----------|------|
+| 单仓库操作 | GITHUB_TOKEN + permissions | 自动配置，无需管理 |
+| 跨仓库操作 | Fine-grained PAT | 需要访问多个仓库 |
+| 敏感操作 | Classic PAT | 权限范围更广 |
+
+### Fine-grained PAT 必需权限
+
+使用自定义 Token 执行 safe-outputs 时，需要以下权限：
+
+| 操作 | 需要的权限 | 说明 |
+|------|-----------|------|
+| create-issue | `Issues: Read and write` | 创建/更新 Issue |
+| add-comment | `Issues: Read and write` | Issue 评论 |
+| create-pull-request | `Contents: Read and write` + `Pull requests: Read and write` | 创建 PR |
+| push-to-pull-request-branch | `Contents: Read and write` | 推送代码 |
+
+### 常见 Token 问题
+
+| 问题 | 表现 | 解决方案 |
+|------|------|----------|
+| Token 未授权仓库 | 404 Not Found | 在 Token 设置中添加仓库访问权限 |
+| Token 权限不足 | 403 Forbidden | 添加缺少的权限 |
+| Token 已过期 | 401 Unauthorized | 重新生成 Token |
+
+> **参考案例**: [FC-003](FAILURE-CASES.md#fc-003-create-issue-safe-output-返回-404-not-found)
 
 ---
 

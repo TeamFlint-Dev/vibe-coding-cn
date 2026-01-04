@@ -29,6 +29,20 @@
   - 来源: 官方文档
   - 验证: `github-token: ${{ secrets.PAT }}`
 
+- [ ] Fine-grained PAT 权限完整（使用自定义 Token 时）
+  - 来源: [FC-003](FAILURE-CASES.md#fc-003-create-issue-safe-output-返回-404-not-found)
+  - 检查项:
+    - [ ] Token 未过期
+    - [ ] Token 已授权访问目标仓库
+    - [ ] `Issues: Read and write`（创建/更新 Issue 时必需）
+    - [ ] `Contents: Read and write`（创建 PR/修改文件时必需）
+  - 验证: 使用 Token 调用 API
+    ```bash
+    curl -H "Authorization: token YOUR_TOKEN" \
+      https://api.github.com/repos/OWNER/REPO
+    ```
+  - 替代: 使用默认 `GITHUB_TOKEN` + `permissions: issues: write`
+
 ### Secrets 访问
 
 - [ ] Fork PR 触发时无法访问 secrets
@@ -141,6 +155,7 @@
 
 | 日期 | 更新内容 | 关联案例 |
 |------|----------|----------|
+| 2026-01-05 | 添加 Fine-grained PAT 权限检查项 | FC-003 |
 | 2026-01-04 | 添加 assignees: copilot 需要 Token 检查项 | FC-002 |
 | 2026-01-04 | 添加 assign-to-agent 临时 ID 限制检查项 | FC-001 |
 | 2026-01-02 | 初始版本，从官方文档和已知最佳实践提炼 | - |

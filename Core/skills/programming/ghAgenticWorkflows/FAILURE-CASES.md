@@ -12,6 +12,7 @@
 |----|------|----------|------|------|
 | FC-001 | assign_to_agent 不支持临时 ID | 边界 | 2026-01-04 | 已解决 |
 | FC-002 | create-issue assignees: copilot 配置不生效 | 编译器缺陷 | 2026-01-04 | 已确认(v0.34.3仍存在) |
+| FC-003 | create-issue safe-output 返回 404 Not Found | 权限 | 2026-01-05 | 已解决 |
 
 <!-- 案例索引模板：
 | FC-001 | 标题 | 权限/配置/数据/环境 | YYYY-MM-DD | 已解决 |
@@ -249,6 +250,123 @@ safe-outputs:
 
 ---
 
+### FC-003: create-issue safe-output 返回 404 Not Found
+
+**日期**: 2026-01-05
+**任务上下文**: research-planner 工作流测试（创建跟踪 Issue）
+**根因类别**: 权限
+
+#### 现象
+
+工作流使用自定义 PAT (`COPILOT_GITHUB_TOKEN`) 执行 `create-issue` safe-output 时返回 404：
+
+```
+✗ Failed to create issue "[Research] 测试assign功能" in TeamFlint-Dev/vibe-coding-cn: Not Found
+```
+
+日志显示 handler 正确加载并尝试创建 Issue：
+```
+✓ Loaded and initialized handler for: create_issue
+Processing create_issue: title=测试assign功能, bodyLength=256, temporaryId=aw_test_assign_01, repo=TeamFlint-Dev/vibe-coding-cn
+Creating issue in TeamFlint-Dev/vibe-coding-cn with title: [Research] 测试assign功能
+Labels: research-task
+Body length: 512
+##[error]✗ Failed to create issue "[Research] 测试assign功能" in TeamFlint-Dev/vibe-coding-cn: Not Found
+```
+
+本地使用 `gh issue create` 可以成功创建 Issue。
+
+#### 根因分析
+
+**核心问题: Fine-grained PAT 权限不足或配置错误**
+
+GitHub API 返回 404 Not Found 通常意味着：
+1. Token 没有访问目标仓库的权限
+2. Token 没有 `issues: write` 权限
+3. Token 已过期或无效
+
+工作流配置：
+```yaml
+github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+```
+
+验证步骤：
+1. **本地测试成功** - 使用用户自己的 Token 可以创建 Issue
+2. **Secrets 存在** - `COPILOT_GITHUB_TOKEN` 已在仓库中配置
+3. **Handler 正常** - 日志显示 handler 加载成功，config 正确解析
+
+#### 修复方案
+
+**方案 1: 检查并修复 PAT 权限（推荐）**
+
+1. 访问 GitHub Settings → Developer settings → Personal access tokens → Fine-grained tokens
+2. 找到 `COPILOT_GITHUB_TOKEN` 对应的 Token
+3. 确保对目标仓库有以下权限：
+   - `Issues: Read and write`
+   - `Contents: Read and write`（如需其他操作）
+4. 更新 Secret
+
+**方案 2: 使用默认 GITHUB_TOKEN**
+
+移除自定义 Token，使用默认的 `GITHUB_TOKEN` 并声明权限：
+
+```yaml
+# 修复前
+github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+
+# 修复后（移除 github-token 行，添加 permissions）
+permissions:
+  contents: read
+  issues: write  # 添加 Issue 写权限
+```
+
+**方案 3: 使用 Classic PAT**
+
+如果 Fine-grained PAT 配置复杂，可以使用 Classic PAT：
+- 勾选 `repo` 范围（包含 Issue 写权限）
+- 重新生成并更新 Secret
+
+#### 排查清单
+
+1. **检查 Token 是否过期**
+   - Fine-grained PAT 有过期时间限制
+
+2. **检查 Token 仓库访问范围**
+   - Fine-grained PAT 需要明确授权访问的仓库列表
+   - 确认 `TeamFlint-Dev/vibe-coding-cn` 在授权列表中
+
+3. **检查 Token 权限范围**
+   - Issues: Read and write ← 必须
+   - Metadata: Read ← 默认已有
+
+4. **验证 Token 有效性**
+   ```bash
+   # 使用 Token 测试 API
+   curl -H "Authorization: token YOUR_TOKEN" \
+     https://api.github.com/repos/TeamFlint-Dev/vibe-coding-cn
+   ```
+
+#### 附加发现
+
+同一工作流运行中还发现其他问题：
+
+| 问题 | 说明 |
+|------|------|
+| `assign_to_user` 被跳过 | "No handler loaded for message type 'assign_to_user'" |
+| `assign_to_agent` 验证失败 | issue_number 不接受临时 ID（已知 Bug，见 FC-001） |
+
+#### 教训与行动
+
+- [x] 更新 PREFLIGHT-CHECKLIST.md: 添加 PAT 权限验证检查项
+- [x] 更新 CAPABILITY-BOUNDARIES.md: 添加 Token 权限说明
+
+#### 参考
+
+- 工作流运行日志: `gh run view 20695610080 --log`
+- GitHub PAT 文档: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+
+---
+
 <!-- 
 
 ### FC-001: {简短标题}
@@ -308,6 +426,6 @@ safe-outputs:
 
 ## 统计
 
-- 总案例数: 2
-- 按类别分布: 边界(1), 配置(1)
-- 最近更新: 2026-01-04
+- 总案例数: 3
+- 按类别分布: 边界(1), 配置(1), 权限(1)
+- 最近更新: 2026-01-05
