@@ -19,7 +19,7 @@
 #   gh aw compile
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
-# 科研规划者 - 创建调研任务并分配给 Copilot 执行
+# 科研规划者 - 创建跟踪 Issue 并启动 Agent Task
 
 name: "Research Planner"
 "on":
@@ -160,12 +160,12 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /tmp/gh-aw/safeoutputs/config.json << 'EOF'
-          {"create_issue":{"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
+          {"add_comment":{"max":1},"create_agent_task":{"max":1},"create_issue":{"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
           EOF
           cat > /tmp/gh-aw/safeoutputs/tools.json << 'EOF'
           [
             {
-              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 1 issue(s) can be created. Assignees [copilot] will be automatically assigned.",
+              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 1 issue(s) can be created. Title will be prefixed with \"[Research] \". Labels [research-task] will be automatically added.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -203,6 +203,45 @@ jobs:
                 "type": "object"
               },
               "name": "create_issue"
+            },
+            {
+              "description": "Create a GitHub Copilot agent task to delegate coding work. Use this when you need another Copilot agent to implement code changes, fix bugs, or complete development tasks. The task becomes a new issue that triggers the Copilot coding agent. For non-coding tasks or manual work items, use create_issue instead. CONSTRAINTS: Maximum 1 agent task(s) can be created. Base branch for tasks: \"main\".",
+              "inputSchema": {
+                "additionalProperties": false,
+                "properties": {
+                  "body": {
+                    "description": "Clear, detailed task description for the Copilot agent. Include specific files to modify, expected behavior, acceptance criteria, and any constraints. The description should be actionable and self-contained.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "body"
+                ],
+                "type": "object"
+              },
+              "name": "create_agent_task"
+            },
+            {
+              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added.",
+              "inputSchema": {
+                "additionalProperties": false,
+                "properties": {
+                  "body": {
+                    "description": "Comment content in Markdown. Provide helpful, relevant information that adds value to the conversation.",
+                    "type": "string"
+                  },
+                  "item_number": {
+                    "description": "The issue, pull request, or discussion number to comment on. This is the numeric ID from the GitHub URL (e.g., 123 in github.com/owner/repo/issues/123). Must be a valid existing item in the repository. Required.",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "body",
+                  "item_number"
+                ],
+                "type": "object"
+              },
+              "name": "add_comment"
             },
             {
               "description": "Report that a tool or capability needed to complete the task is not available. Use this when you cannot accomplish what was requested because the required functionality is missing or access is restricted.",
@@ -251,6 +290,31 @@ jobs:
           EOF
           cat > /tmp/gh-aw/safeoutputs/validation.json << 'EOF'
           {
+            "add_comment": {
+              "defaultMax": 1,
+              "fields": {
+                "body": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 65000
+                },
+                "item_number": {
+                  "issueOrPRNumber": true
+                }
+              }
+            },
+            "create_agent_task": {
+              "defaultMax": 1,
+              "fields": {
+                "body": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 65000
+                }
+              }
+            },
             "create_issue": {
               "defaultMax": 1,
               "fields": {
@@ -441,84 +505,114 @@ jobs:
         run: |
           bash /tmp/gh-aw/actions/create_prompt_first.sh
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
-          # 🎓 科研规划者 - 简化版
+          # 🎓 科研规划者
           
-          你是调研任务的创建者。根据用户指定的主题，创建一个结构化的调研任务 Issue，并分配给 Copilot 执行。
+          你是调研任务的规划者。流程：
+          1. 创建一个跟踪用的 Issue
+          2. 创建一个 Agent Task 让 Copilot 执行调研
+          3. Task 执行时会自动在 Issue 中评论结果
           
           ## 📋 输入参数
           
-          - **调研主题**: "__GH_AW_GITHUB_EVENT_INPUTS_TOPIC__"
-          - **输出路径**: "__GH_AW_GITHUB_EVENT_INPUTS_OUTPUT_PATH__"
-          
-          ## 🎯 任务
-          
-          创建一个 Issue，包含以下内容：
-          
-          ### Issue 标题
-          
-          `[Research] __GH_AW_GITHUB_EVENT_INPUTS_TOPIC__`
-          
-          ### Issue Body
-          
-          使用以下模板创建 Issue body：
-          
-          ```markdown
-          ## 🎯 调研目标
-          
-          调研主题：**__GH_AW_GITHUB_EVENT_INPUTS_TOPIC__**
-          
-          请深入调研该主题，整理出结构化的知识文档。
-          
-          ## 📁 输出要求
-          
-          请创建文件：`__GH_AW_GITHUB_EVENT_INPUTS_OUTPUT_PATH__`
-          
-          文件格式要求：
-          
-          ### 1. 文件头部
-          ```yaml
-          # <主题名称>
-          
-          > **调研日期**: YYYY-MM-DD
-          > **状态**: ✅ 完成
-          ```
-          
-          ### 2. 结论摘要表格
-          | 能力/特性 | 状态 | 说明 |
-          |-----------|------|------|
-          | xxx | ✅ 支持 / ❌ 不支持 / ⚠️ 有条件 | 简要说明 |
-          
-          ### 3. 详细内容
-          - 每个能力的详细说明
-          - 配置示例（如适用）
-          - 使用注意事项
-          
-          ### 4. 参考来源
-          - 引用的官方文档链接
-          - 参考的代码文件路径
-          
-          ## ✅ 验收标准
-          
-          - [ ] 文件创建在指定路径
-          - [ ] 包含结论摘要表格
-          - [ ] 每个结论有依据（文档链接或代码示例）
-          - [ ] Markdown 格式正确
+          - **调研主题**: `__GH_AW_GITHUB_EVENT_INPUTS_TOPIC__`
+          - **输出路径**: `__GH_AW_GITHUB_EVENT_INPUTS_OUTPUT_PATH__`
           
           ---
           
-          > 🤖 此 Issue 由 Research Planner 自动创建，请 Copilot Agent 执行调研并创建 PR。
-          ```
-          
           ## 📝 执行步骤
           
-          1. **创建 Issue**: 使用 `create-issue` safe-output 创建上述格式的 Issue
-             - Issue 会自动分配给 Copilot Agent（通过 assignees 配置）
+          ### 步骤 1: 创建跟踪 Issue
+          
+          使用 `create-issue` 创建一个 Issue 用于跟踪调研进度：
+          
+          **标题**: `[Research] __GH_AW_GITHUB_EVENT_INPUTS_TOPIC__`
+          
+          **Body**:
+          ```markdown
+          ## 🎯 调研主题
+          
+          **__GH_AW_GITHUB_EVENT_INPUTS_TOPIC__**
+          
+          ## 📁 期望输出
+          
+          文件路径: `__GH_AW_GITHUB_EVENT_INPUTS_OUTPUT_PATH__`
+          
+          ## 📊 状态
+          
+          - [ ] Agent Task 已创建
+          - [ ] 调研完成
+          - [ ] PR 已创建
+          
+          ---
+          > 🤖 此 Issue 由 Research Planner 自动创建
+          ```
+          
+          ### 步骤 2: 记录 Issue 编号
+          
+          创建 Issue 后，**记住这个 Issue 的编号**（如 #123）。
+          
+          ### 步骤 3: 创建 Agent Task
+          
+          使用 `create-agent-task` 创建任务，在任务描述中包含 Issue 编号，要求任务完成后在 Issue 中评论：
+          
+          **Task 描述**:
+          ```markdown
+          ## 🎯 调研任务
+          
+          调研主题：**__GH_AW_GITHUB_EVENT_INPUTS_TOPIC__**
+          
+          ## 📁 输出要求
+          
+          创建文件：`__GH_AW_GITHUB_EVENT_INPUTS_OUTPUT_PATH__`
+          
+          ### 文件格式
+          
+          1. **文件头部**
+             ```markdown
+             # <主题名称>
+          
+             > **调研日期**: YYYY-MM-DD
+             > **状态**: ✅ 完成
+             ```
+          
+          2. **结论摘要表格**
+             | 能力/特性 | 状态 | 说明 |
+             |-----------|------|------|
+             | xxx | ✅/❌/⚠️ | 简要说明 |
+          
+          3. **详细内容** - 每个能力的详细说明、配置示例、注意事项
+          
+          4. **参考来源** - 官方文档链接、代码路径
+          
+          ## ✅ 完成后操作
+          
+          **重要**：任务完成后，请在 Issue #<ISSUE_NUMBER> 中添加评论，报告调研结果摘要。
+          
+          评论格式：
+          ```markdown
+          ## ✅ 调研完成
+          
+          **主题**: __GH_AW_GITHUB_EVENT_INPUTS_TOPIC__
+          **输出文件**: `__GH_AW_GITHUB_EVENT_INPUTS_OUTPUT_PATH__`
+          
+          ### 主要发现
+          - 发现 1
+          - 发现 2
+          
+          ### PR 链接
+          #<PR_NUMBER>
+          ```
+          ```
+          
+          **注意**：将 `<ISSUE_NUMBER>` 替换为步骤 1 创建的实际 Issue 编号。
+          
+          ---
           
           ## ⚠️ 规则
           
-          - 严格按照模板格式创建 Issue
-          - 不要修改输出路径
-          - 确保 Issue body 包含清晰的调研指令
+          - 先创建 Issue，再创建 Agent Task
+          - Agent Task 描述中必须包含 Issue 编号
+          - 明确要求 Agent 完成后在 Issue 中评论
           
           PROMPT_EOF
       - name: Substitute placeholders
@@ -562,7 +656,7 @@ jobs:
           <instructions>
           To create or modify GitHub resources (issues, discussions, pull requests, etc.), you MUST call the appropriate safe output tool. Simply writing content will NOT work - the workflow requires actual tool calls.
           
-          **Available tools**: create_issue, missing_tool, noop
+          **Available tools**: add_comment, create_agent_task, create_issue, missing_tool, noop
           
           **Critical**: Tool calls write structured data that downstream jobs process. Without tool calls, follow-up actions will be skipped.
           </instructions>
@@ -673,13 +767,11 @@ jobs:
       - name: Execute GitHub Copilot CLI
         id: agentic_execution
         # Copilot CLI tool arguments (sorted):
-        # --allow-tool github
-        # --allow-tool safeoutputs
-        timeout-minutes: 10
+        timeout-minutes: 15
         run: |
           set -o pipefail
           sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --mount /home/runner/.copilot:/home/runner/.copilot:rw --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.7.0 \
-            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-tool github --allow-tool safeoutputs --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
+            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-all-tools --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
             2>&1 | tee /tmp/gh-aw/agent-stdio.log
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
@@ -933,7 +1025,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           WORKFLOW_NAME: "Research Planner"
-          WORKFLOW_DESCRIPTION: "科研规划者 - 创建调研任务并分配给 Copilot 执行"
+          WORKFLOW_DESCRIPTION: "科研规划者 - 创建跟踪 Issue 并启动 Agent Task"
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
@@ -1057,13 +1149,17 @@ jobs:
     runs-on: ubuntu-slim
     permissions:
       contents: read
+      discussions: write
       issues: write
+      pull-requests: write
     timeout-minutes: 15
     env:
       GH_AW_ENGINE_ID: "copilot"
       GH_AW_WORKFLOW_ID: "research-planner"
       GH_AW_WORKFLOW_NAME: "Research Planner"
     outputs:
+      create_agent_task_task_number: ${{ steps.create_agent_task.outputs.task_number }}
+      create_agent_task_task_url: ${{ steps.create_agent_task.outputs.task_url }}
       process_safe_outputs_processed_count: ${{ steps.process_safe_outputs.outputs.processed_count }}
       process_safe_outputs_temporary_id_map: ${{ steps.process_safe_outputs.outputs.temporary_id_map }}
     steps:
@@ -1087,8 +1183,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"create_issue\":{\"max\":1,\"assignees\":[\"copilot\"],\"labels\":[\"research-task\",\"copilot-task\"],\"title_prefix\":\"[Research] \"}}"
-          GH_AW_ASSIGN_COPILOT: "true"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"research-task\"],\"max\":1,\"title_prefix\":\"[Research] \"}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -1096,4 +1191,16 @@ jobs:
             setupGlobals(core, github, context, exec, io);
             const { main } = require('/tmp/gh-aw/actions/safe_output_handler_manager.cjs');
             await main();
+      - name: Create Agent Task
+        id: create_agent_task
+        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_agent_task'))
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
+        with:
+          github-token: ${{ secrets.COPILOT_GITHUB_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
+          script: |
+            const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
+            setupGlobals(core, github, context, exec, io);
+            const { main } = require('/tmp/gh-aw/actions/create_agent_task.cjs'); await main();
 
