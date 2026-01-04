@@ -3,7 +3,7 @@
 > **状态**: 已确认
 > **版本**: gh-aw v0.34.3
 > **发现日期**: 2026-01-04
-> **上游 Issue**: 待提交
+> **上游 Issue**: [githubnext/gh-aw#8894](https://github.com/githubnext/gh-aw/issues/8894)
 
 ## 问题描述
 

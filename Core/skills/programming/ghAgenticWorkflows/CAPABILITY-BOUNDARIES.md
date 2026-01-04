@@ -143,6 +143,7 @@ Safe-outputs 是 gh-aw 的核心安全机制，所有写操作都通过这个沙
 
 > **状态**: 已确认 (gh-aw v0.34.3)
 > **测试日期**: 2026-01-04
+> **上游 Issue**: [githubnext/gh-aw#8894](https://github.com/githubnext/gh-aw/issues/8894)
 > **详细报告**: [docs/Bug/create_agent_task_env_var_bug.md](docs/Bug/create_agent_task_env_var_bug.md)
 
 `create-agent-task` safe-output **完全不工作**，因为环境变量名不匹配：
@@ -209,7 +210,10 @@ Handler 日志只显示 labels 和 title_prefix，**没有 assignees 相关日�
 
 #### 临时解决方案
 
-**方案 1: 使用 create-agent-task 完全替代（推荐）**
+> ⚠️ 由于 `create-agent-task` 也存在 Bug，以下方案 1 同样不可用。
+> **推荐使用方案 4: 绕过 safe-outputs，直接使用 tools.bash 调用 API**
+
+**方案 1: ~~使用 create-agent-task 完全替代~~（不可用）**
 
 ```yaml
 safe-outputs:
@@ -217,7 +221,9 @@ safe-outputs:
     base: main
 ```
 
-完全跳过创建 Issue，直接创建 Copilot Agent 任务。
+~~完全跳过创建 Issue，直接创建 Copilot Agent 任务。~~
+
+**⚠️ 此方案因环境变量 Bug 不可用，见上文。**
 
 **方案 2: 在 Prompt 中指示手动分配**
 
@@ -235,16 +241,51 @@ gh issue edit <number> --add-assignee copilot
 
 添加 `copilot-task` 标签可触发 Copilot 自动响应。
 
+**方案 4: 绕过 safe-outputs，直接使用 tools.bash + gh api（⭐ 推荐）**
+
+完全不使用 safe-outputs 的 Agent 相关功能，改用 `tools.bash` 直接调用 GitHub API：
+
+```yaml
+---
+on: workflow_dispatch
+permissions:
+  issues: write
+tools:
+  bash: ["gh api *"]
+env:
+  GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}  # 需要 PAT
+# 不使用 safe-outputs
+---
+
+使用以下命令创建 Issue 并分配给 Copilot：
+
+\`\`\`bash
+gh api \
+  --method POST \
+  -H "Accept: application/vnd.github+json" \
+  /repos/${{ github.repository }}/issues \
+  --input - <<< '{
+  "title": "任务标题",
+  "body": "任务描述",
+  "assignees": ["copilot-swe-agent[bot]"],
+  "agent_assignment": {
+    "target_repo": "${{ github.repository }}",
+    "base_branch": "main"
+  }
+}'
+\`\`\`
+```
+
+**关键点**：
+- 必须使用 PAT（`COPILOT_GITHUB_TOKEN`），默认 `GITHUB_TOKEN` 权限不足
+- assignee 格式为 `copilot-swe-agent[bot]`（带 `[bot]` 后缀）
+- 完整方案详见 [启动 Agent 替代方案调研](research-reports/启动Agent替代方案调研-2026-01-04.md)
+
 #### 参考
 
 - [FC-002 失败案例](FAILURE-CASES.md#fc-002-create-issue-assignees-copilot-配置不生效)
-- [详细 Bug 报告](../../../docs/research/gh-aw-assignees-compiler-bug.md)
-
-在工作流 Prompt 中告诉 Agent 使用 GitHub API 手动分配：
-
-```markdown
-创建 Issue 后，使用 github 工具的 update_issue 将 assignees 设为 ["copilot"]
-```
+- [详细 Bug 报告](docs/Bug/gh-aw-assignees-compiler-bug.md)
+- [启动 Agent 替代方案调研](research-reports/启动Agent替代方案调研-2026-01-04.md)
 
 ### Safe-Outputs 配置示例
 
