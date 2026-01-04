@@ -277,9 +277,6 @@ damage_event := class(scene_event):
 
 # 在组件中处理事件
 damageable_component := class(component):
-    OnBeginSimulation<override>():void =
-        # 注册事件处理器（假设有此方法）
-        set TickEvents.PostPhysics = HandlePostPhysics
     
     SendDown<override>(SceneEvent:scene_event):logic =
         if DamageEvent := damage_event[SceneEvent] then
@@ -456,7 +453,8 @@ OnSimulate<override>()<suspends>:void =
     loop:
         if HealthComp := Entity.GetComponent[health_component][] then
             # 每帧都查询，性能差
-            HealthComp.Update()
+            CurrentHP := HealthComp.CurrentHealth
+            Print("Current Health: {CurrentHP}")
         Sleep(0.0)
 
 # ✅ 在初始化时缓存组件引用
@@ -468,7 +466,8 @@ OnBeginSimulation<override>():void =
 OnSimulate<override>()<suspends>:void =
     if HealthComp := CachedHealthComp? then
         loop:
-            HealthComp.Update()
+            CurrentHP := HealthComp.CurrentHealth
+            Print("Current Health: {CurrentHP}")
             Sleep(0.0)
 ```
 
