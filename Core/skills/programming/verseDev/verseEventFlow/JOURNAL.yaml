@@ -1,0 +1,109 @@
+# ==========================================
+# verseEventFlow 期刊元数据
+# ==========================================
+
+# 期刊基本信息
+journal:
+  name: "verseEventFlow"
+  display_name: "Verse Event Flow"
+  scope: "事件流设计 - Scene Event 设计、事件传播策略、生命周期编排"
+  status: "active"
+  maturity: "beta"
+  description: |
+    本期刊专注于 UEFN/Verse 事件系统设计，提供可直接组装使用的事件流模块。
+    目标是帮助开发者快速构建基于 SceneGraph 框架的事件驱动架构。
+    
+    核心能力：
+    - Scene Event 类设计与实现
+    - 事件传播策略（SendUp/SendDown/SendDirect）
+    - 生命周期钩子编排
+    - 事件消耗机制管理
+
+# 版本信息
+version:
+  current: "1.0.0"
+  last_updated: "2026-01-04"
+  uefn_version: ">=31.00"
+  verse_version: ">=1.0.0"
+
+# 编辑人员
+editors:
+  chief:
+    - name: "Vibe Coding Team"
+      github: "TeamFlint-Dev"
+  contributors: []
+
+# 收录统计
+statistics:
+  papers_count: 1
+  modules_count: 2
+  core_modules: 2
+  advanced_modules: 0
+  experimental_modules: 0
+
+# 期刊关系
+relationships:
+  extends: []
+  
+  cited_by:
+    - journal: "verseComponent"
+      reason: "组件层依赖事件系统"
+    - journal: "verseFrameworkDesigner"
+      reason: "框架设计需要事件流方案"
+  
+  dependencies:
+    - journal: "verseAssets"
+      version: ">=1.0.0"
+      required: false
+
+# 开放问题
+open_questions:
+  - id: "OQ-001"
+    title: "事件优先级机制"
+    description: "如何在同一 Entity 下控制多个组件的事件处理顺序"
+    priority: "medium"
+    status: "investigating"
+    created: "2026-01-04"
+  
+  - id: "OQ-002"
+    title: "跨场景事件通信"
+    description: "不同场景实例间的事件通信机制"
+    priority: "low"
+    status: "open"
+    created: "2026-01-04"
+
+# 投稿指南
+submission:
+  types:
+    - research_paper: "事件系统研究记录（放入 research/）"
+    - module: "可复用事件模块（放入 modules/）"
+    - draft: "待研究的事件问题（放入 drafts/）"
+  
+  standards:
+    - "事件类必须使用 <concrete> 标记"
+    - "必须说明传播策略（SendUp/SendDown/SendDirect）"
+    - "必须包含生命周期钩子使用示例"
+    - "必须通过实际项目验证"
+  
+  review_process: |
+    1. 提交 Pull Request 到 verseEventFlow
+    2. 主编审核元数据完整性
+    3. 技术审核事件设计合理性
+    4. 在实际项目中验证测试
+    5. 合并并更新 modules/_INDEX.yaml
+    6. 更新 _REGISTRY.yaml
+
+# 标签
+tags:
+  - "verse"
+  - "uefn"
+  - "event-system"
+  - "scenegraph"
+  - "game-development"
+  - "event-driven-architecture"
+
+# 元数据
+meta:
+  template_version: "1.0.0"
+  created: "2026-01-04"
+  last_verified: "2026-01-04"
