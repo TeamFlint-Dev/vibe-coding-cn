@@ -1,0 +1,6 @@
+# Template files (will be copied and customized)
+Core/skills/_templates/
+
+# Backup and temporary files
+*.bak
+*.tmp

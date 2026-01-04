@@ -1,0 +1,56 @@
+# verseHelpers 期刊元数据（占位）
+
+journal:
+  name: "verseHelpers"
+  display_name: "Verse Helpers"
+  scope: "Helper 函数库 - API 封装、原子操作、高级函数"
+  status: "active"
+  maturity: "alpha"
+  description: |
+    此期刊专注于 UEFN/Verse Helper 函数开发，提供可直接使用的工具函数模块。
+    
+    核心能力：
+    - 数学计算辅助函数
+    - 玩家操作辅助函数
+    - 时间/延迟辅助函数
+    - UI 操作辅助函数
+
+version:
+  current: "1.0.0"
+  last_updated: "2026-01-04"
+  uefn_version: ">=31.00"
+  verse_version: ">=1.0.0"
+
+editors:
+  chief:
+    - name: "Vibe Coding Team"
+      github: "TeamFlint-Dev"
+
+statistics:
+  papers_count: 0
+  modules_count: 0
+  core_modules: 0
+  advanced_modules: 0
+  experimental_modules: 0
+
+relationships:
+  dependencies: []
+
+open_questions:
+  - id: "OQ-001"
+    title: "API 封装的粒度问题"
+    description: "如何确定 Helper 函数的封装粒度"
+    priority: "low"
+    status: "open"
+    created: "2026-01-04"
+
+tags:
+  - "verse"
+  - "uefn"
+  - "helper"
+  - "utility"
+  - "game-development"
+
+meta:
+  template_version: "1.0.0"
+  created: "2026-01-04"

@@ -1,0 +1,59 @@
+# verseComponent 期刊元数据（占位）
+
+journal:
+  name: "verseComponent"
+  display_name: "Verse Component"
+  scope: "组件开发 - 自定义组件编写、Entity 类封装、功能模块"
+  status: "active"
+  maturity: "alpha"
+  description: |
+    此期刊专注于 UEFN/Verse 组件开发，提供可直接组装使用的组件模块。
+    
+    核心能力：
+    - 组件基类与模板
+    - 常用游戏组件（血量、状态机、定时器等）
+    - Entity 类封装
+    - 组件通信机制
+
+version:
+  current: "1.0.0"
+  last_updated: "2026-01-04"
+  uefn_version: ">=31.00"
+  verse_version: ">=1.0.0"
+
+editors:
+  chief:
+    - name: "Vibe Coding Team"
+      github: "TeamFlint-Dev"
+
+statistics:
+  papers_count: 0
+  modules_count: 0
+  core_modules: 0
+  advanced_modules: 0
+  experimental_modules: 0
+
+relationships:
+  dependencies:
+    - journal: "verseEventFlow"
+      version: ">=1.0.0"
+      required: false
+
+open_questions:
+  - id: "OQ-001"
+    title: "组件生命周期最佳实践"
+    description: "如何优化组件的生命周期管理"
+    priority: "medium"
+    status: "open"
+    created: "2026-01-04"
+
+tags:
+  - "verse"
+  - "uefn"
+  - "component"
+  - "entity"
+  - "game-development"
+
+meta:
+  template_version: "1.0.0"
+  created: "2026-01-04"
