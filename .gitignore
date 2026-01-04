@@ -27,6 +27,8 @@ wheels/
 MANIFEST
 *.csv
 *.zip
+# Allow UEFN docs zip in epic-docs-crawler
+!libs/external/epic-docs-crawler/*.zip
 *.db
 *.pyc
 *.png
