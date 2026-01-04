@@ -1,6 +1,6 @@
 ---
 name: Research Planner
-description: 科研规划者 - 创建跟踪 Issue 并启动 Agent Task，自动分配 Copilot 和人类监督者
+description: 科研规划者 - 创建跟踪 Issue（分配功能由 issue-assigner 工作流处理）
 on:
   workflow_dispatch:
     inputs:
@@ -14,11 +14,9 @@ on:
         type: string
 permissions:
   contents: read
-  issues: read
 engine: copilot
 
-# assign-to-agent 和 create-agent-task 需要 PAT，默认 GITHUB_TOKEN 权限不足
-# 需要在仓库 Secrets 中配置 COPILOT_GITHUB_TOKEN（Fine-grained PAT，需 contents:write, issues:write, pull-requests:write）
+# 需要 PAT 用于创建 Issue
 github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
 
 tools:
@@ -30,18 +28,17 @@ safe-outputs:
     max: 1
     labels: [research-task]
     title-prefix: "[Research] "
-  create-agent-task:
-    base: main
   add-comment:
     max: 1
-  # 自动分配 Copilot Agent 到 Issue
+  # 分配 Copilot Agent 到 Issue (Agent 输出时需提供 issue_number)
   assign-to-agent:
     name: copilot
     max: 1
-  # 自动分配人类监督者到 Issue
+  # 分配人类用户到 Issue (Agent 输出时需提供 issue_number)
   assign-to-user:
     allowed: [Maybank01]
     max: 1
+    target: "*"
 timeout-minutes: 15
 strict: true
 ---
