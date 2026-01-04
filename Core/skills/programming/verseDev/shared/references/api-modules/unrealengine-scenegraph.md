@@ -369,6 +369,7 @@ game_manager := class(component):
     
     SpawnEntity():void =
         NewEntity := my_prefab{}
+        # Entity 是 component 基类的属性，指向该组件的父实体
         Entity.AddEntities(array{NewEntity})
 ```
 
@@ -404,6 +405,7 @@ collectible_component := class(component):
     # 收集成功的回调
     OnCollected(Collector:agent):void =
         Print("Item collected by agent")
+        # Entity 是 component 基类的属性，指向该组件的父实体
         # 可以在这里发送事件通知其他系统
         CollectedEvent := collectible_collected_event{
             Collector := Collector,
@@ -451,6 +453,7 @@ collection_manager := class(component):
 # ❌ 避免在每帧查询
 OnSimulate<override>()<suspends>:void =
     loop:
+        # Entity 是 component 基类的属性，指向该组件的父实体
         if HealthComp := Entity.GetComponent[health_component][] then
             # 每帧都查询，性能差
             CurrentHP := HealthComp.CurrentHealth
@@ -461,6 +464,7 @@ OnSimulate<override>()<suspends>:void =
 var<private> CachedHealthComp:?health_component = false
 
 OnBeginSimulation<override>():void =
+    # Entity 是 component 基类的属性，指向该组件的父实体
     set CachedHealthComp = Entity.GetComponent[health_component][]
 
 OnSimulate<override>()<suspends>:void =
