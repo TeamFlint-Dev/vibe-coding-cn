@@ -139,36 +139,101 @@ Safe-outputs 是 gh-aw 的核心安全机制，所有写操作都通过这个沙
 > - `⚠️ 不支持`: 明确不支持临时 ID，使用时需确保传入真实 issue_number
 > - `❌`: 未实现临时 ID 支持（可能在未来版本添加）
 >
-> **解决方案**: 如需创建 Issue 并分配给 Agent，使用 `create-issue` 的 `assignees: copilot` 配置
+> **解决方案**: 如需创建 Issue 并分配给 Agent，使用 `create-agent-task` 替代（见下文 assignees 双重 Bug）
 
-### ⚠️ assignees: copilot 配置注意事项
+### 🚨 assignees: copilot 配置完全不生效（双重 Bug）
 
-使用 `assignees: copilot` 配置时，需要确保：
+> **状态**: 已确认 (gh-aw v0.34.3)
+> **测试日期**: 2026-01-04
+> **详细报告**: [docs/research/gh-aw-assignees-compiler-bug.md](../../../docs/research/gh-aw-assignees-compiler-bug.md)
 
-1. **配置 Copilot Token**（可能需要）：
-   ```bash
-   gh secret set GH_AW_COPILOT_TOKEN -a actions --body "<your-copilot-pat>"
-   # 或
-   gh secret set COPILOT_GITHUB_TOKEN -a actions --body "<your-copilot-pat>"
-   ```
+`safe-outputs.create-issue.assignees` 配置**完全不生效**，存在双重 Bug：
 
-2. **替代方案**：如果 `assignees: copilot` 不生效，改用 `create-agent-task`：
-   ```yaml
-   safe-outputs:
-     create-agent-task:
-       base: main
-   ```
+#### Bug 1: 编译器不传入配置
 
-> **已知问题**: 2026-01-04 测试发现 `assignees: copilot` 配置可能不生效，编译器未正确设置 `GH_AW_ASSIGN_COPILOT` 环境变量。详见 [FC-002](FAILURE-CASES.md#fc-002-create-issue-assignees-copilot-配置不生效)
+编译后的 `GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG` 仅包含 `max`：
+```json
+{"create_issue":{"max":1}}  // ← 没有 assignees, labels, title-prefix
+```
+
+配置被转为工具描述文本：
+```
+"Assignees [copilot] will be automatically assigned."  // ← 仅文本提示
+```
+
+#### Bug 2: Handler 不处理 assignees
+
+**即使手动将 assignees 添加到 handler config，handler 也不处理它**！
+
+手动测试（Issue #75）：
+```yaml
+# 手动修改 lock.yml
+GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"create_issue\":{\"max\":1,\"assignees\":[\"copilot\"],\"labels\":[\"research-task\",\"copilot-task\"],\"title_prefix\":\"[Research] \"}}"
+```
+
+结果：
+- ✅ Labels: 正确应用
+- ✅ Title Prefix: 正确应用
+- ❌ **Assignees: 仍然为空**
+
+Handler 日志只显示 labels 和 title_prefix，**没有 assignees 相关日志**。
+
+#### 不同配置项的实际状态
+
+| 配置项 | 编译器传入 | Handler 处理 | 手动添加后生效 |
+|--------|-----------|-------------|---------------|
+| `max` | ✅ | ✅ | ✅ |
+| `labels` | ❌ | ✅ | ✅ |
+| `title-prefix` | ❌ | ✅ | ✅ |
+| `assignees` | ❌ | ❌ | **❌ 不生效** |
+
+#### 临时解决方案
+
+**方案 1: 使用 create-agent-task 完全替代（推荐）**
+
+```yaml
+safe-outputs:
+  create-agent-task:
+    base: main
+```
+
+完全跳过创建 Issue，直接创建 Copilot Agent 任务。
+
+**方案 2: 在 Prompt 中指示手动分配**
+
+```markdown
+创建 Issue 后，使用 bash 执行：
+gh issue edit <number> --add-assignee copilot
+```
+
+**方案 3: 使用 copilot-task 标签**
+
+手动修改 lock.yml 添加 labels config（labels 手动添加后可生效）：
+```json
+{"create_issue":{"max":1,"labels":["copilot-task"]}}
+```
+
+添加 `copilot-task` 标签可触发 Copilot 自动响应。
+
+#### 参考
+
+- [FC-002 失败案例](FAILURE-CASES.md#fc-002-create-issue-assignees-copilot-配置不生效)
+- [详细 Bug 报告](../../../docs/research/gh-aw-assignees-compiler-bug.md)
+
+在工作流 Prompt 中告诉 Agent 使用 GitHub API 手动分配：
+
+```markdown
+创建 Issue 后，使用 github 工具的 update_issue 将 assignees 设为 ["copilot"]
+```
 
 ### Safe-Outputs 配置示例
 
 ```yaml
 safe-outputs:
   create-issue:
-    title-prefix: "[bot] "
-    labels: [automation, bot-created]
-    assignees: copilot
+    title-prefix: "[bot] "      # ⚠️ 当前不生效
+    labels: [automation]        # ⚠️ 当前不生效
+    assignees: copilot          # ⚠️ 当前不生效
     max: 5
     allowed-repos: [org/other-repo]
 

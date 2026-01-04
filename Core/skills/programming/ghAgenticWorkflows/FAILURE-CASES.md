@@ -11,7 +11,7 @@
 | ID | 标题 | 根因类别 | 日期 | 状态 |
 |----|------|----------|------|------|
 | FC-001 | assign_to_agent 不支持临时 ID | 边界 | 2026-01-04 | 已解决 |
-| FC-002 | create-issue assignees: copilot 配置不生效 | 配置 | 2026-01-04 | 待验证 |
+| FC-002 | create-issue assignees: copilot 配置不生效 | 编译器缺陷 | 2026-01-04 | 已确认(v0.34.3仍存在) |
 
 <!-- 案例索引模板：
 | FC-001 | 标题 | 权限/配置/数据/环境 | YYYY-MM-DD | 已解决 |
@@ -109,7 +109,8 @@ safe-outputs:
 
 **日期**: 2026-01-04
 **任务上下文**: research-planner 工作流测试（创建 Issue 并分配给 Copilot）
-**根因类别**: 配置
+**根因类别**: 配置/编译器缺陷
+**状态**: 已确认（gh-aw v0.34.3 仍存在此问题）
 
 #### 现象
 
@@ -127,59 +128,118 @@ safe-outputs:
 
 Issue #71 创建成功，但 assignees 为空。
 
-#### 根因分析
+#### 根因分析（已确认）
 
-1. **编译器未设置环境变量**: 编译后的 `lock.yml` 中，`create_issue` 步骤设置了 `GH_AW_ISSUE_TITLE_PREFIX` 和 `GH_AW_ISSUE_LABELS`，但**没有设置 `GH_AW_ASSIGN_COPILOT`** 环境变量。
+**核心问题: gh-aw 编译器未将 `assignees` 配置传入 safe-output handler**
 
-2. **代码检查条件**: `create_issue` 脚本中检查 `process.env.GH_AW_ASSIGN_COPILOT === "true"`，由于该变量未设置，分配逻辑被跳过。
+验证步骤及结果：
 
-3. **可能缺少 Token**: 根据官方文档，分配 Copilot 需要 `GH_AW_COPILOT_TOKEN` 或 `COPILOT_GITHUB_TOKEN` Secret。
+1. **检查编译后的 config.json**（第 162-163 行）:
+   ```json
+   {"create_issue":{"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
+   ```
+   ❌ 仅包含 `max:1`，**没有 `assignees`、`labels`、`title-prefix`**
 
-#### 待验证假设
+2. **检查 tools.json 工具描述**（第 168 行）:
+   ```
+   "description": "...CONSTRAINTS: Maximum 1 issue(s) can be created. Assignees [copilot] will be automatically assigned."
+   ```
+   ⚠️ `assignees` 仅作为描述文本传递给 LLM，**不是实际配置**
 
-| 假设 | 验证方法 |
-|------|----------|
-| 需要 `GH_AW_COPILOT_TOKEN` Secret | 配置该 Secret 后重新测试 |
-| gh-aw 编译器 bug | 检查 gh-aw 源码中 `assignees` 处理逻辑 |
-| 需要配合 `assign-to-agent` safe-output | 添加该配置后重新测试 |
+3. **检查 GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG**（第 1090 行）:
+   ```yaml
+   GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"create_issue\":{\"max\":1}}"
+   ```
+   ❌ handler 配置中**无 assignees**
 
-#### 修复方案
+4. **搜索编译后 lock.yml**:
+   - `GH_AW_ASSIGN_COPILOT`: 不存在
+   - `research-task`, `copilot-task`: 不存在
+   - `title-prefix`: 不存在
 
-**方案 1: 配置 Copilot Token（推荐尝试）**
+**结论**: gh-aw 编译器 bug，将 `safe-outputs.create-issue` 的以下配置仅转为描述文本，未传入 handler:
+- `labels`
+- `title-prefix`
+- `assignees`
 
-```bash
-gh secret set GH_AW_COPILOT_TOKEN -a actions --body "<your-copilot-pat>"
-# 或
-gh secret set COPILOT_GITHUB_TOKEN -a actions --body "<your-copilot-pat>"
-```
+#### 尝试过的方案
 
-**方案 2: 使用 create-agent-task 替代**
+| 方案 | 结果 |
+|------|------|
+| 设置 `GH_AW_COPILOT_TOKEN` Secret | ❌ 无效（编译器问题） |
+| 设置 `COPILOT_GITHUB_TOKEN` Secret | ❌ 无效（编译器问题） |
+| 升级 gh-aw v0.33.12 → v0.34.3 | ❌ 问题仍存在 |
+| **手动修改 lock.yml 添加 config** | ⚠️ labels/title-prefix 生效，**assignees 仍不生效** |
+
+#### 手动测试结果（2026-01-04）
+
+直接修改 `research-planner.lock.yml` 添加完整配置：
 
 ```yaml
-# 修复前
-safe-outputs:
-  create-issue:
-    assignees: copilot
-    labels: [research-task]
+GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"create_issue\":{\"max\":1,\"assignees\":[\"copilot\"],\"labels\":[\"research-task\",\"copilot-task\"],\"title_prefix\":\"[Research] \"}}"
+GH_AW_ASSIGN_COPILOT: "true"
+```
 
-# 修复后 - 使用 create-agent-task 直接创建 Copilot 任务
+测试结果（Issue #75）：
+- ✅ Labels: `research-task, copilot-task` - **正确应用**
+- ✅ Title Prefix: `[Research]` - **正确应用**
+- ❌ Assignees: `[]` - **仍然为空！**
+
+**结论**: 这是**双重 Bug**：
+1. 编译器不将 `assignees` 传入 handler config
+2. Handler 代码本身不处理 `assignees` 字段
+
+Handler 日志证据：
+```
+Default labels: research-task, copilot-task   ← 处理了
+Title prefix: [Research]                       ← 处理了
+Max count: 1                                   ← 处理了
+                                               ← assignees 完全没有日志！
+```
+
+#### 可行的临时解决方案
+
+**方案 1: 使用 create-agent-task 替代（推荐）**
+
+完全跳过 create-issue，直接创建 Copilot Agent 任务：
+
+```yaml
 safe-outputs:
   create-agent-task:
     base: main
 ```
 
-**方案 3: 手动分配（临时方案）**
+**方案 2: 在 Prompt 中指示手动分配**
 
-```bash
-gh issue edit <number> --add-assignee @me
-# 然后依赖 copilot-task 标签触发 Copilot 自动响应
+让 Agent 创建 Issue 后使用 GitHub API 手动分配：
+
+```markdown
+创建 Issue 后，使用 bash 工具执行：
+gh issue edit <number> --add-assignee copilot
 ```
+
+**方案 3: 使用 `copilot-task` 标签**
+
+添加 `copilot-task` 标签让 Copilot 自动响应：
+```yaml
+safe-outputs:
+  create-issue:
+    max: 1
+    labels: [copilot-task]  # ← 需手动修改 lock.yml
+```
+
+注意：需手动修改编译后的 lock.yml 添加 labels config。
 
 #### 教训与行动
 
-- [ ] 更新 PREFLIGHT-CHECKLIST.md: 使用 `assignees: copilot` 前检查是否配置了 `GH_AW_COPILOT_TOKEN`
-- [ ] 验证 gh-aw 编译器是否正确处理 `assignees` 配置
-- [x] 更新 CAPABILITY-BOUNDARIES.md: 标记 `assignees: copilot` 需要特殊 Token
+- [x] 更新 CAPABILITY-BOUNDARIES.md: 标记 `assignees: copilot` 完全不生效（双重 Bug）
+- [x] 更新 PREFLIGHT-CHECKLIST.md: 添加编译后验证步骤
+- [x] 创建详细 Bug 报告: `docs/research/gh-aw-assignees-compiler-bug.md`
+- [ ] 向 gh-aw 上游报告此 bug
+
+#### 参考
+
+- [详细 Bug 报告](../../../docs/research/gh-aw-assignees-compiler-bug.md)
 
 #### 参考
 
