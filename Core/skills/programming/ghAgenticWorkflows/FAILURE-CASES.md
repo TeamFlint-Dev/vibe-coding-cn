@@ -235,7 +235,7 @@ safe-outputs:
 - [x] 更新 CAPABILITY-BOUNDARIES.md: 标记 `assignees: copilot` 完全不生效（双重 Bug）
 - [x] 更新 PREFLIGHT-CHECKLIST.md: 添加编译后验证步骤
 - [x] 创建详细 Bug 报告: `docs/research/gh-aw-assignees-compiler-bug.md`
-- [ ] 向 gh-aw 上游报告此 bug
+- [x] 向 gh-aw 上游报告此 bug: [githubnext/gh-aw#8881](https://github.com/githubnext/gh-aw/issues/8881)
 
 #### 参考
 

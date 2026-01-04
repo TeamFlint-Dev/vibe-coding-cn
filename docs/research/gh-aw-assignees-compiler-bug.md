@@ -4,6 +4,7 @@
 > **更新日期**: 2026-01-04 (添加手动测试结果)
 > **gh-aw 版本**: v0.34.3 (v0.33.12 同样存在)
 > **影响范围**: `safe-outputs.create-issue` 的 `assignees` 配置
+> **上游 Issue**: [githubnext/gh-aw#8881](https://github.com/githubnext/gh-aw/issues/8881)
 
 ---
 
