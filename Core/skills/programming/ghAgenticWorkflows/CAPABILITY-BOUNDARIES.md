@@ -125,7 +125,7 @@ Safe-outputs 是 gh-aw 的核心安全机制，所有写操作都通过这个沙
 | add-reviewer                   | 添加审查者            | -                                     | ❌      |
 | assign-milestone               | 分配里程碑            | -                                     | ❌      |
 | assign-to-agent                | 分配给 Copilot        | -                                     | ⚠️ 不支持 |
-| create-agent-task              | 创建 Agent 任务       | base, target-repo                     | ❌      |
+| create-agent-task              | 创建 Agent 任务       | base, target-repo                     | ⚠️ 不工作 |
 | update-project                 | 更新项目看板          | max                                   | ❌      |
 | create-pull-request-review-comment | 创建 PR 审查评论  | max, side                             | ❌      |
 | link-sub-issue                 | 链接子 Issue          | -                                     | ✅      |
@@ -138,14 +138,34 @@ Safe-outputs 是 gh-aw 的核心安全机制，所有写操作都通过这个沙
 > - `✅`: 支持解析临时 ID（`aw_xxxxxxxxxxxx` 格式）
 > - `⚠️ 不支持`: 明确不支持临时 ID，使用时需确保传入真实 issue_number
 > - `❌`: 未实现临时 ID 支持（可能在未来版本添加）
->
-> **解决方案**: 如需创建 Issue 并分配给 Agent，使用 `create-agent-task` 替代（见下文 assignees 双重 Bug）
+
+### 🚨 create-agent-task 完全不工作（环境变量 Bug）
+
+> **状态**: 已确认 (gh-aw v0.34.3)
+> **测试日期**: 2026-01-04
+> **详细报告**: [docs/Bug/create_agent_task_env_var_bug.md](docs/Bug/create_agent_task_env_var_bug.md)
+
+`create-agent-task` safe-output **完全不工作**，因为环境变量名不匹配：
+
+| 组件 | 使用的变量名 |
+|------|-------------|
+| lock.yml | `GH_AW_AGENT_OUTPUT` |
+| create_agent_task.cjs | `GITHUB_AW_AGENT_OUTPUT` |
+
+**结果**：Agent 调用成功，但 Handler 找不到输出文件，任务不会被创建。
+
+**日志特征**：
+```
+safe_outputs  Create Agent Task  No GITHUB_AW_AGENT_OUTPUT environment variable found
+```
+
+**临时解决方案**：暂无。这是 gh-aw 内部脚本 Bug，无法通过配置绕过。
 
 ### 🚨 assignees: copilot 配置完全不生效（双重 Bug）
 
 > **状态**: 已确认 (gh-aw v0.34.3)
 > **测试日期**: 2026-01-04
-> **详细报告**: [docs/research/gh-aw-assignees-compiler-bug.md](../../../docs/research/gh-aw-assignees-compiler-bug.md)
+> **详细报告**: [docs/Bug/gh-aw-assignees-compiler-bug.md](docs/Bug/gh-aw-assignees-compiler-bug.md)
 
 `safe-outputs.create-issue.assignees` 配置**完全不生效**，存在双重 Bug：
 
