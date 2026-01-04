@@ -19,52 +19,33 @@
 #   gh aw compile
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
-# 目标规划者 - 根据目标创建 Issue 并自动分配 Copilot 和 Maybank01
+# 自动为新创建的 [Plan] Issue 分配 Copilot 和 Maybank01
 
-name: "Goal Planner"
+name: "Issue Assigner"
 "on":
-  issue_comment:
+  issues:
     types:
-    - created
-    - edited
-  workflow_dispatch:
-    inputs:
-      goal:
-        description: 目标描述
-        required: true
-        type: string
-      labels:
-        description: 标签（逗号分隔，可选）
-        required: false
-        type: string
+    - opened
 
 permissions:
   contents: read
   issues: read
 
 concurrency:
-  group: "gh-aw-${{ github.workflow }}-${{ github.event.issue.number || github.event.pull_request.number }}"
+  group: "gh-aw-${{ github.workflow }}-${{ github.event.issue.number }}"
 
-run-name: "Goal Planner"
+run-name: "Issue Assigner"
 
 jobs:
   activation:
     needs: pre_activation
-    if: >
-      (needs.pre_activation.outputs.activated == 'true') && (((github.event_name == 'issue_comment') && ((github.event_name == 'issue_comment') &&
-      ((contains(github.event.comment.body, '/plan')) && (github.event.issue.pull_request == null)))) || (!(github.event_name == 'issue_comment')))
+    if: (needs.pre_activation.outputs.activated == 'true') && (startsWith(github.event.issue.title, '[Plan]'))
     runs-on: ubuntu-slim
     permissions:
       contents: read
-      discussions: write
-      issues: write
-      pull-requests: write
     outputs:
-      comment_id: ${{ steps.react.outputs.comment-id }}
-      comment_repo: ${{ steps.react.outputs.comment-repo }}
-      comment_url: ${{ steps.react.outputs.comment-url }}
-      reaction_id: ${{ steps.react.outputs.reaction-id }}
-      text: ${{ steps.compute-text.outputs.text }}
+      comment_id: ""
+      comment_repo: ""
     steps:
       - name: Setup Scripts
         uses: githubnext/gh-aw/actions/setup@1183162e13ecd5a7947169ab65e7b988d1ec1128 # v0.34.3
@@ -73,35 +54,12 @@ jobs:
       - name: Check workflow file timestamps
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          GH_AW_WORKFLOW_FILE: "goal-planner.lock.yml"
+          GH_AW_WORKFLOW_FILE: "issue-assigner.lock.yml"
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
             const { main } = require('/tmp/gh-aw/actions/check_workflow_timestamp_api.cjs');
-            await main();
-      - name: Compute current body text
-        id: compute-text
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
-        with:
-          script: |
-            const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
-            setupGlobals(core, github, context, exec, io);
-            const { main } = require('/tmp/gh-aw/actions/compute_text.cjs');
-            await main();
-      - name: Add eyes reaction to the triggering item
-        id: react
-        if: github.event_name == 'issues' || github.event_name == 'issue_comment' || github.event_name == 'pull_request_review_comment' || github.event_name == 'discussion' || github.event_name == 'discussion_comment' || (github.event_name == 'pull_request') && (github.event.pull_request.head.repo.id == github.repository_id)
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
-        env:
-          GH_AW_REACTION: "eyes"
-          GH_AW_COMMAND: plan
-          GH_AW_WORKFLOW_NAME: "Goal Planner"
-        with:
-          script: |
-            const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
-            setupGlobals(core, github, context, exec, io);
-            const { main } = require('/tmp/gh-aw/actions/add_reaction_and_edit_comment.cjs');
             await main();
 
   agent:
@@ -195,71 +153,64 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /tmp/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1},"create_issue":{"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
+          {"assign_to_agent":{"default_agent":"copilot","max":1},"assign_to_user":{"allowed":["Maybank01"],"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
           EOF
           cat > /tmp/gh-aw/safeoutputs/tools.json << 'EOF'
           [
             {
-              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 1 issue(s) can be created. Title will be prefixed with \"[Plan] \".",
+              "description": "Assign the GitHub Copilot coding agent to work on an issue. The agent will analyze the issue and attempt to implement a solution, creating a pull request when complete. Use this to delegate coding tasks to Copilot. CONSTRAINTS: Maximum 1 issue(s) can be assigned to agent.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
-                  "body": {
-                    "description": "Detailed issue description in Markdown. Do NOT repeat the title as a heading since it already appears as the issue's h1. Include context, reproduction steps, or acceptance criteria as appropriate.",
+                  "agent": {
+                    "description": "Agent identifier to assign. Defaults to 'copilot' (the Copilot coding agent) if not specified.",
                     "type": "string"
                   },
-                  "labels": {
-                    "description": "Labels to categorize the issue (e.g., 'bug', 'enhancement'). Labels must exist in the repository.",
+                  "issue_number": {
+                    "description": "Issue number to assign the Copilot agent to. This is the numeric ID from the GitHub URL (e.g., 234 in github.com/owner/repo/issues/234). The issue should contain clear, actionable requirements.",
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  }
+                },
+                "required": [
+                  "issue_number"
+                ],
+                "type": "object"
+              },
+              "name": "assign_to_agent"
+            },
+            {
+              "description": "Assign one or more GitHub users to an issue. Use this to delegate work to specific team members. Users must have access to the repository.",
+              "inputSchema": {
+                "additionalProperties": false,
+                "properties": {
+                  "assignee": {
+                    "description": "Single GitHub username to assign. Use 'assignees' array for multiple users.",
+                    "type": "string"
+                  },
+                  "assignees": {
+                    "description": "GitHub usernames to assign to the issue (e.g., ['octocat', 'mona']). Users must have access to the repository.",
                     "items": {
                       "type": "string"
                     },
                     "type": "array"
                   },
-                  "parent": {
-                    "description": "Parent issue number for creating sub-issues. This is the numeric ID from the GitHub URL (e.g., 42 in github.com/owner/repo/issues/42). Can also be a temporary_id (e.g., 'aw_abc123def456') from a previously created issue in the same workflow run.",
+                  "issue_number": {
+                    "description": "Issue number to assign users to. This is the numeric ID from the GitHub URL (e.g., 543 in github.com/owner/repo/issues/543). If omitted, assigns to the issue that triggered this workflow.",
                     "type": [
                       "number",
                       "string"
                     ]
-                  },
-                  "temporary_id": {
-                    "description": "Unique temporary identifier for referencing this issue before it's created. Format: 'aw_' followed by 12 hex characters (e.g., 'aw_abc123def456'). Use '#aw_ID' in body text to reference other issues by their temporary_id; these are replaced with actual issue numbers after creation.",
-                    "type": "string"
-                  },
-                  "title": {
-                    "description": "Concise issue title summarizing the bug, feature, or task. The title appears as the main heading, so keep it brief and descriptive.",
-                    "type": "string"
                   }
                 },
                 "required": [
-                  "title",
-                  "body"
+                  "issue_number"
                 ],
                 "type": "object"
               },
-              "name": "create_issue"
-            },
-            {
-              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added.",
-              "inputSchema": {
-                "additionalProperties": false,
-                "properties": {
-                  "body": {
-                    "description": "Comment content in Markdown. Provide helpful, relevant information that adds value to the conversation.",
-                    "type": "string"
-                  },
-                  "item_number": {
-                    "description": "The issue, pull request, or discussion number to comment on. This is the numeric ID from the GitHub URL (e.g., 123 in github.com/owner/repo/issues/123). Must be a valid existing item in the repository. Required.",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "body",
-                  "item_number"
-                ],
-                "type": "object"
-              },
-              "name": "add_comment"
+              "name": "assign_to_user"
             },
             {
               "description": "Report that a tool or capability needed to complete the task is not available. Use this when you cannot accomplish what was requested because the required functionality is missing or access is restricted.",
@@ -308,50 +259,35 @@ jobs:
           EOF
           cat > /tmp/gh-aw/safeoutputs/validation.json << 'EOF'
           {
-            "add_comment": {
+            "assign_to_agent": {
               "defaultMax": 1,
               "fields": {
-                "body": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 65000
-                },
-                "item_number": {
-                  "issueOrPRNumber": true
-                }
-              }
-            },
-            "create_issue": {
-              "defaultMax": 1,
-              "fields": {
-                "body": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 65000
-                },
-                "labels": {
-                  "type": "array",
-                  "itemType": "string",
-                  "itemSanitize": true,
-                  "itemMaxLength": 128
-                },
-                "parent": {
-                  "issueOrPRNumber": true
-                },
-                "repo": {
-                  "type": "string",
-                  "maxLength": 256
-                },
-                "temporary_id": {
-                  "type": "string"
-                },
-                "title": {
-                  "required": true,
+                "agent": {
                   "type": "string",
                   "sanitize": true,
                   "maxLength": 128
+                },
+                "issue_number": {
+                  "required": true,
+                  "positiveInteger": true
+                }
+              }
+            },
+            "assign_to_user": {
+              "defaultMax": 1,
+              "fields": {
+                "assignee": {
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 39
+                },
+                "assignees": {
+                  "type": "[]string",
+                  "sanitize": true,
+                  "maxLength": 39
+                },
+                "issue_number": {
+                  "issueOrPRNumber": true
                 }
               }
             },
@@ -414,7 +350,7 @@ jobs:
                   "-e",
                   "GITHUB_LOCKDOWN_MODE=${{ steps.determine-automatic-lockdown.outputs.lockdown == 'true' && '1' || '0' }}",
                   "-e",
-                  "GITHUB_TOOLSETS=issues,repos",
+                  "GITHUB_TOOLSETS=context,repos,issues,pull_requests",
                   "ghcr.io/github/github-mcp-server:v0.26.3"
                 ],
                 "tools": ["*"],
@@ -466,7 +402,7 @@ jobs:
               version: "",
               agent_version: "0.0.374",
               cli_version: "v0.34.3",
-              workflow_name: "Goal Planner",
+              workflow_name: "Issue Assigner",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -507,86 +443,45 @@ jobs:
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
-          GH_AW_GITHUB_EVENT_INPUTS_GOAL: ${{ github.event.inputs.goal }}
-          GH_AW_GITHUB_EVENT_INPUTS_LABELS: ${{ github.event.inputs.labels }}
+          GH_AW_GITHUB_EVENT_ISSUE_NUMBER: ${{ github.event.issue.number }}
           GH_AW_GITHUB_EVENT_ISSUE_TITLE: ${{ github.event.issue.title }}
-          GH_AW_NEEDS_ACTIVATION_OUTPUTS_TEXT: ${{ needs.activation.outputs.text }}
         run: |
           bash /tmp/gh-aw/actions/create_prompt_first.sh
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
-          # 🎯 Goal Planner
+          # 🔧 Issue Assigner
           
-          你是一个目标规划助手，帮助用户将目标转化为可执行的 GitHub Issue。
+          你是一个自动分配器。当检测到新的 `[Plan]` Issue 时，自动分配给 Copilot 和 Maybank01。
           
-          **注意**: Issue 创建后会由 `issue-assigner` workflow 自动分配给 Copilot 和 Maybank01。
+          ## 触发条件
           
-          ## 触发方式与输入
+          - Issue 标题: `__GH_AW_GITHUB_EVENT_ISSUE_TITLE__`
+          - Issue 编号: `__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__`
           
-          本 Workflow 支持两种触发方式：
+          ## 执行步骤
           
-          ### 方式 1: Workflow Dispatch（手动触发）
+          ### 步骤 1: 验证 Issue
           
-          当通过 GitHub Actions 手动触发时：
-          - **目标内容**: `__GH_AW_GITHUB_EVENT_INPUTS_GOAL__`
-          - **标签**: `__GH_AW_GITHUB_EVENT_INPUTS_LABELS__`（可选）
+          确认 Issue 标题以 `[Plan]` 开头。
           
-          ### 方式 2: Slash Command（/plan）
+          ### 步骤 2: 分配 Copilot
           
-          当用户在 Issue 或 PR 中评论 `/plan ...` 时：
-          - **净化后的文本**: `__GH_AW_NEEDS_ACTIVATION_OUTPUTS_TEXT__`
-          - 这个文本已经移除了 `/plan` 前缀，直接就是目标描述
-          - 如果 `/plan` 后没有内容，使用当前 Issue 标题 `__GH_AW_GITHUB_EVENT_ISSUE_TITLE__` 作为目标
+          使用 `assign-to-agent` safe-output，将 Issue #__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__ 分配给 Copilot。
           
-          ---
+          ### 步骤 3: 分配人类监督者
           
-          ## 📝 执行步骤
+          使用 `assign-to-user` safe-output，将 Issue #__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__ 分配给 Maybank01。
           
-          ### 步骤 1: 确定目标
+          ### 步骤 4: 确认
           
-          根据触发方式获取目标描述：
-          - **workflow_dispatch**: 使用 `__GH_AW_GITHUB_EVENT_INPUTS_GOAL__`
-          - **slash command**: 使用 `__GH_AW_NEEDS_ACTIVATION_OUTPUTS_TEXT__`，如果为空则使用 `__GH_AW_GITHUB_EVENT_ISSUE_TITLE__`
-          
-          ### 步骤 2: 创建 Issue
-          
-          使用 `create-issue` safe-output 创建 Issue：
-          
-          **标题格式**: `[Plan] {简洁的目标描述}`
-          
-          **Body 模板**:
-          ```markdown
-          ## 🎯 目标
-          
-          {目标的详细描述}
-          
-          ## 📋 任务清单
-          
-          - [ ] 待 Copilot 分析后填充
-          
-          ## 👥 分配
-          
-          - **Copilot**: 自动化执行
-          - **@Maybank01**: 人工监督
-          
-          ---
-          > 🤖 由 Goal Planner 自动创建
-          ```
-          
-          ### 步骤 3: 完成
-          
-          输出确认信息：
-          - Issue 编号和标题
-          - 说明 Issue 将由 `issue-assigner` 自动分配给 Copilot 和 Maybank01
+          输出确认信息：Issue 已分配给 Copilot 和 Maybank01。
           
           PROMPT_EOF
       - name: Substitute placeholders
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-          GH_AW_GITHUB_EVENT_INPUTS_GOAL: ${{ github.event.inputs.goal }}
-          GH_AW_GITHUB_EVENT_INPUTS_LABELS: ${{ github.event.inputs.labels }}
+          GH_AW_GITHUB_EVENT_ISSUE_NUMBER: ${{ github.event.issue.number }}
           GH_AW_GITHUB_EVENT_ISSUE_TITLE: ${{ github.event.issue.title }}
-          GH_AW_NEEDS_ACTIVATION_OUTPUTS_TEXT: ${{ needs.activation.outputs.text }}
         with:
           script: |
             const substitutePlaceholders = require('/tmp/gh-aw/actions/substitute_placeholders.cjs');
@@ -595,10 +490,8 @@ jobs:
             return await substitutePlaceholders({
               file: process.env.GH_AW_PROMPT,
               substitutions: {
-                GH_AW_GITHUB_EVENT_INPUTS_GOAL: process.env.GH_AW_GITHUB_EVENT_INPUTS_GOAL,
-                GH_AW_GITHUB_EVENT_INPUTS_LABELS: process.env.GH_AW_GITHUB_EVENT_INPUTS_LABELS,
-                GH_AW_GITHUB_EVENT_ISSUE_TITLE: process.env.GH_AW_GITHUB_EVENT_ISSUE_TITLE,
-                GH_AW_NEEDS_ACTIVATION_OUTPUTS_TEXT: process.env.GH_AW_NEEDS_ACTIVATION_OUTPUTS_TEXT
+                GH_AW_GITHUB_EVENT_ISSUE_NUMBER: process.env.GH_AW_GITHUB_EVENT_ISSUE_NUMBER,
+                GH_AW_GITHUB_EVENT_ISSUE_TITLE: process.env.GH_AW_GITHUB_EVENT_ISSUE_TITLE
               }
             });
       - name: Append XPIA security instructions to prompt
@@ -624,7 +517,7 @@ jobs:
           <instructions>
           To create or modify GitHub resources (issues, discussions, pull requests, etc.), you MUST call the appropriate safe output tool. Simply writing content will NOT work - the workflow requires actual tool calls.
           
-          **Available tools**: add_comment, create_issue, missing_tool, noop
+          **Available tools**: assign_to_agent, assign_to_user, missing_tool, noop
           
           **Critical**: Tool calls write structured data that downstream jobs process. Without tool calls, follow-up actions will be skipped.
           </instructions>
@@ -702,21 +595,12 @@ jobs:
                 GH_AW_GITHUB_WORKSPACE: process.env.GH_AW_GITHUB_WORKSPACE
               }
             });
-      - name: Append PR context instructions to prompt
-        if: |
-          (github.event_name == 'issue_comment') && (github.event.issue.pull_request != null) || github.event_name == 'pull_request_review_comment' || github.event_name == 'pull_request_review'
-        env:
-          GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-        run: |
-          cat "/tmp/gh-aw/prompts/pr_context_prompt.md" >> "$GH_AW_PROMPT"
       - name: Interpolate variables and render templates
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-          GH_AW_GITHUB_EVENT_INPUTS_GOAL: ${{ github.event.inputs.goal }}
-          GH_AW_GITHUB_EVENT_INPUTS_LABELS: ${{ github.event.inputs.labels }}
+          GH_AW_GITHUB_EVENT_ISSUE_NUMBER: ${{ github.event.issue.number }}
           GH_AW_GITHUB_EVENT_ISSUE_TITLE: ${{ github.event.issue.title }}
-          GH_AW_NEEDS_ACTIVATION_OUTPUTS_TEXT: ${{ needs.activation.outputs.text }}
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
@@ -744,11 +628,13 @@ jobs:
       - name: Execute GitHub Copilot CLI
         id: agentic_execution
         # Copilot CLI tool arguments (sorted):
-        timeout-minutes: 10
+        # --allow-tool github
+        # --allow-tool safeoutputs
+        timeout-minutes: 2
         run: |
           set -o pipefail
           sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --mount /home/runner/.copilot:/home/runner/.copilot:rw --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.7.0 \
-            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-all-tools --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
+            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-tool github --allow-tool safeoutputs --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
             2>&1 | tee /tmp/gh-aw/agent-stdio.log
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
@@ -793,7 +679,6 @@ jobs:
           GH_AW_ALLOWED_DOMAINS: "api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org"
           GITHUB_SERVER_URL: ${{ github.server_url }}
           GITHUB_API_URL: ${{ github.api_url }}
-          GH_AW_COMMAND: plan
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
@@ -838,7 +723,7 @@ jobs:
         continue-on-error: true
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: firewall-logs-goal-planner
+          name: firewall-logs-issue-assigner
           path: /tmp/gh-aw/sandbox/firewall/logs/
           if-no-files-found: ignore
       - name: Parse firewall logs for step summary
@@ -920,7 +805,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "Goal Planner"
+          GH_AW_WORKFLOW_NAME: "Issue Assigner"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -933,7 +818,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Goal Planner"
+          GH_AW_WORKFLOW_NAME: "Issue Assigner"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -949,7 +834,7 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "Goal Planner"
+          GH_AW_WORKFLOW_NAME: "Issue Assigner"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
@@ -1000,8 +885,8 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "Goal Planner"
-          WORKFLOW_DESCRIPTION: "目标规划者 - 根据目标创建 Issue 并自动分配 Copilot 和 Maybank01"
+          WORKFLOW_NAME: "Issue Assigner"
+          WORKFLOW_DESCRIPTION: "自动为新创建的 [Plan] Issue 分配 Copilot 和 Maybank01"
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
@@ -1118,18 +1003,16 @@ jobs:
           if-no-files-found: ignore
 
   pre_activation:
-    if: >
-      ((github.event_name == 'issue_comment') && ((github.event_name == 'issue_comment') && ((contains(github.event.comment.body, '/plan')) &&
-      (github.event.issue.pull_request == null)))) || (!(github.event_name == 'issue_comment'))
+    if: startsWith(github.event.issue.title, '[Plan]')
     runs-on: ubuntu-slim
     outputs:
-      activated: ${{ (steps.check_membership.outputs.is_team_member == 'true') && (steps.check_command_position.outputs.command_position_ok == 'true') }}
+      activated: ${{ steps.check_membership.outputs.is_team_member == 'true' }}
     steps:
       - name: Setup Scripts
         uses: githubnext/gh-aw/actions/setup@1183162e13ecd5a7947169ab65e7b988d1ec1128 # v0.34.3
         with:
           destination: /tmp/gh-aw/actions
-      - name: Check team membership for command workflow
+      - name: Check team membership for workflow
         id: check_membership
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
@@ -1141,17 +1024,6 @@ jobs:
             setupGlobals(core, github, context, exec, io);
             const { main } = require('/tmp/gh-aw/actions/check_membership.cjs');
             await main();
-      - name: Check command position
-        id: check_command_position
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
-        env:
-          GH_AW_COMMAND: plan
-        with:
-          script: |
-            const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
-            setupGlobals(core, github, context, exec, io);
-            const { main } = require('/tmp/gh-aw/actions/check_command_position.cjs');
-            await main();
 
   safe_outputs:
     needs:
@@ -1161,17 +1033,16 @@ jobs:
     runs-on: ubuntu-slim
     permissions:
       contents: read
-      discussions: write
       issues: write
       pull-requests: write
     timeout-minutes: 15
     env:
       GH_AW_ENGINE_ID: "copilot"
-      GH_AW_WORKFLOW_ID: "goal-planner"
-      GH_AW_WORKFLOW_NAME: "Goal Planner"
+      GH_AW_WORKFLOW_ID: "issue-assigner"
+      GH_AW_WORKFLOW_NAME: "Issue Assigner"
     outputs:
-      process_safe_outputs_processed_count: ${{ steps.process_safe_outputs.outputs.processed_count }}
-      process_safe_outputs_temporary_id_map: ${{ steps.process_safe_outputs.outputs.temporary_id_map }}
+      assign_to_agent_assigned: ${{ steps.assign_to_agent.outputs.assigned }}
+      assign_to_user_assigned: ${{ steps.assign_to_user.outputs.assigned }}
     steps:
       - name: Setup Scripts
         uses: githubnext/gh-aw/actions/setup@1183162e13ecd5a7947169ab65e7b988d1ec1128 # v0.34.3
@@ -1188,17 +1059,18 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs/
           find "/tmp/gh-aw/safeoutputs/" -type f -print
           echo "GH_AW_AGENT_OUTPUT=/tmp/gh-aw/safeoutputs/agent_output.json" >> "$GITHUB_ENV"
-      - name: Process Safe Outputs
-        id: process_safe_outputs
+      - name: Assign To Agent
+        id: assign_to_agent
+        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'assign_to_agent'))
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"max\":1,\"title_prefix\":\"[Plan] \"}}"
+          GH_AW_AGENT_MAX_COUNT: 1
         with:
-          github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_AW_AGENT_TOKEN }}
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
-            const { main } = require('/tmp/gh-aw/actions/safe_output_handler_manager.cjs');
+            const { main } = require('/tmp/gh-aw/actions/assign_to_agent.cjs');
             await main();
 

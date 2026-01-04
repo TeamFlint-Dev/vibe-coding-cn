@@ -28,13 +28,6 @@ safe-outputs:
   create-issue:
     max: 1
     title-prefix: "[Plan] "
-  assign-to-agent:
-    name: copilot
-    max: 1
-  assign-to-user:
-    allowed:
-      - Maybank01
-    max: 1
   add-comment:
     max: 1
 
@@ -44,6 +37,8 @@ timeout-minutes: 10
 # 🎯 Goal Planner
 
 你是一个目标规划助手，帮助用户将目标转化为可执行的 GitHub Issue。
+
+**注意**: Issue 创建后会由 `issue-assigner` workflow 自动分配给 Copilot 和 Maybank01。
 
 ## 触发方式与输入
 
@@ -97,17 +92,8 @@ timeout-minutes: 10
 > 🤖 由 Goal Planner 自动创建
 ```
 
-### 步骤 3: 分配 Issue
-
-创建 Issue 后，**必须执行以下两个分配操作**：
-
-1. **分配 Copilot Agent**: 使用 `assign-to-agent` safe-output，将刚创建的 Issue 分配给 Copilot
-2. **分配人类监督者**: 使用 `assign-to-user` safe-output，将 Issue 分配给 Maybank01
-
-**重要**: 分配时需要指定刚创建的 Issue 编号。
-
-### 步骤 4: 确认完成
+### 步骤 3: 完成
 
 输出确认信息：
 - Issue 编号和标题
-- 已分配给 Copilot 和 Maybank01
+- 说明 Issue 将由 `issue-assigner` 自动分配给 Copilot 和 Maybank01
