@@ -25,7 +25,6 @@ safe-outputs:
     labels: [research-task, copilot-task]
     title-prefix: "[Research] "
     assignees: copilot
-  assign-to-agent:
 timeout-minutes: 10
 strict: true
 ---
@@ -101,7 +100,7 @@ strict: true
 ## 📝 执行步骤
 
 1. **创建 Issue**: 使用 `create-issue` safe-output 创建上述格式的 Issue
-2. **分配给 Copilot**: 使用 `assign-to-agent` 将 Issue 分配给 Copilot Agent
+   - Issue 会自动分配给 Copilot Agent（通过 assignees 配置）
 
 ## ⚠️ 规则
 
