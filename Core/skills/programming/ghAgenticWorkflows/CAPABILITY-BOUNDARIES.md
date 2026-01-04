@@ -108,30 +108,58 @@ Safe-outputs 是 gh-aw 的核心安全机制，所有写操作都通过这个沙
 
 ### 支持的操作
 
-| 操作类型                       | 功能                  | 关键参数                              |
-| ------------------------------ | --------------------- | ------------------------------------- |
-| create-issue                   | 创建 Issue            | title-prefix, labels, assignees, max  |
-| update-issue                   | 更新 Issue            | target, title, body, labels           |
-| close-issue                    | 关闭 Issue            | required-labels, required-title-prefix|
-| add-comment                    | 添加评论              | max, target, hide-older-comments      |
-| create-pull-request            | 创建 PR               | title-prefix, labels, reviewers       |
-| update-pull-request            | 更新 PR               | target, title, body                   |
-| close-pull-request             | 关闭 PR               | required-labels                       |
-| push-to-pull-request-branch    | 推送到 PR 分支        | -                                     |
-| create-discussion              | 创建 Discussion       | category, labels                      |
-| update-discussion              | 更新 Discussion       | target, title, body, labels           |
-| close-discussion               | 关闭 Discussion       | required-labels, required-category    |
-| add-labels                     | 添加标签              | allowed-labels                        |
-| add-reviewer                   | 添加审查者            | -                                     |
-| assign-milestone               | 分配里程碑            | -                                     |
-| assign-to-agent                | 分配给 Copilot        | -                                     |
-| create-agent-task              | 创建 Agent 任务       | base, target-repo                     |
-| update-project                 | 更新项目看板          | max                                   |
-| create-pull-request-review-comment | 创建 PR 审查评论  | max, side                             |
-| link-sub-issue                 | 链接子 Issue          | -                                     |
-| upload-asset                   | 上传资产              | -                                     |
-| update-release                 | 更新 Release          | -                                     |
-| hide-comment                   | 隐藏评论              | -                                     |
+| 操作类型                       | 功能                  | 关键参数                              | 临时 ID |
+| ------------------------------ | --------------------- | ------------------------------------- | ------- |
+| create-issue                   | 创建 Issue            | title-prefix, labels, assignees, max  | 生产者  |
+| update-issue                   | 更新 Issue            | target, title, body, labels           | ❌      |
+| close-issue                    | 关闭 Issue            | required-labels, required-title-prefix| ❌      |
+| add-comment                    | 添加评论              | max, target, hide-older-comments      | ✅      |
+| create-pull-request            | 创建 PR               | title-prefix, labels, reviewers       | ❌      |
+| update-pull-request            | 更新 PR               | target, title, body                   | ❌      |
+| close-pull-request             | 关闭 PR               | required-labels                       | ❌      |
+| push-to-pull-request-branch    | 推送到 PR 分支        | -                                     | ❌      |
+| create-discussion              | 创建 Discussion       | category, labels                      | ❌      |
+| update-discussion              | 更新 Discussion       | target, title, body, labels           | ❌      |
+| close-discussion               | 关闭 Discussion       | required-labels, required-category    | ❌      |
+| add-labels                     | 添加标签              | allowed-labels                        | ❌      |
+| add-reviewer                   | 添加审查者            | -                                     | ❌      |
+| assign-milestone               | 分配里程碑            | -                                     | ❌      |
+| assign-to-agent                | 分配给 Copilot        | -                                     | ⚠️ 不支持 |
+| create-agent-task              | 创建 Agent 任务       | base, target-repo                     | ❌      |
+| update-project                 | 更新项目看板          | max                                   | ❌      |
+| create-pull-request-review-comment | 创建 PR 审查评论  | max, side                             | ❌      |
+| link-sub-issue                 | 链接子 Issue          | -                                     | ✅      |
+| upload-asset                   | 上传资产              | -                                     | ❌      |
+| update-release                 | 更新 Release          | -                                     | ❌      |
+| hide-comment                   | 隐藏评论              | -                                     | ❌      |
+
+> **临时 ID 说明**:
+> - `生产者`: 可以输出 `temporary_id`，供其他 Job 消费
+> - `✅`: 支持解析临时 ID（`aw_xxxxxxxxxxxx` 格式）
+> - `⚠️ 不支持`: 明确不支持临时 ID，使用时需确保传入真实 issue_number
+> - `❌`: 未实现临时 ID 支持（可能在未来版本添加）
+>
+> **解决方案**: 如需创建 Issue 并分配给 Agent，使用 `create-issue` 的 `assignees: copilot` 配置
+
+### ⚠️ assignees: copilot 配置注意事项
+
+使用 `assignees: copilot` 配置时，需要确保：
+
+1. **配置 Copilot Token**（可能需要）：
+   ```bash
+   gh secret set GH_AW_COPILOT_TOKEN -a actions --body "<your-copilot-pat>"
+   # 或
+   gh secret set COPILOT_GITHUB_TOKEN -a actions --body "<your-copilot-pat>"
+   ```
+
+2. **替代方案**：如果 `assignees: copilot` 不生效，改用 `create-agent-task`：
+   ```yaml
+   safe-outputs:
+     create-agent-task:
+       base: main
+   ```
+
+> **已知问题**: 2026-01-04 测试发现 `assignees: copilot` 配置可能不生效，编译器未正确设置 `GH_AW_ASSIGN_COPILOT` 环境变量。详见 [FC-002](FAILURE-CASES.md#fc-002-create-issue-assignees-copilot-配置不生效)
 
 ### Safe-Outputs 配置示例
 

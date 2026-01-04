@@ -11,6 +11,7 @@ This directory contains long-form documentation that supports the `claudeSkills`
 - [`skill-spec.md`](skill-spec.md): normative spec (MUST/SHOULD/NEVER) for a production-grade Skill in this repo
 - [`quality-checklist.md`](quality-checklist.md): quality gate checklist + scoring rubric
 - [`anti-patterns.md`](anti-patterns.md): common failure modes and how to fix them
+- [`skill-to-mcp-guide.md`](skill-to-mcp-guide.md): **完整指南** - 如何将 Claude 风格 Skill 转换为 MCP 工具（含 Skillz 配置、MCP 协议、实战示例）
 
 ## Upstream / Official Reference
 

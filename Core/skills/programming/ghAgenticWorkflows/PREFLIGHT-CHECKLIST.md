@@ -51,6 +51,16 @@
 - [ ] `title-prefix` 用于标识自动创建的内容
 - [ ] `max` 限制创建数量防止失控
 - [ ] `labels` 用于分类和后续检索
+- [ ] `assignees: copilot` 需要配置 `GH_AW_COPILOT_TOKEN` 或 `COPILOT_GITHUB_TOKEN` Secret
+  - 来源: [FC-002](FAILURE-CASES.md#fc-002-create-issue-assignees-copilot-配置不生效)
+  - 验证: `gh secret list | grep -i copilot`
+  - 替代: 使用 `create-agent-task` 替代 `create-issue` + `assignees: copilot`
+
+### 临时 ID 支持
+
+- [ ] `assign-to-agent` 不支持临时 ID，需要真实 Issue 编号
+  - 来源: [FC-001](FAILURE-CASES.md#fc-001-assign_to_agent-不支持临时-id)
+  - 替代: 使用 `create-issue` 的 `assignees: copilot` 配置
 
 ---
 
@@ -131,4 +141,6 @@
 
 | 日期 | 更新内容 | 关联案例 |
 |------|----------|----------|
+| 2026-01-04 | 添加 assignees: copilot 需要 Token 检查项 | FC-002 |
+| 2026-01-04 | 添加 assign-to-agent 临时 ID 限制检查项 | FC-001 |
 | 2026-01-02 | 初始版本，从官方文档和已知最佳实践提炼 | - |
