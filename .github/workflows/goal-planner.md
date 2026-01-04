@@ -30,6 +30,8 @@ safe-outputs:
     title-prefix: "[Plan] "
   add-comment:
     max: 1
+  # 使用 PAT 创建 Issue，这样可以触发 issue-assigner 工作流
+  github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
 
 timeout-minutes: 10
 ---
