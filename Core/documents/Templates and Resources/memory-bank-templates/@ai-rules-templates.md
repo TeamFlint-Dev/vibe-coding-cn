@@ -134,7 +134,7 @@ This file provides guidance to Claude when working with code in this repository.
 
 When working on this project, Claude should ALWAYS:
 
-1. [Rule 1 - e.g., "Use SceneGraph architecture, NOT CreativeDevice"]
+1. [Rule 1 - e.g., "Use Component-ization boundary principle: if can be componentized, use SceneGraph"]
 2. [Rule 2 - e.g., "Follow existing naming conventions"]
 3. [Rule 3 - e.g., "Keep functions under 50 lines"]
 4. [Rule 4 - e.g., "Add tests for new functionality"]
@@ -200,7 +200,7 @@ Before starting development, read:
 ```markdown
 ## Always Rules
 
-1. Use SceneGraph architecture, NOT CreativeDevice
+1. Apply Component-ization boundary principle (see R00 report)
 2. Components communicate only through Scene Events
 3. Each file should be under 300 lines
 4. Run `make lint` before committing
@@ -274,12 +274,13 @@ A UEFN-based idle/collection game where players fish for items, display them in 
 ## Architecture
 
 - **Pattern**: SceneGraph (Entity-Component-Event)
+- **Boundary Principle**: Component-ization boundary (if can be componentized → use SceneGraph)
 - **Communication**: Scene Events (SendUp/SendDown/SendDirect)
 - **Data Flow**: Unidirectional, event-driven
 
 ## Always Rules
 
-1. **Use SceneGraph architecture** - CreativeDevice is deprecated
+1. **Apply Component-ization boundary principle** - Check R00-SceneGraph-Device-Boundary report
 2. **Components communicate only through Scene Events** - Never direct references
 3. **Each component has single responsibility** - Split if doing multiple things
 4. **Follow existing naming conventions** - `snake_case` for entities/components
@@ -289,7 +290,7 @@ A UEFN-based idle/collection game where players fish for items, display them in 
 
 ## Never Rules
 
-1. **Never use CreativeDevice** - Always prefer SceneGraph
+1. **Never violate Component-ization boundary** - Use Device for non-componentizable features
 2. **Never access components directly** - Use events for communication
 3. **Never hardcode game balance values** - Put them in constants.verse
 4. **Never modify existing events** - Add new events instead

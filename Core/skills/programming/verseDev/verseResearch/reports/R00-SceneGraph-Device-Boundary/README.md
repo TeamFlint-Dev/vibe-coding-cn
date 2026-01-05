@@ -4,49 +4,94 @@
 >
 > **调研日期**: 2026-01-05
 >
-> **调研目标**: 梳理并验证 SceneGraph 在 UEFN 环境下的原生能力和边界
+> **最新更新**: 2026-01-05 (v2.0 - 采用新心智模型)
+>
+> **调研目标**: 梳理并验证 SceneGraph 在 UEFN 环境下的能力边界
+>
+> **核心定义**: **SG能力边界 = Component化边界** 🆕
+
+---
+
+## 🎯 v2.0 重要更新
+
+### 新心智模型
+
+从"SG vs Device 功能分工"转变为"**SG能力边界 = Component化边界**"
+
+**核心判定标准**:
+- ✅ **可 Component化** → 优先使用 SceneGraph
+- ❌ **不可 Component化** → 必须使用 Device
+- ⚙️ **混合架构** → Component 管理逻辑 + Device 提供能力
+
+> 详见 [心智模型迁移指南](./MENTAL-MODEL-MIGRATION.md) 📘
 
 ---
 
 ## 📚 调研文档索引
 
-### 核心文档
+### 🆕 核心文档
 
 | 文档 | 说明 | 链接 |
 |------|------|------|
-| **能力边界文档** | 快速判断 SG 能做/不能做的事 | [CAPABILITY-BOUNDARIES.md](./CAPABILITY-BOUNDARIES.md) |
+| **⭐ 心智模型迁移指南** | v2.0 新模型完整说明 | [MENTAL-MODEL-MIGRATION.md](./MENTAL-MODEL-MIGRATION.md) |
+| **能力边界文档 (v2.0)** | Component化判定标准、决策流程 | [CAPABILITY-BOUNDARIES.md](./CAPABILITY-BOUNDARIES.md) |
+
+### 技术详解文档
+
+| 文档 | 说明 | 链接 |
+|------|------|------|
 | **实体与组件系统** | 实体/组件的创建、管理、生命周期 | [01-entity-component.md](./01-entity-component.md) |
 | **事件系统** | 事件定义、传播、接收机制 | [02-event-system.md](./02-event-system.md) |
 | **异步机制** | spawn、Sleep、race、sync 用法 | [03-async-mechanisms.md](./03-async-mechanisms.md) |
 | **数据结构与追踪** | 数据结构支持、玩家追踪方案 | [04-data-structures.md](./04-data-structures.md) |
-| **典型用例** | 无需 Device 可实现的场景 | [05-use-cases.md](./05-use-cases.md) |
+| **典型用例** | Component化场景与混合架构案例 | [05-use-cases.md](./05-use-cases.md) |
 | **限制与 FAQ** | 已知限制、常见坑点、绕过方案 | [06-limitations-faq.md](./06-limitations-faq.md) |
 | **原生 Component 清单** | 所有官方 Component 类型、分类、用途 | [07-native-components.md](./07-native-components.md) |
 
 ---
 
-## 🎯 调研要点总结
+## 🎯 调研要点总结 (v2.0)
 
-### 1. 核心能力
+### 1. 核心能力边界
 
-**✅ SceneGraph 可独立实现**:
+**新定义**: **SG能力边界 = Component化边界**
 
-- 实体与组件的创建、管理、层级化
+**Component化判定标准** (5项检查):
+1. ✅ **可抽象**: 能抽象为通用组件逻辑
+2. ✅ **可实例化**: 可运行时动态创建多个实例
+3. ✅ **数据驱动**: 行为由参数控制，非硬编码
+4. ✅ **可组合**: 可与其他组件组合
+5. ✅ **无编辑器依赖**: 不需要编辑器预置资源
+
+**满足 3 项以上** → ✅ 可 Component化（优先使用 SceneGraph）
+
+---
+
+### 2. 典型分类
+
+**✅ 可 Component化（SceneGraph）**:
+- 实体与组件管理（创建、销毁、层级化）
 - 事件系统（SendUp/Down/Direct）
 - 异步流程（spawn、Sleep、race、sync）
 - 空间查询（碰撞检测、Overlap）
 - 数据结构（array、map、option）
-- 定时器、状态机、对象池等模式
+- 状态机、计时器、对象池、事件总线
 
-**❌ 必须使用 Device**:
+**❌ 不可 Component化（Device）**:
+- 玩家输入（引擎特殊支持）
+- UI 显示（编辑器预置 + 引擎渲染）
+- 音频播放（资源绑定）
+- 游戏规则（全局单例 + 引擎支持）
+- 资源动态加载（编辑器预置）
 
-- 玩家输入（键盘、鼠标、手柄）
-- UI 显示（HUD、菜单、按钮）
-- 音频播放（音效、背景音乐）
-- 游戏规则（回合、得分、胜利条件）
-- 资源动态加载（Mesh、材质、音频）
+**⚙️ 混合架构**:
+- Component 管理状态和逻辑
+- Device 提供输入/输出/资源能力
+- 事件驱动，编辑器配置
 
-### 2. 关键限制
+---
+
+### 3. 关键限制
 
 **🔴 发布限制（最重要）**:
 
@@ -61,27 +106,29 @@
 - 无数据持久化（跨会话）
 - 性能需注意（OnSimulate 开销、深层嵌套）
 
-### 3. 典型 UseCase
+### 3. 典型 UseCase (v2.0 视角)
 
-| 场景 | 独立实现 | 核心机制 |
-|------|----------|----------|
-| 对象生成系统 | ✅ | spawn + Sleep + entity |
-| 碰撞检测 | ✅ | FindOverlapHits + 事件 |
-| 状态机 | ✅ | 组件状态 + 事件 |
-| 计时器 | ✅ | spawn + Sleep |
-| 事件总线 | ✅ | SendDown + OnReceive |
-| 玩家输入 | ❌ | input_trigger_device |
-| UI 显示 | ❌ | hud_message_device |
-| 音效播放 | ❌ | audio_player_device |
+| 场景 | Component化判定 | 架构方案 |
+|------|----------------|----------|
+| 对象生成系统 | ✅ 可抽象、可实例化 | 纯 SceneGraph (spawner_component) |
+| 碰撞检测 | ✅ 可抽象、可组合 | 纯 SceneGraph (collision_component) |
+| 状态机 | ✅ 可抽象、数据驱动 | 纯 SceneGraph (state_component) |
+| 计时器 | ✅ 可抽象、可组合 | 纯 SceneGraph (timer_component) |
+| 事件总线 | ✅ 可抽象、可组合 | 纯 SceneGraph (event_bus_component) |
+| **钓鱼系统** | 部分可 Component化 | 混合架构（fishing_component + input/audio/ui_device） |
+| **波次生成** | 部分可 Component化 | 混合架构（wave_component + audio/ui_device） |
+| 玩家输入 | ❌ 引擎特殊支持 | 纯 Device (input_trigger_device) |
+| UI 显示 | ❌ 编辑器预置 | 纯 Device (canvas_device) |
+| 音效播放 | ❌ 资源绑定 | 纯 Device (audio_player_device) |
 
-### 4. 最佳实践
+### 4. 最佳实践 (v2.0)
 
-1. **OnBeginSimulation 必须 Sleep(0.0)** - 延迟一帧确保初始化完成
-2. **组件单一职责** - 每个组件只做一件事
-3. **事件解耦通信** - 优先使用事件而非组件引用
-4. **避免深层嵌套** - 推荐 3-4 层实体层级
-5. **降低 OnSimulate 开销** - 用 spawn + Sleep 实现定时逻辑
-6. **混合架构** - SG 管理逻辑，Device 处理交互
+1. **优先 Component化** - 符合标准的功能优先用 SceneGraph
+2. **混合架构模式** - Component 持有状态，Device 提供能力
+3. **事件驱动** - Component 与 Device 通过事件协作
+4. **编辑器配置** - Device 在编辑器中配置，代码中 `@editable` 引用
+5. **单一职责** - 每个 Component 只做一件事
+6. **Sleep(0.0) 必须** - OnBeginSimulation 第一行必须延迟一帧
 
 ---
 
@@ -286,7 +333,17 @@
 
 ## 🔄 更新日志
 
-- **2026-01-05**: 初始版本发布
+- **2026-01-05 (v2.0)**: 心智模型迁移
+  - ⭐ 采用新模型："**SG能力边界 = Component化边界**"
+  - 新增: [心智模型迁移指南](./MENTAL-MODEL-MIGRATION.md)
+  - 更新: [CAPABILITY-BOUNDARIES.md](./CAPABILITY-BOUNDARIES.md) (v2.0)
+    - Component化判定标准（5项检查）
+    - 决策流程图
+    - 典型案例分析（基于新模型）
+    - 混合架构模式详解
+  - 更新: 本 README.md 调研要点总结
+  - 理由: 对齐 #171 issue 纠偏结论，提供更清晰的决策框架
+- **2026-01-05 (v1.0)**: 初始版本发布
   - 完成 7 个核心调研文档
   - 覆盖实体、组件、事件、异步、数据结构、用例、限制
   - 基于官方文档和现有参考资料
