@@ -28,6 +28,7 @@ Helper 按功能分为四类，通过命名后缀区分：
 | MathUtils | [MathUtils.verse](MathUtils.verse) | 数学计算：Clamp、Min/Max、Lerp |
 | VectorUtils | [VectorUtils.verse](VectorUtils.verse) | 向量操作：距离、方向、插值 |
 | RandomUtils | [RandomUtils.verse](RandomUtils.verse) | 随机工具：选择、权重、洗牌 |
+| **⭐ Probability** | [**../Probability/**](../Probability/) | **完整的随机数与概率系统（18个模块）** |
 
 ### Calculator（公式计算）
 
