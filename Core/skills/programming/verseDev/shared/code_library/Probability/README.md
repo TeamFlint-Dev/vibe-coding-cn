@@ -3,7 +3,47 @@
 # 版本: 1.0
 # 更新日期: 2026-01-05
 
-本目录包含完整的随机数与概率系统实现，共5层架构，18个模块文件。
+本目录包含完整的随机数与概率系统实现，共5层架构，18个模块文件，以及完整的测试套件。
+
+## 快速导航
+
+- [模块概览](#模块概览) - 查看所有18个模块
+- [测试套件](#测试套件) - 查看测试文档（新增）
+- [使用建议](#使用建议) - 快速开始指南
+- [系统特性](#系统特性) - 功能特性说明
+
+## 测试套件
+
+**📁 Tests/** - 完整的测试套件，用于验证功能和定位问题
+
+| 文件 | 说明 | 测试数量 |
+|------|------|---------|
+| [ProbabilityTests.verse](Tests/ProbabilityTests.verse) | 单元测试套件 | 12个测试 |
+| [IntegrationTests.verse](Tests/IntegrationTests.verse) | 集成测试套件 | 4个场景测试 |
+| [README.md](Tests/README.md) | 测试文档和问题定位指南 | - |
+
+**测试覆盖**:
+- ✅ 基础功能测试（随机数范围、概率分布）
+- ✅ 加权选择分布验证
+- ✅ PRD机制测试（递增、重置）
+- ✅ 保底机制测试（硬保底、软保底）
+- ✅ 边界条件测试（空数组、极端值）
+- ✅ 性能测试（大量操作）
+- ✅ 集成测试（装备掉落、抽卡、暴击、事件）
+
+**快速运行测试**:
+```verse
+using { /YourProject/Probability/Tests/ProbabilityTests }
+using { /YourProject/Probability/Tests/IntegrationTests }
+
+# 运行所有单元测试
+ProbabilityTests.RunAllTests()
+
+# 运行所有集成测试
+IntegrationTests.RunAllIntegrationTests()
+```
+
+详细测试文档和问题定位指南请参考 [Tests/README.md](Tests/README.md)
 
 ## 模块概览
 
