@@ -102,6 +102,7 @@
 | 技能 | 类型 | 职责 |
 |------|------|------|
 | [verseCli](verseCli/SKILL.md) | 命令行工具 | 通过终端触发 UEFN 编译，支持监听模式 |
+| [verseResearch](verseResearch/SKILL.md) | 技术调研 | UEFN/Verse 技术调研、边界探索、最佳实践总结 |
 
 ### 共享资源
 
