@@ -198,242 +198,412 @@ StationaryBlockAll    # 静态物体，阻挡所有通道
 
 ## Entity 碰撞检测实现
 
-### 步骤 1: 创建检测区域 Entity
+> **⚠️ 架构说明**: 
+> 组件架构有两种正确模式：
+> 1. **继承式特化**: 继承 mesh_component 创建专用触发器（简单场景推荐）
+> 2. **订阅式组合**: 独立检测组件订阅 mesh_component 事件（复杂场景推荐）
+>
+> **详细架构分析**: 参见 `player-detection-advanced-patterns.md`
+
+### 方案 A: 继承式特化（推荐用于简单触发器）
+
+**理念**: 创建继承自 mesh_component 的专用触发器组件
 
 ```verse
 using { /Verse.org/SceneGraph }
-using { /UnrealEngine.com/BasicShapes }
 
-# 自定义检测区域 Entity 类
-player_detection_zone := class(entity):
-    var ZoneName<private>:string = "检测区域"
-    var ZoneRadius<private>:float = 10.0
+# 直接继承 mesh_component，成为专用触发器
+player_trigger_mesh := class(mesh_component):
+    var TriggerName:string = "玩家触发器"
+    var PlayersInside<private>:[]agent = array{}
+    var CheckInterval:float = 0.1
     
-    # 初始化方法
-    Initialize(Name:string, Radius:float):void =
-        set ZoneName = Name
-        set ZoneRadius = Radius
-        
-        # 添加球形碰撞网格
-        CollisionMesh := sphere{}
-        # TODO: 设置碰撞网格的半径和碰撞配置
-        
-        # 添加检测组件
-        Detector := player_detection_component{
-            ZoneName := Name,
-            CheckInterval := 0.1
-        }
-        
-        AddComponents(array{CollisionMesh, Detector})
-```
-
-### 步骤 2: 实现检测组件
-
-```verse
-using { /Verse.org/SceneGraph }
-using { /Verse.org/Simulation }
-
-# 玩家检测组件
-player_detection_component := class(component):
-    # 配置参数
-    var ZoneName:string = "未命名区域"
-    var CheckInterval:float = 0.1  # 检测间隔（秒）
-    
-    # 内部状态
-    var PreviousPlayers<private>:[]agent = array{}
-    var CurrentPlayers<private>:[]agent = array{}
-    
-    # 生命周期 - 开始仿真
     OnBeginSimulation<override>()<suspends>:void =
-        Sleep(0.0)  # 必须的帧延迟
+        Sleep(0.0)
+        Print("[{TriggerName}] 触发器已启动")
         
-        Print("[{ZoneName}] 检测器已启动，检测间隔: {CheckInterval} 秒")
-        
-        # 启动检测循环
         spawn:
             DetectionLoop()
     
-    # 检测循环
     DetectionLoop()<suspends>:void =
         loop:
             PerformDetection()
             Sleep(CheckInterval)
     
-    # 执行一次检测
     PerformDetection()<transacts>:void =
-        # 获取 Owner Entity
         if (Owner := GetOwner[entity]):
-            # 调用 FindOverlapHits 检测重叠
-            OverlapHits := Owner.FindOverlapHits()
-            
-            # 提取 agent 列表
-            NewPlayers := ExtractAgents(OverlapHits)
-            
-            # 对比变化并触发事件
+            # 使用继承的碰撞能力
+            Overlaps := Owner.FindOverlapHits()
+            NewPlayers := ExtractAgents(Overlaps)
             DetectChanges(NewPlayers)
-            
-            # 更新状态
-            set PreviousPlayers = CurrentPlayers
-            set CurrentPlayers = NewPlayers
     
-    # 从碰撞结果中提取 agents
-    ExtractAgents(Hits:generator(overlap_hit)):[]agent =
-        var Agents:[]agent = array{}
-        
-        for (Hit : Hits):
-            # 尝试将碰撞实体转换为 agent
-            if (HitAgent := agent[Hit.HitEntity]):
-                set Agents += array{HitAgent}
-        
-        return Agents
-    
-    # 检测进入/离开变化
     DetectChanges(NewPlayers:[]agent):void =
-        # 检测新进入的玩家
         for (Player : NewPlayers):
-            if (not PreviousPlayers.Contains[Player]):
+            if (not PlayersInside.Contains[Player]):
                 OnPlayerEnter(Player)
         
-        # 检测离开的玩家
-        for (Player : PreviousPlayers):
+        for (Player : PlayersInside):
             if (not NewPlayers.Contains[Player]):
                 OnPlayerExit(Player)
+        
+        set PlayersInside = NewPlayers
     
-    # 玩家进入事件
     OnPlayerEnter(Player:agent):void =
-        Print("[{ZoneName}] 玩家进入: {Player}")
-        
-        # 通过 Scene Event 通知其他组件
-        if (Owner := GetOwner[entity]):
-            Event := player_entered_zone_event{
-                Player := Player,
-                ZoneName := ZoneName
-            }
-            Owner.SendDown(Event)
+        Print("[{TriggerName}] 玩家进入: {Player}")
+        SendEnterEvent(Player)
     
-    # 玩家离开事件
     OnPlayerExit(Player:agent):void =
-        Print("[{ZoneName}] 玩家离开: {Player}")
-        
-        # 通过 Scene Event 通知其他组件
+        Print("[{TriggerName}] 玩家离开: {Player}")
+        SendExitEvent(Player)
+    
+    SendEnterEvent(Player:agent):void =
         if (Owner := GetOwner[entity]):
-            Event := player_exited_zone_event{
-                Player := Player,
-                ZoneName := ZoneName
-            }
+            Event := player_entered_event{Player := Player}
             Owner.SendDown(Event)
     
-    # 查询当前区域内玩家
-    GetPlayersInZone():[]agent = CurrentPlayers
+    SendExitEvent(Player:agent):void =
+        if (Owner := GetOwner[entity]):
+            Event := player_exited_event{Player := Player}
+            Owner.SendDown(Event)
     
-    # 查询玩家数量
-    GetPlayerCount():int = CurrentPlayers.Length
+    ExtractAgents(Hits:generator(overlap_hit)):[]agent =
+        var Agents:[]agent = array{}
+        for (Hit : Hits):
+            if (Agent := agent[Hit.HitEntity]):
+                set Agents += array{Agent}
+        return Agents
 
-# 自定义 Scene Events
-player_entered_zone_event := class<concrete>(scene_event):
-    var Player:agent
-    var ZoneName:string
-
-player_exited_zone_event := class<concrete>(scene_event):
-    var Player:agent
-    var ZoneName:string
+# 使用方式
+CreateTriggerZone(Name:string):entity =
+    Zone := entity{}
+    
+    # 只添加一个组件 - 继承自 mesh_component 的触发器
+    Trigger := player_trigger_mesh{TriggerName := Name}
+    Zone.AddComponents(array{Trigger})
+    
+    return Zone
 ```
 
-### 步骤 3: 使用检测器
+### 方案 B: 订阅式组合（推荐用于复杂逻辑/多触发源）
+
+**理念**: 独立的检测组件订阅 mesh_component 的碰撞事件
+
+> **注意**: 这种模式需要 mesh_component 暴露碰撞事件。
+> 如果官方 API 不提供事件，可以创建自定义的带事件的 mesh_component。
 
 ```verse
-# 在游戏管理器中创建检测区域
-game_manager := class<concrete>(creative_device):
-    var SafeZone:?player_detection_zone = false
-    var BattleZone:?player_detection_zone = false
+using { /Verse.org/SceneGraph }
+
+# 步骤 1: 创建带事件的碰撞网格组件
+collision_mesh_component := class(mesh_component):
+    # 暴露碰撞事件
+    OnCollisionBegin<public>:event(entity) = event(entity){}
+    OnCollisionEnd<public>:event(entity) = event(entity){}
     
-    OnBegin<override>()<suspends>:void =
-        # 创建安全区
-        SafeZoneEntity := player_detection_zone{}
-        SafeZoneEntity.Initialize("安全区", 15.0)
-        set SafeZone = option{SafeZoneEntity}
+    # 在碰撞发生时触发事件
+    # 注意: 实际实现需要与引擎碰撞系统集成
+    # 这里展示的是架构模式
+
+# 步骤 2: 创建独立的检测逻辑组件
+player_detection_logic := class(component):
+    var ZoneName:string = "检测区域"
+    var PlayersInZone<private>:[]agent = array{}
+    
+    OnBeginSimulation<override>()<suspends>:void =
+        Sleep(0.0)
         
-        # 创建战斗区
-        BattleZoneEntity := player_detection_zone{}
-        BattleZoneEntity.Initialize("战斗区", 30.0)
-        set BattleZone = option{BattleZoneEntity}
-        
-        # 将 Entity 添加到场景
-        # TODO: 获取 Simulation Root Entity 并添加
-        
-        Print("检测器初始化完成")
+        # 查找同一 Entity 下的碰撞网格组件
+        if (Owner := GetOwner[entity]):
+            if (Mesh := Owner.GetComponent[collision_mesh_component]()):
+                # 订阅碰撞事件
+                Mesh.OnCollisionBegin.Subscribe(HandleCollisionBegin)
+                Mesh.OnCollisionEnd.Subscribe(HandleCollisionEnd)
+                Print("[{ZoneName}] 已订阅碰撞事件")
+    
+    HandleCollisionBegin(HitEntity:entity):void =
+        # 尝试转换为 agent
+        if (Player := agent[HitEntity]):
+            set PlayersInZone += array{Player}
+            OnPlayerEnter(Player)
+    
+    HandleCollisionEnd(HitEntity:entity):void =
+        if (Player := agent[HitEntity]):
+            set PlayersInZone = PlayersInZone.Filter((P:agent):P <> Player)
+            OnPlayerExit(Player)
+    
+    OnPlayerEnter(Player:agent):void =
+        Print("[{ZoneName}] 玩家进入: {Player}")
+        SendEnterEvent(Player)
+    
+    OnPlayerExit(Player:agent):void =
+        Print("[{ZoneName}] 玩家离开: {Player}")
+        SendExitEvent(Player)
+    
+    SendEnterEvent(Player:agent):void =
+        if (Owner := GetOwner[entity]):
+            Event := player_entered_event{Player := Player}
+            Owner.SendDown(Event)
+    
+    SendExitEvent(Player:agent):void =
+        if (Owner := GetOwner[entity]):
+            Event := player_exited_event{Player := Player}
+            Owner.SendDown(Event)
+
+# 步骤 3: 创建包含两个组件的 Entity
+CreateDetectionZone(Name:string):entity =
+    Zone := entity{}
+    
+    # 添加碰撞网格组件
+    CollisionMesh := collision_mesh_component{}
+    
+    # 添加检测逻辑组件
+    DetectionLogic := player_detection_logic{ZoneName := Name}
+    
+    # 两个组件独立，通过事件通信
+    Zone.AddComponents(array{CollisionMesh, DetectionLogic})
+    
+    return Zone
 ```
+
+**订阅式组合的优势**:
+- ✅ 可以订阅多个碰撞源（一个检测组件订阅多个 mesh_component）
+- ✅ 检测逻辑与碰撞逻辑分离，易于测试
+- ✅ 可以动态添加/移除订阅
+
+**适用场景**:
+- 复杂的检测逻辑需要独立测试
+- 需要监听多个碰撞网格
+- 检测逻辑需要复用于不同的碰撞源
+
+### 自定义 Scene Events
+
+```verse
+# 玩家进入事件
+player_entered_event := class<concrete>(scene_event):
+    var Player:agent
+    var TriggerName:string = ""
+
+# 玩家离开事件
+player_exited_event := class<concrete>(scene_event):
+    var Player:agent
+    var TriggerName:string = ""
+```
+
+### 使用触发器
+
+```verse
+# 使用方案 A (继承式)
+game_manager := class<concrete>(creative_device):
+    OnBegin<override>()<suspends>:void =
+        # 创建安全区触发器
+        SafeZone := CreateTriggerZone("安全区")
+        
+        # 创建战斗区触发器
+        BattleZone := CreateTriggerZone("战斗区")
+        
+        Print("触发器初始化完成")
+
+# 使用方案 B (订阅式)
+game_manager_compositional := class<concrete>(creative_device):
+    OnBegin<override>()<suspends>:void =
+        # 创建检测区域（包含碰撞网格 + 检测逻辑两个组件）
+        SafeZone := CreateDetectionZone("安全区")
+        
+        Print("检测区域初始化完成")
+```
+
+### 方案选择指南
+
+| 场景 | 推荐方案 | 原因 |
+|------|---------|------|
+| 简单单一触发器 | 方案 A (继承式) | 代码简洁，性能好 |
+| 需要订阅多个碰撞源 | 方案 B (订阅式) | 灵活性高 |
+| 复杂状态机逻辑 | 方案 B (订阅式) | 便于测试和维护 |
+| 性能关键场景 | 方案 A (继承式) | 减少事件通信开销 |
+
+**详细架构分析与更多场景**: 参见 `player-detection-advanced-patterns.md`
 
 ---
 
 ## 完整代码示例
 
-### 示例 1: 安全区检测系统
+### 示例 1: 安全区检测系统（使用继承式）
 
 **需求**: 玩家进入安全区时无敌，离开时恢复正常
 
 ```verse
 using { /Verse.org/SceneGraph }
-using { /Verse.org/Simulation }
-using { /UnrealEngine.com/BasicShapes }
 
-# 安全区组件 - 监听进入/离开事件
-safe_zone_controller := class(component):
+# 继承 player_trigger_mesh，创建专用的安全区触发器
+safe_zone_trigger := class(player_trigger_mesh):
     var ProtectedPlayers<private>:[]agent = array{}
+    
+    # 重写进入逻辑
+    OnPlayerEnter<override>(Player:agent):void =
+        Print("[安全区] 玩家进入，授予保护: {Player}")
+        
+        # 添加到保护列表
+        set ProtectedPlayers += array{Player}
+        
+        # 授予保护效果
+        GrantProtection(Player)
+        
+        # 仍然发送标准事件
+        SendEnterEvent(Player)
+    
+    # 重写离开逻辑
+    OnPlayerExit<override>(Player:agent):void =
+        Print("[安全区] 玩家离开，移除保护: {Player}")
+        
+        # 从保护列表移除
+        set ProtectedPlayers = ProtectedPlayers.Filter((P:agent):P <> Player)
+        
+        # 移除保护效果
+        RemoveProtection(Player)
+        
+        SendExitEvent(Player)
+    
+    GrantProtection(Player:agent):void =
+        # TODO: 实现保护逻辑
+        # 可能需要与 fort_character API 交互
+        set{}
+    
+    RemoveProtection(Player:agent):void =
+        # TODO: 移除保护逻辑
+        set{}
+
+# 创建安全区
+CreateSafeZone():entity =
+    Zone := entity{}
+    Trigger := safe_zone_trigger{TriggerName := "安全区"}
+    Zone.AddComponents(array{Trigger})
+    return Zone
+```
+
+### 示例 2: 多入口检测系统（使用订阅式）
+
+**需求**: 监听多个入口，记录玩家从哪个入口进入
+
+```verse
+# 多入口管理器组件（订阅多个碰撞网格）
+multi_entrance_manager := class(component):
+    var EntranceRecords<private>:map[agent, string] = map{}
     
     OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
-        Print("安全区控制器已启动")
-    
-    # 接收 Scene Events
-    OnReceive<override>(Event:scene_event):logic =
-        # 玩家进入安全区
-        if (EnterEvent := player_entered_zone_event[Event]):
-            if (EnterEvent.ZoneName = "安全区"):
-                GrantProtection(EnterEvent.Player)
-                return true
         
-        # 玩家离开安全区
-        if (ExitEvent := player_exited_zone_event[Event]):
-            if (ExitEvent.ZoneName = "安全区"):
-                RemoveProtection(ExitEvent.Player)
-                return true
+        # 查找所有子 Entity 的碰撞网格并订阅
+        if (Owner := GetOwner[entity]):
+            DiscoverAndSubscribeEntrances(Owner)
+    
+    DiscoverAndSubscribeEntrances(Root:entity):void =
+        Children := Root.GetEntities()
         
-        return false
+        for (Child : Children):
+            # 查找碰撞网格组件
+            if (Mesh := Child.GetComponent[collision_mesh_component]()):
+                # 获取入口名称（从 Entity 或组件属性）
+                EntranceName := GetEntranceName(Child)
+                
+                # 订阅该入口的碰撞事件
+                Mesh.OnCollisionBegin.Subscribe(
+                    (Hit:entity):HandleEntranceEntry(Hit, EntranceName)
+                )
+                
+                Print("订阅入口: {EntranceName}")
     
-    # 授予保护
-    GrantProtection(Player:agent):void =
-        set ProtectedPlayers += array{Player}
-        Print("玩家 {Player} 获得安全区保护")
-        
-        # TODO: 设置玩家无敌状态
-        # 可能需要使用 fort_character API
+    HandleEntranceEntry(HitEntity:entity, EntranceName:string):void =
+        if (Player := agent[HitEntity]):
+            # 记录玩家从哪个入口进入
+            set EntranceRecords = EntranceRecords.Set[Player, EntranceName]
+            
+            Print("玩家 {Player} 从 {EntranceName} 进入")
+            
+            # 根据入口执行不同逻辑
+            if (EntranceName = "主入口"):
+                OnMainEntranceEntry(Player)
+            else if (EntranceName = "后门"):
+                OnBackDoorEntry(Player)
+            else if (EntranceName = "秘密通道"):
+                OnSecretEntranceEntry(Player)
     
-    # 移除保护
-    RemoveProtection(Player:agent):void =
-        set ProtectedPlayers = ProtectedPlayers.Filter((P:agent):P <> Player)
-        Print("玩家 {Player} 失去安全区保护")
-        
-        # TODO: 恢复玩家正常状态
-
-# 创建完整的安全区系统
-CreateSafeZoneSystem():entity =
-    # 创建根 Entity
-    SafeZoneRoot := entity{}
+    OnMainEntranceEntry(Player:agent):void =
+        Print("正常入口，无特殊效果")
     
-    # 添加检测器
-    DetectionZone := player_detection_zone{}
-    DetectionZone.Initialize("安全区", 15.0)
-    SafeZoneRoot.AddEntities(array{DetectionZone})
+    OnBackDoorEntry(Player:agent):void =
+        Print("后门进入，获得潜行buff")
     
-    # 添加控制器组件
-    Controller := safe_zone_controller{}
-    SafeZoneRoot.AddComponents(array{Controller})
+    OnSecretEntranceEntry(Player:agent):void =
+        Print("发现秘密通道，解锁成就！")
     
-    return SafeZoneRoot
+    GetEntranceName(E:entity):string =
+        # TODO: 从 Entity 的某个属性获取名称
+        "未命名入口"
 ```
 
-### 示例 2: 多区域玩家追踪
+**订阅式组合的优势体现**:
+- 一个组件可以监听任意数量的碰撞源
+- 每个入口有独立的碰撞网格，但共享同一个检测逻辑
+- 灵活：可以在运行时动态添加新入口
+
+### 示例 3: 重复触发不同结果
+
+**需求**: 玩家多次触发，每次结果不同
+
+```verse
+# 计数触发器（继承式）
+counting_trigger := class(player_trigger_mesh):
+    var TriggerCounts<private>:map[agent, int] = map{}
+    
+    OnPlayerEnter<override>(Player:agent):void =
+        # 获取或初始化计数
+        CurrentCount := if (Count := TriggerCounts.TryGet[Player]) then Count else 0
+        NewCount := CurrentCount + 1
+        
+        set TriggerCounts = TriggerCounts.Set[Player, NewCount]
+        
+        Print("玩家第 {NewCount} 次触发")
+        
+        # 根据触发次数执行不同逻辑
+        if (NewCount = 1):
+            OnFirstTrigger(Player)
+        else if (NewCount = 3):
+            OnThirdTrigger(Player)
+        else if (NewCount = 5):
+            OnFifthTrigger(Player)
+        else if (NewCount >= 10):
+            OnFrequentTrigger(Player)
+        
+        SendEnterEvent(Player)
+    
+    OnFirstTrigger(Player:agent):void =
+        Print("首次触发 - 显示教程")
+        # 显示教程UI
+    
+    OnThirdTrigger(Player:agent):void =
+        Print("第三次触发 - 给予小奖励")
+        # 给予金币或道具
+    
+    OnFifthTrigger(Player:agent):void =
+        Print("第五次触发 - 解锁成就")
+        # 解锁成就
+    
+    OnFrequentTrigger(Player:agent):void =
+        Print("频繁触发 - 可能在刷奖励，启动反作弊")
+        # 限制奖励或标记玩家
+```
+
+**深度思考体现**:
+- 简单场景：使用继承式，代码简洁
+- 多触发源：使用订阅式，灵活管理
+- 多信号：每种触发都发送不同事件
+- 重复触发不同结果：使用状态追踪
+
+**更多高级模式**: 参见 `player-detection-advanced-patterns.md`
+
+---
+
+### 示例 4: 多区域玩家追踪
 
 **需求**: 追踪玩家在多个区域间的移动
 
