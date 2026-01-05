@@ -21,6 +21,7 @@
 | **数据结构与追踪** | 数据结构支持、玩家追踪方案 | [04-data-structures.md](./04-data-structures.md) |
 | **典型用例** | 无需 Device 可实现的场景 | [05-use-cases.md](./05-use-cases.md) |
 | **限制与 FAQ** | 已知限制、常见坑点、绕过方案 | [06-limitations-faq.md](./06-limitations-faq.md) |
+| **原生 Component 清单** | 所有官方 Component 类型、分类、用途 | [07-native-components.md](./07-native-components.md) |
 
 ---
 
@@ -204,6 +205,27 @@
 
 ---
 
+### 原生 Component 类型清单
+
+**完整梳理**:
+
+- **32 个原生组件**分布在 Verse.org、UnrealEngine、Fortnite 三个模块
+- **基础组件**：transform、tag、interactable（3 个）
+- **渲染组件**：光照、网格、粒子、音效（9 个）
+- **物品系统**：库存、物品、拾取（18 个）
+- **AI 系统**：NPC、守卫、伙伴（5 个）
+
+**关键发现**:
+
+- ✅ 约 62% 的组件稳定可用
+- ⚠️ 12 个组件标记为实验性（`@experimental`）
+- 🔒 13 个组件标记为内部使用（`<epic_internal>`）
+- 🏗️ 3 个抽象基类组件不可直接实例化
+
+**详见**: [07-native-components.md](./07-native-components.md)
+
+---
+
 ## 🚀 推荐开发流程
 
 ### 阶段 1: 原型开发
@@ -268,6 +290,11 @@
   - 完成 7 个核心调研文档
   - 覆盖实体、组件、事件、异步、数据结构、用例、限制
   - 基于官方文档和现有参考资料
+  - **补充**: 完成原生 Component 类型完整清单（07-native-components.md）
+    - 梳理 32 个官方原生组件
+    - 分类：基础（3）、渲染（9）、物品（18）、AI（5）、动画（1）
+    - 标注实验性和内部使用状态
+    - 提供详细用法和代码示例
 
 ---
 
