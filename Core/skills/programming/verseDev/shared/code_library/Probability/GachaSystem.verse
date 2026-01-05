@@ -289,6 +289,9 @@ GachaSystem<public> := module:
     gacha_simulator<public>(CardType:type) := class:
         var Pool<private>:gacha_pool(CardType)
         
+        # 最大模拟次数（可配置）
+        MaxSimulationAttempts<public>:int = 1000
+        
         # 模拟N次单抽
         SimulatePulls<public>(Count:int)<transacts>:[]gacha_card(CardType) =
             var Results:[]gacha_card(CardType) = array{}
@@ -310,7 +313,7 @@ GachaSystem<public> := module:
                         break
                 
                 # 防止无限循环
-                if (Attempts > 1000):
+                if (Attempts >= MaxSimulationAttempts):
                     break
             
             Attempts

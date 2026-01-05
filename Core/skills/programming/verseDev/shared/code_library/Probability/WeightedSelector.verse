@@ -91,14 +91,10 @@ WeightedSelector<public> := module:
                     IncrementCount(Index)
                     WeightedItem.Item
             
-            # fallback: 返回最后一个
-            if (LastItem := Items[Items.Length - 1]):
-                IncrementCount(Items.Length - 1)
-                LastItem.Item
-            else:
-                # 这个分支在Items.Length > 0时理论上不会到达
-                # 但Verse需要所有路径都有返回值
-                Items[0].Item
+            # fallback: 返回最后一个（由于浮点误差可能到达）
+            LastIndex := Items.Length - 1
+            IncrementCount(LastIndex)
+            Items[LastIndex].Item
         
         # 按权重选择多个（可重复）
         SelectMultiple<public>(Count:int)<transacts>:[]ItemType =

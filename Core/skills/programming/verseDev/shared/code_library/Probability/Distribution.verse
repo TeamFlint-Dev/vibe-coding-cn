@@ -100,12 +100,13 @@ Distribution<public> := module:
         L := Exp(-Lambda)
         var K:int = 0
         var P:float = 1.0
+        MaxIterations:int = 1000  # 防止无限循环
         
         loop:
             set K += 1
             U := GetRandomFloat(0.0, 1.0)
             set P *= U
-            if (P > L):
+            if (P > L and K < MaxIterations):
                 # 继续循环
                 true
             else:

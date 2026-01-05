@@ -199,9 +199,9 @@ PseudoRandomDistribution<public> := module:
                 BasePRD.ResetProbability()
                 true
             else:
-                # 手动增加概率（因为我们用了自定义判定）
-                # 这里简化处理，直接调用底层Roll来更新状态
-                BasePRD.Roll()
+                # 更新PRD状态：调用Roll()来增加概率，但忽略其结果
+                # 因为我们已经用加权后的概率做了判定
+                _ := BasePRD.Roll()
                 false
         
         # 更新权重

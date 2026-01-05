@@ -141,17 +141,13 @@ RandomEvents<public> := module:
                             RecordHistory(Event.Event)
                             Event.Event
             
-            # fallback
-            if (LastEvent := EligibleEvents[EligibleEvents.Length - 1]):
-                if (GetRandomFloat(0.0, 1.0) <= LastEvent.TriggerChance):
-                    LastEvent.RecordTrigger(CurrentTime)
-                    RecordHistory(LastEvent.Event)
-                    LastEvent.Event
-                else:
-                    # 概率判定失败
-                    EligibleEvents[0].Event  # 返回第一个作为fallback
-            else:
-                EligibleEvents[0].Event
+            # fallback: 由于浮点误差，选择最后一个
+            LastIndex := EligibleEvents.Length - 1
+            LastEvent := EligibleEvents[LastIndex]
+            if (GetRandomFloat(0.0, 1.0) <= LastEvent.TriggerChance):
+                LastEvent.RecordTrigger(CurrentTime)
+                RecordHistory(LastEvent.Event)
+            LastEvent.Event
         
         # 记录历史
         RecordHistory<private>(Event:EventType):void =
