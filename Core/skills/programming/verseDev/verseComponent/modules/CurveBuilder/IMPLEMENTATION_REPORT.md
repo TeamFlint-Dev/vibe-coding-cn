@@ -256,7 +256,7 @@ Value := MyCurve.Evaluate(0.5)  # 获取中点值
 
 # 2. 创建复杂曲线
 ComplexCurve := curve_builder.Sequential(array{
-    curve_segment{Curve := curve_builder.EaseIn(0.0, 50.0), Duration := 1.0},
+    curve_segment{Curve := curve_builder.EasingCurve(0.0, 50.0, easing_type.EaseIn), Duration := 1.0},
     curve_segment{Curve := curve_builder.Linear(50.0, 100.0), Duration := 2.0}
 })
 
