@@ -356,9 +356,7 @@ movement_component := class<final_super>(component):
     var Speed:float = 300.0
     
     OnBeginSimulation<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := Entity):
+        # Entity 属性直接可用
             # 直接获取其他组件
             if (Health := Entity.GetComponent[health_component]()):
                 # 强依赖 health_component
@@ -373,9 +371,7 @@ damage_event := struct:
 
 health_component := class<final_super>(component):
     OnBeginSimulation<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := Entity):
+        # Entity 属性直接可用
             # 订阅伤害事件
             Entity.SendUp(scene_event{}.Subscribe(OnDamage))
     
@@ -457,9 +453,7 @@ inventory_component := class<final_super>(component):
 # ✅ 低耦合：通过事件通信
 pickup_component := class<final_super>(component):
     OnBeginSimulation<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := Entity):
+        # Entity 属性直接可用
             # 发送拾取事件，不关心谁处理
             Entity.SendUp(item_picked_event{Item := MyItem})
 ```

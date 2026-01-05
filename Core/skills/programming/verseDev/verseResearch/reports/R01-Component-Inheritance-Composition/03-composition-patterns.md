@@ -308,7 +308,7 @@ ui_component := class<final_super>(component):
 # 被观察的组件
 observable_health_component := class<final_super>(component):
     var CurrentHealth:int = 100
-    var OnHealthChanged:event_type{int} = event_type{}  # 假设有事件类型
+    var OnHealthChanged:event_type{int} = event_type{}
     
     SetHealth(NewHealth:int):void =
         if (NewHealth <> CurrentHealth):
