@@ -26,14 +26,17 @@
 在 UEFN SceneGraph 框架中，**Component（组件）** 是封装特定功能的代码模块，附加到 Entity 上以赋予其行为和数据。
 
 ```verse
-# Component 基类定义（简化版）
-component := class<abstract>:
-    # 获取所属 Entity
-    GetOwner()<transacts><decides>:entity
+# Component 基类定义（来自官方 API）
+component := class<abstract><unique><castable><final_super_base>:
+    # 所属 Entity 属性（不是方法）
+    Entity:entity
     
-    # 生命周期回调
-    OnBegin<override>()<suspends>:void = {}
-    OnEnd<override>()<suspends>:void = {}
+    # 生命周期回调方法
+    OnAddedToScene<protected>():void
+    OnBeginSimulation<protected>():void
+    OnSimulate<protected>()<suspends>:void = external {}
+    OnEndSimulation<protected>():void
+    OnRemovingFromScene<protected>():void
 ```
 
 **Component 的核心特征**:
@@ -97,19 +100,20 @@ CreatePlayer():entity =
     return Player
 ```
 
-### Component 获取所属 Entity
+### Component 访问所属 Entity
 
 ```verse
-# 在 Component 中访问 Entity
+# 在 Component 中访问 Entity（Entity 是直接可用的属性）
 health_component := class<final_super>(component):
     var CurrentHealth:int = 100
     
     OnBeginSimulation<override>()<suspends>:void =
-        Sleep(0.0)
+        # Entity 属性直接可用，无需额外操作
+        Print("Component 属于 Entity: {Entity}")
         
-        # 获取所属 Entity
-        if (Owner := GetOwner()):
-            Print("Component 属于 Entity: {Owner}")
+        # 可以通过 Entity 访问其他组件
+        if (Movement := Entity.GetComponent[movement_component]()):
+            Print("找到 movement 组件")
 ```
 
 ### Entity 获取 Component
@@ -128,7 +132,7 @@ for (Comp : AllComponents):
 **关键规则**:
 
 - ✅ Component 必须附加到 Entity 才能工作
-- ✅ Component 通过 `GetOwner()` 访问所属 Entity
+- ✅ Component 通过 `Entity` 访问所属 Entity
 - ✅ Entity 通过 `GetComponent<T>()` 访问特定类型的 Component
 - ⚠️ 同一个 Component 实例不能附加到多个 Entity
 
@@ -142,11 +146,11 @@ for (Comp : AllComponents):
 # 官方 Component 基类（抽象）
 component := class<abstract>:
     # 核心方法
-    GetOwner()<transacts><decides>:entity
+    Entity<transacts><decides>:entity
     
     # 生命周期钩子（可重写）
-    OnBegin<override>()<suspends>:void = {}
-    OnEnd<override>()<suspends>:void = {}
+    OnBeginSimulation<override>()<suspends>:void = {}
+    OnEndSimulation<override>()<suspends>:void = {}
 ```
 
 ### 自定义 Component 的定义方式
@@ -158,7 +162,7 @@ component := class<abstract>:
 my_component := class<final_super>(component):
     var MyData:int = 0
     
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         Print("Component 开始")
 
@@ -197,16 +201,16 @@ derived_component := class<final>(base_component):
 my_component := class<final_super>(component):
     
     # 1. 组件添加到 Entity 后，仿真开始时调用
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         Print("Component 初始化")
         
         # 可以在此订阅事件
-        if (Owner := GetOwner()):
+        if (Owner := Entity):
             # 初始化逻辑
     
     # 2. 组件从 Entity 移除或 Entity 销毁时调用
-    OnEnd<override>()<suspends>:void =
+    OnEndSimulation<override>()<suspends>:void =
         Sleep(0.0)
         Print("Component 清理")
         
@@ -242,7 +246,7 @@ my_component := class<final_super>(component):
 **关键注意事项**:
 
 - ⚠️ `OnBegin()` 和 `OnEnd()` 都需要 `<suspends>` 效果
-- ⚠️ `OnBegin()` 中必须先调用 `Sleep(0.0)` 才能使用 `GetOwner()`
+- ⚠️ `OnBegin()` 中必须先调用 `Sleep(0.0)` 才能使用 `Entity`
 - ✅ `OnEnd()` 中应清理订阅的事件和分配的资源
 
 ---
@@ -351,12 +355,12 @@ CreateAndDestroyEntity():void =
 movement_component := class<final_super>(component):
     var Speed:float = 300.0
     
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
+        if (Owner := Entity):
             # 直接获取其他组件
-            if (Health := Owner.GetComponent[health_component]()):
+            if (Health := Entity.GetComponent[health_component]()):
                 # 强依赖 health_component
 ```
 
@@ -368,12 +372,12 @@ damage_event := struct:
     Amount:int
 
 health_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
+        if (Owner := Entity):
             # 订阅伤害事件
-            Owner.SendUp(scene_event{}.Subscribe(OnDamage))
+            Entity.SendUp(scene_event{}.Subscribe(OnDamage))
     
     OnDamage(Event:damage_event):void =
         # 处理伤害
@@ -386,7 +390,7 @@ health_component := class<final_super>(component):
 var<private> GlobalGameState:game_state = game_state{}
 
 component1 := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         # 读取全局状态
         State := GlobalGameState
@@ -452,12 +456,12 @@ inventory_component := class<final_super>(component):
 ```verse
 # ✅ 低耦合：通过事件通信
 pickup_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
+        if (Owner := Entity):
             # 发送拾取事件，不关心谁处理
-            Owner.SendUp(item_picked_event{Item := MyItem})
+            Entity.SendUp(item_picked_event{Item := MyItem})
 ```
 
 ### 组合优于继承（Composition over Inheritance）
@@ -522,12 +526,12 @@ thing
 ```verse
 # ✅ 正确
 health_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
         # 订阅事件
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnEvent))
+        if (Owner := Entity):
+            Entity.SendUp(scene_event{}.Subscribe(OnEvent))
 ```
 
 ### 4. 清理使用 OnEnd
@@ -535,7 +539,7 @@ health_component := class<final_super>(component):
 ```verse
 # ✅ 正确
 health_component := class<final_super>(component):
-    OnEnd<override>()<suspends>:void =
+    OnEndSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
         # 清理资源
