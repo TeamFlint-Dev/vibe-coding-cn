@@ -13,8 +13,9 @@ CurveBuilder/
 ├── curve_composition.verse      # 曲线组合机制
 ├── curve_builder.verse          # 曲线构造器工厂
 ├── curve_builder_demo.verse     # 使用演示
-├── curve_sampler.verse          # 曲线采样器（新增）
-└── curve_sampler_demo.verse     # 采样器演示（新增）
+├── curve_sampler.verse          # 曲线采样器
+├── curve_sampler_demo.verse     # 采样器演示
+└── curve_sampler_tests.verse    # 采样器测试套件（新增）
 ```
 
 ## 已实现的曲线类型
@@ -313,6 +314,28 @@ Samples := Sampler.Sample(Config)  # 触发 SamplingStarted 和 SamplingComplete
 8. 复杂曲线采样
 9. 事件通知
 10. 实际应用案例（升降平台）
+
+### 测试套件
+
+运行 `curve_sampler_tests.RunAllTests()` 执行完整测试：
+
+**测试组覆盖**:
+1. **基础采样功能测试** - 等距采样的基本功能和边界情况
+2. **等时采样测试** - 验证基于时长的采样正确性
+3. **自适应采样测试** - 测试不同曲率曲线的自适应采样
+4. **自定义采样测试** - 验证自定义点和边界限制
+5. **导数计算测试** - 一阶和二阶导数计算验证
+6. **Delta数组转换测试** - 所有轴向的转换正确性
+7. **缓存机制测试** - 缓存存储、清除和自动清理
+8. **复杂曲线组合测试** - 串联和叠加曲线的采样
+9. **错误处理测试** - 各种错误情况的处理
+
+**测试特性**:
+- ✅ 详细的断言和错误消息
+- ✅ 自动化测试报告生成
+- ✅ 测试结果统计（通过率、失败详情）
+- ✅ 边界情况和错误处理覆盖
+- ✅ 预期值 vs 实际值对比
 
 ## 下一步扩展
 
