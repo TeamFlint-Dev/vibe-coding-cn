@@ -97,24 +97,20 @@ damage_event := struct:
     Source:agent
 
 health_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
             # 订阅伤害事件
-            Owner.SendUp(scene_event{}.Subscribe(OnDamageReceived))
+            Entity.SendUp(scene_event{}.Subscribe(OnDamageReceived))
     
     OnDamageReceived(Event:damage_event):void =
         TakeDamage(Event.Amount)
 
 # ❌ 坏的设计：紧耦合
 health_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
             # 直接引用其他组件
-            if (Combat := Owner.GetComponent[combat_component]()):
+            if (Combat := Entity.GetComponent[combat_component]()):
                 # 强依赖 combat_component
 ```
 
@@ -216,39 +212,35 @@ health_component := class<final_super>(component):
         
         if (CurrentHealth <= 0):
             # 发送死亡事件
-            if (Owner := GetOwner()):
-                Owner.SendUp(player_died_event{Player := GetAgent()})
+            # Entity property is directly available
+                Entity.SendUp(player_died_event{Player := GetAgent()})
 
 # 组件 2：respawn_component（接收事件）
 respawn_component := class<final_super>(component):
     var RespawnTime:float = 5.0
     
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
             # 订阅死亡事件
-            Owner.SendUp(scene_event{}.Subscribe(OnPlayerDied))
+            Entity.SendUp(scene_event{}.Subscribe(OnPlayerDied))
     
     OnPlayerDied(Event:player_died_event)<suspends>:void =
         # 等待复活时间
         Sleep(RespawnTime)
         
         # 复活玩家
-        if (Owner := GetOwner()):
-            if (Health := Owner.GetComponent[health_component]()):
+        # Entity property is directly available
+            if (Health := Entity.GetComponent[health_component]()):
                 Health.Respawn()
 
 # 组件 3：score_component（接收事件）
 score_component := class<final_super>(component):
     var Score:int = 0
     
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
             # 订阅伤害事件
-            Owner.SendUp(scene_event{}.Subscribe(OnDamageDealt))
+            Entity.SendUp(scene_event{}.Subscribe(OnDamageDealt))
     
     OnDamageDealt(Event:damage_dealt_event):void =
         # 造成伤害时加分
@@ -282,13 +274,11 @@ state_manager_component := class<final_super>(component):
 
 # 组件 2：读取状态
 ui_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
+    OnBeginSimulation<override>()<suspends>:void =
         spawn:
             loop:
-                if (Owner := GetOwner()):
-                    if (StateMgr := Owner.GetComponent[state_manager_component]()):
+                # Entity property is directly available
+                    if (StateMgr := Entity.GetComponent[state_manager_component]()):
                         # 读取共享状态
                         DisplayHealth(StateMgr.PlayerState.Health)
                 Sleep(0.1)
@@ -318,11 +308,9 @@ observable_health_component := class<final_super>(component):
 
 # 观察者组件
 health_bar_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
-            if (Health := Owner.GetComponent[observable_health_component]()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
+            if (Health := Entity.GetComponent[observable_health_component]()):
                 # 订阅健康值变化
                 Health.OnHealthChanged.Subscribe(UpdateHealthBar)
     
@@ -689,16 +677,14 @@ player_died_event := struct:
 
 health_component := class<final_super>(component):
     OnDeath():void =
-        if (Owner := GetOwner()):
+        # Entity property is directly available
             # 发送死亡事件，所有相关组件监听
-            Owner.SendUp(player_died_event{Player := GetAgent()})
+            Entity.SendUp(player_died_event{Player := GetAgent()})
 
 movement_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnPlayerDied))
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnPlayerDied))
     
     OnPlayerDied(Event:player_died_event):void =
         StopMovement()
@@ -721,13 +707,11 @@ my_controller := class<final_super>(component):
     var CachedHealth:?health_component = option{}
     var CachedMovement:?movement_component = option{}
     
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
             # 初始化时缓存组件引用
-            set CachedHealth = Owner.GetComponent[health_component]()
-            set CachedMovement = Owner.GetComponent[movement_component]()
+            set CachedHealth = Entity.GetComponent[health_component]()
+            set CachedMovement = Entity.GetComponent[movement_component]()
     
     Update():void =
         # 使用缓存的引用，避免重复查询
@@ -744,11 +728,9 @@ my_controller := class<final_super>(component):
 
 # 解决方案 1：在 OnBegin 中检查依赖
 health_bar_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
-            if (not Owner.GetComponent[health_component]()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
+            if (not Entity.GetComponent[health_component]()):
                 # 缺少依赖的组件
                 Print("Error: health_bar_component requires health_component")
 

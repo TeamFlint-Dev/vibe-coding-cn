@@ -34,16 +34,14 @@ my_component := class<final_super>(component):
     var MyData:int = 0  # 字段初始化
     
     # 初始化阶段（添加到 Entity 后）
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         # ⚠️ 必须先 Sleep(0.0) 才能使用 GetOwner()
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
+        # Entity property is directly available
             # 订阅事件
-            Owner.SendUp(scene_event{}.Subscribe(OnEvent))
+            Entity.SendUp(scene_event{}.Subscribe(OnEvent))
             
             # 获取其他组件
-            if (Other := Owner.GetComponent[other_component]()):
+            if (Other := Entity.GetComponent[other_component]()):
                 # 初始化逻辑
         
         # 启动异步任务
@@ -58,9 +56,7 @@ my_component := class<final_super>(component):
             Sleep(0.016)  # 约60 FPS
     
     # 清理阶段（从 Entity 移除或 Entity 销毁时）
-    OnEnd<override>()<suspends>:void =
-        Sleep(0.0)
-        
+    OnEndSimulation<override>()<suspends>:void =
         # 清理资源
         # 取消订阅
         # 停止异步任务
@@ -78,7 +74,7 @@ MyComp 实例化（字段初始化）
 Simulation 开始
         │
         ▼
-OnBegin() 被调用
+OnBeginSimulation() 被调用
         │
         ├─ Sleep(0.0) - 等待 Entity 完全初始化
         ├─ GetOwner() - 获取所属 Entity
@@ -97,7 +93,7 @@ Component 正常运行
 Entity.RemoveFromParent() 或销毁
         │
         ▼
-OnEnd() 被调用
+OnEndSimulation() 被调用
         │
         ├─ 清理资源
         ├─ 取消订阅
@@ -118,11 +114,9 @@ Component 从 Entity 移除
 component_b := class<final_super>(component):
     var CachedA:?component_a = option{}
     
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
-            if (CompA := Owner.GetComponent[component_a]()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
+            if (CompA := Entity.GetComponent[component_a]()):
                 set CachedA = option{CompA}
                 # 使用 CompA 初始化
             else:
@@ -147,25 +141,21 @@ component_ready_event := struct:
 
 # 组件 A：初始化完成后广播
 component_a := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
+    OnBeginSimulation<override>()<suspends>:void =
         # 初始化逻辑
         InitializeComponentA()
         
         # 广播就绪事件
-        if (Owner := GetOwner()):
-            Owner.SendDown(component_ready_event{ComponentType := "component_a"})
+        # Entity property is directly available
+            Entity.SendDown(component_ready_event{ComponentType := "component_a"})
 
 # 组件 B：等待依赖就绪
 component_b := class<final_super>(component):
     var IsAReady:logic = false
     
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnComponentReady))
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnComponentReady))
     
     OnComponentReady(Event:component_ready_event):void =
         if (Event.ComponentType = "component_a"):
@@ -179,13 +169,13 @@ component_b := class<final_super>(component):
 
 ```verse
 # SendUp：向上传播（向父实体）
-Owner.SendUp(my_event{Data := "value"})
+Entity.SendUp(my_event{Data := "value"})
 
 # SendDown：向下传播（向子实体）
-Owner.SendDown(my_event{Data := "value"})
+Entity.SendDown(my_event{Data := "value"})
 
 # SendDirect：直接发送（只有当前实体的组件接收）
-Owner.SendDirect(my_event{Data := "value"})
+Entity.SendDirect(my_event{Data := "value"})
 ```
 
 #### 事件系统最佳实践
@@ -204,12 +194,10 @@ damage_event := struct:
 
 # 2. 在 OnBegin 中订阅事件
 health_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnDamage))
-            Owner.SendUp(scene_event{}.Subscribe(OnHeal))
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnDamage))
+            Entity.SendUp(scene_event{}.Subscribe(OnHeal))
     
     OnDamage(Event:damage_event):void =
         TakeDamage(Event.Amount)
@@ -284,21 +272,19 @@ state_machine_component := class<final_super>(component):
 
 ### 6.1 常见坑点总结
 
-#### 坑点 1：OnBegin 中忘记 Sleep(0.0)
-
-```verse
+#### 坑点 1：OnBegin 中忘记 ```verse
 # ❌ 错误：直接使用 GetOwner()
 health_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        if (Owner := GetOwner()):  # 可能失败！
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available  # 可能失败！
             # ...
 
 # ✅ 正确：先 Sleep(0.0)
 health_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)  # 必须！
         
-        if (Owner := GetOwner()):
+        # Entity property is directly available
             # ...
 ```
 
@@ -324,23 +310,19 @@ Entity.AddComponents(array{
 ```verse
 # ❌ 错误：直接引用其他组件
 movement_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
             # 强依赖 health_component
-            if (Health := Owner.GetComponent[health_component]()):
+            if (Health := Entity.GetComponent[health_component]()):
                 if (Health.CurrentHealth < 50):
                     # 直接访问其他组件的状态
 
 # ✅ 正确：通过事件通信
 movement_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
             # 订阅低血量事件
-            Owner.SendUp(scene_event{}.Subscribe(OnLowHealth))
+            Entity.SendUp(scene_event{}.Subscribe(OnLowHealth))
     
     OnLowHealth(Event:low_health_event):void =
         # 响应事件
@@ -351,23 +333,21 @@ movement_component := class<final_super>(component):
 ```verse
 # ❌ 错误：未清理订阅
 timer_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
-        Sleep(0.0)
-        
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnTick))
+    OnBeginSimulation<override>()<suspends>:void =
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnTick))
     
     # 缺少 OnEnd 清理
 
 # ✅ 正确：在 OnEnd 中清理
 timer_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnTick))
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnTick))
     
-    OnEnd<override>()<suspends>:void =
+    OnEndSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
         # 清理订阅
@@ -387,15 +367,15 @@ health_data_component := class<final_super>(component):
 
 # ✅ 系统组件：处理逻辑
 combat_system_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnDamage))
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnDamage))
     
     OnDamage(Event:damage_event):void =
-        if (Owner := GetOwner()):
-            if (Health := Owner.GetComponent[health_data_component]()):
+        # Entity property is directly available
+            if (Health := Entity.GetComponent[health_data_component]()):
                 # 计算最终伤害
                 FinalDamage := Max(Event.Amount - Health.Armor, 0)
                 set Health.CurrentHealth -= FinalDamage
@@ -484,12 +464,12 @@ entity_pool_component := class<final_super>(component):
     var Data:data_type = default_value
     
     # 生命周期初始化
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
+        # Entity property is directly available
             # 订阅事件
-            Owner.SendUp(scene_event{}.Subscribe(OnEvent))
+            Entity.SendUp(scene_event{}.Subscribe(OnEvent))
             
             # 启动异步逻辑
             spawn:
@@ -506,7 +486,7 @@ entity_pool_component := class<final_super>(component):
         # 处理逻辑
     
     # 清理
-    OnEnd<override>()<suspends>:void =
+    OnEndSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
         # 清理资源
@@ -518,12 +498,12 @@ entity_pool_component := class<final_super>(component):
 # 事件驱动组件模板
 <component_name>_event_driven := class<final_super>(component):
     # 订阅的事件类型
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnEvent1))
-            Owner.SendUp(scene_event{}.Subscribe(OnEvent2))
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnEvent1))
+            Entity.SendUp(scene_event{}.Subscribe(OnEvent2))
     
     # 事件处理器 1
     OnEvent1(Event:event1_type):void =
@@ -535,8 +515,8 @@ entity_pool_component := class<final_super>(component):
     
     # 发送事件
     EmitEvent(Data:data_type):void =
-        if (Owner := GetOwner()):
-            Owner.SendUp(custom_event{Data := Data})
+        # Entity property is directly available
+            Entity.SendUp(custom_event{Data := Data})
 ```
 
 ### 7.2 设计模式实现
@@ -554,16 +534,16 @@ observable_component := class<final_super>(component):
             NotifyObservers()
     
     NotifyObservers():void =
-        if (Owner := GetOwner()):
-            Owner.SendDown(value_changed_event{NewValue := Value})
+        # Entity property is directly available
+            Entity.SendDown(value_changed_event{NewValue := Value})
 
 # 观察者（Observer）
 observer_component := class<final_super>(component):
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnValueChanged))
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnValueChanged))
     
     OnValueChanged(Event:value_changed_event):void =
         # 响应值变化
@@ -640,11 +620,11 @@ health_component := class<final_super>(component):
     var CurrentHealth:int = 100
     var MaxHealth:int = 100
     
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner()):
-            Owner.SendUp(scene_event{}.Subscribe(OnDamage))
+        # Entity property is directly available
+            Entity.SendUp(scene_event{}.Subscribe(OnDamage))
     
     OnDamage(Event:damage_event):void =
         TakeDamage(Event.Amount)
@@ -656,8 +636,8 @@ health_component := class<final_super>(component):
             Die()
     
     Die():void =
-        if (Owner := GetOwner()):
-            Owner.SendUp(character_died_event{})
+        # Entity property is directly available
+            Entity.SendUp(character_died_event{})
 
 # 3. 装备系统组件
 equipment_component := class<final_super>(component):
@@ -669,8 +649,8 @@ equipment_component := class<final_super>(component):
         ApplyWeaponStats()
     
     ApplyWeaponStats():void =
-        if (Owner := GetOwner()):
-            if (Stats := Owner.GetComponent[character_stats]()):
+        # Entity property is directly available
+            if (Stats := Entity.GetComponent[character_stats]()):
                 # 应用武器属性加成
 
 # 4. 技能系统组件

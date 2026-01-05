@@ -141,7 +141,7 @@ OnSimulate<override>()<suspends>:void = {}
 ```verse
 # ❌ 错误模式
 if (Owner := GetOwner()):
-    Owner.SomeMethod()
+    Entity.SomeMethod()
 
 # ✅ 正确模式
 Entity.SomeMethod()

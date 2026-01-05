@@ -369,7 +369,7 @@ ai_component := class<abstract><final_super>(component):
         # 查找目标逻辑
         # ...
     
-    OnBegin<override>()<suspends>:void =
+    OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
         # 启动 AI 循环

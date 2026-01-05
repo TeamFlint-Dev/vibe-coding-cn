@@ -228,7 +228,7 @@ my_component := class<final_super>(component):
 │              ↓                                   │
 │  2. Component 附加到 Entity                     │
 │              ↓                                   │
-│  3. OnBegin() 被调用（仿真开始时）              │
+│  3. OnBeginSimulation() 被调用（仿真开始时）              │
 │              ↓                                   │
 │  4. Component 正常运行                          │
 │     - 处理事件                                  │
@@ -236,7 +236,7 @@ my_component := class<final_super>(component):
 │              ↓                                   │
 │  5. Entity.RemoveFromParent() 或销毁            │
 │              ↓                                   │
-│  6. OnEnd() 被调用                              │
+│  6. OnEndSimulation() 被调用                              │
 │              ↓                                   │
 │  7. Component 从 Entity 移除                    │
 │                                                  │
@@ -245,9 +245,9 @@ my_component := class<final_super>(component):
 
 **关键注意事项**:
 
-- ⚠️ `OnBegin()` 和 `OnEnd()` 都需要 `<suspends>` 效果
-- ⚠️ `OnBegin()` 中必须先调用 `Sleep(0.0)` 才能使用 `Entity`
-- ✅ `OnEnd()` 中应清理订阅的事件和分配的资源
+- ⚠️ `OnBeginSimulation()` 和 `OnEndSimulation()` 都需要 `<suspends>` 效果
+- ⚠️ `OnBeginSimulation()` 中必须先调用 `Sleep(0.0)` 才能使用 `Entity`
+- ✅ `OnEndSimulation()` 中应清理订阅的事件和分配的资源
 
 ---
 
@@ -339,7 +339,7 @@ CreateAndDestroyEntity():void =
     })
     
     # Entity 被移除时，其所有 Component 也会被清理
-    TempEntity.RemoveFromParent()  # health_component 的 OnEnd() 被调用
+    TempEntity.RemoveFromParent()  # health_component 的 OnEndSimulation() 被调用
 ```
 
 ---
