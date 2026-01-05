@@ -231,11 +231,10 @@ player_trigger_mesh := class(mesh_component):
             Sleep(CheckInterval)
     
     PerformDetection()<transacts>:void =
-        if (Owner := GetOwner[entity]):
-            # 使用继承的碰撞能力
-            Overlaps := Owner.FindOverlapHits()
-            NewPlayers := ExtractAgents(Overlaps)
-            DetectChanges(NewPlayers)
+        # Use Entity property directly (not GetOwner method)
+        Overlaps := Entity.FindOverlapHits()
+        NewPlayers := ExtractAgents(Overlaps)
+        DetectChanges(NewPlayers)
     
     DetectChanges(NewPlayers:[]agent):void =
         for (Player : NewPlayers):
@@ -257,14 +256,12 @@ player_trigger_mesh := class(mesh_component):
         SendExitEvent(Player)
     
     SendEnterEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            Event := player_entered_event{Player := Player}
-            Owner.SendDown(Event)
+        Event := player_entered_event{Player := Player}
+        Entity.SendDown(Event)
     
     SendExitEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            Event := player_exited_event{Player := Player}
-            Owner.SendDown(Event)
+        Event := player_exited_event{Player := Player}
+        Entity.SendDown(Event)
     
     ExtractAgents(Hits:generator(overlap_hit)):[]agent =
         var Agents:[]agent = array{}
@@ -308,12 +305,11 @@ player_detection_logic := class(component):
         Sleep(0.0)
         
         # 查找同一 Entity 下的 mesh_component
-        if (Owner := GetOwner[entity]):
-            if (Mesh := Owner.GetComponent[mesh_component]()):
-                # 订阅官方的碰撞事件
-                Mesh.EntityEnteredEvent.Subscribe(HandleEntityEntered)
-                Mesh.EntityExitedEvent.Subscribe(HandleEntityExited)
-                Print("[{ZoneName}] 已订阅 mesh_component 事件")
+        if (Mesh := Entity.GetComponent(mesh_component)):
+            # 订阅官方的碰撞事件
+            Mesh.EntityEnteredEvent.Subscribe(HandleEntityEntered)
+            Mesh.EntityExitedEvent.Subscribe(HandleEntityExited)
+            Print("[{ZoneName}] 已订阅 mesh_component 事件")
     
     HandleEntityEntered(HitEntity:entity):void =
         # 尝试转换为 agent
@@ -335,14 +331,12 @@ player_detection_logic := class(component):
         SendExitEvent(Player)
     
     SendEnterEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            Event := player_entered_event{Player := Player}
-            Owner.SendDown(Event)
+        Event := player_entered_event{Player := Player}
+        Entity.SendDown(Event)
     
     SendExitEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            Event := player_exited_event{Player := Player}
-            Owner.SendDown(Event)
+        Event := player_exited_event{Player := Player}
+        Entity.SendDown(Event)
 
 # 步骤 3: 创建包含两个组件的 Entity
 CreateDetectionZone(Name:string):entity =
@@ -488,15 +482,14 @@ multi_entrance_manager := class(component):
         Sleep(0.0)
         
         # 查找所有子 Entity 的碰撞网格并订阅
-        if (Owner := GetOwner[entity]):
-            DiscoverAndSubscribeEntrances(Owner)
+        DiscoverAndSubscribeEntrances(Owner)
     
     DiscoverAndSubscribeEntrances(Root:entity):void =
         Children := Root.GetEntities()
         
         for (Child : Children):
             # 查找碰撞网格组件
-            if (Mesh := Child.GetComponent[mesh_component]()):
+            if (Mesh := Child.GetComponent(mesh_component)):
                 # 获取入口名称（从 Entity 或组件属性）
                 EntranceName := GetEntranceName(Child)
                 
@@ -684,23 +677,22 @@ line_of_sight_detector := class(component):
             Sleep(CheckInterval)
     
     PerformLineOfSightCheck()<transacts>:void =
-        if (Owner := GetOwner[entity]):
-            if (Player := TargetPlayer?):
-                # 计算方向向量
-                OwnerPos := GetEntityPosition(Owner)
-                PlayerPos := GetPlayerPosition(Player)
-                Direction := PlayerPos - OwnerPos
-                Distance := Direction.Length()
+        if (Player := TargetPlayer?):
+            # 计算方向向量
+            OwnerPos := GetEntityPosition(Owner)
+            PlayerPos := GetPlayerPosition(Player)
+            Direction := PlayerPos - OwnerPos
+            Distance := Direction.Length()
+            
+            if (Distance <= DetectionRange):
+                # 使用 FindSweepHits 进行射线检测
+                SweepHits := Owner.FindSweepHits(Direction)
                 
-                if (Distance <= DetectionRange):
-                    # 使用 FindSweepHits 进行射线检测
-                    SweepHits := Owner.FindSweepHits(Direction)
-                    
-                    # 检查是否有遮挡
-                    HasLineOfSight := CheckLineOfSight(SweepHits, Player)
-                    
-                    if (HasLineOfSight):
-                        OnPlayerSpotted(Player)
+                # 检查是否有遮挡
+                HasLineOfSight := CheckLineOfSight(SweepHits, Player)
+                
+                if (HasLineOfSight):
+                    OnPlayerSpotted(Player)
     
     CheckLineOfSight(Hits:generator(sweep_hit), TargetPlayer:agent):logic =
         # 检查击中的第一个对象是否是目标玩家
@@ -717,9 +709,8 @@ line_of_sight_detector := class(component):
         Print("发现玩家: {Player}")
         
         # 触发追击逻辑
-        if (Owner := GetOwner[entity]):
-            Event := player_spotted_event{Player := Player}
-            Owner.SendDown(Event)
+        Event := player_spotted_event{Player := Player}
+        Entity.SendDown(Event)
     
     # 辅助函数
     GetEntityPosition(E:entity):vector3 =
@@ -950,9 +941,8 @@ OnPlayerEnter(Player:agent):void =
 ```verse
 # 通过事件解耦
 OnPlayerEnter(Player:agent):void =
-    if (Owner := GetOwner[entity]):
-        Event := player_entered_zone_event{Player := Player}
-        Owner.SendDown(Event)  # 发送事件，不关心谁处理
+    Event := player_entered_zone_event{Player := Player}
+    Entity.SendDown(Event)  # 发送事件，不关心谁处理
 ```
 
 ### 3. 合理的检测频率
@@ -988,9 +978,8 @@ OnPlayerEnter(Player:agent):void =
 ```verse
 # 安全地获取 Owner
 PerformDetection()<transacts>:void =
-    if (Owner := GetOwner[entity]):
-        Overlaps := Owner.FindOverlapHits()
-        ProcessOverlaps(Overlaps)
+    Overlaps := Entity.FindOverlapHits()
+    ProcessOverlaps(Overlaps)
     else:
         Print("[ERROR] 无法获取 Owner Entity")
 

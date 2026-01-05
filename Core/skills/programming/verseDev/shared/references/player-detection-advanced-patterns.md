@@ -115,11 +115,10 @@ player_detection_logic := class(component):
         Sleep(0.0)
         
         # 查找同一 Entity 下的 mesh_component
-        if (Owner := GetOwner[entity]):
-            if (Mesh := Owner.GetComponent[mesh_component]()):
-                # 订阅碰撞事件
-                Mesh.EntityEnteredEvent.Subscribe(HandlePlayerEnter)
-                Mesh.EntityExitedEvent.Subscribe(HandlePlayerExit)
+        if (Mesh := Entity.GetComponent(mesh_component)):
+            # 订阅碰撞事件
+            Mesh.EntityEnteredEvent.Subscribe(HandlePlayerEnter)
+            Mesh.EntityExitedEvent.Subscribe(HandlePlayerExit)
     
     HandlePlayerEnter(HitEntity:entity):void =
         # 尝试转换为 agent
@@ -128,18 +127,16 @@ player_detection_logic := class(component):
             Print("玩家进入: {Player}")
             
             # 发送 Scene Event
-            if (Owner := GetOwner[entity]):
-                Event := player_entered_event{Player := Player}
-                Owner.SendDown(Event)
+            Event := player_entered_event{Player := Player}
+            Entity.SendDown(Event)
     
     HandlePlayerExit(HitEntity:entity):void =
         if (Player := agent[HitEntity]):
             set PlayersInZone = PlayersInZone.Filter((P:agent):P <> Player)
             Print("玩家离开: {Player}")
             
-            if (Owner := GetOwner[entity]):
-                Event := player_exited_event{Player := Player}
-                Owner.SendDown(Event)
+            Event := player_exited_event{Player := Player}
+            Entity.SendDown(Event)
 ```
 
 ### 优势展示：多触发源场景
@@ -155,18 +152,17 @@ multi_entrance_detector := class(component):
     OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        if (Owner := GetOwner[entity]):
-            # 订阅所有子 Entity 的碰撞事件
-            ChildEntities := Owner.GetEntities()
-            
-            for (Child : ChildEntities):
-                if (Mesh := Child.GetComponent[mesh_component]()):
-                    # 为每个入口设置不同的处理器
-                    EntranceName := GetEntranceName(Child)
-                    
-                    Mesh.EntityEnteredEvent.Subscribe(
-                        (HitEntity:entity):HandleEntranceEnter(HitEntity, EntranceName)
-                    )
+        # 订阅所有子 Entity 的碰撞事件
+        ChildEntities := Entity.GetEntities()
+        
+        for (Child : ChildEntities):
+            if (Mesh := Child.GetComponent(mesh_component)):
+                # 为每个入口设置不同的处理器
+                EntranceName := GetEntranceName(Child)
+                
+                Mesh.EntityEnteredEvent.Subscribe(
+                    (HitEntity:entity):HandleEntranceEnter(HitEntity, EntranceName)
+                )
     
     HandleEntranceEnter(HitEntity:entity, EntranceName:string):void =
         if (Player := agent[HitEntity]):
@@ -212,11 +208,10 @@ player_trigger_mesh := class(mesh_component):
     
     PerformDetection()<transacts>:void =
         # 直接使用自己的碰撞检测（因为继承自 mesh_component）
-        if (Owner := GetOwner[entity]):
-            Overlaps := Owner.FindOverlapHits()
-            
-            NewPlayers := ExtractAgents(Overlaps)
-            DetectChanges(NewPlayers)
+        Overlaps := Entity.FindOverlapHits()
+        
+        NewPlayers := ExtractAgents(Overlaps)
+        DetectChanges(NewPlayers)
     
     DetectChanges(NewPlayers:[]agent):void =
         # 检测进入
@@ -241,14 +236,12 @@ player_trigger_mesh := class(mesh_component):
         SendExitEvent(Player)
     
     SendEnterEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            Event := player_entered_event{Player := Player, TriggerName := TriggerName}
-            Owner.SendDown(Event)
+        Event := player_entered_event{Player := Player, TriggerName := TriggerName}
+        Entity.SendDown(Event)
     
     SendExitEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            Event := player_exited_event{Player := Player, TriggerName := TriggerName}
-            Owner.SendDown(Event)
+        Event := player_exited_event{Player := Player, TriggerName := TriggerName}
+        Entity.SendDown(Event)
     
     ExtractAgents(Hits:generator(overlap_hit)):[]agent =
         var Agents:[]agent = array{}
@@ -391,36 +384,33 @@ multi_signal_trigger := class(player_trigger_mesh):
         SendGameStateEvent(Player)       # 游戏状态事件
     
     SendLocationEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            # 获取玩家位置
-            PlayerPos := GetPlayerPosition(Player)
-            TriggerPos := GetTriggerPosition()
-            
-            Event := player_location_event{
-                Player := Player,
-                PlayerPosition := PlayerPos,
-                TriggerPosition := TriggerPos,
-                Distance := CalculateDistance(PlayerPos, TriggerPos)
-            }
-            Owner.SendDown(Event)
+        # 获取玩家位置
+        PlayerPos := GetPlayerPosition(Player)
+        TriggerPos := GetTriggerPosition()
+        
+        Event := player_location_event{
+            Player := Player,
+            PlayerPosition := PlayerPos,
+            TriggerPosition := TriggerPos,
+            Distance := CalculateDistance(PlayerPos, TriggerPos)
+        }
+        Entity.SendDown(Event)
     
     SendStatisticsEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            Event := trigger_statistics_event{
-                Player := Player,
-                TriggerName := TriggerName,
-                Timestamp := GetSimulationElapsedTime(),
-                TotalTriggers := GetTotalTriggerCount()
-            }
-            Owner.SendDown(Event)
+        Event := trigger_statistics_event{
+            Player := Player,
+            TriggerName := TriggerName,
+            Timestamp := GetSimulationElapsedTime(),
+            TotalTriggers := GetTotalTriggerCount()
+        }
+        Entity.SendDown(Event)
     
     SendGameStateEvent(Player:agent):void =
-        if (Owner := GetOwner[entity]):
-            Event := game_state_changed_event{
-                Reason := "PlayerEnteredTrigger",
-                AffectedPlayer := Player
-            }
-            Owner.SendUp(Event)  # 向上传播到游戏管理器
+        Event := game_state_changed_event{
+            Reason := "PlayerEnteredTrigger",
+            AffectedPlayer := Player
+        }
+        Entity.SendUp(Event)  # 向上传播到游戏管理器
 ```
 
 ### 场景 4: 重复触发不同结果（Different Outcomes on Repeated Triggers）
@@ -592,15 +582,14 @@ global_trigger_manager := class(component):
         Sleep(0.0)
         
         # 查找所有子 Entity 的触发器组件
-        if (Owner := GetOwner[entity]):
-            DiscoverTriggers(Owner)
+        DiscoverTriggers(Owner)
     
     DiscoverTriggers(Root:entity):void =
         Children := Root.GetEntities()
         
         for (Child : Children):
             # 查找触发器组件
-            if (Trigger := Child.GetComponent[player_trigger_mesh]()):
+            if (Trigger := Child.GetComponent(player_trigger_mesh)):
                 RegisterTrigger(Trigger)
             
             # 递归查找子 Entity
