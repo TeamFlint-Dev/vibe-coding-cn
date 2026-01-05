@@ -97,22 +97,17 @@ using { /UnrealEngine.com/BasicShapes }
 detection_entity := class(entity):
     Initialize():void =
         # 组件 1: mesh_component (负责碰撞)
-        CollisionMesh := collision_mesh_component{}
+        CollisionMesh := mesh_component{}
         
         # 组件 2: detection_logic (负责业务逻辑)
         DetectionLogic := player_detection_logic{}
         
         AddComponents(array{CollisionMesh, DetectionLogic})
 
-# 碰撞网格组件 (提供碰撞事件)
-collision_mesh_component := class(mesh_component):
-    # TODO: 配置碰撞形状、碰撞通道等
-    # TODO: 暴露碰撞事件
-    
-    OnCollisionBegin<public>:event(entity) = event(entity){}
-    OnCollisionEnd<public>:event(entity) = event(entity){}
+# 注意: mesh_component 已经内置了 EntityEnteredEvent 和 EntityExitedEvent！
+# 不需要创建自定义类，直接使用官方的 mesh_component
 
-# 检测逻辑组件 (订阅碰撞事件)
+# 检测逻辑组件 (订阅 mesh_component 的事件)
 player_detection_logic := class(component):
     var PlayersInZone<private>:[]agent = array{}
     
@@ -121,10 +116,10 @@ player_detection_logic := class(component):
         
         # 查找同一 Entity 下的 mesh_component
         if (Owner := GetOwner[entity]):
-            if (Mesh := Owner.GetComponent[collision_mesh_component]()):
+            if (Mesh := Owner.GetComponent[mesh_component]()):
                 # 订阅碰撞事件
-                Mesh.OnCollisionBegin.Subscribe(HandlePlayerEnter)
-                Mesh.OnCollisionEnd.Subscribe(HandlePlayerExit)
+                Mesh.EntityEnteredEvent.Subscribe(HandlePlayerEnter)
+                Mesh.EntityExitedEvent.Subscribe(HandlePlayerExit)
     
     HandlePlayerEnter(HitEntity:entity):void =
         # 尝试转换为 agent
@@ -165,11 +160,11 @@ multi_entrance_detector := class(component):
             ChildEntities := Owner.GetEntities()
             
             for (Child : ChildEntities):
-                if (Mesh := Child.GetComponent[collision_mesh_component]()):
+                if (Mesh := Child.GetComponent[mesh_component]()):
                     # 为每个入口设置不同的处理器
                     EntranceName := GetEntranceName(Child)
                     
-                    Mesh.OnCollisionBegin.Subscribe(
+                    Mesh.EntityEnteredEvent.Subscribe(
                         (HitEntity:entity):HandleEntranceEnter(HitEntity, EntranceName)
                     )
     
@@ -347,17 +342,17 @@ simple_trigger := class(player_trigger_mesh):
 ```verse
 # 架构：中央管理器 + 多个碰撞网格
 multi_zone_manager := class(component):
-    var Zones:map[string, collision_mesh_component] = map{}
+    var Zones:map[string, mesh_component] = map{}
     var PlayerLocations:map[agent, string] = map{}
     
-    RegisterZone(ZoneName:string, Mesh:collision_mesh_component):void =
+    RegisterZone(ZoneName:string, Mesh:mesh_component):void =
         set Zones = Zones.Set[ZoneName, Mesh]
         
         # 订阅该区域的事件
-        Mesh.OnCollisionBegin.Subscribe(
+        Mesh.EntityEnteredEvent.Subscribe(
             (Hit:entity):HandleZoneEnter(Hit, ZoneName)
         )
-        Mesh.OnCollisionEnd.Subscribe(
+        Mesh.EntityExitedEvent.Subscribe(
             (Hit:entity):HandleZoneExit(Hit, ZoneName)
         )
     
@@ -647,7 +642,7 @@ global_trigger_manager := class(component):
 ```verse
 # 事件传递路径：
 mesh_component 碰撞 
-    → OnCollisionBegin event 
+    → EntityEnteredEvent event 
     → detection_logic.HandlePlayerEnter 
     → Scene Event 
     → 其他组件

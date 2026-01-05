@@ -294,17 +294,12 @@ CreateTriggerZone(Name:string):entity =
 ```verse
 using { /Verse.org/SceneGraph }
 
-# 步骤 1: 创建带事件的碰撞网格组件
-collision_mesh_component := class(mesh_component):
-    # 暴露碰撞事件
-    OnCollisionBegin<public>:event(entity) = event(entity){}
-    OnCollisionEnd<public>:event(entity) = event(entity){}
-    
-    # 在碰撞发生时触发事件
-    # 注意: 实际实现需要与引擎碰撞系统集成
-    # 这里展示的是架构模式
+# 注意: mesh_component 已经内置了碰撞事件！
+# - EntityEnteredEvent: 当其他entity进入时触发
+# - EntityExitedEvent: 当其他entity离开时触发
+# 不需要创建自定义类，直接使用官方的 mesh_component
 
-# 步骤 2: 创建独立的检测逻辑组件
+# 步骤 1: 创建独立的检测逻辑组件
 player_detection_logic := class(component):
     var ZoneName:string = "检测区域"
     var PlayersInZone<private>:[]agent = array{}
@@ -312,21 +307,21 @@ player_detection_logic := class(component):
     OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         
-        # 查找同一 Entity 下的碰撞网格组件
+        # 查找同一 Entity 下的 mesh_component
         if (Owner := GetOwner[entity]):
-            if (Mesh := Owner.GetComponent[collision_mesh_component]()):
-                # 订阅碰撞事件
-                Mesh.OnCollisionBegin.Subscribe(HandleCollisionBegin)
-                Mesh.OnCollisionEnd.Subscribe(HandleCollisionEnd)
-                Print("[{ZoneName}] 已订阅碰撞事件")
+            if (Mesh := Owner.GetComponent[mesh_component]()):
+                # 订阅官方的碰撞事件
+                Mesh.EntityEnteredEvent.Subscribe(HandleEntityEntered)
+                Mesh.EntityExitedEvent.Subscribe(HandleEntityExited)
+                Print("[{ZoneName}] 已订阅 mesh_component 事件")
     
-    HandleCollisionBegin(HitEntity:entity):void =
+    HandleEntityEntered(HitEntity:entity):void =
         # 尝试转换为 agent
         if (Player := agent[HitEntity]):
             set PlayersInZone += array{Player}
             OnPlayerEnter(Player)
     
-    HandleCollisionEnd(HitEntity:entity):void =
+    HandleEntityExited(HitEntity:entity):void =
         if (Player := agent[HitEntity]):
             set PlayersInZone = PlayersInZone.Filter((P:agent):P <> Player)
             OnPlayerExit(Player)
@@ -354,7 +349,7 @@ CreateDetectionZone(Name:string):entity =
     Zone := entity{}
     
     # 添加碰撞网格组件
-    CollisionMesh := collision_mesh_component{}
+    CollisionMesh := mesh_component{}
     
     # 添加检测逻辑组件
     DetectionLogic := player_detection_logic{ZoneName := Name}
@@ -501,12 +496,12 @@ multi_entrance_manager := class(component):
         
         for (Child : Children):
             # 查找碰撞网格组件
-            if (Mesh := Child.GetComponent[collision_mesh_component]()):
+            if (Mesh := Child.GetComponent[mesh_component]()):
                 # 获取入口名称（从 Entity 或组件属性）
                 EntranceName := GetEntranceName(Child)
                 
                 # 订阅该入口的碰撞事件
-                Mesh.OnCollisionBegin.Subscribe(
+                Mesh.EntityEnteredEvent.Subscribe(
                     (Hit:entity):HandleEntranceEntry(Hit, EntranceName)
                 )
                 
