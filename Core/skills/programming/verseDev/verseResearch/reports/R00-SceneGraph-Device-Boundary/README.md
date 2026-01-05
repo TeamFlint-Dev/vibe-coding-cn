@@ -17,16 +17,16 @@
 | 领域 | SceneGraph 能力 | Device 必须性 | 结论 |
 |------|----------------|--------------|------|
 | **UI/HUD** | ✅ 完整 Widget 系统 | ⚠️ 高级 HUD 控制 | **部分可替代** |
-| **音频播放** | ❌ 无原生 API | ✅ 完全依赖 Device | **不可替代** |
-| **物理碰撞** | ✅ 部分 API（施力/速度） | ⚠️ 复杂碰撞配置 | **部分可替代** |
+| **音频播放** | ✅ sound_component | ⚠️ 复杂音频系统 | **部分可替代** |
+| **物理碰撞** | ✅ 完整（施力/速度/事件） | ⚠️ 编辑器配置 | **部分可替代** |
 | **官方机制** | ❌ 无计分/回合 API | ✅ 完全依赖 Device | **不可替代** |
-| **VFX** | ❌ 无粒子系统 API | ✅ 完全依赖 Device | **不可替代** |
+| **VFX** | ✅ particle_system_component | ⚠️ 高级特效配置 | **部分可替代** |
 | **世界空间 UI** | ❌ Widget 仅屏幕空间 | ✅ 需 Billboard Device | **不可替代** |
 
 **关键结论**：
-- 🟢 **SG 优势**：可编程 UI（canvas/button/text）、事件驱动架构、组件化设计
-- 🔴 **Device 必须**：音频、VFX、官方游戏机制、世界空间 UI、高级物理配置
-- 🟡 **混合方案**：UI 用 SG 实现逻辑 + Device 控制系统级 HUD
+- 🟢 **SG 优势**：可编程 UI、音频/VFX组件、碰撞事件、事件驱动架构、组件化设计
+- 🔴 **Device 必须**：官方游戏机制（计分/回合/队伍）、世界空间 UI、高级音频/VFX配置
+- 🟡 **混合方案**：SG 用于逻辑和基础功能 + Device 用于官方机制和复杂配置
 
 ---
 
@@ -106,18 +106,24 @@ Simulation Entity (根实体)
 | **UI 系统** | canvas, button, stack_box, overlay, color_block, text_base | `/UnrealEngine.com/Temporary/UI` |
 | **Player UI** | GetPlayerUI, AddWidget, RemoveWidget, SetFocus | `player_ui` 类 |
 | **组件系统** | entity, component, scene_event | `/Verse.org/SceneGraph` |
-| **物理（部分）** | ApplyForce, SetLinearVelocity, GetDynamic | `creative_prop`, `fort_character` |
+| **音频组件** | sound_component (Play, Stop, Enable, Disable) | `/Verse.org/SceneGraph` |
+| **VFX组件** | particle_system_component (Play, Stop, Enable, Disable) | `/Verse.org/SceneGraph` |
+| **网格组件** | mesh_component (EntityEnteredEvent, EntityExitedEvent, Collidable) | `/Verse.org/SceneGraph` |
+| **物理** | ApplyForce, SetLinearVelocity, GetDynamic | `creative_prop`, `fort_character` |
 | **生命周期** | OnAddedToScene, OnRemovedFromScene | `component` 生命周期钩子 |
 
 ### SG 限制
 
 ❌ **无法实现**：
-- 音频播放（无 audio API）
-- VFX 粒子系统（无 particle/vfx API）
 - 官方计分系统（无 score_manager API）
 - 回合制管理（无 round_settings API）
+- 队伍系统（无 team_settings API）
 - 世界空间 UI（Widget 仅支持屏幕空间）
 - 系统级 HUD 控制（如隐藏小地图、弹药栏）
+
+⚠️ **有限实现**（需要额外配置）：
+- 音频/VFX 资产需要在编辑器中预先配置
+- 复杂的音频控制（如 Patchwork 音乐系统）需要 Device
 
 ---
 
@@ -274,32 +280,77 @@ my_game_manager := class(creative_device):
 
 #### SceneGraph 音频能力
 
-**❌ 完全缺失**：
-- Verse.digest.verse.md: 无音频相关 API
-- Fortnite.digest.verse.md: 音频 API 仅在 Device 中
-- UnrealEngine.digest.verse.md: 无音频 API
+**✅ 基础支持（sound_component）**：
 
-**结论**：SceneGraph 无原生音频播放能力。
+SceneGraph 提供了 `sound_component` 用于音频播放：
+
+```verse
+sound_component<native><public> := class<abstract><final_super><epic_internal>(component, enableable) {
+    Play<native><public>(): void      # 播放音频
+    Stop<native><public>(): void      # 停止音频
+    Enable<override><native>(): void  # 启用组件
+    Disable<override><native>(): void # 禁用组件
+    
+    @editable
+    var AutoPlay<native><public>: logic = external {}  # 自动播放
+    @editable
+    var Enabled<native><public>: logic = external {}   # 是否启用
+}
+```
+
+**代码示例：SG 音频播放**
+
+```verse
+using { /Verse.org/SceneGraph }
+
+audio_entity := class(entity):
+    var BackgroundMusicComponent : ?sound_component = false
+    
+    Initialize():void =
+        # 创建音频组件（需要在编辑器中配置 sound_wave 资产）
+        BGM := sound_component{
+            AutoPlay := true,
+            Enabled := true
+        }
+        AddComponents(array{BGM})
+        set BackgroundMusicComponent = option{BGM}
+    
+    PlayBackgroundMusic():void =
+        if (BGM := BackgroundMusicComponent?):
+            BGM.Play()
+    
+    StopBackgroundMusic():void =
+        if (BGM := BackgroundMusicComponent?):
+            BGM.Stop()
+```
+
+**⚠️ SG 音频限制**：
+- 音频资产（`sound_wave`）需要在编辑器中预先配置
+- 无法动态加载音频文件
+- 缺少高级音频控制（如音量淡入淡出、音频混音）
+- 无法实现复杂音乐系统（如 Patchwork）
 
 #### Device 音频能力
 
 **核心设备**：
 
 1. **audio_player_device**
-   - 功能：播放音频文件
+   - 功能：播放音频文件，支持更多配置选项
    - API：`Enable()`, `Disable()`, `Play()`, `Stop()`
-   - 参数：音量、循环、空间化（3D 音效）
+   - 参数：音量、循环、空间化（3D 音效）、衰减距离
 
 2. **Patchwork 音乐系统**（19 个设备）
+   - `patchwork_music_manager_device` - 音乐管理器
    - `patchwork_drum_sequencer_device` - 鼓音序器
    - `patchwork_instrument_player_device` - 乐器播放器
-   - `patchwork_music_manager_device` - 音乐管理器
    - `patchwork_speaker_device` - 扬声器
-   - 等等...
-   - 功能：完整的音乐制作和播放系统
+   - 功能：完整的音乐制作和播放系统，支持实时音乐生成
 
 3. **radio_device**
    - 功能：收音机，可切换电台
+
+4. **audio_mixer_device**
+   - 功能：音频混音，控制多个音频源的混合
 
 **代码示例：Device 音频播放**
 
@@ -319,33 +370,19 @@ my_audio_manager := class(creative_device):
         VictorySound.Enable() # 播放胜利音效
 ```
 
-**Patchwork 示例（音乐制作）**：
-
-```verse
-# 通过编辑器配置 Patchwork 设备网络
-# Verse 代码仅负责触发和控制
-
-my_music_controller := class(creative_device):
-    @editable MusicManager : patchwork_music_manager_device = patchwork_music_manager_device{}
-    @editable DrumSequencer : patchwork_drum_sequencer_device = patchwork_drum_sequencer_device{}
-
-    StartMusic():void =
-        # 通过设备事件链触发
-        # 具体参数在编辑器中配置
-        MusicManager.Enable()
-```
-
 #### 边界结论：音频
 
 | 场景 | 推荐方案 | 理由 |
 |------|---------|------|
-| **任何音频播放** | ✅ audio_player_device | SG 无音频 API |
-| **背景音乐** | ✅ audio_player_device | Device 专用功能 |
-| **音效** | ✅ audio_player_device | Device 专用功能 |
-| **音乐制作** | ✅ Patchwork 系列 | 专业音乐系统 |
-| **空间化音频** | ✅ audio_player_device | 支持 3D 音效配置 |
+| **基础音频播放** | ✅ sound_component (SG) | 简单场景可用 |
+| **复杂音频控制** | ✅ audio_player_device | 更多配置选项 |
+| **背景音乐** | ⚠️ 二者皆可 | SG 简单，Device 灵活 |
+| **音效** | ⚠️ 二者皆可 | SG 组件化，Device 配置化 |
+| **音乐制作** | ✅ Patchwork 系列 | Device 专业音乐系统 |
+| **空间化音频** | ✅ audio_player_device | Device 支持高级 3D 音效 |
+| **音频混音** | ✅ audio_mixer_device | Device 专用功能 |
 
-**不可替代性**：🔴 **音频系统完全依赖 Device，无替代方案。**
+**部分可替代性**：🟡 **基础音频播放可用 SG，复杂音频系统需要 Device。**
 
 ---
 
@@ -353,7 +390,7 @@ my_music_controller := class(creative_device):
 
 #### SceneGraph 物理能力
 
-**✅ 部分支持**：
+**✅ 完整支持**：
 
 | API | 来源 | 功能 |
 |-----|------|------|
@@ -366,35 +403,59 @@ my_music_controller := class(creative_device):
 | `GetLinearVelocity()` | `creative_prop`, `fort_character` | 获取线性速度 |
 | `GetDynamic()` | `creative_prop` | 检查是否启用物理 |
 | `SetDynamic(Dynamic: logic)` | `creative_prop` | 设置物理启用状态 |
+| **`EntityEnteredEvent`** | **`mesh_component`** | **碰撞进入事件** |
+| **`EntityExitedEvent`** | **`mesh_component`** | **碰撞退出事件** |
+| **`Collidable`** | **`mesh_component`** | **启用/禁用碰撞** |
+| **`Queryable`** | **`mesh_component`** | **启用/禁用空间查询** |
 
-**代码示例：SG 物理控制**
+**代码示例：SG 物理控制和碰撞检测**
 
 ```verse
 using { /Fortnite.com/Game }
 using { /Verse.org/SpatialMath }
+using { /Verse.org/SceneGraph }
 
 my_physics_component := class(component):
+    var MeshComp : ?mesh_component = false
+    
+    OnAddedToScene()<override>:void =
+        # 订阅碰撞事件
+        if (Owner := GetOwner[]):
+            if (Mesh := Owner.GetComponent[mesh_component]()):
+                Mesh.EntityEnteredEvent.Subscribe(OnEntityEntered)
+                Mesh.EntityExitedEvent.Subscribe(OnEntityExited)
+                set MeshComp = option{Mesh}
+    
+    OnEntityEntered(OtherEntity: entity):void =
+        Print("Entity entered collision!")
+        # 处理碰撞进入逻辑
+    
+    OnEntityExited(OtherEntity: entity):void =
+        Print("Entity exited collision!")
+        # 处理碰撞退出逻辑
     
     LaunchProp(Prop: creative_prop, Direction: vector3, Force: float):void =
         if (Prop.GetDynamic[]):
             Prop.ApplyLinearImpulse(Direction * Force)
 
-    EnablePhysics(Prop: creative_prop):void =
-        Prop.SetDynamic(true)
+    EnableCollision():void =
+        if (Mesh := MeshComp?):
+            set Mesh.Collidable = true
+            set Mesh.Queryable = true
 
-    StopMovement(Prop: creative_prop):void =
-        Prop.SetLinearVelocity(vector3{X:=0.0, Y:=0.0, Z:=0.0})
-        Prop.SetAngularVelocity(vector3{X:=0.0, Y:=0.0, Z:=0.0})
+    DisableCollision():void =
+        if (Mesh := MeshComp?):
+            set Mesh.Collidable = false
 ```
 
-**❌ 无法实现**：
+**⚠️ SG 物理限制**：
 
-| 功能 | 原因 | 替代方案 |
-|------|------|---------|
-| **复杂碰撞形状** | 无碰撞体配置 API | 在编辑器配置或使用 Device |
-| **碰撞事件监听** | 无 OnCollision 事件 | 使用 `trigger_device` 检测 |
+| 功能 | 限制说明 | 替代方案 |
+|------|---------|---------|
+| **复杂碰撞形状** | 碰撞体需要在编辑器配置 | 编辑器配置 |
 | **物理材质** | 无材质参数 API | 编辑器配置 |
 | **约束和关节** | 无 joint/constraint API | 使用 `prop_manipulator_device` |
+| **高级碰撞过滤** | 碰撞通道配置需在编辑器 | 编辑器配置 |
 
 #### Device 物理能力
 
@@ -438,11 +499,12 @@ my_collision_detector := class(creative_device):
 |------|---------|------|
 | **施加力/冲量** | ✅ SceneGraph | SG 有完整 API |
 | **速度控制** | ✅ SceneGraph | SG 直接控制 |
-| **碰撞检测** | ✅ trigger_device | SG 无碰撞事件 |
-| **复杂物理配置** | ✅ 编辑器 + Device | SG 无配置 API |
+| **碰撞检测** | ✅ SceneGraph (mesh_component) | SG 有碰撞事件 |
+| **区域触发** | ⚠️ 二者皆可 | SG 用碰撞，Device 用 trigger |
+| **复杂物理配置** | ✅ 编辑器 + Device | SG 无运行时配置 API |
 | **道具移动路径** | ✅ prop_mover_device | Device 专用功能 |
 
-**部分可替代性**：🟡 **基础物理控制用 SG，碰撞检测和复杂配置用 Device。**
+**部分可替代性**：🟡 **物理控制和碰撞检测可用 SG，复杂配置和路径移动用 Device。**
 
 ---
 
@@ -535,34 +597,89 @@ my_score_system := class(creative_device):
 
 #### SceneGraph VFX 能力
 
-**❌ 完全缺失**：
-- 无粒子系统 API
-- 无 VFX 生成 API
-- 无后期处理 API（除了 `post_process_device`）
+**✅ 基础支持（particle_system_component）**：
 
-**可实现的替代**：
-- 使用 Widget 创建简单 UI 特效（闪烁、颜色变化）
-- 通过 `creative_prop` 的材质控制（`SetMaterial`）
+SceneGraph 提供了 `particle_system_component` 用于粒子特效：
+
+```verse
+particle_system_component<native><public> := class<final_super><epic_internal>(component, enableable) {
+    Play<native><public>(): void      # 播放粒子效果
+    Stop<native><public>(): void      # 停止粒子效果
+    Enable<override><native>(): void  # 启用组件
+    Disable<override><native>(): void # 禁用组件
+    
+    @editable
+    var AutoPlay<native><public>: logic = external {}  # 自动播放
+    @editable
+    var Enabled<native><public>: logic = external {}   # 是否启用
+}
+```
+
+SceneGraph 也支持光照组件（`light_component` 及其子类）：
+- `directional_light_component` - 方向光
+- `point_light_component` (sphere_light) - 点光源  
+- `spot_light_component` - 聚光灯
+- `rect_light_component` - 矩形光源
+- `capsule_light_component` - 胶囊光源
+
+**代码示例：SG 粒子效果**
+
+```verse
+using { /Verse.org/SceneGraph }
+
+vfx_entity := class(entity):
+    var ParticleComp : ?particle_system_component = false
+    var SpotLight : ?spot_light_component = false
+    
+    Initialize():void =
+        # 创建粒子组件（需要在编辑器中配置 particle_system 资产）
+        Particles := particle_system_component{
+            AutoPlay := false,
+            Enabled := true
+        }
+        
+        # 创建聚光灯
+        Light := spot_light_component{}
+        
+        AddComponents(array{Particles, Light})
+        set ParticleComp = option{Particles}
+        set SpotLight = option{Light}
+    
+    PlayEffect():void =
+        if (Particles := ParticleComp?):
+            Particles.Play()
+    
+    StopEffect():void =
+        if (Particles := ParticleComp?):
+            Particles.Stop()
+```
+
+**⚠️ SG VFX 限制**：
+- 粒子系统资产（`particle_system`）需要在编辑器中预先配置
+- 无法动态创建或修改粒子系统参数
+- 缺少后期处理 API（色调映射、饱和度等系统级效果）
+- 无法实现复杂的 VFX 序列和动画控制
 
 #### Device VFX 能力
 
 **核心设备**：
 
 1. **vfx_spawner_device**
-   - 功能：生成粒子特效
-   - 参数：特效类型、持续时间、位置
+   - 功能：生成粒子特效，支持更多配置选项
+   - 参数：特效类型、持续时间、位置、缩放
 
 2. **vfx_creator_device**
    - 功能：创建自定义 VFX
 
 3. **post_process_device**
    - 功能：后期处理效果（色调、饱和度、亮度等）
+   - 系统级效果，影响整个屏幕
 
 4. **visual_effect_powerup_device**
    - 功能：视觉增益效果
 
 5. **customizable_light_device**
-   - 功能：可自定义灯光
+   - 功能：可自定义灯光（编辑器配置丰富）
 
 6. **skydome_device**
    - 功能：天空穹顶设置
@@ -590,13 +707,14 @@ my_vfx_controller := class(creative_device):
 
 | 场景 | 推荐方案 | 理由 |
 |------|---------|------|
-| **粒子特效** | ✅ vfx_spawner_device | SG 无粒子 API |
-| **后期处理** | ✅ post_process_device | 系统级效果 |
-| **灯光控制** | ✅ customizable_light_device | Device 专用 |
+| **基础粒子效果** | ✅ particle_system_component (SG) | 简单场景可用 |
+| **复杂粒子控制** | ✅ vfx_spawner_device | 更多配置选项 |
+| **后期处理** | ✅ post_process_device | Device 独有系统级效果 |
+| **光照效果** | ⚠️ 二者皆可 | SG 有光照组件，Device 配置更丰富 |
+| **天空/环境** | ✅ skydome_device | Device 专用 |
 | **简单 UI 特效** | ⚠️ SceneGraph Widget | 仅限 UI 层面 |
-| **材质动画** | ⚠️ SceneGraph + 代码 | 通过 SetMaterial 实现 |
 
-**不可替代性**：🔴 **VFX 系统完全依赖 Device，SG 无粒子/后期处理 API。**
+**部分可替代性**：🟡 **基础粒子和光照可用 SG，后期处理和复杂 VFX 需要 Device。**
 
 ---
 
@@ -611,15 +729,17 @@ my_vfx_controller := class(creative_device):
 | **场景事件** | `SendUp`, `SendDown`, `SendDirect` |
 | **组件事件** | Component 内部 `listenable` 事件 |
 | **玩家输入** | 通过 `button` Widget 的 `OnClick` 事件（仅 UI） |
+| **碰撞触发** | `mesh_component.EntityEnteredEvent`, `EntityExitedEvent` |
+| **实体进入/离开** | `mesh_component` 碰撞事件检测 |
 
-**❌ 无法实现**：
+**⚠️ 有限实现**：
 
-| 功能 | 原因 |
-|------|------|
-| **区域感知触发** | 无空间触发 API |
-| **玩家进入/离开检测** | 无碰撞区域 API |
-| **条件触发** | 无复杂条件逻辑设备 |
-| **输入组合键** | UI Widget 仅支持点击 |
+| 功能 | 限制说明 |
+|------|---------|
+| **感知触发** | 无视线/听觉感知 API，需自行实现 |
+| **条件触发** | 需自行编写条件逻辑 |
+| **输入组合键** | UI Widget 仅支持简单点击 |
+| **复杂触发器配置** | 需要代码实现，不如 Device 可视化配置方便 |
 
 #### Device 触发能力
 
@@ -666,13 +786,14 @@ my_trigger_system := class(creative_device):
 
 | 场景 | 推荐方案 | 理由 |
 |------|---------|------|
-| **区域检测** | ✅ trigger_device | SG 无空间触发 |
+| **区域检测** | ⚠️ 二者皆可 | SG 用碰撞事件，Device 用 trigger |
+| **实体碰撞** | ✅ SceneGraph (mesh_component) | SG 有碰撞事件 |
 | **玩家交互按钮** | ✅ button_device（世界） / SG button（UI） | 看需求场景 |
-| **感知系统** | ✅ perception_trigger_device | Device 专用 |
+| **感知系统** | ✅ perception_trigger_device | Device 专用视线/听觉 |
 | **输入检测** | ✅ input_trigger_device | 复杂输入需 Device |
 | **场景事件通信** | ✅ SceneGraph | SG 事件系统强大 |
 
-**部分可替代性**：🟡 **UI 交互用 SG，世界空间触发用 Device。**
+**部分可替代性**：🟡 **碰撞触发可用 SG，UI交互用SG，感知系统用 Device。**
 
 ---
 
@@ -967,18 +1088,20 @@ my_device_bridge := class(creative_device):
 
 ### Q5: SceneGraph 的物理 API 能替代 trigger_device 吗？
 
-**A**: ❌ **不能完全替代**。SG 物理 API 仅支持施力和速度控制，无法检测区域进入/离开。碰撞检测仍需 `trigger_device`。
+**A**: ✅ **可以替代大部分场景**。SG 的 `mesh_component` 提供 `EntityEnteredEvent` 和 `EntityExitedEvent` 进行碰撞检测。Device `trigger_device` 提供更简单的可视化配置。
 
-### Q6: 为什么 SceneGraph 没有音频 API？
+### Q6: SceneGraph 有音频/VFX API 吗？
 
-**A**: 根据官方 API digest 分析，音频功能尚未暴露给 SceneGraph。可能原因：
-- SG 仍在 Beta 阶段，功能逐步开放
-- 音频系统复杂，需要更多底层优化
-- Epic 可能优先开放核心 ECS 功能
+**A**: ✅ **有基础支持**：
+- **音频**：`sound_component` (Play, Stop, Enable, Disable)
+- **VFX**：`particle_system_component` (Play, Stop, Enable, Disable)
+- **光照**：`light_component` 及其子类（方向光、点光源、聚光灯等）
 
-### Q7: 未来 SceneGraph 会支持音频/VFX 吗？
+⚠️ **限制**：需要在编辑器中预先配置资产，无法动态加载或修改参数。复杂功能仍需 Device。
 
-**A**: ⚠️ **未知**。官方暂无公开路线图。建议：
+### Q7: 未来 SceneGraph 会有更多功能吗？
+
+**A**: ⚠️ **可能性大**。SG 仍在 Beta 阶段，已有基础组件（sound, particle, mesh, light）。建议：
 - 关注 Epic 官方文档更新
 - 参与社区讨论（UEFN Forums）
 - 现阶段混合使用 SG + Device
@@ -1024,22 +1147,22 @@ my_device_bridge := class(creative_device):
 
 | 功能类别 | 子功能 | SceneGraph | Device | 不可替代性 |
 |---------|--------|-----------|--------|----------|
-| **UI** | 自定义 Widget | ✅ | ❌ | 🟢 可替代 |
+| **UI** | 自定义 Widget | ✅ | ❌ | 🟢 SG 专用 |
 | **UI** | 世界空间 UI | ❌ | ✅ billboard | 🔴 Device 必须 |
 | **UI** | 系统 HUD 控制 | ❌ | ✅ hud_controller | 🔴 Device 必须 |
-| **音频** | 播放音效 | ❌ | ✅ audio_player | 🔴 Device 必须 |
+| **音频** | 基础播放 | ✅ sound_component | ✅ audio_player | 🟡 部分可替代 |
 | **音频** | 音乐制作 | ❌ | ✅ Patchwork | 🔴 Device 必须 |
 | **物理** | 施力/速度 | ✅ | ⚠️ | 🟢 SG 优先 |
-| **物理** | 碰撞检测 | ❌ | ✅ trigger | 🔴 Device 必须 |
+| **物理** | 碰撞检测 | ✅ mesh_component | ✅ trigger | 🟡 部分可替代 |
 | **机制** | 计分系统 | ⚠️ 自建 | ✅ score_manager | 🔴 官方需 Device |
 | **机制** | 回合制 | ⚠️ 自建 | ✅ round_settings | 🔴 官方需 Device |
-| **VFX** | 粒子效果 | ❌ | ✅ vfx_spawner | 🔴 Device 必须 |
+| **VFX** | 粒子效果 | ✅ particle_system_component | ✅ vfx_spawner | 🟡 部分可替代 |
 | **VFX** | 后期处理 | ❌ | ✅ post_process | 🔴 Device 必须 |
-| **触发** | 区域检测 | ❌ | ✅ trigger | 🔴 Device 必须 |
+| **触发** | 碰撞触发 | ✅ mesh_component | ✅ trigger | 🟡 部分可替代 |
 | **触发** | 场景事件 | ✅ | ❌ | 🟢 SG 专用 |
 
 **图例**：
-- 🟢 **可替代** - SceneGraph 可独立实现
+- 🟢 **可替代/专用** - SceneGraph 可独立实现或专有功能
 - 🟡 **部分可替代** - 基础功能 SG，高级功能 Device
 - 🔴 **不可替代** - 必须使用 Device
 
@@ -1050,7 +1173,12 @@ my_device_bridge := class(creative_device):
 | 版本 | 日期 | 变更说明 |
 |------|------|---------|
 | 1.0 | 2026-01-05 | 初始版本，完成全领域调研 |
+| 1.1 | 2026-01-05 | **重要更正**：发现并补充 SG 已有的组件支持 |
+|     |            | - 音频：`sound_component` |
+|     |            | - VFX：`particle_system_component` + 光照组件 |
+|     |            | - 碰撞：`mesh_component.EntityEnteredEvent/ExitedEvent` |
+|     |            | 更新所有相关章节、结论和能力矩阵 |
 
 ---
 
-**调研总结**：SceneGraph 专注于逻辑和自定义 UI，Device 提供系统级功能（音频/VFX/官方机制）。**混合架构是当前最佳实践**。
+**调研总结**：SceneGraph 提供了音频、VFX、碰撞等基础组件支持，适合简单场景。Device 提供更丰富的配置和官方机制集成。**混合架构是当前最佳实践**。
