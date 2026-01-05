@@ -425,3 +425,261 @@ player_detection_component := class(component):
 **反省完成日期**: 2026-01-05  
 **修正报告状态**: 进行中  
 **预计完成时间**: 2026-01-05
+
+---
+
+## 错误 5: 捏造不存在的 mesh_component API (🔴 严重)
+
+### 发现时间
+2026-01-05 (第一次 API 修正)
+
+### 错误详情
+
+**捏造的 API**:
+```verse
+# ❌ 这些 API 完全不存在！
+OnCollisionBegin:event(entity)  # 捏造的事件
+OnCollisionEnd:event(entity)    # 捏造的事件
+collision_mesh_component := class(mesh_component)  # 捏造的类
+```
+
+**正确的官方 API** (来自 Verse.digest.verse.md):
+```verse
+mesh_component<native><public> := class<final_super>(component, enableable):
+    # ✅ 真实的碰撞事件
+    EntityEnteredEvent<native><public>: listenable(entity) = external {}
+    EntityExitedEvent<native><public>: listenable(entity) = external {}
+    
+    var Queryable<public>: logic = external {}
+```
+
+### 影响范围
+
+**文档影响**: 
+- 主实现指南中使用了 10+ 次捏造的 API
+- 高级模式文档中使用了 8+ 次
+- 所有代码示例都基于虚假 API
+
+**严重性**:
+- 🔴🔴🔴 **极其严重** - 导致所有示例代码无法运行
+- 误导开发者使用不存在的 API
+- 浪费开发者调试时间
+
+### 错误根源
+
+1. **没有查阅官方文档**: 直接基于"猜测"创建了看起来合理的 API
+2. **缺乏验证**: 没有与 Verse.digest.verse.md 对照验证
+3. **过度自信**: 认为 `OnCollision*` 是常见命名模式就一定存在
+
+### 修正措施
+
+1. **全局替换错误 API**:
+   - `OnCollisionBegin` → `EntityEnteredEvent`
+   - `OnCollisionEnd` → `EntityExitedEvent`
+   - 删除所有 `collision_mesh_component` 定义
+
+2. **添加 API 来源标注**: 每个 API 使用处标注来源文件
+
+3. **创建纠正文档**: `player-detection-api-corrections.md`
+
+---
+
+## 错误 6: 错误使用 Entity/component API (🔴🔴 极其严重)
+
+### 发现时间
+2026-01-05 (第二次 API 修正)
+
+### 错误详情
+
+#### 错误 6.1: 使用不存在的 GetOwner 方法
+
+**错误代码** (文档中 22 处):
+```verse
+# ❌ GetOwner 方法不存在！
+if (Owner := GetOwner[entity]):
+    Owner.FindOverlapHits()
+    Owner.SendDown(Event)
+```
+
+**正确的官方 API**:
+```verse
+component<native><public> := class<abstract>:
+    # ✅ Entity 是属性，不是方法
+    Entity<native><public>: entity
+```
+
+**正确用法**:
+```verse
+# ✅ 直接访问 Entity 属性
+Entity.FindOverlapHits()
+Entity.SendDown(Event)
+```
+
+#### 错误 6.2: GetComponent 语法错误
+
+**错误代码** (文档中 5 处):
+```verse
+# ❌ 使用了方括号语法
+if (Mesh := Owner.GetComponent[mesh_component]()):
+```
+
+**正确的官方 API**:
+```verse
+GetComponent<native><final><public>(
+    component_type: castable_subtype(component)
+)<reads><decides>: component_type
+```
+
+**正确用法**:
+```verse
+# ✅ 使用圆括号
+if (Mesh := Entity.GetComponent(mesh_component)):
+```
+
+### 影响范围
+
+**代码示例**: 所有继承式和订阅式模式的代码都使用了错误 API
+**影响行数**: 约 100+ 行代码需要修正
+
+### 错误根源
+
+1. **混淆了属性和方法**: 将 Entity property 当成 GetOwner() 方法
+2. **Verse 语法不熟悉**: 不清楚泛型调用的正确语法
+3. **没有实际运行验证**: 代码从未在 Verse 环境中验证过
+
+### 修正措施
+
+1. **全局替换**:
+   - 删除所有 `if (Owner := GetOwner[entity]):`
+   - `Owner.` → `Entity.`
+   - `GetComponent[type]()` → `GetComponent(type)`
+
+2. **创建验证代码**: `verse-validation/player_detection_corrected.verse`
+
+3. **建立验证流程**: 所有代码示例必须可通过 Verse LSP 检查
+
+---
+
+## 错误总结与分级
+
+### 🔴🔴🔴 致命错误 (Critical)
+
+| 错误编号 | 错误类型 | 影响 | 状态 |
+|---------|---------|------|------|
+| 错误 6 | Entity API 使用错误 (GetOwner, GetComponent) | 所有代码无法运行 | ✅ 已修正 |
+| 错误 5 | 捏造 mesh_component API | 所有代码无法运行 | ✅ 已修正 |
+
+### 🔴🔴 严重错误 (Major)
+
+| 错误编号 | 错误类型 | 影响 | 状态 |
+|---------|---------|------|------|
+| 错误 2 | Device 系统认知偏差 | 误导技术选型 | ✅ 已修正 |
+| 错误 3 | 混合方案设计错误 | 提供不可行方案 | ✅ 已删除 |
+
+### 🔴 重要错误 (Important)
+
+| 错误编号 | 错误类型 | 影响 | 状态 |
+|---------|---------|------|------|
+| 错误 1 | Beta vs Experimental 混淆 | 技术选型误判 | ✅ 已修正 |
+| 错误 4 | Entity 碰撞检测理解不足 | 推荐力度不够 | ✅ 已强化 |
+
+---
+
+## 深刻反省与教训
+
+### 根本原因分析
+
+1. **缺乏文档查阅习惯**: 
+   - 没有先查阅 Verse.digest.verse.md 就开始编写
+   - 基于假设和猜测创建 API
+   
+2. **缺乏实践验证**:
+   - 所有代码都是"纸上谈兵"
+   - 没有在实际 Verse 环境中运行过
+
+3. **过度自信**:
+   - 认为自己理解 API 命名规律
+   - 没有意识到需要逐个验证
+
+### 建立的新规范
+
+#### 规范 1: API 使用前必须验证
+
+**强制要求**:
+- ✅ 查阅 Verse.digest.verse.md 确认 API 存在
+- ✅ 复制官方 API 签名到文档
+- ✅ 标注 API 来源（文件名 + 行号）
+
+**禁止行为**:
+- ❌ 基于猜测创建 API
+- ❌ 假设命名规律
+- ❌ 使用未验证的 API
+
+#### 规范 2: 代码示例必须可运行
+
+**强制要求**:
+- ✅ 创建独立的 .verse 文件
+- ✅ 使用 Verse LSP 检查语法
+- ✅ 标注代码已验证
+
+**示例**:
+```verse
+# ✅ API 来源: Verse.digest.verse.md:1234
+# ✅ 已通过 LSP 验证
+mesh_component.EntityEnteredEvent.Subscribe(Handler)
+```
+
+#### 规范 3: 技术方案必须有依据
+
+**强制要求**:
+- ✅ 引用官方文档链接
+- ✅ 说明推荐/不推荐的具体理由
+- ✅ 标注信息来源（用户反馈/官方文档/实际测试）
+
+**禁止行为**:
+- ❌ 无依据地推荐技术方案
+- ❌ 基于表面理解做判断
+- ❌ 忽视用户反馈
+
+---
+
+## 预防措施清单
+
+### 在编写技术文档前
+
+- [ ] 阅读相关的官方 API digest 文件
+- [ ] 查找官方示例代码
+- [ ] 理解技术限制和边界
+
+### 在编写代码示例时
+
+- [ ] 每个 API 调用都查阅 digest 验证
+- [ ] 复制官方 API 签名
+- [ ] 创建可运行的验证文件
+- [ ] 使用 LSP 检查语法
+
+### 在给出技术建议时
+
+- [ ] 明确信息来源
+- [ ] 区分"推荐"和"可行"
+- [ ] 说明优缺点的具体理由
+- [ ] 避免绝对化表述
+
+### 在收到反馈后
+
+- [ ] 立即验证反馈的准确性
+- [ ] 全面审查相关错误
+- [ ] 创建纠正文档
+- [ ] 更新预防措施
+
+---
+
+## 致谢
+
+感谢 @OxgenXXX 提供的宝贵反馈和及时纠正，避免了错误信息的传播。这次深刻的教训让我建立了更严格的技术文档编写规范。
+
+---
+
+**文档版本**: v2.0 (包含所有 API 纠正)
+**最后更新**: 2026-01-05
+**状态**: 所有错误已修正，预防措施已建立
