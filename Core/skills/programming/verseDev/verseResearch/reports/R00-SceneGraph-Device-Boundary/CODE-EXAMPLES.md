@@ -214,7 +214,7 @@ audio_player_device 属性:
 ```
 
 **SceneGraph 对比**：
-❌ **无法实现** - SG 无音频 API
+⚠️ **可实现基础功能** - SG 有 `sound_component`，但配置选项较少，适合简单场景
 
 ---
 

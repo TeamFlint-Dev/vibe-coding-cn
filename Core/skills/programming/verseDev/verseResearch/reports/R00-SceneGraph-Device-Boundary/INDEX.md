@@ -80,20 +80,24 @@
 - 游戏逻辑和状态管理
 - 组件化设计
 - 事件驱动架构
-- 基础物理控制（施力、速度）
+- 物理控制（施力、速度、碰撞检测）
+- 基础音频播放（`sound_component`）
+- 基础粒子效果（`particle_system_component`）
+- 光照效果（`light_component` 系列）
 
 ### ❌ SceneGraph 不能做（必须用 Device）
 
-- 音频播放 → `audio_player_device`
-- VFX 粒子效果 → `vfx_spawner_device`
 - 官方计分/回合系统 → `score_manager_device`, `round_settings_device`
 - 世界空间 UI → `billboard_device`
-- 区域碰撞检测 → `trigger_device`
+- 后期处理效果 → `post_process_device`
+- 复杂音频系统 → `audio_player_device`, Patchwork 系列
 
 ### 🟡 混合使用最佳
 
 - UI: SG 自定义 UI + Device 系统 HUD
-- 物理: SG 施力控制 + Device 碰撞检测
+- 音频: SG 基础播放 + Device 复杂控制
+- VFX: SG 粒子效果 + Device 后期处理
+- 碰撞: SG mesh事件 + Device trigger（更简单）
 - 游戏机制: SG 自定义逻辑 + Device 官方集成
 
 ---

@@ -865,9 +865,34 @@ score_system := class(creative_device):
 
 #### 方案 A：SceneGraph
 
-❌ **无法实现** - SG 无音频 API
+✅ **可实现基础功能** - 使用 `sound_component`
 
-#### 方案 B：Device（唯一方案）
+```verse
+using { /Verse.org/SceneGraph }
+
+audio_entity := class(entity):
+    var BGMComponent : ?sound_component = false
+    
+    Initialize():void =
+        BGM := sound_component{
+            AutoPlay := true,
+            Enabled := true
+        }
+        AddComponents(array{BGM})
+        set BGMComponent = option{BGM}
+    
+    PlayMusic():void =
+        if (BGM := BGMComponent?):
+            BGM.Play()
+    
+    StopMusic():void =
+        if (BGM := BGMComponent?):
+            BGM.Stop()
+```
+
+**限制**：音频资产需在编辑器中预先配置
+
+#### 方案 B：Device
 
 ```verse
 using { /Fortnite.com/Devices }
@@ -882,7 +907,7 @@ music_manager := class(creative_device):
         BackgroundMusic.Disable()
 ```
 
-**推荐**：✅ **Device 唯一方案**
+**推荐**：⚠️ **基础功能用 SG，复杂音频控制用 Device**
 
 ---
 
@@ -890,11 +915,25 @@ music_manager := class(creative_device):
 
 #### 方案 A：SceneGraph
 
-❌ **无法直接实现** - SG 无空间触发 API
+✅ **可实现** - 使用 `mesh_component` 碰撞事件
 
-可能的变通：
-- 通过定时器检查玩家位置（性能差）
-- 使用 `creative_prop` 的物理碰撞（复杂）
+```verse
+using { /Verse.org/SceneGraph }
+
+trigger_area_component := class(component):
+    
+    OnAddedToScene()<override>:void =
+        if (Owner := GetOwner[]):
+            if (Mesh := Owner.GetComponent[mesh_component]()):
+                Mesh.EntityEnteredEvent.Subscribe(OnEntityEntered)
+                Mesh.EntityExitedEvent.Subscribe(OnEntityExited)
+    
+    OnEntityEntered(OtherEntity: entity):void =
+        Print("Entity entered area!")
+    
+    OnEntityExited(OtherEntity: entity):void =
+        Print("Entity exited area!")
+```
 
 #### 方案 B：Device
 
@@ -911,7 +950,7 @@ area_detector := class(creative_device):
         Print("Player entered!")
 ```
 
-**推荐**：✅ **Device 方案简洁高效**
+**推荐**：⚠️ **二者皆可** - SG 用碰撞事件，Device 用 trigger（更简单）
 
 ---
 
