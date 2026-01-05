@@ -1,0 +1,348 @@
+Card ID,Card Name,Card URL,Card Description,Labels,Members,Due Date,Attachment Count,Attachment Links,Checklist Item Total Count,Checklist Item Completed Count,Vote Count,Comment Count,Last Activity Date,List ID,List Name,Board ID,Board Name,Archived,Start Date,Due Complete,Due Reminder
+695bb36616109aae9d8a6cc7,General Information,https://trello.com/c/n4FPYazS/1-general-information,"**Overview**
+
+The purpose of this board is to provide information about upcoming feature releases for the Fortnite Creator Roadmap. Features that are currently in development will be listed on this board, as well as those coming next. Please keep in mind that features and timing are subject to change.
+
+**Connect With Us**
+
+Visit our social channels to stay up to date with the most current information.",,,,1,https://trello.com/1/cards/695bb36616109aae9d8a6cc7/attachments/695bb36716109aae9d8a73d7/download/UEFN.png,0,0,0,0,2026-01-05T12:49:44.358Z,695bb36616109aae9d8a6c88,Roadmap 2025,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cc9,Roadmap Disclaimer: Features and timing are subject to change,https://trello.com/c/QJPOGbCh/2-roadmap-disclaimer-features-and-timing-are-subject-to-change,,,,,1,https://trello.com/1/cards/695bb36616109aae9d8a6cc9/attachments/695bb36716109aae9d8a73e0/download/image_(527).png,0,0,0,0,2026-01-05T12:49:44.219Z,695bb36616109aae9d8a6c88,Roadmap 2025,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ccb,Roadmap 2025,https://trello.com/c/nsPE1FZc/3-roadmap-2025,Graphical Overview of the 2024 Roadmap,"Core Tech (purple), Creation Tools (pink), Publishing Tools (pink_dark), Template (sky_dark)",,,0,,0,0,0,0,2026-01-05T12:49:42.994Z,695bb36616109aae9d8a6c88,Roadmap 2025,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ce9,User Interface - Template,https://trello.com/c/PAVko0Ex/18-user-interface-template,"Learn how to create your own custom UI using widgets, materials, and textures using UMG. You can examine a variety of user widgets and their view bindings to better understand how widgets are laid out and how to bind them to Fortnite devices. You also get a host of useful UI materials and material functions add to new and existing projects to start building UI quickly.",Template (sky_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.007Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d11,Improved Custom UI Widget Features,https://trello.com/c/pmzAAgMb/38-improved-custom-ui-widget-features,"Expanded gameplay data available to UI Widgets via the HUD Controller Device, including additional data available about player vitality and items. Additionally, Verse code can be used to Add and Remove UI Widgets made in UMG from the HUD.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.023Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ced,Pre-Matchmaking Content Download,https://trello.com/c/APZtC7dy/20-pre-matchmaking-content-download,"Content download will happen after ready-up, reducing matchmaking failures caused by players cancelling or failing to download data in time.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.006Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ce3,Text Chat Repositioning,https://trello.com/c/0tg7Cd6f/15-text-chat-repositioning,Creators can reposition Text Chat using the HUD controller device to adjust the location of Text Chat on screen for their Islands.,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.016Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cdf,Spatial Profiler,https://trello.com/c/vluuHsAW/13-spatial-profiler,"The Spatial Profiler is getting a significant upgrade:
+
+- A session browser allows navigating between the live session (where metrics are captured) and previously saved sessions.
+- The Spatial Profiler can now load multiple files to better compare previously saved metric data.
+- A tree view represents the metrics contained within a session. Each metric has a status indicator to communicate its performance state.
+- The new histogram view provides a timeline to signal performance spikes for each metric during a live session capture, zoom, and value navigation in the heatmap.
+- The Spatial Profiler can now sample multiple sources in the live session, allowing creators to gather client and server metrics simultaneously.
+- The Spatial Profiler now remembers previous metric selections, streamlining capture sessions.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.000Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ce7,Test Players,https://trello.com/c/r2mBDuzV/17-test-players,"Providing a way to spawn and remove Test Players on game start and during a session from Edit sessions. Test Players act as idle players, allowing creators to test multiplayer logic, including players starting a game as well as joining and leaving a game in progress",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.007Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ceb,Rift Point Capabilities,https://trello.com/c/q95zk3Ye/19-rift-point-capabilities,"The Rift Point Volume Device provides creators with a set of customization options such as plant time, defuse time, detonation as well as the team or individual players who can plant and defuse the Rift Point Item. The device and the item will allow creators to build Ballistic style games.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.005Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d0f,Favorite a Creator from In Match,https://trello.com/c/QzvOhknY/37-favorite-a-creator-from-in-match,"Add the functionality to the [Creator Profile Link Device](https://dev.epicgames.com/documentation/en-us/fortnite-creative/using-creator-profile-link-devices-in-fortnite-creative ""‌"") to Favorite a Creator from in match.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.017Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ce5,Audience metric enhancements and improved device data,https://trello.com/c/aKgSXhfN/16-audience-metric-enhancements-and-improved-device-data,"'- Audience tab gets an update to include Click through rate as well as filter for Geography, and Sources on some existing charts.
+- XP and Analytics devices metrics get a new home in your island’s analytics tab that will now show a trend over time.",Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.008Z,695bb36616109aae9d8a6c8a,Q1 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d67,Thin Client,https://trello.com/c/y4WxSu9j/81-thin-client,"'- Android, iOS: Rocket Racing, Festival, and LEGO® Fortnite are optional downloads. Players can play Fortnite Battle Royale and Creative before those modes finish installing or updating.
+- PC: Some cosmetics download on demand, reducing the total install size of Fortnite.",Core Tech (purple),,,0,,0,0,0,0,2026-01-05T12:49:43.042Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d15,Search UI/UX and Algorithm Improvements,https://trello.com/c/5R0ubUKI/40-search-ui-ux-and-algorithm-improvements,Changes to the search algorithm to improve how well it handles non-exact search queries,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.018Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d3f,Minor Creator Search Improvments,https://trello.com/c/DdusiIZR/61-minor-creator-search-improvments,Keyword matching is more flexible and returns a broader creator search result,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.030Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d2f,Scheduled Publishing,https://trello.com/c/zeqmCBz3/53-scheduled-publishing,Give creators control to automate their island’s precise release time in advance at the point of publishing.,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.021Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d35,Creators in Discover,https://trello.com/c/Z5YUV0MS/56-creators-in-discover,Adding a row of Creators in Discover. This will start with Popular Creators in your Region and eventually will be personalized.,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.028Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d33,Queue time metrics,https://trello.com/c/brSCm3Bo/55-queue-time-metrics,Addition of median queue time and percentile data allowing visibility on changes made to matchmaking settings,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.027Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d37,Discovery Quests,https://trello.com/c/mc7pEjur/57-discovery-quests,Adding daily and weekly quests to play islands from different Featured Collections.,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.028Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d31,Retention metrics for 1 day and 7 days,https://trello.com/c/BBVwd31i/54-retention-metrics-for-1-day-and-7-days,Initial retention metrics built in a new sub-tab in projects in Creator Portal where more robust player insights will be added in the coming quarters.,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.021Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d19,Ongoing recommendations improvements,https://trello.com/c/Z5C1m97K/42-ongoing-recommendations-improvements,Continued investment in our recommendations and personalization systems. We're focusing on regional recommendations and improving recommendation accuracy,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.019Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d17,Not interested button,https://trello.com/c/g972ez1U/41-not-interested-button,"Players can provide signal in their recommendations that they're not interested in an island. On the next refresh, your For You should update and no longer show this islands. Over time it will also show fewer islands like this.",Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.018Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ce1,Scene Graph - Beta,https://trello.com/c/43bUfqTR/14-scene-graph-beta,"An entity and component framework that enables creators to dynamically manipulate objects in game. The Scene Graph is now in its Beta release, which enables publishing of projects using entities, components, and prefabs.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:42.999Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d4f,Skilled Interaction device - Multiplayer expansion,https://trello.com/c/cCS7zzAZ/69-skilled-interaction-device-multiplayer-expansion,"A multiplayer expansion to the existing Skilled Interaction device to allow it to support a queue of players. This queue can be configured to iterate through serially, randomly, or synchronously. Synchronous will be the option that will allow many players to have to execute the same skill check at the same time, while exposing a great deal of utility around skilled interaction device.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.035Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d4d,Voting Options Device - Beta,https://trello.com/c/lQGq29Um/68-voting-options-device-beta,"The Voting Options Device pairs with the Voting Group Device, existing as an easy means for Creators to set up different options players can vote for. Assigning the Options to the same Voting Group will add them to the same vote.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.034Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d4b,Voting Group Device - Beta,https://trello.com/c/05jMPpav/67-voting-group-device-beta,"The Voting Group Device will enable Creators to make gameplay polls to enable key beats in a typical gameflow. It will enable Players to vote on things like the next map to play, or which Player to vote out of the round.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.034Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d43,Progress Based Mesh Device,https://trello.com/c/PalX7xjh/63-progress-based-mesh-device,"Creators can indicate progress on a mesh through swapping in different meshes or hooking up a material parameter. VFX and SFX can be applied at key progress moments, and audio can be modulated. Useful for building games, growing crops, minigames, and in general any visual indications of progress.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.032Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d49,Carryable Spawner Device - Beta,https://trello.com/c/09M1DAgq/66-carryable-spawner-device-beta,"The Carryables Spawner device allows creators to spawn a carryable object into their experiences. A carryable object is an item that exists in-world, and can be carried above the player’s head. Carried items can be dropped or thrown, can optionally take damage, and can optionally explode on death or thrown.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.033Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d47,Disguise Device,https://trello.com/c/iecF3l29/65-disguise-device,"The Disguise Device is a new device that applies a cosmetic override to target players. Creators choose which disguise the device applies from a curated list of options, including when the disguise is applied, and when it breaks.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.033Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cf1,Elimination Camera,https://trello.com/c/ttLOiUjt/22-elimination-camera,"Creators can now use custom cameras in the space between being eliminated and switching to spectate, through a new setting in the Custom Camera devices.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.009Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d01,General Physics - Experimental,https://trello.com/c/FXLob5T2/30-general-physics-experimental,"General Physics will be introduced as an experimental feature. By opting in, creators can enable physically based player characters and apply physics to Fortnite props. This unlocks the potential for true networked physics sandbox gameplay, allowing creators to build interactive and emergent games for their players.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.009Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d41,Shove,https://trello.com/c/ya6V6ZYz/62-shove,A new weapon/ability that enables Players to shove other Players away from them with a light force.,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.031Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cff,Player Movement Device,https://trello.com/c/OUFPEtUz/29-player-movement-device,"A device that allows creators to tune the player character’s movement.  This replaces the existings tuning, used by experiences such as Ballistic.  The modes include: Walk, Run, Sprint, Crouch, Down But Not Out, Swim, Skydive, Glide, etc.
+
+Example of some properties to modify: Max Speed, Acceleration, Deceleration, etc.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.010Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d3b,Viewport Toolbar Update,https://trello.com/c/fkY6ihk7/59-viewport-toolbar-update,"The viewport toolbar has been updated, moving from the previous overlay pill buttons to a new toolbar that sits just above the viewport.
+
+This updated toolbar provides a few key benefits:
+
+‌
+
+- Consistent locations for various features ordered by logical categories (eg. Transforms, Snapping, View Modes)
+- Unification of related tools and options that were previously located in the high level settings dropdown
+- Toolbars now feature asset editor specific controls (See Animation Mode, Modeling Mode, Animation Asset Editors, Material Editors etc)
+- When viewport space is constrained in your editor layout the quick access buttons will start to get removed from the bar one by one while the section menus continue to provide organized access to all items without needing to fall back to a generic overflow menu",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.029Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d45,Hiding Prop,https://trello.com/c/RW000xZF/64-hiding-prop,"The addition of a Verse API to the existing Hiding Prop suite of props. The hiding prop device can be used to give Players a place to hide, or to allow players a special way to commence a Hidden Travel to another Hiding prop. This addition allows you to control this in Verse.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.032Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cf9,Bubble Chat,https://trello.com/c/Ss3bB77f/26-bubble-chat,"Bubble chat is a new creator feature designed to elevate social interaction in your map. When Bubble Chat is enabled, players' messages will appear both in the chat window and in easy-to-read bubbles above their avatars, creating a more immersive social experience.
+
+
+This new feature is integrated with the current text chat system and maintains all existing text filtering capabilities.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.012Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cfb,Time of Day Manager (TODM) Deprecation,https://trello.com/c/zQlxUbBj/27-time-of-day-manager-todm-deprecation,"With the upgrade to the new TODM comes the retirement of the Skydome device.  In order to make lighting adjustments to existing legacy islands, creators will have the option to upgrade to the new Ch5 TODM and the Day Sequence device.  All new islands will continue to only use the Ch5 TODM and the Day Sequence device.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.011Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cf3,Content Browser History,https://trello.com/c/QVtCm9Zy/23-content-browser-history,The Creative Content Browser will provide a running history of assets placed. This feature allows for quicker access to recently used assets in order to save steps when building an island.,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.013Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d13,Matchmaking options,https://trello.com/c/w4n2slRI/39-matchmaking-options,"Give creators access to new matchmaking options when publishing their island:
+
+- Minimum player count to start match
+- Max queue time",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.019Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d2d,A/B Testing for Island Thumbnails,https://trello.com/c/HLS8JXWm/52-a-b-testing-for-island-thumbnails,Build A/B Testing into the publishing process. Allow creators to test different thumbnails only and see their efficacy measured in click through rate.,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.020Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d3d,Minor Island Search Improvements,https://trello.com/c/Z3tGIWck/60-minor-island-search-improvements,Keyword matching is more flexible and returns a broader search result,Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.030Z,695bb36616109aae9d8a6c8b,Q2 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d6b,Fortnite Creator Communities,https://trello.com/c/frQ9iVWt/83-fortnite-creator-communities,"Creators will be able to build community forums, and publish posts directly to Fortnite across Island Lobby, Island Page, Creator Page and a new Discover row. Players can ""like"" posts in Fortnite, and reply on the web. These tools aim to help creators foster engagement, gather feedback, and build lasting communities.
+
+To learn more: [https://www.fortnite.com/news/developers-can-now-set-up-fortnite-communities?lang=en-US](https://www.fortnite.com/news/developers-can-now-set-up-fortnite-communities?lang=en-US ""smartCard-inline"")",Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.050Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d7d,Thin Client,https://trello.com/c/79dAgvhv/92-thin-client,"Android, iOS: Players installing Fortnite on their device can download and play creator-made islands before downloading other game modes.
+
+- When installing Fortnite on a device for the first time, Blitz Royale will be the only game mode included with the initial download.
+- Players can then prioritize which game modes they would like to download next, enabling them to download and play creator-made islands ahead of other game modes.
+- This will significantly reduce the required download size for players who want to jump straight into a creator-made island.",Core Tech (purple),,,0,,0,0,0,0,2026-01-05T12:49:43.053Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d6d,In-Island Transactions,https://trello.com/c/bNzYt9nu/84-in-island-transactions,"On January 9, developers will be able to sell items directly from their Fortnite islands, opening up new revenue potential, in addition to receiving engagement payouts from Fortnite item shop sales.
+
+To learn more: [https://www.fortnite.com/news/tools-for-in-island-transactions-now-available-to-fortnite-developers](https://www.fortnite.com/news/tools-for-in-island-transactions-now-available-to-fortnite-developers ""smartCard-inline"")
+
+Confidence: High",Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.048Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d85,Unified Details Panel for Scene Graph,https://trello.com/c/ztbYLpTn/96-unified-details-panel-for-scene-graph,"We're moving away from the scene graph's card layout and standardizing the Details Panel experience across actors and entities, bringing consistency to how properties and components are displayed. As part of this refactor, the familiar Component Outliner is returning for entities, but with full support for scene graph-aware overrides display.
+
+This foundation also enables long-requested features like multi-selection for entities, streamlining bulk edits and improving parity with traditional actor workflows.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.061Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d81,Scene Events,https://trello.com/c/Oas69HMW/94-scene-events,"To begin unlocking the power of the Scene Graph, we are adding an event-routing system called Scene Events. These events let you broadcast messages up and down the Scene Graph hierarchy.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.054Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dc9,Custom Items and Inventories,https://trello.com/c/eBThrP1S/130-custom-items-and-inventories,"Exiting Experimental
+
+Custom Inventory and Items allows developers to modify, customize, or completely replace the default player inventory. Developers can design original items with unique properties, and build gameplay systems centered around inventory interactions.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.077Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dcb,Agent Group,https://trello.com/c/CKyOYr9E/131-agent-group,"Generic groups of agents that can be used to manage membership of parties, channels, etc
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.078Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dcd,Scene Graph Timer Utility,https://trello.com/c/sjKecCW5/132-scene-graph-timer-utility,"Provide creators with a flexible timer class to trigger scripted actions at precise intervals or durations, enabling more dynamic gameplay, reactive systems, and time-based challenges.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.078Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dcf,Rewind Debugger,https://trello.com/c/VuB7eH8x/133-rewind-debugger,"Enable use of the Rewind Debugger, which is a powerful tool to record gameplay over time and then inspect values and visuals in a timeline.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.074Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d1f,Enable Creation of Custom Interactive UI Widgets,https://trello.com/c/1xYeu2qi/45-enable-creation-of-custom-interactive-ui-widgets,Creators will be able to design custom UI widgets where Verse code can be written to respond to player input. This feature will allow the creation of interactive menus using widgets made in the Editor.,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.022Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ccd,Release Schedule Disclaimer,https://trello.com/c/XGd4zBru/4-release-schedule-disclaimer,"These dates are subject to change but reflect our current plans. We may make additional updates to address stability by targeting specific changes for one or more platforms. Where possible we will announce any changes or additions on [https://x.com/FNCreate](https://x.com/FNCreate ""smartCard-inline"")",,,,0,,0,0,0,0,2026-01-05T12:49:42.994Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cd3,01/14/25,https://trello.com/c/na9yC8xr/7-01-14-25,,,,,0,,0,0,0,0,2026-01-05T12:49:42.996Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cdd,01/31/25,https://trello.com/c/bDFgN6SH/12-01-31-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.000Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cd7,02/21/25,https://trello.com/c/htq3TbCx/9-02-21-25,,,,,0,,0,0,0,0,2026-01-05T12:49:42.997Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cd9,03/11/25,https://trello.com/c/FptUHDI1/10-03-11-25,,,,,0,,0,0,0,0,2026-01-05T12:49:42.998Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cdb,03/25/25,https://trello.com/c/jYCgYjmF/11-03-25-25,,,,,0,,0,0,0,0,2026-01-05T12:49:42.998Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cd5,04/08/25,https://trello.com/c/JAdB7BHg/8-04-08-25,,,,,0,,0,0,0,0,2026-01-05T12:49:42.997Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cd1,04/22/25,https://trello.com/c/uWMGty7x/6-04-22-25,,,,,0,,0,0,0,0,2026-01-05T12:49:42.996Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ccf,05/02/25,https://trello.com/c/EfkZEC4N/5-05-02-25,,,,,0,,0,0,0,0,2026-01-05T12:49:42.995Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d21,05/15/25,https://trello.com/c/8w3n9p9h/46-05-15-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.024Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d23,05/29/25,https://trello.com/c/rHJ5Od0N/47-05-29-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.024Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d25,06/07/25,https://trello.com/c/AOB7OJ58/48-06-07-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.025Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d27,06/17/25,https://trello.com/c/32mEoB09/49-06-17-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.026Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d29,07/15/25,https://trello.com/c/QckrOywW/50-07-15-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.026Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d2b,07/29/25,https://trello.com/c/h7sGj4ob/51-07-29-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.027Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d55,08/07/25,https://trello.com/c/AJY1ylCK/72-08-07-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.036Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d57,08/26/25,https://trello.com/c/4ieuxVHn/73-08-26-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.037Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d59,09/10/25,https://trello.com/c/ZQ5HWwMX/74-09-10-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.038Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d5b,09/18/25,https://trello.com/c/kc5xC6fS/75-09-18-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.039Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d5d,10/02/25,https://trello.com/c/L9Knuv9r/76-10-02-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.039Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d5f,10/09/25,https://trello.com/c/k2mK2x5w/77-10-09-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.040Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d61,11/01/25,https://trello.com/c/yBoMtmlX/78-11-01-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.040Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d75,11/11/25,https://trello.com/c/SF5ymS8g/88-11-11-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.051Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d77,11/29/25,https://trello.com/c/wjKOIzUb/89-11-29-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.051Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d79,12/11/25,https://trello.com/c/ILeaMGMS/90-12-11-25,,,,,0,,0,0,0,0,2026-01-05T12:49:43.052Z,695bb36616109aae9d8a6c89,Scheduled Releases,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d7f,Confidence Level,https://trello.com/c/Hq8VGjfB/93-confidence-level,"We’re introducing a new confidence label to the roadmap to help guide your development around forecasted feature releases.
+
+- **High Confidence:** The feature will deliver on target quarter
+- **Medium Confidence:** The feature might slip the target quarter
+- **Low Confidence:** The feature could slip more than just one quarter",,,,0,,0,0,0,0,2026-01-05T12:49:43.053Z,695bb36616109aae9d8a6c88,Roadmap 2025,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d69,Thin Client,https://trello.com/c/hzVrhTUf/82-thin-client,"'- Android, iOS: Some cosmetics download on demand reducing the total install size of Fortnite.
+- PC, Android, iOS: Backbling & Loading screens now download on demand
+- Android, iOS: Improved downloading/updating UI on the home bar game tiles, plus the ability to move a game mode to the top of the download queue",Core Tech (purple),,,0,,0,0,0,0,2026-01-05T12:49:43.048Z,695bb36616109aae9d8a6c8c,Q3 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cf7,Debug Commands,https://trello.com/c/VFpoFcnP/25-debug-commands,A debug command menu will be available to creators when testing their islands.  Creators have the ability to author custom Verse debug commands to populate the menu.,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.012Z,695bb36616109aae9d8a6c8c,Q3 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d53,Team Invite Emote,https://trello.com/c/Hgw0MEZB/71-team-invite-emote,"We are bringing to FNE a feature originally available in Battle Royale that let players make squads on the fly while a match was running by emoting with another player. This option will be available as an Island setting, that will be overrideable per team on the Team Settings And Inventory Device.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.035Z,695bb36616109aae9d8a6c8c,Q3 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d63,Fortnite Tools,https://trello.com/c/jlc8iaz1/79-fortnite-tools,"A set of powerful tools to help streamline your environment building workflows:
+
+- 3D Select – Easily select and manage multiple objects at once
+- Snap To Target – Quickly duplicate and place objects exactly where you want them
+- Travel Time – Measure distance and time with built-in Fortnite movement presets
+- Helper Assets – Drop in handy reference objects to guide your designs
+
+These tools are designed to save you time and make building even smoother.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.041Z,695bb36616109aae9d8a6c8c,Q3 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cef,Memory Calculation Update,https://trello.com/c/5o6BIZKM/21-memory-calculation-update,"Creators have an optimized, faster memory calculation process for evaluating runtime resource usage. This enhancement ensures that islands authored by creators remain playable across all Fortnite-supported devices and platforms, without interruptions due to out-of-memory crashes. In particular, sampling location generation is faster on larger islands.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.006Z,695bb36616109aae9d8a6c8c,Q3 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cfd,Player Input - Experimental,https://trello.com/c/0XgAyl87/28-player-input-experimental,"Adding support for adding/removing Input Mapping Contexts and binding to Input Actions through Verse. Creators can override the ""Jump"" input to perform a custom action, add/remove an input mapping context to a Player during gameplay, and access a set of Epic-Curated Input Mapping Contexts. Creators can rely on a functional mobile experience regardless of their use of Input in Verse.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.010Z,695bb36616109aae9d8a6c8c,Q3 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d1b,Improved Pop-Up Dialog UI,https://trello.com/c/FTvGZJY3/43-improved-pop-up-dialog-ui,Improved ability to create custom menu UI using the Pop-up Dialog and Conversation Devices. Additional features include expanded data available in the viewmodel and new animations.,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.023Z,695bb36616109aae9d8a6c8c,Q3 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d65,Project Cooks Initiated on Pre-Publish,https://trello.com/c/HXo9W3ZS/80-project-cooks-initiated-on-pre-publish,"Project Cooks are the process by which your project content is **prepared for use on all Fortnite-supported platforms**.
+
+UEFN now automatically prepares projects for all platforms when you select **Publish Project** or **Upload to Private Version**. This removes the need to wait for your island to cook after publishing, resolves the _**cold island**_ issue, and makes the publishing flow smoother and faster.",Core Tech (purple),,,0,,0,0,0,0,2026-01-05T12:49:43.041Z,695bb36616109aae9d8a6c8c,Q3 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d39,General Physics - Beta,https://trello.com/c/mNVxCFGm/58-general-physics-beta,"**Coming up 37.40** - Creators can publish their UEFN Physics based games into Fortnite. With General Physics, players can push, topple, hit, and move objects - unlocking emergent, physics-driven gameplay in Fortnite Islands.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.029Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d05,Custom Game Items and Inventories - Experimental,https://trello.com/c/ofK9I2sA/32-custom-game-items-and-inventories-experimental,"Lay the foundations for custom items and inventories, which can be used alongside existing Battle Royale items, allowing for more variety and new types of play.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.014Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d1d,Enable Creation of Custom Data-driven UI Widgets,https://trello.com/c/mfsIphsk/44-enable-creation-of-custom-data-driven-ui-widgets,Creators will be able to use the Editor to design custom UI Widgets that can be updated from gameplay data in Verse. This feature will allow the creation of HUD and gameplay widgets driven via custom data structures.,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.022Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d71,Engagement Payout Updates,https://trello.com/c/Mz4VXv5k/86-engagement-payout-updates,"We will update the engagement payout formula to better reward creators for bringing in new or reengaging lapsed players in Fortnite. Creators that bring in new or lapsed players will receive 75% of those players’ contributions to the engagement payout pool for their first six months.
+
+To learn more:  [https://www.fortnite.com/news/fortnite-developers-will-soon-be-able-to-sell-in-game-items](https://www.fortnite.com/news/fortnite-developers-will-soon-be-able-to-sell-in-game-items ""smartCard-inline"")",Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.049Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d6f,Sponsored Row,https://trello.com/c/ytbgBzsB/85-sponsored-row,"We’re adding a prominent Sponsored Row in Discover so that creators can choose to pay to promote their islands for increased visibility for their experiences.
+
+To learn more: [https://www.fortnite.com/news/fortnite-developers-will-soon-be-able-to-sell-in-game-items](https://www.fortnite.com/news/fortnite-developers-will-soon-be-able-to-sell-in-game-items ""smartCard-inline"")",Publishing Tools (pink_dark),,,0,,0,0,0,0,2026-01-05T12:49:43.049Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d83,Prefab Editor Outliner Parity,https://trello.com/c/03R7nhaG/95-prefab-editor-outliner-parity,"We're bringing the Prefab Editor's outliner features to parity with the main World Outliner, adding full support for columns, component filters, and better scene graph awareness in general. This makes it significantly easier to inspect, navigate, and edit embedded prefabs, while giving the user better visibility of their content regarding pending unsaved changes, URC and OFPE integration.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.058Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d87,Edit in place improvements,https://trello.com/c/kBsV4yPF/97-edit-in-place-improvements,"'- Selection and focus fixes
+- Better drag and drop of assets/prefabs support
+- Auto Save and Save All fixes
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.059Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d89,Scene Graph Quality of Life Improvements,https://trello.com/c/3nPAeOFs/98-scene-graph-quality-of-life-improvements,"'- Snap to surface now works much better with entities
+- Better prefab renaming dialog (postponed)
+- Improvements to sub-class prefab creation within the Prefab Editor
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.059Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d7b,Mobile Preview,https://trello.com/c/ICTaquEh/91-mobile-preview,"Provides an easier and more accessible way to iterate and refine the quality of mobile experiences by enabling developers to launch a Fortnite session in Mobile Mode, with configurable aspect ratios and mobile scalability settings.
+
+With this feature, experiences built in UEFN can now load using appropriate mobile configurations, enabling developers to evaluate the quality of art assets, lighting, materials, visual effects, and UI/HUD layouts directly within a mobile context.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.052Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d0d,Thin Client - Prioritize Creator-made Island Downloads,https://trello.com/c/6ECPd5ix/36-thin-client-prioritize-creator-made-island-downloads,"Introducing install management and a modular game mode approach with smaller upfront download on PC and Mobile. This is a phased project and some components may ship prior as we build towards the desired end state.
+The overall goal for thin client is to reduce the install size of Fortnite.
+
+\-- Thin Client Roadmap --
+
+Android, iOS: Players can update and play creator-made islands before updating other game modes.
+
+- After Fortnite releases, players who have already installed Fortnite on their device will be able to enter the lobby and prioritize the game mode of their choice.
+- Players will have the option to prioritize the Creative game mode, allowing them to play creator-made islands before the full update of game modes like Fortnite Battle Royale and LEGO Fortnite Odyssey finish.",Core Tech (purple),,,0,,0,0,0,0,2026-01-05T12:49:43.017Z,695bb36616109aae9d8a6c8e,Q4 - Shipped,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d73,Expanded ability to pass data from Verse to UI widgets,https://trello.com/c/phr77LkM/87-expanded-ability-to-pass-data-from-verse-to-ui-widgets,Allows developers to pass more data from Verse via updated ViewModels,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.050Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6cf5,Verse Leaderboards - Beta,https://trello.com/c/uilNuwBc/24-verse-leaderboards-beta,"We want to allow creators to add leaderboards to their experiences, with leaderboard data persisting across island sessions.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.013Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d07,Skill-Based Matchmaking,https://trello.com/c/9TfVc2vk/33-skill-based-matchmaking,Creators can opt in to enable a very simple version of skill-based matchmaking for their island.,Core Tech (purple),,,0,,0,0,0,0,2026-01-05T12:49:43.015Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d8b,Verse Tags,https://trello.com/c/vFrymStf/99-verse-tags,"We are overhauling Verse Tags, making them easier to use and integrating them tightly with the Scene Graph.",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.054Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d8d,Two-way communication for UMG Verse Fields,https://trello.com/c/NpVbOzj1/100-two-way-communication-for-umg-verse-fields,"You will now be able to add a field of the 'event' type to your verse variables tab. This event can be bound to widget events like a button's 'On Clicked'. The verse event can then be awaited upon in your code and will signal when that button is interacted with.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.055Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d8f,Redirectors,https://trello.com/c/551Uoozr/101-redirectors,"Verse-aware redirectors will improve the UEFN experience by allowing you to reorganize content without risking project breakage.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.055Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d91,Remove no-rollback,https://trello.com/c/vN28IjN6/102-remove-no-rollback,"We are removing <no_rollback> from Verse; the new default specifier will be <transacts>.
+
+Confidence: low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.055Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d93,Persistence Snapshots,https://trello.com/c/n6rNHTdD/103-persistence-snapshots,"We want to minimize the risk of persistence-data loss. Snapshots will enable more reliable data recovery going forward.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.056Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d95,New Virtual Machine (VM),https://trello.com/c/WzhgSA09/104-new-virtual-machine-vm,"We are releasing a new virtual machine (VM) for executing Verse. It is designed from the ground up for Verse and delivers an initial 5× speedup. Additional language features and debugging tools will follow shortly after the VM ships.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.056Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d97,Shareable weak_map,https://trello.com/c/zJ0WbMb0/105-shareable-weakmap,"Allow a Verse developer to share the same weak_map among multiple islands that they own.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.057Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d9b,Scene Graph Quality of Life,https://trello.com/c/CEabMG8h/107-scene-graph-quality-of-life,"'- Lumen in prefab editor
+- Class settings panel in prefab editor
+- Support for clearing overrides and making instances unique
+- Save collapsed/Expanded state of entities/folders within outliner
+  Folder support for entities
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.060Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d9d,Prefab Splitting with One File Per Entity (OFPE),https://trello.com/c/2Xk75n7j/108-prefab-splitting-with-one-file-per-entity-ofpe,"We’re introducing support for Prefab Splitting using One File Per Entity (OFPE), allowing large prefabs to be broken down into multiple editable files without relying on embedded or separate prefab hierarchies. This new system preserves the unified editing experience of a single prefab asset, while giving creators and teams the ability to modularize content, improve mergeability in source control. This approach maintains the simplicity of working in one scene-graph-driven prefab, while unlocking real scalability for professional worldbuilding workflows with collaborative editing of different parts of a prefab.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.060Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d9f,Streaming and HLods,https://trello.com/c/SHaaQlLT/109-streaming-and-hlods,"We're extending support for Level Streaming and Hierarchical LODs (HLODs) to work seamlessly with entities, scene graphs, and prefab-based workflows in UEFN. This unlocks performance optimization tools previously limited to actor-based content, enabling creators to build larger, more detailed experiences with fine-grained control over memory and render cost. This brings streaming-scale worldbuilding and performance best practices to the data-oriented entity ecosystem, giving creators new tools to scale up without compromising runtime performance or authoring clarity.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.060Z,695bb36616109aae9d8a6c8d,Q1 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d51,Persona Device - Experimental,https://trello.com/c/VZ8vHsCm/70-persona-device-experimental,"Unlock the power of LLMs, a new tool for creators. Each device is capable of managing multiple personas, giving voice to NPCs that can track and respond to changes in game state.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.036Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d03,Camera Component,https://trello.com/c/eQGUR79W/31-camera-component,"Gameplay camera components are coming to the SceneGraph. Perspective, Orthographic, and Physically Based camera components will be available. The Camera Director component will let you select and blend between active cameras. We will also add pre-packaged camera operators to control camera behavior.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.014Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6da1,Verse Class Editor for Materials,https://trello.com/c/I1cCMVlC/110-verse-class-editor-for-materials,"We want to bring the same functionality we added to UMG editor to support verse fields (variables & class settings tabs) to the material editor.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.057Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d99,Late Join Robustness,https://trello.com/c/VJkEYufr/106-late-join-robustness,"We want to improve robustness when a player joins a match already in progress.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.058Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6da3,Community Testing Framework,https://trello.com/c/I1LJlOiw/111-community-testing-framework,"We want to empower creators to build and run regression tests for their experiences as naturally as playtesting. This includes recording a test run and replaying it later to verify that nothing has broken.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.061Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6da5,Verse Debugger,https://trello.com/c/PEApARTF/112-verse-debugger,,Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.062Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6da7,Insights Profiler,https://trello.com/c/eY1rlae3/113-insights-profiler,"After the new VM releases, we will provide a Verse profiler integrated with Unreal Insights for UEFN. It will help identify which parts of a program take the most execution time.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.062Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6da9,Predicts,https://trello.com/c/GnGZ6DiG/114-predicts,"<predicts> is a new Verse feature that allows certain APIs to run on clients in response to user actions. This makes experiences more responsive, allowing effects such as VFX and SFX to trigger immediately without network latency.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.063Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dab,Publish Book of Verse,https://trello.com/c/rzzPiXCn/115-publish-book-of-verse,"The Book of Verse updates the language documentation with more detailed descriptions of major features, including Live Variables.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.063Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dd1,Verse State Machines,https://trello.com/c/MagIjXTc/134-verse-state-machines,"Hierarchical finite state machine. Add states to your verse class and scene graph component. States have an OnEnter and an OnExit event. Supports messaging from the state machine to the active leaf states
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.079Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dad,Live Variables,https://trello.com/c/RKye8qHY/116-live-variables,"Live Variables are a new language feature enabling reactive programming. They allow variables to update automatically when other variables change.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.063Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6daf,Lambdas,https://trello.com/c/AJa62eww/117-lambdas,"Lambdas are anonymous functions that close over their lexical scope and are first-class values.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.064Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dd3,Verse Input,https://trello.com/c/s0kUsYh5/135-verse-input,"Adding support for adding/removing Input Mapping Contexts and binding to Input Actions through Verse. Creators can override the ""Jump"" input to perform a custom action, add/remove an input mapping context to a Player during gameplay, and access a set of Epic-Curated Input Mapping Contexts. Creators can rely on a functional mobile experience regardless of their use of Input in Verse.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.071Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6db1,Data Layers in scene graph,https://trello.com/c/8hqHnuYL/118-data-layers-in-scene-graph,"We’re adding Data Layer functionality to Scene Graph–based entities, enabling creators to organize, control, and optimize runtime content visibility and loading at a much finer granularity. This brings entity workflows in line with what’s already possible for actors, now with support for toggling sets of entities on/off, segmenting gameplay phases, and streamlining large map editing. This should bring the feature set of entities and prefabs within the prefab editor on par, if not better in many cases, compared to traditional Level Instance based actor and variants workflows.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.065Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dd5,Chaos Physics Support in Scene Graph,https://trello.com/c/ZeTMZyQ1/136-chaos-physics-support-in-scene-graph,"Physics simulation in the Scene Graph surfaces a full set of physics features through the mesh\_part interface on the mesh\_component, including line traces, collision filtering, overlap and collision callbacks, physics materials, and mass initialization. Two interfaces anchor this capability: has\_collisions for event-driven physical interaction, and has\_dynamics for enabling per-part forces, impulses, and full physics state replication suitable for networked gameplay. This work also establishes a standardized mesh_part initialization workflow to ensure that each asset cleanly exposes its intended physics representation during setup.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.071Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dd7,Scene Graph Support for Skeletal Meshes and Animation,https://trello.com/c/HctV0cvG/137-scene-graph-support-for-skeletal-meshes-and-animation,"Allows the creator to use and animate skeletal meshes in the Scene Graph. Initially via animation sequence playback, but progressively expanding to allow full programmatic animation support.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.072Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dd9,Scene Graph Support for Post Process Volume,https://trello.com/c/qu3pzElU/138-scene-graph-support-for-post-process-volume,"With post-process volumes, you will be able to affect the feel of a particular area of your island by changing how it is rendered to the player.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.072Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ddb,Quests,https://trello.com/c/FBKFDl8V/139-quests,"Allows creators to create completeable, shareable goals - where progress is saved and can be presented in the front end.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.073Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ddd,Scene Graph Ability System,https://trello.com/c/7qphachi/140-scene-graph-ability-system,"The Verse Ability System will let you create abilities and effects that can be granted to entities to change their runtime behavior.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.073Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ddf,Scene Graph Support for Character Possession,https://trello.com/c/fS59CNjH/141-scene-graph-support-for-character-possession,"Possession links an agent to one or more entities that currently represent them. Used by systems like Input and Camera, to know what character is being controlled by what Player/Agent.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.074Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6de1,Scene Graph Streaming Support,https://trello.com/c/o6MnNnLe/142-scene-graph-streaming-support,"We want to enable creators to make large worlds. The only way to make sure this meshes well with a variety of client devices is to allow experiences to stream content in and out on demand.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.075Z,695bb36616109aae9d8a6c8f,Q2 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d09,Ranged Weapons - Experimental,https://trello.com/c/PO4R94fa/34-ranged-weapons-experimental,"Creators can make items that respond to input and are capable of behaviors such as firing, reloading, and aiming down sights.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.015Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6d0b,Gameplay Attributes,https://trello.com/c/9G8cK5KF/35-gameplay-attributes,"Allow creators to make and manipulate Gameplay Attributes (such as Health). Gameplay Attributes are the result of a formula, supporting runtime manipulation such as buffs and debuffs.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.016Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6db3,Verse Logging Improvements,https://trello.com/c/yy9NF5t7/119-verse-logging-improvements,"Make it so Verse logs from server sessions that experience a runtime error are accessible on creator portal.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.064Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6db5,Scene Graph Devices-as-entities,https://trello.com/c/T3xZxgOj/120-scene-graph-devices-as-entities,"We are working to open the full library of devices to Verse programming. This will make interactions between Scene Graph entities and devices much smoother and allow devices to integrate with prefabs.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.065Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6db7,Own Pointer,https://trello.com/c/kICNmqd4/121-own-pointer,"A new language feature to extend the Verse type system to support a form of ownership.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.066Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6db9,modifier_stack,https://trello.com/c/b9JGtELT/122-modifierstack,"Complimentary to Live Variables, allows a variable’s value to be influenced by multiple dynamically-applied effects at once.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.067Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dbb,speculate{},https://trello.com/c/mJpE48Wq/123-speculate,"speculate is a new language feature that lets you run code in a nested transaction and obtain a result if the transaction aborts.
+
+Confidence: High",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.067Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dbd,Relax Verse Persistence Backwards Compatibility enforcement,https://trello.com/c/vLj2nmwZ/124-relax-verse-persistence-backwards-compatibility-enforcement,"Allow islands to be published even when weak_map backward-compatibility checks fail.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.068Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6de3,Scene Graph Support for UI,https://trello.com/c/P8YsfDtX/143-scene-graph-support-for-ui,"A full fledged UI system in Scene Graph, allowing you to both create screen space User Interfaces as well as world-space widgets.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.071Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dbf,Discriminated Unions,https://trello.com/c/itikdTpa/125-discriminated-unions,"A discriminated union is a data type that can hold one of several different, fixed alternatives, and includes a tag that indicates which alternative is currently stored.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.068Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dc1,Schema Updates and Data Migration Recovery,https://trello.com/c/dzoDF9fd/126-schema-updates-and-data-migration-recovery,"Enable schema updates and corresponding versioning for all Verse objects to enable recovery of modified and/or deprecated data.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.069Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6de5,Scene Graph Per Client Configuration of Content,https://trello.com/c/u8SkpefW/144-scene-graph-per-client-configuration-of-content,"Entity.SetPresentableToPlayers() allows you to set up independent entity hierarchies for individual players, but this doesn't cover all the uses cases in making a complete game. This feature explores customizing individual properties on a component based on which player is viewing the property for presentation, but not affecting the game simulation.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.075Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6de7,Scene Graph Support for Damage Pipeline System,https://trello.com/c/CBpolBhL/145-scene-graph-support-for-damage-pipeline-system,"Deliver a standardized health component and damage pipeline that lets creators define, apply, and react to damage of varying types.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.075Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6de9,Scene Graph Support for AI and Perception,https://trello.com/c/Abvm7HOR/146-scene-graph-support-for-ai-and-perception,"Allows creators to author rich AI behaviors for NPCs, and systems for awareness of the world around them including sensory data like sight and sound.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.076Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6deb,AI Navigation in Scene Graph,https://trello.com/c/P6Cqvssu/147-ai-navigation-in-scene-graph,"Exposing the navigation system to creators so they can make NPCs move in the world.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.076Z,695bb36616109aae9d8a6c90,Q3 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dc3,LSP Improvements,https://trello.com/c/BMP1fFle/127-lsp-improvements,"Make the LSP faster, eliminate spurious errors, and reduce crashes.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.069Z,695bb36616109aae9d8a6c91,Q4 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dc5,Scene Graph Persistence,https://trello.com/c/bWEv415i/128-scene-graph-persistence,"Being able to persist selected entities in the Scene Graph will enable new types of experiences.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.070Z,695bb36616109aae9d8a6c91,Q4 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6dc7,Units,https://trello.com/c/aMQiLyEA/129-units,"A language feature allowing programmers to specify physical units (e.g., cm, kg) for numeric fields in a composable, compile-time-checked way.
+
+Confidence: Medium",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.070Z,695bb36616109aae9d8a6c91,Q4 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
+695bb36616109aae9d8a6ded,Scene Graph Support for Mover,https://trello.com/c/FuQUluSH/148-scene-graph-support-for-mover,"Enables procedural movement for entities, a building block used on characters, projectiles, and other gameplay objects.
+
+Confidence: Low",Creation Tools (pink),,,0,,0,0,0,0,2026-01-05T12:49:43.077Z,695bb36616109aae9d8a6c91,Q4 - 2026,695bb36616109aae9d8a6c92,game,false,,false,
