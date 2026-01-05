@@ -12,7 +12,9 @@ CurveBuilder/
 ├── curve_base.verse             # 核心接口和基础曲线类型
 ├── curve_composition.verse      # 曲线组合机制
 ├── curve_builder.verse          # 曲线构造器工厂
-└── curve_builder_demo.verse     # 使用演示
+├── curve_builder_demo.verse     # 使用演示
+├── curve_sampler.verse          # 曲线采样器（新增）
+└── curve_sampler_demo.verse     # 采样器演示（新增）
 ```
 
 ## 已实现的曲线类型
@@ -189,16 +191,141 @@ curve_builder := module:
 - ✅ curve_builder_demo 包含所有功能演示
 - ✅ 展示基础曲线、组合方式、构造方法
 
+## 曲线采样器（Curve Sampler）
+
+### 核心功能
+
+**curve_sampler.verse** 提供了完整的曲线采样解决方案：
+
+#### 1. 多种采样策略
+
+- **Uniform** - 等距采样：在 [0,1] 区间均匀分布采样点
+- **Temporal** - 等时采样：基于曲线时长的时间均匀采样
+- **Adaptive** - 自适应采样：根据曲线曲率自动调整采样密度
+- **Custom** - 自定义采样：在指定的 t 值位置采样
+
+#### 2. 导数支持
+
+```verse
+Config := sample_config{
+    Strategy := sample_strategy.Uniform,
+    SampleCount := 10,
+    ComputeDerivative := true,          # 一阶导数（速度）
+    ComputeSecondDerivative := true     # 二阶导数（加速度）
+}
+```
+
+#### 3. Delta 数组转换
+
+直接将曲线转换为 Fortnite `keyframe_delta` 数组：
+
+```verse
+# 创建曲线
+Curve := curve_builder.EasingCurve(0.0, 1000.0, easing_type.EaseInOut)
+
+# 采样配置
+SampleConfig := sample_config{
+    Strategy := sample_strategy.Uniform,
+    SampleCount := 20
+}
+
+# Delta 转换配置
+DeltaConfig := delta_conversion_config{
+    TotalDuration := 3.0,     # 总时长（秒）
+    Axis := axis_type.Z,      # 运动轴
+    Interpolation := InterpolationTypes.Linear
+}
+
+# 转换为 delta 数组
+Converter := delta_converter_1d{}
+Deltas := Converter.ConvertCurveToDeltas(Curve, SampleConfig, DeltaConfig)
+
+# 使用 delta 数组
+MyAnimationController.SetAnimation(Deltas, animation_mode.OneShot)
+```
+
+#### 4. 扩展能力
+
+- **缓存机制**：`SampleAndCache()` / `GetCachedSamples()` / `ClearCache()`
+- **事件通知**：`observable_curve_sampler_1d` 支持采样事件监听
+- **动态更新**：`SetCurve()` 随时更换目标曲线
+- **3D 曲线预留**：`curve_3d` / `sample_point_3d` 接口已定义
+
+### 使用示例
+
+#### 示例1：简单采样
+
+```verse
+# 创建采样器
+Sampler := curve_sampler_1d{}
+Sampler.SetCurve(curve_builder.Linear(0.0, 100.0))
+
+# 执行采样
+Config := sample_config{Strategy := sample_strategy.Uniform, SampleCount := 10}
+Samples := Sampler.Sample(Config)
+
+# 使用采样结果
+for (Sample : Samples):
+    Print("t={Sample.T}, value={Sample.Value}")
+```
+
+#### 示例2：升降平台
+
+```verse
+# 创建平滑升降运动
+ElevatorCurve := curve_builder.EasingCurve(0.0, 1000.0, easing_type.EaseInOut)
+
+# 转换为 delta 数组
+Converter := delta_converter_1d{}
+Deltas := Converter.ConvertCurveToDeltas(
+    ElevatorCurve,
+    sample_config{Strategy := sample_strategy.Uniform, SampleCount := 20},
+    delta_conversion_config{TotalDuration := 3.0, Axis := axis_type.Z}
+)
+
+# 应用到 animation_controller
+MyAnimationController.SetAnimation(Deltas, animation_mode.OneShot)
+```
+
+#### 示例3：事件监听
+
+```verse
+# 创建可观察采样器
+Sampler := observable_curve_sampler_1d{}
+Sampler.AddEventListener(MyEventListener)
+
+# 采样时会触发事件
+Sampler.SetCurve(MyCurve)
+Samples := Sampler.Sample(Config)  # 触发 SamplingStarted 和 SamplingCompleted 事件
+```
+
+### 完整演示
+
+运行 `curve_sampler_demo.RunAllDemos()` 查看所有功能演示：
+
+1. 等距采样
+2. 等时采样
+3. 自适应采样
+4. 自定义采样点
+5. 导数采样
+6. 缓存机制
+7. Delta 数组转换
+8. 复杂曲线采样
+9. 事件通知
+10. 实际应用案例（升降平台）
+
 ## 下一步扩展
 
-- [ ] 3D曲线支持（curve_3d）
+- [ ] 3D曲线完整实现（curve_3d）
 - [ ] 抛物线曲线（parabolic_curve）
 - [ ] B样条曲线（bspline_curve）
 - [ ] 曲线播放器（curve_player）
 - [ ] 性能优化（缓存、预计算）
+- [ ] 旋转曲线支持
+- [ ] 缩放曲线支持
 
 ---
 
-**版本**: 1.0  
-**状态**: P0 核心功能完成  
+**版本**: 1.1  
+**状态**: 曲线采样器完成  
 **最后更新**: 2026-01-05
