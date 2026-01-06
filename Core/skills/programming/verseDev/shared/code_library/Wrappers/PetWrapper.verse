@@ -173,12 +173,12 @@ PetWrapper<public> := module:
             # TODO: 实际项目中使用物理系统 API 或角色移动组件
             # 这里返回成功作为接口示例
             CurrentPos := GetPetPosition(PetEntity)
-            Distance := CalculateDistanceToOwner(PetEntity, TargetPosition)
+            DistToOwner := CalculateDistanceToOwner(PetEntity, TargetPosition)
             
             pet_op_result{
                 Success := true,
                 ErrorReason := "",
-                ActualValue := Distance
+                ActualValue := DistToOwner
             }
     
     # ═══════════════════════════════════════════════════════
@@ -229,9 +229,9 @@ PetWrapper<public> := module:
             PlayerTransform := PlayerCharacter.GetTransform()
             PlayerPos := PlayerTransform.Translation
             
-            Distance := CalculateDistanceToOwner(PetEntity, PlayerPos)
+            DistToOwner := CalculateDistanceToOwner(PetEntity, PlayerPos)
             
-            if (Distance <= InteractionRadius):
+            if (DistToOwner <= InteractionRadius):
                 true
             else:
                 false
@@ -266,13 +266,13 @@ PetWrapper<public> := module:
         PetPos := GetPetPosition(PetEntity)
         OwnerTransform := OwnerCharacter.GetTransform()
         OwnerPos := OwnerTransform.Translation
-        Distance := CalculateDistanceToOwner(PetEntity, OwnerPos)
+        DistToOwner := CalculateDistanceToOwner(PetEntity, OwnerPos)
         
         pet_info{
             IsValid := true,
             BehaviorState := CurrentState,
             Position := PetPos,
-            DistanceToOwner := Distance,
+            DistanceToOwner := DistToOwner,
             IsVisible := true  # TODO: 实际检测可见性
         }
     
@@ -280,14 +280,8 @@ PetWrapper<public> := module:
     # 工具函数
     # ═══════════════════════════════════════════════════════
     
-    # 平方根计算（用于距离计算）
-    Sqrt<private>(Value:float):float =
-        if (Value <= 0.0):
-            0.0
-        else:
-            # Verse 标准库应该提供 Sqrt，这里作为示例
-            # 实际使用 /Verse.org/Verse 中的数学函数
-            Value  # 简化实现，实际项目需使用正确的 Sqrt
+    # 平方根计算 - 已移至标准库 /Verse.org/Verse:Sqrt
+    # 请直接使用标准库函数
     
     # 限制数值范围
     ClampFloat<private>(Value:float, MinVal:float, MaxVal:float):float =
@@ -310,8 +304,8 @@ PetWrapper<public> := module:
             true
     
     # 验证距离是否在合理范围内
-    IsReasonableDistance<private>(Distance:float):logic =
-        if (Distance < 0.0 or Distance > 100000.0):  # 10万单位上限
+    IsReasonableDistance<private>(Dist:float):logic =
+        if (Dist < 0.0 or Dist > 100000.0):  # 10万单位上限
             false
         else:
             true

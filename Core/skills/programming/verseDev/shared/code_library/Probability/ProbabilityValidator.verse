@@ -312,10 +312,10 @@ ProbabilityValidator<public> := module:
         var ChiSquare:float = 0.0
         
         for (I := 0..Observed.Length - 1):
-            if (Obs := Observed[I], Exp := Expected[I]):
-                if (Exp > 0.0):
-                    Diff := Obs - Exp
-                    set ChiSquare += (Diff * Diff) / Exp
+            if (Obs := Observed[I], ExpVal := Expected[I]):
+                if (ExpVal > 0.0):
+                    Diff := Obs - ExpVal
+                    set ChiSquare += (Diff * Diff) / ExpVal
         
         ChiSquare
     

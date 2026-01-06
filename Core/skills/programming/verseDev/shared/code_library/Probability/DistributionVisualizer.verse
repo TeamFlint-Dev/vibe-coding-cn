@@ -119,8 +119,8 @@ DistributionVisualizer<public> := module:
         # 统计数据
         Count<public>:int = 0
         Mean<public>:float = 0.0
-        Min<public>:float = 0.0
-        Max<public>:float = 0.0
+        MinValue<public>:float = 0.0
+        MaxValue<public>:float = 0.0
         StdDev<public>:float = 0.0
         
         # 百分位数（如果计算了）
@@ -160,8 +160,8 @@ DistributionVisualizer<public> := module:
             Name := Name,
             Count := Data.Length,
             Mean := Mean,
-            Min := MinVal,
-            Max := MaxVal,
+            MinValue := MinVal,
+            MaxValue := MaxVal,
             StdDev := StdDev
         }
     

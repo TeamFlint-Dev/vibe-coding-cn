@@ -10,10 +10,8 @@ using { /Verse.org/Random }
 using { /Verse.org/Verse }
 
 RandomEvents<public> := module:
-    # 辅助函数：模运算
-    Mod<private>(A:int, B:int):int =
-        Remainder := A - (Floor(A / B) * B)
-        Remainder
+    # 辅助函数：模运算 - 已移至标准库 /Verse.org/Verse:Mod
+    # 请直接使用标准库函数
     
     # ==========================================
     # 事件定义

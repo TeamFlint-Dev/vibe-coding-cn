@@ -107,9 +107,9 @@ ProbabilityTests<public> := module:
         else:
             true
     
-    AssertInRange<public>(Value:float, Min:float, Max:float, Message:string):logic =
-        if (Value < Min or Value > Max):
-            Print("断言失败: {Message} - 值 {Value} 不在范围 [{Min}, {Max}] 内")
+    AssertInRange<public>(Value:float, MinVal:float, MaxVal:float, Message:string):logic =
+        if (Value < MinVal or Value > MaxVal):
+            Print("断言失败: {Message} - 值 {Value} 不在范围 [{MinVal}, {MaxVal}] 内")
             false
         else:
             true
