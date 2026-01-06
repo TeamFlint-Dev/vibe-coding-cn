@@ -1,0 +1,38 @@
+# Dispose function
+
+> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creative_prop/dispose
+> **爬取时间**: 2025-12-27T02:25:45.858123
+
+---
+
+Destroys the `creative_prop` and remove it from the island.
+
+|  |  |
+| --- | --- |
+| Verse `using` statement | `using { /Fortnite.com/Devices }` |
+
+`Dispose<native><override>()<transacts><no_rollback>:void`
+
+## Parameters
+
+`Dispose` does not take any parameters.
+
+## Attributes, Specifiers, and Effects
+
+### Specifiers
+
+The following specifiers determine how you can interact with `Dispose` in your programs. For the complete list of specifiers, see the [Specifiers Page](/documentation/en-us/fortnite/specifiers-and-attributes-in-verse).
+
+| Specifier | Meaning |
+| --- | --- |
+| `native` | Indicates that the definition details of the element are implemented in C++. Verse definitions with the `native` specifier auto-generate C++ definitions that a developer can then fill out its implementation. You can use this specifier on classes, interfaces, enums, methods, and data. |
+| `override` | Indicates that this child class provides a different method implementation than the parent class. |
+
+### Effects
+
+The following effects determine how `Dispose` behaves in your programs. For the complete list of effects, see the Effect Specifers section of the [Specifiers Page](/documentation/en-us/fortnite/specifiers-and-attributes-in-verse).
+
+| Effect | Meaning |
+| --- | --- |
+| `transacts` | This effect indicates that any actions performed by the function can be rolled back. The transacts effect is required any time a mutable variable (`var`) is written. You'll be notified when you compile your code if the `transacts` effect was added to a function that can't be rolled back. Note that this check is not done for functions with the `native` specifier. |
+| `no_rollback` | This is the default effect when no exclusive effect is specified. The `no_rollback` effect indicates that any actions performed by the function cannot be undone and so the function cannot be used in a failure context. This effect cannot be manually specified. |

@@ -1,0 +1,291 @@
+# ==========================================
+# 模块元数据模板 (Module Metadata Template)
+# ==========================================
+# 说明: 每个可复用模块的元数据文件
+# 位置: skills/[category]/[skillName]/modules/[ModuleName]/MODULE.yaml
+# ==========================================
+
+# 模块基本信息
+module:
+  # 模块名称（与目录名一致）
+  name: "ModuleName"
+  
+  # 模块显示名称
+  display_name: "Module Display Name"
+  
+  # 模块版本（语义化版本）
+  version: "1.0.0"
+  
+  # 模块状态
+  # - experimental: 实验阶段（可能有 API 变动）
+  # - beta: 测试阶段（API 相对稳定）
+  # - stable: 稳定版本（API 不会破坏性变更）
+  # - deprecated: 已废弃（不建议使用）
+  status: "beta"
+  
+  # 模块分类
+  # - core: 核心模块（必备）
+  # - advanced: 高级模块（可选但常用）
+  # - experimental: 实验模块（尝鲜）
+  # - utility: 工具模块（辅助）
+  category: "core"
+  
+  # 简短描述（一句话）
+  description: "模块的简短描述，说明核心功能"
+  
+  # 详细描述
+  long_description: |
+    模块的详细描述，包括：
+    - 设计目的
+    - 适用场景
+    - 核心特性
+    - 使用限制
+
+# 依赖关系
+dependencies:
+  # Verse 模块依赖
+  verse_modules:
+    - name: "Fortnite.Devices"
+      required: true
+    - name: "UnrealEngine.Math"
+      required: true
+  
+  # 同期刊内的模块依赖
+  internal_modules:
+    - name: "BaseModule"
+      version: ">=1.0.0"
+      required: true
+  
+  # 其他期刊的模块依赖
+  external_modules:
+    - journal: "otherSkill"
+      module: "RequiredModule"
+      version: ">=1.0.0"
+      required: true
+
+# 兼容性信息
+compatibility:
+  # UEFN 版本要求
+  uefn_version: ">=31.00"
+  
+  # Verse 版本要求
+  verse_version: ">=1.0.0"
+  
+  # 已知不兼容的模块
+  conflicts_with:
+    - module: "ConflictingModule"
+      reason: "API 命名冲突"
+  
+  # 性能影响
+  performance:
+    # - minimal: 几乎无影响
+    # - low: 轻微影响
+    # - medium: 中等影响
+    # - high: 显著影响
+    impact: "minimal"
+    
+    # 内存占用（估算）
+    memory_usage: "< 1MB"
+    
+    # CPU 占用（估算）
+    cpu_usage: "每帧 < 0.1ms"
+
+# 文件清单
+files:
+  # 主代码文件
+  code:
+    - path: "ModuleName.verse"
+      description: "主要实现文件"
+      lines: 200
+  
+  # 辅助代码文件
+  supporting:
+    - path: "ModuleNameTypes.verse"
+      description: "类型定义"
+      lines: 50
+  
+  # 文档文件
+  docs:
+    - path: "README.md"
+      description: "使用说明"
+    - path: "EXAMPLES.md"
+      description: "示例代码"
+
+# 组装指南
+integration:
+  # 组装步骤（有序）
+  steps:
+    - step: 1
+      title: "复制模块文件"
+      description: "将 modules/ModuleName/*.verse 复制到项目中"
+      command: "cp modules/ModuleName/*.verse YourProject/Scripts/"
+    
+    - step: 2
+      title: "调整依赖"
+      description: "确保项目包含所有依赖模块"
+      check: "检查 dependencies 列表"
+    
+    - step: 3
+      title: "配置参数"
+      description: "根据需求配置模块参数"
+      example: |
+        var Config:module_config = module_config{
+            Setting1 := 100,
+            Setting2 := true
+        }
+    
+    - step: 4
+      title: "初始化模块"
+      description: "在适当的生命周期钩子中初始化"
+      example: |
+        OnBeginSimulation<override>()<suspends>:void =
+            Sleep(0.0)
+            InitializeModule(Config)
+  
+  # 最小可用示例
+  minimal_example:
+    description: "最简单的使用方式"
+    code: |
+      # 导入模块（如果需要）
+      using { /YourProject/ModuleName }
+      
+      my_device := class(creative_device):
+          var Module:ModuleName
+          
+          OnBeginSimulation<override>()<suspends>:void =
+              Sleep(0.0)
+              set Module = ModuleName{}
+              Module.DoSomething()
+  
+  # 常见使用场景
+  common_scenarios:
+    - scenario: "场景 1: 基础使用"
+      description: "最常见的使用方式"
+      code: |
+        # 示例代码
+    
+    - scenario: "场景 2: 高级配置"
+      description: "需要自定义配置的使用方式"
+      code: |
+        # 示例代码
+
+# 扩展点
+extension_points:
+  # 可继承的类
+  classes:
+    - name: "BaseClass"
+      description: "基类，可继承以扩展功能"
+      methods:
+        - name: "OnEvent()"
+          override: true
+          description: "事件处理方法"
+  
+  # 可实现的接口
+  interfaces:
+    - name: "ModuleInterface"
+      description: "模块接口，可实现以自定义行为"
+  
+  # 配置选项
+  configurations:
+    - name: "EnableFeatureX"
+      type: "logic"
+      default: "false"
+      description: "是否启用功能 X"
+
+# 验证记录
+validation:
+  # 测试场景
+  test_scenarios:
+    - id: "TS-001"
+      title: "基础功能测试"
+      status: "passed"  # passed, failed, pending
+      date: "2026-01-04"
+      description: "验证模块的基础功能"
+      tester: "测试人员"
+  
+  # 已知问题
+  known_issues:
+    - id: "KI-001"
+      title: "问题标题"
+      severity: "low"  # critical, high, medium, low
+      status: "open"   # open, investigating, resolved
+      description: "问题描述"
+      workaround: "临时解决方案"
+  
+  # 性能测试
+  performance_tests:
+    - metric: "初始化时间"
+      value: "< 1ms"
+      status: "passed"
+    - metric: "每帧处理时间"
+      value: "< 0.1ms"
+      status: "passed"
+
+# 研究来源
+research:
+  # 参考的研究论文
+  papers:
+    - id: "PAPER-001"
+      path: "../research/research-001.md"
+      title: "研究论文标题"
+      relevance: "基于此研究设计的模块"
+  
+  # 设计决策
+  design_decisions:
+    - decision: "使用单例模式"
+      reason: "避免重复初始化"
+      alternatives: "多实例模式"
+      trade_offs: "灵活性降低，但性能更好"
+  
+  # 参考资源
+  references:
+    - title: "UEFN Documentation - Event System"
+      url: "https://dev.epicgames.com/..."
+      relevance: "事件系统设计参考"
+
+# 维护信息
+maintenance:
+  # 维护者
+  maintainers:
+    - name: "维护者名称"
+      github: "github_username"
+      role: "primary"  # primary, contributor
+  
+  # 最后更新
+  last_updated: "2026-01-04"
+  
+  # 更新日志
+  changelog:
+    - version: "1.0.0"
+      date: "2026-01-04"
+      changes:
+        - "初始版本发布"
+
+# 使用统计（可选）
+usage:
+  # 被哪些项目使用
+  used_in_projects:
+    - project: "projects/projectName"
+      since: "2026-01-04"
+      feedback: "运行良好"
+  
+  # 下载/使用次数（如果有追踪）
+  downloads: 0
+
+# 标签（用于分类和搜索）
+tags:
+  - "event-system"
+  - "component"
+  - "utility"
+  # 添加更多相关标签
+
+# 元数据
+meta:
+  # 模板版本
+  template_version: "1.0.0"
+  
+  # 创建日期
+  created: "2026-01-04"
+  
+  # 最后验证日期
+  last_verified: "2026-01-04"

@@ -1,0 +1,135 @@
+name: Verse Syntax Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.verse'
+      - 'tools/scripts/verse-lsp/**'
+      - '.github/workflows/verse-syntax-check.yml'
+
+jobs:
+  verse-syntax-check:
+    name: Check Verse Code Syntax
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      
+      - name: Setup Verse LSP environment
+        run: |
+          echo "Setting up Verse LSP environment..."
+          chmod +x tools/scripts/verse-lsp/setup-verse-env.sh
+          ./tools/scripts/verse-lsp/setup-verse-env.sh
+      
+      - name: Install Python dependencies
+        run: |
+          pip install -r tools/scripts/verse-lsp/requirements.txt || echo "No additional dependencies needed"
+      
+      - name: Find Verse files
+        id: find-verse
+        run: |
+          VERSE_FILES=$(find . -name "*.verse" -type f | tr '\n' ' ')
+          if [ -z "$VERSE_FILES" ]; then
+            echo "No Verse files found"
+            echo "has_verse_files=false" >> $GITHUB_OUTPUT
+          else
+            echo "Found Verse files: $VERSE_FILES"
+            echo "has_verse_files=true" >> $GITHUB_OUTPUT
+            echo "verse_files=$VERSE_FILES" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Check Verse syntax
+        if: steps.find-verse.outputs.has_verse_files == 'true'
+        run: |
+          echo "Checking Verse code syntax..."
+          
+          # Run check and capture exit code
+          if python tools/scripts/verse-lsp/check-verse.py --dir . > verse-check-output.txt 2>&1; then
+            echo "✅ All Verse files passed syntax check"
+            cat verse-check-output.txt
+            echo '{"status": "success", "error_count": 0, "message": "All files passed"}' > verse-check-results.json
+            exit 0
+          else
+            echo "❌ Syntax errors found in Verse files"
+            cat verse-check-output.txt
+            
+            # Count errors from output
+            ERROR_COUNT=$(grep -c "✗" verse-check-output.txt || echo "1")
+            echo "{\"status\": \"failed\", \"error_count\": $ERROR_COUNT, \"message\": \"Syntax errors found\"}" > verse-check-results.json
+            exit 1
+          fi
+      
+      - name: Upload check results
+        if: always() && steps.find-verse.outputs.has_verse_files == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: verse-syntax-check-results
+          path: |
+            verse-check-results.json
+            verse-check-output.txt
+          retention-days: 30
+      
+      - name: Comment on PR with results
+        if: always() && steps.find-verse.outputs.has_verse_files == 'true' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let comment = '## 🔍 Verse 语法检查结果\n\n';
+            
+            try {
+              const results = JSON.parse(fs.readFileSync('verse-check-results.json', 'utf8'));
+              
+              if (results.status === 'success') {
+                comment += '✅ **所有 Verse 文件语法检查通过**\n\n';
+                comment += `- 错误数: ${results.error_count}\n`;
+                
+                // Try to read detailed output
+                try {
+                  const output = fs.readFileSync('verse-check-output.txt', 'utf8');
+                  const fileCount = (output.match(/检查文件:/g) || []).length;
+                  if (fileCount > 0) {
+                    comment += `- 检查的文件数: ${fileCount}\n`;
+                  }
+                } catch (e) {}
+              } else {
+                comment += '❌ **发现语法错误**\n\n';
+                comment += `- 错误数: ${results.error_count}\n`;
+                
+                // Try to include error details from output
+                try {
+                  const output = fs.readFileSync('verse-check-output.txt', 'utf8');
+                  comment += '\n### 检查输出\n\n```\n';
+                  // Truncate if too long
+                  const maxLength = 3000;
+                  if (output.length > maxLength) {
+                    comment += output.substring(0, maxLength) + '\n...(输出过长，已截断)\n';
+                  } else {
+                    comment += output;
+                  }
+                  comment += '\n```\n';
+                } catch (e) {}
+              }
+            } catch (error) {
+              comment += '⚠️ 无法读取检查结果\n';
+              comment += `错误: ${error.message}\n`;
+            }
+            
+            comment += '\n---\n';
+            comment += '*此检查由 [Verse LSP Checker](.github/workflows/verse-syntax-check.yml) 自动执行*';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

@@ -22,9 +22,9 @@
 </p>
 
 <p>
-  <a href="./Core/prompts/"><img src="https://img.shields.io/badge/提示词-精选-purple?style=for-the-badge" alt="提示词精选"></a>
-  <a href="./Core/skills/"><img src="https://img.shields.io/badge/Skills-技能库-forestgreen?style=for-the-badge" alt="技能库"></a>
-  <a href="./Games/"><img src="https://img.shields.io/badge/Games-项目集-blue?style=for-the-badge" alt="游戏项目"></a>
+  <a href="./resources/prompts/"><img src="https://img.shields.io/badge/提示词-精选-purple?style=for-the-badge" alt="提示词精选"></a>
+  <a href="./skills/"><img src="https://img.shields.io/badge/Skills-技能库-forestgreen?style=for-the-badge" alt="技能库"></a>
+  <a href="./projects/"><img src="https://img.shields.io/badge/Projects-项目集-blue?style=for-the-badge" alt="游戏项目"></a>
 </p>
 
 </div>
@@ -45,30 +45,30 @@
 
 ```
 .
-├── Core/                           # 核心知识库
+├── skills/                         # 技能库（双层分类）
+│   ├── programming/                # 程序类技能
+│   │   ├── verseDev/               # Verse 开发核心技能（17个子技能）
+│   │   ├── ghAgenticWorkflows/     # GitHub Agentic Workflows
+│   │   ├── controlHub/             # 云服务器与 Webhook
+│   │   └── ...                     # 其他编程技能
+│   │
+│   └── design/                     # 设计类技能
+│       ├── gameDev/                # 游戏设计流程（10个子技能）
+│       └── ...                     # 其他设计技能
+│
+├── resources/                      # 资源库
 │   ├── documents/                  # 方法论与文档
 │   │   ├── Methodology and Principles/   # 编程哲学与原则
 │   │   ├── Templates and Resources/      # 模板与资源
 │   │   └── Tutorials and Guides/         # 教程与指南
 │   │
-│   ├── prompts/                    # 提示词库
-│   │   ├── coding_prompts/         # 编程任务提示词
-│   │   ├── system_prompts/         # 系统行为提示词
-│   │   ├── user_prompts/           # 用户自定义提示词
-│   │   └── meta_prompts/           # 元提示词
-│   │
-│   └── skills/                     # 技能库（双层分类）
-│       ├── programming/            # 程序类技能
-│       │   ├── verseDev/           # Verse 开发核心技能（17个子技能）
-│       │   ├── ghAgenticWorkflows/ # GitHub Agentic Workflows
-│       │   ├── controlHub/         # 云服务器与 Webhook
-│       │   └── ...                 # 其他编程技能
-│       │
-│       └── design/                 # 设计类技能
-│           ├── gameDev/            # 游戏设计流程（10个子技能）
-│           └── ...                 # 其他设计技能
+│   └── prompts/                    # 提示词库
+│       ├── coding_prompts/         # 编程任务提示词
+│       ├── system_prompts/         # 系统行为提示词
+│       ├── user_prompts/           # 用户自定义提示词
+│       └── meta_prompts/           # 元提示词
 │
-├── Games/                          # 游戏项目 Memory-bank 集合
+├── projects/                       # 游戏项目 Memory-bank 集合
 │   └── trophyFishing/              # Trophy Fishing 项目
 │       └── memory-bank/            # 项目特有上下文
 │
@@ -77,11 +77,10 @@
 │   └── modules/                    # 功能模块
 │
 ├── tools/                          # 开发工具
-│   └── verseCompiler/              # Verse 远程编译服务
+│   ├── verseCompiler/              # Verse 远程编译服务
+│   └── scripts/                    # 实用脚本
 │
-├── libs/external/                  # 第三方工具（不修改）
-│
-├── scripts/                        # 部署与运维脚本
+├── external/                       # 第三方工具（不修改）
 │
 └── pipelines/                      # 流水线定义
 ```
@@ -90,7 +89,7 @@
 
 ### 1. 了解技能体系
 
-**Verse 开发核心技能** (`Core/skills/programming/verseDev/`)：
+**Verse 开发核心技能** (`skills/programming/verseDev/`)：
 - `verseOrchestrator` - 开发流程总控
 - `verseArchitectureSelector` - 架构选型
 - `verseComponent` - 组件开发
@@ -99,7 +98,7 @@
 - `verseProjectInit` - 新项目初始化
 - ... 共 17 个子技能
 
-**游戏设计流程技能** (`Core/skills/design/gameDev/`)：
+**游戏设计流程技能** (`skills/design/gameDev/`)：
 - `gameConceptDesigner` - 概念设计
 - `gameMechanicsDesigner` - 机制设计
 - `gameSystemDesigner` - 系统设计
@@ -110,11 +109,11 @@
 
 使用 `verseProjectInit` 技能初始化新游戏项目：
 
-1. 在 `Games/` 下创建项目目录（驼峰命名）
+1. 在 `projects/` 下创建项目目录（驼峰命名）
 2. 建立标准 `memory-bank/` 结构
 3. 填写项目基础文档
 
-详见 [verseProjectInit SKILL.md](./Core/skills/programming/verseDev/verseProjectInit/SKILL.md)
+详见 [verseProjectInit SKILL.md](./skills/programming/verseDev/verseProjectInit/SKILL.md)
 
 ### 3. 工作流程
 

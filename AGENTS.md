@@ -14,19 +14,21 @@
 
 ```text
 .
-├── Core/
-│   ├── documents/              # 方法论与文档
-│   ├── prompts/                # 提示词库
-│   └── skills/                 # 技能库（研究/选型/架构）
-│       ├── programming/        # 程序类
-│       │   └── verseDev/       # Verse 开发（17个子技能）
-│       └── design/             # 设计类
-│           └── gameDev/        # 游戏设计（10个子技能）
+├── skills/                     # 技能库（研究/选型/架构）
+│   ├── programming/            # 程序类
+│   │   └── verseDev/           # Verse 开发（17个子技能）
+│   └── design/                 # 设计类
+│       └── gameDev/            # 游戏设计（10个子技能）
 │
-├── Games/                      # 游戏项目集合
-├── libs/                       # 工具库
+├── resources/
+│   ├── documents/              # 方法论与文档
+│   └── prompts/                # 提示词库
+│
+├── projects/                   # 游戏项目集合
+├── external/                   # 第三方工具
+├── tools/                      # 工具与脚本
 ├── pipelines/                  # 流水线定义
-└── scripts/                    # 自动化脚本
+└── verse/                      # Verse 可复用代码库
 ```
 
 ## 基础命令

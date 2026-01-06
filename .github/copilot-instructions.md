@@ -3,54 +3,52 @@
 ## Repository Overview
 
 **UEFN/Verse Game Development Agent Workstation** is a specialized workflow system for Fortnite Creative game development. The project's core assets are:
-- **Skill library** (`Core/skills/`) organized by category (programming/design)
-- **Prompt library** (`Core/prompts/`) providing AI interaction templates
-- **Methodology documents** (`Core/documents/`) covering development principles and workflows
-- **Game projects** (`Games/`) with project-specific Memory-bank
-- **Pipeline system** (`pipelines/`, `scripts/webhook-server/`) for multi-stage AI workflows
+- **Skill library** (`skills/`) organized by category (programming/design)
+- **Prompt library** (`resources/prompts/`) providing AI interaction templates
+- **Methodology documents** (`resources/documents/`) covering development principles and workflows
+- **Game projects** (`projects/`) with project-specific Memory-bank
+- **Tools** (`tools/`) including scripts and utilities
 
 **Core Philosophy**: Skill-driven development with Memory-bank context isolation. Agent reads Skills for capability, reads Memory-bank for project context, executes tasks, and updates Memory-bank.
 
 ### Key Terminology
-- **Skill**: Encapsulated development knowledge in `Core/skills/*/SKILL.md`
-- **Memory-bank**: Project-specific context stored in `Games/[project]/memory-bank/`
+- **Skill**: Encapsulated development knowledge in `skills/*/SKILL.md`
+- **Memory-bank**: Project-specific context stored in `projects/[project]/memory-bank/`
 - **Pipeline**: Multi-stage workflow orchestrated via cloud scheduler
 
 ## Project Structure
 
 ```
-Core/
-├── documents/     # Methodology, principles, templates
-├── prompts/       # AI prompts organized by category
-│   ├── coding_prompts/    # Programming-focused prompts
-│   ├── system_prompts/    # AI behavior frameworks
-│   ├── user_prompts/      # User-customizable prompts
-│   └── meta_prompts/      # Prompt engineering aids
-└── skills/        # Skill library (two-tier classification)
-    ├── programming/       # Programming skills
-    │   ├── verseDev/      # Verse development (17 sub-skills)
-    │   ├── ghAgenticWorkflows/  # GitHub Agentic Workflows
-    │   ├── controlHub/    # Cloud server & webhook
-    │   ├── claudeCodeGuide/
-    │   ├── claudeCookbooks/
-    │   ├── claudeSkills/
-    │   └── githubActionsWorkflows/
-    └── design/            # Design skills
-        ├── gameDev/       # Game design workflow (10 sub-skills)
-        ├── art/           # Art (placeholder)
-        ├── levelDesign/   # Level design (placeholder)
-        ├── uiUx/          # UI/UX (placeholder)
-        ├── narrative/     # Narrative (placeholder)
-        └── audio/         # Audio (placeholder)
+skills/                    # Skill library (two-tier classification)
+├── programming/           # Programming skills
+│   ├── verseDev/          # Verse development (17 sub-skills)
+│   ├── ghAgenticWorkflows/  # GitHub Agentic Workflows
+│   ├── controlHub/        # Cloud server & webhook
+│   └── ...                # Other programming skills
+└── design/                # Design skills
+    ├── gameDev/           # Game design workflow (10 sub-skills)
+    └── ...                # Other design skills
 
-Games/
+resources/
+├── documents/             # Methodology, principles, templates
+└── prompts/               # AI prompts organized by category
+    ├── coding_prompts/    # Programming-focused prompts
+    ├── system_prompts/    # AI behavior frameworks
+    ├── user_prompts/      # User-customizable prompts
+    └── meta_prompts/      # Prompt engineering aids
+
+projects/
 └── [projectName]/         # Game project (camelCase naming)
     └── memory-bank/       # Project-specific context
 
-libs/external/
+external/                  # External tools
 ├── epic-docs-crawler/     # UEFN documentation crawler
 ├── prompts-library/       # Excel ↔ Markdown conversion tool
 └── skill-seekers-configs/ # Skill generation configs
+
+tools/
+├── verseCompiler/         # Verse remote compilation service
+└── scripts/               # Utility scripts
 ```
 
 ## Essential Commands
@@ -83,7 +81,7 @@ make lint          # Validate all markdown with markdownlint-cli
 
 ### Prompt Library Management
 ```bash
-cd libs/external/prompts-library
+cd external/prompts-library
 python3 main.py    # Interactive Excel ↔ Markdown converter
 ```
 
@@ -105,7 +103,7 @@ This project follows a Skill-driven methodology:
 - **Agent workflow**: Read Skill → Read Memory-bank → Execute → Update Memory-bank
 
 ### 2. Verse Development Skills
-The `verseDev` skill ecosystem (`Core/skills/programming/verseDev/`) includes:
+The `verseDev` skill ecosystem (`skills/programming/verseDev/`) includes:
 - `verseOrchestrator` - Development workflow orchestration
 - `verseArchitectureSelector` - Architecture selection
 - `verseComponent` - Component development
@@ -115,7 +113,7 @@ The `verseDev` skill ecosystem (`Core/skills/programming/verseDev/`) includes:
 - ... and more (17 sub-skills total)
 
 ### 3. Game Design Skills
-The `gameDev` skill ecosystem (`Core/skills/design/gameDev/`) includes:
+The `gameDev` skill ecosystem (`skills/design/gameDev/`) includes:
 - `gameConceptDesigner` - Concept design
 - `gameMechanicsDesigner` - Mechanics design
 - `gameSystemDesigner` - System design
@@ -140,11 +138,10 @@ The `gameDev` skill ecosystem (`Core/skills/design/gameDev/`) includes:
 | Path | Purpose | When to Modify |
 |------|---------|----------------|
 | `AGENTS.md` | AI agent behavior guidelines | When adding workflow patterns |
-| `Core/skills/` | Skill asset library | When creating/updating skills |
-| `Core/prompts/` | AI interaction templates | When updating prompts |
-| `Games/` | Project Memory-bank collection | When working on game projects |
-| `pipelines/*.yaml` | Pipeline stage definitions | When designing new workflows |
-| `scripts/webhook-server/` | Cloud scheduler & webhook handlers | When modifying pipeline orchestration |
+| `skills/` | Skill asset library | When creating/updating skills |
+| `resources/prompts/` | AI interaction templates | When updating prompts |
+| `projects/` | Project Memory-bank collection | When working on game projects |
+| `tools/` | Scripts and utilities | When adding development tools |
 
 ## Pipeline System Architecture
 
@@ -161,9 +158,9 @@ Trigger → Planner Agent (gh-aw) → creates tasks
 ```
 
 **Key Components**:
-- `pipelines/skills-distill.yaml` - Pipeline definition (stages, deps, quality checks)
-- `scripts/webhook-server/pipeline_scheduler.py` - Orchestration logic
-- `scripts/webhook-server/pipeline_recorder.py` - GitHub Issue event logging
+- Pipeline definitions in GitHub Actions workflows
+- Cloud scheduler for orchestration
+- GitHub Issue event logging
 
 **Stage Flow**: `ingest → classify → extract → assemble → validate`
 
@@ -289,13 +286,11 @@ git status  # Must show "up to date with origin"
 
 | 任务类型 | 需要先阅读的文件 |
 |---------|-----------------|
-| **创建 GitHub Agentic Workflow** | **⚠️ 必须先读** `Core/skills/programming/ghAgenticWorkflows/WORKFLOW-INDEX.md`<br>根据需求选择模板后，再读取对应的源文件作为参考 |
-| 中控服务器 / Webhook / GitHub Actions | `Core/skills/programming/controlHub/SKILL.md`<br>`scripts/webhook-server/.secrets`（密钥配置）<br>`scripts/webhook-server/.env.example` |
-| Verse 代码开发 | `Core/skills/programming/verseDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
-| 游戏设计 | `Core/skills/design/gameDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
-| 项目开发 | `Games/[项目名]/memory-bank/` 下的所有文件 |
-
-### 服务器相关任务特别说明
+| **创建 GitHub Agentic Workflow** | **⚠️ 必须先读** `skills/programming/ghAgenticWorkflows/WORKFLOW-INDEX.md`<br>根据需求选择模板后，再读取对应的源文件作为参考 |
+| 中控服务器 / Webhook / GitHub Actions | `skills/programming/controlHub/SKILL.md`<br>`.secrets/` 目录（密钥配置） |
+| Verse 代码开发 | `skills/programming/verseDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
+| 游戏设计 | `skills/design/gameDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
+| 项目开发 | `projects/[项目名]/memory-bank/` 下的所有文件 |
 
 执行云服务器相关操作时，`.secrets` 文件包含关键信息：
 - `SERVER_IP` - 服务器地址
@@ -312,11 +307,11 @@ git status  # Must show "up to date with origin"
 ### 🔴 核心工具 (必须掌握)
 
 #### GitHub Agentic Workflows (gh-aw)
-> 详细文档: `Core/skills/programming/ghAgenticWorkflows/SKILL.md`
-> **⭐ 工作流模板索引**: `Core/skills/programming/ghAgenticWorkflows/WORKFLOW-INDEX.md`（创建新工作流必读！）
-> **⭐ 能力边界**: `Core/skills/programming/ghAgenticWorkflows/CAPABILITY-BOUNDARIES.md`（快速判断能否做）
-> **官方案例**: `Core/skills/programming/ghAgenticWorkflows/shared/references/official-examples.md`
-> **原始文件库**: `Core/skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/` (235+ 文件)
+> 详细文档: `skills/programming/ghAgenticWorkflows/SKILL.md`
+> **⭐ 工作流模板索引**: `skills/programming/ghAgenticWorkflows/WORKFLOW-INDEX.md`（创建新工作流必读！）
+> **⭐ 能力边界**: `skills/programming/ghAgenticWorkflows/CAPABILITY-BOUNDARIES.md`（快速判断能否做）
+> **官方案例**: `skills/programming/ghAgenticWorkflows/shared/references/official-examples.md`
+> **原始文件库**: `skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/` (235+ 文件)
 
 ```bash
 gh aw compile                # 编译 .md → .lock.yml
@@ -368,24 +363,24 @@ safe-outputs: { add-comment: }
 | github-script | `gh-aw-raw/skills/github-script/SKILL.md` | Actions 脚本最佳实践 |
 | github-mcp-server | `gh-aw-raw/skills/github-mcp-server/SKILL.md` | MCP 服务器配置 |
 
-> **完整索引**: `Core/skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/skills/INDEX.md`
+> **完整索引**: `skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/skills/INDEX.md`
 
 ### 🟡 开发技能 (按需查阅)
 
 | 技能 | 路径 | 用途 |
 |-----|------|-----|
-| **verseDev** | `Core/skills/programming/verseDev/` | Verse 代码开发 (17 子技能) |
-| **gameDev** | `Core/skills/design/gameDev/` | 游戏设计流程 (10 子技能) |
-| **controlHub** | `Core/skills/programming/controlHub/` | 中控服务器/Webhook |
+| **verseDev** | `skills/programming/verseDev/` | Verse 代码开发 (17 子技能) |
+| **gameDev** | `skills/design/gameDev/` | 游戏设计流程 (10 子技能) |
+| **controlHub** | `skills/programming/controlHub/` | 中控服务器/Webhook |
 
 ### 🟢 辅助技能 (参考用)
 
 | 技能 | 路径 | 用途 |
 |-----|------|-----|
-| claudeCodeGuide | `Core/skills/programming/claudeCodeGuide/` | Claude 编程指南 |
-| claudeCookbooks | `Core/skills/programming/claudeCookbooks/` | Claude 使用技巧 |
-| claudeSkills | `Core/skills/programming/claudeSkills/` | Claude 技能库 |
-| githubActionsWorkflows | `Core/skills/programming/githubActionsWorkflows/` | CI/CD 工作流 |
+| claudeCodeGuide | `skills/programming/claudeCodeGuide/` | Claude 编程指南 |
+| claudeCookbooks | `skills/programming/claudeCookbooks/` | Claude 使用技巧 |
+| claudeSkills | `skills/programming/claudeSkills/` | Claude 技能库 |
+| githubActionsWorkflows | `skills/programming/githubActionsWorkflows/` | CI/CD 工作流 |
 
 ---
 
@@ -439,7 +434,7 @@ safe-outputs: { add-comment: }
 2. **告知用户**："该任务类型值得创建 Skill，建议先建立知识骨架"
 3. **创建 Skill 骨架**：
    ```
-   Core/skills/[programming|design]/[skillName]/
+   skills/[programming|design]/[skillName]/
    ├── SKILL.md                    # 基础技能说明（可先写简版）
    ├── CAPABILITY-BOUNDARIES.md    # 能力边界（必须先调研）
    ├── PREFLIGHT-CHECKLIST.md      # 前置检查（边做边补）
@@ -641,19 +636,19 @@ safe-outputs: { add-comment: }
 
 | Skill | 知识文档路径前缀 |
 |-------|-----------------|
-| ghAgenticWorkflows | `Core/skills/programming/ghAgenticWorkflows/` |
-| verseDev | `Core/skills/programming/verseDev/` |
-| controlHub | `Core/skills/programming/controlHub/` |
-| gameDev | `Core/skills/design/gameDev/` |
+| ghAgenticWorkflows | `skills/programming/ghAgenticWorkflows/` |
+| verseDev | `skills/programming/verseDev/` |
+| controlHub | `skills/programming/controlHub/` |
+| gameDev | `skills/design/gameDev/` |
 
 #### 搜索踩坑记录
 
 ```bash
 # 搜索所有失败案例
-grep -r "## FC-" Core/skills/
+grep -r "## FC-" skills/
 
 # 搜索特定关键词的踩坑
-grep -r "safe-outputs" Core/skills/*/FAILURE-CASES.md
+grep -r "safe-outputs" skills/*/FAILURE-CASES.md
 ```
 
 ---

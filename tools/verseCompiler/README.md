@@ -191,7 +191,7 @@ gh run list --workflow=verse-uefn-compile.yml
 ## 相关文件
 
 - [.github/workflows/verse-uefn-compile.yml](../../.github/workflows/verse-uefn-compile.yml) - GitHub Actions 工作流
-- [Core/skills/programming/controlHub/](../../Core/skills/programming/controlHub/) - 中控服务器技能
+- [skills/programming/controlHub/](../../skills/programming/controlHub/) - 中控服务器技能
 
 ---
 
@@ -199,6 +199,6 @@ gh run list --workflow=verse-uefn-compile.yml
 
 ### v1.0.0 (2026-01-07)
 
-- 从 `Core/skills/programming/verseDev/verseCli/` 迁移至此
+- 从 `skills/programming/verseDev/verseCli/` 迁移至此
 - 整合云端服务和本地工具
 - 完成远程编译系统集成
