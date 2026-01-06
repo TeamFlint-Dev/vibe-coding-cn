@@ -29,7 +29,7 @@
 
 ### 3. 新增的内容
 
-创建 `tests/verse-cloud-compile/` 目录，包含：
+创建 `tests/verseCloudCompile/` 目录，包含：
 
 | 文件 | 说明 |
 |------|------|
@@ -100,7 +100,7 @@
 make test-cloud-compile
 
 # 或直接运行
-cd tests/verse-cloud-compile
+cd tests/verseCloudCompile
 python3 test_cloud_compile.py --help
 ```
 

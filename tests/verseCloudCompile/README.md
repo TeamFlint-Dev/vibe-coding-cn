@@ -276,7 +276,7 @@ curl http://YOUR_SERVER:19527/verse/status/req_abc123
 # .github/workflows/ci.yml
 - name: Compile Verse Code
   run: |
-    python3 tests/verse-cloud-compile/test_cloud_compile.py
+    python3 tests/verseCloudCompile/test_cloud_compile.py
   env:
     COMPILE_SERVER_URL: ${{ secrets.COMPILE_SERVER_URL }}
     COMPILE_API_KEY: ${{ secrets.COMPILE_API_KEY }}
@@ -293,7 +293,7 @@ VERSE_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.verse$')
 
 if [ -n "$VERSE_FILES" ]; then
     echo "触发云端编译验证..."
-    python3 tests/verse-cloud-compile/test_cloud_compile.py --branch $(git branch --show-current)
+    python3 tests/verseCloudCompile/test_cloud_compile.py --branch $(git branch --show-current)
     if [ $? -ne 0 ]; then
         echo "❌ 编译失败，提交中止"
         exit 1
@@ -309,7 +309,7 @@ fi
 
 ```bash
 # 测试连接和编译功能
-python3 tests/verse-cloud-compile/simple_test.py
+python3 tests/verseCloudCompile/simple_test.py
 ```
 
 **测试结果**:
