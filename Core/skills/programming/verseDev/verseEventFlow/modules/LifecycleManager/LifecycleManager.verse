@@ -161,7 +161,7 @@ lifecycle_manager := class(creative_device):
     
     # 接收组件就绪事件
     OnReceive<override>(Event:scene_event):logic =
-        if (ReadyEvent := Event?component_ready_event):
+        if (ReadyEvent := component_ready_event[Event]):
             set ReadyComponents += array{ReadyEvent.ComponentType}
             
             Print("[Manager] Component ready: {ReadyEvent.ComponentType} ({ReadyComponents.Length}/{RequiredComponents.Length})")
