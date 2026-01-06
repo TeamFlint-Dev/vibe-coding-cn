@@ -5,7 +5,9 @@
 ## 子目录说明
 
 ### math/ - 数学工具
+
 基础数学计算和工具函数：
+
 - `MathUtils.verse` - 数学工具函数（插值、夹值等）
 - `RandomUtils.verse` - 随机数生成工具
 - `VectorUtils.verse` - 向量计算工具
@@ -13,7 +15,9 @@
 **使用场景**：需要数学计算、随机数生成、向量运算时
 
 ### probability/ - 概率系统
+
 完整的概率和随机系统实现（20个文件）：
+
 - 核心系统：`RngCore.verse`、`SeedControl.verse`
 - 分布系统：`Distribution.verse`、`PseudoRandomDistribution.verse`
 - 选择器：`WeightedSelector.verse`、`UniformSelector.verse`、`NonRepeatSelector.verse`
@@ -23,14 +27,18 @@
 **使用场景**：抽卡、掉落、暴击、随机事件等需要概率控制的系统
 
 ### combat/ - 战斗计算
+
 战斗相关的计算逻辑：
+
 - `DamageCalculator.verse` - 伤害计算系统
 - `HealthCalculator.verse` - 生命值管理系统
 
 **使用场景**：实现战斗系统、伤害计算、生命值管理
 
 ### events/ - 事件系统
+
 游戏事件定义和处理：
+
 - `HealthEvents.verse` - 生命值相关事件
 - `InteractionEvents.verse` - 交互事件
 - `StateEvents.verse` - 状态变化事件
@@ -38,7 +46,9 @@
 **使用场景**：事件驱动的游戏逻辑
 
 ### wrappers/ - 包装器
+
 对 UEFN 原生对象的封装（6个文件）：
+
 - `CharacterWrapper.verse` - 角色包装器
 - `NPCWrapper.verse` - NPC 包装器
 - `PetWrapper.verse` - 宠物包装器
@@ -49,17 +59,22 @@
 **使用场景**：需要更易用的 API 操作 UEFN 对象时
 
 ### data/ - 数据结构
+
 游戏数据结构和架构：
 
 #### data/managers/ - 管理器
+
 - `CooldownManager.verse` - 冷却管理器
 - `TimerManager.verse` - 计时器管理器
 
 #### data/entities/ - 实体
+
 - `GameObjectEntity.verse` - 游戏对象实体
 
 #### data/components/ - 组件
+
 ECS 架构的组件实现（9个文件）：
+
 - `StateMachineComponent.verse` - 状态机组件
 - `MovementComponent.verse` - 移动组件
 - `HealthComponent.verse` - 生命值组件
@@ -80,6 +95,7 @@ ECS 架构的组件实现（9个文件）：
 ## 贡献指南
 
 添加新的可复用代码时：
+
 1. 选择合适的功能域目录
 2. 使用清晰的文件命名（PascalCase）
 3. 添加完整的代码注释

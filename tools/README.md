@@ -5,10 +5,12 @@
 ## 工具列表
 
 ### verse-compiler/ - Verse 远程编译服务
+
 云端 Verse 代码编译验证系统，通过 GitHub Actions 和自托管 Runner 实现真实的 UEFN 编译环境。
 
 **目录结构**：
-```
+
+```text
 verse-compiler/
 ├── server/              # 云服务器端
 │   ├── server.py        # Flask 服务器（接收编译请求）
@@ -22,6 +24,7 @@ verse-compiler/
 ```
 
 **使用方法**：
+
 ```powershell
 # 编译当前分支的 Verse 代码并等待结果
 .\tools\verse-compiler\client\compile.ps1 -Wait
@@ -31,6 +34,7 @@ verse-compiler/
 ```
 
 **工作原理**：
+
 1. 客户端检测当前 Git 分支和 commit
 2. 发送请求到云服务器（193.112.183.143:19527）
 3. 云服务器触发 GitHub Actions workflow
@@ -38,18 +42,22 @@ verse-compiler/
 5. 编译结果返回到客户端
 
 **相关文档**：
+
 - `scripts/verse-compile-server/README.md` - 详细说明文档
 - `scripts/verse-compile-server/RUNNER-SETUP.md` - Runner 配置指南
 
 ---
 
 ### pipeline/ - 流水线工具
+
 用于多阶段 AI 工作流的通知和协调工具。
 
 **文件清单**：
+
 - `notifier.py` - Pipeline 通知脚本，用于阶段完成通知
 
 **使用场景**：
+
 - 多阶段 AI 任务协调
 - Pipeline 状态通知
 - GitHub Actions 集成
@@ -82,6 +90,7 @@ verse-compiler/
 ## 环境配置
 
 某些工具需要配置环境变量或密钥：
+
 - Verse 编译服务器地址和端口
 - GitHub Actions token
 - 其他敏感配置
