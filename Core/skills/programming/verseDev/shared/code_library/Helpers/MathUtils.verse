@@ -10,6 +10,13 @@ MathUtils<public> := module:
     # 注意: Clamp, Min, Max, Lerp 函数请使用 /Verse.org/Verse 标准库
     # 以下是标准库中没有的扩展函数
     
+    # 绝对值函数
+    Abs<public>(X:float):float =
+        if (X >= 0.0):
+            X
+        else:
+            -X
+    
     # 钳制浮点数到范围内（标准库只有整数版本的 Clamp）
     ClampFloat<public>(Value:float, MinVal:float, MaxVal:float):float =
         if (Value < MinVal):

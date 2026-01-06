@@ -6,6 +6,7 @@ using { /Verse.org/Simulation }
 using { /Verse.org/Verse }
 using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Fortnite.com/Animation }
+using { MathUtils } from "../../shared/code_library/Helpers/MathUtils.verse"
 
 # ==========================================
 # 采样方式枚举
@@ -168,7 +169,7 @@ curve_sampler_1d<public> := class:
         VPredicted := (V0 + V1) / 2.0
         
         # 计算误差
-        Error := Abs(VMid - VPredicted)
+        Error := MathUtils.Abs(VMid - VPredicted)
         
         if (Error > Config.Precision):
             # 误差大，需要细分
@@ -235,13 +236,6 @@ curve_sampler_1d<public> := class:
             Derivative := Deriv,
             SecondDerivative := SecondDeriv
         }
-    
-    # 绝对值辅助函数
-    Abs<private>(X:float):float =
-        if (X >= 0.0):
-            X
-        else:
-            -X
 
 # ==========================================
 # Delta 数组转换器

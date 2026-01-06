@@ -6,6 +6,7 @@ using { /Verse.org/Simulation }
 using { /Verse.org/Verse }
 using { /UnrealEngine.com/Temporary/Diagnostics }
 using { /Fortnite.com/Animation }
+using { MathUtils } from "../../shared/code_library/Helpers/MathUtils.verse"
 
 # 测试结果记录
 test_result<public> := struct:
@@ -33,7 +34,7 @@ curve_sampler_tests<public> := module:
     
     # 断言相等（浮点数）
     AssertEqual<private>(TestName:string, Expected:float, Actual:float, Tolerance:float)<transacts>:logic =
-        Diff := Abs(Expected - Actual)
+        Diff := MathUtils.Abs(Expected - Actual)
         if (Diff <= Tolerance):
             RecordPass(TestName)
             true
@@ -100,12 +101,6 @@ curve_sampler_tests<public> := module:
             PassedTests := Stats.PassedTests,
             FailedTests := Stats.FailedTests + 1
         }
-    
-    Abs<private>(X:float):float =
-        if (X < 0.0):
-            -X
-        else:
-            X
     
     # ==========================================
     # 测试组1: 基础采样功能测试
