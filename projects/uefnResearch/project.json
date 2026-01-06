@@ -1,0 +1,16 @@
+{
+  "id": "uefnResearch",
+  "displayName": "uefn基础模块研究",
+  "aliases": [
+    "uefn研究",
+    "uefn-research",
+    "UEFN基础研究",
+    "UEFN 基础研究",
+    "uefnResearch"
+  ],
+  "description": "UEFN/Verse 基础技术研究项目，专注于基础模块和底层机制的系统化研究",
+  "status": "active",
+  "tags": ["research", "verse", "uefn", "foundation"],
+  "created": "2026-01-06",
+  "type": "research"
+}

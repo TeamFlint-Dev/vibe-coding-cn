@@ -1,0 +1,30 @@
+{
+  "$schema": "PROJECT_MAPPING_SCHEMA",
+  "description": "全局项目名称映射表，支持中文别名和多种命名风格",
+  "version": "1.0.0",
+  "mappings": {
+    "uefn研究": "uefnResearch",
+    "uefn基础模块研究": "uefnResearch",
+    "UEFN基础研究": "uefnResearch",
+    "UEFN 基础研究": "uefnResearch",
+    "uefn-research": "uefnResearch",
+    "uefnResearch": "uefnResearch",
+    "钓鱼游戏": "trophyFishing",
+    "Trophy Fishing": "trophyFishing",
+    "trophy-fishing": "trophyFishing",
+    "Trophy-Fishing": "trophyFishing",
+    "trophyFishing": "trophyFishing"
+  },
+  "projects": {
+    "uefnResearch": {
+      "displayName": "uefn基础模块研究",
+      "path": "projects/uefnResearch",
+      "type": "research"
+    },
+    "trophyFishing": {
+      "displayName": "Trophy Fishing",
+      "path": "projects/trophyFishing",
+      "type": "game"
+    }
+  }
+}
