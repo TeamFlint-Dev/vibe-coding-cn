@@ -1,12 +1,16 @@
 # Verse LSP 语法检查环境
 
-为 AI Agent 提供独立的 Verse 代码语法检查能力，无需连接到 UEFN 实例。
+> **⚠️ 已废弃**: 本工具已不再使用。LSP 不支持错误诊断功能，请使用云端编译方案。  
+> **替代方案**: [tests/verse-cloud-compile/](../../tests/verse-cloud-compile/)
+
+---
 
 ## ⚠️ 重要限制
 
-**verse-lsp 不支持错误诊断功能**
+### verse-lsp 不支持错误诊断功能
 
 经过全面测试验证，从 Verse VSCode 扩展提取的 LSP 二进制文件**不提供错误检测能力**。LSP 仅支持:
+
 - ✅ 代码补全
 - ✅ 符号导航（跳转定义、查找引用）
 - ✅ 悬停提示
