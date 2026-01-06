@@ -44,7 +44,7 @@
 | Secret 名称 | 说明 | 示例值 |
 |------------|------|--------|
 | `UEFN_PROJECT_PATH` | UEFN 项目根目录 | `D:\UEFN\MyProject` |
-| `VERSE_SOURCE_DIR` | 仓库中 Verse 代码目录 | `Games\trophyFishing` |
+| `VERSE_SOURCE_DIR` | 仓库中 Verse 代码目录 | `Games\fishing` |
 | `RUNNER_SECRET` | Runner 回调签名密钥 | (随机字符串) |
 
 ### 2. UEFN 项目结构

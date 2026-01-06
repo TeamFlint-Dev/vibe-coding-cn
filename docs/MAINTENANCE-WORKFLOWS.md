@@ -83,7 +83,7 @@
 gh aw run skill-gap-finder -f focus_area=verseDev
 
 # 运行 Project Next Step
-gh aw run project-next-step -f project_name=trophyFishing
+gh aw run project-next-step -f project_name=fishing
 
 # 运行 Roadmap Generator
 gh aw run roadmap-generator -f focus_area=all -f time_horizon=month
@@ -116,7 +116,7 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 
 | 参数 | 类型 | 必填 | 默认值 | 说明 |
 |------|------|------|--------|------|
-| `project_name` | string | ✅ 是 | - | 项目名称 (如 trophyFishing) |
+| `project_name` | string | ✅ 是 | - | 项目名称 (如 fishing) |
 
 **适用场景**: 
 - 不知道项目下一步该做什么

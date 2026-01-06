@@ -69,7 +69,7 @@
 │       └── meta_prompts/           # 元提示词
 │
 ├── projects/                       # 游戏项目集合
-│   └── trophyFishing/              # Trophy Fishing 项目
+│   └── fishing/                    # Fishing 项目
 │       ├── design/                 # 游戏设计文档
 │       ├── architecture/           # 技术架构文档
 │       └── progress/               # 进度与日志
