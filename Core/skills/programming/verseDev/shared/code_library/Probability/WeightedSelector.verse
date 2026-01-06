@@ -162,6 +162,6 @@ WeightedSelector<public> := module:
             if (Weight := Weights[Index]):
                 set CumulativeWeight += Weight
                 if (Roll <= CumulativeWeight):
-                    Item
+                    return Item
         
         Items[Items.Length - 1]
