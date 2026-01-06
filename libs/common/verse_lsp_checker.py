@@ -120,16 +120,18 @@ class CheckResult:
 class VerseChecker:
     """Verse 代码检查器"""
     
-    def __init__(self, lsp_path: Optional[str] = None, digest_dir: Optional[str] = None):
+    def __init__(self, lsp_path: Optional[str] = None, digest_dir: Optional[str] = None, workspace_dir: Optional[str] = None):
         """
         初始化检查器
         
         Args:
             lsp_path: LSP 二进制路径，如果为 None 则自动检测
             digest_dir: Digest 文件目录，如果为 None 则使用默认位置
+            workspace_dir: 工作区目录，如果为 None 则使用 tests/verse-lsp
         """
         self.lsp_path = lsp_path or self._detect_lsp_path()
         self.digest_dir = digest_dir or self._get_default_digest_dir()
+        self.workspace_dir = Path(workspace_dir) if workspace_dir else self._get_default_workspace_dir()
         self.process: Optional[asyncio.subprocess.Process] = None
         self.message_id = 0
         self._initialized = False
@@ -164,6 +166,11 @@ class VerseChecker:
         script_dir = Path(__file__).parent.parent.parent
         digest_dir = script_dir / '.verse-sdk' / 'digests'
         return str(digest_dir)
+    
+    def _get_default_workspace_dir(self) -> Path:
+        """获取默认工作区目录"""
+        script_dir = Path(__file__).parent.parent.parent
+        return script_dir / "tests" / "verse-lsp"
     
     async def start(self):
         """启动 LSP 服务"""
@@ -208,27 +215,25 @@ class VerseChecker:
         if self._initialized:
             return
         
-        # 使用临时工作区目录（包含 .vproject 文件）
+        # 使用配置的工作区目录（包含 .vproject 文件）
         # LSP 需要一个包含 Verse 项目文件的工作区才能正常工作
-        workspace_dir = Path(__file__).parent.parent.parent / "tests" / "verse-lsp"
-        workspace_dir.mkdir(parents=True, exist_ok=True)
+        self.workspace_dir.mkdir(parents=True, exist_ok=True)
         
         # 确保存在 .vproject 文件
-        vproject_file = workspace_dir / "test_project.vproject"
+        vproject_file = self.workspace_dir / "test_project.vproject"
         if not vproject_file.exists():
             vproject_content = {
                 "Name": "LSPTestProject",
                 "Description": "Test project for LSP error detection",
                 "Version": "1.0.0"
             }
-            import json as json_module
             with open(vproject_file, 'w') as f:
-                json_module.dump(vproject_content, f, indent=2)
+                json.dump(vproject_content, f, indent=2)
         
         # 发送 initialize 请求，使用工作区目录
         init_params = {
             'processId': os.getpid(),
-            'rootUri': f"file://{workspace_dir}",
+            'rootUri': f"file://{self.workspace_dir}",
             'capabilities': {
                 'textDocument': {
                     'publishDiagnostics': {},
@@ -341,8 +346,7 @@ class VerseChecker:
             await self.start()
         
         # 使用工作区内的文件路径
-        workspace_dir = Path(__file__).parent.parent.parent / "tests" / "verse-lsp"
-        file_path = workspace_dir / filename
+        file_path = self.workspace_dir / filename
         file_uri = f"file://{file_path}"
         
         # 发送 textDocument/didOpen 通知
