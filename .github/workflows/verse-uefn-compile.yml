@@ -28,151 +28,107 @@ jobs:
           ref: ${{ inputs.branch }}
           fetch-depth: 0
       
-      - name: Run Verse Compile
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Run Verse Compile via CLI
         id: compile
         shell: pwsh
-        env:
-          UEFN_PROJECT: ${{ secrets.UEFN_PROJECT_PATH }}
-          VERSE_SOURCE_DIR: ${{ secrets.VERSE_SOURCE_DIR }}
         run: |
           $startTime = Get-Date
           
-          # 配置路径
-          # UEFN_PROJECT_PATH 指向 Content 目录的父目录，如 E:\Game\FishTycoon
-          $uefnProject = $env:UEFN_PROJECT
-          if (-not $uefnProject) {
-            $uefnProject = "E:\Game\FishTycoon"
-          }
-          
-          # VERSE_SOURCE_DIR 是 Content 目录下的相对路径，如 AgentWorkSpace
-          $verseSourceDir = $env:VERSE_SOURCE_DIR
-          if (-not $verseSourceDir) {
-            $verseSourceDir = "AgentWorkSpace"
-          }
-          
-          $contentDir = Join-Path $uefnProject "Content"
-          $verseWorkspace = Join-Path $contentDir $verseSourceDir
-          
-          Write-Host "=== Verse Compile Configuration ==="
-          Write-Host "UEFN Project: $uefnProject"
-          Write-Host "Content Dir: $contentDir"
-          Write-Host "Verse Workspace: $verseWorkspace"
+          Write-Host "=== Verse UEFN Compile ==="
           Write-Host "Request ID: ${{ inputs.request_id }}"
           Write-Host "Branch: ${{ inputs.branch }}"
+          Write-Host "Commit: ${{ inputs.commit }}"
           
-          # 检查目录是否存在
-          if (-not (Test-Path $verseWorkspace)) {
-            Write-Host "::error::Verse workspace not found: $verseWorkspace"
+          # 使用仓库中的 verse-build.js
+          $verseBuildScript = Join-Path $env:GITHUB_WORKSPACE "Core\skills\programming\verseDev\verseCli\verse-build.js"
+          
+          if (-not (Test-Path $verseBuildScript)) {
+            Write-Host "::error::verse-build.js not found at: $verseBuildScript"
             $result = @{
               success = $false
               error_count = 1
               warning_count = 0
-              errors = @("Verse workspace not found: $verseWorkspace")
+              errors = @("verse-build.js not found")
               warnings = @()
+              duration = "N/A"
             }
             $result | ConvertTo-Json -Compress | Out-File compile_result.json
             exit 0
           }
           
-          # 列出工作区中的 verse 文件
-          $verseFiles = Get-ChildItem -Path $verseWorkspace -Filter "*.verse" -Recurse -ErrorAction SilentlyContinue
-          Write-Host "`nFound $($verseFiles.Count) Verse files in workspace"
+          Write-Host "Using verse-build.js at: $verseBuildScript"
+          Write-Host ""
+          
+          # 运行编译，捕获输出
+          $output = ""
+          $exitCode = 0
           
           try {
-            # 触发 UEFN 编译
-            Write-Host "`n=== Triggering UEFN Compile ==="
-            
-            # 方案1: 等待 UEFN 自动检测文件变化并编译
-            # 方案2: 通过 VSCode 命令触发
-            # 方案3: 读取编译日志
-            
-            $logFile = Join-Path $uefnProject "Saved\Logs\VerseCompile.log"
-            $beforeModTime = $null
-            if (Test-Path $logFile) {
-              $beforeModTime = (Get-Item $logFile).LastWriteTime
-            }
-            
-            # 给 UEFN 时间检测文件变化
-            Write-Host "Waiting for UEFN to detect changes..."
-            Start-Sleep -Seconds 5
-            
-            # TODO: 这里需要实际触发编译的机制
-            # 可能需要通过 VSCode 扩展或其他方式
-            
-            # 等待编译完成
-            $timeout = 120
-            $waited = 0
-            $compiled = $false
-            
-            while ($waited -lt $timeout) {
-              if (Test-Path $logFile) {
-                $currentModTime = (Get-Item $logFile).LastWriteTime
-                if ($beforeModTime -eq $null -or $currentModTime -gt $beforeModTime) {
-                  $logContent = Get-Content $logFile -Tail 50 -ErrorAction SilentlyContinue
-                  if ($logContent -match "Compile (succeeded|failed|complete)") {
-                    $compiled = $true
-                    break
-                  }
-                }
-              }
-              Start-Sleep -Seconds 2
-              $waited += 2
-              Write-Host "  Waiting... ($waited seconds)"
-            }
-            
-            # 解析编译结果
-            Write-Host "`n=== Parsing Compile Results ==="
-            
-            $errors = @()
-            $warnings = @()
-            
-            if (Test-Path $logFile) {
-              $logContent = Get-Content $logFile -Tail 200 -ErrorAction SilentlyContinue
-              
-              foreach ($line in $logContent) {
-                if ($line -match "error:") {
-                  $errors += $line.Trim()
-                }
-                if ($line -match "warning:") {
-                  $warnings += $line.Trim()
-                }
-              }
-            }
-            
-            $endTime = Get-Date
-            $duration = ($endTime - $startTime).TotalSeconds
-            
-            $success = ($errors.Count -eq 0)
-            
-            $result = @{
-              success = $success
-              error_count = $errors.Count
-              warning_count = $warnings.Count
-              errors = $errors
-              warnings = $warnings
-              duration = "$([math]::Round($duration, 1))s"
-            }
-            
-            Write-Host "`n=== Compile Result ==="
-            Write-Host "Success: $success"
-            Write-Host "Errors: $($errors.Count)"
-            Write-Host "Warnings: $($warnings.Count)"
-            Write-Host "Duration: $([math]::Round($duration, 1))s"
-            
-            $result | ConvertTo-Json -Compress | Out-File compile_result.json
-            
+            $output = node $verseBuildScript 2>&1 | Out-String
+            $exitCode = $LASTEXITCODE
           } catch {
-            Write-Host "::error::Exception during compile: $_"
-            $result = @{
-              success = $false
-              error_count = 1
-              warning_count = 0
-              errors = @("Exception: $_")
-              warnings = @()
-              duration = "N/A"
-            }
-            $result | ConvertTo-Json -Compress | Out-File compile_result.json
+            $output = $_.Exception.Message
+            $exitCode = 1
           }
+          
+          Write-Host $output
+          
+          $endTime = Get-Date
+          $duration = ($endTime - $startTime).TotalSeconds
+          
+          # 解析编译输出
+          $errors = @()
+          $warnings = @()
+          
+          # 提取错误信息 (格式: path(line,col): error message)
+          $errorPattern = '(?<file>[^(]+)\((?<line>\d+),(?<col>\d+)[^)]*\)\s*[：:]\s*(?<msg>.+)'
+          $matches = [regex]::Matches($output, $errorPattern)
+          
+          foreach ($match in $matches) {
+            $errorLine = "$($match.Groups['file'].Value):$($match.Groups['line'].Value) - $($match.Groups['msg'].Value)"
+            if ($match.Groups['msg'].Value -match 'warning') {
+              $warnings += $errorLine
+            } else {
+              $errors += $errorLine
+            }
+          }
+          
+          # 如果没有解析到具体错误但退出码非0，添加通用错误
+          if ($exitCode -ne 0 -and $errors.Count -eq 0) {
+            # 尝试从输出中提取错误数
+            if ($output -match '有\s*(\d+)\s*个错误') {
+              $errorCount = [int]$Matches[1]
+              $errors += "编译失败，共 $errorCount 个错误 (详见日志)"
+            } else {
+              $errors += "编译失败 (退出码: $exitCode)"
+            }
+          }
+          
+          $success = ($exitCode -eq 0)
+          
+          $result = @{
+            success = $success
+            error_count = $errors.Count
+            warning_count = $warnings.Count
+            errors = $errors
+            warnings = $warnings
+            duration = "$([math]::Round($duration, 1))s"
+            raw_output = $output.Substring(0, [Math]::Min($output.Length, 2000))
+          }
+          
+          Write-Host ""
+          Write-Host "=== Compile Result ==="
+          Write-Host "Success: $success"
+          Write-Host "Errors: $($errors.Count)"
+          Write-Host "Warnings: $($warnings.Count)"
+          Write-Host "Duration: $([math]::Round($duration, 1))s"
+          
+          $result | ConvertTo-Json -Depth 3 | Out-File compile_result.json
       
       - name: Send result to server
         if: always()
@@ -185,7 +141,7 @@ jobs:
           
           # 读取编译结果
           if (Test-Path compile_result.json) {
-            $result = Get-Content compile_result.json | ConvertFrom-Json
+            $result = Get-Content compile_result.json -Raw | ConvertFrom-Json
           } else {
             $result = @{
               success = $false
@@ -197,18 +153,20 @@ jobs:
             }
           }
           
-          # 添加 request_id
+          # 构建 payload
           $payload = @{
             request_id = $requestId
             success = $result.success
             error_count = $result.error_count
             warning_count = $result.warning_count
-            errors = $result.errors
-            warnings = $result.warnings
+            errors = @($result.errors)
+            warnings = @($result.warnings)
             duration = $result.duration
+            branch = "${{ inputs.branch }}"
+            commit = "${{ inputs.commit }}"
           }
           
-          $jsonPayload = $payload | ConvertTo-Json -Compress
+          $jsonPayload = $payload | ConvertTo-Json -Compress -Depth 3
           
           # 计算签名
           $signature = ""
@@ -222,6 +180,7 @@ jobs:
           Write-Host "Sending result to: $callbackUrl"
           Write-Host "Request ID: $requestId"
           Write-Host "Success: $($result.success)"
+          Write-Host "Errors: $($result.error_count)"
           
           try {
             $headers = @{
@@ -231,7 +190,7 @@ jobs:
               $headers["X-Runner-Signature"] = $signature
             }
             
-            Invoke-RestMethod -Uri $callbackUrl -Method Post -Body $jsonPayload -Headers $headers
+            Invoke-RestMethod -Uri $callbackUrl -Method Post -Body $jsonPayload -Headers $headers -TimeoutSec 30
             Write-Host "Result sent successfully"
           } catch {
             Write-Host "::warning::Failed to send result: $_"
