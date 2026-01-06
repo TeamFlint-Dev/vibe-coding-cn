@@ -199,7 +199,7 @@ ProbabilityValidator<public> := module:
         GetFailedCount<public>():int =
             var Count:int = 0
             for (Result : ValidationResults):
-                if (not[Result.Passed]):
+                if (not Result.Passed?):
                     set Count += 1
             Count
         

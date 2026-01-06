@@ -185,7 +185,7 @@ GachaSystem<public> := module:
                     if (Card.IsRateUp):
                         set EligibleCards += array{Card}
                 else:
-                    if (not[Card.IsRateUp]):
+                    if (not Card.IsRateUp?):
                         set EligibleCards += array{Card}
             
             # 如果没有符合条件的，使用全部
@@ -215,7 +215,7 @@ GachaSystem<public> := module:
                     if (Card.IsRateUp):
                         set EligibleCards += array{Card}
                 else:
-                    if (not[Card.IsRateUp]):
+                    if (not Card.IsRateUp?):
                         set EligibleCards += array{Card}
             
             if (EligibleCards.Length = 0):

@@ -53,13 +53,13 @@
 
 - [scripts/verse-compile-server/README.md](../../scripts/verse-compile-server/README.md) - 云端编译系统
 - [.github/workflows/verse-uefn-compile.yml](../../.github/workflows/verse-uefn-compile.yml) - 编译工作流
-- [tests/verse-cloud-compile/](../verse-cloud-compile/) - 云端编译测试（新）
+- [tests/verseCloudCompile/](../verse-cloud-compile/) - 云端编译测试（新）
 
 **测试脚本**:
 
 ```bash
 # 云端编译测试
-cd tests/verse-cloud-compile
+cd tests/verseCloudCompile
 python3 test_cloud_compile.py
 ```
 

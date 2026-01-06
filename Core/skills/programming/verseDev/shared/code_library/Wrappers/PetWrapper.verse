@@ -78,7 +78,7 @@ PetWrapper<public> := module:
         Rotation:rotation
     ):pet_op_result =
         # 边界检查：位置是否有效
-        if (Position.X == 0.0 and Position.Y == 0.0 and Position.Z == 0.0):
+        if (Position.X = 0.0 and Position.Y = 0.0 and Position.Z = 0.0):
             pet_op_result{
                 Success := false,
                 ErrorReason := "Invalid spawn position",
@@ -121,7 +121,7 @@ PetWrapper<public> := module:
         Rotation:rotation
     ):pet_op_result =
         # 边界检查
-        if (Position.X == 0.0 and Position.Y == 0.0 and Position.Z == 0.0):
+        if (Position.X = 0.0 and Position.Y = 0.0 and Position.Z = 0.0):
             pet_op_result{
                 Success := false,
                 ErrorReason := "Invalid target position",
@@ -304,7 +304,7 @@ PetWrapper<public> := module:
     
     # 验证位置向量是否有效（不在原点）
     IsValidPosition<private>(Position:vector3):logic =
-        if (Position.X == 0.0 and Position.Y == 0.0 and Position.Z == 0.0):
+        if (Position.X = 0.0 and Position.Y = 0.0 and Position.Z = 0.0):
             false
         else:
             true

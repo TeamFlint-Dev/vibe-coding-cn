@@ -86,7 +86,7 @@ ProbabilityTests<public> := module:
     # ==========================================
     
     AssertTrue<public>(Condition:logic, Message:string):logic =
-        if (not[Condition]):
+        if (not Condition?):
             Print("断言失败: {Message}")
             false
         else:
@@ -308,7 +308,7 @@ ProbabilityTests<public> := module:
         # 概率为1应总是成功
         var AlwaysSucceed:logic = true
         for (I := 0..100):
-            if (not[GetRandomFloat(0.0, 1.0) <= 1.0]):
+            if (not (GetRandomFloat(0.0, 1.0) <= 1.0)?):
                 set AlwaysSucceed = false
                 break
         

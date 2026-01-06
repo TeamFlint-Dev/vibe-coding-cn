@@ -71,12 +71,12 @@ ui_manager := class(creative_device):
     
     OnReceive<override>(Event:scene_event):logic =
         # 接收计分事件
-        if (ScoreEvent := Event?player_scored_event):
+        if (ScoreEvent := player_scored_event[Event]):
             UpdateScoreUI(ScoreEvent.Player, ScoreEvent.Score)
             return false  # 不消耗，让其他组件也能收到
         
         # 接收状态变化事件
-        if (StateEvent := Event?game_state_changed_event):
+        if (StateEvent := game_state_changed_event[Event]):
             UpdateStateUI(StateEvent.NewState)
             return false
         
@@ -113,7 +113,7 @@ game_manager := class(creative_device):
     
     OnReceive<override>(Event:scene_event):logic =
         # 接收计分事件
-        if (ScoreEvent := Event?player_scored_event):
+        if (ScoreEvent := player_scored_event[Event]):
             ProcessScore(ScoreEvent)
             return true  # 消耗事件
         
@@ -144,7 +144,7 @@ damage_detector := class(creative_device):
 damage_processor := class(creative_device):
     
     OnReceive<override>(Event:scene_event):logic =
-        if (DamageEvent := Event?player_damaged_event):
+        if (DamageEvent := player_damaged_event[Event]):
             ApplyDamage(DamageEvent)
             return true  # 消耗事件
         

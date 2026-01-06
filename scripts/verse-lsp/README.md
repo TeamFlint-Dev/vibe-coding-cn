@@ -1,7 +1,7 @@
 # Verse LSP 语法检查环境
 
 > **⚠️ 已废弃**: 本工具已不再使用。LSP 不支持错误诊断功能，请使用云端编译方案。  
-> **替代方案**: [tests/verse-cloud-compile/](../../tests/verse-cloud-compile/)
+> **替代方案**: [tests/verseCloudCompile/](../../tests/verseCloudCompile/)
 
 ---
 

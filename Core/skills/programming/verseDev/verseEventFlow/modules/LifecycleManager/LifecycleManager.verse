@@ -127,6 +127,13 @@ lifecycle_manager := class(creative_device):
     # 初始化超时（秒）
     var InitializationTimeout:float = 10.0
     
+    # 辅助函数：检查组件是否在列表中
+    IsComponentReady(ComponentName:string):logic =
+        for (ReadyComp : ReadyComponents):
+            if (ReadyComp = ComponentName):
+                return true
+        false
+    
     OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         set InitializationStartTime = GetSimulationElapsedTime()
@@ -144,8 +151,9 @@ lifecycle_manager := class(creative_device):
         if (ElapsedTime > InitializationTimeout):
             Print("[Manager] ⚠️ Initialization timeout! Missing components:")
             
-            for (Required in RequiredComponents):
-                if not (Required in ReadyComponents):
+            for (I := 0..RequiredComponents.Length - 1):
+                Required := RequiredComponents[I]
+                if (not IsComponentReady(Required)?):
                     Print("  - {Required}")
             
             set GameStarted = true  # 防止重复检查
@@ -153,7 +161,7 @@ lifecycle_manager := class(creative_device):
     
     # 接收组件就绪事件
     OnReceive<override>(Event:scene_event):logic =
-        if (ReadyEvent := Event?component_ready_event):
+        if (ReadyEvent := component_ready_event[Event]):
             set ReadyComponents += array{ReadyEvent.ComponentType}
             
             Print("[Manager] Component ready: {ReadyEvent.ComponentType} ({ReadyComponents.Length}/{RequiredComponents.Length})")
@@ -169,8 +177,9 @@ lifecycle_manager := class(creative_device):
     
     # 检查所有组件是否就绪
     AllComponentsReady():logic =
-        for (Required in RequiredComponents):
-            if not (Required in ReadyComponents):
+        for (I := 0..RequiredComponents.Length - 1):
+            Required := RequiredComponents[I]
+            if (not IsComponentReady(Required)?):
                 return false
         return true
     
@@ -249,7 +258,7 @@ phase_manager := class(creative_device):
     
     # 接收阶段完成事件
     OnReceive<override>(Event:scene_event):logic =
-        if (PhaseEvent := Event?initialization_phase_complete_event):
+        if (PhaseEvent := initialization_phase_complete_event[Event]):
             AdvancePhase(PhaseEvent.Phase)
             return true
         return false

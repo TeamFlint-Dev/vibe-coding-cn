@@ -61,7 +61,7 @@ NonRepeatSelector<public> := module:
                 # 创建可选索引列表（排除最近选择的）
                 var AvailableIndices:[]int = array{}
                 for (I := 0..Items.Length - 1):
-                    if (not[IsInRecentHistory(I)]):
+                    if (not IsInRecentHistory(I)?):
                         set AvailableIndices += array{I}
                 
                 # 如果所有选项都在历史中，清空历史重新选择
@@ -153,7 +153,7 @@ NonRepeatSelector<public> := module:
             var AvailableWeights:[]float = array{}
             
             for (I := 0..Items.Length - 1):
-                if (not[IsInRecentHistory(I)]):
+                if (not IsInRecentHistory(I)?):
                     set AvailableIndices += array{I}
                     if (W := Weights[I]):
                         set AvailableWeights += array{W}

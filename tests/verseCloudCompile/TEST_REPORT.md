@@ -13,7 +13,7 @@
 ### 1. 服务器连接测试
 
 ```bash
-python3 tests/verse-cloud-compile/simple_test.py
+python3 tests/verseCloudCompile/simple_test.py
 ```
 
 **结果**: ✅ 成功
@@ -50,7 +50,7 @@ python3 tests/verse-cloud-compile/simple_test.py
 检测到的错误：
 
 ```text
-Script error 3005: The relative Verse path `AgentWorkSpace/VibeCodingCN/tests/verse-cloud-compile/test_cases`
+Script error 3005: The relative Verse path `AgentWorkSpace/VibeCodingCN/tests/verseCloudCompile/test_cases`
 contains disallowed characters that would lead to the invalid module name `verse-cloud-compile`.
 ```
 
@@ -91,7 +91,7 @@ contains disallowed characters that would lead to the invalid module name `verse
 
 ### 测试用例目录命名
 
-**问题**: `tests/verse-cloud-compile/` 目录名包含连字符，导致 Verse 编译器报错。
+**问题**: `tests/verseCloudCompile/` 目录名包含连字符，导致 Verse 编译器报错。
 
 **原因**: Verse 要求模块路径只能包含字母、数字和下划线，不允许连字符。
 
@@ -128,13 +128,13 @@ contains disallowed characters that would lead to the invalid module name `verse
 
 ```bash
 # 简单连接测试
-python3 tests/verse-cloud-compile/simple_test.py
+python3 tests/verseCloudCompile/simple_test.py
 
 # 测试特定分支
-python3 tests/verse-cloud-compile/simple_test.py main
+python3 tests/verseCloudCompile/simple_test.py main
 
 # 完整测试（需要有效的 Verse 项目结构）
-python3 tests/verse-cloud-compile/test_cloud_compile.py --server http://193.112.183.143:19527
+python3 tests/verseCloudCompile/test_cloud_compile.py --server http://193.112.183.143:19527
 ```
 
 ## 附录：完整测试日志
