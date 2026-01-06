@@ -45,12 +45,15 @@
 
 ```
 .
-├── skills/                         # 技能库（双层分类）
-│   ├── programming/                # 程序类技能
-│   │   ├── verseDev/               # Verse 开发核心技能（17个子技能）
+├── skills/                         # 技能库
+│   ├── verseDev/                   # Verse 开发核心技能（17个子技能）
+│   ├── github/                     # GitHub 相关技能
 │   │   ├── ghAgenticWorkflows/     # GitHub Agentic Workflows
+│   │   └── ...                     # 其他 GitHub 技能
+│   │
+│   ├── infra/                      # 基础设施技能
 │   │   ├── controlHub/             # 云服务器与 Webhook
-│   │   └── ...                     # 其他编程技能
+│   │   └── ...                     # 其他基础设施技能
 │   │
 │   └── design/                     # 设计类技能
 │       ├── gameDev/                # 游戏设计流程（10个子技能）

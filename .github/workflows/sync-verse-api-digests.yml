@@ -38,7 +38,7 @@ jobs:
         id: check-updates
         run: |
           DIGEST_SOURCE="/tmp/uefn-repo/Modules/FortniteGame"
-          DIGEST_TARGET="Core/skills/programming/verseDev/shared/api-digests"
+          DIGEST_TARGET="Core/skills/verseDev/shared/api-digests"
           
           # Check if digest files exist in source
           if [ ! -d "$DIGEST_SOURCE" ]; then
@@ -109,9 +109,9 @@ jobs:
             ```
             
             ### 更新的文件
-            - `Core/skills/programming/verseDev/shared/api-digests/Fortnite.digest.verse.md`
-            - `Core/skills/programming/verseDev/shared/api-digests/UnrealEngine.digest.verse.md`
-            - `Core/skills/programming/verseDev/shared/api-digests/Verse.digest.verse.md`
+            - `Core/skills/verseDev/shared/api-digests/Fortnite.digest.verse.md`
+            - `Core/skills/verseDev/shared/api-digests/UnrealEngine.digest.verse.md`
+            - `Core/skills/verseDev/shared/api-digests/Verse.digest.verse.md`
             
             ### 检查清单
             - [ ] 验证 API 变更是否需要更新相关文档

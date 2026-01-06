@@ -6,7 +6,7 @@ using { /Verse.org/Simulation }
 using { /Verse.org/Verse }
 using { /UnrealEngine.com/Temporary/Diagnostics }
 using { /Fortnite.com/Animation }
-using { /Core/skills/programming/verseDev/shared/code_library/Helpers/MathUtils.MathUtils }
+using { /Core/verse/library/math/MathUtils.MathUtils }
 
 # 测试结果记录
 test_result<public> := struct:

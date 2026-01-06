@@ -48,7 +48,7 @@ strict: true
 find skills -name "SKILL.md" -o -name "Index.md" | head -50
 
 # 检查 Skill 目录结构
-ls -la skills/programming/verseDev/
+ls -la skills/verseDev/
 ls -la skills/design/gameDev/
 ls -la skills/infra/
 ```
