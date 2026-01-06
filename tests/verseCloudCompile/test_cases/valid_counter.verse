@@ -6,6 +6,6 @@ counter_device := class(creative_device):
     
     OnBegin<override>()<suspends>: void =
         loop:
-            Count += 1
+            set Count += 1
             Print("Count: {Count}")
             Sleep(1.0)
