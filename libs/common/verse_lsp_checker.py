@@ -120,16 +120,18 @@ class CheckResult:
 class VerseChecker:
     """Verse 代码检查器"""
     
-    def __init__(self, lsp_path: Optional[str] = None, digest_dir: Optional[str] = None):
+    def __init__(self, lsp_path: Optional[str] = None, digest_dir: Optional[str] = None, workspace_dir: Optional[str] = None):
         """
         初始化检查器
         
         Args:
             lsp_path: LSP 二进制路径，如果为 None 则自动检测
             digest_dir: Digest 文件目录，如果为 None 则使用默认位置
+            workspace_dir: 工作区目录，如果为 None 则使用 tests/verse-lsp
         """
         self.lsp_path = lsp_path or self._detect_lsp_path()
         self.digest_dir = digest_dir or self._get_default_digest_dir()
+        self.workspace_dir = Path(workspace_dir) if workspace_dir else self._get_default_workspace_dir()
         self.process: Optional[asyncio.subprocess.Process] = None
         self.message_id = 0
         self._initialized = False
@@ -164,6 +166,11 @@ class VerseChecker:
         script_dir = Path(__file__).parent.parent.parent
         digest_dir = script_dir / '.verse-sdk' / 'digests'
         return str(digest_dir)
+    
+    def _get_default_workspace_dir(self) -> Path:
+        """获取默认工作区目录"""
+        script_dir = Path(__file__).parent.parent.parent
+        return script_dir / "tests" / "verse-lsp"
     
     async def start(self):
         """启动 LSP 服务"""
@@ -208,15 +215,44 @@ class VerseChecker:
         if self._initialized:
             return
         
-        # 发送 initialize 请求
+        # 使用配置的工作区目录（包含 .vproject 文件）
+        # LSP 需要一个包含 Verse 项目文件的工作区才能正常工作
+        self.workspace_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 确保存在 .vproject 文件
+        vproject_file = self.workspace_dir / "test_project.vproject"
+        if not vproject_file.exists():
+            vproject_content = {
+                "Name": "LSPTestProject",
+                "Description": "Test project for LSP error detection",
+                "Version": "1.0.0"
+            }
+            with open(vproject_file, 'w') as f:
+                json.dump(vproject_content, f, indent=2)
+        
+        # 发送 initialize 请求，使用工作区目录
         init_params = {
             'processId': os.getpid(),
-            'rootUri': f"file://{self.digest_dir}",
+            'rootUri': f"file://{self.workspace_dir}",
             'capabilities': {
                 'textDocument': {
-                    'publishDiagnostics': {}
+                    'publishDiagnostics': {},
+                    'synchronization': {
+                        'didOpen': True,
+                        'didClose': True,
+                        'didChange': True
+                    }
+                },
+                'workspace': {
+                    'workspaceFolders': True,
+                    'didChangeWatchedFiles': {
+                        'dynamicRegistration': True
+                    }
                 }
             },
+            'initializationOptions': {
+                'digestPaths': [self.digest_dir]
+            }
         }
         
         response = await self._send_request('initialize', init_params)
@@ -309,8 +345,9 @@ class VerseChecker:
         if self.process is None:
             await self.start()
         
-        # 构造文件 URI
-        file_uri = f"file:///temp/{filename}"
+        # 使用工作区内的文件路径
+        file_path = self.workspace_dir / filename
+        file_uri = f"file://{file_path}"
         
         # 发送 textDocument/didOpen 通知
         await self._send_notification('textDocument/didOpen', {
@@ -322,18 +359,19 @@ class VerseChecker:
             }
         })
         
-        # 等待一小段时间让 LSP 处理
-        await asyncio.sleep(0.5)
+        # 增加等待时间让 LSP 充分处理文件
+        await asyncio.sleep(2.0)
         
         # 读取诊断信息（通过 publishDiagnostics 通知）
         diagnostics = []
         try:
-            # 尝试读取可能的诊断通知
-            while True:
+            # 尝试读取可能的诊断通知，增加超时时间
+            max_attempts = 10
+            for _ in range(max_attempts):
                 try:
                     message = await asyncio.wait_for(
                         self._read_message(),
-                        timeout=0.1
+                        timeout=0.5
                     )
                     
                     if message.get('method') == 'textDocument/publishDiagnostics':
@@ -342,8 +380,10 @@ class VerseChecker:
                             diagnostics.append(Diagnostic.from_lsp(diag))
                 except asyncio.TimeoutError:
                     break
-        except:
-            pass
+        except Exception as e:
+            # Log errors but don't fail
+            import sys
+            print(f"Warning: Error reading diagnostics: {e}", file=sys.stderr)
         
         # 发送 textDocument/didClose 通知
         await self._send_notification('textDocument/didClose', {

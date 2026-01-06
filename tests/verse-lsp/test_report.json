@@ -1,0 +1,117 @@
+{
+  "total_tests": 11,
+  "passed": 1,
+  "failed": 10,
+  "tests": [
+    {
+      "file_name": "error_01_missing_colon.verse",
+      "description": "Missing colon in function signature",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_02_undefined_variable.verse",
+      "description": "Undefined variable reference",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_03_type_mismatch.verse",
+      "description": "Type mismatch - string assigned to int",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_04_class_method_syntax.verse",
+      "description": "Missing colon in class method",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_05_duplicate_params.verse",
+      "description": "Duplicate parameter names",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_06_unclosed_block.verse",
+      "description": "Unclosed code block",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_07_invalid_operator.verse",
+      "description": "Invalid operator ++",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_08_wrong_return_type.verse",
+      "description": "Wrong return type",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_09_undefined_function.verse",
+      "description": "Calling non-existent function",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "error_10_missing_using.verse",
+      "description": "Missing using statement",
+      "expected_to_fail": true,
+      "passed": false,
+      "failure_reason": "LSP did not detect any errors (FALSE NEGATIVE)",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "file_name": "valid_case.verse",
+      "description": "Valid Verse code - should pass",
+      "expected_to_fail": false,
+      "passed": true,
+      "failure_reason": "",
+      "lsp_found_errors": false,
+      "error_count": 0,
+      "errors": []
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Makefile for Vibe Coding Guide
 
-.PHONY: help lint build test clean
+.PHONY: help lint build test test-lsp clean
 
 help:
 	@echo "Makefile for Vibe Coding Guide"
@@ -10,6 +10,7 @@ help:
 	@echo "  lint     - Lint all markdown files"
 	@echo "  build    - Build the project (Placeholder)"
 	@echo "  test     - Run tests (Placeholder)"
+	@echo "  test-lsp - Run LSP error detection tests"
 	@echo "  clean    - Clean build artifacts (Placeholder)"
 	@echo ""
 
@@ -27,6 +28,12 @@ test:
 	@echo "Running tests..."
 	# Add your test commands here
 	@echo "Tests complete."
+
+test-lsp:
+	@echo "Running LSP error detection tests..."
+	@./scripts/verse-lsp/setup-verse-env.sh
+	@python3 tests/verse-lsp/test_lsp_error_detection.py
+	@echo "LSP tests complete."
 
 clean:
 	@echo "Cleaning up build artifacts..."
