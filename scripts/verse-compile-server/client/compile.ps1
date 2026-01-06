@@ -156,18 +156,25 @@ if ($Wait) {
             }
             elseif ($status.status -eq "failed") {
                 Write-Host ""
-                Write-Host "编译失败!" -ForegroundColor Red
+                Write-Host "========================================" -ForegroundColor Red
+                Write-Host "  编译失败!" -ForegroundColor Red
+                Write-Host "========================================" -ForegroundColor Red
+                Write-Host "  错误数: $($status.error_count)" -ForegroundColor Red
+                Write-Host "  警告数: $($status.warning_count)" -ForegroundColor Yellow
+                Write-Host ""
                 
-                if ($status.errors -and $status.errors.Count -gt 0) {
-                    Write-Host ""
+                # 显示原始编译输出
+                if ($status.raw_output) {
+                    Write-Host "--- 编译日志 ---" -ForegroundColor Cyan
+                    Write-Host $status.raw_output
+                    Write-Host "--- 日志结束 ---" -ForegroundColor Cyan
+                } elseif ($status.errors -and $status.errors.Count -gt 0) {
                     Write-Host "错误列表:" -ForegroundColor Red
                     foreach ($err in $status.errors) {
                         Write-Host "  - $err" -ForegroundColor Red
                     }
                 }
                 
-                Write-Host "  错误数: $($status.error_count)" -ForegroundColor Red
-                Write-Host "  警告数: $($status.warning_count)" -ForegroundColor Yellow
                 exit 1
             }
         }
@@ -176,7 +183,7 @@ if ($Wait) {
     }
 } else {
     # 不等待，输出查询命令
-    Write-Host "编译任务已提交，使用以下命令查询状态:" -ForegroundColor Gray
+    Write-Host "编译任务已提交，使用以下命令查询当前状态(一次):" -ForegroundColor Gray
     Write-Host ""
     Write-Host "  curl $Server/verse/status/$requestId" -ForegroundColor White
     Write-Host ""

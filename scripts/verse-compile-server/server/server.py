@@ -433,6 +433,7 @@ class VerseCompileHandler(BaseHTTPRequestHandler):
             "errors": data.get("errors", []),
             "warnings": data.get("warnings", []),
             "duration": data.get("duration", "N/A"),
+            "raw_output": data.get("raw_output", ""),
             "branch": request["branch"],
             "commit": request["commit"]
         }
