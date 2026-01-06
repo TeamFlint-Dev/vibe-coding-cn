@@ -85,23 +85,46 @@
 
 ## 技能清单
 
-### 核心技能
+本生态系统包含 **17 个子技能**，按使用频率和重要性分为三类。
 
-| 技能 | 层级 | 职责 |
-|------|------|------|
-| [verseOrchestrator](verseOrchestrator/SKILL.md) | 协调器 | 任务调度、模式管理、进度追踪 |
-| [verseRequirementProposer](verseRequirementProposer/SKILL.md) | 需求层 | 生成有价值需求、优先级排序 |
-| [verseFrameworkDesigner](verseFrameworkDesigner/SKILL.md) | Layer 5 | 架构设计、Entity/Component规划 |
-| [verseEventFlow](verseEventFlow/SKILL.md) | Layer 4 | 事件系统设计、生命周期编排 |
-| [verseComponent](verseComponent/SKILL.md) | Layer 3 | 组件编写、功能封装 |
-| [verseHelpers](verseHelpers/SKILL.md) | Layer 2 | API封装、原子操作 |
-| [verseAssets](verseAssets/SKILL.md) | Layer 1 | 资产管理、占位接口 |
+### 🔴 核心技能（高频使用）
 
-### 工具技能
+| 技能 | 层级 | 职责 | 使用频率 |
+|------|------|------|----------|
+| [verseOrchestrator](verseOrchestrator/SKILL.md) | 协调器 | 任务调度、模式管理、进度追踪 | ⭐⭐⭐⭐⭐ |
+| [verseRequirementProposer](verseRequirementProposer/SKILL.md) | 需求层 | 生成有价值需求、优先级排序 | ⭐⭐⭐⭐ |
+| [verseFrameworkDesigner](verseFrameworkDesigner/SKILL.md) | Layer 5 | 架构设计、Entity/Component规划 | ⭐⭐⭐⭐⭐ |
+| [verseEventFlow](verseEventFlow/SKILL.md) | Layer 4 | 事件系统设计、生命周期编排 | ⭐⭐⭐⭐ |
+| [verseComponent](verseComponent/SKILL.md) | Layer 3 | 组件编写、功能封装 | ⭐⭐⭐⭐⭐ |
+| [verseHelpers](verseHelpers/SKILL.md) | Layer 2 | API封装、原子操作 | ⭐⭐⭐⭐ |
+| [verseAssets](verseAssets/SKILL.md) | Layer 1 | 资产管理、占位接口 | ⭐⭐⭐ |
+| [verseProjectInit](verseProjectInit/SKILL.md) | 项目管理 | 项目初始化、目录结构 | ⭐⭐⭐ |
 
-| 技能 | 类型 | 职责 |
-|------|------|------|
-| [verseCli](verseCli/SKILL.md) | 命令行工具 | 通过终端触发 UEFN 编译，支持监听模式 |
+### 🟡 工具技能（按需使用）
+
+| 技能 | 类型 | 职责 | 使用频率 |
+|------|------|------|----------|
+| [verseCodeAuditor](verseCodeAuditor/SKILL.md) | 质量保证 | 代码审计、架构检查 | ⭐⭐⭐ |
+| [verseDigestSync](verseDigestSync/SKILL.md) | API 管理 | 同步 API Digest 文件 | ⭐⭐ |
+| [verseResearch](verseResearch/SKILL.md) | 方法论 | 技术研究方法、边界探索 | ⭐⭐⭐ |
+| [verseArchitectureSelector](verseArchitectureSelector/SKILL.md) | 架构选型 | 架构模式选择、权衡分析 | ⭐⭐ |
+| [verseTactician](verseTactician/SKILL.md) | 策略规划 | 任务分解、策略制定 | ⭐⭐ |
+| [verseWrappers](verseWrappers/SKILL.md) | 封装层 | API 封装、抽象层 | ⭐⭐ |
+| [verseAgentLoop](verseAgentLoop/SKILL.md) | Agent 循环 | 自主任务循环、迭代 | ⭐⭐ |
+
+### 🟢 辅助技能（自动化/罕见）
+
+| 技能 | 类型 | 职责 | 使用频率 |
+|------|------|------|----------|
+| [versePromptAuditor](versePromptAuditor/SKILL.md) | 质量保证 | Prompt 审计、改进建议 | ⭐ |
+| [verseAuditDispatcher](verseAuditDispatcher/SKILL.md) | 审计调度 | 审计任务调度、结果聚合 | ⭐ |
+
+**使用频率说明**：
+- ⭐⭐⭐⭐⭐ 每个项目必用
+- ⭐⭐⭐⭐ 大部分项目使用
+- ⭐⭐⭐ 中等频率
+- ⭐⭐ 按需使用
+- ⭐ 罕见或自动化
 
 ### 共享资源
 
