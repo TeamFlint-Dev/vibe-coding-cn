@@ -238,10 +238,10 @@ curve_sampler_1d<public> := class:
     
     # 绝对值辅助函数
     Abs<private>(X:float):float =
-        if (X < 0.0):
-            -X
-        else:
+        if (X >= 0.0):
             X
+        else:
+            -X
 
 # ==========================================
 # Delta 数组转换器
