@@ -1,4 +1,4 @@
-# 🎨 Trophy Fishing - 用户体验流程设计
+# 🎨 Fishing - 用户体验流程设计
 
 > **版本**：v1.0  
 > **阶段**：UX 设计  
@@ -665,7 +665,7 @@
 - ✅ 回归玩家体验（离线收益）
 - ✅ 错误处理与辅助功能
 
-配合 `progression.md` 和其他设计文档，**trophyFishing 设计文档集已完整**。
+配合 `progression.md` 和其他设计文档，**fishing 设计文档集已完整**。
 
 下一阶段：技术实现（参考 `@architecture/` 目录）
 

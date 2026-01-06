@@ -23,7 +23,7 @@ description: UEFN/Verse 新项目初始化技能 - 指导 Agent 创建标准项�
 
 ```
 projects/
-└── [projectName]/          # 如：trophyFishing
+└── [projectName]/          # 如：fishing
     ├── design/             # 游戏设计文档
     ├── architecture/       # 技术架构文档
     ├── progress/           # 进度与日志
