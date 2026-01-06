@@ -33,7 +33,7 @@ DistributionVisualizer<public> := module:
         
         # 初始化
         Initialize<public>():void =
-            set BucketWidth = (MaxValue - MinValue) / BucketCount
+            set BucketWidth = (MaxValue - MinValue) / Float(BucketCount)
             set Buckets = array{}
             for (I := 0..BucketCount - 1):
                 set Buckets += array{0}
@@ -44,7 +44,7 @@ DistributionVisualizer<public> := module:
             if (Value >= MinValue, Value <= MaxValue):
                 # 计算桶索引
                 NormalizedValue := (Value - MinValue) / (MaxValue - MinValue)
-                Index := Floor(NormalizedValue * BucketCount)
+                Index := Floor(NormalizedValue * Float(BucketCount))
                 
                 # 边界情况：最大值应该放在最后一个桶
                 if (Index >= BucketCount):
@@ -145,7 +145,7 @@ DistributionVisualizer<public> := module:
             if (Value > MaxVal):
                 set MaxVal = Value
         
-        Mean := Sum / Data.Length
+        Mean := Sum / Float(Data.Length)
         
         # 计算标准差
         var SumSquaredDiff:float = 0.0
@@ -153,7 +153,7 @@ DistributionVisualizer<public> := module:
             Diff := Value - Mean
             set SumSquaredDiff += Diff * Diff
         
-        Variance := SumSquaredDiff / Data.Length
+        Variance := SumSquaredDiff / Float(Data.Length)
         StdDev := Sqrt(Variance)
         
         summary_stats{
