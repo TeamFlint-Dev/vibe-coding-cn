@@ -57,24 +57,29 @@ skills/
 ├── _REGISTRY.yaml           # 🆕 全局模块注册表
 ├── _templates/              # 🆕 模板文件
 │
-├── programming/             # 编程类技能
-│   ├── verseDev/           # ⭐ Verse 开发核心技能体系（17个子技能）
-│   │   ├── verseEventFlow/      # 🆕 事件流模块库（已重构）
-│   │   ├── verseComponent/      # 🆕 组件模块库（占位）
-│   │   ├── verseHelpers/        # 🆕 Helper 模块库（占位）
-│   │   └── ...                  # 其他子技能
-│   ├── claudeSkills/       # ⭐ 元技能：生成 Skills 的 Skills
-│   ├── claudeCodeGuide/    # Claude Code 使用指南
-│   ├── claudeCookbooks/    # Claude API 最佳实践
-│   └── githubActionsWorkflows/  # GitHub Actions 工作流
+├── verseDev/                # ⭐ Verse 开发核心技能体系（17个子技能）
+│   ├── verseEventFlow/      # 事件流模块库
+│   ├── verseComponent/      # 组件模块库
+│   ├── verseHelpers/        # Helper 模块库
+│   └── ...                  # 其他子技能
+│
+├── github/                  # GitHub 生态
+│   ├── ghAgenticWorkflows/  # GitHub Agentic Workflows
+│   ├── githubActionsWorkflows/  # CI/CD 工作流
+│   └── githubCli/           # GitHub CLI
+│
+├── infra/                   # 基础设施
+│   ├── controlHub/          # 中控服务器 & Webhook
+│   ├── cloudEnvSetup/       # 云环境配置
+│   └── localProxy/          # 本地代理
 │
 └── design/                  # 设计类技能
-    ├── gameDev/            # ⭐ 游戏设计技能体系（10个子技能）
-    ├── art/                # 美术（占位）
-    ├── levelDesign/        # 关卡设计（占位）
-    ├── uiUx/               # UI/UX（占位）
-    ├── narrative/          # 叙事（占位）
-    └── audio/              # 音频（占位）
+    ├── gameDev/             # ⭐ 游戏设计技能体系（10个子技能）
+    ├── art/                 # 美术
+    ├── levelDesign/         # 关卡设计
+    ├── uiUx/                # UI/UX
+    ├── narrative/           # 叙事
+    └── audio/               # 音频
 ```
 
 ## Skills 一览表
@@ -85,10 +90,9 @@ skills/
 |------|---------|------|------|
 | **verseDev** | 17 | Verse 开发 | ⭐ UEFN/Verse 游戏开发完整技能体系 |
 | **gameDev** | 10 | 游戏设计 | ⭐ 游戏设计全流程技能体系 |
-| **claudeSkills** | - | 元技能 | 生成 Skills 的 Skills |
-| **claudeCodeGuide** | - | AI 编程 | Claude Code 使用最佳实践 |
-| **claudeCookbooks** | - | AI 编程 | Claude API 使用示例 |
+| **ghAgenticWorkflows** | - | GitHub | GitHub Agentic Workflows |
 | **githubActionsWorkflows** | - | CI/CD | GitHub Actions 工作流配置 |
+| **controlHub** | - | 基础设施 | 中控服务器 & Webhook |
 
 ### verseDev 子技能（编程类）
 
@@ -136,7 +140,7 @@ skills/
 在对话中引用技能文件：
 
 ```text
-@skills/programming/verseDev/verseOrchestrator/SKILL.md
+@skills/verseDev/verseOrchestrator/SKILL.md
 ```
 
 ### 2. 常用技能组合
@@ -144,8 +148,8 @@ skills/
 **Verse 开发**:
 
 ```text
-@skills/programming/verseDev/verseOrchestrator/SKILL.md
-@skills/programming/verseDev/shared/api-digests/Fortnite.digest.verse.md
+@skills/verseDev/verseOrchestrator/SKILL.md
+@skills/verseDev/shared/api-digests/Fortnite.digest.verse.md
 ```
 
 **游戏设计**:
@@ -154,10 +158,10 @@ skills/
 @skills/design/gameDev/gameDevOrchestrator/SKILL.md
 ```
 
-**创建新技能**:
+**GitHub Agentic Workflows**:
 
 ```text
-@skills/programming/claudeSkills/SKILL.md
+@skills/github/ghAgenticWorkflows/SKILL.md
 ```
 
 ---
@@ -229,7 +233,7 @@ skillName/                       # 期刊目录
 
 ```bash
 # 1. 查看期刊
-cd skills/programming/verseDev/verseEventFlow
+cd skills/verseDev/verseEventFlow
 
 # 2. 阅读模块说明
 cat modules/EventBus/README.md

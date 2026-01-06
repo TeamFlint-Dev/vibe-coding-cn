@@ -142,7 +142,7 @@ graph TD
 
 ```bash
 # 从期刊复制模块到项目
-cp -r skills/programming/skillName/modules/ModuleName/ YourProject/Scripts/
+cp -r skills/[category]/skillName/modules/ModuleName/ YourProject/Scripts/
 ```
 
 #### 步骤 2: 检查依赖

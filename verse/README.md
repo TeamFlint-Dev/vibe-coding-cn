@@ -58,5 +58,5 @@ verse/
 
 ## 相关文档
 
-- [Verse 开发技能](../skills/programming/verseDev/)
+- [Verse 开发技能](../skills/verseDev/)
 - [模块功能文档](../docs/modules/)

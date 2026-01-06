@@ -56,9 +56,9 @@ model: Claude Sonnet 4
 
 - **同步脚本**: `scripts/sync-gh-aw.ps1`
 - **定时同步**: 每日 UTC 6:00 (北京 14:00)
-- **最后更新**: 见 [gh-aw-raw/README.md](../../Core/skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/README.md)
+- **最后更新**: 见 [gh-aw-raw/README.md](../../skills/github/ghAgenticWorkflows/shared/gh-aw-raw/README.md)
 
 ## 参考资源
 
 - [VS Code Custom Agents 文档](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
-- [gh-aw 技能文档](../../Core/skills/programming/ghAgenticWorkflows/SKILL.md)
+- [gh-aw 技能文档](../../skills/github/ghAgenticWorkflows/SKILL.md)

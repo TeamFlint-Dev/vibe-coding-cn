@@ -30,7 +30,7 @@ python .github/tools/pipeline-notify.py ready --pipeline-id xxx
 pipeline-notify ready --pipeline-id xxx
 ```
 
-## 相关 Skill
+## 相关文档
 
-- [pipelineOps](../../Core/skills/programming/pipelineOps/SKILL.md) - 流水线操作
-- [beadsCLI](../../Core/skills/programming/beadsCLI/SKILL.md) - Beads 任务管理
+- [GitHub Agentic Workflows](../../skills/github/ghAgenticWorkflows/SKILL.md) - 工作流配置
+- [中控服务器](../../skills/infra/controlHub/SKILL.md) - Webhook 和调度

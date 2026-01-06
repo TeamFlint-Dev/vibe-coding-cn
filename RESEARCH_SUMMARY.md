@@ -6,7 +6,7 @@
 
 ## 研究成果
 
-✅ **完成研究报告**：`Core/skills/programming/verseDev/verseComponent/research/curve-builder-system.md`（1955行）
+✅ **完成研究报告**：`Core/skills/verseDev/verseComponent/research/curve-builder-system.md`（1955行）
 
 ### 核心问题解答
 
@@ -120,8 +120,8 @@ curve_player             # 曲线播放器
 
 ## 参考资料
 
-- **研究报告**：`Core/skills/programming/verseDev/verseComponent/research/curve-builder-system.md`
-- **运动场景库**：`Core/skills/programming/verseDev/verseComponent/research/keyframed-movement-scenarios.md`
+- **研究报告**：`Core/skills/verseDev/verseComponent/research/curve-builder-system.md`
+- **运动场景库**：`Core/skills/verseDev/verseComponent/research/keyframed-movement-scenarios.md`
 - **Verse API**：
   - `cubic_bezier_easing_function`
   - `keyframe_delta`

@@ -91,7 +91,7 @@
 
 ### 1. 了解技能体系
 
-**Verse 开发核心技能** (`skills/programming/verseDev/`)：
+**Verse 开发核心技能** (`skills/verseDev/`):
 - `verseOrchestrator` - 开发流程总控
 - `verseArchitectureSelector` - 架构选型
 - `verseComponent` - 组件开发
@@ -115,7 +115,7 @@
 2. 建立标准目录结构（design/architecture/progress）
 3. 填写项目基础文档
 
-详见 [verseProjectInit SKILL.md](./skills/programming/verseDev/verseProjectInit/SKILL.md)
+详见 [verseProjectInit SKILL.md](./skills/verseDev/verseProjectInit/SKILL.md)
 
 ### 3. 工作流程
 
@@ -140,9 +140,9 @@
 
 ### Verse 开发资源
 
-- [Verse API Digest](./Core/skills/programming/verseDev/shared/api-digests/) - API 摘要文档
-- [SceneGraph 架构参考](./Core/skills/programming/verseDev/shared/references/) - 框架设计指南
-- [架构合规检查清单](./Core/skills/programming/verseDev/shared/checklists/) - 代码审计工具
+- [Verse API Digest](./skills/verseDev/shared/api-digests/) - API 摘要文档
+- [SceneGraph 架构参考](./skills/verseDev/shared/references/) - 框架设计指南
+- [架构合规检查清单](./skills/verseDev/shared/checklists/) - 代码审计工具
 
 ## 🔧 命名规范
 

@@ -19,12 +19,16 @@
 ## Project Structure
 
 ```
-skills/                    # Skill library (two-tier classification)
-├── programming/           # Programming skills
-│   ├── verseDev/          # Verse development (17 sub-skills)
+skills/                    # Skill library (category-based)
+├── verseDev/              # Verse development (17 sub-skills)
+├── github/                # GitHub ecosystem
 │   ├── ghAgenticWorkflows/  # GitHub Agentic Workflows
+│   ├── githubActionsWorkflows/
+│   └── githubCli/
+├── infra/                 # Infrastructure
 │   ├── controlHub/        # Cloud server & webhook
-│   └── ...                # Other programming skills
+│   ├── cloudEnvSetup/
+│   └── localProxy/
 └── design/                # Design skills
     ├── gameDev/           # Game design workflow (10 sub-skills)
     └── ...                # Other design skills
@@ -105,7 +109,7 @@ This project follows a Skill-driven methodology:
 - **Agent workflow**: Read Skill → Read project docs → Execute → Update project documentation
 
 ### 2. Verse Development Skills
-The `verseDev` skill ecosystem (`skills/programming/verseDev/`) includes:
+The `verseDev` skill ecosystem (`skills/verseDev/`) includes:
 - `verseOrchestrator` - Development workflow orchestration
 - `verseArchitectureSelector` - Architecture selection
 - `verseComponent` - Component development
@@ -288,9 +292,9 @@ git status  # Must show "up to date with origin"
 
 | 任务类型 | 需要先阅读的文件 |
 |---------|-----------------|
-| **创建 GitHub Agentic Workflow** | **⚠️ 必须先读** `skills/programming/ghAgenticWorkflows/WORKFLOW-INDEX.md`<br>根据需求选择模板后，再读取对应的源文件作为参考 |
-| 中控服务器 / Webhook / GitHub Actions | `skills/programming/controlHub/SKILL.md`<br>`.secrets/` 目录（密钥配置） |
-| Verse 代码开发 | `skills/programming/verseDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
+| **创建 GitHub Agentic Workflow** | **⚠️ 必须先读** `skills/github/ghAgenticWorkflows/WORKFLOW-INDEX.md`<br>根据需求选择模板后，再读取对应的源文件作为参考 |
+| 中控服务器 / Webhook / GitHub Actions | `skills/infra/controlHub/SKILL.md`<br>`.secrets/` 目录（密钥配置） |
+| Verse 代码开发 | `skills/verseDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
 | 游戏设计 | `skills/design/gameDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
 | 项目开发 | `projects/[项目名]/` 下的 design/, architecture/, progress/ 文件 |
 
@@ -309,11 +313,11 @@ git status  # Must show "up to date with origin"
 ### 🔴 核心工具 (必须掌握)
 
 #### GitHub Agentic Workflows (gh-aw)
-> 详细文档: `skills/programming/ghAgenticWorkflows/SKILL.md`
-> **⭐ 工作流模板索引**: `skills/programming/ghAgenticWorkflows/WORKFLOW-INDEX.md`（创建新工作流必读！）
-> **⭐ 能力边界**: `skills/programming/ghAgenticWorkflows/CAPABILITY-BOUNDARIES.md`（快速判断能否做）
-> **官方案例**: `skills/programming/ghAgenticWorkflows/shared/references/official-examples.md`
-> **原始文件库**: `skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/` (235+ 文件)
+> 详细文档: `skills/github/ghAgenticWorkflows/SKILL.md`
+> **⭐ 工作流模板索引**: `skills/github/ghAgenticWorkflows/WORKFLOW-INDEX.md`（创建新工作流必读！）
+> **⭐ 能力边界**: `skills/github/ghAgenticWorkflows/CAPABILITY-BOUNDARIES.md`（快速判断能否做）
+> **官方案例**: `skills/github/ghAgenticWorkflows/shared/references/official-examples.md`
+> **原始文件库**: `skills/github/ghAgenticWorkflows/shared/gh-aw-raw/` (235+ 文件)
 
 ```bash
 gh aw compile                # 编译 .md → .lock.yml
@@ -365,24 +369,24 @@ safe-outputs: { add-comment: }
 | github-script | `gh-aw-raw/skills/github-script/SKILL.md` | Actions 脚本最佳实践 |
 | github-mcp-server | `gh-aw-raw/skills/github-mcp-server/SKILL.md` | MCP 服务器配置 |
 
-> **完整索引**: `skills/programming/ghAgenticWorkflows/shared/gh-aw-raw/skills/INDEX.md`
+> **完整索引**: `skills/github/ghAgenticWorkflows/shared/gh-aw-raw/skills/INDEX.md`
 
 ### 🟡 开发技能 (按需查阅)
 
 | 技能 | 路径 | 用途 |
 |-----|------|-----|
-| **verseDev** | `skills/programming/verseDev/` | Verse 代码开发 (17 子技能) |
+| **verseDev** | `skills/verseDev/` | Verse 代码开发 (17 子技能) |
 | **gameDev** | `skills/design/gameDev/` | 游戏设计流程 (10 子技能) |
-| **controlHub** | `skills/programming/controlHub/` | 中控服务器/Webhook |
+| **controlHub** | `skills/infra/controlHub/` | 中控服务器/Webhook |
 
 ### 🟢 辅助技能 (参考用)
 
 | 技能 | 路径 | 用途 |
 |-----|------|-----|
-| claudeCodeGuide | `skills/programming/claudeCodeGuide/` | Claude 编程指南 |
-| claudeCookbooks | `skills/programming/claudeCookbooks/` | Claude 使用技巧 |
-| claudeSkills | `skills/programming/claudeSkills/` | Claude 技能库 |
-| githubActionsWorkflows | `skills/programming/githubActionsWorkflows/` | CI/CD 工作流 |
+| githubActionsWorkflows | `skills/github/githubActionsWorkflows/` | CI/CD 工作流 |
+| githubCli | `skills/github/githubCli/` | GitHub CLI 使用 |
+| cloudEnvSetup | `skills/infra/cloudEnvSetup/` | 云环境配置 |
+| localProxy | `skills/infra/localProxy/` | 本地代理配置 |
 
 ---
 
@@ -638,9 +642,9 @@ safe-outputs: { add-comment: }
 
 | Skill | 知识文档路径前缀 |
 |-------|-----------------|
-| ghAgenticWorkflows | `skills/programming/ghAgenticWorkflows/` |
-| verseDev | `skills/programming/verseDev/` |
-| controlHub | `skills/programming/controlHub/` |
+| ghAgenticWorkflows | `skills/github/ghAgenticWorkflows/` |
+| verseDev | `skills/verseDev/` |
+| controlHub | `skills/infra/controlHub/` |
 | gameDev | `skills/design/gameDev/` |
 
 #### 搜索踩坑记录
