@@ -210,6 +210,7 @@ jobs:
             errors = @($result.errors)
             warnings = @($result.warnings)
             duration = $result.duration
+            raw_output = if ($result.raw_output) { $result.raw_output } else { "" }
             branch = "${{ inputs.branch }}"
             commit = "${{ steps.switch_branch.outputs.commit }}"
           }
