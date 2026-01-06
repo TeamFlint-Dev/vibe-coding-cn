@@ -10,6 +10,11 @@ using { /Verse.org/Random }
 using { /Verse.org/Verse }
 
 RandomEvents<public> := module:
+    # 辅助函数：模运算
+    Mod<private>(A:int, B:int):int =
+        Remainder := A - (Floor(A / B) * B)
+        Remainder
+    
     # ==========================================
     # 事件定义
     # ==========================================
@@ -302,7 +307,7 @@ RandomEvents<public> := module:
             CurrentIndex < EventSequence.Length or IsLooping
             
             Index := if (IsLooping):
-                CurrentIndex mod EventSequence.Length
+                Mod(CurrentIndex, EventSequence.Length)
             else:
                 CurrentIndex
             

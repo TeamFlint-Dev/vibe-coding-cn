@@ -153,7 +153,7 @@ NonRepeatSelector<public> := module:
             var AvailableWeights:[]float = array{}
             
             for (I := 0..Items.Length - 1):
-                if (not[IsInRecentHistory(I)]):
+                if (not IsInRecentHistory(I)?):
                     set AvailableIndices += array{I}
                     if (W := Weights[I]):
                         set AvailableWeights += array{W}

@@ -121,7 +121,7 @@ PetWrapper<public> := module:
         Rotation:rotation
     ):pet_op_result =
         # 边界检查
-        if (Position.X == 0.0 and Position.Y == 0.0 and Position.Z == 0.0):
+        if (Position.X = 0.0 and Position.Y = 0.0 and Position.Z = 0.0):
             pet_op_result{
                 Success := false,
                 ErrorReason := "Invalid target position",

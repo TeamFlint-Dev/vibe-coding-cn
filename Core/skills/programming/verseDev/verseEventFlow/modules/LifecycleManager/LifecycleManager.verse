@@ -177,7 +177,7 @@ lifecycle_manager := class(creative_device):
     # 检查所有组件是否就绪
     AllComponentsReady():logic =
         for (Required in RequiredComponents):
-            if not (Required in ReadyComponents):
+            if (not IsComponentReady(Required)?):
                 return false
         return true
     

@@ -232,9 +232,9 @@ IntegrationTests<public> := module:
         NormalOK := Abs(NormalCritRate - TargetCritRate) <= Tolerance
         PRDOK := Abs(PRDCritRate - TargetCritRate) <= Tolerance
         
-        if (not[NormalOK]):
+        if (not NormalOK?):
             Print("❌ 普通暴击率偏差过大")
-        if (not[PRDOK]):
+        if (not PRDOK?):
             Print("❌ PRD暴击率偏差过大")
         
         NormalOK and PRDOK

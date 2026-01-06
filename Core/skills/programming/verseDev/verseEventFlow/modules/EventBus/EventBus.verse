@@ -76,7 +76,7 @@ ui_manager := class(creative_device):
             return false  # 不消耗，让其他组件也能收到
         
         # 接收状态变化事件
-        if (StateEvent := Event?game_state_changed_event):
+        if (StateEvent := game_state_changed_event[Event]):
             UpdateStateUI(StateEvent.NewState)
             return false
         
