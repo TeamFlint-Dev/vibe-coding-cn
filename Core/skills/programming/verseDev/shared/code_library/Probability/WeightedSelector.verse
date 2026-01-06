@@ -89,12 +89,12 @@ WeightedSelector<public> := module:
                 set CumulativeWeight += WeightedItem.Weight
                 if (Roll <= CumulativeWeight):
                     IncrementCount(Index)
-                    WeightedItem.Item
+                    return WeightedItem.Item
             
             # fallback: 返回最后一个（由于浮点误差可能到达）
             LastIndex := Items.Length - 1
             IncrementCount(LastIndex)
-            Items[LastIndex].Item
+            return Items[LastIndex].Item
         
         # 按权重选择多个（可重复）
         SelectMultiple<public>(Count:int)<transacts>:[]ItemType =
@@ -164,4 +164,4 @@ WeightedSelector<public> := module:
                 if (Roll <= CumulativeWeight):
                     return Item
         
-        Items[Items.Length - 1]
+        return Items[Items.Length - 1]
