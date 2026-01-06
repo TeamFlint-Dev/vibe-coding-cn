@@ -16,8 +16,8 @@ on:
 env:
   # UEFN 项目中的仓库路径 (代码库位置)
   UEFN_REPO_PATH: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN'
-  # verse-build.js 工具路径 (与服务器代码放在一起)
-  VERSE_BUILD_SCRIPT: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN\scripts\verse-compile-server\verse-build.js'
+  # verse-build.js 工具路径 (client 子目录)
+  VERSE_BUILD_SCRIPT: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN\scripts\verse-compile-server\client\verse-build.js'
 
 jobs:
   compile:

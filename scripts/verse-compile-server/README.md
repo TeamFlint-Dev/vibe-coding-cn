@@ -10,14 +10,16 @@
 ```
 verse-compile-server/
 ├── README.md              # 本文件
-├── server.py              # 云端中转服务 (Python)
-├── verse-build.js         # 本地 CLI 工具 (Node.js)
-├── verse-build.bat        # Windows 批处理包装器
-├── verse-build.ps1        # PowerShell 包装器
-├── package.json           # npm 配置
-├── .env.example           # 环境变量示例
-├── verse-compile.service  # systemd 服务配置
-└── RUNNER-SETUP.md        # Self-hosted Runner 配置指南
+├── RUNNER-SETUP.md        # Self-hosted Runner 配置指南
+├── server/                # 云端中转服务
+│   ├── server.py          # Flask 服务 (Python)
+│   ├── .env.example       # 环境变量示例
+│   └── verse-compile.service  # systemd 服务配置
+└── client/                # 本地 CLI 工具
+    ├── verse-build.js     # 主程序 (Node.js)
+    ├── verse-build.bat    # Windows 批处理包装器
+    ├── verse-build.ps1    # PowerShell 包装器
+    └── package.json       # npm 配置
 ```
 
 ---
