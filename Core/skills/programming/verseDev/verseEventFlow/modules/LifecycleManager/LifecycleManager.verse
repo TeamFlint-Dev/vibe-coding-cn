@@ -258,7 +258,7 @@ phase_manager := class(creative_device):
     
     # 接收阶段完成事件
     OnReceive<override>(Event:scene_event):logic =
-        if (PhaseEvent := Event?initialization_phase_complete_event):
+        if (PhaseEvent := initialization_phase_complete_event[Event]):
             AdvancePhase(PhaseEvent.Phase)
             return true
         return false
