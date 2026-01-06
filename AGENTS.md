@@ -150,15 +150,34 @@ make lint          # Markdown 校验（提交前必须运行）
 
 **会话结束时，必须完成：**
 
+### 1. 生成任务完成报告（强制）
+
+**每次任务结束后必须生成报告**，保存到 `reports/task-completion/YYYY-MM/`：
+
+```
+reports/task-completion/YYYY-MM/YYYYMMDD-HHMMSS-{任务简述}.md
+```
+
+**核心要求：反思你在任务中犯的错误**
+
+- 诚实列出每一个错误、失误、不符合预期的情况
+- 分析为什么会发生
+- 思考下次如何避免
+- 指出哪些 Skill/文档需要改进
+
+> **模板参考**: `reports/task-completion/TEMPLATE.md`
+
+### 2. 其他必做事项
+
 1. 为未完成工作创建 Issue
-2. **遇到的困难或错误也创建 Issue**——它们值得研究
-3. 运行质量检查（lint）
+2. **为遇到的困难/错误创建 Issue**——它们值得研究
+3. 运行质量检查（`make lint`）
 4. **必须推送到远程**：
 
-   ```bash
-   git pull --rebase
-   git push
-   git status  # 必须显示 "up to date with origin"
-   ```
+```bash
+git pull --rebase
+git push
+git status  # 必须显示 "up to date with origin"
+```
 
-**规则**：工作未 push 等于未完成。
+**规则**：工作未 push 等于未完成。报告未生成等于任务未闭环。

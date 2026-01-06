@@ -1,292 +1,252 @@
-# GitHub Copilot Instructions for UEFN/Verse Game Development
+# UEFN/Verse 游戏开发 AI Agent 指南
 
-## Repository Overview
+## 核心范式：Skills → 代码库 → 项目组装
 
-**UEFN/Verse Game Development Agent Workstation** is a specialized workflow system for Fortnite Creative game development. The project's core assets are:
-- **Skill library** (`skills/`) organized by category (programming/design)
-- **Prompt library** (`resources/prompts/`) providing AI interaction templates
-- **Methodology documents** (`resources/documents/`) covering development principles and workflows
-- **Game projects** (`projects/`) with design, architecture, and progress documentation
-- **Tools** (`tools/`) including scripts and utilities
+这是一个 UEFN/Verse 游戏开发的 AI Agent 工作站。**必须先读 Skill 文档再动手。**
 
-**Core Philosophy**: Skill-driven development with project context isolation. Agent reads Skills for capability, reads project docs for context, executes tasks, and updates project documentation.
+| 资产类型 | 位置 | 作用 |
+|---------|------|------|
+| **Skills** | `skills/` | 封装的开发知识、流程、经验（先读后做） |
+| **代码库** | `verse/` | 已验证的可复用 Verse 模块（直接复用） |
+| **项目** | `projects/[name]/` | 游戏项目的设计/架构/进度文档（项目隔离） |
 
-### Key Terminology
-- **Skill**: Encapsulated development knowledge in `skills/*/SKILL.md`
-- **Project**: Game project with design/architecture/progress documentation in `projects/[project]/`
-- **Pipeline**: Multi-stage workflow orchestrated via cloud scheduler
+**开发流程**: 读取 Skill → 读取项目文档 → 执行任务 → 更新项目文档 → 记录踩坑
 
-## Project Structure
+## 目录速查
 
 ```
-skills/                    # Skill library (category-based)
-├── verseDev/              # Verse development (17 sub-skills)
-├── github/                # GitHub ecosystem
-│   ├── ghAgenticWorkflows/  # GitHub Agentic Workflows
-│   ├── githubActionsWorkflows/
-│   └── githubCli/
-├── infra/                 # Infrastructure
-│   ├── controlHub/        # Cloud server & webhook
-│   ├── cloudEnvSetup/
-│   └── localProxy/
-└── design/                # Design skills
-    ├── gameDev/           # Game design workflow (10 sub-skills)
-    └── ...                # Other design skills
-
-resources/
-├── documents/             # Methodology, principles, templates
-└── prompts/               # AI prompts organized by category
-    ├── coding_prompts/    # Programming-focused prompts
-    ├── system_prompts/    # AI behavior frameworks
-    ├── user_prompts/      # User-customizable prompts
-    └── meta_prompts/      # Prompt engineering aids
-
-projects/
-└── [projectName]/         # Game project (camelCase naming)
-    ├── design/            # Game design docs (concept, mechanics, systems)
-    ├── architecture/      # Technical docs (tech-stack, components, events)
-    └── progress/          # Status and decision logs
-
-external/                  # External tools
-├── epic-docs-crawler/     # UEFN documentation crawler
-├── prompts-library/       # Excel ↔ Markdown conversion tool
-└── skill-seekers-configs/ # Skill generation configs
-
-tools/
-├── verseCompiler/         # Verse remote compilation service
-└── scripts/               # Utility scripts
+skills/verseDev/           # ⭐ Verse 开发技能 (17 子技能)
+skills/design/gameDev/     # ⭐ 游戏设计技能 (10 子技能)
+skills/github/ghAgenticWorkflows/  # GitHub Agentic Workflows
+verse/library/             # 通用代码库 (math/probability/combat...)
+verse/modules/             # 功能模块 (curve/...)
+projects/[project]/        # 游戏项目 (design/architecture/progress)
+tools/verseCompiler/       # Verse 远程编译服务
 ```
 
-## Essential Commands
+## 核心命令
 
-### Documentation Quality
+### 文档质量检查
 ```bash
-make lint          # Validate all markdown with markdownlint-cli
-                   # REQUIRED before committing any .md changes
+make lint          # 使用 markdownlint-cli 验证所有 Markdown
+                   # 提交任何 .md 文件前必须运行
 ```
 
-### Verse Remote Compile (CRITICAL)
-**After writing or modifying any Verse code, you MUST verify compilation.**
+### Verse 远程编译（关键）
+**编写或修改任何 Verse 代码后，必须验证编译。**
 
 ```powershell
-# Compile and wait for result (code must be committed first)
+# 编译并等待结果（代码必须先 commit）
 .\tools\verseCompiler\client\compile.ps1 -Wait
 ```
 
-**How it works**:
-1. Script detects current Git branch and commit
-2. Sends request to cloud server (193.112.183.143:19527)
-3. Cloud triggers GitHub Actions, Self-hosted Runner executes compile
-4. Runner connects to local UEFN editor for real compilation
-5. Results return to script with errors/warnings
+**工作原理**：
+1. 脚本检测当前 Git 分支和 commit
+2. 发送请求到云端服务器 (193.112.183.143:19527)
+3. 云端触发 GitHub Actions，Self-hosted Runner 执行编译
+4. Runner 连接本地 UEFN 编辑器完成真实编译
+5. 结果返回脚本，显示错误/警告
 
-**Requirements**:
-- UEFN must be open and project loaded on the Runner machine
-- Code must be committed before compiling (script checks current commit)
-- Use `-Wait` to block until result returns
+**前提条件**：
+- UEFN 必须在 Runner 机器上打开并加载项目
+- 编译前代码必须已 commit（脚本会检测当前 commit）
+- 使用 `-Wait` 阻塞等待结果返回
 
-### Prompt Library Management
+### 提示词库管理
 ```bash
 cd external/prompts-library
-python3 main.py    # Interactive Excel ↔ Markdown converter
+python3 main.py    # 交互式 Excel ↔ Markdown 转换器
 ```
 
-### Pipeline Operations
+### 流水线操作
 ```bash
-# Trigger via GitHub Actions workflow dispatch
+# 通过 GitHub Actions workflow dispatch 触发
 gh aw run planner-agent --input pipeline_type=skills-distill
 
-# Check pipeline status (cloud server API)
+# 查询流水线状态（云端服务器 API）
 curl https://<server>/pipeline/status/<pipeline_id>
 ```
 
-## Development Workflow
+## 编码规范
 
-### 1. Skill-Driven Development
-This project follows a Skill-driven methodology:
-- **Skills** encapsulate development knowledge, processes, and experience
-- **Project docs** store project-specific context and decisions
-- **Agent workflow**: Read Skill → Read project docs → Execute → Update project documentation
+### 命名标准
+- **目录**：驼峰命名（如 `verseDev`、`gameConceptDesigner`）
+  - UEFN 编译器对 `-` 等特殊字符敏感
+- **文件**：`.md` 文件可保留原有命名规范
+- **代码符号**：函数/变量/模块名使用英文
 
-### 2. Verse Development Skills
-The `verseDev` skill ecosystem (`skills/verseDev/`) includes:
-- `verseOrchestrator` - Development workflow orchestration
-- `verseArchitectureSelector` - Architecture selection
-- `verseComponent` - Component development
-- `verseEventFlow` - Event flow design
-- `verseHelpers` - Helper functions
-- `verseProjectInit` - New project initialization
-- ... and more (17 sub-skills total)
+### 格式标准
+- **缩进**：统一使用空格（2 或 4，不混用）
+- **行宽**：最大 120 字符
+- **语言**：文档和注释使用中文
 
-### 3. Game Design Skills
-The `gameDev` skill ecosystem (`skills/design/gameDev/`) includes:
-- `gameConceptDesigner` - Concept design
-- `gameMechanicsDesigner` - Mechanics design
-- `gameSystemDesigner` - System design
-- `gameEconomyDesigner` - Economy design
-- ... and more (10 sub-skills total)
+## 关键文件与目录
 
-## Coding Conventions
+| 路径 | 用途 | 修改时机 |
+|------|------|----------|
+| `AGENTS.md` | AI Agent 行为指南 | 添加工作流模式时 |
+| `skills/` | Skill 资产库 | 创建/更新技能时 |
+| `resources/prompts/` | AI 交互模板 | 更新提示词时 |
+| `projects/` | 游戏项目文档 | 进行项目开发时 |
+| `tools/` | 脚本和工具 | 添加开发工具时 |
 
-### Naming Standards
-- **Directories**: CamelCase (e.g., `verseDev`, `gameConceptDesigner`)
-  - UEFN compiler is sensitive to special characters like `-`
-- **Files**: `.md` files can keep original naming conventions
-- **Code symbols**: English for all function/variable/module names
+## 流水线系统架构
 
-### Formatting Standards
-- **Indentation**: Consistent spaces (2 or 4, never mix)
-- **Line width**: Max 120 characters
-- **Language**: Chinese for documentation and comments
-
-## Key Files & Directories
-
-| Path | Purpose | When to Modify |
-|------|---------|----------------|
-| `AGENTS.md` | AI agent behavior guidelines | When adding workflow patterns |
-| `skills/` | Skill asset library | When creating/updating skills |
-| `resources/prompts/` | AI interaction templates | When updating prompts |
-| `projects/` | Game project documentation | When working on game projects |
-| `tools/` | Scripts and utilities | When adding development tools |
-
-## Pipeline System Architecture
-
-Multi-stage AI workflows with cloud-based orchestration:
+多阶段 AI 工作流，云端编排：
 
 ```
-Trigger → Planner Agent (gh-aw) → creates tasks
+触发器 → Planner Agent (gh-aw) → 创建任务
                 ↓
-    Cloud Scheduler (pipeline_scheduler.py)
+    云端调度器 (pipeline_scheduler.py)
                 ↓
-    Worker Agents (gh-aw) ← serial execution per stage
+    Worker Agents (gh-aw) ← 按阶段串行执行
                 ↓
-    Artifacts → artifacts/<pipeline-id>/<stage>/
+    产物 → artifacts/<pipeline-id>/<stage>/
 ```
 
-**Key Components**:
-- Pipeline definitions in GitHub Actions workflows
-- Cloud scheduler for orchestration
-- GitHub Issue event logging
+**核心组件**：
+- GitHub Actions 工作流中的流水线定义
+- 云端调度器负责编排
+- GitHub Issue 事件日志
 
-**Stage Flow**: `ingest → classify → extract → assemble → validate`
+**阶段流程**：`摄入 → 分类 → 提取 → 组装 → 验证`
 
-**State Passing**: Artifacts stored in repo, metadata in task context
+**状态传递**：产物存储在仓库，元数据在任务上下文中
 
-## Skill Architecture
+## Skill 架构
 
-### Skill Structure
-Each skill directory contains:
-- `SKILL.md` - Comprehensive skill guide
-- `shared/` (optional) - Shared resources across sub-skills
-  - `references/` - Reference documentation
-  - `api-digests/` - API summary files
-  - `checklists/` - Compliance checklists
+### Skill 结构
+每个 Skill 目录包含：
+- `SKILL.md` - 综合技能指南
+- `shared/`（可选）- 子技能间共享资源
+  - `references/` - 参考文档
+  - `api-digests/` - API 摘要文件
+  - `checklists/` - 合规检查清单
 
-### verseDev Shared Resources
-The `verseDev` skill has extensive shared resources:
-- `shared/api-digests/` - Verse, Fortnite, UnrealEngine API digests
-- `shared/references/` - SceneGraph framework documentation
-- `shared/checklists/` - Architecture compliance checklists
+### verseDev 共享资源
+`verseDev` 技能拥有丰富的共享资源：
+- `shared/api-digests/` - Verse、Fortnite、UnrealEngine API 摘要
+- `shared/references/` - SceneGraph 框架文档
+- `shared/checklists/` - 架构合规检查清单
 
-## Commit Message Format
+## Commit 消息格式
 
-Follow simplified Conventional Commits:
+遵循简化的 Conventional Commits：
 ```
 feat|fix|docs|chore|refactor|test: scope – summary
 
-Examples:
+示例：
 feat: verseDev – add verseProjectInit skill
 docs: gameDev – update system designer workflow
 fix: Core – correct skill index references
 ```
 
-## Pre-Commit Checklist
+## 提交前检查清单
 
 ```bash
-make lint                          # Pass markdown validation
-# Ensure directories use camelCase naming
-# New skills include complete SKILL.md
-# Verify no temp files or secrets
-# For Verse code: run remote compile verification
+make lint                          # 通过 Markdown 验证
+# 确保目录使用驼峰命名
+# 新 Skill 包含完整的 SKILL.md
+# 确认没有临时文件或密钥
+# Verse 代码：运行远程编译验证
 .\tools\verseCompiler\client\compile.ps1 -Wait
 ```
 
 ---
 
-## Thinking Principles (思维原则)
+## 思维原则
 
-These principles guide how AI agents should approach work in this repository:
+这些原则指导 AI Agent 如何在本仓库中工作：
 
-### Cognitive Humility (认知谦逊)
-**What you don't know matters more than what you think you know.**
-- Assume memory may be outdated or incorrect
-- Verify first, then use
-- When uncertain, say "I need to confirm first"
+### 认知谦逊
+**你不知道的，比你以为知道的更重要。**
+- 假设记忆可能过时或错误
+- 先验证，再使用
+- 不确定时，明确说“我需要先确认”
 
-### Source Thinking (源头思维)
-**Knowledge has hierarchy: Official docs > Code repo > Your inference.**
-- What's the basis for this conclusion?
-- Can you point to a concrete source?
-- If no source found, are you fabricating?
+### 源头思维
+**知识有层级：官方文档 > 代码仓库 > 你的推测。**
+- 这个结论的依据是什么？
+- 能指向具体的源头吗？
+- 找不到源头，是否在凭空创造？
 
-### Code is Truth (代码即真相)
-**Code in documentation must reference the code repository, never hand-written.**
-- All code examples come from real files in the repo
-- Include file path and version when citing
-- Modify repo code first, then update doc references
+### 代码即真相
+**文档中的代码必须引用代码仓库，不能手写。**
+- 所有代码示例来自仓库的真实文件
+- 引用时标注文件路径和版本
+- 修改代码先改仓库，再更新文档引用
 
-### Self-Validation (自验证)
-**After writing code, run it yourself first.**
-- Verse code: run remote compile before committing
-- Don't assume code works—verify it
-- Compile pass ≠ Logic correct, but at least pass compile first
+### 自验证
+**写完代码，自己先跑一遍。**
+- Verse 代码：提交前运行远程编译验证
+- 不要假设代码能跑——验证它
+- 编译通过 ≠ 逻辑正确，但至少先过编译
 
-### Reader Perspective (读者视角)
-**Documentation is for readers, not for yourself.**
-- What does the reader need to know right now?
-- What information is noise?
-- Can this document enable the reader to take action?
+### 读者视角
+**文档是写给读者的，不是写给自己的。**
+- 读者此刻需要知道什么？
+- 什么信息是噪音？
+- 这份文档能让读者直接行动吗？
 
-### Failure Sensitivity (失败敏感)
-**Problems pointed out in first feedback are often just the tip of the iceberg.**
-- Does this problem expose deeper misunderstandings?
-- Are there similar issues elsewhere?
-- Are you patching the surface or solving the root cause?
+### 失败敏感
+**第一次反馈指出的问题，往往只是冰山一角。**
+- 这个问题是否暴露了更深的误解？
+- 其他地方是否有同类问题？
+- 是在修补表面，还是在解决根源？
 
-### Iteration Awareness (迭代意识)
-**Research is cumulative, not one-time.**
-- Extend from prior conclusions, don't start from scratch
-- Mark relationships with existing research
-- Let future researchers trace decision chains
+### 迭代意识
+**研究是累积的，不是一次性的。**
+- 在前人结论上扩展，而非推翻重来
+- 标注与已有研究的关系
+- 让后人能追溯决策链
 
-### Errors as Material (错误即素材)
-**Difficulties and errors are worth recording—they're research starting points.**
-- Create Issues when encountering difficulties or making mistakes
-- Describe phenomena, attempted paths, blocking reasons
-- Value of errors: never step in the same pit twice
+### 错误即素材
+**困难和错误值得被记录，它们是研究的起点。**
+- 遇到困难或犯错时，创建 Issue 记录
+- 描述现象、尝试过的路径、卡住的原因
+- 错误的价值在于：下次不再踩同一个坑
 
 ---
 
-## Landing the Plane (会话结束规范)
+## 会话结束规范
 
-**At session end, you MUST complete:**
+**会话结束时，必须完成：**
 
-1. Create Issues for incomplete work
-2. **Create Issues for difficulties/errors encountered**—they're worth researching
-3. Run quality checks (`make lint`)
-4. **Push to remote (MANDATORY)**:
+### 1. 生成任务完成报告（强制）
+
+**每次任务结束后必须生成报告**，保存到 `reports/task-completion/YYYY-MM/`：
+
+```
+reports/task-completion/YYYY-MM/YYYYMMDD-HHMMSS-{任务简述}.md
+```
+
+**核心要求：反思你在任务中犯的错误**
+
+- 诚实列出每一个错误、失误、不符合预期的情况
+- 分析为什么会发生
+- 思考下次如何避免
+- 指出哪些 Skill/文档需要改进
+
+> **模板参考**: `reports/task-completion/TEMPLATE.md`
+
+### 2. 其他必做事项
+
+1. 为未完成工作创建 Issue
+2. **为遇到的困难/错误创建 Issue**——它们值得研究
+3. 运行质量检查（`make lint`）
+4. **必须推送到远程**：
 
 ```bash
 git pull --rebase
 git push
-git status  # Must show "up to date with origin"
+git status  # 必须显示 "up to date with origin"
 ```
 
-**Rule**: Work not pushed = Work not done.
+**规则**：工作未 push 等于未完成。报告未生成等于任务未闭环。
 
 ---
 
-## Task Context Guidelines（任务上下文指引）
+## 任务上下文指引
 
 在执行特定类型任务前，**必须先阅读相关 Skill 和配置文件**以获取完整上下文：
 
@@ -527,173 +487,21 @@ safe-outputs: { add-comment: }
 
 ### 任务完成后的知识捕获（强制执行）
 
-**完成任何任务后，必须回答以下问题并执行相应操作：**
+**完成任务后必须检查：**
 
-#### 1. 踩坑检查
-> 这次任务有没有遇到意料之外的问题？
-
-如果有：
-- ✅ 立即记录到相关 Skill 的 `FAILURE-CASES.md`
-- ✅ 判断是否需要更新 `CAPABILITY-BOUNDARIES.md`
-- ✅ 提炼检查项到 `PREFLIGHT-CHECKLIST.md`
-
-#### 2. 假设验证
-> 这次任务中做了哪些假设？假设是否正确？
-
-- 假设被验证正确 → 可更新 `CAPABILITY-BOUNDARIES.md` 确认能力
-- 假设被推翻 → 必须记录到 `FAILURE-CASES.md`
-
-#### 3. 决策记录
-> 这次任务中是否做出了重要的技术选择？
-
-如果有涉及架构、工具选型、方案取舍的决策：
-- ✅ 记录到 `DECISION-LOG.md`，包含上下文、选项、理由
-
-#### 4. 前置检查提炼
-> 如果下次做类似任务，有什么需要提前检查的？
-
-如果有：
-- ✅ 添加到 `PREFLIGHT-CHECKLIST.md`
-- ✅ 关联对应的失败案例编号
-
----
-
-### 知识记录规范
-
-#### 失败案例格式 (FAILURE-CASES.md)
-
-```markdown
-## FC-{NNN}: {简短标题}
-
-**日期**: YYYY-MM-DD
-**任务上下文**: {在做什么任务时发生}
-**相关 Skill**: {涉及的 Skill 名称}
-
-### 现象
-{观察到的错误表现}
-
-### 根因
-{问题的根本原因}
-
-### 修复
-{如何解决的}
-
-### 教训
-- [ ] 更新 PREFLIGHT-CHECKLIST.md: {具体检查项}
-- [ ] 更新 CAPABILITY-BOUNDARIES.md: {具体边界}
-```
-
-#### 前置检查项格式 (PREFLIGHT-CHECKLIST.md)
-
-```markdown
-## {检查类别}
-
-- [ ] {检查项描述}
-  - 来源: [FC-{NNN}](FAILURE-CASES.md#fc-nnn-标题)
-  - 验证方法: {如何验证}
-```
-
-#### 决策记录格式 (DECISION-LOG.md)
-
-```markdown
-## DR-{NNN}: {决策标题}
-
-**日期**: YYYY-MM-DD
-**状态**: 已决定 | 待讨论 | 已废弃
-
-### 上下文
-{为什么需要做这个决策}
-
-### 选项
-1. {选项A} - {优缺点}
-2. {选项B} - {优缺点}
-
-### 决策
-{选择了什么}
-
-### 理由
-{为什么这样选}
-
-### 后果
-{这个决策带来的影响}
-```
-
-#### 能力边界格式 (CAPABILITY-BOUNDARIES.md)
-
-```markdown
-## 能做的事（绿灯区）
-| 类别 | 具体能力 | 适用场景 | 验证来源 |
-|------|----------|----------|----------|
-
-## 不能做的事（红灯区）
-| 类别 | 限制说明 | 替代方案 | 发现来源 |
-|------|----------|----------|----------|
-
-## 有条件能做的事（黄灯区）
-| 类别 | 条件 | 配置方式 | 验证来源 |
-|------|------|----------|----------|
-```
-
----
-
-### 知识索引与检索
-
-#### 快速定位知识文档
-
-| Skill | 知识文档路径前缀 |
-|-------|-----------------|
-| ghAgenticWorkflows | `skills/github/ghAgenticWorkflows/` |
-| verseDev | `skills/verseDev/` |
-| controlHub | `skills/infra/controlHub/` |
-| gameDev | `skills/design/gameDev/` |
-
-#### 搜索踩坑记录
-
-```bash
-# 搜索所有失败案例
-grep -r "## FC-" skills/
-
-# 搜索特定关键词的踩坑
-grep -r "safe-outputs" skills/*/FAILURE-CASES.md
-```
-
----
+1. **踩坑检查**：遇到意外问题？→ 记录到 `FAILURE-CASES.md`
+2. **假设验证**：假设被推翻？→ 更新 `CAPABILITY-BOUNDARIES.md`
+3. **决策记录**：做了架构/工具选型决策？→ 记录到 `DECISION-LOG.md`
+4. **检查项提炼**：下次需要提前检查什么？→ 添加到 `PREFLIGHT-CHECKLIST.md`
 
 ### 知识流动闭环
 
 ```
-执行任务
-    │
-    ▼
-遇到问题？─是─→ 记录 FAILURE-CASES.md
-    │              │
-    │              ▼
-    │         提炼检查项 → PREFLIGHT-CHECKLIST.md
-    │              │
-    │              ▼
-    │         更新边界 → CAPABILITY-BOUNDARIES.md
-    │
-    ▼
-做了决策？─是─→ 记录 DECISION-LOG.md
-    │
-    ▼
-任务完成
-    │
-    ▼
-下次任务 ←───── 读取知识文档
+执行任务 → 遇到问题？→ FAILURE-CASES.md → 提炼检查项 → PREFLIGHT-CHECKLIST.md
+    ↓                                              ↓
+做了决策？→ DECISION-LOG.md              更新边界 → CAPABILITY-BOUNDARIES.md
+    ↓
+任务完成 → 下次任务读取知识文档
 ```
 
----
-
-### 知识捕获检查清单（每次任务结束时）
-
-```markdown
-## 任务完成检查
-
-- [ ] 踩坑记录：本次任务的问题已记录到 FAILURE-CASES.md
-- [ ] 假设验证：验证/推翻的假设已更新到相关文档
-- [ ] 决策记录：重要决策已记录到 DECISION-LOG.md
-- [ ] 检查项提炼：新的检查项已添加到 PREFLIGHT-CHECKLIST.md
-- [ ] 边界更新：能力边界变化已更新到 CAPABILITY-BOUNDARIES.md
-- [ ] Git push：知识变更已同步到远程
-```
+> **模板参考**: `skills/_templates/` 目录包含所有知识文档的格式模板
