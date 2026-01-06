@@ -90,6 +90,7 @@ Node.js 命令行工具，实现 UEFN Verse Workflow Server 通信协议。
 | `--port` | `-p` | Workflow Server 端口 | `1962` |
 | `--push` | - | 编译成功后推送代码 | `false` |
 | `--watch` | `-w` | 监听文件变化自动编译 | `false` |
+| `--sync` | `-s` | 编译前同步项目文件 (解决分支切换后缓存问题，使用 pushChanges 刷新) | `false` |
 | `--dir` | `-d` | 添加监听目录 (可多次使用) | 当前目录 |
 | `--verbose` | `-v` | 显示详细日志 | `false` |
 
@@ -105,6 +106,9 @@ Node.js 命令行工具，实现 UEFN Verse Workflow Server 通信协议。
 ```bash
 # 单次编译
 node verse-build.js
+
+# 分支切换后编译 (刷新缓存)
+node verse-build.js --sync
 
 # 编译成功后推送
 node verse-build.js --push
