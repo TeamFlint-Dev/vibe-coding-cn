@@ -120,6 +120,7 @@
 | [verseAuditDispatcher](verseAuditDispatcher/SKILL.md) | 审计调度 | 审计任务调度、结果聚合 | ⭐ |
 
 **使用频率说明**：
+
 - ⭐⭐⭐⭐⭐ 每个项目必用
 - ⭐⭐⭐⭐ 大部分项目使用
 - ⭐⭐⭐ 中等频率

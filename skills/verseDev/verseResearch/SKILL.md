@@ -76,7 +76,7 @@ version: 2.0.0
 
 **信息源优先级**：
 
-```
+```text
 1. 官方 API Schema / Digest 文件  ← 最权威
 2. 官方文档的技术章节
 3. Changelog / Release Notes
@@ -101,7 +101,7 @@ version: 2.0.0
 
 **研究循环**：
 
-```
+```text
 形成假设 → 设计验证实验 → 编写测试代码 → 观察结果 → 更新假设
     ↑                                                        ↓
     └────────────────── 循环直到确认 ────────────────────────┘
@@ -214,7 +214,7 @@ graph TD
 
 ## 🔗 与其他技能的关系
 
-```
+```text
 verseResearch (方法论)
     ↓ 指导研究流程
 projects/uefnResearch (研究项目)
@@ -243,6 +243,7 @@ trophyFishing & 其他游戏项目 (应用)
 **位置**：`verseResearch/reports/R00-SceneGraph-Device-Boundary/`
 
 **核心结论**：
+
 - SG 能力边界 = Component 化边界
 - 可 Component 化 → 优先使用 SceneGraph
 - 不可 Component 化 → 必须使用 Device
@@ -255,6 +256,7 @@ trophyFishing & 其他游戏项目 (应用)
 **位置**：`verseResearch/reports/R01-Component-Inheritance-Composition/`
 
 **核心结论**：
+
 - 继承模式适用于强关联、层级清晰的场景
 - 组合模式适用于灵活组合、多变需求的场景
 
@@ -337,46 +339,56 @@ trophyFishing & 其他游戏项目 (应用)
 
 创建新研究时，使用此模板：
 
-```markdown
+````markdown
 # [研究主题]
 
 ## 研究背景
+
 - 为什么需要研究？
 - 当前遇到什么问题？
 
 ## 研究问题
+
 - 具体要回答什么问题？
 
 ## 研究方法
+
 - 如何验证？
 - 需要哪些实验？
 
 ## 研究发现
+
 ### 核心结论
+
 - 结论 1
 - 结论 2
 
 ### 边界与限制
+
 - 限制 1
 - 限制 2
 
 ### 最佳实践
+
 - 建议 1
 - 建议 2
 
 ## 验证代码
+
 ```verse
 // 引用 verse/ 代码库中的验证代码
 ```
 
 ## 参考资料
+
 - 官方文档链接
 - API 文件位置
 
 ## 决策影响
+
 - 对架构的影响
 - 对设计的影响
-```
+````
 
 ---
 

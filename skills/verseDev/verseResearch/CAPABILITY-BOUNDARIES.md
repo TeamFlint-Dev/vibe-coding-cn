@@ -182,7 +182,7 @@ skills/verseDev/verseResearch/reports/R02-NewResearch/
 projects/uefnResearch/architecture/R02-NewResearch/
 ```
 
-### ❌ 错误使用
+#### 错误示例 2: 在 verseResearch 中编写验证代码
 
 ```markdown
 # 错误：在 verseResearch 中编写验证代码
@@ -196,7 +196,7 @@ skills/verseDev/verseResearch/code/test-component.verse
 verse/library/test-component.verse
 ```
 
-### ❌ 错误使用
+#### 错误示例 3: 用 verseResearch 做架构决策
 
 ```markdown
 # 错误：用 verseResearch 做架构决策
@@ -218,11 +218,13 @@ verse/library/test-component.verse
 ### v2.0.0 (2026-01-06)
 
 **重大变更**：
+
 - 从"研究成果存放"转变为"研究方法论"
 - 研究成果迁移到 `projects/uefnResearch/`
 - 历史报告保留为参考
 
 **能力调整**：
+
 - ➕ 新增：研究方法指导、价值评估、流程规范
 - ➖ 移除：存放研究报告、存放验证代码、存放调研数据
 - ⚠️ 限制：仅引用历史报告，不再更新

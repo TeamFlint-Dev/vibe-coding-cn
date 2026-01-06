@@ -10,6 +10,7 @@
 **本目录 (`verseResearch/reports/`)** 是历史遗留目录，包含在 verseResearch 技能重构前（v2.0.0 之前）的研究报告。
 
 **当前状态**:
+
 - ✅ 保留：供参考和引用
 - ❌ 不再更新：不再添加新研究报告
 - 📖 只读：仅作为历史文档查阅
@@ -23,12 +24,14 @@
 **目录**: `R00-SceneGraph-Device-Boundary/`
 
 **核心结论**:
+
 - SG 能力边界 = Component 化边界
 - 可 Component 化 → 优先使用 SceneGraph
 - 不可 Component 化 → 必须使用 Device
 - 混合架构 → Component 管理逻辑 + Device 提供能力
 
 **关键文档**:
+
 - [README.md](R00-SceneGraph-Device-Boundary/README.md) - 研究概述
 - [CAPABILITY-BOUNDARIES.md](R00-SceneGraph-Device-Boundary/CAPABILITY-BOUNDARIES.md) - 能力边界文档
 - [MENTAL-MODEL-MIGRATION.md](R00-SceneGraph-Device-Boundary/MENTAL-MODEL-MIGRATION.md) - 心智模型迁移指南
@@ -44,11 +47,13 @@
 **目录**: `R01-Component-Inheritance-Composition/`
 
 **核心结论**:
+
 - 继承模式适用于强关联、层级清晰的场景
 - 组合模式适用于灵活组合、多变需求的场景
 - 混合使用需注意避免过度复杂
 
 **关键文档**:
+
 - [README.md](R01-Component-Inheritance-Composition/README.md) - 研究概述
 - [comprehensive-guide.md](R01-Component-Inheritance-Composition/comprehensive-guide.md) - 综合指南
 - [04-design-decision-guide.md](R01-Component-Inheritance-Composition/04-design-decision-guide.md) - 设计决策指南
@@ -64,11 +69,13 @@
 ### 为什么迁移？
 
 **v2.0.0 重构理念**:
+
 - verseResearch 重新定位为"方法论技能"
 - 研究成果应属于"研究项目"（projects/uefnResearch）
 - 技能目录不应存放具体的研究成果
 
 **迁移策略**:
+
 - 保留历史报告在原位置（只读）
 - 新研究使用新流程和新位置
 - 避免在技能目录和项目目录间混淆
