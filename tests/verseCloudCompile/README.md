@@ -104,20 +104,7 @@ hello_device := class(creative_device):
 
 测试错误的 Verse 代码能够被编译器检测。
 
-#### 示例 1: 语法错误
-
-文件: `test_cases/error_missing_colon.verse`
-
-```verse
-using { /Fortnite.com/Devices }
-
-test_function() void =  # 缺少冒号
-    Print("This should fail")
-```
-
-**预期结果**: 编译失败，报告语法错误
-
-#### 示例 2: 类型错误
+#### 示例 1: 类型错误
 
 文件: `test_cases/error_type_mismatch.verse`
 
@@ -186,8 +173,8 @@ curl http://YOUR_SERVER:19527/verse/status/req_abc123
 {
   "timestamp": "2026-01-07T12:00:00Z",
   "total_tests": 3,
-  "passed": 2,
-  "failed": 1,
+  "passed": 3,
+  "failed": 0,
   "tests": [
     {
       "name": "valid_hello_world",
@@ -198,12 +185,12 @@ curl http://YOUR_SERVER:19527/verse/status/req_abc123
       "errors": []
     },
     {
-      "name": "error_missing_colon",
-      "expected": "fail",
-      "actual": "fail",
+      "name": "valid_counter",
+      "expected": "success",
+      "actual": "success",
       "passed": true,
-      "duration": 12.7,
-      "errors": ["Syntax error: expected ':'"]
+      "duration": 14.8,
+      "errors": []
     }
   ]
 }
