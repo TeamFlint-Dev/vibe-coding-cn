@@ -168,7 +168,7 @@ IntegrationTests<public> := module:
     # ==========================================
     
     # 测试：PRD暴击vs普通暴击
-    TestPRDvs NormalCrit<public>()<transacts>:logic =
+    TestPRDvsNormalCrit<public>()<transacts>:logic =
         TargetCritRate:float = 0.25
         PRDIncrement := TargetCritRate / (1.0 + TargetCritRate)
         Attacks:int = 1000
