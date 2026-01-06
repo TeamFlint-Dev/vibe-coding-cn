@@ -166,7 +166,7 @@ jobs:
             errors = $errors
             warnings = $warnings
             duration = "$([math]::Round($duration, 1))s"
-            raw_output = $output.Substring(0, [Math]::Min($output.Length, 2000))
+            raw_output = $output.Substring(0, [Math]::Min($output.Length, 8000))
           }
           
           Write-Host ""
