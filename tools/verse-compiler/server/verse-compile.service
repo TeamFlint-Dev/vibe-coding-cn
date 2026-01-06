@@ -1,0 +1,15 @@
+[Unit]
+Description=Verse Compile Server
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/verse-compile
+ExecStart=/usr/bin/python3 /opt/verse-compile/server.py
+EnvironmentFile=/opt/verse-compile/.env
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
