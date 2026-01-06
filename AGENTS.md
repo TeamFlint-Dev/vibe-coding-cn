@@ -44,10 +44,7 @@ make lint          # Markdown 校验（提交前必须运行）
 ### 使用方法
 
 ```powershell
-# 最简用法 - 自动检测当前分支，发送编译请求
-.\scripts\verse-compile-server\client\compile.ps1
-
-# 等待编译完成并查看结果
+# 编译并等待结果（推荐）
 .\scripts\verse-compile-server\client\compile.ps1 -Wait
 ```
 
