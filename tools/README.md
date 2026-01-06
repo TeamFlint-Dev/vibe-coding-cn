@@ -4,33 +4,36 @@
 
 ## 工具列表
 
-### verse-compiler/ - Verse 远程编译服务
+### verseCompiler/ - Verse 远程编译服务
 
 云端 Verse 代码编译验证系统，通过 GitHub Actions 和自托管 Runner 实现真实的 UEFN 编译环境。
 
 **目录结构**：
 
 ```text
-verse-compiler/
+verseCompiler/
 ├── server/              # 云服务器端
 │   ├── server.py        # Flask 服务器（接收编译请求）
+│   ├── .env.example     # 环境变量示例
 │   └── verse-compile.service  # Systemd 服务配置
-└── client/              # 客户端工具
-    ├── compile.ps1      # PowerShell 编译脚本
-    ├── verse-build.js   # Node.js 构建脚本
-    ├── verse-build.ps1  # PowerShell 构建脚本
-    ├── verse-build.bat  # 批处理构建脚本
-    └── package.json     # Node 依赖配置
+├── client/              # 客户端工具
+│   ├── compile.ps1      # PowerShell 编译脚本
+│   ├── verse-build.js   # Node.js 构建脚本
+│   ├── verse-build.ps1  # PowerShell 构建脚本
+│   ├── verse-build.bat  # 批处理构建脚本
+│   └── package.json     # Node 依赖配置
+├── README.md            # 详细说明文档
+└── RUNNER-SETUP.md      # Runner 配置指南
 ```
 
 **使用方法**：
 
 ```powershell
 # 编译当前分支的 Verse 代码并等待结果
-.\tools\verse-compiler\client\compile.ps1 -Wait
+.\tools\verseCompiler\client\compile.ps1 -Wait
 
 # 仅触发编译，不等待结果
-.\tools\verse-compiler\client\compile.ps1
+.\tools\verseCompiler\client\compile.ps1
 ```
 
 **工作原理**：
@@ -40,27 +43,6 @@ verse-compiler/
 3. 云服务器触发 GitHub Actions workflow
 4. Self-hosted Runner 拉取代码并连接本地 UEFN 编译
 5. 编译结果返回到客户端
-
-**相关文档**：
-
-- `scripts/verse-compile-server/README.md` - 详细说明文档
-- `scripts/verse-compile-server/RUNNER-SETUP.md` - Runner 配置指南
-
----
-
-### pipeline/ - 流水线工具
-
-用于多阶段 AI 工作流的通知和协调工具。
-
-**文件清单**：
-
-- `notifier.py` - Pipeline 通知脚本，用于阶段完成通知
-
-**使用场景**：
-
-- 多阶段 AI 任务协调
-- Pipeline 状态通知
-- GitHub Actions 集成
 
 ---
 
@@ -74,7 +56,7 @@ verse-compiler/
    - 提供使用说明
 
 2. **命名约定**：
-   - 工具目录使用 kebab-case（如 `verse-compiler`）
+   - 工具目录使用 camelCase（如 `verseCompiler`）
    - 脚本文件使用有意义的名称
 
 3. **文档要求**：

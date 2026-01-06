@@ -45,7 +45,7 @@ make lint          # Markdown 校验（提交前必须运行）
 
 ```powershell
 # 编译并等待结果（需要先提交到git 分支）
-.\scripts\verse-compile-server\client\compile.ps1 -Wait
+.\tools\verseCompiler\client\compile.ps1 -Wait
 ```
 
 ### 工作原理

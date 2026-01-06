@@ -54,7 +54,7 @@ verse/
 
 3. **代码验证**：
    - 所有 Verse 代码修改后必须通过远程编译验证
-   - 使用 `.\scripts\verse-compile-server\client\compile.ps1 -Wait` 验证
+   - 使用 `.\tools\verseCompiler\client\compile.ps1 -Wait` 验证
 
 ## 相关文档
 

@@ -66,7 +66,7 @@ make lint          # Validate all markdown with markdownlint-cli
 
 ```powershell
 # Compile and wait for result (code must be committed first)
-.\scripts\verse-compile-server\client\compile.ps1 -Wait
+.\tools\verseCompiler\client\compile.ps1 -Wait
 ```
 
 **How it works**:
@@ -205,7 +205,7 @@ make lint                          # Pass markdown validation
 # New skills include complete SKILL.md
 # Verify no temp files or secrets
 # For Verse code: run remote compile verification
-.\scripts\verse-compile-server\client\compile.ps1 -Wait
+.\tools\verseCompiler\client\compile.ps1 -Wait
 ```
 
 ---
