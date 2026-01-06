@@ -11,7 +11,8 @@
 
 ### LSP 能力边界
 
-✅ **支持的功能**:
+**支持的功能**:
+
 - 代码补全
 - 符号定义跳转
 - 悬停提示
@@ -19,7 +20,8 @@
 - 符号高亮
 - 重命名
 
-❌ **不支持的功能**:
+**不支持的功能**:
+
 - 语法错误检测
 - 类型错误检测
 - 语义错误检测
@@ -30,6 +32,7 @@
 在 10 个故意包含错误的测试用例中，LSP **未能检测到任何错误**（0% 检测率）。
 
 详细测试结果参见：
+
 - [BUG_REPORT.md](BUG_REPORT.md) - 详细的 bug 报告
 - [INVESTIGATION_SUMMARY_CN.md](INVESTIGATION_SUMMARY_CN.md) - 中文调研总结
 - [FINAL_SUMMARY.txt](FINAL_SUMMARY.txt) - 最终总结
@@ -41,16 +44,19 @@
 ### 云端编译系统
 
 **系统架构**:
-```
+
+```text
 开发者/Agent → 云端服务器 → GitHub Actions → Self-hosted Runner → UEFN 编译器
 ```
 
 **相关文档**:
+
 - [scripts/verse-compile-server/README.md](../../scripts/verse-compile-server/README.md) - 云端编译系统
 - [.github/workflows/verse-uefn-compile.yml](../../.github/workflows/verse-uefn-compile.yml) - 编译工作流
 - [tests/verse-cloud-compile/](../verse-cloud-compile/) - 云端编译测试（新）
 
 **测试脚本**:
+
 ```bash
 # 云端编译测试
 cd tests/verse-cloud-compile
@@ -66,9 +72,6 @@ python3 test_cloud_compile.py
 | `BUG_REPORT.md` | LSP 不支持诊断的详细技术报告 |
 | `INVESTIGATION_SUMMARY_CN.md` | 中文调研总结 |
 | `FINAL_SUMMARY.txt` | 最终结论 |
-| `test_lsp_error_detection.py` | 已废弃的测试脚本 |
-| `debug_lsp.py` | 已废弃的调试工具 |
-| `error_*.verse` | 已废弃的测试用例 |
 
 ## 重要教训
 

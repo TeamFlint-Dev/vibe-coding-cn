@@ -6,7 +6,7 @@
 
 由于 Verse LSP 不支持错误诊断功能（详见 [verse-lsp-investigation](../verse-lsp-investigation/)），我们采用**云端编译**方案进行代码验证：
 
-```
+```text
 测试脚本 → 云端服务器 API → GitHub Actions → Self-hosted Runner → UEFN 编译器
 ```
 
@@ -38,6 +38,7 @@
 ### 前提条件
 
 1. **云端服务器已部署**
+
    ```bash
    # 检查服务器状态
    curl http://YOUR_SERVER:19527/health
@@ -49,6 +50,7 @@
    - 参考 [RUNNER-SETUP.md](../../scripts/verse-compile-server/RUNNER-SETUP.md)
 
 3. **环境变量已配置**
+
    ```bash
    # 复制环境变量模板
    cp .env.example .env
@@ -100,7 +102,7 @@ hello_device := class(creative_device):
 
 测试错误的 Verse 代码能够被编译器检测。
 
-**示例 1: 语法错误**
+#### 示例 1: 语法错误
 
 文件: `test_cases/error_missing_colon.verse`
 
@@ -113,7 +115,7 @@ test_function() void =  # 缺少冒号
 
 **预期结果**: 编译失败，报告语法错误
 
-**示例 2: 类型错误**
+#### 示例 2: 类型错误
 
 文件: `test_cases/error_type_mismatch.verse`
 
@@ -209,38 +211,42 @@ curl http://YOUR_SERVER:19527/verse/status/req_abc123
 
 ### 连接失败
 
-```
+```text
 错误: 无法连接到云端服务器
 ```
 
 **解决方案**:
+
 1. 检查服务器是否在线: `curl http://YOUR_SERVER:19527/health`
 2. 检查防火墙设置
 3. 验证 API 密钥是否正确
 
 ### 编译超时
 
-```
+```text
 错误: 编译请求超时 (300秒)
 ```
 
 **原因**:
+
 - Self-hosted Runner 离线
 - UEFN 未运行或未加载项目
 - GitHub Actions 队列拥堵
 
 **解决方案**:
+
 1. 检查 Runner 状态: `gh runner list`
 2. 确认 UEFN 正在运行
 3. 查看 Actions 日志
 
 ### UEFN 未运行
 
-```
+```text
 错误: connect ECONNREFUSED 127.0.0.1:1962
 ```
 
 **解决方案**:
+
 1. 在 Self-hosted Runner 机器上启动 UEFN
 2. 打开并加载 Verse 项目
 3. 等待项目完全加载后重试
