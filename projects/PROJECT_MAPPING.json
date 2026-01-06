@@ -1,5 +1,4 @@
 {
-  "$schema": "PROJECT_MAPPING_SCHEMA",
   "description": "全局项目名称映射表，支持中文别名和多种命名风格",
   "version": "1.0.0",
   "mappings": {
