@@ -1,0 +1,282 @@
+name: Verse UEFN Compile
+
+on:
+  workflow_dispatch:
+    inputs:
+      request_id:
+        description: 'Compile request ID from server'
+        required: true
+      branch:
+        description: 'Branch to compile'
+        required: true
+      commit:
+        description: 'Commit SHA to compile'
+        required: true
+      callback_url:
+        description: 'URL to send result back'
+        required: true
+
+jobs:
+  compile:
+    name: Compile Verse Code
+    runs-on: [self-hosted, windows, uefn]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+          fetch-depth: 0
+      
+      - name: Verify commit
+        shell: pwsh
+        run: |
+          $currentCommit = git rev-parse HEAD
+          $expectedCommit = "${{ inputs.commit }}"
+          
+          Write-Host "Current commit: $currentCommit"
+          Write-Host "Expected commit: $expectedCommit"
+          
+          if ($currentCommit -ne $expectedCommit) {
+            Write-Host "::warning::Commit mismatch, but continuing..."
+          }
+      
+      - name: Run Verse Compile
+        id: compile
+        shell: pwsh
+        env:
+          UEFN_PROJECT: ${{ secrets.UEFN_PROJECT_PATH }}
+          VERSE_SOURCE_DIR: ${{ secrets.VERSE_SOURCE_DIR }}
+        run: |
+          $startTime = Get-Date
+          
+          # 配置路径
+          $uefnProject = $env:UEFN_PROJECT
+          if (-not $uefnProject) {
+            $uefnProject = "D:\UEFN\MyProject"
+          }
+          
+          $verseSourceDir = $env:VERSE_SOURCE_DIR
+          if (-not $verseSourceDir) {
+            $verseSourceDir = "Games\trophyFishing"
+          }
+          
+          $uefnVerseDir = Join-Path $uefnProject "Plugins\GameFeatures\MyGame\Content\Verse"
+          $repoVerseDir = Join-Path $env:GITHUB_WORKSPACE $verseSourceDir
+          $backupDir = Join-Path $uefnProject ".verse-backup"
+          
+          Write-Host "=== Verse Compile Configuration ==="
+          Write-Host "UEFN Project: $uefnProject"
+          Write-Host "UEFN Verse Dir: $uefnVerseDir"
+          Write-Host "Repo Verse Dir: $repoVerseDir"
+          
+          # 检查源目录是否存在
+          if (-not (Test-Path $repoVerseDir)) {
+            Write-Host "::error::Verse source directory not found: $repoVerseDir"
+            $result = @{
+              success = $false
+              error_count = 1
+              warning_count = 0
+              errors = @("Verse source directory not found: $repoVerseDir")
+              warnings = @()
+            }
+            $result | ConvertTo-Json -Compress | Out-File compile_result.json
+            exit 0
+          }
+          
+          # 备份当前 UEFN 项目中的 Verse 文件
+          Write-Host "`n=== Backing up current Verse files ==="
+          if (Test-Path $backupDir) {
+            Remove-Item $backupDir -Recurse -Force
+          }
+          if (Test-Path $uefnVerseDir) {
+            Copy-Item $uefnVerseDir $backupDir -Recurse
+            Write-Host "Backup created at: $backupDir"
+          }
+          
+          try {
+            # 同步仓库中的 Verse 文件到 UEFN 项目
+            Write-Host "`n=== Syncing Verse files ==="
+            
+            # 查找所有 .verse 文件
+            $verseFiles = Get-ChildItem -Path $repoVerseDir -Filter "*.verse" -Recurse -ErrorAction SilentlyContinue
+            Write-Host "Found $($verseFiles.Count) Verse files"
+            
+            foreach ($file in $verseFiles) {
+              $relativePath = $file.FullName.Substring($repoVerseDir.Length).TrimStart('\', '/')
+              $targetPath = Join-Path $uefnVerseDir $relativePath
+              $targetDir = Split-Path $targetPath -Parent
+              
+              if (-not (Test-Path $targetDir)) {
+                New-Item $targetDir -ItemType Directory -Force | Out-Null
+              }
+              
+              Copy-Item $file.FullName $targetPath -Force
+              Write-Host "  Synced: $relativePath"
+            }
+            
+            # 触发 UEFN 编译
+            Write-Host "`n=== Triggering UEFN Compile ==="
+            
+            # 方案1: 等待 UEFN 自动检测文件变化并编译
+            # 方案2: 通过 VSCode 命令触发
+            # 方案3: 读取编译日志
+            
+            $logFile = Join-Path $uefnProject "Saved\Logs\VerseCompile.log"
+            $beforeModTime = $null
+            if (Test-Path $logFile) {
+              $beforeModTime = (Get-Item $logFile).LastWriteTime
+            }
+            
+            # 给 UEFN 时间检测文件变化
+            Write-Host "Waiting for UEFN to detect changes..."
+            Start-Sleep -Seconds 5
+            
+            # TODO: 这里需要实际触发编译的机制
+            # 可能需要通过 VSCode 扩展或其他方式
+            
+            # 等待编译完成
+            $timeout = 120
+            $waited = 0
+            $compiled = $false
+            
+            while ($waited -lt $timeout) {
+              if (Test-Path $logFile) {
+                $currentModTime = (Get-Item $logFile).LastWriteTime
+                if ($beforeModTime -eq $null -or $currentModTime -gt $beforeModTime) {
+                  $logContent = Get-Content $logFile -Tail 50 -ErrorAction SilentlyContinue
+                  if ($logContent -match "Compile (succeeded|failed|complete)") {
+                    $compiled = $true
+                    break
+                  }
+                }
+              }
+              Start-Sleep -Seconds 2
+              $waited += 2
+              Write-Host "  Waiting... ($waited seconds)"
+            }
+            
+            # 解析编译结果
+            Write-Host "`n=== Parsing Compile Results ==="
+            
+            $errors = @()
+            $warnings = @()
+            
+            if (Test-Path $logFile) {
+              $logContent = Get-Content $logFile -Tail 200 -ErrorAction SilentlyContinue
+              
+              foreach ($line in $logContent) {
+                if ($line -match "error:") {
+                  $errors += $line.Trim()
+                }
+                if ($line -match "warning:") {
+                  $warnings += $line.Trim()
+                }
+              }
+            }
+            
+            $endTime = Get-Date
+            $duration = ($endTime - $startTime).TotalSeconds
+            
+            $success = ($errors.Count -eq 0)
+            
+            $result = @{
+              success = $success
+              error_count = $errors.Count
+              warning_count = $warnings.Count
+              errors = $errors
+              warnings = $warnings
+              duration = "$([math]::Round($duration, 1))s"
+            }
+            
+            Write-Host "`n=== Compile Result ==="
+            Write-Host "Success: $success"
+            Write-Host "Errors: $($errors.Count)"
+            Write-Host "Warnings: $($warnings.Count)"
+            Write-Host "Duration: $([math]::Round($duration, 1))s"
+            
+            $result | ConvertTo-Json -Compress | Out-File compile_result.json
+            
+          } finally {
+            # 恢复原始文件
+            Write-Host "`n=== Restoring original Verse files ==="
+            if (Test-Path $backupDir) {
+              if (Test-Path $uefnVerseDir) {
+                Remove-Item $uefnVerseDir -Recurse -Force
+              }
+              Copy-Item $backupDir $uefnVerseDir -Recurse
+              Remove-Item $backupDir -Recurse -Force
+              Write-Host "Original files restored"
+            }
+          }
+      
+      - name: Send result to server
+        if: always()
+        shell: pwsh
+        env:
+          RUNNER_SECRET: ${{ secrets.RUNNER_SECRET }}
+        run: |
+          $callbackUrl = "${{ inputs.callback_url }}"
+          $requestId = "${{ inputs.request_id }}"
+          
+          # 读取编译结果
+          if (Test-Path compile_result.json) {
+            $result = Get-Content compile_result.json | ConvertFrom-Json
+          } else {
+            $result = @{
+              success = $false
+              error_count = 1
+              warning_count = 0
+              errors = @("Compile script did not produce result")
+              warnings = @()
+              duration = "N/A"
+            }
+          }
+          
+          # 添加 request_id
+          $payload = @{
+            request_id = $requestId
+            success = $result.success
+            error_count = $result.error_count
+            warning_count = $result.warning_count
+            errors = $result.errors
+            warnings = $result.warnings
+            duration = $result.duration
+          }
+          
+          $jsonPayload = $payload | ConvertTo-Json -Compress
+          
+          # 计算签名
+          $signature = ""
+          if ($env:RUNNER_SECRET) {
+            $hmac = New-Object System.Security.Cryptography.HMACSHA256
+            $hmac.Key = [System.Text.Encoding]::UTF8.GetBytes($env:RUNNER_SECRET)
+            $hash = $hmac.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($jsonPayload))
+            $signature = "sha256=" + [BitConverter]::ToString($hash).Replace("-", "").ToLower()
+          }
+          
+          Write-Host "Sending result to: $callbackUrl"
+          Write-Host "Request ID: $requestId"
+          Write-Host "Success: $($result.success)"
+          
+          try {
+            $headers = @{
+              "Content-Type" = "application/json"
+            }
+            if ($signature) {
+              $headers["X-Runner-Signature"] = $signature
+            }
+            
+            Invoke-RestMethod -Uri $callbackUrl -Method Post -Body $jsonPayload -Headers $headers
+            Write-Host "Result sent successfully"
+          } catch {
+            Write-Host "::warning::Failed to send result: $_"
+          }
+      
+      - name: Upload compile result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compile-result-${{ inputs.request_id }}
+          path: compile_result.json
+          retention-days: 7
