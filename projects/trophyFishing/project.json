@@ -1,0 +1,15 @@
+{
+  "id": "trophyFishing",
+  "displayName": "Trophy Fishing",
+  "aliases": [
+    "钓鱼游戏",
+    "trophy-fishing",
+    "Trophy-Fishing",
+    "trophyFishing"
+  ],
+  "description": "放置类钓鱼游戏，结合升级系统和收益机制",
+  "status": "active",
+  "tags": ["game", "fishing", "idle", "upgrade"],
+  "created": "2025",
+  "type": "game"
+}

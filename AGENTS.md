@@ -66,6 +66,66 @@ make lint          # Markdown 校验（提交前必须运行）
 
 ---
 
+## 项目命名规范
+
+### 目录命名规则
+
+**所有项目目录必须使用驼峰式命名（camelCase）**
+
+- ✅ `uefnResearch`
+- ✅ `trophyFishing`
+- ❌ `uefn-research`（避免短横线）
+- ❌ `uefn研究`（避免中文目录名）
+
+**原因**：
+1. UEFN 编译器对特殊字符（如 `-`）敏感
+2. 避免跨平台路径问题
+3. 符合 JavaScript/TypeScript 变量命名习惯
+
+### 项目显示名称
+
+**每个项目通过 `project.json` 定义友好的显示名称**
+
+项目的显示名称（displayName）可以使用中文或英文，用于文档、Issue 和用户界面。
+
+当前项目列表：
+
+| 目录名 | 显示名称 | 类型 |
+|--------|---------|------|
+| `uefnResearch` | **uefn基础模块研究** | 研究项目 |
+| `trophyFishing` | **Trophy Fishing** | 游戏项目 |
+
+### 项目别名系统
+
+**支持多种别名引用同一个项目**
+
+通过 `projects/PROJECT_MAPPING.json` 映射文件，可以使用多种名称引用项目：
+
+```json
+{
+  "uefn研究": "uefnResearch",
+  "uefn基础模块研究": "uefnResearch",
+  "UEFN基础研究": "uefnResearch",
+  "uefnResearch": "uefnResearch"
+}
+```
+
+在 Issue、文档、Workflow 输入中都可以灵活使用。
+
+### 使用指南
+
+**在文档和 Issue 中**：优先使用显示名称以提高可读性
+- ✅ 推荐：**uefn基础模块研究** 项目专注于...
+- ⭕ 可以：`uefnResearch` 项目专注于...
+
+**在代码和技术场景中**：使用目录名（`id`）
+- ✅ `cd projects/uefnResearch`
+- ✅ `find projects/uefnResearch -name "*.md"`
+
+**详细说明**：参见 [`projects/README.md`](./projects/README.md)
+
+---
+
 ## 思维原则
 
 ### 认知谦逊
