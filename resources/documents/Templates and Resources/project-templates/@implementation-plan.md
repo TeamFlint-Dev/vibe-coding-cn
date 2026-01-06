@@ -146,7 +146,7 @@
 ### 执行流程
 
 ```
-1. AI 阅读 memory-bank 全部文档
+1. AI 阅读 project-docs 全部文档
 2. 执行当前 Step
 3. 人类验证
 4. 更新 @progress.md 和 @architecture.md

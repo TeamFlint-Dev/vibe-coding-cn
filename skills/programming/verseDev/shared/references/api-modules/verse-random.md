@@ -654,7 +654,7 @@ ActivateRandomDevice(Devices:[]creative_device)<transacts>:void =
 
 查看以下游戏项目中的 Random 模块使用示例：
 
-- `projects/[项目名]/memory-bank/` - 各个游戏项目的实际使用案例
+- `projects/[项目名]/项目文档/` - 各个游戏项目的实际使用案例
 
 ---
 

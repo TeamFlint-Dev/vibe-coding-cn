@@ -129,7 +129,7 @@
 
 ```
 your-game-project/
-└── memory-bank/
+└── 项目文档/
     ├── @concept.md              # 游戏概念
     ├── @systems-breakdown.md    # 系统设计
     ├── @mechanics/              # 机制设计

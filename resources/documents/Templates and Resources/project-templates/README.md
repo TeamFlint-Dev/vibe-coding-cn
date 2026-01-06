@@ -1,6 +1,6 @@
-# Memory-Bank 通用模板
+# project-docs 通用模板
 
-本目录包含 Memory-Bank 的通用模板文件，可直接复制到任何项目中使用。
+本目录包含 project-docs 的通用模板文件，可直接复制到任何项目中使用。
 
 ## 模板列表
 
@@ -18,8 +18,8 @@
 
 ```bash
 # 在你的项目根目录
-mkdir memory-bank
-cp -r /path/to/templates/* memory-bank/
+mkdir project-docs
+cp -r /path/to/templates/* project-docs/
 ```
 
 ### 2. 填充内容
@@ -38,17 +38,17 @@ cp -r /path/to/templates/* memory-bank/
 
 ```markdown
 # 重要提示（Always）：
-# 写任何代码前必须完整阅读 memory-bank/@architecture.md
-# 写任何代码前必须完整阅读 memory-bank/@game-design-document.md
-# 每完成一个任务后，必须更新 memory-bank/@architecture.md 和 @progress.md
+# 写任何代码前必须完整阅读 project-docs/@architecture.md
+# 写任何代码前必须完整阅读 project-docs/@game-design-document.md
+# 每完成一个任务后，必须更新 project-docs/@architecture.md 和 @progress.md
 ```
 
 ## 命名约定
 
-- 使用 `@` 前缀表示 memory-bank 核心文件
+- 使用 `@` 前缀表示 project-docs 核心文件
 - 功能扩展文件使用 `feature-*.md` 命名
 - 保持小写字母和连字符
 
 ## 参考实例
 
-- [UEFN 岛屿养成游戏 Memory-Bank](../../../skills/uefn-island-game/memory-bank/)
+- [UEFN 岛屿养成游戏 project-docs](../../../skills/uefn-island-game/project-docs/)

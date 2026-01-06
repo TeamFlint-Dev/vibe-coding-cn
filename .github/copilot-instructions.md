@@ -6,14 +6,14 @@
 - **Skill library** (`skills/`) organized by category (programming/design)
 - **Prompt library** (`resources/prompts/`) providing AI interaction templates
 - **Methodology documents** (`resources/documents/`) covering development principles and workflows
-- **Game projects** (`projects/`) with project-specific Memory-bank
+- **Game projects** (`projects/`) with design, architecture, and progress documentation
 - **Tools** (`tools/`) including scripts and utilities
 
-**Core Philosophy**: Skill-driven development with Memory-bank context isolation. Agent reads Skills for capability, reads Memory-bank for project context, executes tasks, and updates Memory-bank.
+**Core Philosophy**: Skill-driven development with project context isolation. Agent reads Skills for capability, reads project docs for context, executes tasks, and updates project documentation.
 
 ### Key Terminology
 - **Skill**: Encapsulated development knowledge in `skills/*/SKILL.md`
-- **Memory-bank**: Project-specific context stored in `projects/[project]/memory-bank/`
+- **Project**: Game project with design/architecture/progress documentation in `projects/[project]/`
 - **Pipeline**: Multi-stage workflow orchestrated via cloud scheduler
 
 ## Project Structure
@@ -39,7 +39,9 @@ resources/
 
 projects/
 └── [projectName]/         # Game project (camelCase naming)
-    └── memory-bank/       # Project-specific context
+    ├── design/            # Game design docs (concept, mechanics, systems)
+    ├── architecture/      # Technical docs (tech-stack, components, events)
+    └── progress/          # Status and decision logs
 
 external/                  # External tools
 ├── epic-docs-crawler/     # UEFN documentation crawler
@@ -99,8 +101,8 @@ curl https://<server>/pipeline/status/<pipeline_id>
 ### 1. Skill-Driven Development
 This project follows a Skill-driven methodology:
 - **Skills** encapsulate development knowledge, processes, and experience
-- **Memory-bank** stores project-specific context and decisions
-- **Agent workflow**: Read Skill → Read Memory-bank → Execute → Update Memory-bank
+- **Project docs** store project-specific context and decisions
+- **Agent workflow**: Read Skill → Read project docs → Execute → Update project documentation
 
 ### 2. Verse Development Skills
 The `verseDev` skill ecosystem (`skills/programming/verseDev/`) includes:
@@ -140,7 +142,7 @@ The `gameDev` skill ecosystem (`skills/design/gameDev/`) includes:
 | `AGENTS.md` | AI agent behavior guidelines | When adding workflow patterns |
 | `skills/` | Skill asset library | When creating/updating skills |
 | `resources/prompts/` | AI interaction templates | When updating prompts |
-| `projects/` | Project Memory-bank collection | When working on game projects |
+| `projects/` | Game project documentation | When working on game projects |
 | `tools/` | Scripts and utilities | When adding development tools |
 
 ## Pipeline System Architecture
@@ -290,7 +292,7 @@ git status  # Must show "up to date with origin"
 | 中控服务器 / Webhook / GitHub Actions | `skills/programming/controlHub/SKILL.md`<br>`.secrets/` 目录（密钥配置） |
 | Verse 代码开发 | `skills/programming/verseDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
 | 游戏设计 | `skills/design/gameDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
-| 项目开发 | `projects/[项目名]/memory-bank/` 下的所有文件 |
+| 项目开发 | `projects/[项目名]/` 下的 design/, architecture/, progress/ 文件 |
 
 执行云服务器相关操作时，`.secrets` 文件包含关键信息：
 - `SERVER_IP` - 服务器地址

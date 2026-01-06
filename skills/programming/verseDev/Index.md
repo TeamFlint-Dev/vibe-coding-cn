@@ -109,7 +109,7 @@
 |------|------|
 | [shared/references/](shared/references/) | SceneGraph框架指南、API参考 |
 | [shared/api-digests/](shared/api-digests/) | 三大核心API文件 (Verse/Fortnite/UnrealEngine) |
-| [shared/memory-bank-template/](shared/memory-bank-template/) | Memory-Bank模板（持续进化） |
+| [shared/project-templates/](shared/project-templates/) | 项目文档模板（持续进化） |
 | [shared/request-templates/](shared/request-templates/) | 层间请求模板 |
 | [shared/evolution-logs/](shared/evolution-logs/) | 自进化日志 |
 | [shared/checklists/](shared/checklists/) | 架构检查清单 |
@@ -189,12 +189,12 @@ shared/evolution-logs/@issues-collected.md
 
 ---
 
-## Memory-Bank模板进化
+## 项目文档模板进化
 
 每次成功实现功能后，可选择更新模板：
 
 ```markdown
-协调器: "本次实现了商店系统，是否更新Memory-Bank模板？"
+协调器: "本次实现了商店系统，是否更新项目文档模板？"
 用户: "是"
 协调器: "已将商店系统的架构模式添加到模板中"
 ```
@@ -238,7 +238,7 @@ shared/evolution-logs/@issues-collected.md
 ## 贡献指南
 
 1. 遇到问题时，按格式记录到 `@issues-collected.md`
-2. 实现新功能后，考虑更新 Memory-Bank 模板
+2. 实现新功能后，考虑更新 项目文档 模板
 3. 发现 API 缺失时，记录到 `@api-gaps.md`
 4. 有价值的需求可添加到 `@pending-requirements.md`
 

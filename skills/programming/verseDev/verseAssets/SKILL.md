@@ -368,7 +368,7 @@ GetBossMesh():mesh_asset =
 
 ## Reference Files
 
-- [@todo-placeholders.md](../shared/memory-bank-template/@todo-placeholders.md) - 占位接口追踪
+- [@todo-placeholders.md](../shared/project-templates/@todo-placeholders.md) - 占位接口追踪
 - [Fortnite.digest.verse](../shared/api-digests/Fortnite.digest.verse) - 资产相关API
 
 ---

@@ -280,7 +280,7 @@ Log("UE向量: ({UEVec.X}, {UEVec.Y}, {UEVec.Z})")
 2. 提交 [wrapper-request](../../request-templates/wrapper-request.md)
 3. 在 digest 中发掘所有相关 API
 4. 参考 CharacterWrapper 结构实现
-5. 注册到 [@wrapper-registry.md](../../memory-bank-template/@wrapper-registry.md)
+5. 注册到 [@wrapper-registry.md](../../project-templates/@wrapper-registry.md)
 6. 更新本索引文件
 
 ---
@@ -289,7 +289,7 @@ Log("UE向量: ({UEVec.X}, {UEVec.Y}, {UEVec.Z})")
 
 - [verseWrappers SKILL](../../verseWrappers/SKILL.md) - Wrapper 层 Skill 定义
 - [api-keyword-mapping.md](../../verseWrappers/api-keyword-mapping.md) - API 依赖关键词映射
-- [@wrapper-registry.md](../../memory-bank-template/@wrapper-registry.md) - Wrapper 注册表
+- [@wrapper-registry.md](../../project-templates/@wrapper-registry.md) - Wrapper 注册表
 
 ---
 

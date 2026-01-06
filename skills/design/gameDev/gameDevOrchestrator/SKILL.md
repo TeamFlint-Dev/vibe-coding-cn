@@ -5,7 +5,7 @@ description: "游戏开发流程协调器：初始化项目、调度设计阶段
 
 # gameDevOrchestrator Skill
 
-游戏开发流程的总协调器。负责项目初始化、阶段调度和进度追踪，确保各设计 Skill 按正确顺序执行并通过 memory-bank 传递上下文。
+游戏开发流程的总协调器。负责项目初始化、阶段调度和进度追踪，确保各设计 Skill 按正确顺序执行并通过 项目文档 传递上下文。
 
 ## When to Use This Skill
 
@@ -13,7 +13,7 @@ description: "游戏开发流程协调器：初始化项目、调度设计阶段
 - 用户要开始一个新的游戏项目
 - 用户问"下一步做什么"或"接下来该干什么"
 - 需要检查游戏开发进度
-- 需要初始化 memory-bank 目录结构
+- 需要初始化 项目文档 目录结构
 - 需要决定调用哪个设计 Skill
 
 ## Not For / Boundaries
@@ -25,16 +25,16 @@ description: "游戏开发流程协调器：初始化项目、调度设计阶段
 
 必需输入：
 - 用户的游戏创意或项目需求（初始化时）
-- 或已存在的 memory-bank 目录（继续开发时）
+- 或已存在的 项目文档 目录（继续开发时）
 
 ## Quick Reference
 
 ### 项目初始化流程
 
-**Step 1: 创建 memory-bank 目录**
+**Step 1: 创建 项目文档 目录**
 ```
 your-game-project/
-├── memory-bank/
+├── 项目文档/
 │   ├── @concept.md              # 待生成
 │   ├── @systems-breakdown.md    # 待生成
 │   ├── @mechanics/              # 子目录
@@ -116,7 +116,7 @@ your-game-project/
 你的任务: [具体任务]
 
 --- 项目上下文开始 ---
-[相关 memory-bank 文件内容或摘要]
+[相关 项目文档 文件内容或摘要]
 --- 项目上下文结束 ---
 
 请执行你的 Skill 职责，输出到指定文件。
@@ -126,13 +126,13 @@ your-game-project/
 
 **检查进度**
 ```
-读取 memory-bank/@progress.md，汇报当前状态
+读取 项目文档/@progress.md，汇报当前状态
 ```
 
 **初始化项目**
 ```
 1. 询问游戏创意（如果用户未提供）
-2. 创建 memory-bank 目录
+2. 创建 项目文档 目录
 3. 生成 @progress.md
 4. 调用 gameConceptDesigner
 ```
@@ -152,12 +152,12 @@ your-game-project/
 **输入**: "我想做一个放置类养成游戏"
 
 **步骤**:
-1. 创建 memory-bank/ 目录结构
+1. 创建 项目文档/ 目录结构
 2. 生成初始 @progress.md
 3. 引导用户描述游戏创意
 4. 调用 gameConceptDesigner
 
-**输出**: memory-bank/ 目录 + @progress.md（概念设计阶段）
+**输出**: 项目文档/ 目录 + @progress.md（概念设计阶段）
 
 ### Example 2: 继续开发
 

@@ -33,12 +33,12 @@
 
 ## 🎮 概览
 
-本仓库是一个专注于 **UEFN (Unreal Editor for Fortnite) / Verse** 游戏开发的 AI Agent 工作流系统。通过结构化的 **Skill（技能）** 和 **Memory-bank（项目记忆）** 协作模式，帮助开发者高效地与 AI 结对编程，将游戏创意变为现实。
+本仓库是一个专注于 **UEFN (Unreal Editor for Fortnite) / Verse** 游戏开发的 AI Agent 工作流系统。通过结构化的 **Skill（技能）** 和 **项目文档** 协作模式，帮助开发者高效地与 AI 结对编程，将游戏创意变为现实。
 
 ### 核心理念
 
 - **Skill 驱动**：所有开发知识、流程、经验都封装为可复用的技能
-- **Memory-bank 隔离**：不同游戏项目拥有独立的上下文记忆
+- **项目上下文隔离**：不同游戏项目拥有独立的设计、架构、进度文档
 - **驼峰命名**：目录采用驼峰式命名，避免 UEFN 编译器对特殊字符的敏感问题
 
 ## 📁 项目结构
@@ -68,9 +68,11 @@
 │       ├── user_prompts/           # 用户自定义提示词
 │       └── meta_prompts/           # 元提示词
 │
-├── projects/                       # 游戏项目 Memory-bank 集合
+├── projects/                       # 游戏项目集合
 │   └── trophyFishing/              # Trophy Fishing 项目
-│       └── memory-bank/            # 项目特有上下文
+│       ├── design/                 # 游戏设计文档
+│       ├── architecture/           # 技术架构文档
+│       └── progress/               # 进度与日志
 │
 ├── verse/                          # Verse 可复用代码库
 │   ├── library/                    # 通用代码库
@@ -110,7 +112,7 @@
 使用 `verseProjectInit` 技能初始化新游戏项目：
 
 1. 在 `projects/` 下创建项目目录（驼峰命名）
-2. 建立标准 `memory-bank/` 结构
+2. 建立标准目录结构（design/architecture/progress）
 3. 填写项目基础文档
 
 详见 [verseProjectInit SKILL.md](./skills/programming/verseDev/verseProjectInit/SKILL.md)
@@ -119,12 +121,12 @@
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   读取 Skill    │ ──> │ 读取 Memory-bank │ ──> │   执行开发任务   │
+│   读取 Skill    │ ──> │   读取项目文档   │ ──> │   执行开发任务   │
 │  (获取能力知识)  │     │  (获取项目上下文) │     │   (生成代码)    │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
          │                                               │
-         └───────────────── 更新 ──────────────────────>│
-                        Memory-bank
+         └─────────────────── 更新 ──────────────────────>│
+                        项目文档
 ```
 
 ## 📚 核心资源

@@ -226,7 +226,7 @@
 **你能得到**
 - 成体系的提示词工具链：`prompts/system_prompts/` 约束 AI 行为边界，`prompts/coding_prompts/` 提供需求澄清、计划、执行的全链路脚本。
 - 闭环交付路径：需求 → 上下文文档 → 实施计划 → 分步实现 → 自测 → 进度记录，全程可复盘、可移交。
-- 共享记忆库：在 `memory-bank/`（或你的等价目录）同步 `project-context.md`、`progress.md` 等，让人类与 AI 共用同一真相源。
+- 共享记忆库：在 `project-docs/`（或你的等价目录）同步 `project-context.md`、`progress.md` 等，让人类与 AI 共用同一真相源。
 
 **3 分钟 CLI 演示（在 Codex CLI / Claude Code 中按顺序执行即可）**
 1) 复制你的需求，加载 `prompts/coding_prompts/(1,1)_#_📘_项目上下文文档生成_·_工程化_Prompt（专业优化版）.md` 生成 `project-context.md`。
@@ -401,9 +401,9 @@ gantt
   - **极其重要：** 某些规则必须设为 **"Always"**（始终应用），确保 AI 在生成任何代码前都强制阅读。例如添加以下规则并标记为 "Always"：
     > ```
     > # 重要提示：
-    > # 写任何代码前必须完整阅读 memory-bank/@architecture.md（包含完整数据库结构）
-    > # 写任何代码前必须完整阅读 memory-bank/@game-design-document.md
-    > # 每完成一个重大功能或里程碑后，必须更新 memory-bank/@architecture.md
+    > # 写任何代码前必须完整阅读 project-docs/@architecture.md（包含完整数据库结构）
+    > # 写任何代码前必须完整阅读 project-docs/@game-design-document.md
+    > # 每完成一个重大功能或里程碑后，必须更新 project-docs/@architecture.md
     > ```
   - 其他（非 Always）规则要引导 AI 遵循你技术栈的最佳实践（如网络、状态管理等）。
   - *如果想要代码最干净、项目最优化，这一整套规则设置是强制性的。*
@@ -426,8 +426,8 @@ gantt
 <summary><strong>4. 记忆库（Memory Bank）</strong></summary>
 
 - 新建项目文件夹，并在 VSCode 中打开。
-- 在项目根目录下创建子文件夹 `memory-bank`。
-- 将以下文件放入 `memory-bank`：
+- 在项目根目录下创建子文件夹 `project-docs`。
+- 将以下文件放入 `project-docs`：
   - `game-design-document.md`
   - `tech-stack.md`
   - `implementation-plan.md`
@@ -446,7 +446,7 @@ gantt
 <summary><strong>确保一切清晰</strong></summary>
 
 - 在 VSCode 扩展中打开 **Codex** 或 **Claude Code**，或者在项目终端启动 Claude Code / Codex CLI。
-- 提示词：阅读 `/memory-bank` 里所有文档，`implementation-plan.md` 是否完全清晰？你有哪些问题需要我澄清，让它对你来说 100% 明确？
+- 提示词：阅读 `/project-docs` 里所有文档，`implementation-plan.md` 是否完全清晰？你有哪些问题需要我澄清，让它对你来说 100% 明确？
 - 它通常会问 9-10 个问题。全部回答完后，让它根据你的回答修改 `implementation-plan.md`，让计划更完善。
 </details>
 
@@ -454,7 +454,7 @@ gantt
 <summary><strong>你的第一个实施提示词</strong></summary>
 
 - 打开 **Codex** 或 **Claude Code**（扩展或终端）。
-- 提示词：阅读 `/memory-bank` 所有文档，然后执行实施计划的第 1 步。我会负责跑测试。在我验证测试通过前，不要开始第 2 步。验证通过后，打开 `progress.md` 记录你做了什么供后续开发者参考，再把新的架构洞察添加到 `architecture.md` 中解释每个文件的作用。
+- 提示词：阅读 `/project-docs` 所有文档，然后执行实施计划的第 1 步。我会负责跑测试。在我验证测试通过前，不要开始第 2 步。验证通过后，打开 `progress.md` 记录你做了什么供后续开发者参考，再把新的架构洞察添加到 `architecture.md` 中解释每个文件的作用。
 - **永远** 先用 "Ask" 模式或 "Plan Mode"（Claude Code 中按 `shift+tab`），确认满意后再让 AI 执行该步骤。
 - **极致 Vibe：** 安装 [Superwhisper](https://superwhisper.com)，用语音随便跟 Claude 或 gpt-5.1-codex 聊天，不用打字。
 </details>
@@ -465,7 +465,7 @@ gantt
 - 完成第 1 步后：
   - 把改动提交到 Git（不会用就问 AI）。
   - 新建聊天（`/new` 或 `/clear`）。
-  - 提示词：阅读 memory-bank 所有文件，阅读 progress.md 了解之前的工作进度，然后继续实施计划第 2 步。在我验证测试前不要开始第 3 步。
+  - 提示词：阅读 project-docs 所有文件，阅读 progress.md 了解之前的工作进度，然后继续实施计划第 2 步。在我验证测试前不要开始第 3 步。
 - 重复此流程，直到整个 `implementation-plan.md` 全部完成。
 </details>
 

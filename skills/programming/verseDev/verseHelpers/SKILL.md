@@ -630,7 +630,7 @@ GetMeshAsset(AssetName:string):mesh_asset
 - [Verse.digest.verse](../shared/api-digests/Verse.digest.verse) - Verse核心API
 - [Fortnite.digest.verse](../shared/api-digests/Fortnite.digest.verse) - Fortnite API
 - [UnrealEngine.digest.verse](../shared/api-digests/UnrealEngine.digest.verse) - UE API
-- [@api-gaps.md](../shared/memory-bank-template/@api-gaps.md) - API缺失记录
+- [@api-gaps.md](../shared/project-templates/@api-gaps.md) - API缺失记录
 
 ---
 

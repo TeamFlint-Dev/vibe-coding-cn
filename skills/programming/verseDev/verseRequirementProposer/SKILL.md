@@ -316,9 +316,9 @@ proposer: 检查是否需要生成新需求
 
 ## Reference Files
 
-- [@pending-requirements.md](../shared/memory-bank-template/@pending-requirements.md) - 需求列表模板
-- [@api-gaps.md](../shared/memory-bank-template/@api-gaps.md) - API缺口记录
-- [@code-library.md](../shared/memory-bank-template/@code-library.md) - 已实现代码库
+- [@pending-requirements.md](../shared/project-templates/@pending-requirements.md) - 需求列表模板
+- [@api-gaps.md](../shared/project-templates/@api-gaps.md) - API缺口记录
+- [@code-library.md](../shared/project-templates/@code-library.md) - 已实现代码库
 
 ---
 

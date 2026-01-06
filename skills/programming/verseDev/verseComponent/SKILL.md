@@ -645,7 +645,7 @@ OnReceiveDamage(Amount:int):void =
 
 ## Reference Files
 
-- [@architecture-blueprint.md](../shared/memory-bank-template/@architecture-blueprint.md) - 架构大纲
+- [@architecture-blueprint.md](../shared/project-templates/@architecture-blueprint.md) - 架构大纲
 - [scenegraph-framework-guide.md](../shared/references/scenegraph-framework-guide.md) - 组件系统详解
 - [helper-request.md](../shared/request-templates/helper-request.md) - Helper请求模板
 - [verseHelpers/SKILL.md](../verseHelpers/SKILL.md) - Helper层技能（HealthHelper, CharacterHelper）

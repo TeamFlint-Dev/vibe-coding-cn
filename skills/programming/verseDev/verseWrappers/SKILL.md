@@ -289,7 +289,7 @@ verseDigestSync 检测到更新
 
 - [api-keyword-mapping.md](./api-keyword-mapping.md) - API 依赖关键词映射表
 - [sync-update-template.md](./sync-update-template.md) - digest 同步更新报告模板
-- [@wrapper-registry.md](../shared/memory-bank-template/@wrapper-registry.md) - Wrapper 注册表模板
+- [@wrapper-registry.md](../shared/project-templates/@wrapper-registry.md) - Wrapper 注册表模板
 - [wrapper-request.md](../shared/request-templates/wrapper-request.md) - Wrapper 请求模板
 - [CharacterWrapper.verse](../shared/code-library/Wrappers/CharacterWrapper.verse) - 参考实现
 

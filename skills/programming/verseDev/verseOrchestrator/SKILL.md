@@ -291,7 +291,7 @@ dispatcher 解析深度和范围
     │   └── 审计模式 → 调度 verseAuditDispatcher
     │
     └── 任务完成
-        ├── 询问是否更新Memory-Bank模板
+        ├── 询问是否更新项目文档模板
         └── 检查是否触发改进模式阈值
 ```
 
@@ -500,7 +500,7 @@ verseAssets (Layer 1)
 
 ---
 
-## Memory-Bank模板更新
+## 项目文档模板更新
 
 ### 更新询问时机
 
@@ -518,7 +518,7 @@ verseAssets (Layer 1)
 1. [架构模式名称] - 可添加到架构模板
 2. [代码片段描述] - 可添加到代码库
 
-是否更新 Memory-Bank 模板？(是/否/选择性更新)"
+是否更新 项目文档 模板？(是/否/选择性更新)"
 ```
 
 ---
@@ -569,7 +569,7 @@ verseAssets (Layer 1)
 | "显示进度" | 展示当前项目进度 |
 | "当前在哪一层" | 显示当前执行层级 |
 | "查看检查点" | 列出可恢复的检查点 |
-| "更新模板" | 触发Memory-Bank更新 |
+| "更新模板" | 触发项目文档更新 |
 
 ---
 
@@ -604,7 +604,7 @@ verseHelpers 报告: "当前API不支持 [功能]"
 - [Index.md](../Index.md) - 生态系统总览
 - [verseWrappers](../verseWrappers/SKILL.md) - Wrapper 层 (L1.5) Skill
 - [shared/checklists/architecture-review.md](../shared/checklists/architecture-review.md) - 架构检查清单
-- [shared/memory-bank-template/](../shared/memory-bank-template/) - Memory-Bank模板
+- [shared/project-templates/](../shared/project-templates/) - 项目文档模板
 - [shared/evolution-logs/](../shared/evolution-logs/) - 自进化日志
 
 ---

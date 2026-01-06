@@ -118,7 +118,7 @@ xxx_op_result<public> := struct<concrete>:
 
 - **API 映射参考**: [api-keyword-mapping.md](../../verseWrappers/api-keyword-mapping.md)
 - **代码模板参考**: [CharacterWrapper.verse](../code-library/Wrappers/CharacterWrapper.verse)
-- **注册目标**: [@wrapper-registry.md](../memory-bank-template/@wrapper-registry.md)
+- **注册目标**: [@wrapper-registry.md](../project-templates/@wrapper-registry.md)
 
 ---
 

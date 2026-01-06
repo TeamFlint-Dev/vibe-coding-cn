@@ -23,11 +23,11 @@ description: "技能优化器：基于审计报告直接修改 SKILL.md，实现
 
 - 审计 SKILL 文件（交给 gameSkillAuditor）
 - 生成新的 Skill（交给 claudeSkills/create-skill）
-- 修改 memory-bank 内容文件（只修改 SKILL 定义）
+- 修改 项目文档 内容文件（只修改 SKILL 定义）
 
 必需输入：
 
-- `memory-bank/@audit-report.md`（审计报告）
+- `项目文档/@audit-report.md`（审计报告）
 - 或明确指定的 SKILL 文件路径 + 修改指令
 
 ## Quick Reference

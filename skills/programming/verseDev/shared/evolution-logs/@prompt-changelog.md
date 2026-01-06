@@ -135,7 +135,7 @@ verseAuditDispatcher (子调度器)
 | shared/code-library/Components/*.verse | 新增 |
 | shared/code-library/Events/*.verse | 新增 |
 | shared/code-library/Entities/*.verse | 新增 |
-| memory-bank-template/@code-library.md | 废弃（保留兼容） |
+| project-templates/@code-library.md | 废弃（保留兼容） |
 
 ### 变更内容
 
@@ -190,7 +190,7 @@ shared/
 | shared/projects/ | 新增目录 |
 | shared/projects/_iteration-mode/ | 新增（迭代模式内部项目） |
 | shared/projects/_templates/ | 新增（项目模板） |
-| memory-bank-template/@checkpoint.md | 废弃（改为模板） |
+| project-templates/@checkpoint.md | 废弃（改为模板） |
 
 ### 变更内容
 
@@ -210,7 +210,7 @@ shared/
 │   │   └── @architecture-template.md
 │   └── {user-project}/              # 用户项目文件夹
 │
-└── memory-bank-template/            # 仅保留通用模板
+└── project-templates/            # 仅保留通用模板
 ```
 
 **核心区分**:

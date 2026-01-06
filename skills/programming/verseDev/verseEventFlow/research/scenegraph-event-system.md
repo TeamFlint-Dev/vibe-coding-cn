@@ -348,7 +348,7 @@ event_bus_component := class(component):
 
 ## Reference Files
 
-- [@architecture-blueprint.md](../shared/memory-bank-template/@architecture-blueprint.md) - 架构大纲
+- [@architecture-blueprint.md](../shared/project-templates/@architecture-blueprint.md) - 架构大纲
 - [scenegraph-framework-guide.md](../shared/references/scenegraph-framework-guide.md) - 事件系统详解
 - [component-request.md](../shared/request-templates/component-request.md) - 组件请求模板
 

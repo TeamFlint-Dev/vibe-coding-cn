@@ -29,7 +29,7 @@
 
 ```
 project-root/
-├── memory-bank/           # 项目上下文
+├── project-docs/           # 项目上下文
 │   ├── @game-design-document.md
 │   ├── @tech-stack.md
 │   ├── @implementation-plan.md

@@ -21,7 +21,7 @@
 - ✅ 盘点所有涉及SG/Device边界描述的文档
   - R00 SceneGraph-Device-Boundary 报告系列（8个文件）
   - architecture-library.md
-  - memory-bank模板中的AI规则示例
+  - 项目文档模板中的AI规则示例
   - verseArchitectureSelector
   - 相关方法论文档
 - ✅ 识别需修正点：6个核心文档需要更新
@@ -280,7 +280,7 @@
    - 用途: 自动化架构选择流程
 
 6. **@ai-rules-templates.md** - AI规则模板
-   - 路径: `resources/documents/Templates and Resources/memory-bank-templates/@ai-rules-templates.md`
+   - 路径: `resources/documents/Templates and Resources/project-templatess/@ai-rules-templates.md`
    - 用途: 配置项目AI助手行为
 
 ---
@@ -294,7 +294,7 @@
 
 ### 中期计划
 1. **评审现有项目**: 用新模型评审历史架构
-2. **更新项目文档**: 将新模型应用到项目memory-bank
+2. **更新项目文档**: 将新模型应用到项目项目文档
 3. **培训材料**: 创建培训slides
 
 ### 长期维护

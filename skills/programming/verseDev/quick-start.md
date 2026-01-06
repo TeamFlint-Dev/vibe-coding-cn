@@ -212,7 +212,7 @@ health_component := class(component):
 
 ```markdown
 # 完成功能后
-"更新Memory-Bank模板"
+"更新项目文档模板"
 ```
 
 ---

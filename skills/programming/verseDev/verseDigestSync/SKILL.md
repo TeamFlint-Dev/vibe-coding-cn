@@ -141,7 +141,7 @@ git ls-remote https://github.com/vz-creates/uefn HEAD
 
 ### Wrapper 注册表
 
-文件: `shared/memory-bank-template/@wrapper-registry.md`
+文件: `shared/project-templates/@wrapper-registry.md`
 
 此文件记录所有 Wrapper 及其 digest 引用行号，用于：
 1. 快速定位可能受影响的 Wrapper
@@ -256,7 +256,7 @@ verseOrchestrator 可选触发 verseDigestSync
 - [UnrealEngine.digest.verse](../shared/api-digests/UnrealEngine.digest.verse) - UE API digest
 - [verseCodeAuditor](../verseCodeAuditor/SKILL.md) - API 一致性审计
 - [verseWrappers](../verseWrappers/SKILL.md) - Wrapper 层 Skill
-- [@wrapper-registry.md](../shared/memory-bank-template/@wrapper-registry.md) - Wrapper 注册表
+- [@wrapper-registry.md](../shared/project-templates/@wrapper-registry.md) - Wrapper 注册表
 
 ---
 

@@ -235,20 +235,20 @@ OtherComponent.DoSomething()  # ❌ 不要这样做
 ```
 ```
 
-### 3. Memory-bank 集成
+### 3. project-docs 集成
 
-在 CLAUDE.md 中引用 memory-bank 文档：
+在 CLAUDE.md 中引用 project-docs 文档：
 
 ```markdown
 ## Context Documents
 
-Before starting development, read these memory-bank files:
+Before starting development, read these project-docs files:
 
-- `memory-bank/@game-design-document.md` - Game design and core loop
-- `memory-bank/@tech-stack.md` - Technology decisions and constraints
-- `memory-bank/@architecture.md` - System architecture and data flow
-- `memory-bank/@implementation-plan.md` - Current tasks and priorities
-- `memory-bank/@progress.md` - Project status and blockers
+- `project-docs/@game-design-document.md` - Game design and core loop
+- `project-docs/@tech-stack.md` - Technology decisions and constraints
+- `project-docs/@architecture.md` - System architecture and data flow
+- `project-docs/@implementation-plan.md` - Current tasks and priorities
+- `project-docs/@progress.md` - Project status and blockers
 ```
 
 ---
@@ -331,11 +331,11 @@ UpdateSlot():void =
 
 Before starting development, read:
 
-- `memory-bank/@game-design-document.md` - Core loop and item design
-- `memory-bank/@tech-stack.md` - SceneGraph constraints
-- `memory-bank/@architecture.md` - Entity hierarchy and events
-- `memory-bank/@implementation-plan.md` - Current phase and tasks
-- `memory-bank/@progress.md` - What's done, what's blocked
+- `project-docs/@game-design-document.md` - Core loop and item design
+- `project-docs/@tech-stack.md` - SceneGraph constraints
+- `project-docs/@architecture.md` - Entity hierarchy and events
+- `project-docs/@implementation-plan.md` - Current phase and tasks
+- `project-docs/@progress.md` - What's done, what's blocked
 ```
 
 ---
@@ -346,4 +346,4 @@ Before starting development, read:
 2. **具体优于抽象**：提供代码示例比纯文字描述更有效
 3. **优先级明确**：Always/Never 规则应该涵盖最重要的约束
 4. **定期更新**：随着项目演进更新规则文档
-5. **与 memory-bank 配合**：规则文件定义行为，memory-bank 提供上下文
+5. **与 project-docs 配合**：规则文件定义行为，project-docs 提供上下文

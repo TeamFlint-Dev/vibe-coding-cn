@@ -144,7 +144,7 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 
 **文件命名规范**:
 ```
-memory-bank 文件: @{name}.md 或 @{category}/{name}.md
+项目文档 文件: @{name}.md 或 @{category}/{name}.md
 输出文件必须以 @ 开头
 使用小写字母和中划线
 ```
