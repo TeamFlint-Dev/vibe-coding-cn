@@ -14,7 +14,6 @@
 ### Key Terminology
 - **Skill**: Encapsulated development knowledge in `Core/skills/*/SKILL.md`
 - **Memory-bank**: Project-specific context stored in `Games/[project]/memory-bank/`
-- **Beads**: AI-native issue tracking system (`.beads/` directory, uses `bd` CLI)
 - **Pipeline**: Multi-stage workflow orchestrated via cloud scheduler
 
 ## Project Structure
@@ -30,7 +29,6 @@ Core/
 └── skills/        # Skill library (two-tier classification)
     ├── programming/       # Programming skills
     │   ├── verseDev/      # Verse development (17 sub-skills)
-    │   ├── beadsCLI/      # Beads task management CLI
     │   ├── ghAgenticWorkflows/  # GitHub Agentic Workflows
     │   ├── controlHub/    # Cloud server & webhook
     │   ├── claudeCodeGuide/
@@ -63,15 +61,25 @@ make lint          # Validate all markdown with markdownlint-cli
                    # REQUIRED before committing any .md changes
 ```
 
-### Beads Issue Tracking (AI-Native)
-```bash
-bd create "Task description"       # Create a new task/issue
-bd list                            # View all issues
-bd update <id> --status in_progress
-bd update <id> --status done
-bd sync                            # Sync with git remote (uses .beads/issues.jsonl)
-bd ready --label "pipeline:xxx"    # Get tasks ready for execution
+### Verse Remote Compile (CRITICAL)
+**After writing or modifying any Verse code, you MUST verify compilation.**
+
+```powershell
+# Compile and wait for result (code must be committed first)
+.\scripts\verse-compile-server\client\compile.ps1 -Wait
 ```
+
+**How it works**:
+1. Script detects current Git branch and commit
+2. Sends request to cloud server (193.112.183.143:19527)
+3. Cloud triggers GitHub Actions, Self-hosted Runner executes compile
+4. Runner connects to local UEFN editor for real compilation
+5. Results return to script with errors/warnings
+
+**Requirements**:
+- UEFN must be open and project loaded on the Runner machine
+- Code must be committed before compiling (script checks current commit)
+- Use `-Wait` to block until result returns
 
 ### Prompt Library Management
 ```bash
@@ -137,14 +145,13 @@ The `gameDev` skill ecosystem (`Core/skills/design/gameDev/`) includes:
 | `Games/` | Project Memory-bank collection | When working on game projects |
 | `pipelines/*.yaml` | Pipeline stage definitions | When designing new workflows |
 | `scripts/webhook-server/` | Cloud scheduler & webhook handlers | When modifying pipeline orchestration |
-| `.beads/` | Issue tracking data (issues.jsonl syncs via git) | Auto-managed by `bd` CLI |
 
 ## Pipeline System Architecture
 
 Multi-stage AI workflows with cloud-based orchestration:
 
 ```
-Trigger → Planner Agent (gh-aw) → creates Beads tasks
+Trigger → Planner Agent (gh-aw) → creates tasks
                 ↓
     Cloud Scheduler (pipeline_scheduler.py)
                 ↓
@@ -160,7 +167,7 @@ Trigger → Planner Agent (gh-aw) → creates Beads tasks
 
 **Stage Flow**: `ingest → classify → extract → assemble → validate`
 
-**State Passing**: Artifacts stored in repo, metadata in Beads task reason
+**State Passing**: Artifacts stored in repo, metadata in task context
 
 ## Skill Architecture
 
@@ -197,7 +204,84 @@ make lint                          # Pass markdown validation
 # Ensure directories use camelCase naming
 # New skills include complete SKILL.md
 # Verify no temp files or secrets
+# For Verse code: run remote compile verification
+.\scripts\verse-compile-server\client\compile.ps1 -Wait
 ```
+
+---
+
+## Thinking Principles (思维原则)
+
+These principles guide how AI agents should approach work in this repository:
+
+### Cognitive Humility (认知谦逊)
+**What you don't know matters more than what you think you know.**
+- Assume memory may be outdated or incorrect
+- Verify first, then use
+- When uncertain, say "I need to confirm first"
+
+### Source Thinking (源头思维)
+**Knowledge has hierarchy: Official docs > Code repo > Your inference.**
+- What's the basis for this conclusion?
+- Can you point to a concrete source?
+- If no source found, are you fabricating?
+
+### Code is Truth (代码即真相)
+**Code in documentation must reference the code repository, never hand-written.**
+- All code examples come from real files in the repo
+- Include file path and version when citing
+- Modify repo code first, then update doc references
+
+### Self-Validation (自验证)
+**After writing code, run it yourself first.**
+- Verse code: run remote compile before committing
+- Don't assume code works—verify it
+- Compile pass ≠ Logic correct, but at least pass compile first
+
+### Reader Perspective (读者视角)
+**Documentation is for readers, not for yourself.**
+- What does the reader need to know right now?
+- What information is noise?
+- Can this document enable the reader to take action?
+
+### Failure Sensitivity (失败敏感)
+**Problems pointed out in first feedback are often just the tip of the iceberg.**
+- Does this problem expose deeper misunderstandings?
+- Are there similar issues elsewhere?
+- Are you patching the surface or solving the root cause?
+
+### Iteration Awareness (迭代意识)
+**Research is cumulative, not one-time.**
+- Extend from prior conclusions, don't start from scratch
+- Mark relationships with existing research
+- Let future researchers trace decision chains
+
+### Errors as Material (错误即素材)
+**Difficulties and errors are worth recording—they're research starting points.**
+- Create Issues when encountering difficulties or making mistakes
+- Describe phenomena, attempted paths, blocking reasons
+- Value of errors: never step in the same pit twice
+
+---
+
+## Landing the Plane (会话结束规范)
+
+**At session end, you MUST complete:**
+
+1. Create Issues for incomplete work
+2. **Create Issues for difficulties/errors encountered**—they're worth researching
+3. Run quality checks (`make lint`)
+4. **Push to remote (MANDATORY)**:
+
+```bash
+git pull --rebase
+git push
+git status  # Must show "up to date with origin"
+```
+
+**Rule**: Work not pushed = Work not done.
+
+---
 
 ## Task Context Guidelines（任务上下文指引）
 
@@ -226,26 +310,6 @@ make lint                          # Pass markdown validation
 ## Skill 速查表
 
 ### 🔴 核心工具 (必须掌握)
-
-#### Beads CLI (bd) - 任务管理
-> 详细文档: `Core/skills/programming/beadsCLI/SKILL.md`
-
-```bash
-# 基础工作流
-bd ready --json              # 查找就绪任务（无阻塞依赖）
-bd create "Title" -p 1       # 创建任务 (优先级 0-4)
-bd update <id> --status in_progress  # 开始任务
-bd close <id> --reason "Done"        # 完成任务
-bd sync                      # 同步到 Git（会话结束必须执行）
-
-# 依赖管理 - 重要！
-bd dep add <child> <parent>  # child 依赖 parent (parent 先完成)
-```
-
-**提取任务 ID**:
-```bash
-TASK_ID=$(bd create "Title" 2>&1 | grep -oP 'Created task: \K\S+')
-```
 
 #### GitHub Agentic Workflows (gh-aw)
 > 详细文档: `Core/skills/programming/ghAgenticWorkflows/SKILL.md`
@@ -322,26 +386,6 @@ safe-outputs: { add-comment: }
 | claudeCookbooks | `Core/skills/programming/claudeCookbooks/` | Claude 使用技巧 |
 | claudeSkills | `Core/skills/programming/claudeSkills/` | Claude 技能库 |
 | githubActionsWorkflows | `Core/skills/programming/githubActionsWorkflows/` | CI/CD 工作流 |
-
-### 流水线 Agent 速查
-
-| Agent | 触发方式 | 职责 |
-|-------|---------|------|
-| `planner-agent` | `gh aw run planner-agent -f pipeline_type=xxx` | 创建任务、设置依赖 |
-| `worker-agent` | `gh aw run worker-agent -f task_id=bd-xxx` | 执行单个阶段任务 |
-
-**Planner 工作流**:
-1. `bd create` 创建阶段任务
-2. `bd dep add` 设置依赖链
-3. `bd sync` 同步
-4. 通知调度器
-
-**Worker 工作流**:
-1. `bd show <id>` 获取任务
-2. `bd update --status in_progress`
-3. 执行工作
-4. `bd close --reason "output: ..."`
-5. `bd sync`
 
 ---
 
@@ -599,7 +643,6 @@ safe-outputs: { add-comment: }
 |-------|-----------------|
 | ghAgenticWorkflows | `Core/skills/programming/ghAgenticWorkflows/` |
 | verseDev | `Core/skills/programming/verseDev/` |
-| beadsCLI | `Core/skills/programming/beadsCLI/` |
 | controlHub | `Core/skills/programming/controlHub/` |
 | gameDev | `Core/skills/design/gameDev/` |
 
@@ -651,5 +694,5 @@ grep -r "safe-outputs" Core/skills/*/FAILURE-CASES.md
 - [ ] 决策记录：重要决策已记录到 DECISION-LOG.md
 - [ ] 检查项提炼：新的检查项已添加到 PREFLIGHT-CHECKLIST.md
 - [ ] 边界更新：能力边界变化已更新到 CAPABILITY-BOUNDARIES.md
-- [ ] bd sync：知识变更已同步到 Git
+- [ ] Git push：知识变更已同步到远程
 ```
