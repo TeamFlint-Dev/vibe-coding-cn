@@ -151,7 +151,8 @@ lifecycle_manager := class(creative_device):
         if (ElapsedTime > InitializationTimeout):
             Print("[Manager] ⚠️ Initialization timeout! Missing components:")
             
-            for (Required in RequiredComponents):
+            for (I := 0..RequiredComponents.Length - 1):
+                Required := RequiredComponents[I]
                 if (not IsComponentReady(Required)?):
                     Print("  - {Required}")
             
@@ -176,7 +177,8 @@ lifecycle_manager := class(creative_device):
     
     # 检查所有组件是否就绪
     AllComponentsReady():logic =
-        for (Required in RequiredComponents):
+        for (I := 0..RequiredComponents.Length - 1):
+            Required := RequiredComponents[I]
             if (not IsComponentReady(Required)?):
                 return false
         return true
