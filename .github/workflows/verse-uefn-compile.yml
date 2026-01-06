@@ -16,8 +16,8 @@ on:
 env:
   # UEFN 项目中的仓库路径 (代码库位置)
   UEFN_REPO_PATH: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN'
-  # verse-build.js 工具路径
-  VERSE_BUILD_SCRIPT: 'E:\Repos\vibe-coding-cn\Core\skills\programming\verseDev\verseCli\verse-build.js'
+  # verse-build.js 工具路径 (使用 UEFN 仓库中的版本，避免路径混淆)
+  VERSE_BUILD_SCRIPT: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN\Core\skills\programming\verseDev\verseCli\verse-build.js'
 
 jobs:
   compile:
@@ -29,6 +29,7 @@ jobs:
         id: switch_branch
         shell: pwsh
         run: |
+          $ErrorActionPreference = "Stop"
           $uefnRepo = "${{ env.UEFN_REPO_PATH }}"
           $targetBranch = "${{ inputs.branch }}"
           
@@ -49,13 +50,28 @@ jobs:
             echo "original_branch=$originalBranch" >> $env:GITHUB_OUTPUT
             
             # 获取最新代码
-            Write-Host "Fetching latest..."
-            git fetch origin
+            Write-Host "Fetching latest from origin..."
+            git fetch origin 2>&1 | Write-Host
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "::error::Failed to fetch from origin"
+              exit 1
+            }
             
             # 切换到目标分支
             Write-Host "Switching to branch: $targetBranch"
-            git checkout $targetBranch
-            git pull origin $targetBranch
+            git checkout $targetBranch 2>&1 | Write-Host
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "::error::Failed to checkout branch: $targetBranch"
+              exit 1
+            }
+            
+            # 拉取最新代码
+            Write-Host "Pulling latest changes..."
+            git pull origin $targetBranch 2>&1 | Write-Host
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "::error::Failed to pull branch: $targetBranch"
+              exit 1
+            }
             
             # 记录当前 commit
             $currentCommit = git rev-parse HEAD
