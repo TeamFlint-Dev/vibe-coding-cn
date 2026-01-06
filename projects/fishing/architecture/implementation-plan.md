@@ -1,4 +1,4 @@
-# 📋 Trophy Fishing - 实施计划
+# 📋 Fishing - 实施计划
 
 > **版本**：v1.0  
 > **阶段**：实施规划  
@@ -13,7 +13,7 @@
 
 | 属性 | 值 |
 |------|-----|
-| 项目名称 | Trophy Fishing |
+| 项目名称 | Fishing |
 | 平台 | UEFN (Fortnite Creative) |
 | 类型 | 放置养成 |
 | MVP 范围 | 钓鱼系统 + 展示系统 |

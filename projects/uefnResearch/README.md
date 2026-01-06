@@ -29,7 +29,7 @@ uefnResearch (技术研究)
     ↓
 verse/library & verse/modules (代码库)
     ↓
-trophyFishing & 其他游戏项目 (应用层)
+fishing & 其他游戏项目 (应用层)
 ```
 
 **uefnResearch** 是技术源头，为代码库提供经过验证的实现，代码库再被游戏项目复用。
