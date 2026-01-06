@@ -37,6 +37,36 @@ make lint          # Markdown 校验（提交前必须运行）
 
 ---
 
+## Verse 远程编译
+
+**编写或修改 Verse 代码后，必须验证编译。**
+
+### 使用方法
+
+```powershell
+# 最简用法 - 自动检测当前分支，发送编译请求
+.\scripts\verse-compile-server\client\compile.ps1
+
+# 等待编译完成并查看结果
+.\scripts\verse-compile-server\client\compile.ps1 -Wait
+```
+
+### 工作原理
+
+1. 脚本自动检测当前 Git 分支和 commit
+2. 发送请求到云端服务器 (193.112.183.143:19527)
+3. 云端触发 GitHub Actions，Self-hosted Runner 执行编译
+4. Runner 连接本地 UEFN 编辑器完成真实编译
+5. 结果回传，脚本显示错误/警告
+
+### 注意事项
+
+- **UEFN 必须在 Runner 机器上打开并加载项目**
+- 编译前确保代码已 commit（脚本会检测当前 commit）
+- 使用 `-Wait` 可阻塞等待结果，适合需要立即知道编译状态的场景
+
+---
+
 ## 思维原则
 
 ### 认知谦逊
