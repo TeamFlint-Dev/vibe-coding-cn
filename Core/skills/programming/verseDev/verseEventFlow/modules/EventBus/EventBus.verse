@@ -113,7 +113,7 @@ game_manager := class(creative_device):
     
     OnReceive<override>(Event:scene_event):logic =
         # 接收计分事件
-        if (ScoreEvent := Event?player_scored_event):
+        if (ScoreEvent := player_scored_event[Event]):
             ProcessScore(ScoreEvent)
             return true  # 消耗事件
         

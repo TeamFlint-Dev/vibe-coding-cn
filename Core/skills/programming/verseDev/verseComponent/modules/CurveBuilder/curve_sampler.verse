@@ -157,10 +157,9 @@ curve_sampler_1d<public> := class:
     # 自适应细分递归辅助函数
     AdaptiveSubdivide<private>(Curve:curve_1d, Config:sample_config, CurrentSamples:[]sample_point, 
                                 T0:float, T1:float, V0:float, V1:float, Depth:int)<transacts>:[]sample_point =
-        block:
-            MaxDepth := 10  # 防止无限递归
-            if (Depth >= MaxDepth):
-                return CurrentSamples
+        MaxDepth := 10  # 防止无限递归
+        if (Depth >= MaxDepth):
+            return CurrentSamples
         
         # 计算中点
         TMid := (T0 + T1) / 2.0
@@ -307,11 +306,10 @@ delta_converter_1d<public> := class:
     # 便捷方法：直接从曲线生成 delta 数组
     ConvertCurveToDeltas<public>(Curve:curve_1d, SampleConfig:sample_config, 
                                   DeltaConfig:delta_conversion_config)<transacts>:[]keyframe_delta =
-        block:
-            Sampler := curve_sampler_1d{}
-            Sampler.SetCurve(Curve)
-            Samples := Sampler.Sample(SampleConfig)
-            ConvertToDeltas(Samples, DeltaConfig)
+        Sampler := curve_sampler_1d{}
+        Sampler.SetCurve(Curve)
+        Samples := Sampler.Sample(SampleConfig)
+        ConvertToDeltas(Samples, DeltaConfig)
 
 # ==========================================
 # 3D 曲线支持（预留）

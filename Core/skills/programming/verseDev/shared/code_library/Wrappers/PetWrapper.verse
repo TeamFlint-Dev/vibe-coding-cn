@@ -304,7 +304,7 @@ PetWrapper<public> := module:
     
     # 验证位置向量是否有效（不在原点）
     IsValidPosition<private>(Position:vector3):logic =
-        if (Position.X == 0.0 and Position.Y == 0.0 and Position.Z == 0.0):
+        if (Position.X = 0.0 and Position.Y = 0.0 and Position.Z = 0.0):
             false
         else:
             true
