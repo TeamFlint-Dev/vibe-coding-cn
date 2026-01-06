@@ -144,7 +144,7 @@ damage_detector := class(creative_device):
 damage_processor := class(creative_device):
     
     OnReceive<override>(Event:scene_event):logic =
-        if (DamageEvent := Event?player_damaged_event):
+        if (DamageEvent := player_damaged_event[Event]):
             ApplyDamage(DamageEvent)
             return true  # 消耗事件
         
