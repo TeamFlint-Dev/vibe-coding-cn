@@ -127,6 +127,13 @@ lifecycle_manager := class(creative_device):
     # 初始化超时（秒）
     var InitializationTimeout:float = 10.0
     
+    # 辅助函数：检查组件是否在列表中
+    IsComponentReady(ComponentName:string):logic =
+        for (ReadyComp : ReadyComponents):
+            if (ReadyComp = ComponentName):
+                return true
+        false
+    
     OnBeginSimulation<override>()<suspends>:void =
         Sleep(0.0)
         set InitializationStartTime = GetSimulationElapsedTime()
@@ -145,7 +152,7 @@ lifecycle_manager := class(creative_device):
             Print("[Manager] ⚠️ Initialization timeout! Missing components:")
             
             for (Required in RequiredComponents):
-                if not (Required in ReadyComponents):
+                if (not IsComponentReady(Required)?):
                     Print("  - {Required}")
             
             set GameStarted = true  # 防止重复检查

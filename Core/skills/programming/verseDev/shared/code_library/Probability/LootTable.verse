@@ -115,7 +115,7 @@ LootTable<public> := module:
                             set Results += array{Item.Item}
                     
                     # 如果不允许重复，移除已选中的物品
-                    if (not[AllowDuplicates], SelectedIndex >= 0):
+                    if (not AllowDuplicates?, SelectedIndex >= 0):
                         set AvailableItems = array:
                             for (Idx -> Itm : AvailableItems, Idx <> SelectedIndex):
                                 Itm

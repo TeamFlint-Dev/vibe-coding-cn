@@ -80,13 +80,13 @@ IntegrationTests<public> := module:
         EpicOK := Abs(EpicRate - ExpectedEpic) <= Tolerance
         LegendaryOK := Abs(LegendaryRate - ExpectedLegendary) <= Tolerance
         
-        if (not[CommonOK]):
+        if (not CommonOK?):
             Print("❌ 普通品质偏差过大")
-        if (not[RareOK]):
+        if (not RareOK?):
             Print("❌ 稀有品质偏差过大")
-        if (not[EpicOK]):
+        if (not EpicOK?):
             Print("❌ 史诗品质偏差过大")
-        if (not[LegendaryOK]):
+        if (not LegendaryOK?):
             Print("❌ 传说品质偏差过大")
         
         CommonOK and RareOK and EpicOK and LegendaryOK

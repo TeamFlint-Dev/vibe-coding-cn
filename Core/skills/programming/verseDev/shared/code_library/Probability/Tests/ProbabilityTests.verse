@@ -86,7 +86,7 @@ ProbabilityTests<public> := module:
     # ==========================================
     
     AssertTrue<public>(Condition:logic, Message:string):logic =
-        if (not[Condition]):
+        if (not Condition?):
             Print("断言失败: {Message}")
             false
         else:

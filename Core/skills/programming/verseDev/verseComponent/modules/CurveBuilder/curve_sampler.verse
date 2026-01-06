@@ -6,7 +6,7 @@ using { /Verse.org/Simulation }
 using { /Verse.org/Verse }
 using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Fortnite.com/Animation }
-using { MathUtils } from "../../shared/code_library/Helpers/MathUtils.verse"
+using { /Core/skills/programming/verseDev/shared/code_library/Helpers/MathUtils.MathUtils }
 
 # ==========================================
 # 采样方式枚举

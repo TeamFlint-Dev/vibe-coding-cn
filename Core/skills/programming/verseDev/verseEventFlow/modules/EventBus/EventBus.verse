@@ -71,7 +71,7 @@ ui_manager := class(creative_device):
     
     OnReceive<override>(Event:scene_event):logic =
         # 接收计分事件
-        if (ScoreEvent := Event?player_scored_event):
+        if (ScoreEvent := player_scored_event[Event]):
             UpdateScoreUI(ScoreEvent.Player, ScoreEvent.Score)
             return false  # 不消耗，让其他组件也能收到
         

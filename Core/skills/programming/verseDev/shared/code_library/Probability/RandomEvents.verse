@@ -57,7 +57,7 @@ RandomEvents<public> := module:
                 return false
             
             # 检查是否可重复
-            if (not[CanRepeat], TriggerCount > 0):
+            if (not CanRepeat?, TriggerCount > 0):
                 return false
             
             true

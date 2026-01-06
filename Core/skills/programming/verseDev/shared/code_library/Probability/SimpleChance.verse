@@ -162,7 +162,7 @@ SimpleChance<public> := module:
     # 全部成功
     RollAllSuccess<public>(Probability:float, Attempts:int)<transacts>:logic =
         for (I := 0..Attempts - 1):
-            if (not[RollChance(Probability)]):
+            if (not RollChance(Probability)?):
                 return false
         true
     
