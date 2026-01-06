@@ -341,25 +341,24 @@ class VerseCompileHandler(BaseHTTPRequestHandler):
         
         # 验证必需字段
         branch = data.get("branch")
-        commit = data.get("commit")
         
         if not branch:
             self._send_json(400, {"error": "Missing required field: branch"})
-            return
-        if not commit:
-            self._send_json(400, {"error": "Missing required field: commit"})
             return
         
         repo_owner = data.get("repo_owner", DEFAULT_REPO_OWNER)
         repo_name = data.get("repo_name", DEFAULT_REPO_NAME)
         
-        log(f"Compile request: branch={branch}, commit={commit[:8]}, repo={repo_owner}/{repo_name}")
+        # commit 现在是可选的，因为会在 UEFN 仓库中自动获取
+        commit = data.get("commit", "auto")
+        
+        log(f"Compile request: branch={branch}, repo={repo_owner}/{repo_name}")
         
         # 创建请求记录
         request_id = create_compile_request(branch, commit, repo_owner, repo_name)
         log(f"Created request: {request_id}")
         
-        # 触发 Workflow
+        # 触发 Workflow (不再传 commit，由 Runner 在 UEFN 仓库获取)
         success = trigger_workflow(
             repo_owner=repo_owner,
             repo_name=repo_name,
@@ -367,7 +366,6 @@ class VerseCompileHandler(BaseHTTPRequestHandler):
             inputs={
                 "request_id": request_id,
                 "branch": branch,
-                "commit": commit,
                 "callback_url": f"http://193.112.183.143:{PORT}/verse/result"
             }
         )

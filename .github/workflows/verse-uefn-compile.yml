@@ -9,12 +9,15 @@ on:
       branch:
         description: 'Branch to compile'
         required: true
-      commit:
-        description: 'Commit SHA to compile'
-        required: true
       callback_url:
         description: 'URL to send result back'
         required: true
+
+env:
+  # UEFN 项目中的仓库路径 (代码库位置)
+  UEFN_REPO_PATH: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN'
+  # verse-build.js 工具路径
+  VERSE_BUILD_SCRIPT: 'E:\Repos\vibe-coding-cn\Core\skills\programming\verseDev\verseCli\verse-build.js'
 
 jobs:
   compile:
@@ -22,18 +25,48 @@ jobs:
     runs-on: [self-hosted, windows, uefn]
     
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.branch }}
-          fetch-depth: 0
+      - name: Switch branch in UEFN repo
+        id: switch_branch
+        shell: pwsh
+        run: |
+          $uefnRepo = "${{ env.UEFN_REPO_PATH }}"
+          $targetBranch = "${{ inputs.branch }}"
+          
+          Write-Host "=== Switch Branch in UEFN Repo ==="
+          Write-Host "UEFN Repo: $uefnRepo"
+          Write-Host "Target Branch: $targetBranch"
+          
+          if (-not (Test-Path $uefnRepo)) {
+            Write-Host "::error::UEFN repo not found at: $uefnRepo"
+            exit 1
+          }
+          
+          Push-Location $uefnRepo
+          try {
+            # 记录当前分支，用于后续恢复
+            $originalBranch = git rev-parse --abbrev-ref HEAD
+            Write-Host "Original Branch: $originalBranch"
+            echo "original_branch=$originalBranch" >> $env:GITHUB_OUTPUT
+            
+            # 获取最新代码
+            Write-Host "Fetching latest..."
+            git fetch origin
+            
+            # 切换到目标分支
+            Write-Host "Switching to branch: $targetBranch"
+            git checkout $targetBranch
+            git pull origin $targetBranch
+            
+            # 记录当前 commit
+            $currentCommit = git rev-parse HEAD
+            Write-Host "Current Commit: $currentCommit"
+            echo "commit=$currentCommit" >> $env:GITHUB_OUTPUT
+            
+          } finally {
+            Pop-Location
+          }
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      
-      - name: Run Verse Compile via CLI
+      - name: Run Verse Compile
         id: compile
         shell: pwsh
         run: |
@@ -42,10 +75,9 @@ jobs:
           Write-Host "=== Verse UEFN Compile ==="
           Write-Host "Request ID: ${{ inputs.request_id }}"
           Write-Host "Branch: ${{ inputs.branch }}"
-          Write-Host "Commit: ${{ inputs.commit }}"
+          Write-Host "Commit: ${{ steps.switch_branch.outputs.commit }}"
           
-          # 使用仓库中的 verse-build.js
-          $verseBuildScript = Join-Path $env:GITHUB_WORKSPACE "Core\skills\programming\verseDev\verseCli\verse-build.js"
+          $verseBuildScript = "${{ env.VERSE_BUILD_SCRIPT }}"
           
           if (-not (Test-Path $verseBuildScript)) {
             Write-Host "::error::verse-build.js not found at: $verseBuildScript"
@@ -163,7 +195,7 @@ jobs:
             warnings = @($result.warnings)
             duration = $result.duration
             branch = "${{ inputs.branch }}"
-            commit = "${{ inputs.commit }}"
+            commit = "${{ steps.switch_branch.outputs.commit }}"
           }
           
           $jsonPayload = $payload | ConvertTo-Json -Compress -Depth 3
@@ -194,6 +226,31 @@ jobs:
             Write-Host "Result sent successfully"
           } catch {
             Write-Host "::warning::Failed to send result: $_"
+          }
+      
+      - name: Restore original branch
+        if: always()
+        shell: pwsh
+        run: |
+          $uefnRepo = "${{ env.UEFN_REPO_PATH }}"
+          $originalBranch = "${{ steps.switch_branch.outputs.original_branch }}"
+          
+          if (-not $originalBranch) {
+            Write-Host "No original branch to restore"
+            exit 0
+          }
+          
+          Write-Host "=== Restore Original Branch ==="
+          Write-Host "Restoring to: $originalBranch"
+          
+          Push-Location $uefnRepo
+          try {
+            git checkout $originalBranch
+            Write-Host "Restored to branch: $originalBranch"
+          } catch {
+            Write-Host "::warning::Failed to restore branch: $_"
+          } finally {
+            Pop-Location
           }
       
       - name: Upload compile result
