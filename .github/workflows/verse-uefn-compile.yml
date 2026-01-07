@@ -25,6 +25,22 @@ jobs:
     runs-on: [self-hosted, windows, uefn]
     
     steps:
+      - name: Clean up previous result
+        id: setup
+        shell: pwsh
+        run: |
+          # 保存工作目录路径
+          $workDir = Get-Location
+          Write-Host "Work directory: $workDir"
+          echo "work_dir=$workDir" >> $env:GITHUB_OUTPUT
+          
+          # 清理旧的编译结果，避免使用过期数据
+          $resultFile = Join-Path $workDir "compile_result.json"
+          if (Test-Path $resultFile) {
+            Remove-Item $resultFile -Force
+            Write-Host "Removed stale compile_result.json"
+          }
+
       - name: Switch branch in UEFN repo
         id: switch_branch
         shell: pwsh
@@ -32,12 +48,32 @@ jobs:
           $ErrorActionPreference = "Stop"
           $uefnRepo = "${{ env.UEFN_REPO_PATH }}"
           $targetBranch = "${{ inputs.branch }}"
+          $workDir = "${{ steps.setup.outputs.work_dir }}"
+          $resultFile = Join-Path $workDir "compile_result.json"
           
           Write-Host "=== Switch Branch in UEFN Repo ==="
           Write-Host "UEFN Repo: $uefnRepo"
           Write-Host "Target Branch: $targetBranch"
+          Write-Host "Result File: $resultFile"
+          
+          # 辅助函数：生成错误结果并退出
+          function Write-ErrorResult {
+            param([string]$ErrorMessage, [string]$RawOutput)
+            $result = @{
+              success = $false
+              error_count = 1
+              warning_count = 0
+              errors = @($ErrorMessage)
+              warnings = @()
+              duration = "N/A"
+              raw_output = $RawOutput
+            }
+            $result | ConvertTo-Json -Depth 3 | Out-File $resultFile -Force
+          }
           
           if (-not (Test-Path $uefnRepo)) {
+            Write-ErrorResult -ErrorMessage "UEFN repo not found at: $uefnRepo" `
+                              -RawOutput "UEFN repository path does not exist. Please check the UEFN_REPO_PATH configuration."
             Write-Host "::error::UEFN repo not found at: $uefnRepo"
             exit 1
           }
@@ -51,24 +87,30 @@ jobs:
             
             # 获取最新代码
             Write-Host "Fetching latest from origin..."
-            git fetch origin 2>&1 | Write-Host
+            $fetchOutput = git fetch origin 2>&1 | Out-String
+            Write-Host $fetchOutput
             if ($LASTEXITCODE -ne 0) {
+              Write-ErrorResult -ErrorMessage "Failed to fetch from origin" -RawOutput $fetchOutput
               Write-Host "::error::Failed to fetch from origin"
               exit 1
             }
             
             # 切换到目标分支
             Write-Host "Switching to branch: $targetBranch"
-            git checkout $targetBranch 2>&1 | Write-Host
+            $checkoutOutput = git checkout $targetBranch 2>&1 | Out-String
+            Write-Host $checkoutOutput
             if ($LASTEXITCODE -ne 0) {
+              Write-ErrorResult -ErrorMessage "Failed to checkout branch: $targetBranch" -RawOutput $checkoutOutput
               Write-Host "::error::Failed to checkout branch: $targetBranch"
               exit 1
             }
             
             # 拉取最新代码
             Write-Host "Pulling latest changes..."
-            git pull origin $targetBranch 2>&1 | Write-Host
+            $pullOutput = git pull origin $targetBranch 2>&1 | Out-String
+            Write-Host $pullOutput
             if ($LASTEXITCODE -ne 0) {
+              Write-ErrorResult -ErrorMessage "Failed to pull branch: $targetBranch" -RawOutput $pullOutput
               Write-Host "::error::Failed to pull branch: $targetBranch"
               exit 1
             }
