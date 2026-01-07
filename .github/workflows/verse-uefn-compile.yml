@@ -83,14 +83,14 @@ jobs:
               }
             }
             
-            # 只同步 verse 文件夹（编译所需的代码）
-            Write-Host "Fetching and syncing verse folder only..."
+            # 只同步 verse 和 tools 文件夹（编译所需的代码和脚本）
+            Write-Host "Fetching and syncing verse + tools folders..."
             git fetch origin $targetBranch --depth=1 2>&1 | Out-String | Write-Host
             
-            # 使用 checkout 只更新 verse 目录
-            git checkout "origin/$targetBranch" -- verse/ 2>&1 | Out-String | Write-Host
+            # 使用 checkout 只更新 verse 和 tools 目录
+            git checkout "origin/$targetBranch" -- verse/ tools/ 2>&1 | Out-String | Write-Host
             if ($LASTEXITCODE -ne 0) {
-              Write-ErrorResult -ErrorMessage "Failed to sync verse folder" -RawOutput "Checkout verse failed"
+              Write-ErrorResult -ErrorMessage "Failed to sync folders" -RawOutput "Checkout failed"
               exit 1
             }
             
