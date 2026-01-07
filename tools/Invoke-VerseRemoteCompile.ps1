@@ -130,25 +130,47 @@ if ($Wait) {
             
             if ($status.status -eq "completed") {
                 Write-Host ""
-                Write-Host "========================================" -ForegroundColor Green
-                Write-Host "  编译完成!" -ForegroundColor Green
-                Write-Host "========================================" -ForegroundColor Green
+                # 根据 success 字段判断编译是否成功
+                $isSuccess = $status.success -eq $true
+                $errorCount = if ($null -ne $status.error_count) { $status.error_count } else { 0 }
+                $warningCount = if ($null -ne $status.warning_count) { $status.warning_count } else { 0 }
                 
-                if ($status.result) {
-                    $result = $status.result
-                    Write-Host "  错误数: $($result.error_count)" -ForegroundColor $(if ($result.error_count -gt 0) { "Red" } else { "Green" })
-                    Write-Host "  警告数: $($result.warning_count)" -ForegroundColor $(if ($result.warning_count -gt 0) { "Yellow" } else { "Green" })
-                    
-                    if ($result.errors -and $result.errors.Count -gt 0) {
-                        Write-Host ""
-                        Write-Host "错误列表:" -ForegroundColor Red
-                        foreach ($err in $result.errors) {
-                            Write-Host "  - $err" -ForegroundColor Red
-                        }
+                if ($isSuccess -and $errorCount -eq 0) {
+                    Write-Host "========================================" -ForegroundColor Green
+                    Write-Host "  ✓ 编译成功!" -ForegroundColor Green
+                    Write-Host "========================================" -ForegroundColor Green
+                } else {
+                    Write-Host "========================================" -ForegroundColor Red
+                    Write-Host "  ✗ 编译失败!" -ForegroundColor Red
+                    Write-Host "========================================" -ForegroundColor Red
+                }
+                
+                Write-Host "  错误数: $errorCount" -ForegroundColor $(if ($errorCount -gt 0) { "Red" } else { "Green" })
+                Write-Host "  警告数: $warningCount" -ForegroundColor $(if ($warningCount -gt 0) { "Yellow" } else { "Green" })
+                
+                if ($status.duration) {
+                    Write-Host "  耗时: $($status.duration)" -ForegroundColor Gray
+                }
+                
+                # 显示错误列表
+                if ($status.errors -and $status.errors.Count -gt 0) {
+                    Write-Host ""
+                    Write-Host "错误列表:" -ForegroundColor Red
+                    foreach ($err in $status.errors) {
+                        Write-Host "  - $err" -ForegroundColor Red
                     }
                 }
                 
-                if ($status.result.error_count -gt 0) {
+                # 显示警告列表
+                if ($status.warnings -and $status.warnings.Count -gt 0) {
+                    Write-Host ""
+                    Write-Host "警告列表:" -ForegroundColor Yellow
+                    foreach ($warn in $status.warnings) {
+                        Write-Host "  - $warn" -ForegroundColor Yellow
+                    }
+                }
+                
+                if ($errorCount -gt 0 -or -not $isSuccess) {
                     exit 1
                 } else {
                     exit 0
@@ -157,22 +179,43 @@ if ($Wait) {
             elseif ($status.status -eq "failed") {
                 Write-Host ""
                 Write-Host "========================================" -ForegroundColor Red
-                Write-Host "  编译失败!" -ForegroundColor Red
+                Write-Host "  ✗ 编译失败!" -ForegroundColor Red
                 Write-Host "========================================" -ForegroundColor Red
-                Write-Host "  错误数: $($status.error_count)" -ForegroundColor Red
-                Write-Host "  警告数: $($status.warning_count)" -ForegroundColor Yellow
+                
+                $errorCount = if ($null -ne $status.error_count) { $status.error_count } else { 0 }
+                $warningCount = if ($null -ne $status.warning_count) { $status.warning_count } else { 0 }
+                
+                Write-Host "  错误数: $errorCount" -ForegroundColor Red
+                Write-Host "  警告数: $warningCount" -ForegroundColor Yellow
+                
+                if ($status.duration) {
+                    Write-Host "  耗时: $($status.duration)" -ForegroundColor Gray
+                }
                 Write-Host ""
                 
-                # 显示原始编译输出
-                if ($status.raw_output) {
-                    Write-Host "--- 编译日志 ---" -ForegroundColor Cyan
-                    Write-Host $status.raw_output
-                    Write-Host "--- 日志结束 ---" -ForegroundColor Cyan
-                } elseif ($status.errors -and $status.errors.Count -gt 0) {
+                # 显示错误列表
+                if ($status.errors -and $status.errors.Count -gt 0) {
                     Write-Host "错误列表:" -ForegroundColor Red
                     foreach ($err in $status.errors) {
                         Write-Host "  - $err" -ForegroundColor Red
                     }
+                    Write-Host ""
+                }
+                
+                # 显示警告列表
+                if ($status.warnings -and $status.warnings.Count -gt 0) {
+                    Write-Host "警告列表:" -ForegroundColor Yellow
+                    foreach ($warn in $status.warnings) {
+                        Write-Host "  - $warn" -ForegroundColor Yellow
+                    }
+                    Write-Host ""
+                }
+                
+                # 显示原始编译输出（如果有）
+                if ($status.raw_output) {
+                    Write-Host "--- 编译日志 ---" -ForegroundColor Cyan
+                    Write-Host $status.raw_output
+                    Write-Host "--- 日志结束 ---" -ForegroundColor Cyan
                 }
                 
                 exit 1
