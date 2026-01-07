@@ -3,7 +3,8 @@
 library<public> := module:
     data<public> := module:
     drivers<public> := module:
-    logic<public> := module:
+    logicHelper<public> := module:
+        curve<public> := module:
     session<public> := module:
 templates<public> := module:
 test<public> := module:
