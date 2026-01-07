@@ -1,7 +1,0 @@
-{
-  "version": "1.0.0",
-  "description": "低频根源池 - 存储出现频率<3的问题根源，等待晋升",
-  "last_updated": "",
-  "total_roots": 0,
-  "roots": []
-}

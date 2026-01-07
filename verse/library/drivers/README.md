@@ -15,7 +15,7 @@
 ## 示例
 
 ```verse
-fishing_system := class(component):
+fishing_system_component := class(component):
     var ActiveSession:?fishing_session = false
     
     OnBegin<override>()<suspends>:void =

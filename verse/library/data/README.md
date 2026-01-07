@@ -15,7 +15,7 @@
 ## 示例
 
 ```verse
-health_data := class(component):
+health_data_component := class(component):
     var CurrentHealth<private>:int = 0
     @editable var MaxHealth:int = 100
     

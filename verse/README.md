@@ -19,10 +19,10 @@ verse/
 
 | 层 | 类型 | 后缀 | 职责 |
 |----|------|------|------|
-| **Data** | Component | `_data` | 数据管理、CRUD、UEFN API 调用 |
+| **Data** | Component | `_data_component` | 数据管理、CRUD、UEFN API 调用 |
 | **Logic** | Module | `_logic` | 无状态纯函数、数学/算法计算 |
 | **Session** | Class | `_session` | 业务上下文、连续流程、事务安全 |
-| **Driver** | Component | `_system` / `_driver` | 监听输入、管理 Session、驱动时间片 |
+| **Driver** | Component | `_system_component` | 监听输入、管理 Session、驱动时间片 |
 
 ```
 Driver ──► Session ──► Data ──► Logic
@@ -35,7 +35,7 @@ Driver ──► Session ──► Data ──► Logic
 `library/data/` 存放 Data Component，负责运行时数据管理：
 
 ```verse
-health_data := class(component):
+health_data_component := class(component):
     var CurrentHealth<private>:int = 0
     GetHealth():int = CurrentHealth
     SetHealth(Value:int):void = set CurrentHealth = Value
@@ -56,7 +56,7 @@ damage_logic := module:
 
 ```verse
 combat_session := class:
-    HealthData:health_data
+    HealthData:health_data_component
     ProcessDamage(Amount:int):void = HealthData.SetHealth(HealthData.GetHealth() - Amount)
 ```
 
@@ -65,15 +65,15 @@ combat_session := class:
 `library/drivers/` 存放 Driver Component，系统入口：
 
 ```verse
-combat_system := class(component):
+combat_system_component := class(component):
     HandleInput(Player:player):void = spawn{ combat_session{...}.Run() }
 ```
 
 ## 开发规范
 
 1. **命名约定**：
-   - 类型使用 snake_case + DLSD 后缀（`_data`, `_logic`, `_session`, `_system`）
-   - 文件使用 PascalCase（如 `HealthData.verse`）
+   - 类型使用 snake_case + DLSD 后缀（`_data_component`, `_logic`, `_session`, `_system_component`）
+   - 文件使用 PascalCase（如 `HealthDataComponent.verse`）
    - 避免使用特殊字符（UEFN 编译器敏感）
 
 2. **文档要求**：
