@@ -5,14 +5,13 @@
  * 通过命令行触发 UEFN 编译 Verse 代码
  * 
  * 用法:
- *   node verse-build.js [--port 1962] [--host 127.0.0.1] [--push] [--watch] [--sync]
+ *   node verse-build.js [--port 1962] [--host 127.0.0.1] [--push] [--watch]
  * 
  * 选项:
  *   --port    UEFN Workflow Server 端口 (默认: 1962)
  *   --host    UEFN Workflow Server 地址 (默认: 127.0.0.1)
  *   --push    编译后推送代码到服务器
  *   --watch   监听文件变化自动编译
- *   --sync    编译前同步项目文件 (解决分支切换后缓存问题)
  *   --help    显示帮助信息
  * 
  * 前提条件:
@@ -283,28 +282,6 @@ class VerseWorkflowCLI {
             throw error;
         }
     }
-
-    /**
-     * 同步项目文件，刷新 UEFN 缓存
-     * 用于解决 Git 分支切换后缓存不一致的问题
-     * 
-     * 原理：pushChanges 会让 UEFN 重新读取磁盘上的文件
-     */
-    async syncProject() {
-        this.log('正在同步项目文件，刷新缓存...');
-        
-        try {
-            // 使用 pushChanges 让 UEFN 重新读取磁盘文件
-            // verseOnly = true，只同步 Verse 文件
-            const result = await this.send(MessageType.Request, 'pushChanges', true);
-            this.log(`项目文件同步成功: ${result}`, 'success');
-            return result;
-        } catch (error) {
-            this.log(`同步失败: ${error.message}`, 'warning');
-            this.log('将继续尝试编译...', 'info');
-            return null;
-        }
-    }
 }
 
 // ============================================================================
@@ -382,7 +359,6 @@ function parseArgs() {
         port: 1962,
         push: false,
         watch: false,
-        sync: false,
         verbose: false,
         help: false,
         watchDirs: []
@@ -401,10 +377,6 @@ function parseArgs() {
                 break;
             case '--push':
                 options.push = true;
-                break;
-            case '--sync':
-            case '-s':
-                options.sync = true;
                 break;
             case '--watch':
             case '-w':
@@ -441,7 +413,6 @@ function showHelp() {
   --port, -p <端口>    UEFN Workflow Server 端口 (默认: 1962)
   --push               编译成功后推送代码到服务器
   --watch, -w          监听文件变化自动编译
-  --sync, -s           编译前同步项目文件 (解决分支切换后缓存问题)
   --dir, -d <目录>     添加监听目录 (可多次使用)
   --verbose, -v        显示详细日志
   --help               显示此帮助信息
@@ -452,9 +423,6 @@ function showHelp() {
 
   # 编译并推送
   node verse-build.js --push
-
-  # 分支切换后编译 (强制同步)
-  node verse-build.js --sync
 
   # 监听当前目录变化
   node verse-build.js --watch
@@ -495,15 +463,6 @@ async function main() {
         await client.connect();
     } catch (error) {
         process.exit(2);
-    }
-
-    // 如果启用了 sync 选项，先同步项目文件
-    if (options.sync) {
-        try {
-            await client.syncProject();
-        } catch (error) {
-            client.log('同步失败，继续编译...', 'warning');
-        }
     }
 
     if (options.watch) {

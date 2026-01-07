@@ -112,12 +112,12 @@ jobs:
           Write-Host "Using verse-build.js at: $verseBuildScript"
           Write-Host ""
           
-          # 运行编译，使用 --sync 选项刷新缓存（解决分支切换后缓存问题）
+          # 运行编译
           $output = ""
           $exitCode = 0
           
           try {
-            $output = node $verseBuildScript --sync 2>&1 | Out-String
+            $output = node $verseBuildScript 2>&1 | Out-String
             $exitCode = $LASTEXITCODE
           } catch {
             $output = $_.Exception.Message
