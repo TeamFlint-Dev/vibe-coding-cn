@@ -1,8 +1,11 @@
+using { /Fortnite.com/Devices }
 using { /Verse.org/Simulation }
-using { test_all }
+using { /UnrealEngine.com/Temporary/Diagnostics }
 
-main_test_device := class(device):
-    OnBegin<override>()<suspends> : void =
+MainTestDevice := class(creative_device):
+
+    # Runs when the device is started in a running game
+    OnBegin<override>()<suspends>:void=
         Print("Main test device starting")
         result := test_all.Run()
         if (result):
