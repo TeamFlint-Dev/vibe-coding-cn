@@ -1,51 +1,79 @@
 # Verse 代码库
 
-本目录包含所有 Verse 语言的代码资源，以模块化、可复用的方式组织。
+本目录包含所有 Verse 语言的代码资源，基于 **DLSD 架构**（Data-Logic-Session-Driver）组织。
 
 ## 目录结构
 
 ```text
 verse/
-├── library/           # 可复用代码库（按功能域组织）
-│   ├── math/          # 数学工具：向量、随机数、数学计算
-│   ├── probability/   # 概率系统：随机分布、抽卡、掉落
-│   ├── combat/        # 战斗计算：伤害、生命值计算
-│   ├── events/        # 事件系统：交互、生命值、状态事件
-│   ├── wrappers/      # 包装器：角色、NPC、宠物等包装类
-│   └── data/          # 数据结构：管理器、实体、组件
-│       ├── managers/  # 管理器：冷却、计时器
-│       ├── entities/  # 游戏实体
-│       └── components/# 组件：状态机、移动、攻击等
-├── modules/           # 独立功能模块（按业务组织）
-│   └── curve/         # 曲线构建模块
-├── frameworks/        # 架构框架（未来扩展）
-└── examples/          # 示例代码（未来扩展）
+├── library/           # DLSD 代码库
+│   ├── data/          # Data Components - 数据管理、CRUD、UEFN API
+│   ├── logic/         # Logic Modules - 无状态纯函数、数学计算
+│   ├── session/       # Session Classes - 业务上下文、连续流程
+│   └── drivers/       # Driver/System Components - 输入监听、调度
+├── templates/         # 代码模板（未来扩展）
+└── _archived/         # 归档的旧代码（基于 Layer 1-5 架构）
+```
+
+## DLSD 架构概述
+
+| 层 | 类型 | 后缀 | 职责 |
+|----|------|------|------|
+| **Data** | Component | `_data` | 数据管理、CRUD、UEFN API 调用 |
+| **Logic** | Module | `_logic` | 无状态纯函数、数学/算法计算 |
+| **Session** | Class | `_session` | 业务上下文、连续流程、事务安全 |
+| **Driver** | Component | `_system` / `_driver` | 监听输入、管理 Session、驱动时间片 |
+
+```
+Driver ──► Session ──► Data ──► Logic
 ```
 
 ## 使用指南
 
-### Library（可复用库）
+### Data（数据层）
 
-`library/` 下的代码是通用的、可复用的功能实现，可以在任何项目中使用：
+`library/data/` 存放 Data Component，负责运行时数据管理：
 
-- **math/** - 基础数学工具，包含向量运算、随机数生成等
-- **probability/** - 完整的概率系统，支持各种随机分布、抽卡系统、掉落表等
-- **combat/** - 战斗相关计算，伤害计算、生命值管理等
-- **events/** - 事件系统，定义各类游戏事件
-- **wrappers/** - 对 UEFN 对象的封装，提供更易用的接口
-- **data/** - 数据结构，包含管理器、实体和组件
+```verse
+health_data := class(component):
+    var CurrentHealth<private>:int = 0
+    GetHealth():int = CurrentHealth
+    SetHealth(Value:int):void = set CurrentHealth = Value
+```
 
-### Modules（业务模块）
+### Logic（逻辑层）
 
-`modules/` 下是独立的功能模块，每个模块实现特定的游戏功能：
+`library/logic/` 存放 Logic Module，无状态纯函数：
 
-- **curve/** - 曲线构建系统，支持曲线采样、组合等
+```verse
+damage_logic := module:
+    CalculateDamage(Base:float, Armor:float):float = Max(0.0, Base - Armor)
+```
+
+### Session（会话层）
+
+`library/session/` 存放 Session Class，处理业务流程：
+
+```verse
+combat_session := class:
+    HealthData:health_data
+    ProcessDamage(Amount:int):void = HealthData.SetHealth(HealthData.GetHealth() - Amount)
+```
+
+### Driver（驱动层）
+
+`library/drivers/` 存放 Driver Component，系统入口：
+
+```verse
+combat_system := class(component):
+    HandleInput(Player:player):void = spawn{ combat_session{...}.Run() }
+```
 
 ## 开发规范
 
 1. **命名约定**：
-   - 目录使用 camelCase（如 `probability`）
-   - Verse 文件使用 PascalCase（如 `MathUtils.verse`）
+   - 类型使用 snake_case + DLSD 后缀（`_data`, `_logic`, `_session`, `_system`）
+   - 文件使用 PascalCase（如 `HealthData.verse`）
    - 避免使用特殊字符（UEFN 编译器敏感）
 
 2. **文档要求**：

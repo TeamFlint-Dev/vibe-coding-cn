@@ -15,13 +15,12 @@
 ## 目录速查
 
 ```
-skills/verseDev/           # ⭐ Verse 开发技能 (17 子技能)
-skills/design/gameDev/     # ⭐ 游戏设计技能 (10 子技能)
+skills/verseDev/verseDLSD/     # ⭐ DLSD 架构规范（核心入口）
+skills/design/gameDev/         # ⭐ 游戏设计技能 (10 子技能)
 skills/github/ghAgenticWorkflows/  # GitHub Agentic Workflows
-verse/library/             # 通用代码库 (math/probability/combat...)
-verse/modules/             # 功能模块 (curve/...)
-projects/[project]/        # 游戏项目 (design/architecture/progress)
-tools/verseCompiler/       # Verse 远程编译服务
+verse/library/                 # DLSD 代码库 (data/logic/session/drivers)
+projects/[project]/            # 游戏项目 (design/architecture/progress)
+tools/verseCompiler/           # Verse 远程编译服务
 ```
 
 ## 核心命令
@@ -118,16 +117,23 @@ curl https://<server>/pipeline/status/<pipeline_id>
 ### Skill 结构
 每个 Skill 目录包含：
 - `SKILL.md` - 综合技能指南
+- `rules/`（可选）- 架构规则定义
 - `shared/`（可选）- 子技能间共享资源
-  - `references/` - 参考文档
-  - `api-digests/` - API 摘要文件
-  - `checklists/` - 合规检查清单
 
-### verseDev 共享资源
-`verseDev` 技能拥有丰富的共享资源：
-- `shared/api-digests/` - Verse、Fortnite、UnrealEngine API 摘要
-- `shared/references/` - SceneGraph 框架文档
-- `shared/checklists/` - 架构合规检查清单
+### verseDev 核心入口
+`verseDev` 技能采用 **DLSD 架构**（Data-Logic-Session-Driver）：
+- `verseDLSD/SKILL.md` - DLSD 架构规范
+- `verseDLSD/rules/` - 架构规则（DLSD-ARC-xxx、DLSD-QUA-xxx）
+- `verseDLSD/SKILLS-TO-REWRITE.md` - 待重写技能清单
+
+### DLSD 四层架构
+
+| 层 | 类型 | 后缀 | 职责 |
+|----|------|------|------|
+| **Data** | Component | `_data` | 数据管理、CRUD、UEFN API |
+| **Logic** | Module | `_logic` | 无状态纯函数、计算 |
+| **Session** | Class | `_session` | 业务上下文、连续流程 |
+| **Driver** | Component | `_system` | 输入监听、Session 管理 |
 
 ## Commit 消息格式
 
@@ -254,7 +260,7 @@ git status  # 必须显示 "up to date with origin"
 |---------|-----------------|
 | **创建 GitHub Agentic Workflow** | **⚠️ 必须先读** `skills/github/ghAgenticWorkflows/WORKFLOW-INDEX.md`<br>根据需求选择模板后，再读取对应的源文件作为参考 |
 | 中控服务器 / Webhook / GitHub Actions | `skills/infra/controlHub/SKILL.md`<br>`.secrets/` 目录（密钥配置） |
-| Verse 代码开发 | `skills/verseDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
+| Verse 代码开发 | `skills/verseDev/verseDLSD/SKILL.md`<br>DLSD 架构规则 `rules/` 目录 |
 | 游戏设计 | `skills/design/gameDev/Index.md`<br>相关子 Skill 的 `SKILL.md` |
 | 项目开发 | `projects/[项目名]/` 下的 design/, architecture/, progress/ 文件 |
 
@@ -335,7 +341,7 @@ safe-outputs: { add-comment: }
 
 | 技能 | 路径 | 用途 |
 |-----|------|-----|
-| **verseDev** | `skills/verseDev/` | Verse 代码开发 (17 子技能) |
+| **verseDLSD** | `skills/verseDev/verseDLSD/` | DLSD 架构规范（核心） |
 | **gameDev** | `skills/design/gameDev/` | 游戏设计流程 (10 子技能) |
 | **controlHub** | `skills/infra/controlHub/` | 中控服务器/Webhook |
 
