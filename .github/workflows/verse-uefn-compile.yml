@@ -25,41 +25,28 @@ jobs:
     runs-on: [self-hosted, windows, uefn]
     
     steps:
-      - name: Clean up previous result
+      - name: Setup and sync code
         id: setup
         shell: pwsh
         run: |
+          $ErrorActionPreference = "Stop"
+          $startTime = Get-Date
+          
           # 保存工作目录路径
           $workDir = Get-Location
-          Write-Host "Work directory: $workDir"
-          echo "work_dir=$workDir" >> $env:GITHUB_OUTPUT
-          
-          # 清理旧的编译结果，避免使用过期数据
           $resultFile = Join-Path $workDir "compile_result.json"
+          echo "work_dir=$workDir" >> $env:GITHUB_OUTPUT
+          echo "result_file=$resultFile" >> $env:GITHUB_OUTPUT
+          
+          # 清理旧的编译结果
           if (Test-Path $resultFile) {
             Remove-Item $resultFile -Force
-            Write-Host "Removed stale compile_result.json"
           }
-
-      - name: Switch branch in UEFN repo
-        id: switch_branch
-        shell: pwsh
-        run: |
-          $ErrorActionPreference = "Stop"
-          $uefnRepo = "${{ env.UEFN_REPO_PATH }}"
-          $targetBranch = "${{ inputs.branch }}"
-          $workDir = "${{ steps.setup.outputs.work_dir }}"
-          $resultFile = Join-Path $workDir "compile_result.json"
           
-          Write-Host "=== Switch Branch in UEFN Repo ==="
-          Write-Host "UEFN Repo: $uefnRepo"
-          Write-Host "Target Branch: $targetBranch"
-          Write-Host "Result File: $resultFile"
-          
-          # 辅助函数：生成错误结果并退出
+          # 辅助函数：生成错误结果
           function Write-ErrorResult {
             param([string]$ErrorMessage, [string]$RawOutput)
-            $result = @{
+            @{
               success = $false
               error_count = 1
               warning_count = 0
@@ -67,63 +54,60 @@ jobs:
               warnings = @()
               duration = "N/A"
               raw_output = $RawOutput
-            }
-            $result | ConvertTo-Json -Depth 3 | Out-File $resultFile -Force
+            } | ConvertTo-Json -Depth 3 | Out-File $resultFile -Force
           }
           
+          $uefnRepo = "${{ env.UEFN_REPO_PATH }}"
+          $targetBranch = "${{ inputs.branch }}"
+          
+          Write-Host "UEFN Repo: $uefnRepo"
+          Write-Host "Target Branch: $targetBranch"
+          
           if (-not (Test-Path $uefnRepo)) {
-            Write-ErrorResult -ErrorMessage "UEFN repo not found at: $uefnRepo" `
-                              -RawOutput "UEFN repository path does not exist. Please check the UEFN_REPO_PATH configuration."
-            Write-Host "::error::UEFN repo not found at: $uefnRepo"
+            Write-ErrorResult -ErrorMessage "UEFN repo not found at: $uefnRepo" -RawOutput "Path does not exist"
+            Write-Host "::error::UEFN repo not found"
             exit 1
           }
           
           Push-Location $uefnRepo
           try {
-            # 记录当前分支，用于后续恢复
-            $originalBranch = git rev-parse --abbrev-ref HEAD
-            Write-Host "Original Branch: $originalBranch"
-            echo "original_branch=$originalBranch" >> $env:GITHUB_OUTPUT
+            $currentBranch = git rev-parse --abbrev-ref HEAD
             
-            # 获取最新代码
-            Write-Host "Fetching latest from origin..."
-            $fetchOutput = git fetch origin 2>&1 | Out-String
-            Write-Host $fetchOutput
-            if ($LASTEXITCODE -ne 0) {
-              Write-ErrorResult -ErrorMessage "Failed to fetch from origin" -RawOutput $fetchOutput
-              Write-Host "::error::Failed to fetch from origin"
-              exit 1
+            # 只在需要时切换分支
+            if ($currentBranch -ne $targetBranch) {
+              Write-Host "Switching from $currentBranch to $targetBranch..."
+              git checkout $targetBranch 2>&1 | Out-String | Write-Host
+              if ($LASTEXITCODE -ne 0) {
+                Write-ErrorResult -ErrorMessage "Failed to checkout branch: $targetBranch" -RawOutput "Checkout failed"
+                exit 1
+              }
             }
             
-            # 切换到目标分支
-            Write-Host "Switching to branch: $targetBranch"
-            $checkoutOutput = git checkout $targetBranch 2>&1 | Out-String
-            Write-Host $checkoutOutput
-            if ($LASTEXITCODE -ne 0) {
-              Write-ErrorResult -ErrorMessage "Failed to checkout branch: $targetBranch" -RawOutput $checkoutOutput
-              Write-Host "::error::Failed to checkout branch: $targetBranch"
-              exit 1
-            }
-            
-            # 拉取最新代码
+            # 快速拉取（使用 --ff-only 避免合并冲突延迟）
             Write-Host "Pulling latest changes..."
-            $pullOutput = git pull origin $targetBranch 2>&1 | Out-String
+            $pullOutput = git pull --ff-only origin $targetBranch 2>&1 | Out-String
             Write-Host $pullOutput
             if ($LASTEXITCODE -ne 0) {
-              Write-ErrorResult -ErrorMessage "Failed to pull branch: $targetBranch" -RawOutput $pullOutput
-              Write-Host "::error::Failed to pull branch: $targetBranch"
-              exit 1
+              # 如果 ff-only 失败，尝试 reset
+              Write-Host "Fast-forward failed, trying reset..."
+              git fetch origin $targetBranch 2>&1 | Out-String | Write-Host
+              git reset --hard "origin/$targetBranch" 2>&1 | Out-String | Write-Host
+              if ($LASTEXITCODE -ne 0) {
+                Write-ErrorResult -ErrorMessage "Failed to sync branch: $targetBranch" -RawOutput $pullOutput
+                exit 1
+              }
             }
             
-            # 记录当前 commit
-            $currentCommit = git rev-parse HEAD
-            Write-Host "Current Commit: $currentCommit"
-            echo "commit=$currentCommit" >> $env:GITHUB_OUTPUT
+            $commit = git rev-parse HEAD
+            echo "commit=$commit" >> $env:GITHUB_OUTPUT
+            
+            $duration = ((Get-Date) - $startTime).TotalSeconds
+            Write-Host "Setup completed in $([math]::Round($duration, 1))s, commit: $($commit.Substring(0,7))"
             
           } finally {
             Pop-Location
           }
-      
+
       - name: Run Verse Compile
         id: compile
         shell: pwsh
@@ -133,7 +117,7 @@ jobs:
           Write-Host "=== Verse UEFN Compile ==="
           Write-Host "Request ID: ${{ inputs.request_id }}"
           Write-Host "Branch: ${{ inputs.branch }}"
-          Write-Host "Commit: ${{ steps.switch_branch.outputs.commit }}"
+          Write-Host "Commit: ${{ steps.setup.outputs.commit }}"
           
           $verseBuildScript = "${{ env.VERSE_BUILD_SCRIPT }}"
           
@@ -151,9 +135,6 @@ jobs:
             exit 0
           }
           
-          Write-Host "Using verse-build.js at: $verseBuildScript"
-          Write-Host ""
-          
           # 运行编译
           $output = ""
           $exitCode = 0
@@ -168,8 +149,7 @@ jobs:
           
           Write-Host $output
           
-          $endTime = Get-Date
-          $duration = ($endTime - $startTime).TotalSeconds
+          $duration = ((Get-Date) - $startTime).TotalSeconds
           
           # 解析编译输出
           $errors = @()
@@ -254,7 +234,7 @@ jobs:
             duration = $result.duration
             raw_output = if ($result.raw_output) { $result.raw_output } else { "" }
             branch = "${{ inputs.branch }}"
-            commit = "${{ steps.switch_branch.outputs.commit }}"
+            commit = "${{ steps.setup.outputs.commit }}"
           }
           
           $jsonPayload = $payload | ConvertTo-Json -Compress -Depth 3
@@ -268,54 +248,24 @@ jobs:
             $signature = "sha256=" + [BitConverter]::ToString($hash).Replace("-", "").ToLower()
           }
           
-          Write-Host "Sending result to: $callbackUrl"
-          Write-Host "Request ID: $requestId"
-          Write-Host "Success: $($result.success)"
-          Write-Host "Errors: $($result.error_count)"
+          Write-Host "Sending result: success=$($result.success), errors=$($result.error_count)"
           
           try {
-            $headers = @{
-              "Content-Type" = "application/json"
-            }
-            if ($signature) {
-              $headers["X-Runner-Signature"] = $signature
-            }
+            $headers = @{ "Content-Type" = "application/json" }
+            if ($signature) { $headers["X-Runner-Signature"] = $signature }
             
-            Invoke-RestMethod -Uri $callbackUrl -Method Post -Body $jsonPayload -Headers $headers -TimeoutSec 30
+            Invoke-RestMethod -Uri $callbackUrl -Method Post -Body $jsonPayload -Headers $headers -TimeoutSec 10
             Write-Host "Result sent successfully"
           } catch {
             Write-Host "::warning::Failed to send result: $_"
           }
-      
-      - name: Restore original branch
-        if: always()
-        shell: pwsh
-        run: |
-          $uefnRepo = "${{ env.UEFN_REPO_PATH }}"
-          $originalBranch = "${{ steps.switch_branch.outputs.original_branch }}"
-          
-          if (-not $originalBranch) {
-            Write-Host "No original branch to restore"
-            exit 0
-          }
-          
-          Write-Host "=== Restore Original Branch ==="
-          Write-Host "Restoring to: $originalBranch"
-          
-          Push-Location $uefnRepo
-          try {
-            git checkout $originalBranch
-            Write-Host "Restored to branch: $originalBranch"
-          } catch {
-            Write-Host "::warning::Failed to restore branch: $_"
-          } finally {
-            Pop-Location
-          }
-      
-      - name: Upload compile result
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: compile-result-${{ inputs.request_id }}
-          path: compile_result.json
-          retention-days: 7
+
+      # NOTE: 移除了 Restore original branch 和 Upload artifact 步骤以提升速度
+      # 如果需要调试，可以取消下面的注释
+      # - name: Upload compile result
+      #   if: failure()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: compile-result-${{ inputs.request_id }}
+      #     path: compile_result.json
+      #     retention-days: 3
