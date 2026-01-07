@@ -26,7 +26,7 @@
 │
 ├── projects/                   # 游戏项目集合
 ├── external/                   # 第三方工具
-├── tools/                      # 工具与脚本
+├── tools/                      # Agent 可用工具（见 tools/AGENT-TOOLS.md）
 ├── pipelines/                  # 流水线定义
 └── verse/                      # Verse 可复用代码库
 ```
@@ -46,9 +46,11 @@ make lint          # Markdown 校验（提交前必须运行）
 ### 使用方法
 
 ```powershell
-# 编译并等待结果（需要先提交到git 分支）
-.\tools\verseCompiler\client\compile.ps1 -Wait
+# 编译并等待结果（需要先提交到 Git 分支）
+.\tools\Invoke-VerseRemoteCompile.ps1 -Wait
 ```
+
+> **工具入口**：所有 Agent 可用工具见 [tools/AGENT-TOOLS.md](tools/AGENT-TOOLS.md)
 
 ### 工作原理
 

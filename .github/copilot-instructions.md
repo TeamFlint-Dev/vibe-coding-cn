@@ -36,8 +36,10 @@ make lint          # 使用 markdownlint-cli 验证所有 Markdown
 
 ```powershell
 # 编译并等待结果（代码必须先 commit）
-.\tools\verseCompiler\client\compile.ps1 -Wait
+.\tools\Invoke-VerseRemoteCompile.ps1 -Wait
 ```
+
+> **Agent 工具入口**：所有可用工具见 `tools/AGENT-TOOLS.md`
 
 **工作原理**：
 1. 脚本检测当前 Git 分支和 commit
