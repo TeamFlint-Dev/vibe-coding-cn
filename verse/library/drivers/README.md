@@ -9,8 +9,8 @@
 
 ## 命名规范
 
-- 类名：`xxx_system` 或 `xxx_driver` (snake_case + 后缀)
-- 文件名：`XxxSystem.verse` 或 `XxxDriver.verse` (PascalCase)
+- 类名：`xxx_system_component` 或 `xxx_driver_component` (snake_case + 后缀)
+- 文件名：`XxxSystemComponent.verse` 或 `XxxDriverComponent.verse` (PascalCase)
 
 ## 示例
 

@@ -9,8 +9,8 @@
 
 ## 命名规范
 
-- 类名：`xxx_data` (snake_case + `_data` 后缀)
-- 文件名：`XxxData.verse` (PascalCase)
+- 类名：`xxx_data_component` (snake_case + `_data_component` 后缀)
+- 文件名：`XxxDataComponent.verse` (PascalCase)
 
 ## 示例
 
