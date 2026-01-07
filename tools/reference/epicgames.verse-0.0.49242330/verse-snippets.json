@@ -1,0 +1,524 @@
+{
+	// Place your snippets for verse here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	//////////////////////////////////////////////////////////////
+	// Language Snippets
+	//////////////////////////////////////////////////////////////
+
+	// Code Comments
+
+	"Comment": {
+		"prefix": "comment",
+		"body": [
+			"# ${1:my comment}",
+		],
+	 	"description": "Adds a comment."
+	},
+	"CommentBlock": {
+		"prefix": "comment-block",
+		"body": [
+			"<# ${1:my comment} #>",
+		],
+	 	"description": "Adds a multiline comment block."
+	},
+	"Print": {
+		"prefix": "print",
+		"body": [
+			"Print(\"${1:Message}\", ?Duration:=${2:6.0})",
+		],
+	 	"description": "Print message to console for a specified duration in seconds."
+	},
+
+	// Constants and Variables
+
+	"Constant": {
+		"prefix": ["constant" ],
+		"body": [
+			"${1:ConstantName}:${2:type} = ${3:Value}",
+		],
+	 	"description": "Declare a constant."
+	},
+	"Variable": {
+		"prefix": ["variable" ],
+		"body": [
+			"var ${1:VariableName}:${2:type} = ${3:Value}",
+		],
+	 	"description": "Declare a variable."
+	},
+	"Set": {
+		"prefix": ["set" ],
+		"body": [
+			"set ${1:VariableName} = ${2:Value}",
+		],
+	 	"description": "Set a variable."
+	},
+	"SetIncrement": {
+		"prefix": ["set-increment" ],
+		"body": [
+			"set ${1:VariableName} += ${2:1 # Value}",
+		],
+	 	"description": "Set a variable increment. Only valid for numeric types."
+	},
+	"SetDecrement": {
+		"prefix": ["set-decrement" ],
+		"body": [
+			"set ${1:VariableName} -= ${2:1 # Value}",
+		],
+	 	"description": "Set a variable decrement. Only valid for numeric types."
+	},
+
+	// Common Types
+
+	"ConstantLogic": {
+		"prefix": ["constant-logic" ],
+		"body": [
+			"${1:ConstantName}:logic = ${2:true}",
+		],
+	 	"description": "Declare a logic constant."
+	},
+	"ConstantInt": {
+		"prefix": ["constant-int" ],
+		"body": [
+			"${1:ConstantName}:int = ${2:0}",
+		],
+	 	"description": "Declare an int constant."
+	},
+	"ConstantFloat": {
+		"prefix": ["constant-float" ],
+		"body": [
+			"${1:ConstantName}:float = ${2:0.0}",
+		],
+	 	"description": "Declare a float constant."
+	},
+	"ConstantString": {
+		"prefix": ["constant-string" ],
+		"body": [
+			"${1:ConstantName}:string = \"${2:Value}\"",
+		],
+	 	"description": "Declare a string constant."
+	},
+	"ConstantMessage": {
+		"prefix": ["constant-message" ],
+		"body": [
+			"${1:ConstantName}:message = \"${2:Value}\"",
+		],
+	 	"description": "Declare a message constant."
+	},
+	"VariableLogic": {
+		"prefix": ["variable-logic" ],
+		"body": [
+			"var ${1:VariableName}:logic = ${2:true}",
+		],
+	 	"description": "Declare a logic variable."
+	},
+	"VariableInt": {
+		"prefix": ["variable-int" ],
+		"body": [
+			"var ${1:VariableName}:int = ${2:0}",
+		],
+	 	"description": "Declare an int variable."
+	},
+	"VariableFloat": {
+		"prefix": ["variable-float" ],
+		"body": [
+			"var ${1:VariableName}:float = ${2:0.0}",
+		],
+	 	"description": "Declare a float variable."
+	},
+	"VariableString": {
+		"prefix": ["variable-string" ],
+		"body": [
+			"var ${1:VariableName}:string = \"${2:Value}\"",
+		],
+	 	"description": "Declare a string variable."
+	},
+	"VariableMessage": {
+		"prefix": ["variable-message" ],
+		"body": [
+			"var ${1:VariableName}:string = \"${2:Value}\"",
+		],
+	 	"description": "Declare a message variable."
+	},
+
+	// Container Types
+
+	"ConstantArray": {
+		"prefix": ["constant-array" ],
+		"body": [
+			"${1:ConstantName}:[]${2:type} = array{${3:Value}}",
+		],
+	 	"description": "Declare an array constant."
+	},
+	"ConstantArrayMulti": {
+		"prefix": ["constant-array-multi" ],
+		"body": [
+			"${1:ConstantName}:[]${2:type} = ",
+			"    array:",
+			"        ${3:Value1}",
+			"        ${4:Value2}",
+		],
+	 	"description": "Declare a multiline array constant."
+	},
+	"ConstantMap": {
+		"prefix": ["constant-map" ],
+		"body": [
+			"${1:ConstantName}:[${2:key_type}]${3:value_type} = map{${4:Key} => ${5:Value}}",
+		],
+	 	"description": "Declare a map constant."
+	},
+	"VariableArray": {
+		"prefix": ["variable-array" ],
+		"body": [
+			"var ${1:VariableName}:[]${2:type} = array{${3:Value}}",
+		],
+	 	"description": "Declare an array variable."
+	},
+	"VariableMap": {
+		"prefix": ["variable-map" ],
+		"body": [
+			"var ${1:VariableName}:[${2:key_type}]${3:value_type} = map{${4:Key} => ${5:Value}}",
+		],
+	 	"description": "Declare a map variable."
+	},
+
+	// Composite Types
+
+	"Class": {
+		"prefix": ["class"],
+		"body": [
+			"${1:new_class_name} := class:",
+			"    ${2:Print(\"Class body\")}",
+		],
+	 	"description": "Class declaration."
+	},
+	"Class: Subclass": {
+		"prefix": ["class-subclass"],
+		"body": [
+			"${1:new_class_name} := class(${2:parent_class_name}):",
+			"    ${3:Print(\"Class body\")}",
+		],
+	 	"description": "Derived class declaration"
+	},
+	"Class: creative_device": {
+		"prefix": ["class-creative_device"],
+		"body": [
+			"using { /Fortnite.com/Devices }",
+			"${1:my_device}<${2:epic_internal}> := class(${3:creative_device}):",
+			"",
+			"    OnBegin<override>():void =",
+			"        Print(\"$1 OnBegin\", ?Duration:=6.0)",
+		],
+	 	"description": "Derived creative device class declaration."
+	},
+	"Class Constructor": {
+		"prefix": ["class-constructor"],
+		"body": [
+			"${1:ConstructorName}<constructor>(${2:InitParam}:${3:type}) := ${4:class_name}:",
+			"    ${5:ClassMember} := $2",
+		],
+	 	"description": "Defines class constructor."
+	},
+	"ConstantClassInstance": {
+		"prefix": ["constant-class" ],
+		"body": [
+			"${1:InstanceName}:${2:class_name} = $2{}",
+		],
+	 	"description": "Declare a class instance constant."
+	},
+	"VariableClassInstance": {
+		"prefix": ["variable-class-instance" ],
+		"body": [
+			"var ${1:InstanceName}:${2:class_name} = $2{}",
+		],
+	 	"description": "Declare a class instance variable."
+	},
+	"Struct": {
+		"prefix": ["struct"],
+		"body": [
+			"${1:new_struct_name} := struct:",
+			"    ${2:# Struct body}",
+		],
+	 	"description": "Struct declaration."
+	},
+	"Interface": {
+		"prefix": ["interface"],
+		"body": [
+			"${1:interface_name} := interface:",
+			"    ${2:InterfaceFunction()}: ${3:void}",
+			"       ${4:Print(\"Function body\")}",
+		],
+	 	"description": "Interface declaration."
+	},
+	"Enum": {
+		"prefix": ["enum" ],
+		"body": [
+			"${1:EnumName} := enum{${2:EnumValue}}",
+		],
+	 	"description": "Define an enumeration."
+	},
+	"Editable": {
+		"prefix": ["editable"],
+		"body": [
+			"@editable",
+			"${1:# constant or variable}",
+		],
+	 	"description": "Defines an editable member."
+	},
+	"ConstantTransform": {
+		"prefix": ["constant-transform" ],
+		"body": [
+			"using { /UnrealEngine.com/Temporary/SpatialMath }",
+			"${1:ConstantName}:transform = transform:",
+				"	Translation := vector3{X:=${2:0.0}, Y:=${3:0.0}, Z:=${4:0.0}}",
+                "	Rotation := IdentityRotation()",
+                "	Scale := vector3{X:=${5:1.0}, Y:=${6:1.0}, Z:=${7:1.0}}",
+		],
+	 	"description": "Declare a transform constant."
+	},
+	"VariableTransform": {
+		"prefix": ["variable-transform" ],
+		"body": [
+			"using { /UnrealEngine.com/Temporary/SpatialMath }",
+			"var ${1:VariableName}:transform = transform:",
+				"	Translation := vector3{X:=${2:0.0}, Y:=${3:0.0}, Z:=${4:0.0}}",
+                "	Rotation := IdentityRotation()",
+                "	Scale := vector3{X:=${5:1.0}, Y:=${6:1.0}, Z:=${7:1.0}}",
+		],
+	 	"description": "Declare a transform variable."
+	},
+	"ConstantVector3": {
+		"prefix": ["constant-vec3", "constant-vector3", "constant-vector" ],
+		"body": [
+			"using { /UnrealEngine.com/Temporary/SpatialMath }",
+			"${1:ConstantName}:vector3 = vector3{X:=${2:0.0},Y:=${3:0.0},Z:=${4:0.0}}",
+		],
+	 	"description": "Declare a vector3 constant."
+	},
+	"VariableVector3": {
+		"prefix": ["variable-vec3", "variable-vector3", "variable-vector" ],
+		"body": [
+			"using { /UnrealEngine.com/Temporary/SpatialMath }",
+			"var ${1:VariableName}:vector3 = vector3{X:=${2:0.0},Y:=${3:0.0},Z:=${4:0.0}}",
+		],
+	 	"description": "Declare a vector3 variable."
+	},
+
+	// Code blocks
+
+	// Functions
+
+	"Function": {
+		"prefix": ["function"],
+		"body": [
+			"${1:FunctionName}(${2:ParameterName}:${3:type}):${4:void}=",
+			"    ${5:Print(\"Function body\")}",
+		],
+	 	"description": "Define a function."
+	},
+
+	"Subscribe": {
+		"prefix": ["subscribe" ],
+		"body": [
+			"${1:ClassInstanceName}.${2:EventName}.Subscribe(${3:SubscribedFunctionName})",
+		],
+	 	"description": "Subscribe to an event."
+	},
+
+	// Control Flow
+
+	"If": {
+		"prefix": ["if" ],
+		"body": [
+			"if (${1:ConditionFunction[]}):",
+			"    ${2:Print(\"Function body\")}",
+		],
+	 	"description": "If statement."
+	},
+	"IfThen": {
+		"prefix": ["if-then" ],
+		"body": [
+			"if:",
+			"    ${1:ConditionFunction[]}",
+			"then:",
+			"    ${2:Print(\"Then body\")}",
+		],
+	 	"description": "If-then statement."
+	},
+	"IfThenElse": {
+		"prefix": ["if-then-else" ],
+		"body": [
+			"if:",
+			"    ${1:ConditionFunction[]}",
+			"then:",
+			"    ${2:Print(\"Then body\")}",
+			"else:",
+			"    ${3:Print(\"Else body\")}",
+		],
+	 	"description": "If-then-else statement."
+	},
+	"For": {
+		"prefix": ["for" ],
+		"body": [
+			"for(${1:Element}:${2:Elements}):",
+			"    ${3:Print(\"For body\")}",
+		],
+	 	"description": "For statement."
+	},
+	"ForRange": {
+		"prefix": ["for-range" ],
+		"body": [
+			"for(${1:Index} := ${2:0}..${3:5}):",
+			"    ${4:Print(\"For body\")}",
+		],
+	 	"description": "For statement with a range."
+	},
+	"ForConditional": {
+		"prefix": ["for-conditional" ],
+		"body": [
+			"for(${1:Element}:${2:Elements}, ${3:<# Condition #>}):",
+			"    ${4:Print(\"For body\")}",
+		],
+	 	"description": "For statement with a condition clause."
+	},
+	"ForMultiConditional": {
+		"prefix": ["for-multi-conditional" ],
+		"body": [
+			"for:",
+			"    ${1:Element}:${2:Elements}",
+			"    ${3:ConditionFunction[]}",
+			"do:",
+			"    ${4:Print(\"For body\")}",
+		],
+	 	"description": "For statement with multiple condition clauses."
+	},
+	"ForFilter": {
+		"prefix": ["for-filter" ],
+		"body": [
+			"${1:FilterResult}:[]${2:type} = for:",
+			"    ${3:Element}:${4:Elements}",
+			"    ${5:ConditionFunction[]}",
+			"do:",
+			"    $3",
+		],
+	 	"description": "For statement for filtering an array."
+	},
+	"Case": {
+		"prefix": ["case", "switch" ],
+		"body": [
+			"case (${1:Value}):",
+			"    ${2:FirstCase} =>",
+			"        ${3:Print(\"First case body\")}",
+			"    _ => # default",
+			"        ${4:Print(\"Default case body\")}",
+		],
+	 	"description": "case statement"
+	},
+	"Loop": {
+		"prefix": ["loop" ],
+		"body": [
+			"loop:",
+			"    ${1:Print(\"Loop body\")}",
+		],
+	 	"description": "Loop statement."
+	},
+	"LoopWithBreak": {
+		"prefix": ["loop-break" ],
+		"body": [
+			"loop:",
+			"    ${1:Print(\"Loop body\")}",
+			"    if (${2:Conditional[]}):",
+			"        break",
+		],
+	 	"description": "Loop statement with conditional break."
+	},
+	"Defer": {
+		"prefix": ["defer"],
+		"body": [
+			"defer:",
+			"    ${1:DeferredExpression()}",
+		],
+	 	"description": "Defer statement."
+	},
+
+	// Time Flow and Concurrency
+
+	"Coroutine: Sync": {
+		"prefix": ["sync", "coroutine-sync"],
+		"body": [
+			"sync:",
+			"    ${1:SubExpression()}",
+		],
+	 	"description": "Sync concurrency block.\rExecutes all expressions in its code block concurrently and waits for them all to finish before executing the next expression after the sync."
+	},
+	"Coroutine: Branch": {
+		"prefix": ["branch", "coroutine-branch"],
+		"body": [
+			"branch:",
+			"    ${1:SubExpression()}",
+		],
+	 	"description": "Branch concurrency block.\rThe body of the branch expression is started as soon as it is encountered. The body of the branch expression continues to evaluate until the code block completes or the enclosing async context completes — whichever occurs first — at which point the branch code block task is canceled."
+	},
+	"Coroutine: Race": {
+		"prefix": ["race", "coroutine-race"],
+		"body": [
+			"race:",
+			"    ${1:SubExpression()}",
+		],
+	 	"description": "Race concurrency block.\rSimilar to sync, but cancels all but the \"winning\" subexpression. If any other expressions complete at the same simulation time as the earlier expression, the first (earlier) expression \"wins\" and breaks any tie. Any \"losing\" expression tasks are canceled."
+	},
+	"Coroutine: Rush": {
+		"prefix": ["rush", "coroutine-rush"],
+		"body": [
+			"rush:",
+			"    ${1:SubExpression()}",
+		],
+	 	"description": "Rush concurrency block.\rSimilar to race, but expressions that complete after the first expression finishes continue to execute. If any expressions effectively complete at the same simulation update, then the earlier encountered expression that completes breaks any tie. Any incomplete expressions continue to evaluate until they complete, or until the enclosing async context completes, at which point, any remaining losing expressions are canceled — whichever occurs first."
+	},
+
+	//////////////////////////////////////////////////////////////
+	// Examples Snippets
+	//////////////////////////////////////////////////////////////
+
+	// Filtering
+
+	"Filter an Array": {
+		"prefix": "filter-array",
+		"body": [
+			"# Filter an array.",
+			"${1:FilterResult}:[]${2:type} = for:",
+			"    ${3:Element}:${4:Elements}",
+			"    ${5:ConditionFunction[]}",
+			"do:",
+			"    $3",
+		],
+		"description": "Filters an array based on conditions."
+	},
+
+	// Logging
+	"Custom Debug Log": {
+		"prefix": ["log", "debug-log" ],
+		"body": [
+			"# Create a custom log channel.",
+			"${1:custom_log} := class(log_channel){}",
+			"",
+			"# TODO: Place the log channel in your custom class",
+			"${2:CustomDebugLog}:log = log{Channel := ${1:custom_log}}",
+			"",
+			"# TODO: Place debug log print messages where appropriate for your class",
+			"${2:CustomDebugLog}.Print(\"${3:DiagnosticMessage}\")",
+		],
+		"description": "Create a custom debug log channel."
+	}    
+}

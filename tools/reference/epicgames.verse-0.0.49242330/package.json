@@ -1,0 +1,282 @@
+{
+	"name": "verse",
+	"displayName": "Verse",
+	"description": "Verse language support for VS Code",
+	"version": "0.0.49242330",
+	"publisher": "epicgames",
+	"author": {
+		"name": "Epic Games, Inc."
+	},
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"homepage": "https://dev.epicgames.com/documentation/unreal-editor-fortnite/en/l5k/Verse/onboarding-guide-to-programming-with-verse-in-unreal-editor-for-fortnite",
+	"engines": {
+		"vscode": "^1.78.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Debuggers"
+	],
+	"keywords": [
+		"Verse",
+		"UEFN",
+		"Unreal Engine",
+		"Epic Games",
+		"Fortnite"
+	],
+	"icon": "images/verse-icon.png",
+	"activationEvents": [
+		"onLanguage:verse",
+		"onCommand:extension.connect",
+		"onCommand:extension.disconnect",
+		"onCommand:extension.compile",
+		"onCommand:extension.compileLoading",
+		"onCommand:extension.compileWarning",
+		"onCommand:extension.compileError",
+		"onCommand:extension.compileSuccess",
+		"onCommand:extension.pushVerseChanges"
+	],
+	"main": "./out/extension",
+	"repository": {},
+	"contributes": {
+		"languages": [
+			{
+				"id": "verse",
+				"extensions": [
+					".verse",
+					".versetest",
+					".vson"
+				],
+				"aliases": [
+					"verse"
+				],
+				"icon": {
+					"light": "icons/verse-icon-light.svg",
+					"dark": "icons/verse-icon.svg"
+				},
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"themes": [
+			{
+				"label": "Verse (Dark)",
+				"uiTheme": "vs-dark",
+				"path": "./verse-dark.tmTheme.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "verse",
+				"scopeName": "source.verse",
+				"path": "./verse.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "verse",
+				"path": "./verse-snippets.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "verseWorkflow.connect",
+				"title": "Connect to Verse Workflow Server",
+				"enablement": "!verseWorkflow.connected",
+				"category": "VerseWorkflow",
+				"icon": {
+					"light": "icons/unreal-icon-light.svg",
+					"dark": "icons/unreal-icon.svg"
+				}
+			},
+			{
+				"command": "verseWorkflow.disconnect",
+				"title": "Disconnect from Verse Workflow Server",
+				"enablement": "verseWorkflow.connected",
+				"category": "VerseWorkflow",
+				"icon": {
+					"light": "icons/unreal-icon-light.svg",
+					"dark": "icons/unreal-icon.svg"
+				}
+			},
+			{
+				"command": "verseWorkflow.compile",
+				"title": "Build Verse code for the current workspace.",
+				"enablement": "verseWorkflow.connected && verseWorkflow.buildState != 3",
+				"category": "VerseWorkflow",
+				"icon": {
+					"light": "icons/verse-icon-light-build.svg",
+					"dark": "icons/verse-icon-build.svg"
+				}
+			},
+			{
+				"command": "verseWorkflow.compileLoading",
+				"title": "Build in progress...",
+				"enablement": "false",
+				"category": "VerseWorkflow",
+				"icon": {
+					"light": "icons/verse-icon-light-loading.svg",
+					"dark": "icons/verse-icon-loading.svg"
+				}
+			},
+			{
+				"command": "verseWorkflow.compileError",
+				"title": "Built with errors",
+				"enablement": "verseWorkflow.connected && verseWorkflow.buildState == 2",
+				"category": "VerseWorkflow",
+				"icon": {
+					"light": "icons/verse-icon-light-error.svg",
+					"dark": "icons/verse-icon-error.svg"
+				}
+			},
+			{
+				"command": "verseWorkflow.compileWarning",
+				"title": "Built with warnings",
+				"enablement": "verseWorkflow.connected && verseWorkflow.buildState == 1",
+				"category": "VerseWorkflow",
+				"icon": {
+					"light": "icons/verse-icon-light-warning.svg",
+					"dark": "icons/verse-icon-warning.svg"
+				}
+			},
+			{
+				"command": "verseWorkflow.compileSuccess",
+				"title": "Built successfully.",
+				"enablement": "verseWorkflow.connected && verseWorkflow.buildState == 0",
+				"category": "VerseWorkflow",
+				"icon": {
+					"light": "icons/verse-icon-light-success.svg",
+					"dark": "icons/verse-icon-success.svg"
+				}
+			},
+			{
+				"command": "verseWorkflow.pushVerseChanges",
+				"enablement": "verseWorkflow.connected && !verseWorkflow.pushRequestInProgress",
+				"title": "Push Verse code changes directly to the server without updating the Content Service",
+				"category": "VerseWorkflow",
+				"icon": {
+					"light": "icons/verse-icon-light-upload.svg",
+					"dark": "icons/verse-icon-upload.svg"
+				}
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "verseWorkflow.connect",
+					"when": "!verseWorkflow.connected"
+				},
+				{
+					"command": "verseWorkflow.disconnect",
+					"when": "verseWorkflow.connected"
+				},
+				{
+					"command": "verseWorkflow.compile",
+					"when": "verseWorkflow.connected"
+				},
+				{
+					"command": "verseWorkflow.pushVerseChanges",
+					"when": "verseWorkflow.connected"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "verseWorkflow.connect",
+					"when": "!verseWorkflow.connected",
+					"group": "navigation@1"
+				},
+				{
+					"command": "verseWorkflow.disconnect",
+					"when": "verseWorkflow.connected",
+					"group": "navigation@1"
+				},
+				{
+					"command": "verseWorkflow.compile",
+					"when": "verseWorkflow.connected && verseWorkflow.buildState == 4",
+					"group": "navigation@2"
+				},
+				{
+					"command": "verseWorkflow.compileLoading",
+					"when": "verseWorkflow.connected && verseWorkflow.buildState == 3",
+					"group": "navigation@2"
+				},
+				{
+					"command": "verseWorkflow.compileError",
+					"when": "verseWorkflow.connected && verseWorkflow.buildState == 2",
+					"group": "navigation@2"
+				},
+				{
+					"command": "verseWorkflow.compileWarning",
+					"when": "verseWorkflow.connected && verseWorkflow.buildState == 1",
+					"group": "navigation@2"
+				},
+				{
+					"command": "verseWorkflow.compileSuccess",
+					"when": "verseWorkflow.connected && verseWorkflow.buildState == 0",
+					"group": "navigation@2"
+				},
+				{
+					"command": "verseWorkflow.pushVerseChanges",
+					"when": "verseWorkflow.canPushVerseChanges",
+					"group": "navigation@3"
+				}
+			]
+		},
+		"configuration": {
+			"type": "object",
+			"title": "Verse configuration",
+			"properties": {
+				"verse.serverPath": {
+					"type": "string",
+					"default": "",
+					"description": "Path to alternate Verse language server executable.\n[Useful for debugging. Leave empty for default]"
+				},
+				"verse.serverArguments": {
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "string"
+					},
+					"description": "Arguments for Verse language server"
+				},
+				"verse.syncFileEvents": {
+					"type": "boolean",
+					"default": true,
+					"description": "Whether or not to send file events to Verse language server (File created, changed or deleted). This can be disabled for performance consideration."
+				},
+				"verse.trace": {
+					"type": "string",
+					"description": "Names a file that Verse language server should log a performance trace to, in chrome trace-viewer JSON format."
+				},
+				"verse.useRelease": {
+					"type": "boolean",
+					"default": false,
+					"description": "If both the developer and release versions of the extension are installed the dev version is used by default. Enable this option in both the dev and release extension settings to use the release version instead."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"format": "prettier --write \"src/**/*.ts\""
+	},
+	"dependencies": {
+		"brace-expansion": "^2.0.2",
+		"minimatch": "^10.0.1",
+		"vscode-languageclient": "^5.2.0",
+		"vscode-languageserver": "^5.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "^18.16.3",
+		"@types/vscode": "^1.78.0",
+		"@vscode/test-electron": "^2.1.5",
+		"prettier": "^2.8.8",
+		"typescript": "^4.0.2"
+	},
+	"__metadata": {
+		"publisherDisplayName": "Epic Games",
+		"installedTimestamp": 1767806115832,
+		"targetPlatform": "undefined",
+		"size": 43488643
+	}
+}
