@@ -100,7 +100,7 @@ curve_logic<public> := module:
         Normalize01((Time - Start) / SafeDuration(Duration))
 
     IsWithinSegment(Time:float, Start:float, Duration:float):logic =
-        Time >= Start && Time <= Start + Duration
+        Time >= Start and Time <= Start + Duration
 
     MakeConstantCurve<public>(Value:float):curve_definition =
         curve_definition{Kind := curve_kind.Constant, ConstantValue := Value}
@@ -207,7 +207,7 @@ curve_logic<public> := module:
                 weighted := SampleFloatCurve(Clip.Curve, localT) * Clip.Weight
 
                 if (Clip.Blend = curve_blend_mode.Override):
-                    if (!hasOverride || Clip.StartTime >= latestOverrideStart):
+                    if (not hasOverride or Clip.StartTime >= latestOverrideStart):
                         set hasOverride = true
                         set latestOverrideStart = Clip.StartTime
                         set overrideValue = weighted

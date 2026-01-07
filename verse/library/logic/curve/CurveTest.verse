@@ -59,41 +59,41 @@ curve_test<public> := module:
     TestConstant():logic =
         curve := curve_logic.MakeConstantCurve(2.0)
         ok := Expect("Constant t0", curve_logic.SampleFloatCurve(curve, 0.0), 2.0)
-        set ok = ok && Expect("Constant t1", curve_logic.SampleFloatCurve(curve, 1.0), 2.0)
+        set ok = ok and Expect("Constant t1", curve_logic.SampleFloatCurve(curve, 1.0), 2.0)
         ok
 
     TestLinear():logic =
         curve := MakeLinear(0.0, 10.0)
         ok := Expect("Linear start", curve_logic.SampleFloatCurve(curve, 0.0), 0.0)
-        set ok = ok && Expect("Linear mid", curve_logic.SampleFloatCurve(curve, 0.5), 5.0)
-        set ok = ok && Expect("Linear end", curve_logic.SampleFloatCurve(curve, 1.0), 10.0)
+        set ok = ok and Expect("Linear mid", curve_logic.SampleFloatCurve(curve, 0.5), 5.0)
+        set ok = ok and Expect("Linear end", curve_logic.SampleFloatCurve(curve, 1.0), 10.0)
         ok
 
     TestQuadratic():logic =
         curve := MakeQuadratic(0.0, 1.0, 0.0)
         ok := Expect("Quadratic start", curve_logic.SampleFloatCurve(curve, 0.0), 0.0)
-        set ok = ok && Expect("Quadratic mid", curve_logic.SampleFloatCurve(curve, 0.5), 0.5)
-        set ok = ok && Expect("Quadratic end", curve_logic.SampleFloatCurve(curve, 1.0), 0.0)
+        set ok = ok and Expect("Quadratic mid", curve_logic.SampleFloatCurve(curve, 0.5), 0.5)
+        set ok = ok and Expect("Quadratic end", curve_logic.SampleFloatCurve(curve, 1.0), 0.0)
         ok
 
     TestCubic():logic =
         curve := MakeCubic(0.0, 0.0, 1.0, 1.0)
         ok := Expect("Cubic mid", curve_logic.SampleFloatCurve(curve, 0.5), 0.5)
-        set ok = ok && Expect("Cubic end", curve_logic.SampleFloatCurve(curve, 1.0), 1.0)
+        set ok = ok and Expect("Cubic end", curve_logic.SampleFloatCurve(curve, 1.0), 1.0)
         ok
 
     TestHermite():logic =
         curve := MakeHermite(0.0, 1.0, 0.0, 0.0)
         ok := Expect("Hermite start", curve_logic.SampleFloatCurve(curve, 0.0), 0.0)
-        set ok = ok && Expect("Hermite mid", curve_logic.SampleFloatCurve(curve, 0.5), 0.5)
-        set ok = ok && Expect("Hermite end", curve_logic.SampleFloatCurve(curve, 1.0), 1.0)
+        set ok = ok and Expect("Hermite mid", curve_logic.SampleFloatCurve(curve, 0.5), 0.5)
+        set ok = ok and Expect("Hermite end", curve_logic.SampleFloatCurve(curve, 1.0), 1.0)
         ok
 
     TestCatmull():logic =
         curve := MakeCatmull(0.0, 0.0, 1.0, 1.0)
         ok := Expect("Catmull start", curve_logic.SampleFloatCurve(curve, 0.0), 0.0)
-        set ok = ok && Expect("Catmull mid", curve_logic.SampleFloatCurve(curve, 0.5), 0.5)
-        set ok = ok && Expect("Catmull end", curve_logic.SampleFloatCurve(curve, 1.0), 1.0)
+        set ok = ok and Expect("Catmull mid", curve_logic.SampleFloatCurve(curve, 0.5), 0.5)
+        set ok = ok and Expect("Catmull end", curve_logic.SampleFloatCurve(curve, 1.0), 1.0)
         ok
 
     TestConcatenated():logic =
@@ -107,8 +107,8 @@ curve_test<public> := module:
         }
         segments := array[2]{first, second}
         ok := Expect("Concat first", curve_logic.SampleConcatenatedFloat(segments, 0.4), 0.0)
-        set ok = ok && Expect("Concat second", curve_logic.SampleConcatenatedFloat(segments, 1.4), 1.0)
-        set ok = ok && Expect("Concat tail", curve_logic.SampleConcatenatedFloat(segments, 3.0), 1.0)
+        set ok = ok and Expect("Concat second", curve_logic.SampleConcatenatedFloat(segments, 1.4), 1.0)
+        set ok = ok and Expect("Concat tail", curve_logic.SampleConcatenatedFloat(segments, 3.0), 1.0)
         ok
 
     TestComposite():logic =
@@ -135,19 +135,19 @@ curve_test<public> := module:
         }
         clips := array[3]{additive, average, override}
         ok := Expect("Composite before override", curve_logic.SampleCompositeFloat(clips, 0.25), 2.0)
-        set ok = ok && Expect("Composite during override", curve_logic.SampleCompositeFloat(clips, 0.75), 3.0)
+        set ok = ok and Expect("Composite during override", curve_logic.SampleCompositeFloat(clips, 0.75), 3.0)
         ok
 
     Run<public>():logic =
         allOk := true
-        set allOk = allOk && TestConstant()
-        set allOk = allOk && TestLinear()
-        set allOk = allOk && TestQuadratic()
-        set allOk = allOk && TestCubic()
-        set allOk = allOk && TestHermite()
-        set allOk = allOk && TestCatmull()
-        set allOk = allOk && TestConcatenated()
-        set allOk = allOk && TestComposite()
+        set allOk = allOk and TestConstant()
+        set allOk = allOk and TestLinear()
+        set allOk = allOk and TestQuadratic()
+        set allOk = allOk and TestCubic()
+        set allOk = allOk and TestHermite()
+        set allOk = allOk and TestCatmull()
+        set allOk = allOk and TestConcatenated()
+        set allOk = allOk and TestComposite()
 
         if (allOk):
             Print("Curve tests finished: PASS")
