@@ -7,10 +7,10 @@
 ```text
 verse/
 ├── library/           # DLSD 代码库
-│   ├── data/          # Data Components - 数据管理、CRUD、UEFN API
-│   ├── logic/         # Logic Modules - 无状态纯函数、数学计算
-│   ├── session/       # Session Classes - 业务上下文、连续流程
-│   └── drivers/       # Driver/System Components - 输入监听、调度
+│   ├── dataComponents/    # Data Components - 数据管理、CRUD、UEFN API
+│   ├── logicModules/      # Logic Modules - 无状态纯函数、数学计算
+│   ├── sessions/          # Session Classes - 业务上下文、连续流程
+│   └── driverComponents/  # Driver/System Components - 输入监听、调度
 ├── templates/         # 代码模板（未来扩展）
 └── _archived/         # 归档的旧代码（基于 Layer 1-5 架构）
 ```
@@ -32,7 +32,7 @@ Driver ──► Session ──► Data ──► Logic
 
 ### Data（数据层）
 
-`library/data/` 存放 Data Component，负责运行时数据管理：
+`library/dataComponents/` 存放 Data Component，负责运行时数据管理：
 
 ```verse
 health_data_component := class(component):
@@ -43,7 +43,7 @@ health_data_component := class(component):
 
 ### Logic（逻辑层）
 
-`library/logic/` 存放 Logic Module，无状态纯函数：
+`library/logicModules/` 存放 Logic Module，无状态纯函数：
 
 ```verse
 damage_logic := module:
@@ -52,7 +52,7 @@ damage_logic := module:
 
 ### Session（会话层）
 
-`library/session/` 存放 Session Class，处理业务流程：
+`library/sessions/` 存放 Session Class，处理业务流程：
 
 ```verse
 combat_session := class:
@@ -62,7 +62,7 @@ combat_session := class:
 
 ### Driver（驱动层）
 
-`library/drivers/` 存放 Driver Component，系统入口：
+`library/driverComponents/` 存放 Driver Component，系统入口：
 
 ```verse
 combat_system_component := class(component):
