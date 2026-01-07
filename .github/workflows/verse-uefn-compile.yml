@@ -113,6 +113,25 @@ jobs:
             Pop-Location
           }
 
+      - name: Clean editor cache
+        shell: pwsh
+        run: |
+          Write-Host "=== Cleaning Editor Cache ==="
+          
+          $cachePath = "C:\Users\Administrator\AppData\Local\UnrealEditorFortnite\Saved\VerseSnapshot\FishTycoon\FishTycoon"
+          
+          if (Test-Path $cachePath) {
+            Write-Host "Found cache at: $cachePath"
+            try {
+              Remove-Item -Path $cachePath -Recurse -Force
+              Write-Host "Cache cleared successfully"
+            } catch {
+              Write-Host "::warning::Failed to clear cache: $_"
+            }
+          } else {
+            Write-Host "Cache path not found (no cleanup needed)"
+          }
+
       - name: Run Verse Compile
         id: compile
         shell: pwsh
