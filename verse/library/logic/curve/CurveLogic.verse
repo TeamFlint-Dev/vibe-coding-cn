@@ -1,41 +1,41 @@
 using { /UnrealEngine.com/Temporary/Curves }
 
-curve_logic := module:
+curve_logic<public> := module:
     # 简易的曲线类型枚举
-    curve_kind := enum{Constant, Linear, QuadraticBezier, CubicBezier, Hermite, CatmullRom, Editable}
+    curve_kind<public> := enum{Constant, Linear, QuadraticBezier, CubicBezier, Hermite, CatmullRom, Editable}
 
     # 叠加/覆盖模式
-    curve_blend_mode := enum{Additive, Average, Override}
+    curve_blend_mode<public> := enum{Additive, Average, Override}
 
     # 各种曲线的参数结构
-    linear_curve_params := struct:
+    linear_curve_params<public> := struct:
         Start:float
         End:float
 
-    quadratic_bezier_params := struct:
+    quadratic_bezier_params<public> := struct:
         P0:float
         P1:float
         P2:float
 
-    cubic_bezier_params := struct:
+    cubic_bezier_params<public> := struct:
         P0:float
         P1:float
         P2:float
         P3:float
 
-    hermite_curve_params := struct:
+    hermite_curve_params<public> := struct:
         P0:float
         P1:float
         T0:float
         T1:float
 
-    catmull_rom_params := struct:
+    catmull_rom_params<public> := struct:
         P0:float
         P1:float
         P2:float
         P3:float
 
-    curve_definition := struct:
+    curve_definition<public> := struct:
         Kind:curve_kind
         ConstantValue:float
         Linear:?linear_curve_params
@@ -45,40 +45,40 @@ curve_logic := module:
         Catmull:?catmull_rom_params
         Editable:?editable_curve
 
-    curve_segment := struct:
+    curve_segment<public> := struct:
         Curve:curve_definition
         Duration:float
 
-    timed_curve_clip := struct:
+    timed_curve_clip<public> := struct:
         Curve:curve_definition
         StartTime:float
         Duration:float
         Weight:float
         Blend:curve_blend_mode
 
-    vector_curve_definition := struct:
+    vector_curve_definition<public> := struct:
         X:curve_definition
         Y:curve_definition
         Z:curve_definition
 
-    timed_vector_curve_clip := struct:
+    timed_vector_curve_clip<public> := struct:
         Curve:vector_curve_definition
         StartTime:float
         Duration:float
         Weight:float
         Blend:curve_blend_mode
 
-    rotation_curve_definition := struct:
+    rotation_curve_definition<public> := struct:
         YawDegrees:curve_definition
         PitchDegrees:curve_definition
         RollDegrees:curve_definition
 
-    movement_curve_definition := struct:
+    movement_curve_definition<public> := struct:
         Translation:vector_curve_definition
         Rotation:rotation_curve_definition
         Scale:vector_curve_definition
 
-    movement_delta := struct:
+    movement_delta<public> := struct:
         DeltaTime:float
         DeltaTranslation:vector3
         DeltaRotation:rotation
@@ -102,7 +102,7 @@ curve_logic := module:
     IsWithinSegment(Time:float, Start:float, Duration:float):logic =
         Time >= Start && Time <= Start + Duration
 
-    MakeConstantCurve(Value:float):curve_definition =
+    MakeConstantCurve<public>(Value:float):curve_definition =
         curve_definition{Kind := curve_kind.Constant, ConstantValue := Value}
 
     MakeVectorCurve2D(XCurve:curve_definition, YCurve:curve_definition):vector_curve_definition =
@@ -179,7 +179,7 @@ curve_logic := module:
         MakeRotationFromYawPitchRollDegrees(yaw, pitch, roll)
 
     # --- 曲线拼接与叠加 ---
-    SampleConcatenatedFloat(Segments:[]curve_segment, Time:float):float =
+    SampleConcatenatedFloat<public>(Segments:[]curve_segment, Time:float):float =
         if (Segments.Length = 0):
             return 0.0
 
@@ -193,7 +193,7 @@ curve_logic := module:
         tail := Segments[Segments.Length - 1]
         SampleFloatCurve(tail.Curve, 1.0)
 
-    SampleCompositeFloat(Clips:[]timed_curve_clip, Time:float):float =
+    SampleCompositeFloat<public>(Clips:[]timed_curve_clip, Time:float):float =
         additive := 0.0
         avgSum := 0.0
         avgWeight := 0.0
@@ -345,7 +345,7 @@ curve_logic := module:
         SampleMovementWithSpeedFull(movement, SpeedCurve, TotalTime, Samples)
 
     # --- 对外的统一采样接口 ---
-    SampleFloatCurve(Config:curve_definition, T:float):float =
+    SampleFloatCurve<public>(Config:curve_definition, T:float):float =
         t := Normalize01(T)
 
         if (Config.Kind = curve_kind.Constant):
