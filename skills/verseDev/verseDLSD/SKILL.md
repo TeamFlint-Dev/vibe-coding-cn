@@ -277,19 +277,19 @@ Driver ──────► Session ──────► Data
 
 ```text
 verse/library/
-├── data/                    # Data Components
+├── dataComponents/          # Data Components
 │   ├── PlayerDataComponent.verse
 │   ├── InventoryDataComponent.verse
 │   └── HealthDataComponent.verse
-├── logic/                   # Logic Modules
+├── logicModules/            # Logic Modules
 │   ├── DamageLogic.verse
 │   ├── MathLogic.verse
 │   └── ValidationLogic.verse
-├── session/                 # Session Classes
+├── sessions/                # Session Classes
 │   ├── FishingSession.verse
 │   ├── CombatSession.verse
 │   └── TradeSession.verse
-└── drivers/                 # Driver/System Components
+└── driverComponents/        # Driver/System Components
     ├── FishingSystemComponent.verse
     ├── CombatSystemComponent.verse
     └── GameDriverComponent.verse
