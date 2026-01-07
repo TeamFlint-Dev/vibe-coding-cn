@@ -14,10 +14,12 @@ on:
         required: true
 
 env:
-  # UEFN 项目中的仓库路径 (代码库位置)
-  UEFN_REPO_PATH: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN'
-  # verse-build.js 工具路径 (reference 子目录)
-  VERSE_BUILD_SCRIPT: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN\tools\reference\verseCompiler\client\verse-build.js'
+  # GitHub 仓库克隆目录（用于 fetch 和 checkout）
+  GIT_REPO_PATH: 'E:\Game\FishTycoon\Content\AgentWorkSpace\VibeCodingCN'
+  # UEFN 项目 Content 根目录（verse 和 tools 将直接同步到这里）
+  UEFN_CONTENT_PATH: 'E:\Game\FishTycoon\Content'
+  # verse-build.js 工具路径（同步到 Content/tools 后的位置）
+  VERSE_BUILD_SCRIPT: 'E:\Game\FishTycoon\Content\tools\reference\verseCompiler\client\verse-build.js'
 
 jobs:
   compile:
@@ -57,19 +59,29 @@ jobs:
             } | ConvertTo-Json -Depth 3 | Out-File $resultFile -Force
           }
           
-          $uefnRepo = "${{ env.UEFN_REPO_PATH }}"
+          $gitRepo = "${{ env.GIT_REPO_PATH }}"
+          $contentPath = "${{ env.UEFN_CONTENT_PATH }}"
           $targetBranch = "${{ inputs.branch }}"
           
-          Write-Host "UEFN Repo: $uefnRepo"
+          Write-Host "Git Repo: $gitRepo"
+          Write-Host "Content Path: $contentPath"
           Write-Host "Target Branch: $targetBranch"
           
-          if (-not (Test-Path $uefnRepo)) {
-            Write-ErrorResult -ErrorMessage "UEFN repo not found at: $uefnRepo" -RawOutput "Path does not exist"
-            Write-Host "::error::UEFN repo not found"
+          # 检查 Git 仓库存在
+          if (-not (Test-Path $gitRepo)) {
+            Write-ErrorResult -ErrorMessage "Git repo not found at: $gitRepo" -RawOutput "Path does not exist"
+            Write-Host "::error::Git repo not found"
             exit 1
           }
           
-          Push-Location $uefnRepo
+          # 检查 UEFN Content 目录存在
+          if (-not (Test-Path $contentPath)) {
+            Write-ErrorResult -ErrorMessage "UEFN Content path not found at: $contentPath" -RawOutput "Path does not exist"
+            Write-Host "::error::UEFN Content path not found"
+            exit 1
+          }
+          
+          Push-Location $gitRepo
           try {
             $currentBranch = git rev-parse --abbrev-ref HEAD
             
@@ -83,7 +95,7 @@ jobs:
               }
             }
             
-            # 只同步 verse 和 tools 文件夹（编译所需的代码和脚本）
+            # 获取最新代码
             Write-Host "Fetching and syncing verse + tools folders..."
             git fetch origin $targetBranch --depth=1 2>&1 | Out-String | Write-Host
             
@@ -98,8 +110,29 @@ jobs:
             $commit = git rev-parse "origin/$targetBranch"
             echo "commit=$commit" >> $env:GITHUB_OUTPUT
             
+            # 复制 verse/ 和 tools/ 到 UEFN Content 根目录
+            Write-Host "Copying verse/ to Content root..."
+            $verseSource = Join-Path $gitRepo "verse"
+            $verseDest = Join-Path $contentPath "verse"
+            
+            # 删除目标目录中的旧文件（如果存在）
+            if (Test-Path $verseDest) {
+              Remove-Item $verseDest -Recurse -Force
+            }
+            Copy-Item $verseSource $verseDest -Recurse -Force
+            
+            Write-Host "Copying tools/ to Content root..."
+            $toolsSource = Join-Path $gitRepo "tools"
+            $toolsDest = Join-Path $contentPath "tools"
+            
+            if (Test-Path $toolsDest) {
+              Remove-Item $toolsDest -Recurse -Force
+            }
+            Copy-Item $toolsSource $toolsDest -Recurse -Force
+            
             $duration = ((Get-Date) - $startTime).TotalSeconds
             Write-Host "Setup completed in $([math]::Round($duration, 1))s, commit: $($commit.Substring(0,7))"
+            Write-Host "verse/ and tools/ synced to: $contentPath"
             
           } finally {
             Pop-Location
