@@ -84,11 +84,13 @@ jobs:
               }
             }
             
-            # 获取最新代码
-            Write-Host "Fetching and syncing verse + tools folders..."
-            git fetch origin $targetBranch --depth=1 2>&1 | Out-String | Write-Host
+            # 获取最新代码（使用完整 fetch 确保新增文件被同步）
+            Write-Host "Fetching latest code..."
+            git fetch origin $targetBranch 2>&1 | Out-String | Write-Host
             
-            # 使用 checkout 只更新 verse 和 tools 目录
+            # 重置 verse 和 tools 目录到远程最新状态
+            # 这会删除本地未跟踪的文件并完整同步远程内容
+            Write-Host "Syncing verse/ and tools/ folders..."
             git checkout "origin/$targetBranch" -- verse/ tools/ 2>&1 | Out-String | Write-Host
             if ($LASTEXITCODE -ne 0) {
               Write-ErrorResult -ErrorMessage "Failed to sync folders" -RawOutput "Checkout failed"
