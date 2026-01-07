@@ -1,3 +1,5 @@
+using { /UnrealEngine.com/Temporary/Curves }
+
 curve_logic := module:
     # 简易的曲线类型枚举
     curve_kind := enum{Constant, Linear, QuadraticBezier, CubicBezier, Hermite, CatmullRom, Editable}
@@ -105,7 +107,10 @@ curve_logic := module:
         if (Config.Kind = curve_kind.CatmullRom, Params := Config.Catmull?):
             return SampleCatmullRom(Params, t)
 
-        if (Config.Kind = curve_kind.Editable, Curve := Config.Editable?):
+        if:
+            Config.Kind = curve_kind.Editable
+            Curve := Config.Editable?
+        then:
             return Curve.Evaluate(t)
 
         # 默认回退到常量，避免运行时失败
