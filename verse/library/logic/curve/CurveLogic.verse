@@ -1,4 +1,5 @@
 using { /UnrealEngine.com/Temporary/Curves }
+using { /Verse.org/SpatialMath }
 
 curve_logic<public> := module:
     # 简易的曲线类型枚举
@@ -102,8 +103,20 @@ curve_logic<public> := module:
     IsWithinSegment(Time:float, Start:float, Duration:float):logic =
         Time >= Start and Time <= Start + Duration
 
+    EmptyCurveDefinition(Kind:curve_kind, Value:float):curve_definition =
+        curve_definition{
+            Kind := Kind,
+            ConstantValue := Value,
+            Linear := false,
+            Quadratic := false,
+            Cubic := false,
+            Hermite := false,
+            Catmull := false,
+            Editable := false
+        }
+
     MakeConstantCurve<public>(Value:float):curve_definition =
-        curve_definition{Kind := curve_kind.Constant, ConstantValue := Value}
+        EmptyCurveDefinition(curve_kind.Constant, Value)
 
     MakeVectorCurve2D(XCurve:curve_definition, YCurve:curve_definition):vector_curve_definition =
         vector_curve_definition{X := XCurve, Y := YCurve, Z := MakeConstantCurve(0.0)}

@@ -1,6 +1,5 @@
-using { curve_logic }
+using { library.logic.curve.curve_logic }
 
 # Wrapper module to satisfy legacy path references.
-CurveLogic<public> := module:
-    # Expose underlying curve_logic for compatibility.
+curve_logic_compat<public> := module:
     Exported := curve_logic

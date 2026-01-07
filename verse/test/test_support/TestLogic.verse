@@ -1,5 +1,5 @@
 using { /Verse.org/Simulation }
-using { curve_test }
+using { library.logic.curve.curve_test }
 
 test_logic<public> := module:
     Run<public>():logic =
