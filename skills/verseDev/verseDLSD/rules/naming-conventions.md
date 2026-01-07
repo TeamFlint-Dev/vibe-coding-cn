@@ -8,11 +8,11 @@
 
 | 元素 | 规范 | 示例 |
 |------|------|------|
-| **Data Component** | `xxx_data` | `health_data`, `inventory_data` |
+| **Data Component** | `xxx_data_component` | `health_data_component`, `inventory_data_component` |
 | **Logic Module** | `xxx_logic` | `damage_logic`, `math_logic` |
 | **Session Class** | `xxx_session` | `fishing_session`, `combat_session` |
-| **Driver Component** | `xxx_system` / `xxx_driver` | `fishing_system`, `game_driver` |
-| **文件名** | `XxxYyy.verse` | `HealthData.verse`, `FishingSession.verse` |
+| **Driver Component** | `xxx_system_component` | `fishing_system_component`, `combat_system_component` |
+| **文件名** | `XxxYyyComponent.verse` | `HealthDataComponent.verse`, `FishingSystemComponent.verse` |
 
 ---
 
@@ -22,12 +22,12 @@
 
 **Data Component**:
 ```verse
-health_data := class(component):        # ✅
-player_data := class(component):        # ✅
-inventory_data := class(component):     # ✅
+health_data_component := class(component):        # ✅
+player_data_component := class(component):        # ✅
+inventory_data_component := class(component):     # ✅
 
-HealthComponent := class(component):    # ❌ 错误后缀
-health_component := class(component):   # ❌ 错误后缀
+HealthData := class(component):    # ❌ 缺少 _component 后缀
+health_data := class(component):   # ❌ 缺少 _component 后缀
 ```
 
 **Logic Module**:
@@ -52,12 +52,12 @@ fishing_handler := class:               # ❌ 错误后缀
 
 **Driver/System Component**:
 ```verse
-fishing_system := class(component):     # ✅
-game_driver := class(component):        # ✅
-combat_system := class(component):      # ✅
+fishing_system_component := class(component):     # ✅
+game_driver_component := class(component):        # ✅
+combat_system_component := class(component):      # ✅
 
-FishingController := class(component):  # ❌ 错误命名
-fishing_manager := class(component):    # ❌ 错误后缀
+FishingSystem := class(component):      # ❌ 缺少 _component 后缀
+fishing_system := class(component):     # ❌ 缺少 _component 后缀
 ```
 
 ---
@@ -66,10 +66,10 @@ fishing_manager := class(component):    # ❌ 错误后缀
 
 | 类型 | 类名 | 文件名 |
 |------|------|--------|
-| Data | `health_data` | `HealthData.verse` |
+| Data | `health_data_component` | `HealthDataComponent.verse` |
 | Logic | `damage_logic` | `DamageLogic.verse` |
 | Session | `fishing_session` | `FishingSession.verse` |
-| Driver | `fishing_system` | `FishingSystem.verse` |
+| Driver | `fishing_system_component` | `FishingSystemComponent.verse` |
 
 ---
 
@@ -195,12 +195,12 @@ var OnPlayerDied:event(player_died_event) = event(player_died_event){}
 
 ### 目录结构
 
-```
+```text
 verse/library/
 ├── data/
-│   ├── HealthData.verse        # health_data
-│   ├── InventoryData.verse     # inventory_data
-│   └── PlayerData.verse        # player_data
+│   ├── HealthDataComponent.verse        # health_data_component
+│   ├── InventoryDataComponent.verse     # inventory_data_component
+│   └── PlayerDataComponent.verse        # player_data_component
 ├── logic/
 │   ├── DamageLogic.verse       # damage_logic
 │   ├── MathLogic.verse         # math_logic
@@ -210,20 +210,20 @@ verse/library/
 │   ├── CombatSession.verse     # combat_session
 │   └── TradeSession.verse      # trade_session
 └── drivers/
-    ├── FishingSystem.verse     # fishing_system
-    ├── CombatSystem.verse      # combat_system
-    └── GameDriver.verse        # game_driver
+    ├── FishingSystemComponent.verse     # fishing_system_component
+    ├── CombatSystemComponent.verse      # combat_system_component
+    └── GameDriverComponent.verse        # game_driver_component
 ```
 
 ---
 
 ## 快速检查清单
 
-- [ ] Data Component 以 `_data` 结尾
+- [ ] Data Component 以 `_data_component` 结尾
 - [ ] Logic Module 以 `_logic` 结尾
 - [ ] Session Class 以 `_session` 结尾
-- [ ] Driver Component 以 `_system` 或 `_driver` 结尾
-- [ ] 文件名使用 PascalCase
+- [ ] Driver Component 以 `_system_component` 或 `_driver_component` 结尾
+- [ ] 文件名使用 PascalCase，Component 文件以 `Component.verse` 结尾
 - [ ] 函数名使用 PascalCase
 - [ ] 变量名使用 PascalCase
 - [ ] 事件类型以 `_event` 结尾

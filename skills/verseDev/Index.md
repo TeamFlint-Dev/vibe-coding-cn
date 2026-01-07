@@ -28,10 +28,10 @@
 
 | 层 | 类型 | 后缀 | 职责 |
 |----|------|------|------|
-| **Data** | Component | `_data` | 数据管理、CRUD、UEFN API |
+| **Data** | Component | `_data_component` | 数据管理、CRUD、UEFN API |
 | **Logic** | Module | `_logic` | 无状态纯函数、计算 |
 | **Session** | Class | `_session` | 业务上下文、连续流程 |
-| **Driver** | Component | `_system` | 输入监听、Session 管理 |
+| **Driver** | Component | `_system_component` | 输入监听、Session 管理 |
 
 ## 规则文档
 

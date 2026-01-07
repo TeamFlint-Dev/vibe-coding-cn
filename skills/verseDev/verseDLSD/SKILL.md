@@ -10,10 +10,10 @@ DLSD（Data-Logic-Session-Driver）是 Verse 代码的核心架构模式，基�
 
 | 层 | 类型 | 后缀 | 职责 |
 |----|------|------|------|
-| **Data** | Component | `_data` | 数据管理、CRUD、UEFN API 调用 |
+| **Data** | Component | `_data_component` | 数据管理、CRUD、UEFN API 调用 |
 | **Logic** | Module | `_logic` | 无状态纯函数、数学/算法计算 |
 | **Session** | Class | `_session` | 业务上下文、连续流程、事务安全 |
-| **Driver** | Component | `_system` / `_driver` | 监听输入、管理 Session、驱动时间片 |
+| **Driver** | Component | `_system_component` | 监听输入、管理 Session、驱动时间片 |
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
@@ -48,13 +48,13 @@ DLSD（Data-Logic-Session-Driver）是 Verse 代码的核心架构模式，基�
 
 **命名规范**：
 
-- 类名：`xxx_data` (snake_case + `_data` 后缀)
-- 文件名：`XxxData.verse` (PascalCase)
+- 类名：`xxx_data_component` (snake_case + `_data_component` 后缀)
+- 文件名：`XxxDataComponent.verse` (PascalCase + Component)
 
 **示例结构**：
 ```verse
-# HealthData.verse
-health_data := class(component):
+# HealthDataComponent.verse
+health_data_component := class(component):
     # ═══════════ 配置 ═══════════
     @editable var MaxHealth:int = 100
     
@@ -194,16 +194,17 @@ fishing_session := class:
 - 协调多个 Data Component
 
 **命名规范**：
-- 类名：`xxx_system` 或 `xxx_driver` (snake_case + 后缀)
-- 文件名：`XxxSystem.verse` 或 `XxxDriver.verse` (PascalCase)
+
+- 类名：`xxx_system_component` 或 `xxx_driver_component` (snake_case + 后缀)
+- 文件名：`XxxSystemComponent.verse` 或 `XxxDriverComponent.verse` (PascalCase + Component)
 
 **示例结构**：
 ```verse
-# FishingSystem.verse
-fishing_system := class(component):
+# FishingSystemComponent.verse
+fishing_system_component := class(component):
     # ═══════════ 依赖 ═══════════
-    @editable PlayerDataRef:player_data = player_data{}
-    @editable InventoryRef:inventory_data = inventory_data{}
+    @editable PlayerDataRef:player_data_component = player_data_component{}
+    @editable InventoryRef:inventory_data_component = inventory_data_component{}
     
     # ═══════════ 会话管理 ═══════════
     var ActiveSession:?fishing_session = false
@@ -274,12 +275,12 @@ Driver ──────► Session ──────► Data
 
 ## 🔧 目录结构
 
-```
+```text
 verse/library/
 ├── data/                    # Data Components
-│   ├── PlayerData.verse
-│   ├── InventoryData.verse
-│   └── HealthData.verse
+│   ├── PlayerDataComponent.verse
+│   ├── InventoryDataComponent.verse
+│   └── HealthDataComponent.verse
 ├── logic/                   # Logic Modules
 │   ├── DamageLogic.verse
 │   ├── MathLogic.verse
@@ -289,9 +290,9 @@ verse/library/
 │   ├── CombatSession.verse
 │   └── TradeSession.verse
 └── drivers/                 # Driver/System Components
-    ├── FishingSystem.verse
-    ├── CombatSystem.verse
-    └── GameDriver.verse
+    ├── FishingSystemComponent.verse
+    ├── CombatSystemComponent.verse
+    └── GameDriverComponent.verse
 ```
 
 ---
