@@ -83,22 +83,19 @@ jobs:
               }
             }
             
-            # 快速拉取（使用 --ff-only 避免合并冲突延迟）
-            Write-Host "Pulling latest changes..."
-            $pullOutput = git pull --ff-only origin $targetBranch 2>&1 | Out-String
-            Write-Host $pullOutput
+            # 只同步 verse 文件夹（编译所需的代码）
+            Write-Host "Fetching and syncing verse folder only..."
+            git fetch origin $targetBranch --depth=1 2>&1 | Out-String | Write-Host
+            
+            # 使用 checkout 只更新 verse 目录
+            git checkout "origin/$targetBranch" -- verse/ 2>&1 | Out-String | Write-Host
             if ($LASTEXITCODE -ne 0) {
-              # 如果 ff-only 失败，尝试 reset
-              Write-Host "Fast-forward failed, trying reset..."
-              git fetch origin $targetBranch 2>&1 | Out-String | Write-Host
-              git reset --hard "origin/$targetBranch" 2>&1 | Out-String | Write-Host
-              if ($LASTEXITCODE -ne 0) {
-                Write-ErrorResult -ErrorMessage "Failed to sync branch: $targetBranch" -RawOutput $pullOutput
-                exit 1
-              }
+              Write-ErrorResult -ErrorMessage "Failed to sync verse folder" -RawOutput "Checkout verse failed"
+              exit 1
             }
             
-            $commit = git rev-parse HEAD
+            # 获取远程分支的 commit（用于记录）
+            $commit = git rev-parse "origin/$targetBranch"
             echo "commit=$commit" >> $env:GITHUB_OUTPUT
             
             $duration = ((Get-Date) - $startTime).TotalSeconds
