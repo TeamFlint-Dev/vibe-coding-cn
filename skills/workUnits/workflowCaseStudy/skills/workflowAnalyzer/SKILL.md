@@ -80,6 +80,64 @@
 ⭐⭐⭐ = 新发现模式 (来源: workflow-health-manager 分析 #6)  
 ⭐⭐⭐⭐ = 新发现模式 (来源: create-agentic-workflow 分析 #9)
 
+#### MCP Multi-Server Integration Pattern ⭐⭐⭐⭐⭐
+
+- **识别特征**: 使用 `imports:` 导入多个 MCP 配置文件 + 每个 MCP 服务器专注一个领域 + 通过 shared/ 目录集中管理
+- **配置示例**: `imports: [shared/mcp/gh-aw.md, shared/mcp/serena.md]` + `tools: { serena: ["go"] }`
+- **MCP 协作**: gh-aw（工作流自省）+ Serena（代码分析）+ JQ Schema（JSON 探索）
+- **设计意图**: 分离关注点，避免单一 MCP 功能膨胀，配置复用（多工作流共享）
+- **用途**: 需要多种专业能力的复杂工作流
+- **典型案例**: cloclo（3个MCP：gh-aw + serena + jqschema）
+
+#### Tool Selection Decision Tree Pattern ⭐⭐⭐⭐
+
+- **识别特征**: Prompt 中明确的 "If X Is Needed" 分支 + 每个分支有专门工具链 + "ALWAYS" 约束
+- **结构**: 用户请求 → 分类（代码/网页/分析）→ 每类有清晰的工具链
+- **示例**: If Code Changes → Serena MCP + edit + create-PR | If Web Automation → Playwright + comment
+- **用途**: 多功能"瑞士军刀"式工作流，根据任务类型选择工具
+- **关键约束**: ⚠️ NEVER 约束防止危险操作（如修改 .github/workflows）
+- **典型案例**: cloclo（7个工具，3个分支）
+
+#### Themed Persona Pattern ⭐⭐⭐⭐
+
+- **识别特征**: 工作流有明确主题人格 + 定制化 messages（footer/run-started/run-success/run-failure）+ Prompt 风格指导
+- **示例**: cloclo（Claude François 主题，"glamorous"、法语元素、emoji 🎤🎵✨）
+- **Messages 定制**: 主题化语言（"Magnifique!"、"Comme d'habitude"、"Standing ovation"）
+- **Prompt 指导**: "Be Glamorous: Use emojis (✨, 🎭, 🎨)"
+- **功能性**: 不影响功能正确性，提高参与度和趣味性
+- **用途**: 差异化用户体验，建立品牌识别度
+- **风险**: 过度人格化可能降低专业性
+
+#### High-Turn Conversation Pattern ⭐⭐⭐
+
+- **识别特征**: `max-turns: 100`（远高于常见10-30）+ cache-memory 存储上下文 + Claude 引擎
+- **用途**: 复杂多步骤任务、长对话场景、多轮工具调用
+- **Memory 配置**: `cache-memory: { key: ${{ github.workflow }}-memory-${{ github.run_id }} }`
+- **引擎选择**: Claude（更强推理能力、更长上下文窗口）
+- **成本考虑**: 高 turn 数可能导致高 API 成本，需监控实际使用
+- **典型案例**: cloclo（100 turns + cache-memory）
+
+#### Queued Execution Pattern ⭐⭐⭐
+
+- **识别特征**: `cancel-in-progress: false` + concurrency group 基于 workflow + ref
+- **配置**: `concurrency: { group: "${{ github.workflow }}-${{ github.ref }}", cancel-in-progress: false }`
+- **设计意图**: 排队执行而非取消，确保每个请求都被处理
+- **适用场景**: 任务有副作用（创建资源、修改状态），中途取消会导致不一致
+- **并发策略**: 同一分支排队，不同分支并行
+- **对比**: 与 cancel-in-progress: true（取消旧任务）、lock-for-agent（互斥锁）的区别
+- **典型案例**: cloclo（不取消进行中的请求）
+
+#### Progressive Context Disclosure Pattern ⭐⭐⭐⭐
+
+- **识别特征**: 多个并列 `{{#if}}` 块 + 每个块处理一种上下文 + 只显示相关信息
+- **结构**: Issue Context (if issue) | PR Context (if PR, **IMPORTANT** 标记) | Discussion Context (if discussion)
+- **优雅之处**: 并列而非嵌套 if，每个上下文自包含，重要信息有 IMPORTANT 标记
+- **用途**: 工作流支持多种触发场景，避免 Prompt 冗余，提高 Agent 理解
+- **PR 特殊处理**: 捕获分支信息（head.sha, base.sha），需要更谨慎
+- **典型案例**: cloclo（Issue + PR + Discussion 三种场景）
+
+⭐⭐⭐⭐⭐ = 新发现模式 (来源: cloclo 分析 #10)
+
 ---
 
 ## 📏 质量评估标准
@@ -143,6 +201,7 @@ grep -n "{{#if" path/to/workflow.md
 
 | 日期 | 工作流 | 主要发现 |
 |------|--------|---------|
+| 2026-01-08 | cloclo | 发现 6 个新模式：MCP 多服务器集成、工具选择决策树、主题化人格等 |
 | 2026-01-08 | create-agentic-workflow (Agent) | 发现 6 个新模式：双模式 Agent、渐进式披露、嵌入式安全框架等 |
 | 2026-01-08 | workflow-health-manager | 发现 6 个新模式：元编排器、共享metrics、多层健康检查等 |
 | 2026-01-08 | campaign-generator | 发现 7 个新模式：协调器-执行者、双模式、锁机制等 |
