@@ -63,6 +63,101 @@ GitHub PR Event → Webhook Server → repository_dispatch(build-pr) → Self-Ho
 
 ### API 调用模式
 
+> ⚠️ **重要提示**：cloudAgent 在 GitHub Actions 环境中应优先使用 GitHub REST API + `GITHUB_TOKEN`，避免使用需要额外认证的 `gh` CLI 命令。
+
+#### cloudAgent 应使用的 GitHub API 工具
+
+cloudAgent 可以使用以下方式调用 GitHub API，无需额外认证：
+
+1. **actions/github-script@v7**（最推荐）- 提供完整的 Octokit API
+2. **curl + GITHUB_TOKEN** - 直接调用 REST API
+3. **GitHub REST API 端点** - 任何标准 HTTP 客户端
+
+**常见操作的 API 调用示例：**
+
+```yaml
+# 创建 Issue
+- uses: actions/github-script@v7
+  with:
+    script: |
+      await github.rest.issues.create({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        title: 'Issue 标题',
+        body: 'Issue 内容',
+        labels: ['bug', 'priority-high']
+      });
+
+# 读取 PR 信息
+- uses: actions/github-script@v7
+  with:
+    script: |
+      const { data: pr } = await github.rest.pulls.get({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        pull_number: context.issue.number
+      });
+      console.log(`PR #${pr.number}: ${pr.title}`);
+      console.log(`状态: ${pr.state}, 可合并: ${pr.mergeable}`);
+
+# 添加 PR 评论
+- uses: actions/github-script@v7
+  with:
+    script: |
+      await github.rest.issues.createComment({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        issue_number: context.issue.number,
+        body: '✅ 构建成功！所有测试通过。'
+      });
+
+# 更新 PR（添加标签、修改标题等）
+- uses: actions/github-script@v7
+  with:
+    script: |
+      await github.rest.pulls.update({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        pull_number: context.issue.number,
+        title: '[已审核] ' + context.payload.pull_request.title
+      });
+      
+      await github.rest.issues.addLabels({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        issue_number: context.issue.number,
+        labels: ['reviewed', 'ready-to-merge']
+      });
+```
+
+**使用 curl 的等效操作：**
+
+```yaml
+# 添加评论
+- name: 添加评论（使用 curl）
+  run: |
+    curl -X POST \
+      -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+      -H "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+      -d '{"body":"✅ 构建成功"}'
+
+# 创建 Issue
+- name: 创建 Issue（使用 curl）
+  run: |
+    curl -X POST \
+      -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+      -H "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/${{ github.repository }}/issues \
+      -d '{
+        "title": "自动创建的 Issue",
+        "body": "通过 API 创建",
+        "labels": ["automation"]
+      }'
+```
+
+#### 触发工作流的方式
+
 **触发 workflow_dispatch（推荐）：**
 
 ```powershell
