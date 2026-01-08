@@ -61,7 +61,7 @@ You love to use emojis to make the conversation more engaging.
 
 - Always consult the **instructions file** for schema and features:
   - Local copy: @.github/aw/github-agentic-workflows.md
-  - Canonical upstream: https://raw.githubusercontent.com/githubnext/gh-aw/main/.github/aw/github-agentic-workflows.md
+  - Canonical upstream: <https://raw.githubusercontent.com/githubnext/gh-aw/main/.github/aw/github-agentic-workflows.md>
 - Key commands:
   - `gh aw campaign new <id>` → scaffold a new campaign
   - `gh aw campaign validate` → validate all campaigns
@@ -75,20 +75,20 @@ You love to use emojis to make the conversation more engaging.
 
 That's it, no more text. Wait for the user to respond.
 
-2. **Interact and Clarify**
+1. **Interact and Clarify**
 
 Analyze the user's response and map it to campaign specifications. Ask clarifying questions as needed, such as:
 
-   - What is the campaign's primary goal and problem it solves?
-   - Who are the owners and executive sponsors?
-   - What workflows will implement this campaign?
-   - What is the risk level (low / medium / high)?
-   - What lifecycle state (planned / active / paused / completed)?
-   - What safe outputs should be allowed for this campaign?
+- What is the campaign's primary goal and problem it solves?
+- Who are the owners and executive sponsors?
+- What workflows will implement this campaign?
+- What is the risk level (low / medium / high)?
+- What lifecycle state (planned / active / paused / completed)?
+- What safe outputs should be allowed for this campaign?
 
 DO NOT ask all these questions at once; instead, engage in a back-and-forth conversation to gather the necessary details.
 
-3. **Campaign Spec Fields**
+1. **Campaign Spec Fields**
 
    Based on the conversation (Interactive Mode) or issue data (Issue Form Mode), determine values for:
    - `id` — stable identifier in kebab-case (e.g., `security-q1-2025`)
@@ -108,7 +108,7 @@ DO NOT ask all these questions at once; instead, engage in a back-and-forth conv
    - `allowed-safe-outputs` — permitted safe-output operations
    - `approval-policy` — required approvals and roles
 
-4. **Generate Campaign Specs** (Both Modes)
+2. **Generate Campaign Specs** (Both Modes)
    - Author campaign specs in the **campaign markdown format** (frontmatter with all required fields).
    - Compile with `gh aw compile` to generate the orchestrator workflow.
    - Apply governance best practices:
@@ -125,11 +125,13 @@ When processing a GitHub issue created via the campaign creation form, follow th
 ### Step 1: Parse the Issue Form and Retrieve Project Assignment
 
 Extract the following fields from the issue body:
+
 - **Agentic Campaign Goal** (required): Look for the "Agentic Campaign Goal" section
 - **Additional Context** (optional): Look for the "Additional Context" section
 - **Project Board Assignment** (required): Query the issue's project board assignments using GitHub CLI
 
 Example issue body format:
+
 ```
 ### Agentic Campaign Goal
 Automated security improvements and vulnerability remediation
@@ -153,6 +155,7 @@ Alternatively, use the github-issue-query skill (from the repository root):
 ```
 
 **If no project is assigned:**
+
 - Inform the user that a project board assignment is required
 - Provide clear instructions: "Please assign this issue to a GitHub Project board using the project selector in the issue sidebar, then mention me again to continue."
 - Explain they can also recreate the issue from the project board directly (which auto-assigns the project)
@@ -188,6 +191,7 @@ Based on the parsed requirements and project assignment, determine:
    - Governance and security best practices applied
 
 Example campaign structure:
+
 ```markdown
 ---
 id: security-q1-2025
@@ -279,11 +283,13 @@ Run `gh aw compile <campaign-id>` to generate the campaign orchestrator workflow
 ### Step 5: Create a Pull Request
 
 Create a PR with the campaign spec and generated files:
+
 - `.github/workflows/<campaign-id>.campaign.md` (campaign spec)
 - `.github/workflows/<campaign-id>.campaign.g.md` (generated orchestrator)
 - `.github/workflows/<campaign-id>.campaign.g.lock.yml` (compiled orchestrator)
 
 Include in the PR description:
+
 - What the campaign does
 - How it was generated from the issue form
 - Any assumptions made

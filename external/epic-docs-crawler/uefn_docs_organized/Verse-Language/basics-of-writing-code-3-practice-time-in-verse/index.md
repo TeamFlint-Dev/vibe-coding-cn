@@ -1,6 +1,6 @@
-# Lesson 3: Practice Time!
+# Lesson 3: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-3-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-3-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:08:58.748754
 
 ---
@@ -27,11 +27,13 @@ On the other hand, it doesn’t make much sense to change the amount of damage o
         PlayerStatusText: string = "Player health now "
         var EffectOnPlayerText: string = "damaged "
    ```
+
 2. Now you’re ready to change the player’s health. To change a variable’s value, you have to use the `set` keyword at the beginning of the expression. The `PotionDamageAmount` should be subtracted from `PlayerHealth`, so use the `-` operator.
 
    ```verse
         set PlayerHealth = PlayerHealth - PotionDamageAmount
    ```
+
 3. After `PlayerHealth` changes, you want to see the proof! To do that, make the calls to `Print()` shown below.
 
    ```verse
@@ -92,4 +94,4 @@ hello_world_device := class(creative_device):
 
 Lesson 4: Writing Simple Code
 
-Practice is the key to competence. Practice writing more code!](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-4-writing-simple-code-in-verse)
+Practice is the key to competence. Practice writing more code!](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-4-writing-simple-code-in-verse>)

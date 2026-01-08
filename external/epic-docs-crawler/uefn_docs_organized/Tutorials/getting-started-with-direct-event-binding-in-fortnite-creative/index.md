@@ -1,6 +1,6 @@
 # Getting Started with Direct Event Binding
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-direct-event-binding-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-direct-event-binding-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:13:28.008338
 
 ---

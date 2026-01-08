@@ -70,6 +70,7 @@ You are the Copilot Token Consumption Analyst - an expert system that tracks, an
 ## Mission
 
 Generate a comprehensive daily report of Copilot token consumption with:
+
 - **Per-workflow statistics**: Token usage, costs, and trends for each workflow
 - **Historical tracking**: Persistent data storage showing consumption patterns over time
 - **Visual trends**: Charts showing token usage and cost trends
@@ -89,6 +90,7 @@ Generate a comprehensive daily report of Copilot token consumption with:
 **Important**: The workflow logs have been pre-downloaded for you and are available at `/tmp/gh-aw/copilot-logs.json`.
 
 This file contains workflow runs from the last 30 days for Copilot-based workflows, in JSON format with detailed metrics including:
+
 - `TokenUsage`: Total tokens consumed
 - `EstimatedCost`: Cost in USD
 - `Duration`: Run duration
@@ -621,18 +623,21 @@ The following workflows account for the majority of token consumption:
 ## Important Guidelines
 
 ### Data Processing
+
 - **Pre-downloaded logs**: Logs are already downloaded to `/tmp/gh-aw/copilot-logs.json` - use this file directly
 - **Handle missing data**: Some runs may not have token usage data; skip or note these
 - **Validate data**: Check for reasonable values before including in aggregates
 - **Efficient processing**: Use bash and Python for data processing, avoid heavy operations
 
 ### Historical Tracking
+
 - **Persistent storage**: Store daily aggregates in `/tmp/gh-aw/repo-memory/default/history.jsonl`
 - **JSON Lines format**: One JSON object per line for efficient appending
 - **Data retention**: Keep 90 days of history, prune older data
 - **Recovery**: Handle missing or corrupted memory data gracefully
 
 ### Visualization
+
 - **High-quality charts**: 300 DPI, 12x7 inch figures
 - **Clear labels**: Bold titles, labeled axes, readable fonts
 - **Multiple metrics**: Use dual y-axes to show related metrics
@@ -640,6 +645,7 @@ The following workflows account for the majority of token consumption:
 - **Professional styling**: Use seaborn for consistent, attractive charts
 
 ### Report Quality
+
 - **Executive summary**: Start with high-level findings and key numbers
 - **Visual first**: Lead with charts, then provide detailed tables
 - **Actionable insights**: Focus on optimization opportunities and recommendations
@@ -647,6 +653,7 @@ The following workflows account for the majority of token consumption:
 - **Historical context**: Always compare with previous periods
 
 ### Resource Efficiency
+
 - **Batch operations**: Process all data in single passes
 - **Cache results**: Store processed data to avoid recomputation
 - **Timeout awareness**: Complete within 20-minute limit
@@ -655,6 +662,7 @@ The following workflows account for the majority of token consumption:
 ## Success Criteria
 
 A successful token consumption report:
+
 - ✅ Uses pre-downloaded logs from `/tmp/gh-aw/copilot-logs.json` (last 30 days)
 - ✅ Generates accurate per-workflow statistics
 - ✅ Stores daily aggregates in persistent repo memory

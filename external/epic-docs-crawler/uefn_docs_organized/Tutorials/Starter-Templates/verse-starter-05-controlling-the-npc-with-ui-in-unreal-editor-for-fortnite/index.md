@@ -1,6 +1,6 @@
 # 5. Controlling the NPC with UI
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-05-controlling-the-npc-with-ui-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-05-controlling-the-npc-with-ui-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:31:07.399966
 
 ---
@@ -481,6 +481,6 @@ Now that we have a custom UI, the next step shows you how to manage the game and
 
 [![6. Managing the Game Loop](https://dev.epicgames.com/community/api/documentation/image/d8c7cdb0-a36f-47b8-bc0a-723ebf7ac92a?resizing_type=fit&width=640&height=640)
 
-6. Managing the Game Loop
+1. Managing the Game Loop
 
-Learn how to define the core behavior of the minigame in the Verse Starter Template.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-06-managing-the-game-loop-for-in-unreal-editor-for-fortnite)
+Learn how to define the core behavior of the minigame in the Verse Starter Template.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-06-managing-the-game-loop-for-in-unreal-editor-for-fortnite>)

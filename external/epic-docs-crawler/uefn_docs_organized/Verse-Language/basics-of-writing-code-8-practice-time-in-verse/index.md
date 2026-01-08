@@ -1,6 +1,6 @@
-# Lesson 8: Practice Time!
+# Lesson 8: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-8-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-8-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:08:52.290940
 
 ---
@@ -62,6 +62,7 @@ At this point, you may be seeing a **red squiggle** under the `()` in your call 
                        Print("DamageToDo: {DamageToDo}")
                        FortniteCharacter.Damage(DamageToDo)
    ```
+
 2. For the second parameter in `CalculateDamage()`, you’re going to need a parameter from `HurtPlayer()`. You will create that parameter now. Add a `float` parameter called `DamageAmount`. `HurtPlayer()` should now look like this:
 
    ```verse
@@ -75,6 +76,7 @@ At this point, you may be seeing a **red squiggle** under the `()` in your call 
                     Print("DamageToDo: {DamageToDo}")
                     FortniteCharacter.Damage(DamageToDo)
    ```
+
 3. You now have all three arguments ready to add to `CalculateDamage()`.
 
    - `MyCharacterHealth` for the parameter `PlayerHealth`
@@ -153,4 +155,4 @@ hello_world_device := class(creative_device):
 
 Lesson 9: Failure and Control Flow
 
-Learn how failure is used to control your program's flow.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-9-failure-and-control-flow-in-verse)
+Learn how failure is used to control your program's flow.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-9-failure-and-control-flow-in-verse>)

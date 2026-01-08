@@ -54,9 +54,10 @@ features:
 # Smoke Test: Copilot Engine (No Firewall)
 
 Run smoke tests for Copilot engine without firewall:
+
 1. Review last 2 merged PRs in ${{ github.repository }}
 2. Create test file `/tmp/gh-aw/agent/smoke-test-copilot-${{ github.run_id }}.txt`
-3. Navigate to https://github.com with Playwright and verify page title
+3. Navigate to <https://github.com> with Playwright and verify page title
 4. List 3 issues using safeinputs-gh tool
 
 Add brief comment (5 lines max) with test results (✅/❌) and add label `smoke-copilot-no-firewall` if all pass.

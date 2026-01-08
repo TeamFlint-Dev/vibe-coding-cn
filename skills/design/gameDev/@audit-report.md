@@ -176,21 +176,26 @@
 **位置**: `gameEconomyDesigner/SKILL.md` L75-82
 
 **当前内容**:
+
 ```markdown
 **分段公式**：
 ```
+
 IF level < threshold THEN
     value = formula_1(level)
 ELSE
     value = formula_2(level)
 END
+
 ```
 ```
 
 **建议修改为**:
+
 ```markdown
 **分段公式**：
 ```
+
 IF level < threshold THEN
     value = formula_1(level)  # 例: base × level
 ELSE
@@ -198,8 +203,10 @@ ELSE
 END
 
 示例 (threshold=10, base=100):
+
 - level=5:  100 × 5 = 500
 - level=15: 100 × (15^1.5) ≈ 5809
+
 ```
 ```
 
@@ -212,9 +219,11 @@ END
 **位置**: `gameImplementationPlanner/SKILL.md` L295-350
 
 **当前内容**:
+
 ```markdown
 **架构设计**:
 ```
+
 ┌─────────────────────────────────────────┐
 │              UI Layer                    │
 │  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐       │
@@ -223,6 +232,7 @@ END
 └─────┼───────┼───────┼───────┼───────────┘
       │       │       │       │
 ┌─────┴───────┴───────┴───────┴───────────┐
+
 ```
 
 **建议修改为**: 补充完整三层架构（UI → Logic → Data）
@@ -243,6 +253,7 @@ END
 ```
 
 **建议修改为**:
+
 ```markdown
 ## Maintenance
 

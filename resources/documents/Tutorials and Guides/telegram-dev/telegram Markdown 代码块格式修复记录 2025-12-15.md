@@ -1,8 +1,9 @@
-#  telegram Markdown 代码块格式修复记录 2025-12-15
+# telegram Markdown 代码块格式修复记录 2025-12-15
 
 ## 问题
 
 排盘完成后发送消息报错：
+
 ```
 ❌ 排盘失败: Can't parse entities: can't find end of the entity starting at byte offset 168
 ```
@@ -30,8 +31,10 @@ header = (
 # 正确写法
 header = f"""报告见附件
 ```
+
 {filename}
 {ai_filename}
+
 ```
 """
 ```

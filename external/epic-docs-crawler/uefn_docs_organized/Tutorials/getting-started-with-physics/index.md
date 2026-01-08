@@ -1,6 +1,6 @@
 # Getting Started with Physics
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-physics
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-physics>
 > **爬取时间**: 2025-12-26T23:59:50.131792
 
 ---
@@ -78,7 +78,7 @@ Learn more about importing a custom prop and adding collision in the [Make 
 
 **Enable Gravity** determines if the object should have the force of gravity applied to it.
 
-**Start Awake** lets you choose whether the physics prop simulates on game start or when an object comes into contact with it. 
+**Start Awake** lets you choose whether the physics prop simulates on game start or when an object comes into contact with it.
 If unchecked, the physics object will not simulate until a force is applied to it. In the example below, the crates all have **Start Awake** **unchecked**, and only fall after being hit.
 
 **Linear Damping** slows objects down over time. In the example below, the balloon on the left has a Linear Dampening value of **0.5** while the balloon on the right is set to **0.01**.
@@ -99,7 +99,7 @@ The following is a non-comprehensive list of questions expected to arise when tr
 
 ##### Can I enable physics on an existing project?
 
-Yes. Physics can be enabled on your existing projects, however, it is recommended that you make a copy of your project before turning on physics. You cannot publish a project that uses an experimental feature. 
+Yes. Physics can be enabled on your existing projects, however, it is recommended that you make a copy of your project before turning on physics. You cannot publish a project that uses an experimental feature.
 You can disable the physics experimental feature at any time and publish your island.
 
 ##### Can objects animated with Sequencer interact with physics objects?

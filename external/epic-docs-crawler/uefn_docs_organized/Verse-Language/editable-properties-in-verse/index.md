@@ -1,6 +1,6 @@
 # Editable Properties
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/editable-properties-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/editable-properties-in-verse>
 > **爬取时间**: 2025-12-27T00:02:46.640432
 
 ---
@@ -35,30 +35,32 @@ Follow these steps to create a Verse device and expose a variable to the editor:
         using { /Fortnite.com/Devices }
         using { /Verse.org/Simulation }
         using { /UnrealEngine.com/Temporary/Diagnostics }
-   		
+     
         # A Verse-authored creative device that can be placed in a level
         editable_testing_device := class(creative_device):
-   		
+     
             # A basic editable integer.
             @editable
             BasicInt:int = 0
    Copy full snippet
    ```
+
 4. In `OnBegin()`, add a `Print()` statement to print out the value of your `BasicInt`.
 
    ```verse
         # A Verse-authored creative device that can be placed in a level
         editable_testing_device := class(creative_device):
-   		
+     
             # A basic editable integer.
             @editable
             BasicInt:int = 0
-   		
+     
             # Runs when the device is started in a running game
             OnBegin<override>()<suspends>:void=
                 Print("The value of BasicInt is: {BasicInt}!")
    Copy full snippet
    ```
+
 5. Save your code and compile it to update your Verse device in the level.
 6. In the UEFN **Outliner**, select your **editable testing device** to open its **Details** panel. In the **Details** panel, your device now has the property `BasicInt`.
 
@@ -79,36 +81,38 @@ Follow these steps to set up a reference to a Barrier device in your level, then
    ```verse
         # A Verse-authored creative device that can be placed in a level
         editable_testing_device := class(creative_device):
-   		
+     
             # A basic editable integer.
             @editable
             BasicInt:int = 0
-   		
+     
             # Reference to a Barrier device in the level.
             @editable
             Barrier:barrier_device = barrier_device{}
    Copy full snippet
    ```
+
 3. Add an editable `float` named `BarrierSleepTime`. This is the amount of time to wait before turning the barrier on or off again. Initialize this value to `3.0` (three seconds).
 
    ```verse
         # Reference to a Barrier device in the level.
         @editable
         Barrier:barrier_device = barrier_device{}
-   		
+     
         # The amount of time to wait before turning the barrier on or off.
         @editable
         BarrierSleepTime:float = 3.0
    Copy full snippet
    ```
+
 4. Write code to loop turning the barrier on and off. In `OnBegin()`, add a `loop` expression. Inside the `loop`, call `Barrier.Disable()` to disable the barrier, then call `Sleep()`, passing the `BarrierSleepTime`. Call `Barrier.Enable()` to turn the barrier back on, and `Sleep()` again. Your `OnBegin()` should now look like this:
 
    ```verse
         # Runs when the device is started in a running game
         OnBegin<override>()<suspends>:void=
-   		
+     
             Print("The value of BasicInt is: {BasicInt}!")
-   		        
+             
             # Loop turning the barrier on and off, waiting for a
             # BarrierSleepTime amount of seconds each time.
             loop:
@@ -118,6 +122,7 @@ Follow these steps to set up a reference to a Barrier device in your level, then
                 Sleep(BarrierSleepTime)
    Copy full snippet
    ```
+
 5. Save your code and compile it to update your Verse device in the level.
 6. In the UEFN **Outliner**, select your Verse device to open its **Details** panel. The property `Barrier` should now appear.
 7. You can now select a Barrier device in your level for your Verse device to reference:
@@ -139,24 +144,25 @@ Follow these steps to add an editable array reference.
    ```verse
         # A Verse-authored creative device that can be placed in a level
         editable_testing_device := class(creative_device):
-   		
+     
             # A basic editable integer.
             @editable
             BasicInt:int = 0
-   		
+     
             # Array of references to the Barrier devices in the level.
             @editable
             Barriers:[]barrier_device = array{}
    Copy full snippet
    ```
+
 2. In `OnBegin()`, remove the code inside the `loop` expression and replace it with a [`for`](/documentation/en-us/fortnite/for-in-verse) expression. In the `for` expression, iterate through each `Barrier` in `Barriers`, and call `Barrier.Disable()`, then `Sleep()` for `BarrierSleepTimeSeconds`.
 
    ```verse
         # Runs when the device is started in a running game
         OnBegin<override>()<suspends>:void=
-   		
+     
             Print("The value of BasicInt is: {BasicInt}!")
-   		
+     
             loop:
                 # Iterate through each barrier in the Barriers array and turn it off.
                 for:
@@ -166,14 +172,15 @@ Follow these steps to add an editable array reference.
                     Sleep(BarrierSleepTime)
    Copy full snippet
    ```
+
 3. Add another `for` expression after the first that does the same thing, but calls `Barrier.Enable()` instead of `Barrier.Disable()`. Your `OnBegin()` function should now look like thi.s
 
    ```verse
         # Runs when the device is started in a running game
         OnBegin<override>()<suspends>:void=
-   		
+     
             Print("The value of BasicInt is: {BasicInt}!")
-   		
+     
             loop:
                 # Iterate through each barrier in the Barriers array and turn it off.
                 for:
@@ -181,7 +188,7 @@ Follow these steps to add an editable array reference.
                 do:
                     Barrier.Disable()
                     Sleep(BarrierSleepTime)
-   		
+     
                 # Iterate through each barrier in the Barriers array and turn it on.
                 for:
                     Barrier:Barriers
@@ -190,6 +197,7 @@ Follow these steps to add an editable array reference.
                     Sleep(BarrierSleepTime)
    Copy full snippet
    ```
+
 4. Save your code and compile it. In the UEFN **Outliner**, copy your first Barrier device to create a line of barriers.
 5. Select your Verse device to open its **Details** panel. In the **Details** panel, the Verse device now has the array property **Barriers**, but has no elements.
 
@@ -218,18 +226,18 @@ Follow these steps to expose a custom type to the editor:
         # A class with editable values. This class needs the <concrete> specifier
         # to expose editable values to the editor.
         barrier_array := class<concrete>():
-   		
+     
             # Array of references to the Barrier devices in the level.
             @editable
             Barriers:[]barrier_device = array{}
-   		
+     
             # The amount of time to wait before turning the barrier on or off.
             @editable
             BarrierSleepTime:float = 3.0
-   		
+     
             # Loops turning each barrier in the Barriers array on and off in sequence.
             BarrierSequence()<suspends>:void=
-   		
+     
                 loop:
                     # Iterate through each barrier in the Barriers array and turn it off.
                     for:
@@ -245,19 +253,20 @@ Follow these steps to expose a custom type to the editor:
                         Sleep(BarrierSleepTime)
    Copy full snippet
    ```
+
 2. As with Creative devices, you can define an array of a custom class. In your `editable_testing_device` class, define a new array of `barrier_array` named `BarrierArrays`. If you add the `@editable` tag to this array, you can initialize elements in the array straight from the editor. You can then call functions on each element of the array at runtime. In `OnBegin()`, iterate through each element of the `BarrierArrays`, and `spawn{}` a `BarrierSequence()` for each one. You need to spawn this function rather than call it since the function needs to run asynchronously.
 
    ```verse
         # A Verse-authored creative device that can be placed in a level
         editable_testing_device := class(creative_device):
-   		
+     
             # An editable array of integers.
             @editable
             BarrierArrays:[]barrier_array = array{}
-   		
+     
             # Runs when the device is started in a running game
             OnBegin<override>()<suspends>:void=
-   		
+     
                 # Spawn a BarrierSequence function for each BarrierArray class.
                 for:
                     BarrierArray:BarrierArrays
@@ -292,25 +301,26 @@ This example will guide you through referencing a prop in your level, and using 
         BlinkingProp:creative_prop = creative_prop{}
    Copy full snippet
    ```
+
 3. In `OnBegin()`, in a `loop`, call `BlinkingProp.Hide()` to hide the prop. Call `Sleep()` for a short amount of time, then call `BlinkingProp.Show()` to make the prop visible again. Finally, sleep again.
 
    ```verse
         using { /Fortnite.com/Devices }
         using { /Verse.org/Simulation }
         using { /UnrealEngine.com/Temporary/Diagnostics }
-   		
+     
         # See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
-   		
+     
         # A Verse-authored creative device that can be placed in a level
         blinking_prop_device := class(creative_device):
-   		
+     
             # Reference to a creative prop in the level.
             @editable
             BlinkingProp:creative_prop = creative_prop{}
-   		
+     
             # Runs when the device is started in a running game
             OnBegin<override>()<suspends>:void=
-   		
+     
                 # Loop hiding and showing the creative prop.
                 loop:
                     BlinkingProp.Hide()
@@ -319,6 +329,7 @@ This example will guide you through referencing a prop in your level, and using 
                     Sleep(0.75)
    Copy full snippet
    ```
+
 4. Save and compile your code. Drag your **blinking\_prop\_device** into the level.
 5. Drag a Creative prop into the level. (This example uses **Chair01**.) Set the Creative prop as the **BlinkingProp** on your Verse device.
 

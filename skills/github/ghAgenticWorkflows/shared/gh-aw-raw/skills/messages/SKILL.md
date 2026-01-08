@@ -35,6 +35,7 @@ Add the new message field to `pkg/parser/schemas/main_workflow_schema.json` in t
 ```
 
 **Key points:**
+
 - Use `kebab-case` for the YAML field name (e.g., `my-new-message`)
 - Document all available placeholders in the description
 - Provide helpful examples
@@ -46,12 +47,13 @@ Add the new field to `SafeOutputMessagesConfig` in `pkg/workflow/compiler.go`:
 
 ```go
 type SafeOutputMessagesConfig struct {
-	// ... existing fields ...
-	MyNewMessage string `yaml:"my-new-message,omitempty" json:"myNewMessage,omitempty"` // Description of the message
+ // ... existing fields ...
+ MyNewMessage string `yaml:"my-new-message,omitempty" json:"myNewMessage,omitempty"` // Description of the message
 }
 ```
 
 **Key points:**
+
 - Use `CamelCase` for Go field name
 - Use `kebab-case` for YAML tag (matches frontmatter)
 - Use `camelCase` for JSON tag (used in JavaScript)
@@ -63,14 +65,14 @@ If needed, update the parser in `pkg/workflow/safe_outputs.go`:
 
 ```go
 func parseMessagesConfig(messagesMap map[string]any) *SafeOutputMessagesConfig {
-	config := &SafeOutputMessagesConfig{}
-	// ... existing parsing ...
-	
-	if myNewMessage, ok := messagesMap["my-new-message"].(string); ok {
-		config.MyNewMessage = myNewMessage
-	}
-	
-	return config
+ config := &SafeOutputMessagesConfig{}
+ // ... existing parsing ...
+ 
+ if myNewMessage, ok := messagesMap["my-new-message"].(string); ok {
+  config.MyNewMessage = myNewMessage
+ }
+ 
+ return config
 }
 ```
 
@@ -125,6 +127,7 @@ module.exports = {
 ```
 
 **Key points:**
+
 - File naming: `messages_<category>.cjs` (flat structure, not subfolder)
 - Import from `./messages_core.cjs` for shared utilities
 - Use JSDoc for type definitions
@@ -230,10 +233,10 @@ Add to `GetJavaScriptSources()`:
 
 ```go
 func GetJavaScriptSources() map[string]string {
-	return map[string]string{
-		// ... existing entries ...
-		"messages_my_new.cjs": messagesMyNewScript,
-	}
+ return map[string]string{
+  // ... existing entries ...
+  "messages_my_new.cjs": messagesMyNewScript,
+ }
 }
 ```
 
@@ -254,11 +257,13 @@ const message = getMyNewMessage({
 ## Step 10: Update Documentation
 
 Update `specs/safe-output-messages.md`:
+
 1. Add the new message to the "Message Categories" section
 2. Document placeholders and usage
 3. Add examples
 
 Update the Message Module Architecture table:
+
 ```markdown
 | Module | Purpose | Exported Functions |
 |--------|---------|-------------------|

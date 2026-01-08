@@ -1,6 +1,6 @@
 # 1. Making Movable Props With Verse
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-1-making-movable-props-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-1-making-movable-props-in-verse>
 > **爬取时间**: 2025-12-27T00:40:24.060164
 
 ---
@@ -23,6 +23,7 @@ Follow the steps below to define your movable prop:
         # Defines a Creative prop that moves to a target or location using animation.
         movable_prop<public> := class<abstract>():
    ```
+
 2. Add the `using { /Fortnite.com/Devices }`, `using { /Verse.org/Simulation }`, and `using { /UnrealEngine.com/Temporary/SpatialMath }` import paths to the top of your file. You’ll need to import these module to handle the math that makes your props move.
 3. Each of the fields in this class will also include a `ToolTip`. Adding a `ToolTip` message to your editable fields displays a tooltip when you mouse over the field in UEFN. All the tooltips used in this class are included below. You can copy and paste these tooltips, or define your own.
 
@@ -30,7 +31,7 @@ Follow the steps below to define your movable prop:
         using { /Fortnite.com/Devices }
         using { /Verse.org/Simulation }
         using { /UnrealEngine.com/Temporary/SpatialMath }
-   		
+     
         MoveDurationTip<localizes>:message = "The amount of time the prop takes to move to its destination."
         MoveEaseTypeTip<localizes>:message = "The animation easing applied to the movement."
         MoveEndDelayTip<localizes>:message = "The delay after the movement finishes."
@@ -39,10 +40,11 @@ Follow the steps below to define your movable prop:
         MoveTargetsTip<localizes>:message = "The array of CreativeProp to move toward. These targets can be children of the RootProp."
         RootPropTip<localizes>:message = "The prop that moves. This should be the root prop of the object you want to move."
         ShouldResetTip<localizes>:message = "Whether the RootProp should reset back to its starting position after it finishes moving."
-   		
+     
         # Defines a Creative prop that moves to a target or location using animation.
         movable_prop<public> := class<abstract>():
    ```
+
 4. Define the fields each movable prop needs. To your `movable_prop` class definition, add the following fields:
 
    1. An editable `creative_prop` named `RootProp`. This is the Creative prop you’ll move around during gameplay.
@@ -53,6 +55,7 @@ Follow the steps below to define your movable prop:
                                @editable {ToolTip := RootPropTip}
                                RootProp:creative_prop = creative_prop{}
       ```
+
    2. An editable `float` named `MoveDuration`. This is the amount of time the prop takes to reach its destination.
 
       ```verse
@@ -60,6 +63,7 @@ Follow the steps below to define your movable prop:
        @editable {ToolTip := MoveDurationTip}
        MoveDuration:float = 3.0
       ```
+
    3. An editable `float` named `MoveStartDelay`. This is the time in seconds the prop waits before moving.
 
       ```verse
@@ -67,6 +71,7 @@ Follow the steps below to define your movable prop:
        @editable {ToolTip := MoveStartDelayTip}
        MoveStartDelay:float = 0.0
       ```
+
    4. An editable `float` named `MoveEndDelay`. This is the time in seconds the prop waits after moving.
 
       ```verse
@@ -74,6 +79,7 @@ Follow the steps below to define your movable prop:
        @editable {ToolTip := MoveEndDelayTip}
        MoveEndDelay:float = 0.0
       ```
+
    5. An editable `logic` named `MoveOnceAndStop`. This controls whether your prop only moves once, or repeats movement after it finishes.
 
       ```verse
@@ -81,6 +87,7 @@ Follow the steps below to define your movable prop:
        @editable {ToolTip := MoveOnceAndStopTip}
        MoveOnceAndStop:logic = false
       ```
+
    6. An editable `logic` named `ShouldReset`. This controls whether your prop resets to its original position after it finishes moving.
 
       ```verse
@@ -89,12 +96,14 @@ Follow the steps below to define your movable prop:
        @editable {ToolTip := ShouldResetTip}
        ShouldReset:logic = false
       ```
+
    7. A variable [transform](https://dev.epicgames.com/documentation/en-us/fortnite/unreal-editor-for-fortnite-glossary#transform) named `StartingTransform`. This is the transform the `RootProp` is at when it starts movement.
 
       ```verse
        # The starting transform of the RootProp.
        var StartingTransform:transform = transform{}
       ```
+
 5. Your final class definition should look like this:
 
    ```verse
@@ -102,7 +111,7 @@ Follow the steps below to define your movable prop:
         using { /Fortnite.com/Devices/CreativeAnimation }
         using { /Verse.org/Simulation }
         using { /UnrealEngine.com/Temporary/SpatialMath }    
-   		
+     
         MoveDurationTip<localizes>:message = "The amount of time in seconds the prop takes to move to its destination."
         MoveEaseTypeTip<localizes>:message = "The animation easing applied to the movement."
         MoveEndDelayTip<localizes>:message = "The delay after the movement finishes."
@@ -111,39 +120,40 @@ Follow the steps below to define your movable prop:
         MoveTargetsTip<localizes>:message = "The array of CreativeProp to move towards. These targets can be children of the RootProp."
         RootPropTip<localizes>:message = "The prop that moves. This should be the root prop of the object you want to move."
         ShouldResetTip<localizes>:message = "Whether the RootProp should reset back to its starting position after it finishes moving." 
-   		
+     
         # Defines a creative prop that moves to a target or location using animation.
         movable_prop<public> := class<abstract>():    
-   		
+     
             # The creative prop associated with this class.
             # This should be the root prop of the object you want to move.
             @editable {ToolTip := RootPropTip}
             RootProp:creative_prop = creative_prop{}    
-   		
+     
             # The duration in seconds it takes for the prop to move to its destination.
             @editable {ToolTip := MoveDurationTip}
             MoveDuration:float = 3.0    
-   		
+     
             # The duration in seconds to wait before movement begins.
             @editable {ToolTip := MoveStartDelayTip}
             MoveStartDelay:float = 0.0    
-   		
+     
             # The duration in seconds to wait after movement ends.
             @editable {ToolTip := MoveEndDelayTip}
             MoveEndDelay:float = 0.0    
-   		
+     
             # Whether the RootProp should stop in place when it finishes moving.
             @editable {ToolTip := MoveOnceAndStopTip}
             MoveOnceAndStop:logic = false    
-   		        
+             
             # Whether the RootProp should reset back to the starting position when it
             # finishes moving.
             @editable {ToolTip := ShouldResetTip}
             ShouldReset:logic = false
-   		    
+         
             # The starting transform of the RootProp.
             var StartingTransform:transform = transform{}
    ```
+
 6. Before your prop moves, it needs to know where it’s moving from. To do this, you’ll define a new function to set the `StartingTransform` before movement:
 
    1. Add a new method `SetStartingTransform()` to your `movable_prop` class definition.
@@ -156,6 +166,7 @@ Follow the steps below to define your movable prop:
        SetStartingTransform():void=
            set StartingTransform = RootProp.GetTransform()
       ```
+
 7. To start moving your prop, you’ll define a new function `Move()`:
 
    1. Add a new method `Move()` to your `movable_prop` class definition.
@@ -169,6 +180,7 @@ Follow the steps below to define your movable prop:
        Move()<suspends>:void=
            return
       ```
+
 8. If you want your prop to reset when it finishes moving, you need to teleport it back to its starting position. To handle this, add a new method `Reset()` to your `movable_prop` class definition:
 
    1. Add the `<decides><transacts>` modifiers to this function to allow it to roll back in case the reset fails. This could occur if your prop was disposed of during gameplay.
@@ -181,6 +193,7 @@ Follow the steps below to define your movable prop:
        Reset()<decides><transacts>:void=
            RootProp.TeleportTo[StartingTransform]
       ```
+
 9. You’ve defined a lot of functions, and now it’s time to tie them all together. To manage all the different movement functions, add a new method, `ManageMovement()`, to your `movable_prop` class definition. Add the `<suspends>` modifier to let this function run asynchronously.
 
    ```verse
@@ -188,6 +201,7 @@ Follow the steps below to define your movable prop:
         # any logic when the movement begins and ends.
         ManageMovement()<suspends>:void=
    ```
+
 10. In `ManageMovement()`, create a `loop` expression that manages the movement. Inside the loop, first `Sleep()` for `MoveStartDelay` seconds, then call `Move()`.
 
     ```verse
@@ -196,9 +210,10 @@ Follow the steps below to define your movable prop:
          ManageMovement()<suspends>:void=
              loop:
                  Sleep(MoveStartDelay)
-    		
+      
                  Move()
     ```
+
 11. When your platform finishes moving, it needs to keep going, reset its position, or stop in place. To handle stopping, in an `if` expression, check if `MoveOnceAndStop` is true. If so, `break` out of the loop. After movement stops, `Sleep()` for `MoveEndDelay` seconds. Finally, in another `if` expression, check if `ShouldReset` is true and call `Reset[]` if so. Your complete `ManageMovement()` function should look like this:
 
     ```verse
@@ -223,6 +238,7 @@ Follow the steps below to define your movable prop:
                      ShouldReset?
                      Reset[]
     ```
+
 12. Since there’s no `OnBegin()` function in this class, you need a way for other classes to call `ManageMovement()` to start moving your platform. Add a new function `Setup()` to your `movable_prop` class definition. Inside `Setup()`, first call `SetStartingTransform()`, then spawn a `ManageMovement()` function to get your platform going.
     Your complete `Setup()` function should look like this
 
@@ -239,9 +255,9 @@ With your abstract class complete, in the next step, you’ll figure out how to 
 
 [![2. Moving Props with Animations](https://dev.epicgames.com/community/api/documentation/image/eef23c78-e1f2-4438-97ff-0d44e347cde6?resizing_type=fit&width=640&height=640)
 
-2. Moving Props with Animations
+1. Moving Props with Animations
 
-Learn how to use this powerful tool to build your own animations and get your props moving!](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-2-moving-props-with-animations-in-verse)
+Learn how to use this powerful tool to build your own animations and get your props moving!](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-2-moving-props-with-animations-in-verse>)
 
 ## Complete Code
 

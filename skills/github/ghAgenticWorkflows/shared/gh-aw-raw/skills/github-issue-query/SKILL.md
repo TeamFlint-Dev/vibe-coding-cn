@@ -74,26 +74,31 @@ Use the `--jq` argument to filter and transform the output:
 ### Example Queries
 
 **Find issues with many comments:**
+
 ```bash
 ./query-issues.sh --jq '.[] | select(.comments.totalCount > 5) | {number, title, comments: .comments.totalCount}'
 ```
 
 **Get issues assigned to someone:**
+
 ```bash
 ./query-issues.sh --jq '.[] | select(.assignees | length > 0) | {number, title, assignees: [.assignees[].login]}'
 ```
 
 **List issues with their labels:**
+
 ```bash
 ./query-issues.sh --jq '.[] | {number, title, labels: [.labels[].name]}'
 ```
 
 **Get project board assignments:**
+
 ```bash
 ./query-issues.sh --jq '.[] | {number, title, projects: [.projectItems.nodes[]? | .project?.url]}'
 ```
 
 **Find old issues (created over 30 days ago):**
+
 ```bash
 ./query-issues.sh --jq '.[] | select(.createdAt < (now - 2592000 | strftime("%Y-%m-%dT%H:%M:%SZ")))'
 ```

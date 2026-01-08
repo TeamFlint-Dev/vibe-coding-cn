@@ -69,6 +69,7 @@ Large files (>800 LOC) are harder to understand, test, and maintain. This campai
 ## Key Performance Indicators
 
 ### Primary KPI: Files Reduced to Target Size
+
 - **Baseline**: 0% (starting point)
 - **Target**: 100% (all files under 800 LOC)
 - **Time Window**: 90 days
@@ -76,6 +77,7 @@ Large files (>800 LOC) are harder to understand, test, and maintain. This campai
 - **Source**: Custom metrics from file analysis
 
 ### Supporting KPI: Test Coverage Maintained
+
 - **Baseline**: 80%
 - **Target**: 80% (maintain or improve)
 - **Time Window**: 7 days (rolling)
@@ -85,7 +87,9 @@ Large files (>800 LOC) are harder to understand, test, and maintain. This campai
 ## Associated Workflows
 
 ### daily-file-diet
+
 Primary worker workflow that:
+
 - Identifies oversized Go files (>800 LOC)
 - Creates issues for refactoring tasks
 - Tracks progress on the project board
@@ -93,9 +97,10 @@ Primary worker workflow that:
 
 ## Project Board
 
-**URL**: https://github.com/orgs/githubnext/projects/64
+**URL**: <https://github.com/orgs/githubnext/projects/64>
 
 The project board serves as the primary campaign dashboard, tracking:
+
 - Open refactoring tasks
 - In-progress work
 - Completed file reductions
@@ -108,6 +113,7 @@ All campaign-related issues and PRs are tagged with: `campaign:go-file-size-redu
 ## Memory Paths
 
 Campaign state and metrics are stored in:
+
 - `memory/campaigns/go-file-size-reduction-project64-*/**`
 
 Metrics snapshots: `memory/campaigns/go-file-size-reduction-project64-*/metrics/*.json`
@@ -115,6 +121,7 @@ Metrics snapshots: `memory/campaigns/go-file-size-reduction-project64-*/metrics/
 ## Governance Policies
 
 ### Rate Limits (per run)
+
 - **Max project updates**: 10
 - **Max comments**: 10
 - **Max new items added**: 5
@@ -128,6 +135,7 @@ These limits ensure gradual, sustainable progress without overwhelming the team 
 **Risk Level**: Low
 
 This campaign:
+
 - Does not modify production code directly
 - Requires human review for all changes
 - Maintains test coverage requirements
@@ -145,11 +153,13 @@ This campaign:
 ## Orchestrator
 
 This campaign uses an automatically generated orchestrator workflow:
+
 - **File**: `.github/workflows/go-file-size-reduction-project64.campaign.g.md`
 - **Schedule**: Daily at 18:00 UTC (cron: `0 18 * * *`)
 - **Purpose**: Coordinate worker outputs and update project board
 
 The orchestrator:
+
 - Discovers worker-created issues via tracker-id
 - Adds new issues to the project board
 - Updates issue status based on state changes

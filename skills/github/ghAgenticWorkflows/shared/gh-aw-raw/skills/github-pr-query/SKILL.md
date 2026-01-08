@@ -74,16 +74,19 @@ Use the `--jq` argument to filter and transform the output:
 ### Example Queries
 
 **Find large PRs (many changed files):**
+
 ```bash
 ./query-prs.sh --jq '.[] | select(.changedFiles > 10) | {number, title, changedFiles}'
 ```
 
 **Get PRs awaiting review:**
+
 ```bash
 ./query-prs.sh --jq '.[] | select(.reviewDecision == "REVIEW_REQUIRED") | {number, title, author: .author.login}'
 ```
 
 **List PRs with their labels:**
+
 ```bash
 ./query-prs.sh --jq '.[] | {number, title, labels: [.labels[].name]}'
 ```

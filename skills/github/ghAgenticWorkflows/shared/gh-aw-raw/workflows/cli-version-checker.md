@@ -35,6 +35,7 @@ Monitor and update agentic CLI tools: Claude Code, GitHub Copilot CLI, OpenAI Co
 ## Process
 
 **EFFICIENCY FIRST**: Before starting:
+
 1. Check cache-memory at `/tmp/gh-aw/cache-memory/` for previous version checks and help outputs
 2. If cached versions exist and are recent (< 24h), verify if updates are needed before proceeding
 3. If no version changes detected, exit early with success
@@ -42,45 +43,50 @@ Monitor and update agentic CLI tools: Claude Code, GitHub Copilot CLI, OpenAI Co
 **CRITICAL**: If ANY version changes are detected, you MUST create an issue using safe-outputs.create-issue. Do not skip issue creation even for minor updates.
 
 For each CLI/MCP server:
+
 1. Fetch latest version from NPM registry or GitHub releases (use npm view commands for package metadata)
 2. Compare with current version in `./pkg/constants/constants.go`
 3. If newer version exists, research changes and prepare update
 
 ### Version Sources
+
 - **Claude Code**: Use `npm view @anthropic-ai/claude-code version` (faster than web-fetch)
   - No public GitHub repository
 - **Copilot CLI**: Use `npm view @github/copilot version`
-  - Repository: https://github.com/github/copilot-cli (may be private)
+  - Repository: <https://github.com/github/copilot-cli> (may be private)
 - **Codex**: Use `npm view @openai/codex version`
-  - Repository: https://github.com/openai/codex
-  - Release Notes: https://github.com/openai/codex/releases
+  - Repository: <https://github.com/openai/codex>
+  - Release Notes: <https://github.com/openai/codex/releases>
 - **GitHub MCP Server**: `https://api.github.com/repos/github/github-mcp-server/releases/latest`
-  - Release Notes: https://github.com/github/github-mcp-server/releases
+  - Release Notes: <https://github.com/github/github-mcp-server/releases>
 - **Playwright MCP**: Use `npm view @playwright/mcp version`
-  - Repository: https://github.com/microsoft/playwright
-  - Package: https://www.npmjs.com/package/@playwright/mcp
+  - Repository: <https://github.com/microsoft/playwright>
+  - Package: <https://www.npmjs.com/package/@playwright/mcp>
 - **Playwright Browser**: `https://api.github.com/repos/microsoft/playwright/releases/latest`
-  - Release Notes: https://github.com/microsoft/playwright/releases
+  - Release Notes: <https://github.com/microsoft/playwright/releases>
   - Docker Image: `mcr.microsoft.com/playwright:v{VERSION}`
 
 **Optimization**: Fetch all versions in parallel using multiple npm view or WebFetch calls in a single turn.
 
 ### Research & Analysis
+
 For each update, analyze intermediate versions:
+
 - Categorize changes: Breaking, Features, Fixes, Security, Performance
 - Assess impact on gh-aw workflows
 - Document migration requirements
 - Assign risk level (Low/Medium/High)
 
 **GitHub Release Notes (when available)**:
-- **Codex**: Fetch release notes from https://github.com/openai/codex/releases/tag/rust-v{VERSION}
+
+- **Codex**: Fetch release notes from <https://github.com/openai/codex/releases/tag/rust-v{VERSION}>
   - Parse the "Highlights" section for key changes
   - Parse the "PRs merged" or "Merged PRs" section for detailed changes
   - **CRITICAL**: Convert PR/issue references (e.g., `#6211`) to full URLs since they refer to external repositories (e.g., `https://github.com/openai/codex/pull/6211`)
-- **GitHub MCP Server**: Fetch release notes from https://github.com/github/github-mcp-server/releases/tag/v{VERSION}
+- **GitHub MCP Server**: Fetch release notes from <https://github.com/github/github-mcp-server/releases/tag/v{VERSION}>
   - Parse release body for changelog entries
   - **CRITICAL**: Convert PR/issue references (e.g., `#1105`) to full URLs since they refer to external repositories (e.g., `https://github.com/github/github-mcp-server/pull/1105`)
-- **Playwright Browser**: Fetch release notes from https://github.com/microsoft/playwright/releases/tag/v{VERSION}
+- **Playwright Browser**: Fetch release notes from <https://github.com/microsoft/playwright/releases/tag/v{VERSION}>
   - Parse release body for changelog entries
   - **CRITICAL**: Convert PR/issue references to full URLs (e.g., `https://github.com/microsoft/playwright/pull/12345`)
 - **Copilot CLI**: Repository may be private, skip release notes if inaccessible
@@ -88,18 +94,22 @@ For each update, analyze intermediate versions:
 - **Playwright MCP**: Uses Playwright versioning, check NPM package metadata for changes
 
 **NPM Metadata Fallback**: When GitHub release notes are unavailable, use:
+
 - `npm view <package> --json` for package metadata
 - Compare CLI help outputs between versions
 - Check for version changelog in package description
 
 ### Tool Installation & Discovery
-**CACHE OPTIMIZATION**: 
+
+**CACHE OPTIMIZATION**:
+
 - Before installing, check cache-memory for previous help outputs (main and subcommands)
 - Only install and run --help if version has changed
 - Store main help outputs in cache-memory at `/tmp/gh-aw/cache-memory/[tool]-[version]-help.txt`
 - Store subcommand help outputs at `/tmp/gh-aw/cache-memory/[tool]-[version]-[subcommand]-help.txt`
 
 For each CLI tool update:
+
 1. Install the new version globally (skip if already installed from cache check):
    - Claude Code: `npm install -g @anthropic-ai/claude-code@<version>`
    - Copilot CLI: `npm install -g @github/copilot@<version>`
@@ -128,13 +138,16 @@ For each CLI tool update:
 5. Save all help outputs (main and subcommands) to cache-memory for future runs
 
 ### Update Process
+
 1. Edit `./pkg/constants/constants.go` with new version(s)
 2. Run `make recompile` to update workflows
 3. Verify changes with `git status`
 4. **REQUIRED**: Create issue via safe-outputs with detailed analysis (do NOT skip this step)
 
 ## Issue Format
+
 Include for each updated CLI:
+
 - **Version**: old → new (list intermediate versions if multiple)
 - **Release Timeline**: dates and intervals
 - **Changes**: Categorized as Breaking/Features/Fixes/Security/Performance
@@ -145,18 +158,21 @@ Include for each updated CLI:
 - **GitHub Release Notes**: Include highlights and PR summaries when available from GitHub releases
 
 **URL Formatting Rules**:
+
 - Use plain URLs without backticks around package names
-- **CORRECT**: https://www.npmjs.com/package/@github/copilot
+- **CORRECT**: <https://www.npmjs.com/package/@github/copilot>
 - **INCORRECT**: `https://www.npmjs.com/package/@github/copilot` (has backticks)
-- **INCORRECT**: https://www.npmjs.com/package/`@github/copilot` (package name wrapped in backticks)
+- **INCORRECT**: <https://www.npmjs.com/package/`@github/copilot`> (package name wrapped in backticks)
 
 **Pull Request Link Formatting**:
+
 - **CRITICAL**: Always use full URLs for pull requests that refer to external repositories
-- **CORRECT**: https://github.com/openai/codex/pull/6211
+- **CORRECT**: <https://github.com/openai/codex/pull/6211>
 - **INCORRECT**: #6211 (relative reference only works for same repository)
 - When copying PR references from release notes, convert `#1234` to full URLs like `https://github.com/owner/repo/pull/1234`
 
 Template structure:
+
 ```
 # Update [CLI Name]
 - Previous: [version] → New: [version]
@@ -187,6 +203,7 @@ Template structure:
 ```
 
 ## Guidelines
+
 - Only update stable versions (no pre-releases)
 - Prioritize security updates
 - Document all intermediate versions
@@ -195,9 +212,9 @@ Template structure:
 - **PARALLEL FETCHING**: Fetch all versions in parallel using multiple npm/WebFetch calls in one turn
 - **EARLY EXIT**: If no version changes detected, save check timestamp to cache and exit successfully
 - **FETCH GITHUB RELEASE NOTES**: For tools with public GitHub repositories, fetch release notes to get detailed changelog information
-  - Codex: Always fetch from https://github.com/openai/codex/releases
-  - GitHub MCP Server: Always fetch from https://github.com/github/github-mcp-server/releases
-  - Playwright Browser: Always fetch from https://github.com/microsoft/playwright/releases
+  - Codex: Always fetch from <https://github.com/openai/codex/releases>
+  - GitHub MCP Server: Always fetch from <https://github.com/github/github-mcp-server/releases>
+  - Playwright Browser: Always fetch from <https://github.com/microsoft/playwright/releases>
   - Copilot CLI: Try to fetch, but may be inaccessible (private repo)
   - Playwright MCP: Check NPM metadata, uses Playwright versioning
 - **EXPLORE SUBCOMMANDS**: Install and test CLI tools to discover new features via `--help` and explore each subcommand
@@ -213,6 +230,7 @@ Template structure:
 When using npm commands or other CLI tools, their output may include informational messages with Unicode symbols that break JSON parsing:
 
 **Problem Patterns**:
+
 - `Unexpected token 'ℹ', "ℹ Timeout "... is not valid JSON`
 - `Unexpected token '⚠', "⚠ pip pack"... is not valid JSON`
 - `Unexpected token '✓', "✓ Success"... is not valid JSON`
@@ -220,27 +238,35 @@ When using npm commands or other CLI tools, their output may include information
 **Solutions**:
 
 ### 1. Filter stderr (Recommended)
+
 Redirect stderr to suppress npm warnings/info:
+
 ```bash
 npm view @github/copilot version 2>/dev/null
 npm view @anthropic-ai/claude-code --json 2>/dev/null
 ```
 
 ### 2. Use grep to filter output
+
 Remove lines with Unicode symbols before parsing:
+
 ```bash
 npm view @github/copilot --json | grep -v "^[ℹ⚠✓]"
 ```
 
 ### 3. Use jq for reliable extraction
+
 Let jq handle malformed input:
+
 ```bash
 # Extract version field only, ignoring non-JSON lines
 npm view @github/copilot --json 2>/dev/null | jq -r '.version'
 ```
 
 ### 4. Check tool output before parsing
+
 Always validate JSON before attempting to parse:
+
 ```bash
 output=$(npm view package --json 2>/dev/null)
 if echo "$output" | jq empty 2>/dev/null; then
@@ -253,11 +279,13 @@ fi
 ```
 
 **Best Practice**: Combine stderr filtering with jq extraction for most reliable results:
+
 ```bash
 npm view @github/copilot --json 2>/dev/null | jq -r '.version'
 ```
 
 ## Error Handling
+
 - **SAVE PROGRESS**: Before exiting on errors, save current state to cache-memory
 - **RESUME ON RESTART**: Check cache-memory on startup to resume from where you left off
 - Retry NPM registry failures once after 30s

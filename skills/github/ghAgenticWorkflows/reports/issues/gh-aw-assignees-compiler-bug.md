@@ -63,11 +63,13 @@ grep -A2 "config.json" test-assignees.lock.yml
 ```
 
 **预期结果**:
+
 ```json
 {"create_issue":{"max":1,"labels":["test-label"],"title_prefix":"[Test] ","assignees":["copilot"]}}
 ```
 
 **实际结果**:
+
 ```json
 {"create_issue":{"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
 ```
@@ -79,6 +81,7 @@ grep "Assignees" test-assignees.lock.yml
 ```
 
 **结果**:
+
 ```
 "description": "...CONSTRAINTS: Maximum 1 issue(s) can be created. Assignees [copilot] will be automatically assigned."
 ```
@@ -103,7 +106,7 @@ grep "Assignees" test-assignees.lock.yml
 |----------|--------|------|
 | `GH_AW_ASSIGN_COPILOT` | `true` | 不存在 |
 | `GH_AW_ISSUE_LABELS` | `test-label` | 不存在 |
-| `GH_AW_ISSUE_TITLE_PREFIX` | `[Test] ` | 不存在 |
+| `GH_AW_ISSUE_TITLE_PREFIX` | `[Test]` | 不存在 |
 
 ### 验证命令
 
@@ -132,6 +135,7 @@ Select-String -Path "test-assignees.lock.yml" -Pattern "test-label"
 ### 工作流影响
 
 任何依赖这些配置的工作流都会静默失败：
+
 - Agent 看到描述说 "会自动分配"，因此不会主动分配
 - 但实际执行时分配逻辑被跳过
 - 导致 Issue 创建成功但配置未生效
@@ -162,6 +166,7 @@ env:
 **问题不仅是编译器 Bug，Handler 代码本身也不支持 assignees！**
 
 日志分析：
+
 ```
 Loaded config: {"create_issue":{"max":1,"assignees":["copilot"],"labels":...}}
 Default labels: research-task, copilot-task      ✅ labels 被日志记录
@@ -279,6 +284,7 @@ if (config.create_issue.assignees?.length > 0) {
 ```
 
 **当前 Handler 日志证据**：
+
 ```
 Default labels: research-task, copilot-task  ← labels 被处理
 Title prefix: [Research]                      ← title_prefix 被处理

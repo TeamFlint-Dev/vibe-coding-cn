@@ -1,6 +1,6 @@
 # gh-aw 官方原始文件
 
-> 来源: https://github.com/githubnext/gh-aw
+> 来源: <https://github.com/githubnext/gh-aw>
 > 最后更新: 2025-01-03
 
 ## 🔒 只读目录
@@ -10,6 +10,7 @@
 这些文件由 `scripts/sync-gh-aw.ps1` 脚本自动同步，任何手动修改都会在下次同步时被覆盖。
 
 如需定制，请参考：
+
 - **定制 Agent**: `.github/agents/custom/`
 - **定制工作流**: `.github/workflows/`
 - **本地模板**: `shared/local-templates/`（待创建）
@@ -64,15 +65,18 @@ gh-aw-raw/
 ## 推荐学习路径
 
 ### 1. 基础概念
+
 - `agents/create-agentic-workflow.agent.md` - 理解如何创建工作流
 - `skills/custom-agents/SKILL.md` - Agent 文件格式规范
 
 ### 2. 工作流模式
+
 - `workflows/scout.md` - 深度研究模式
 - `workflows/plan.md` - 任务规划模式
 - `workflows/issue-classifier.md` - 事件驱动模式
 
 ### 3. 高级特性
+
 - `workflows/shared/reporting.md` - 报告生成
 - `workflows/shared/mcp/` - MCP 服务器配置
 - `aw/runbooks/workflow-health.md` - 运维实践

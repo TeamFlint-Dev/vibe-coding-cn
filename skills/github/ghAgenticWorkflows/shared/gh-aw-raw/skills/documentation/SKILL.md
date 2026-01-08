@@ -12,6 +12,7 @@ The documentation for this project is available in the `docs/` directory. It use
 Documentation must be organized into four distinct types, each serving a specific purpose:
 
 ### 1. Tutorials (Learning-Oriented)
+
 **Purpose**: Guide beginners through achieving a specific outcome to build confidence.
 
 - Start with what the user will build or achieve
@@ -25,6 +26,7 @@ Documentation must be organized into four distinct types, each serving a specifi
 **Avoid**: Explaining concepts in depth, multiple options, troubleshooting
 
 ### 2. How-to Guides (Goal-Oriented)
+
 **Purpose**: Show how to solve a specific real-world problem or accomplish a particular task.
 
 - Title format: "How to [accomplish specific goal]"
@@ -38,6 +40,7 @@ Documentation must be organized into four distinct types, each serving a specifi
 **Avoid**: Teaching fundamentals, explaining every detail, being exhaustive
 
 ### 3. Reference (Information-Oriented)
+
 **Purpose**: Provide accurate, complete technical descriptions of the system.
 
 - Organized by structure (CLI commands, configuration options, API endpoints)
@@ -51,6 +54,7 @@ Documentation must be organized into four distinct types, each serving a specifi
 **Avoid**: Instructions, tutorials, opinions on usage
 
 ### 4. Explanation (Understanding-Oriented)
+
 **Purpose**: Clarify and illuminate topics to deepen understanding.
 
 - Discuss why things are the way they are
@@ -72,6 +76,7 @@ Documentation must be organized into four distinct types, each serving a specifi
 - **Language tag**: Use `aw` for agentic workflow snippets with YAML frontmatter
 
 **Example workflow code block**:
+
 ```aw wrap
 on: push
 # Your workflow steps here
@@ -82,14 +87,18 @@ on: push
 Documentation files use Astro Starlight with MDX support. Key syntax elements:
 
 ### Frontmatter
+
 Every documentation page must have frontmatter:
+
 ```markdown
 title: Page Title
 description: Brief description for SEO and navigation
 ```
 
 ### Callouts and Asides
+
 Use Starlight's aside component for notes, tips, warnings, and cautions:
+
 ```markdown
 :::note
 Important information the reader should notice.
@@ -109,18 +118,22 @@ Critical warning about dangerous operations.
 ```
 
 ### Code Blocks
+
 - Use syntax highlighting with language tags
 - Add `title` attribute for file names: ` ```yaml title=".github/workflows/example.yml" `
 - Use `aw` language for agentic workflow files with YAML frontmatter
 - Add `wrap` for line wrapping: ` ```aw wrap `
 
 ### Links
+
 - Internal links: Use relative paths between documentation pages
 - External links: Open in new tab automatically
 - Link text: Use descriptive text, avoid "click here"
 
 ### Tabs
+
 Use tabs for showing alternatives (e.g., different languages, platforms):
+
 ```markdown
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
@@ -139,7 +152,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 ```
 
 ### Cards
+
 Use cards for navigation or highlighting multiple options:
+
 ```markdown
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
@@ -179,24 +194,29 @@ Documentation bloat reduces clarity and makes content harder to navigate. Common
 
 When editing documentation, focus on:
 
-**Consolidate bullet points**: 
+**Consolidate bullet points**:
+
 - Convert long bullet lists into concise prose or tables
 - Remove redundant points that say the same thing differently
 
 **Eliminate duplicates**:
+
 - Remove repeated information
 - Consolidate similar sections
 
 **Condense verbose text**:
+
 - Make descriptions more direct and concise
 - Remove filler words and phrases
 - Keep technical accuracy while reducing word count
 
 **Standardize structure**:
+
 - Reduce repetitive "What it does" / "Why it's valuable" patterns
 - Use varied, natural language
 
 **Simplify code samples**:
+
 - Remove unnecessary complexity from code examples
 - Focus on demonstrating the core concept clearly
 - Eliminate boilerplate or setup code unless essential for understanding
@@ -206,6 +226,7 @@ When editing documentation, focus on:
 ### Example: Before and After
 
 **Before (Bloated)**:
+
 ```markdown
 ### Tool Name
 Description of the tool.
@@ -219,6 +240,7 @@ Description of the tool.
 ```
 
 **After (Concise)**:
+
 ```markdown
 ### Tool Name
 Description of the tool that does X, Y, and Z to achieve A, B, and C.

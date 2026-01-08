@@ -1,6 +1,6 @@
 # 2. Defining the Pickup and Delivery Zones
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-2-defining-the-pickup-and-delivery-zones-for-time-trial-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-2-defining-the-pickup-and-delivery-zones-for-time-trial-in-verse>
 > **爬取时间**: 2025-12-27T00:19:45.004229
 
 ---
@@ -29,10 +29,10 @@ Follow these steps to create this zone class:
      base_zone<public> := class:
                                    ActivatorDevice<public> : creative_object_interface
                                    ZoneCompletedEvent<public> : event(base_zone) = event(base_zone){}
-     								
+             
                                    ActivateZone<public>() : void =
           Print("Zone activated")
-     								
+             
                                    DeactivateZone<public>() : void =
           Print("Zone deactivated")
      ```
@@ -43,14 +43,14 @@ Follow these steps to create this zone class:
    ```verse
         base_zone<public> := class:
             ActivatorDevice<public> : creative_object_interface
-   		
+     
             ActivateZone<public>() : void =
                 Print("Zone activated")
                 if (CaptureArea := capture_area_device[ActivatorDevice]):
                     CaptureArea.Enable()
                 else if (ItemSpawner := item_spawner_device[ActivatorDevice]):
                     ItemSpawner.Enable()
-   		
+     
             DeactivateZone<public>() : void =
                 Print("Zone deactivated")
                 if (CaptureArea := capture_area_device[ActivatorDevice]):
@@ -58,6 +58,7 @@ Follow these steps to create this zone class:
                 else if (ItemSpawner := item_spawner_device[ActivatorDevice]):
                     ItemSpawner.Disable()
    ```
+
 4. Create a function named `WaitForZoneCompleted()` that has the `private` specifier and `suspends` specifier. This function will signal the `ZoneCompletedEvent` when the device-specific event occurs. This setup means that other code just needs to wait for the `ZoneCompletedEvent` and not care what kind of event the underlying device uses.
 
    ```verse
@@ -80,11 +81,12 @@ Follow these steps to create this zone class:
                 ItemSpawner.Enable()
                 spawn { WaitForZoneCompleted(option{ItemSpawner.ItemPickedUpEvent}) }
    ```
+
 6. Add another event named `ZoneDeactivatedEvent` that has the `protected` specifier. This event is necessary to terminate the `WaitForZoneCompleted()` function if the zone is deactivated before the player completes it. Signal this event in the `DeactivateZone()` function.
 
    ```verse
         ZoneDeactivatedEvent<protected> : event() = event(){}
-   		
+     
         DeactivateZone<public>() : void =
             Print("Zone deactivated")
             if (CaptureArea := capture_area_device[ActivatorDevice]):
@@ -93,30 +95,33 @@ Follow these steps to create this zone class:
                 ItemSpawner.Disable()
             ZoneDeactivatedEvent.Signal()
    ```
+
 7. Update `WaitForZoneCompleted()` with a `race` expression so the function will wait for either the player to complete the zone, or the zone is deactivated. With the `race` expression, the `ZoneDeactivatedEvent.Await()` asynchronous function call and the `block` expression with the device event and `ZoneCompletedEvent` signal will run at the same time but the expression that doesn’t finish first is canceled.
 
    ```verse
    WaitForZoneCompleted<private>(ZoneDeviceCompletionEventOpt : ?awaitable(agent))<suspends> : void = if (DeviceEvent := ZoneDeviceCompletionEventOpt?): race: block: DeviceEvent.Await() ZoneCompletedEvent.Signal(Self) ZoneDeactivatedEvent.Await()
    ```
+
 8. Finally, make a [constructor](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) for the `base_zone` class which will [initialize](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#initialize) the `ActivatorDevice` field.
 
    ```verse
    MakeBaseZone<constructor><public>(InActivatorDevice : creative_object_interface) := base_zone: ActivatorDevice := InActivatorDevice
    ```
+
 9. The following is the complete code for the `base_zone` class.
 
    ```verse
         # A zone is an area of the map (represented by a device) that can be Activated/Deactivated and that provides events to signal when the zone has been "Completed" (can't be completed anymore until next activation).
         # Zone "Completed" depends on the device type (ActivatorDevice) for the zone.
         # Suggested usage: ActivateZone() -> ZoneCompletedEvent.Await() -> DeactivateZone() #
-   		
+     
         base_zone<public> := class:
             ActivatorDevice<public> : creative_object_interface
             ZoneCompletedEvent<public> : event(base_zone) = event(base_zone){}
-   		
+     
             GetTransform<public>() : transform =
                 ActivatorDevice.GetTransform()
-   		
+     
             # Activates the Zone.
             # You should enable devices and any visual indicators for the zone here. 
             ActivateZone<public>() : void =
@@ -128,7 +133,7 @@ Follow these steps to create this zone class:
                 else if (ItemSpawner := item_spawner_device[ActivatorDevice]):
                     ItemSpawner.Enable()
                     spawn { WaitForZoneCompleted(option{ItemSpawner.ItemPickedUpEvent}) }
-   		        
+             
             # Deactivates the Zone.
             # You should disable devices and any visual indicators for the zone here. 
             DeactivateZone<public>() : void =
@@ -137,19 +142,19 @@ Follow these steps to create this zone class:
                 else if (ItemSpawner := item_spawner_device[ActivatorDevice]):
                     ItemSpawner.Disable()
                 ZoneDeactivatedEvent.Signal()
-   		
+     
             # This event is necessary to terminate the WaitForZoneCompleted coroutine if the zone is deactivated without being completed. 
             ZoneDeactivatedEvent<protected> : event() = event(){}
-   		
+     
             WaitForZoneCompleted<private>(ZoneDeviceCompletionEventOpt : ?awaitable(agent))<suspends> : void =
                 if (DeviceEvent := ZoneDeviceCompletionEventOpt?):
                     race:
                         block:
                             DeviceEvent.Await()
                             ZoneCompletedEvent.Signal(Self)
-   		                    
+                         
                         ZoneDeactivatedEvent.Await()
-   		
+     
         MakeBaseZone<constructor><public>(InActivatorDevice : creative_object_interface) := base_zone:
             ActivatorDevice := InActivatorDevice
    ```
@@ -176,12 +181,14 @@ Follow these steps to create the class for creating and selecting zones:
    set Zones = 
      for (ZoneDevice : ZoneDevices): MakeBaseZone(ZoneDevice)
    ```
+
 3. Add a method named `SelectNext()` that has the `decides` and `transacts` specifiers so the method will either find another zone or fail. Select the zone at a random index in the array using `GetRandomInt(0, Zones.Length - 1)` for the index.
 
    ```verse
         SelectNext<public>()<transacts><decides> : base_zone =
             Zones[GetRandomInt(0, Zones.Length - 1)]
    ```
+
 4. The complete code for pickup\_delivery\_zone.verse file should now look like:
 
    ```verse
@@ -269,6 +276,7 @@ Follow these steps to update your **game\_coordinator\_device.verse** file:
    game_coordinator_device<public> := class<concrete>(creative_device): DeliveryZoneSelector<private> : tagged_zone_selector = tagged_zone_selector{} 
    var PickupZoneSelectors<private> : []tagged_zone_selector = array{}
    ```
+
 3. Add a method named `SetupZones()` and call the method in `OnBegin()`:
 
    - Set the method to have the `private` specifier and a `void` return type.
@@ -278,25 +286,26 @@ Follow these steps to update your **game\_coordinator\_device.verse** file:
      ```verse
      OnBegin<override>()<suspends> : void =
         SetupZones()
-     								
+             
      SetupZones<private>() : void =
                                    DeliveryZoneSelector.InitZones(delivery_zone_tag{})
-     								
+             
                                    PickupZoneLevelTags : []pickup_zone_tag = array{pickup_zone_level_1_tag{}, pickup_zone_level_2_tag{}, pickup_zone_level_3_tag{}}
-     								set PickupZoneSelectors = 
+             set PickupZoneSelectors = 
      for(PickupZoneTag : PickupZoneLevelTags):
      PickupZone := tagged_zone_selector{}
                                        PickupZone.InitZones(PickupZoneTag)
      PickupZone
      ```
+
 4. Create a loop in `OnBegin()` that selects the next pickup zone, activates it, waits for the player to complete the zone, and then deactivates the zone.
 
    ```verse
    OnBegin<override>()<suspends> : void =
    SetupZones()
-   		
+     
    var PickupLevel : int = 0
-   		
+     
    loop:
       if (PickupZone : base_zone = PickupZoneSelectors[PickupLevel].SelectNext[]):
          PickupZone.ActivateZone()
@@ -305,7 +314,7 @@ Follow these steps to update your **game\_coordinator\_device.verse** file:
       else:
          Print("Can't find next PickupZone to select")
                     return
-   		
+     
       if (DeliveryZone := DeliveryZoneSelector.SelectNext[]):
                     DeliveryZone.ActivateZone()
                     DeliveryZone.ZoneCompletedEvent.Await()
@@ -314,6 +323,7 @@ Follow these steps to update your **game\_coordinator\_device.verse** file:
                     Print("Can't find next DeliveryZone to select")
                     return
    ```
+
 5. Save your Verse files, compile your code, and playtest your level.
 
 When you playtest your level, one of the Item Spawner devices will activate at the start of the game. After you pick up the item, the Item Spawner device will deactivate and a Capture Area device will then activate. This continues until you manually end the game.
@@ -322,6 +332,6 @@ When you playtest your level, one of the Item Spawner devices will activate at t
 
 [![3. Creating the Game Loop](https://dev.epicgames.com/community/api/documentation/image/806c8e89-6c49-46fb-91aa-c9ba4d92a621?resizing_type=fit&width=640&height=640)
 
-3. Creating the Game Loop
+1. Creating the Game Loop
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-3-creating-the-game-loop-for-time-trial-in-verse)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-3-creating-the-game-loop-for-time-trial-in-verse>)

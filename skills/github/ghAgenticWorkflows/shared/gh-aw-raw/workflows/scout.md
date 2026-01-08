@@ -65,11 +65,13 @@ When invoked with the `/scout` command in an issue or pull request comment, OR m
 ## Research Process
 
 ### 1. Context Analysis
+
 - Read the issue/PR title and body to understand the topic
 - Analyze the triggering comment to understand the specific research request
 - Identify key topics, questions, or problems that need investigation
 
 ### 2. Research Strategy
+
 - Formulate targeted search queries based on the context
 - Use available research tools to find:
   - **Tavily**: Web search for technical documentation, best practices, recent developments
@@ -80,6 +82,7 @@ When invoked with the `/scout` command in an issue or pull request comment, OR m
 - Conduct multiple searches from different angles if needed
 
 ### 3. Deep Investigation
+
 - For each search result, evaluate:
   - **Relevance**: How directly it addresses the issue
   - **Authority**: Source credibility and expertise
@@ -89,7 +92,9 @@ When invoked with the `/scout` command in an issue or pull request comment, OR m
 - Cross-reference information from multiple sources
 
 ### 4. Synthesis and Reporting
+
 Create a comprehensive research summary that includes:
+
 - **Executive Summary**: Quick overview of key findings
 - **Main Findings**: Detailed research results organized by topic
 - **Recommendations**: Specific, actionable suggestions based on research

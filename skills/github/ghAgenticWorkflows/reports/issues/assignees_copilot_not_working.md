@@ -55,6 +55,7 @@ if (assignCopilot && createdIssues.length > 0) {
 > Example of a GitHub Actions workflow that automatically uses the `GH_AW_COPILOT_TOKEN` for Copilot-related operations like assigning issues and adding reviewers.
 
 编译产物中的 Token 优先级：
+
 ```yaml
 github-token: ${{ secrets.GH_AW_GITHUB_MCP_SERVER_TOKEN || secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 ```
@@ -109,10 +110,12 @@ safe-outputs:
 ```
 
 **优点**：
+
 - 直接创建 Copilot 任务，无需分配步骤
 - 更符合 Copilot 工作流设计
 
 **缺点**：
+
 - 需要 PAT 权限
 - 与原有 Issue 管理流程不兼容
 
@@ -129,6 +132,7 @@ gh issue edit <number> --add-assignee @me
 ### 方案 4: 向 gh-aw 报告 Bug
 
 如果验证后确认是编译器问题，向 gh-aw 项目提交 Issue：
+
 - 问题：`assignees: copilot` 配置未生成 `GH_AW_ASSIGN_COPILOT` 环境变量
 - 期望：编译器应设置 `GH_AW_ASSIGN_COPILOT: "true"` 或直接处理 assignees 列表
 

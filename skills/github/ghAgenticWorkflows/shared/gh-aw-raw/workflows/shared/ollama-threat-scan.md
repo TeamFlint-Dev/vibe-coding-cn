@@ -408,12 +408,14 @@ timeout-minutes: 20
 ## Output Artifacts
 
 The scan results are uploaded as artifacts including:
+
 - `ollama-scan-results.json`: Detailed JSON results for each scanned file with safe/unsafe status
 - Ollama service logs (`/tmp/gh-aw/ollama-logs/`) for debugging
 
 ## Integration with Existing Threat Detection
 
 This Ollama scanning complements the existing AI-based threat detection:
+
 - Existing: Uses Claude/Copilot to analyze context and intent
 - Ollama: Uses specialized Llama Guard 3 model for pattern-based threat detection
 - Together they provide defense-in-depth security analysis
@@ -421,26 +423,31 @@ This Ollama scanning complements the existing AI-based threat detection:
 ## Troubleshooting
 
 **Ollama installation fails:**
+
 - Check runner has internet access to ollama.com
 - Verify curl is available on the runner
 - Review installation logs in step output
 
 **Model download times out:**
+
 - Increase timeout in the download step (default: 600 seconds)
 - Check network bandwidth  
 - Model is ~3-4GB and may take 5-10 minutes on first download
 
 **Service not ready:**
+
 - Increase wait loop iterations (default: 30 seconds)
 - Check `/tmp/gh-aw/ollama-logs/ollama-serve-error.log` for startup errors
 - Verify port 11434 is not already in use
 
 **Scan produces false positives:**
+
 - Review Llama Guard 3 response in step logs
 - Adjust threat keywords in the scanning logic
 - Consider customizing the prompt sent to Llama Guard 3
 
 **Out of memory errors:**
+
 - Reduce maxChars truncation limit (default: 8000)
 - Scan fewer files or smaller chunks
 - Use a runner with more memory

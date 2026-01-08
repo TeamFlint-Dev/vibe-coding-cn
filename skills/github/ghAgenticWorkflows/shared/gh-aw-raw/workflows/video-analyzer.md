@@ -49,9 +49,11 @@ Perform a comprehensive video analysis using ffmpeg, including scene detection a
 
 1. Download the video file from the provided URL
 2. Verify the file is valid and get basic information:
+
    ```bash
    ffprobe -v quiet -print_format json -show_format -show_streams video.mp4
    ```
+
 3. Extract key metadata:
    - Video duration
    - Resolution (width x height)
@@ -64,11 +66,14 @@ Perform a comprehensive video analysis using ffmpeg, including scene detection a
 
 Perform both analyses to provide a comprehensive report:
 
-#### Scene Detection:
+#### Scene Detection
+
 1. Detect scene changes using threshold 0.4:
+
    ```bash
    ffmpeg -i video.mp4 -vf "select='gt(scene,0.4)',showinfo" -fps_mode passthrough -frame_pts 1 scene_%06d.jpg
    ```
+
 2. Count the number of scenes detected
 3. Analyze scene change patterns:
    - Average time between scene changes
@@ -77,16 +82,20 @@ Perform both analyses to provide a comprehensive report:
 4. List the first 10 scenes with timestamps
 
 **Scene Detection Tips**:
+
 - If too few scenes detected, try lower threshold (0.3)
 - If too many scenes detected, try higher threshold (0.5)
 - Adjust based on video content type (action vs. documentary)
 
-#### Audio Analysis:
+#### Audio Analysis
+
 1. Check if video has audio stream
 2. Extract audio as high quality MP3:
+
    ```bash
    ffmpeg -i video.mp4 -vn -acodec libmp3lame -ab 192k audio.mp3
    ```
+
 3. Report audio properties:
    - Sample rate
    - Bit depth
@@ -99,6 +108,7 @@ Perform both analyses to provide a comprehensive report:
 Create a GitHub issue with your comprehensive analysis containing:
 
 #### Video Information Section
+
 - Source URL
 - File size
 - Duration (MM:SS format)
@@ -107,18 +117,23 @@ Create a GitHub issue with your comprehensive analysis containing:
 - Estimated bitrate
 
 #### Analysis Results Section
+
 Include results from both analyses:
+
 - Scene detection results
 - Audio extraction results
 
 #### Technical Details Section
+
 - FFmpeg version used
 - Processing time for each operation
 - Any warnings or issues encountered
 - File sizes of generated outputs
 
 #### Recommendations Section
+
 Provide actionable recommendations based on the analysis:
+
 - Suggested optimal encoding settings
 - Potential quality improvements
 - Scene detection threshold recommendations
@@ -166,4 +181,3 @@ Create your issue with the following markdown structure:
 
 *Generated using ffmpeg via GitHub Agentic Workflows*
 ```
-

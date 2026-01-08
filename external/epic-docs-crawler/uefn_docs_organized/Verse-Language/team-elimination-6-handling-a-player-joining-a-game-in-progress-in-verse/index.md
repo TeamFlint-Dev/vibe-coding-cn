@@ -1,6 +1,6 @@
 # 6. Handling a Player Joining a Game in Progress
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-6-handling-a-player-joining-a-game-in-progress-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-6-handling-a-player-joining-a-game-in-progress-in-verse>
 > **爬取时间**: 2025-12-27T00:19:04.825401
 
 ---
@@ -15,6 +15,7 @@ Follow these steps to grant players weapons and subscribe to their player events
         OnPlayerAdded(InPlayer : player) : void =
                 Print("A New Player Joined!")
    ```
+
 2. Get the team for the new player using `GetTeam[]` and store it in a local variable `Team`. Retrieve the `FortCharacter` for that player and save it in a variable `FortCharacter`.
 
    ```verse
@@ -24,6 +25,7 @@ Follow these steps to grant players weapons and subscribe to their player events
                 Team := GetPlayspace().GetTeamCollection().GetTeam[InPlayer]
                 FortCharacter := InPlayer.GetFortCharacter[]
    ```
+
 3. To assign the new player to the `TeamMap` you need to access the `player_map` associated with the new player's `Team`. Get the `player_map` associated with the new player and store it in a local variable `PlayerMap`.
 
    ```verse
@@ -34,6 +36,7 @@ Follow these steps to grant players weapons and subscribe to their player events
                 FortCharacter := InPlayerr.GetFortCharacter[]
                 var PlayerMap : player_map = TeamMap[Team]
    ```
+
 4. Set the player's score in `PlayerMap` to 0, then update `TeamMap` with your local variable `PlayerMap`.
 
    ```verse
@@ -46,6 +49,7 @@ Follow these steps to grant players weapons and subscribe to their player events
                 set PlayerMap[InPlayer] = 0
                 set TeamMap[Team] = PlayerMap
    ```
+
 5. Grant the player their first weapon through a call to `GrantWeapon`, and subscribe to the new player’s elimination event. Your `OnPlayerAdded` code should look like the code below.
 
    ```verse
@@ -62,6 +66,7 @@ Follow these steps to grant players weapons and subscribe to their player events
                 Print("Set new player weapon tier to 0 in the TeamMap")
                 FortCharacter.EliminatedEvent().Subscribe(OnPlayerEliminated) # subscribe to this player's elimination event
    ```
+
 6. In `OnBegin`, subscribe to the playspace `PlayerAddedEvent` using `OnPlayerAdded`. Now a player joining the game in progress will trigger `OnPlayerAdded`. As `PlayerAddedEvent`is an event triggered by the playspace itself, you don’t need a particular device to subscribe to it.
 
    ```verse

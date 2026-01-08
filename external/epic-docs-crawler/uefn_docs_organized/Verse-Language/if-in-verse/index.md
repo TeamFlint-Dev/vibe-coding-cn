@@ -1,6 +1,6 @@
 # If
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/if-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/if-in-verse>
 > **爬取时间**: 2025-12-26T23:51:48.871013
 
 ---
@@ -127,7 +127,7 @@ You can write any of the `if` conditions in the previous examples on multiple li
 ```verse
 expression0
 if:
-	test-arg-block
+ test-arg-block
 then:
     expression1
 expression2
@@ -154,7 +154,7 @@ else:
     ActivateFlapArmsAnimation()
 
 # Set the double-jump cooldown so rapidly pressing Jump does
-# not cause the "flap arms" animation to play inappropriately.	
+# not cause the "flap arms" animation to play inappropriately. 
 SetDoubleJumpCooldown()
 ```
 

@@ -22,12 +22,14 @@ safe-inputs:
 **IMPORTANT**: Always use the `safeinputs-gh` tool for GitHub CLI commands instead of running `gh` directly via bash. The `safeinputs-gh` tool has proper authentication configured with `GITHUB_TOKEN`, while bash commands do not have GitHub CLI authentication by default.
 
 **Correct**:
+
 ```
 Use the safeinputs-gh tool with args: "pr list --limit 5"
 Use the safeinputs-gh tool with args: "issue view 123"
 ```
 
 **Incorrect**:
+
 ```
 Use the gh safe-input tool with args: "pr list --limit 5"  ❌ (Wrong tool name - use safeinputs-gh)
 Run: gh pr list --limit 5  ❌ (No authentication in bash)

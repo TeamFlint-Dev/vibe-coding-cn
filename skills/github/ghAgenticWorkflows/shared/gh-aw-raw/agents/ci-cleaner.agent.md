@@ -30,6 +30,7 @@ make fmt
 ```
 
 This command runs:
+
 - `make fmt-go` - Format Go code with `go fmt`
 - `make fmt-cjs` - Format JavaScript (.cjs and .js) files in pkg/workflow/js
 - `make fmt-json` - Format JSON files in pkg directory
@@ -45,12 +46,14 @@ make lint
 ```
 
 This command runs:
+
 - `make fmt-check` - Check Go code formatting
 - `make fmt-check-json` - Check JSON file formatting
 - `make lint-cjs` - Check JavaScript file formatting and style
 - `make golint` - Run golangci-lint on Go code
 
 **If linting fails**:
+
 1. Review the error messages carefully
 2. Fix issues one by one based on linter feedback
 3. For Go linting errors from `golangci-lint`:
@@ -82,6 +85,7 @@ make test
 ```
 
 **If tests fail**:
+
 1. Review the test failure output carefully
 2. Identify which test(s) failed and why
 3. Fix the underlying issue:
@@ -89,9 +93,11 @@ make test
    - For test errors: Update the test if expectations changed
    - For compilation errors: Fix syntax/type issues
 4. Re-run the specific test or test package to verify:
+
    ```bash
    go test -v ./pkg/path/to/package/...
    ```
+
 5. Once fixed, run `make test-unit` or `make test` again
 
 **Success criteria**: All tests pass with no failures
@@ -105,6 +111,7 @@ make test-js
 ```
 
 **If tests fail**:
+
 1. Review the test failure output
 2. Check if the issue is in:
    - JavaScript source files in `pkg/workflow/js/`
@@ -123,12 +130,14 @@ make recompile
 ```
 
 This command:
+
 1. Syncs templates from `.github` to `pkg/cli/templates`
 2. Rebuilds the `gh-aw` binary
 3. Runs `./gh-aw init` to initialize the repository
 4. Runs `./gh-aw compile --validate --verbose --purge` to compile all workflows
 
 **If compilation fails**:
+
 1. Review the error messages for specific workflow files
 2. Check the workflow markdown file for syntax errors
 3. Fix issues in the workflow frontmatter or content
@@ -141,9 +150,11 @@ This command:
 ### Execution Order
 
 Always execute tasks in this order:
+
 1. Format → 2. Lint → 3. Test → 4. Recompile
 
 This order ensures that:
+
 - Formatting issues don't cause linting failures
 - Linting issues don't interfere with tests
 - Tests pass before recompiling workflows
@@ -152,6 +163,7 @@ This order ensures that:
 ### Iterative Fixes
 
 When fixing issues:
+
 1. **Fix one category at a time** (don't jump between formatting, linting, and tests)
 2. **Re-run the relevant check** after each fix
 3. **Verify the fix** before moving to the next issue
@@ -160,22 +172,26 @@ When fixing issues:
 ### Common Issues
 
 #### Go Linting Issues
+
 - **Unused variables**: Remove or use the variable, or prefix with `_` if intentionally unused
 - **Ineffective assignments**: Remove redundant assignments
 - **Error handling**: Always check and handle errors properly
 - **Import cycles**: Refactor to break circular dependencies
 
 #### JavaScript Issues
+
 - **Prettier formatting**: Run `make fmt-cjs` to auto-fix
 - **ESLint violations**: Fix manually based on error messages
 - **Type errors**: Check TypeScript types and fix mismatches
 
 #### Test Failures
+
 - **Flaky tests**: Re-run to confirm failure is consistent
 - **Broken tests due to code changes**: Update test expectations
 - **Missing dependencies**: Run `make deps` to install
 
 #### Compilation Errors
+
 - **Schema validation errors**: Check workflow frontmatter against schema
 - **Missing required fields**: Add required fields to workflow frontmatter
 - **Invalid YAML**: Fix YAML syntax in workflow files
@@ -205,6 +221,7 @@ make agent-finish
 ```
 
 **WARNING**: This command takes ~10-15 minutes and runs:
+
 - `make deps-dev` - Install dev dependencies
 - `make fmt` - Format code
 - `make lint` - Run linters

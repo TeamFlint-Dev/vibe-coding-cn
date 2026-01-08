@@ -5,6 +5,7 @@ This runbook documents how to investigate and resolve workflow health issues in 
 ## When to Use This Runbook
 
 Use this runbook when:
+
 - Workflows are failing in scheduled runs
 - Missing-tool errors appear in workflow logs
 - Authentication or permission errors occur
@@ -15,11 +16,13 @@ Use this runbook when:
 ### Missing Tool Configurations
 
 **Symptoms**:
+
 - Error messages containing "missing-tool" or "tool not found"
 - Workflow fails when attempting to access GitHub APIs
 - Agent cannot perform GitHub operations (read issues, create PRs, etc.)
 
 **Common Causes**:
+
 - GitHub MCP server not configured in workflow frontmatter
 - Missing toolsets specification
 - Incorrect toolset names
@@ -27,11 +30,13 @@ Use this runbook when:
 ### Authentication and Permission Errors
 
 **Symptoms**:
+
 - HTTP 403 (Forbidden) errors
 - "Resource not accessible" errors
 - Token scope errors
 
 **Common Causes**:
+
 - Missing `permissions:` block in workflow frontmatter
 - Insufficient token permissions for requested operations
 - GITHUB_TOKEN not passed to custom actions
@@ -39,11 +44,13 @@ Use this runbook when:
 ### Input/Secret Validation Failures
 
 **Symptoms**:
+
 - Safe-inputs action fails
 - Environment variable not available
 - Template expression evaluation errors
 
 **Common Causes**:
+
 - Safe-inputs action not configured
 - Missing required secrets
 - Incorrect secret references
@@ -66,6 +73,7 @@ gh aw logs --workflow <workflow-name> --start-date -7d
 ```
 
 **What to look for**:
+
 - Error messages in the "Run AI Agent" step
 - Missing-tool errors
 - HTTP error codes (401, 403, 404, 500)
@@ -124,6 +132,7 @@ permissions:
 ```
 
 Common permission requirements:
+
 - **Reading issues**: `issues: read`
 - **Creating issues**: `issues: write`
 - **Reading PRs**: `pull-requests: read`
@@ -150,19 +159,20 @@ tools:
 ---
 ```
 
-3. Compile the workflow:
+1. Compile the workflow:
 
 ```bash
 gh aw compile <workflow-name>.md
 ```
 
-4. Verify the configuration:
+1. Verify the configuration:
 
 ```bash
 gh aw mcp inspect <workflow-name>
 ```
 
 **Available toolsets**:
+
 - `default`: repositories, issues, pull requests, and common operations
 - `repos`: repository management tools
 - `issues`: issue operations
@@ -271,13 +281,13 @@ After making changes, test the workflow:
 gh aw compile <workflow-name>.md
 ```
 
-2. **Trigger manually** (if `workflow_dispatch` is enabled):
+1. **Trigger manually** (if `workflow_dispatch` is enabled):
 
 ```bash
 gh workflow run <workflow-name>.lock.yml
 ```
 
-3. **Monitor the run**:
+1. **Monitor the run**:
 
 ```bash
 # Get the run ID
@@ -290,7 +300,7 @@ gh run watch <run-id>
 gh aw logs --run-id <run-id>
 ```
 
-4. **Verify success**:
+1. **Verify success**:
    - Check that no missing-tool errors occur
    - Verify the agent completes successfully
    - Confirm any created resources (issues, PRs, discussions)
@@ -308,16 +318,19 @@ The DeepReport Intelligence Briefing (Discussion #7277) identified several workf
 ### Investigation
 
 **Weekly Issue Summary**:
+
 - Analyzed workflow logs using `gh aw logs`
 - Identified authentication errors in GitHub API calls
 - Found missing permissions in workflow configuration
 
 **Dev Workflow**:
+
 - Error: "Tool 'github:read_issue' not found"
 - Root cause: GitHub MCP server not configured
 - The workflow attempted to read issue information without GitHub MCP toolset
 
 **Daily Copilot PR Merged**:
+
 - Error: "missing tool configuration for safeinputs-gh"
 - Root cause: Safe-inputs action not set up in workflow
 - PR merge data not being passed securely to agent
@@ -325,6 +338,7 @@ The DeepReport Intelligence Briefing (Discussion #7277) identified several workf
 ### Resolution
 
 **Weekly Issue Summary**:
+
 - Added missing `actions: read` permission
 - Recompiled workflow with `gh aw compile`
 - Verified success in next scheduled run
@@ -384,6 +398,7 @@ gh run watch <run-id>
 ### Common Configuration Patterns
 
 **Basic GitHub integration**:
+
 ```aw
 ---
 permissions:
@@ -397,6 +412,7 @@ tools:
 ```
 
 **Issue-triggered workflow with safe-inputs**:
+
 ```aw
 ---
 on:
@@ -417,6 +433,7 @@ tools:
 ```
 
 **Workflow with safe-outputs**:
+
 ```aw
 ---
 permissions:

@@ -1,6 +1,6 @@
 # Lesson 2: Basic Programming Components
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-2-basic-programming-concepts-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-2-basic-programming-concepts-in-verse>
 > **爬取时间**: 2025-12-26T23:10:37.736509
 
 ---
@@ -84,7 +84,7 @@ Examples of operators include:
 | **Subtraction** `-` | The **-** operator subtracts the second number from the first. |
 | **Multiplication** `*` | The **\*** multiplies two numbers together. |
 | **Division** `/` | The **/** operator divides the first number by the second number. |
-| **Equality** `=` | The **=** operator checks to see if two things are equal. For example:  ```verse if (MiceCaught = MiceInArea):     Nap() else:     LookForMice() ``` |
+| **Equality** `=` | The **=** operator checks to see if two things are equal. For example:  ```verse if (MiceCaught = MiceInArea):     Nap() else:     LookForMice()``` |
 | **Query** `?` | The **?**  checks if a specific type of value is true. |
 
 There are more operators than these, but this is a good place to start!
@@ -123,10 +123,10 @@ You'll learn more about literals and how to use them in the next lesson.
 - The **type** says what kind of operation the program can do with a value.
 - **Literals** are values that don't change.
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 2: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/2d9d14dc-2c80-460c-bd67-38f67036ccb3?resizing_type=fit&width=640&height=640)
 
 Lesson 2: Practice Time!
 
-Time to write some simple code using Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-2-practice-time-in-verse)
+Time to write some simple code using Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-2-practice-time-in-verse>)

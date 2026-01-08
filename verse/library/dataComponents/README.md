@@ -3,6 +3,7 @@
 > DLSD 架构 - Data 层
 
 此目录存放 Data Component，负责：
+
 - 数据管理和 CRUD 操作
 - 调用 UEFN API
 - 生命周期围绕数据维护

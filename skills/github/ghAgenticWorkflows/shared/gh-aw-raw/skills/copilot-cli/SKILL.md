@@ -11,6 +11,7 @@ This file integrates with the GitHub Copilot CLI (`@github/copilot`) for agentic
 ## GitHub Copilot CLI Overview
 
 The GitHub Copilot CLI is an experimental AI-powered command-line interface that can:
+
 - Execute natural language prompts via `copilot --prompt "your instruction"`
 - Support MCP servers for tool integration
 - Generate code, documentation, and provide explanations
@@ -26,6 +27,7 @@ npm install -g @github/copilot
 ```
 
 **Environment Variables:**
+
 - `GITHUB_TOKEN` or `COPILOT_GITHUB_TOKEN`: GitHub token for authentication
 - `XDG_CONFIG_HOME`: Configuration directory (defaults to `/tmp/gh-aw/.copilot/`)
 - `XDG_STATE_HOME`: State/cache directory (defaults to `/tmp/gh-aw/.copilot/`)
@@ -35,11 +37,13 @@ npm install -g @github/copilot
 ## Core Command Structure
 
 ### Basic Usage
+
 ```bash
 copilot --prompt "your natural language instruction"
 ```
 
 ### Advanced Options
+
 ```bash
 copilot --add-dir /path/to/project \
         --log-level debug \
@@ -49,6 +53,7 @@ copilot --add-dir /path/to/project \
 ```
 
 **Key Parameters:**
+
 - `--add-dir`: Add directory context to the prompt
 - `--log-level`: Set logging verbosity (debug, info, warn, error)
 - `--log-dir`: Directory for log output
@@ -85,6 +90,7 @@ Copilot CLI supports MCP servers via JSON configuration at `/tmp/gh-aw/.copilot/
 ```
 
 **Server Types:**
+
 - `local`: Local command execution (equivalent to `stdio` in other MCP configs)
 - `http`: HTTP-based MCP server
 - Built-in servers like GitHub are automatically available
@@ -92,7 +98,9 @@ Copilot CLI supports MCP servers via JSON configuration at `/tmp/gh-aw/.copilot/
 ## Log Parsing and Output
 
 ### Expected Log Format
+
 Copilot CLI logs contain:
+
 - Command execution traces
 - Tool call information
 - Code blocks with language annotations (```language)
@@ -100,7 +108,9 @@ Copilot CLI logs contain:
 - Suggestions and responses
 
 ### Log Parsing Patterns
+
 When parsing logs in `parse_copilot_log.cjs`:
+
 - Look for command patterns: `copilot -p`, `github copilot`
 - Extract code blocks between ``` markers
 - Capture responses with `Suggestion:` or `Response:` prefixes
@@ -110,6 +120,7 @@ When parsing logs in `parse_copilot_log.cjs`:
 ## Error Handling
 
 ### Common Error Patterns
+
 - Authentication failures: Missing or invalid `GITHUB_TOKEN`
 - MCP server connection issues
 - Tool execution timeouts
@@ -117,6 +128,7 @@ When parsing logs in `parse_copilot_log.cjs`:
 - Directory permission issues
 
 ### Best Practices
+
 - Always use `--prompt` parameter to avoid interactive blocking
 - Set appropriate timeouts for long-running operations
 - Validate MCP server configurations before execution
@@ -126,6 +138,7 @@ When parsing logs in `parse_copilot_log.cjs`:
 ## Integration with GitHub Agentic Workflows
 
 ### Engine Configuration
+
 ```yaml
 engine: copilot
 # or
@@ -136,12 +149,14 @@ engine:
 ```
 
 ### Tool Integration
+
 - GitHub tools are built-in (don't add to MCP config)
 - Playwright uses npx launcher instead of Docker
 - Safe outputs use dedicated MCP server
 - Custom tools require proper MCP server configuration
 
 ### Authentication
+
 - Use `COPILOT_GITHUB_TOKEN` secret for GitHub token
 - GitHub Actions default token is incompatible with Copilot CLI
 - Must use Personal Access Token (PAT)
@@ -153,6 +168,7 @@ engine:
 ## Development Guidelines
 
 ### When Working with Copilot Engine Code
+
 - Follow MCP server configuration patterns in `copilot_engine.go`
 - Use "local" type instead of "stdio" for MCP servers
 - Handle built-in tools (like GitHub) by skipping MCP configuration
@@ -160,6 +176,7 @@ engine:
 - Test with various tool combinations
 
 ### Log Parser Development
+
 - Parse both structured and unstructured log output
 - Handle multi-line code blocks correctly
 - Extract meaningful error and warning information
@@ -167,6 +184,7 @@ engine:
 - Account for CLI-specific output formats
 
 ### Testing Considerations
+
 - Mock CLI responses for unit tests
 - Test MCP configuration generation
 - Validate log parsing with various output formats
@@ -176,21 +194,25 @@ engine:
 ## Command Examples
 
 ### Basic Code Generation
+
 ```bash
 copilot --prompt "Generate a Python function to calculate fibonacci numbers"
 ```
 
 ### File Analysis
+
 ```bash
 copilot --add-dir /project --prompt "Analyze the code structure and suggest improvements"
 ```
 
 ### GitHub Integration
+
 ```bash
 copilot --add-dir /repo --prompt "Create an issue summarizing the recent changes"
 ```
 
 ### With Logging
+
 ```bash
 copilot --add-dir /tmp/gh-aw \
         --log-level debug \
@@ -210,23 +232,27 @@ copilot --add-dir /tmp/gh-aw \
 ## Troubleshooting
 
 ### CLI Not Found
+
 - Verify npm global installation: `npm list -g @github/copilot`
 - Check PATH includes npm global bin directory
 - Try reinstalling: `npm uninstall -g @github/copilot && npm install -g @github/copilot`
 
 ### Authentication Issues
+
 - **GitHub Actions Token Incompatibility**: The default `GITHUB_TOKEN` does NOT work with Copilot CLI
 - Verify you're using a Personal Access Token in `COPILOT_GITHUB_TOKEN` secret
 - Verify the token is associated with a Copilot-enabled GitHub account
 - For GitHub Enterprise, contact admin for Copilot CLI token access
 
 ### MCP Server Issues
+
 - Validate JSON configuration syntax
 - Check server command availability
 - Verify network connectivity for HTTP servers
 - Review server logs for connection errors
 
 ### Performance Issues
+
 - Reduce directory scope with targeted `--add-dir`
 - Lower log level to reduce I/O overhead
 - Set appropriate timeouts for operations

@@ -1,6 +1,6 @@
 # 5. Granting Weapons on Eliminations
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-5-granting-weapons-on-eliminations-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-5-granting-weapons-on-eliminations-in-verse>
 > **爬取时间**: 2025-12-27T00:18:41.167136
 
 ---
@@ -24,6 +24,7 @@ Follow these steps to grant weapons to players when they score an elimination.
         GiveNextWeapon(EliminatingPlayer : agent) : void =
             Print("Finding a player to promote")
    ```
+
 2. Update `OnPlayerEliminated` to track which player scored an elimination. Because `OnPlayerEliminated` accepts an `elimination_result`, you get reference to both an eliminated and an eliminating character. Because players can be eliminated by various means (such as fall damage, sentries, self damage, and so on), you need to deduce whether `EliminatingCharacter` is an actual `FortCharacter` (that is, an actual player).
 
    - Get a reference to `Result.EliminatingCharacter` and save it in a local option variable `Eliminator`. Check if `Eliminator` is a valid `FortCharacter`, and if so save the agent for that character in another variable `EliminatorAgent`. Finally pass `EliminatorAgent` to `GiveNextWeapon`
@@ -35,6 +36,7 @@ Follow these steps to grant weapons to players when they score an elimination.
            if (FortCharacter := Eliminator?, EliminatorAgent := FortCharacter.GetAgent[]):
                GiveNextWeapon(EliminatorAgent)
      ```
+
 3. `GiveNextWeapon` needs to track several variables in order to grant the correct player a new weapon. Add the following declarations to `GiveNextWeapon`.
 
    - A variable int `WeaponTier`. This tracks the weapon tier of the player to grant a weapon to.
@@ -48,12 +50,14 @@ Follow these steps to grant weapons to players when they score an elimination.
            var MaybePlayerToGrant : ?agent = option{EliminatingPlayer} # The player to grant a gun to
            var MaybePlayerTeam : ?team = option{GetPlayspace().GetTeamCollection().GetTeam[EliminatingPlayer]} # The team this player is on
      ```
+
 4. Extract the value of `MaybePlayerTeam` into a local variable `PlayerTeam`, then set `WeaponTier` to the value of the player’s score in `TeamMap`.
 
    ```verse
         var MaybePlayerTeam : ?team = option{GetPlayspace().GetTeamCollection().GetTeam[EliminatingPlayer]} # The team this player is on
             if(PlayerTeam := MaybePlayerTeam?, set WeaponTier = TeamMap[PlayerTeam][EliminatingPlayer]):
    ```
+
 5. Iterate through each player on the team, and compare their weapon tier. If you find a player at a lower tier, set `MaybePlayerToGrant` to that player, and `WeaponTier` to their score. Note that because `TeamMap` is a map, you can extract both the key (player) and value (weapon tier) as local variables using the `Teammate -> TeammateTier` syntax.
 
    ```verse
@@ -63,6 +67,7 @@ Follow these steps to grant weapons to players when they score an elimination.
                 if(set WeaponTier = TeamMap[PlayerTeam][Teammate]):
                     set MaybePlayerToGrant = option{Teammate}
    ```
+
 6. Once you’ve found the player at the lowest (or tied for lowest) weapon tier, increment `WeaponTier` by one, then set their weapon tier in `TeamMap` to `WeaponTier`.
 
    ```verse
@@ -76,6 +81,7 @@ Follow these steps to grant weapons to players when they score an elimination.
         if(PlayerTeam := MaybePlayerTeam?, PlayerToGrant := player[MaybePlayerToGrant?], set TeamMap[PlayerTeam][PlayerToGrant] = WeaponTier):
             Print("Eliminating Player Tier is now {WeaponTier}")
    ```
+
 7. This is a good place to check if a player has won the game, because incrementing their weapon tier may push them over the number of eliminations required to end the game.
 
    - Create a new method `EndGame` in the `team_elimination_game` class. This method activates the `EndGameDevice`on the given player when they reach the final weapon tier. The completed method should look like this:
@@ -85,23 +91,26 @@ Follow these steps to grant weapons to players when they score an elimination.
            Print("Player reached final Weapon Tier, activating EndGameDevice")
            EndGameDevice.Activate(InPlayer)
      ```
+
    - Back in `GiveNextWeapon`, after incrementing the player’s weapon tier, check `if WeaponTier >= EliminationsToEndGame`. If so, call `EndGame` passing the player.
 
      ```verse
        if(PlayerTeam := MaybePlayerTeam?, PlayerToGrant := player[MaybePlayerToGrant?], set TeamMap[PlayerTeam][PlayerToGrant] = WeaponTier):
            Print("Eliminating Player Tier is now {WeaponTier}")
-     		
+       
        if(WeaponTier &gt;= EliminationsToEndGame):
            EndGame(EliminatingPlayer)
      ```
+
 8. Otherwise, call `GrantWeapon` on the `GrantedPlayer`.
 
    ```verse
         if(WeaponTier &gt;= EliminationsToEndGame):
             EndGame(EliminatingPlayer)
-   		
+     
         GrantWeapon(MaybePlayerToGrant, WeaponTier)
    ```
+
 9. The completed`GiveNextWeapon` method should look like the following code.
 
    ```verse

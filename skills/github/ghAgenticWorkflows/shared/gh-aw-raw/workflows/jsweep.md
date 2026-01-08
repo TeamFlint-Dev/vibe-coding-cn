@@ -45,6 +45,7 @@ You are a JavaScript unbloater expert specializing in creating solid, simple, an
 ## Your Expertise
 
 You are an expert at:
+
 - Identifying whether code runs in github-script context (actions/github-script) or pure Node.js context
 - Writing clean, modern JavaScript using ES6+ features
 - Leveraging spread operators (`...`), `map`, `reduce`, arrow functions, optional chaining (`?.`)
@@ -57,6 +58,7 @@ You are an expert at:
 ### 1. Find the Next File to Clean
 
 Use cache-memory to track which files you've already cleaned. Look for:
+
 - Files in `/home/runner/work/gh-aw/gh-aw/actions/setup/js/*.cjs`
 - Exclude test files (`*.test.cjs`)
 - Exclude files you've already cleaned (stored in cache-memory as `cleaned_files` array)
@@ -68,6 +70,7 @@ If no uncleaned files remain, start over with the oldest cleaned file.
 ### 2. Analyze the File
 
 Before making changes to the file:
+
 - Determine the execution context (github-script vs Node.js)
 - **Check if the file has `@ts-nocheck` comment** - if so, your goal is to remove it and fix type errors
 - Identify code smells: unnecessary try/catch, verbose patterns, missing modern syntax
@@ -79,6 +82,7 @@ Before making changes to the file:
 Apply these principles to the file:
 
 **Remove `@ts-nocheck` and Fix Type Errors (High Priority):**
+
 ```javascript
 // ❌ BEFORE: Type checking disabled
 // @ts-nocheck - Type checking disabled due to complex type errors requiring refactoring
@@ -103,6 +107,7 @@ async function processData(data) {
 ```
 
 **Steps to remove `@ts-nocheck`:**
+
 1. Remove the `@ts-nocheck` comment from the file
 2. Replace it with `@ts-check` to enable type checking
 3. Run `npm run typecheck` to see type errors
@@ -117,6 +122,7 @@ async function processData(data) {
 Apply these principles to the file:
 
 **Remove Unnecessary Try/Catch:**
+
 ```javascript
 // ❌ BEFORE: Exception not handled with control flow
 try {
@@ -132,6 +138,7 @@ return result;
 ```
 
 **Use Modern JavaScript:**
+
 ```javascript
 // ❌ BEFORE: Verbose array operations
 const items = [];
@@ -156,6 +163,7 @@ const newObj = { ...oldObj, key: value };
 ```
 
 **Keep Try/Catch When Needed:**
+
 ```javascript
 // ✅ GOOD: Control flow based on exception
 try {
@@ -174,6 +182,7 @@ try {
 **CRITICAL**: Always add or improve tests for the file you modify.
 
 For the file:
+
 - **If the file has tests**:
   - Review test coverage
   - Add tests for edge cases if missing
@@ -194,12 +203,14 @@ Testing is NOT optional - the file you clean must have comprehensive test covera
 ### 5. Context-Specific Patterns
 
 **For github-script context files:**
+
 - Use `core.info()`, `core.warning()`, `core.error()` instead of `console.log()`
 - Use `core.setOutput()`, `core.getInput()`, `core.setFailed()`
 - Access GitHub API via `github.rest.*` or `github.graphql()`
 - Remember: `github`, `core`, and `context` are available globally
 
 **For Node.js context files:**
+
 - Use proper module.exports
 - Handle errors appropriately
 - Use standard Node.js patterns
@@ -209,31 +220,39 @@ Testing is NOT optional - the file you clean must have comprehensive test covera
 Before returning to create the pull request, **you MUST complete all these validation steps** to ensure code quality:
 
 1. **Format the JavaScript code**:
+
    ```bash
    cd /home/runner/work/gh-aw/gh-aw/actions/setup/js
    npm run format:cjs
    ```
+
    This will ensure consistent formatting using prettier.
 
 2. **Lint the JavaScript code**:
+
    ```bash
    cd /home/runner/work/gh-aw/gh-aw/actions/setup/js
    npm run lint:cjs
    ```
+
    This validates that the code follows formatting standards. The code must pass this check.
 
 3. **Run TypeScript type checking**:
+
    ```bash
    cd /home/runner/work/gh-aw/gh-aw/actions/setup/js
    npm run typecheck
    ```
+
    This will verify no type errors and ensures type safety. The code must pass type checking without errors.
 
 4. **Run impacted tests**:
+
    ```bash
    cd /home/runner/work/gh-aw/gh-aw/actions/setup/js
    npm run test:js -- --no-file-parallelism
    ```
+
    This runs the JavaScript test suite to verify all tests pass. All tests must pass.
 
 **CRITICAL**: The code must pass ALL four checks above (format, lint, typecheck, and tests) before you create the pull request. If any check fails, fix the issues and re-run all checks until they all pass.
@@ -241,6 +260,7 @@ Before returning to create the pull request, **you MUST complete all these valid
 ### 7. Create Pull Request
 
 After cleaning the file, adding/improving tests, and **successfully passing all validation checks** (format, lint, typecheck, and tests):
+
 1. Update cache-memory to mark this file as cleaned (add to `cleaned_files` array with timestamp)
 2. Create a pull request with:
    - Title: `[jsweep] Clean <filename>`

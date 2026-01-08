@@ -1,6 +1,6 @@
 # 6. Combining Movement, Rotation, and Scale
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-6-combining-movement-rotation-and-scale-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-6-combining-movement-rotation-and-scale-in-verse>
 > **爬取时间**: 2025-12-27T00:40:17.248105
 
 ---
@@ -21,6 +21,7 @@ Follow these steps to start putting things together:
         # A prop that translates, rotates, and scales to a destination using animation.
         animating_prop<public> := class<concrete>(movable_prop):
    ```
+
 2. Add the `using { /Fortnite.com/Devices/CreativeAnimation }` and `using { /UnrealEngine.com/Temporary/SpatialMath }` statements to the top of the file to import these modules. You’ll need these to animate your prop. The tooltips used in this section are also included here.
 
    ```verse
@@ -35,6 +36,7 @@ Follow these steps to start putting things together:
         # A prop that translates, rotates, and scales to a destination using animation.
         animating_prop<public> := class<concrete>(movable_prop):
    ```
+
 3. At the top of the `animating_prop` class definition, add the following fields:
 
    1. An editable `rotation` named `AdditionalRotation`. This is the rotation to apply to the `RootProp` per keyframe.
@@ -44,6 +46,7 @@ Follow these steps to start putting things together:
        @editable {ToolTip := AdditionalRotationTip}
        AdditionalRotation:rotation = rotation{}
       ```
+
    2. An editable `float` named `RotationRate`. This is the amount of time it takes to make one `AdditionalRotation`, in seconds.
 
       ```verse
@@ -51,6 +54,7 @@ Follow these steps to start putting things together:
        @editable {ToolTip := RotationRateTip}
        var RotationRate:float = 1.0
       ```
+
    3. An editable `logic` named `UseEasePerKeyFrame`. This dictates whether each keyframe uses the `MoveEaseType` for interpolation. In this example, setting this to `false` will default to using the linear interpolation type for each frame.
 
       ```verse
@@ -59,6 +63,7 @@ Follow these steps to start putting things together:
        @editable
        UseEasePerKeyframe:logic = true
       ```
+
    4. An editable array of `creative_prop` named `MoveTargets`. These are the different Creative props your root prop will travel to.
 
       ```verse
@@ -66,12 +71,14 @@ Follow these steps to start putting things together:
        @editable {ToolTip := MoveTargetsTip}
        var MoveTargets:[]creative_prop = array{}
       ```
+
    5. A variable `transform` named `TargetTransform`. This is the transform your root prop is currently traveling to.
 
       ```verse
        # The transform the prop is currently targeting.
        var TargetTransform:transform = transform{}
       ```
+
 4. Your class definition should look like this:
 
    ```verse
@@ -108,6 +115,7 @@ Follow these steps to start putting things together:
             # The transform the prop is currently targeting.
             var TargetTransform:transform = transform{}
    ```
+
 5. Override the `Move()` function in your `animating_prop` class. Then in a `for` expression, iterate through each `MoveTarget` in the `MoveTargets` array. Check if each `MoveTarget` is valid, and if so set the `TargetTransform` to the transform of the `MoveTarget`.
 
    ```verse
@@ -126,12 +134,14 @@ Follow these steps to start putting things together:
                 then:
                     set TargetTransform = MoveTarget.GetTransform()
    ```
+
 6. Back in your `movement_behaviors` file, add a new method named `BuildMovingAnimationKeyframes()`. This function will build and return an array of keyframes that animate a prop moving and rotating to a target transform. This function takes several parameters from `animating_prop` — the `MoveDuration`, `RotationRate`, `AdditionalRotation`, the `OriginalTransform` (the starting transform of the prop), the `TargetTransform`, the `MoveEaseType`, and a new `logic` value called `UseEasePerKeyframe`. This determines whether you use the `MoveEaseType` for each keyframe. Your function signature should look like this:
 
    ```verse
         # Builds an array of keyframes that animate movement and rotation from the OriginalTransform to the TargetTransform.
         BuildMovingAnimationKeyframes(MoveDuration:float, RotationRate:float, AdditionalRotation:rotation, OriginalTransform:transform, TargetTransform:transform,MoveEaseType:move_to_ease_type, UseEasePerKeyframe:logic):[]keyframe_delta=
    ```
+
 7. In `BuildMovingAnimationKeyframes()`, initialize the following variables:
 
    1. A variable array of `keyframe_delta` named `Keyframes`. This is the array you’ll return at the end.
@@ -140,12 +150,14 @@ Follow these steps to start putting things together:
        # The array of keyframes to return.
        var KeyFrames:[]keyframe_delta = array{}
       ```
+
    2. A variable `float` named `TotalTime`. This is the total amount of time spent animating so far.
 
       ```verse
        # The total amount of time spent animating.
        var TotalTime:float = 0.0
       ```
+
    3. Two `transform` variables named `StartTransform` and `EndTransform`. These are the starting and ending transforms of the prop at the start and end of each keyframe. Initialize both to the `OriginalTransform`.
 
       ```verse
@@ -157,6 +169,7 @@ Follow these steps to start putting things together:
        # transform of the RootProp at the end of each keyframe.
        var EndTransform:transform = OriginalTransform
       ```
+
    4. A variable `rotation` named `RotationToApply`, initialized to the `AdditionalRotation`. This is the actual rotation you’ll apply to the prop for each keyframe. Usually, this will be the `AdditionalRotation`, but if you need to make a fractional rotation you’ll change this value.
 
       ```verse
@@ -164,6 +177,7 @@ Follow these steps to start putting things together:
        # AdditionalRotation, but will change in cases with fractional rotations.
        var RotationToApply:rotation = AdditionalRotation
       ```
+
    5. A variable `float` named `AnimationTime`. This is the amount of time in seconds each keyframe takes. Initialize this to `1.0 / RotationRate`, since the RootProp needs to make a `RotationRate` number of rotations per second.
 
       ```verse
@@ -172,12 +186,14 @@ Follow these steps to start putting things together:
        # RotationRate number of rotations per second.
        var AnimationTime:float = 1.0 / RotationRate
       ```
+
    6. A `float` value named `TotalRotations`. This is the total number of rotations to make across the entire animation, and is initialized to `MoveDuration * RotationRate`. The reason this is a `float` and not an `int` is to deal with situations where you don’t need to make a full rotation, such as at the end of an animation.
 
       ```verse
        # The total number of rotations to make.
        TotalRotations:float = MoveDuration * RotationRate
       ```
+
    7. A `float` value named `TimePerRotation`. This is the amount of time in seconds it takes one rotation to complete. Your function should now look like this.
 
       ```verse
@@ -249,6 +265,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
             # Add the TimePerRotation to the TotalTime.
             set TotalTime += TimePerRotation
    ```
+
 2. Build the `EndTransform`, which is where the prop should be at the end of this keyframe. Set the `EndTransform` to a new transform with the following parameters:
 
    1. Set the `Translation` to the result of calling `Lerp()` between the `OriginalTransform` and the `TargetTransform`. The `Lerp()` function takes two values and a Lerp ratio between `0.0` and `1.0`. It then generates a new value somewhere between the two based on the Lerp ratio. The closer the Lerp ratio is to 1.0, the closer the transform will be to the `TargetTransform`, and vice versa.
@@ -262,12 +279,14 @@ It’s time to get building! Follow the steps below to set up the loop that buil
            # at least that many rotations over the whole animation.
            Translation := Lerp(OriginalTransform.Translation, TargetTransform.Translation, (TotalTime * RotationRate) / (TotalRotations))
       ```
+
    2. Set the `Rotation` to the result of `MakeShortestRotationBetween()`, passing the rotation of the original transform and the original transform rotated by the `RotationToApply`.
 
       ```verse
        Translation := Lerp(OriginalTransform.Translation, TargetTransform.Translation, (TotalTime * RotationRate) / (TotalRotations))
        Rotation := MakeShortestRotationBetween(OriginalTransform.Rotation, OriginalTransform.Rotation.RotateBy(RotationToApply))~~~
       ```
+
    3. Set the `Scale` to the result of calling `Lerp()` between the `OriginalTransform.Scale` and the `TargetTransform.Scale`. Keep in mind this is the scale the prop should scale to, not the amount it needs to scale by. Your complete `EndTransform` should look like this:
 
       ```verse
@@ -279,6 +298,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
            Rotation := MakeShortestRotationBetween(OriginalTransform.Rotation, OriginalTransform.Rotation.RotateBy(RotationToApply))   
            Scale := Lerp(OriginalTransform.Scale, TargetTransform.Scale, LerpParameter)
       ```
+
 3. With your end transform set, it’s time to build a keyframe! This is largely the same process you did for your `MoveToEase()` function. Create a new `keyframe_delta` variable named `KeyFrame`. Set the `DeltaLocation` to the difference between the end and start transform translations. Set the `DeltaRotation` to the end transform’s rotation. Since you need to calculate the change in scale, set the `DeltaScale` to the result of dividing the end transform’s scale by the starting transform’s scale. The `Time` should be the `AnimationTime`, and the `InterpolationType` should be the result of an `if` expression. If `UseEasePerKeyframe` is true, use the `MoveEaseType`. Otherwise, use the linear type. Your keyframe expression should look like this:
 
    ```verse
@@ -298,6 +318,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
                 else:
                     GetCubicBezierForEaseType(move_to_ease_type.Linear)
    ```
+
 4. With your keyframe built, now you can add it to the `Keyframes` array. Then set the `StartTransform` to the `EndTransform` to update it for the next keyframe. Finally, if the `TotalTime` is now greater than the `MoveDuration`, break out of the loop.
 
    ```verse
@@ -311,6 +332,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
         then:
             break
    ```
+
 5. There’s an important edge case to consider: what happens when you need to make less than a full rotation? Since you’re adding the `TimePerRotation` to the `TotalTime`, this means the `TotalTime`could be higher than the `MoveDuration` at the start of the loop. In this situation, you need to handle the leftover time and make less than full rotation, with a shorter animation time to account for the difference. Follow these steps to account for this situation:
 
    1. Back at the start of the loop, after you update `TotalTime`, start an `if` expression. Inside, initialize a variable `LeftoverTime`, and set it equal to the result of subtracting the `TotalTime` and `MoveDuration`, checking if it’s greater than `0.0`. This expression will only assign `LeftoverTime` if the comparison is true.
@@ -324,6 +346,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
                # to be shortened. This means making a fraction of a rotation.
                LeftoverTime := TotalTime - MoveDuration &gt; 0.0
       ```
+
    2. To know what fraction of a rotation you need to make, initialize a new variable `Roation Fraction`, and set it equal to taking the difference between the `TimePerRotation` and `LeftoverTime`, all divided by the `TimePerRotation`.
 
       ```verse
@@ -335,6 +358,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
            # The fraction of a rotation to make.
            RotationFraction := (TimePerRotation - LeftoverTime)/TimePerRotation
       ```
+
    3. To build a modified rotation from the `RotationFraction`, you’ll use `Slerp[]`. This is the version of `Lerp()` that handles spherical interpolation and has similar parameters. It finds the shortest rotation between two different rotations, and returns a rotation based on the lerp parameter. Call `Slerp[]`, interpolating between the `IdentityRotation()` and the `IdentityRotation()` rotated by `RotationToApply`, using the `RotationFraction` as the lerp parameter. You’re using `IdentityRotation()` here because you’re only interested in finding what fractional rotation you need to apply, not what final rotation the `EndTransform` should be at.
 
       ```verse
@@ -351,6 +375,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
            # between rotations to find the shortest rotation between two different rotations.
            ModifiedRotation := Slerp[IdentityRotation(),  IdentityRotation().RotateBy(RotationToApply), RotationFraction]
       ```
+
    4. With those values set up, set the `RotationToApply` to the `ModifiedRotation`, multiply the `AnimationTime` by the `RotationFraction` to know how much to shorten your animation by, and finally set the `TotalTime` to the `MoveDuration` since you don’t want it to be higher than that when calculating the `EndTransform`.
 
       ```verse
@@ -364,41 +389,42 @@ It’s time to get building! Follow the steps below to set up the loop that buil
            # set TotalTime to MoveDuration.
            set TotalTime = MoveDuration
       ```
+
 6. At the very end of your function, after the loop, return the `Keyframes` array. Your complete `BuildMovingAnimationKeyframes()` function should look like this:
 
    ```verse
         # Builds an array of keyframes that animate movement and rotation from the OriginalTransform to the TargetTransform.
         BuildMovingAnimationKeyframes(MoveDuration:float, RotationRate:float, AdditionalRotation:rotation, OriginalTransform:transform, TargetTransform:transform,MoveEaseType:move_to_ease_type, UseEasePerKeyframe:logic):[]keyframe_delta=
-   		
+     
             # The array of keyframes to return.
             var Keyframes:[]keyframe_delta = array{}
-   		
+     
             # The total amount of time spent animating.
             var TotalTime:float = 0.0
-   		
+     
             # The starting transform for building keyframes. This is the
             # transform of the RootProp at the start of each keyframe.
             var StartTransform:transform = OriginalTransform
-   		
+     
             # The ending transform for building keyframes. This is the
             # transform of the RootProp at the end of each keyframe.
             var EndTransform:transform = OriginalTransform
-   		
+     
             # The actual rotation to apply to the RootProp. Usually this is the
             # AdditionalRotation, but will change in cases with fractional rotations.
             var RotationToApply:rotation = AdditionalRotation
-   		
+     
             # The time it takes for each keyframe of animation to complete.
             # This is initialized to 1.0 / Rotation rate since the RootProp needs to make a
             # RotationRate number of rotations per second.
             var AnimationTime:float = 1.0 / RotationRate
-   		
+     
             # The total number of rotations to make.
             TotalRotations:float = MoveDuration * RotationRate
-   		
+     
             # The time it takes one rotation to complete.
             TimePerRotation:float = MoveDuration/TotalRotations
-   		
+     
             # Build each keyframe of animation and add it to the Keyframes array.
             # The loop breaks when the TotalTime goes past the MoveDuration.
             loop:
@@ -421,12 +447,12 @@ It’s time to get building! Follow the steps below to set up the loop that buil
                     # Since the TotalTime should not go past the MoveDuration,
                     # set TotalTime to MoveDuration.
                     set TotalTime = MoveDuration
-   		
+     
                 # The parameter to determine how far along the root prop is in the animation.
                 # The Lerp Parameter is based on the total number of rotations since the RootProp should guarantee that it makes
                 # at least that many rotations over the whole animation.
                 LerpParameter := (TotalTime * RotationRate) / (TotalRotations)
-   		
+     
                 # Build the ending transform for the RootProp to move to.
                 set EndTransform = transform:
                     # Use Lerp() to find how far between the StartingTransform and the TargetTransform the RootProp should translate.
@@ -434,7 +460,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
                     Translation := Lerp(OriginalTransform.Translation, TargetTransform.Translation, LerpParameter)
                     Rotation := MakeShortestRotationBetween(OriginalTransform.Rotation, OriginalTransform.Rotation.RotateBy(RotationToApply))
                     Scale := Lerp(OriginalTransform.Scale, TargetTransform.Scale, LerpParameter)
-   		
+     
                 # Build the animation keyframe to animate the RootProp.
                 Keyframe := keyframe_delta:
                     DeltaLocation := EndTransform.Translation - StartTransform.Translation,
@@ -450,21 +476,22 @@ It’s time to get building! Follow the steps below to set up the loop that buil
                             GetCubicBezierForEaseType(MoveEaseType)
                         else:
                             GetCubicBezierForEaseType(move_to_ease_type.Linear)
-   		
+     
                 # Add the new keyframe to the KeyFrames array, and set the
                 # StartTransform to the EndTransform.
                 set Keyframes += array{Keyframe}
                 set StartTransform = EndTransform
-   		
+     
                 # Break out of the loop if the TotalTime passes the MoveDuration.
                 if:
                     TotalTime >= MoveDuration
                 then:
                     break
-   		
+     
             # Return the completed array of keyframes.
             Keyframes
    ```
+
 7. Now that you’ve defined the logic to build your keyframes, it’s time to animate them. You’ll use a separate function to build and call your animation. Add a new function `BuildAndPlayAnimation()` to your `animating_prop` class. Add the `<suspends>` modifier to this function to allow it to call other asynchronous functions.
 
    ```verse
@@ -472,6 +499,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
         # to animate the prop.
         BuildAndPlayAnimation()<suspends>:void=
    ```
+
 8. In `BuildAndPlayAnimation()`, initialize a new `keyframe_delta` array named `Keyframes`. Then set `Keyframes` to the result of calling `BuildMovingAnimationKeyframes()`. Use `RootProp.GetTransform()` as the starting transform since the prop’s position will change between `Move()` calls. Initialize an `animation_mode` variable to `animation_mode.OneShot`, and call `MoveToEase()`, passing the `Keyframes` array and the `AnimationMode`.
 
    Your complete `BuildAndPlayAnimation()` function should look like this:
@@ -491,6 +519,7 @@ It’s time to get building! Follow the steps below to set up the loop that buil
         # Play the animation by calling MoveToEase(), passing in the KeyFrames array.
         RootProp.MoveToEase(Keyframes, AnimationMode)
    ```
+
 9. Back in `Move()`, call `BuildAndPlayAnimation()` after you set the `TargetTransform` to the move targets transform.
 
    ```verse

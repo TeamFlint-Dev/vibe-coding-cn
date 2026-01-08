@@ -67,17 +67,20 @@ Use gh-aw MCP server (not CLI directly). Run `status` tool to verify.
 **Collect Logs**: Use MCP `logs` tool with start date "-1d" → `/tmp/gh-aw/aw-mcp/logs`
 
 **Analyze**: Review logs for:
+
 - Missing tools (patterns, frequency, legitimacy)
 - Errors (tool execution, MCP failures, auth, timeouts, resources)
 - Performance (token usage, costs, timeouts, efficiency)
 - Patterns (recurring issues, frequent failures)
 
 **Cache Memory**: Store findings in `/tmp/gh-aw/repo-memory/default/`:
+
 - `audits/<date>.json` + `audits/index.json`
 - `patterns/{errors,missing-tools,mcp-failures}.json`
 - Compare with historical data
 
 **Create Discussion**: Always create report with audit findings including summary, statistics, missing tools, errors, affected workflows, recommendations, and historical context.
+
 ```markdown
 # 🔍 Agentic Workflow Audit Report - [DATE]
 

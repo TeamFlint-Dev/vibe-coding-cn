@@ -51,6 +51,7 @@ sudo systemctl start webhook
 ### 5. 配置 GitHub
 
 #### Webhook 配置
+
 - URL: `http://your-server:8080/webhook`
 - Secret: 与 `.env` 中 `WEBHOOK_SECRET` 一致
 - Events: `Pull requests`, `Issue comments`

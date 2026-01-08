@@ -1,6 +1,6 @@
 # 2. Finding Players at Runtime
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-02-finding-players-at-runtime-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-02-finding-players-at-runtime-in-verse>
 > **爬取时间**: 2025-12-27T00:22:06.284898
 
 ---
@@ -20,67 +20,99 @@ This section shows how to find players and teams at runtime that you set up earl
 
    1. Three editable integers named `MaximumInfiltrators`, `MaximumAttackers`, and `MaximumDefenders`. Initialize `MaximumInfiltrators` to 2 and `MaximumAttackers` and `MaximumDefenders` to 4. These track the maximum number of players on each team, you'll use them to balance teams dynamically. You can change these numbers for testing purposes, and to create interesting variations in the game.
        `triad_infiltration := class(creative_device):
+
       # To avoid players not being able to join a team, you should set the maximum number
-      # of players in the island settings to the sum of all of the Maximum(Team) variables.
-      # Maximum number of players on the Infiltrators Team.
+
+      # of players in the island settings to the sum of all of the Maximum(Team) variables
+
+      # Maximum number of players on the Infiltrators Team
+
       @editable
       MaximumInfiltrators:int = 2
-      # Maxmimum number of players on the Attackers Team.
+
+      # Maxmimum number of players on the Attackers Team
+
       @editable
       MaximumAttackers:int = 4
-      # Maximum number of players on the Defenders Team.
+
+      # Maximum number of players on the Defenders Team
+
       @editable
       MaximumDefenders:int = 4`
    2. A variable [map](https://dev.epicgames.com/documentation/en-us/fortnite/map-in-verse) named `TeamsAndTotals`. This will map teams of players to the maximum number of players on that team.
        `# Maximum number of players on the Infiltrators Team.
       @editable
       MaximumInfiltrators:int = 2
-      # Maxmimum number of players on the Attackers Team.
+
+      # Maxmimum number of players on the Attackers Team
+
       @editable
       MaximumAttackers:int = 4
-      # Maximum number of players on the Defenders Team.
+
+      # Maximum number of players on the Defenders Team
+
       @editable
       MaximumDefenders:int = 4
-      # Map of teams to their maximum number of players.
+
+      # Map of teams to their maximum number of players
+
       var TeamsAndTotals:[team]int = map{}`
    3. An editable array of teleporters named `Teleporters`. This holds a reference to the teleporters which you'll use to teleport players to their spawns after team balancing.
        `# Map of teams to their maximum number of players.
       var TeamsAndTotals:[team]int = map{}
-      # Array of Teleporters that teleport players to their team's spawn once the game starts.
+
+      # Array of Teleporters that teleport players to their team's spawn once the game starts
+
       @editable
       Teleporters:[]teleporter_device = array{}`
    4. An editable `item_granter_device` array named `WeaponGranters`. This stores the item granters needed to grant players a weapon based on their team when they spawn.
        `# Array of Teleporters that teleport players to their team's spawn once the game starts.
       @editable
       Teleporters:[]teleporter_device = array{}
-      # Array of weapon granters for each team.
+
+      # Array of weapon granters for each team
+
       @editable
       var WeaponGranters:[]item_granter_device = array{}`
    5. Three optional `team` variables named `MaybeInfiltrators`, `MaybeAttackers`, and `MaybeDefenders`. These store a reference to each team to allow you to check that teams are set up correctly.
        `# Array of weapon granters for each team.
       @editable
       var WeaponGranters:[]item_granter_device = array{}
-      # Reference to the infiltrators team.
+
+      # Reference to the infiltrators team
+
       var MaybeInfiltrators:?team = false
-      # Reference to the attackers team.
+
+      # Reference to the attackers team
+
       var MaybeAttackers:?team = false
-      # Rerfernece to the defenders team.
+
+      # Rerfernece to the defenders team
+
       var MaybeDefenders:?team = false`
    6. A variable array of teams named `Teams`. This holds a reference to all teams in the game, and you'll use this to set the optional team variables above as well as find teams to assign players to when balancing.
        `# Reference to the infiltrators team.
       var MaybeInfiltrators:?team = false
-      # Reference to the attackers team.
+
+      # Reference to the attackers team
+
       var MaybeAttackers:?team = false
-      # Rerfernece to the defenders team.
+
+      # Rerfernece to the defenders team
+
       var MaybeDefenders:?team = false
-      # Array of all teams in the game.
+
+      # Array of all teams in the game
+
       var Teams:[]team = array{}`
 
 ## Finding Players and Teams at Runtime
 
 1. In `OnBegin()`, update the `Teams` array with each team that you set up earlier in **Experience Settings**. You can use the `GetTeams()` function from the `fort_team_collection` API to get an array of all teams in the playspace.
     `OnBegin<override>()<suspends>:void =
-   # Get all the Teams.
+
+   # Get all the Teams
+
    set Teams = GetPlayspace().GetTeamCollection().GetTeams()`
 2. Save a reference to each team by assigning `MaybeInfiltrators`, `MaybeAttackers`, and `MaybeDefenders` to their respective teams in the `Teams` array.
     `# Save the teams to later reference them.
@@ -102,6 +134,7 @@ This section shows how to find players and teams at runtime that you set up earl
         else:
             Logger.Print("Couldn't find all teams, make sure to assign the correct teams in your island settings.")
    ```
+
 4. Your `triad_infiltration_game` code should now look like:
 
    ```verse
@@ -171,6 +204,7 @@ This section shows how to find players and teams at runtime that you set up earl
                 else:
                     Logger.Print("Couldn't find all teams, make sure to assign the correct teams in your island settings.")
    ```
+
 5. Save the script in Visual Studio Code, and in the Main Menu, under Verse, click **Build Verse Scripts** to update your Verse-authored device in the level.
 6. Click **Launch Session** in the UEFN toolbar to playtest the level. When you playtest your level, all three teams should be set up in `TeamsAndTotals`. Verify this behavior with the log.
 

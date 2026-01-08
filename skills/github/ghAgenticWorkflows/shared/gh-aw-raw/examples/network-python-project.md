@@ -35,6 +35,7 @@ Analyze the Python package "{{ inputs.package_name }}" by:
 4. Creating a summary issue with your findings
 
 The network configuration allows access to:
+
 - **defaults**: Basic infrastructure for certificates and Ubuntu packages
 - **python**: Full Python ecosystem (PyPI, pip, files.pythonhosted.org, conda)
 - **github**: GitHub API for creating the issue

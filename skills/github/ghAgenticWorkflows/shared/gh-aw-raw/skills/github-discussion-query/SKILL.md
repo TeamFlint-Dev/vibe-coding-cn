@@ -73,26 +73,31 @@ Use the `--jq` argument to filter and transform the output:
 ### Example Queries
 
 **Find discussions with many comments:**
+
 ```bash
 ./query-discussions.sh --jq '.[] | select(.comments.totalCount > 5) | {number, title, comments: .comments.totalCount}'
 ```
 
 **Get unanswered discussions:**
+
 ```bash
 ./query-discussions.sh --jq '.[] | select(.answer == null) | {number, title, category: .category.name}'
 ```
 
 **List discussions with their labels:**
+
 ```bash
 ./query-discussions.sh --jq '.[] | {number, title, labels: [.labels[].name]}'
 ```
 
 **Find discussions by category:**
+
 ```bash
 ./query-discussions.sh --jq '.[] | select(.category.name == "Q&A") | {number, title, author: .author.login}'
 ```
 
 **Get recently updated discussions:**
+
 ```bash
 ./query-discussions.sh --jq 'sort_by(.updatedAt) | reverse | .[0:10] | .[] | {number, title, updatedAt}'
 ```

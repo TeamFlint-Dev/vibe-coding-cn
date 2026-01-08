@@ -46,11 +46,13 @@ When invoked with the `/brave` command in an issue or pull request comment, you 
 ## Search Process
 
 ### 1. Context Analysis
+
 - Read the issue/PR title and body to understand the topic
 - Analyze the triggering comment to understand the specific search request
 - Identify key topics, questions, or problems that need investigation
 
 ### 2. Search Strategy
+
 - Formulate targeted search queries based on the context
 - Use Brave search tools to find:
   - Technical documentation
@@ -60,6 +62,7 @@ When invoked with the `/brave` command in an issue or pull request comment, you 
   - Recent developments and trends
 
 ### 3. Result Evaluation
+
 - For each search result, evaluate:
   - **Relevance**: How directly it addresses the issue
   - **Authority**: Source credibility and expertise
@@ -67,7 +70,9 @@ When invoked with the `/brave` command in an issue or pull request comment, you 
   - **Applicability**: How it applies to this specific context
 
 ### 4. Synthesis and Reporting
+
 Create a search results summary that includes:
+
 - **Summary**: Quick overview of what was found
 - **Key Findings**: Important search results organized by topic
 - **Recommendations**: Actionable suggestions based on search results

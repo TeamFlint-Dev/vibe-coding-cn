@@ -10,6 +10,7 @@ description: "游戏技术选型：根据游戏需求选择合适的引擎、框
 ## When to Use This Skill
 
 触发此 Skill 当：
+
 - 系统设计完成，需要选择技术方案
 - 需要评估不同引擎/框架
 - 需要确定开发工具链
@@ -18,12 +19,14 @@ description: "游戏技术选型：根据游戏需求选择合适的引擎、框
 ## Not For / Boundaries
 
 此 Skill 不负责：
+
 - 游戏设计内容（需要设计文档作为输入）
 - 具体代码架构（交给 implementation-planner）
 - 项目进度规划（交给 implementation-planner）
 - 实际代码编写（交给开发阶段）
 
 必需输入：
+
 - `@concept.md` - 游戏概念（了解类型和规模）
 - `@systems-breakdown.md` - 系统设计（了解技术需求）
 
@@ -204,16 +207,19 @@ description: "游戏技术选型：根据游戏需求选择合适的引擎、框
 
 ### Example 1: UEFN 放置养成游戏
 
-**输入**: 
+**输入**:
+
 - @concept.md: Fortnite 岛屿放置养成游戏
 - @systems-breakdown.md: 收集/展示/经济/进度系统
 
 **分析**:
+
 - 平台限定：Fortnite
 - 类型：放置养成
 - 联网：Fortnite 内置多人
 
 **选型结果**:
+
 ```
 引擎：UEFN
 语言：Verse
@@ -225,16 +231,19 @@ UI：UEFN 原生 UI 系统
 
 ### Example 2: 独立 2D 游戏
 
-**输入**: 
+**输入**:
+
 - @concept.md: 2D 像素风 Roguelike
 - @systems-breakdown.md: 战斗/物品/地图生成系统
 
 **分析**:
+
 - 平台：PC + Steam
 - 类型：2D 动作
 - 团队：独立开发者
 
 **选型结果**:
+
 ```
 引擎：Godot 4.x
 语言：GDScript
@@ -246,16 +255,19 @@ UI：UEFN 原生 UI 系统
 
 ### Example 3: 多人 Web 游戏
 
-**输入**: 
+**输入**:
+
 - @concept.md: 实时多人 Web 游戏
 - @systems-breakdown.md: 匹配/战斗/社交系统
 
 **分析**:
+
 - 平台：Web 浏览器
 - 联网：实时多人
 - 规模：中等
 
 **选型结果**:
+
 ```
 引擎：Phaser 3
 语言：TypeScript

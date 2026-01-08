@@ -1,6 +1,6 @@
 # 1. Creating the NPC Behavior
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-template-1-creating-npc-behavior-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-template-1-creating-npc-behavior-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:21:54.520566
 
 ---
@@ -383,6 +383,6 @@ In the next step, you'll learn how to create a board for the character to be abl
 
 [![2. Defining Boards for the Game](https://dev.epicgames.com/community/api/documentation/image/aa8ee667-63cb-4225-aa8d-36ef417da110?resizing_type=fit&width=640&height=640)
 
-2. Defining Boards for the Game
+1. Defining Boards for the Game
 
-Create modular levels that you can customize in Unreal Editor for Fortnite using Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-02-defining-boards-for-the-game-in-unreal-editor-for-fortnite)
+Create modular levels that you can customize in Unreal Editor for Fortnite using Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-02-defining-boards-for-the-game-in-unreal-editor-for-fortnite>)

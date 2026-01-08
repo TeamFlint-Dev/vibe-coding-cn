@@ -85,14 +85,18 @@ prompt-library/
 ## 7. 自动化工具与用法
 
 - 依赖安装：
+
   ```bash
   python3 -m pip install -r prompt-library/scripts/requirements.txt
   ```
+
 - 运行（Excel→文件）：
+
   ```bash
   python3 "prompt-library/scripts/convert_local.py" \
     --excel "prompt (2).xlsx"
   ```
+
 - 行为摘要：
   - 为每个工作表生成一个同名（净化后）目录
   - 为每个非空单元格生成一个 `.md` 文件（仅含单元格文本）

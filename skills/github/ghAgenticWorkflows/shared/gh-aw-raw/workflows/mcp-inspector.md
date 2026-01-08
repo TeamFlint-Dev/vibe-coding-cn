@@ -58,6 +58,7 @@ Systematically investigate and document all MCP server configurations in `.githu
 ## Mission
 
 For each MCP configuration file:
+
 1. Read the file in `.github/workflows/shared/mcp/`
 2. Extract: server name, type (http/container/local), tools, secrets required
 3. Document configuration status and any issues

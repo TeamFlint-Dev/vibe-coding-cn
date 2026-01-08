@@ -81,16 +81,19 @@ Use ast-grep to search for the following problematic Go pattern:
 **Unmarshal Tag with Dash**: This pattern detects struct fields with `json:"-"` tags that might be problematic when used with JSON unmarshaling. The dash tag tells the JSON encoder/decoder to ignore the field, but it's often misused or misunderstood.
 
 Run this command to detect the pattern:
+
 ```bash
 ast-grep --pattern 'json:"-"' --lang go
 ```
 
 You can also check the full pattern from the ast-grep catalog:
-- https://ast-grep.github.io/catalog/go/unmarshal-tag-is-dash.html
+
+- <https://ast-grep.github.io/catalog/go/unmarshal-tag-is-dash.html>
 
 ### 2. Analyze Results
 
 If ast-grep finds any matches:
+
 - Review each occurrence carefully
 - Understand the context where the pattern appears
 - Determine if it's truly problematic or a valid use case
@@ -103,6 +106,7 @@ If you find problematic occurrences of this pattern, create a GitHub issue with:
 **Title**: "Detected problematic json:\"-\" tag usage in Go structs"
 
 **Issue Body** should include:
+
 - A clear explanation of what the pattern is and why it might be problematic
 - List of all files and line numbers where the pattern was found
 - Code snippets showing each occurrence
@@ -111,6 +115,7 @@ If you find problematic occurrences of this pattern, create a GitHub issue with:
 - Link to the ast-grep catalog entry for reference
 
 **Example issue format:**
+
 ```markdown
 ## Summary
 
@@ -129,6 +134,7 @@ The `json:"-"` tag tells the JSON encoder/decoder to completely ignore this fiel
 ```go
 [code snippet]
 ```
+
 **Analysis**: [Your analysis of this specific occurrence]
 
 [... repeat for each occurrence ...]
@@ -142,7 +148,8 @@ The `json:"-"` tag tells the JSON encoder/decoder to completely ignore this fiel
 
 ## Reference
 
-- ast-grep pattern: https://ast-grep.github.io/catalog/go/unmarshal-tag-is-dash.html
+- ast-grep pattern: <https://ast-grep.github.io/catalog/go/unmarshal-tag-is-dash.html>
+
 ```
 
 ### 4. If No Issues Found

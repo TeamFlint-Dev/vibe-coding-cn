@@ -1,6 +1,6 @@
 # 5. Improving Feedback and Player Experience
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-5-improving-feedback-and-player-experience-for-time-trial-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-5-improving-feedback-and-player-experience-for-time-trial-in-verse>
 > **爬取时间**: 2025-12-27T00:19:58.238063
 
 ---
@@ -76,7 +76,9 @@ Follow these steps to add more time to the countdown:
    FirstPickupZoneCompletedEvent.Await()
    if (DeliveryZone := DeliveryZoneSelector.SelectNext[]):
    DeliveryZone.ActivateZone()
-   # We defer zone deactivation so that canceling PickupDeliveryLoop also ends up deactivating any active delivery zone.
+
+   # We defer zone deactivation so that canceling PickupDeliveryLoop also ends up deactivating any active delivery zone
+
    defer:
    Logger.Print("Deactivating delivery zone.", ?Level := log_level.Normal)
    DeliveryZone.DeactivateZone()
@@ -103,8 +105,11 @@ Follow these steps to start the game when the player enters the vehicle and hand
     `OnBegin<override>()<suspends> : void =
    FindPlayer()
    SetupZones()
-   # We only want to be notified the first time the player enters the vehicle to start the game.
-   # StartGameOnPlayerEntersVehicle will wait for that event and then start the gameplay loop.
+
+   # We only want to be notified the first time the player enters the vehicle to start the game
+
+   # StartGameOnPlayerEntersVehicle will wait for that event and then start the gameplay loop
+
    StartGameOnPlayerEntersVehicle()
    StartGameOnPlayerEntersVehicle<private>()<suspends> : void =
    VehiclePlayer := VehicleSpawner.AgentEntersVehicleEvent.Await()
@@ -115,11 +120,17 @@ Follow these steps to start the game when the player enters the vehicle and hand
     `OnBegin<override>()<suspends> : void =
    FindPlayer()
    SetupZones()
+
    # After entering the vehicle, the player could exit at any time; we
-   # want to detect this every time it happens to put them back in the vehicle.
+
+   # want to detect this every time it happens to put them back in the vehicle
+
    VehicleSpawner.AgentExitsVehicleEvent.Subscribe(HandlePlayerExitsVehicle)
-   # We only want to be notified the first time the player enters the vehicle to start the game.
-   # StartGameOnPlayerEntersVehicle will wait for that event and then start the gameplay loop.
+
+   # We only want to be notified the first time the player enters the vehicle to start the game
+
+   # StartGameOnPlayerEntersVehicle will wait for that event and then start the gameplay loop
+
    StartGameOnPlayerEntersVehicle()
    HandlePlayerExitsVehicle<private>(VehiclePlayer : agent) : void =
    Logger.Print("Player exited the vehicle. Reassigning player to vehicle")
@@ -168,6 +179,6 @@ Follow these steps to remove extra pizzas from the player when they pick up a ne
 
 [![6. Pizza Pursuit Final Result](https://dev.epicgames.com/community/api/documentation/image/4987faba-6a74-4495-beaf-806d9aaa52fe?resizing_type=fit&width=640&height=640)
 
-6. Pizza Pursuit Final Result
+1. Pizza Pursuit Final Result
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-6-final-result-for-time-trial-in-verse)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-6-final-result-for-time-trial-in-verse>)

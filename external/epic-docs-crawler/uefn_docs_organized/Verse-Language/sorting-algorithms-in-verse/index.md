@@ -1,6 +1,6 @@
 # Sorting Algorithms in Verse
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/sorting-algorithms-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/sorting-algorithms-in-verse>
 > **爬取时间**: 2025-12-27T00:02:20.248452
 
 ---
@@ -34,6 +34,7 @@ Follow these steps to implement merge sort in Verse:
                 # Return the array passed in because we've reached the base case.
                 Array
    ```
+
 2. Then split the array in half.
 
    ```verse
@@ -48,6 +49,7 @@ Follow these steps to implement merge sort in Verse:
                 # Return the array passed in because we've reached the base case.
                 Array
    ```
+
 3. Call `MergeSort` on each half of the initial array, and then `Merge` the two halves together.
 
    ```verse
@@ -71,6 +73,7 @@ Follow these steps to implement merge sort in Verse:
                 # Return the array passed in because we've reached the base case.
                 Array
    ```
+
 4. When merging the two halves back together, compare elements from each array and add them to the resulting array until all elements from both arrays have been added. To do this, have an index variable to track positions in each array. Every time the `Compare` function succeeds, the left array element should be added and its index variable advanced to the next position in the array, otherwise do the same with the right array element. Once all the elements from one of the arrays have been added, add the remaining elements from the other array since it’s already been sorted.
 
    ```verse
@@ -210,6 +213,7 @@ Although it’s good to know how your algorithm is expected to run given time an
         # Test function for sorting arrays and profiling the code.
         RunArrayTest()<decides><transacts>:void=
    ```
+
 2. Add the argument for the array you want to run the sort on and the compare function to use.
 
    ```verse
@@ -218,6 +222,7 @@ Although it’s good to know how your algorithm is expected to run given time an
             # Perform merge sort
             ResultArray := SortingAlgorithms.MergeSort(ActualArray, Compare)
    ```
+
 3. Now you’ll need to compare the sorted array with what’s expected. Add the argument for the expected array to compare with the sorted actual array to verify the result is correct.
 
    Compare the elements in the `ResultArray` with the elements in the `ExpectedArray`. The function `RunArrayTest` is failable so as soon as an element doesn’t match, then the test function fails.
@@ -232,6 +237,7 @@ Although it’s good to know how your algorithm is expected to run given time an
         for (Index -> Result : ResultArray, Expected := ExpectedArray[Index]):
             Result = Expected
    ```
+
 4. Add an argument function to print out the arrays at each step so you can compare them if the test fails, and understand how to fix the code you’re testing.
 
    ```verse
@@ -249,6 +255,7 @@ Although it’s good to know how your algorithm is expected to run given time an
             for (Index -> Result : ResultArray, Expected := ExpectedArray[Index]):
                 Result = Expected
    ```
+
 5. Your test function checks for the accuracy of the result, but you can also get more information from your test. Using the [profile expression](https://dev.epicgames.com/documentation/en-us/fortnite/profile-in-verse), you can measure the performance of your algorithms by logging the time it takes the algorithm to complete.
 
    This is useful if you want to compare the performance of different sorting algorithms or test how your algorithms run given different inputs. Individual algorithms may perform very differently given best and worst-case inputs, and profiling lets you find and test those cases to know what to look out for. Over multiple tests, you can gauge your algorithm's average performance, and estimate how it will perform on inputs of any given size.
@@ -283,6 +290,7 @@ Start simple. Isolate what you’re testing. Test an integer array to sort from 
         IsIntSmallerThan(Left:int, Right:int)<decides><transacts>:int=
             Left < Right
    ```
+
 2. Create a helper function to convert an integer array to a string.
 
    ```verse
@@ -295,6 +303,7 @@ Start simple. Isolate what you’re testing. Test an integer array to sort from 
                     set ConvertedToString += ", "
             set ConvertedToString += "]"
    ```
+
 3. Create a Verse device to run the test.
 
    ```verse
@@ -332,15 +341,17 @@ Start simple. Isolate what you’re testing. Test an integer array to sort from 
                 else:
                     ProjectLog("One or more tests failed.")
    ```
+
 4. Now populate the test arrays with values.
 
    ```verse
         var ArrayLength:int = GetRandomInt(10, 100)
                 Test1ExpectedIntArray:[]int =
                     for (Count := 0..ArrayLength):
-                    	Count
+                     Count
                 Test1ActualIntArray:[]int = Shuffle(Test1ExpectedIntArray)
    ```
+
 5. Run the test by dragging the Verse device in to your level
 
 The following are more ideas for tests you can run:

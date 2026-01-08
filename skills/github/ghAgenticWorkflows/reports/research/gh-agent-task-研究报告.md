@@ -13,6 +13,7 @@
 `gh agent-task` 是 GitHub CLI 的一个内置命令（preview 阶段），用于通过命令行创建和管理 **GitHub Copilot Agent 任务**。
 
 **核心功能**：
+
 - 创建任务后，GitHub Copilot 会**自动执行代码修改**
 - 自动创建 PR（Pull Request）
 - 支持自定义 Agent 配置
@@ -38,6 +39,7 @@ gh agent-task <command> [flags]
 ```
 
 **别名**：
+
 - `gh agent-tasks`
 - `gh agent`
 - `gh agents`
@@ -101,6 +103,7 @@ gh agent-task create
 ### 3.4 输出格式
 
 成功创建后返回任务信息：
+
 ```
 https://github.com/owner/repo/issues/123
 ```
@@ -231,6 +234,7 @@ tools:
 ### 6.3 可用工具
 
 **标准工具别名**：
+
 | 别名 | 功能 |
 |------|------|
 | `read` | 读取文件/代码内容 |
@@ -240,6 +244,7 @@ tools:
 | `issue` | 创建/管理 Issue |
 
 **旧版工具名称**（仍支持）：
+
 - `createFile`, `editFiles`, `deleteFiles`
 - `codeSearch`, `getFile`, `listFiles`
 - `runCommand`
@@ -290,10 +295,12 @@ safe-outputs:
 ### 7.3 认证要求
 
 **需要的 Secret**：
+
 - `COPILOT_GITHUB_TOKEN`（推荐）
 - `GH_AW_GITHUB_TOKEN`（旧版）
 
 **权限要求**：
+
 - `contents: write` - 创建分支和提交
 - `issues: write` - 创建 Issue
 - `pull-requests: write` - 创建 PR
@@ -317,6 +324,7 @@ safe-outputs:
 ### 8.1 任务描述编写
 
 **✅ 好的描述**：
+
 ```markdown
 # 重构用户认证
 
@@ -330,6 +338,7 @@ safe-outputs:
 ```
 
 **❌ 差的描述**：
+
 ```markdown
 修复认证
 ```
@@ -382,6 +391,7 @@ Error: repository not found
 ### 9.4 Agent 未触发
 
 **可能原因**：
+
 1. 仓库未启用 GitHub Copilot
 2. 任务描述不清晰
 3. 仓库设置阻止自动 PR

@@ -1,6 +1,6 @@
 # Struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/struct-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/struct-in-verse>
 > **爬取时间**: 2025-12-27T00:39:23.928486
 
 ---
@@ -15,9 +15,9 @@ Struct is short for **structure**, and is a way to group several related [variab
 
 |  |  |
 | --- | --- |
-| ```verse coordinates := struct:     X : float = 0.0     Y : float = 0.0 ``` | **Creating a struct:** Use the [keyword](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#keyword) `struct` followed by a [code block](https://dev.epicgames.com/documentation/en-us/fortnite/code-blocks-in-verse). Definitions in the struct’s [code block](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#code-block) define the fields of the struct. |
-| ```verse Position := coordinates{X := 1.0, Y := 1.0} ``` | **Instantiating a struct:** You can construct an [instance](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#instance) of a struct from an [archetype](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#archetype). An archetype defines the values of a struct’s fields. |
-| ```verse Position.X ``` | **Accessing fields on a struct:** You can access a struct’s fields to get their value by adding `.` between the struct instance and the field name. |
+| ```verse coordinates := struct:     X : float = 0.0     Y : float = 0.0``` | **Creating a struct:** Use the [keyword](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#keyword) `struct` followed by a [code block](https://dev.epicgames.com/documentation/en-us/fortnite/code-blocks-in-verse). Definitions in the struct’s [code block](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#code-block) define the fields of the struct. |
+| ```verse Position := coordinates{X := 1.0, Y := 1.0}``` | **Instantiating a struct:** You can construct an [instance](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#instance) of a struct from an [archetype](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#archetype). An archetype defines the values of a struct’s fields. |
+| ```verse Position.X``` | **Accessing fields on a struct:** You can access a struct’s fields to get their value by adding `.` between the struct instance and the field name. |
 
 ## Persistable Type
 

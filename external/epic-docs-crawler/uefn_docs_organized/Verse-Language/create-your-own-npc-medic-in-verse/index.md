@@ -1,6 +1,6 @@
 # Create your own NPC Medic
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-your-own-npc-medic-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-your-own-npc-medic-in-verse>
 > **爬取时间**: 2025-12-27T00:04:11.088294
 
 ---
@@ -49,6 +49,7 @@ After removing the unneeded code, you can start to build your medic character.
        @editable
        HealingThreshold:float = 50.0
       ```
+
    2. Add an editable float `HealingDelay`. This is the amount of time to wait between each instance of healing while healing characters. Change this depending on whether you want your medic to heal slower or faster.
 
       ```verse
@@ -60,6 +61,7 @@ After removing the unneeded code, you can start to build your medic character.
        @editable
        HealingDelay:float = 1.5
       ```
+
    3. An editable float `HealingAmount`. This is the amount of health to heal characters per healing instance. When your medic NPC heals a character, they will heal the character by a `HealingAmount` every `HealingDelay` seconds.
 
       ```verse
@@ -71,6 +73,7 @@ After removing the unneeded code, you can start to build your medic character.
        @editable
        HealingAmount:float = 5.0
       ```
+
    4. An editable mutator zone `HealVolume`. This is the volume characters enter to receive healing. You'll use a mutator zone in this example because the mutator zone has an `AgentEntersEvent` which your medic can subscribe to and check for characters that might need healing.
 
       ```verse
@@ -82,6 +85,7 @@ After removing the unneeded code, you can start to build your medic character.
        @editable
        HealVolume:mutator_zone_device = mutator_zone_device{}
       ```
+
    5. An editable VFX spawner `VFXSpawner`. Visual feedback is important to know your code is working, so you'll use a VFX spawner to spawn effects when a character is being healed.
 
       ```verse
@@ -93,6 +97,7 @@ After removing the unneeded code, you can start to build your medic character.
        @editable
        VFXSpawner:vfx_spawner_device = vfx_spawner_device {}
       ```
+
    6. A variable optional `agent` named `AgentToFollow`. This stores a reference to the character the medic should follow while healing them.
 
       ```verse
@@ -103,6 +108,7 @@ After removing the unneeded code, you can start to build your medic character.
        # The agent to follow while they're being healed
        var AgentToFollow:?agent = false
       ```
+
    7. A variable queue of agents named `AgentsToHeal`. If multiple characters need healing, your medic will heal characters based on the order they entered the `HealVolume`. You'll set up the queue code in the next step. For more information on the queue data structure, see [stacks and queues in verse](stacks-and-queues-in-verse).
 
       ```verse
@@ -112,6 +118,7 @@ After removing the unneeded code, you can start to build your medic character.
        # The queue of agents to heal in the case of multiple agents entering the heal volume.
        var AgentsToHeal<public>:queue(agent) = queue(agent){}
       ```
+
    8. A variable float `UpdateRateSeconds`. This is the amount of time to wait between updating the position of the `HealVolume` and `VFXSpawner`.
 
       ```verse
@@ -121,6 +128,7 @@ After removing the unneeded code, you can start to build your medic character.
        # Used to specify how quickly to update the position of the HealVolume and VFXSpawner
        UpdateRateSeconds<private>:float = 0.1
       ```
+
 2. To implement the `AgentsToHeal` queue, you'll use the code provided at the end of this step.
 
    1. Back In [Verse Explorer](https://dev.epicgames.com/documentation/en-us/fortnite/verse-explorer-user-interface-reference-in-unreal-editor-for-fortnite), right-click on your project name and choose **Add new Verse file to project** to open the **Create Verse Script** window.
@@ -163,6 +171,7 @@ After removing the unneeded code, you can start to build your medic character.
                    Next := false
            Size := 1
       ```
+
    6. Organizing your Verse scripts into distinct folders can help with organization, as well as provide ways to easily reference commonly used files. As an example of this, you'll create a folder to store your NPC behaviors in this project. In Visual Studio Code, hit the **New Folder** button to create a new folder in your UEFN Project. Name the folder `npc_behaviors`. Then drag your `medic_example` Verse file into the new folder.
 
 Your code in `medic_example` should now compile correctly.
@@ -181,6 +190,7 @@ When an injured character enters the `HealVolume`, your medic character should b
                 if:
                     DequeueResult := AgentsToHeal.Dequeue[]
    ```
+
 2. The `DequeueResult` variable is a `tuple` that returns both a copy of the `AgentsToHeal` queue with the first element removed and the agent at the front of the queue. Update `AgentsToHeal` by setting it to the first value in the tuple, and save the second value as the `AgentToHeal`.
 
    ```verse
@@ -189,6 +199,7 @@ When an injured character enters the `HealVolume`, your medic character should b
             set AgentsToHeal = DequeueResult(0)
             AgentToHeal := DequeueResult(1)
    ```
+
 3. Once you have the agent to heal, you need to start healing them while they're in the `HealVolume`. You'll define a new function named `HealCharacter()` to handle this. Add a new function named `HealCharacter()` to the `medic_example` class definition. This function takes the `AgentToHeal` both the `Navigatable` and `Focusable` interfaces of the medic characters as function arguments. Add the `<suspends>` modifier to this function, since it needs to perform several asynchronous tasks when healing a character.
 
    ```verse
@@ -197,6 +208,7 @@ When an injured character enters the `HealVolume`, your medic character should b
         # or the character leaves the HealVolume.
         HealCharacter(AgentToHeal:agent, Navigatable:navigatable, Focusable:focus_interface)<suspends>:void=
    ```
+
 4. In `HealCharacter`, check if the `AgentToHeal` is in the volume by calling `IsInVolume[]`, and passing `AgentToHeal` as an argument. If the agent is in the volume, you can begin healing them. All healable agents implement the `healthful` interface, which is part of the agent's `fort_character`. Get the agent's `fort_character` and save it in a value `CharacterToHeal`.
 
    ```verse
@@ -206,6 +218,7 @@ When an injured character enters the `HealVolume`, your medic character should b
                 HealVolume.IsInVolume[AgentToHeal]
                 CharacterToHeal := AgentToHeal.GetFortCharacter[]
    ```
+
 5. With the character ready to heal, you need to make sure your medic stays close to the character being healed. Create a `navigation_target` from `AgentToHeal` using `MakeNavigationTarget` and save it in a variable `NavigationTarget`. Then in a `branch` statement, call the `NavigateTo()` function using the NPC's `navigatable` interface to have your medic navigate to the `AgentToHeal`. Also in the `branch` function, call the `MaintainFocus()` function to make sure your medic focuses on the `AgentToHeal`. Using a `branch` statement in this context lets you run both `NavigateTo()` and `MaintainFocus()` asynchronously at the same time, and lets you run any code after your `branch` immediately. For more information on branch expressions, see the [branch in Verse page](https://dev.epicgames.com/documentation/en-us/fortnite/branch-in-verse).
 
    ```verse
@@ -220,18 +233,20 @@ When an injured character enters the `HealVolume`, your medic character should b
                 Navigatable.NavigateTo(NavigationTarget)
                 Focusable.MaintainFocus(AgentToHeal)
    ```
+
 6. Enable the `VFXSpawner` to play VFX as your medic heals a character. Then in a `defer` expression, disable the `VFXSpawner`. Because the code for disabling the `VFXSpawner` is in a `defer` expression, it won't run until the current scope exits. In this situation, it means that the code will only run when the function ends, so it is guaranteed to be the last thing that happens in the function. For more information on defer expressions, see the [defer page](https://dev.epicgames.com/documentation/en-us/fortnite/defer-in-verse).
 
    ```verse
         branch:
             Navigatable.NavigateTo(NavigationTarget)
             Focusable.MaintainFocus(AgentToHeal)
-   		    
+         
         VFXSpawner.Enable()
-   		    
+         
         defer:
             VFXSpawner.Disable()
    ```
+
 7. When healing the `CharacterToHeal`, healing should stop when one of two conditions happens. Either the character's health is healed past the `HealingThreshold`, or the character exits the `HealVolume`. To accomplish this, you'll use a `race` expression. Set up a `race` expression between a `loop` and an `Await()` on the `HealVolume.AgentExitsEvent.`
 
    ```verse
@@ -245,6 +260,7 @@ When an injured character enters the `HealVolume`, your medic character should b
             loop:
             HealVolume.AgentExitsEvent.Await()
    ```
+
 8. Inside the `loop`, get the current health of the character using `GetHealth()` and save it in a value `CurrentHealth`. Then in an `if` statement, check if the `CurrentHealth` plus the `HealingAmount` is greater than the `HealingThreshold`. If so, your medic should stop healing and `break` out of the loop. However, if the character's current health is just a little less than the healing threshold, you want to heal them up to the healing threshold. Add a second `if` statement inside the first one that checks if `CurrentHealth` is less than the `HealingThreshold`. If so, set the character's health to the `HealingThreshold`.
 
    ```verse
@@ -258,6 +274,7 @@ When an injured character enters the `HealVolume`, your medic character should b
                     break
             HealVolume.AgentExitsEvent.Await()
    ```
+
 9. Otherwise if the `CurrentHealth` plus the `HealingAmount` is not greater than the `HealingThreshold`, set the character's health to the `Current Health` plus the `HealingAmount`.
 
    ```verse
@@ -269,6 +286,7 @@ When an injured character enters the `HealVolume`, your medic character should b
         else:
             CharacterToHeal.SetHealth(CurrentHealth + HealingAmount)
    ```
+
 10. At the end of the `loop`, sleep for a `HealingDelay` amount of time. Without this sleep, characters will be healed every simulation update, so the `HealingDelay` will prevent them from being healed instantly. Your completed `HealCharacter()` code should look like the following.
 
     ```verse
@@ -302,6 +320,7 @@ When an injured character enters the `HealVolume`, your medic character should b
                          Sleep(HealingDelay)
                          HealVolume.AgentExitsEvent.Await()
     ```
+
 11. Back in `OnBegin()`, in the `then` expression inside of your `loop`, call `HealCharacter()` by passing the `AgentToHeal`, the `Navigable` interface, and the `Focusable` interface.
 
     ```verse
@@ -313,6 +332,7 @@ When an injured character enters the `HealVolume`, your medic character should b
              Print("Dequeued the next agent to heal")
              HealCharacter(AgentToHeal, Navigatable, Focusable)
     ```
+
 12. Your medic will not always have a character to heal near them, and the `Dequeue[]` function will fail if there are no agents in the `AgentsToHeal` queue. To handle this, add an `else` statement to the end of the `loop`. Inside this `if` statement, call `Sleep()` for a `HealingDelay` amount of time, then `Await()` the `HealVolume.AgentEntersEvent`. This way your medic character will not endlessly call `Dequeue[]` on the `AgentsToHeal` queue, and will instead wait for a new character to enter the `HealVolume before restarting the loop. Your completed loop should look like the following.
 
     ```verse
@@ -342,6 +362,7 @@ To know when characters enter or exit the `HealVolume`, you'll subscribe both th
         OnAgentEnters(EnteredAgent:agent):void=
                 Print("Agent entered the heal volume")
    ```
+
 2. In `OnAgentEnters()`, check that the agent in the volume is not the medic character. If so, set the `AgentsToHeal` queue to the result of calling `Enqueue[]` with the `EnteredAgent`. Your completed `OnAgentEnters()` function should look like the following:
 
    ```verse
@@ -350,12 +371,14 @@ To know when characters enter or exit the `HealVolume`, you'll subscribe both th
            if (EnteredAgent <> GetAgent[]):
                set AgentsToHeal = AgentsToHeal.Enqueue(EnteredAgent)
    ```
+
 3. When an agent exits the `HealVolume`, you don't need to remove them from the `AgentsToHeal` queue. This is because the loop in `OnBegin()` already calls `Dequeue[]` in a loop. However, you may want to run code when an agent exits the volume in your examples, so you'll set up a function for this now. Add a new function named `OnAgentExits()` to the `medic_example` class definition.
 
    ```verse
         OnAgentExits(ExitAgent:agent):void=
             Print("Agent exited the heal volume")
    ```
+
 4. In `OnBegin()`, subscribe the `HealVolume`'s `AgentEntersEvent` and `AgentExitsEvent` to `OnAgentEnters` and `OnAgentExits` respectively. Since it should start disabled, this is a good place to call `Disable()` on the character spawner.
 
    ```verse
@@ -375,6 +398,7 @@ When the medic character moves, the `HealVolume` needs to move with them to matc
    ```verse
         DeviceFollowCharacter()<suspends>:void=
    ```
+
 2. Inside the `DeviceFollowCharacter()` function, get the `fort_character` of the medic by first getting the agent using `GetAgent[]`, then calling `GetFortCharater[]`.
 
    ```verse
@@ -385,6 +409,7 @@ When the medic character moves, the `HealVolume` needs to move with them to matc
                 # Get the fort_character interface of the agent to access Fortnite character-specific behaviors, events, functions, and interfaces.
                 Character := Agent.GetFortCharacter[]
    ```
+
 3. Now you need to continuously move the `HealVolume` and `VFXSpawner` to the `Character`'s position. You'll do this by looping a `MoveTo()` on both devices. Start a `loop` and get the `Character`'s transform and save it in a variable `CharacterTransform`.
 
    ```verse
@@ -397,6 +422,7 @@ When the medic character moves, the `HealVolume` needs to move with them to matc
             loop:
                 CharacterTransform := Character.GetTransform()
    ```
+
 4. Call `MoveTo()` on both the `VFXSpawner` and the `HealVolume`, moving them to the `CharacterTransform.Translation` and `CharacterTransform.Rotation`. Set the duration to `UpdateRateSeconds` seconds. Finally, call `Sleep()` for an `UpdateRateSeconds` amount of time to prevent the devices from updating their position every simulation update. Updating the device position every simulation update can cause jittery movement on your devices. Your completed `DeviceFollowCharacter()` code should look like the following.
 
    ```verse
@@ -413,6 +439,7 @@ When the medic character moves, the `HealVolume` needs to move with them to matc
                         HealVolume.MoveTo(CharacterTransform.Translation, CharacterTransform.Rotation, UpdateRateSeconds)
                         Sleep(UpdateRateSeconds)
    ```
+
 5. In `OnBegin()`, after the `if` statement where you save your character interfaces but before the loop, spawn an instance of `DeviceFollowCharacter()`.
 
 ## Adding your Character to the Level
@@ -425,8 +452,8 @@ When the medic character moves, the `HealVolume` needs to move with them to matc
    3. In the **Modifiers** tab, under **Guard Spawn Modifier**, click the **Cosmetic** tab to change your character's cosmetic appearance. You can choose from a preexisting cosmetic, or enable **Character Cosmetic Retargeting** to use a custom model. Note that only guards and Custom-type characters can use character cosmetic retargeting, while wildlife cannot. For more information on character modifiers and which ones apply to different character types, see the [Character Definition](https://dev.epicgames.com/documentation/en-us/fortnite/using-npc-character-definitions-in-unreal-editor-for-fortnite) page.
 3. Save your NPC character definition. In the **Content Browser**, drag your NPC character definition into the level. This will automatically create a new character spawner and assign your NPC character definition to it.
 
-1. Drag one mutator zone and one VFX spawner device into the level.
-2. Select your character spawner. In the **Outliner**, under **User Options**:
+4. Drag one mutator zone and one VFX spawner device into the level.
+5. Select your character spawner. In the **Outliner**, under **User Options**:
 
    1. Set **AIBehavior Script override** to your `medic_example` script. Overriding the `AIBehavior Script in the outliner allows you to reference devices in the level, and you'll need this functionality to assign your **HealVolume** and **VFXSpawner**.
    2. Set **HealVolume** to the mutator zone, and **VFXSpawner** to the VFX spawner you placed in the level.

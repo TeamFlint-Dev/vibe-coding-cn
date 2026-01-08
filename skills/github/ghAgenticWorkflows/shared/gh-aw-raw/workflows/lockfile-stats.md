@@ -62,12 +62,14 @@ Analyze all .lock.yml files in the `.github/workflows/` directory to identify us
 Analyze the collected data to generate insights:
 
 #### 2.1 Trigger Analysis
+
 - **Most Popular Triggers**: Count frequency of each trigger type (issues, pull_request, schedule, workflow_dispatch, etc.)
 - **Trigger Combinations**: Identify common trigger combinations
 - **Schedule Patterns**: Analyze cron schedule frequencies
 - **Workflow Dispatch Usage**: Count workflows with manual trigger capability
 
 #### 2.2 Safe Outputs Analysis
+
 - **Safe Output Types**: Count usage of different safe output types:
   - create-discussion
   - create-issue
@@ -80,6 +82,7 @@ Analyze the collected data to generate insights:
 - **Category Distribution**: For create-discussion, analyze which categories are most used
 
 #### 2.3 Structural Analysis
+
 - **File Size Distribution**:
   - Average lock file size
   - Minimum and maximum sizes
@@ -96,6 +99,7 @@ Analyze the collected data to generate insights:
   - Workflows with minimal permissions vs. broad permissions
 
 #### 2.4 Interesting Patterns
+
 - **MCP Server Usage**: Identify which MCP servers are most commonly configured
 - **Tool Configurations**: Common tool allowlists
 - **Timeout Patterns**: Average and distribution of timeout-minutes values
@@ -269,24 +273,28 @@ Based on statistical analysis, a typical .lock.yml file has:
 ## Important Guidelines
 
 ### Data Collection Quality
+
 - **Be Thorough**: Parse all lock files completely
 - **Handle Errors**: Skip corrupted or malformed files gracefully
 - **Accurate Counting**: Ensure counts are precise and verifiable
 - **Pattern Recognition**: Look for both common and unique patterns
 
 ### Analysis Quality
+
 - **Statistical Rigor**: Use appropriate statistical measures
 - **Clear Presentation**: Use tables and charts for readability
 - **Actionable Insights**: Focus on useful findings
 - **Historical Context**: Compare with previous runs when available
 
 ### Cache Memory Usage
+
 - **Script Persistence**: Save working scripts for reuse
 - **Pattern Library**: Build a library of useful patterns
 - **Historical Tracking**: Maintain trend data over time
 - **Lessons Learned**: Document what works well
 
 ### Resource Efficiency
+
 - **Batch Processing**: Process files efficiently
 - **Reuse Scripts**: Use cached scripts when available
 - **Avoid Redundancy**: Don't re-analyze unchanged data
@@ -335,6 +343,7 @@ Organize persistent data in `/tmp/gh-aw/cache-memory/`:
 ## Success Criteria
 
 A successful analysis:
+
 - ✅ Analyzes all .lock.yml files in the repository
 - ✅ Generates accurate statistics for all metrics
 - ✅ Creates a comprehensive, well-formatted report
@@ -346,6 +355,7 @@ A successful analysis:
 ## Output Requirements
 
 Your output MUST:
+
 1. Create a discussion in the "audits" category with the complete statistical report
 2. Use the report template provided above
 3. Include actual data from all lock files

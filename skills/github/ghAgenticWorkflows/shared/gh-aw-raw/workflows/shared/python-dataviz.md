@@ -104,6 +104,7 @@ Python scientific libraries have been installed and are ready for use. A tempora
 **CRITICAL**: Data must NEVER be inlined in Python code. Always store data in external files and load using pandas.
 
 ### ❌ PROHIBITED - Inline Data
+
 ```python
 # DO NOT do this
 data = [10, 20, 30, 40, 50]
@@ -111,6 +112,7 @@ labels = ['A', 'B', 'C', 'D', 'E']
 ```
 
 ### ✅ REQUIRED - External Data Files
+
 ```python
 # Always load data from external files
 import pandas as pd
@@ -162,15 +164,18 @@ plt.savefig('/tmp/gh-aw/python/charts/chart.png',
 When creating reports (issues, discussions, etc.), use the `upload asset` tool to make images URL-addressable and include them in markdown:
 
 ### Step 1: Generate and Upload Chart
+
 ```python
 # Generate your chart
 plt.savefig('/tmp/gh-aw/python/charts/my_chart.png', dpi=300, bbox_inches='tight')
 ```
 
 ### Step 2: Upload as Asset
+
 Use the `upload asset` tool to upload the chart file. The tool will return a GitHub raw content URL.
 
 ### Step 3: Include in Markdown Report
+
 When creating your discussion or issue, include the image using markdown:
 
 ```markdown
@@ -188,11 +193,13 @@ The chart above shows...
 The cache memory at `/tmp/gh-aw/cache-memory/` is available for storing reusable code:
 
 **Helper Functions to Cache:**
+
 - Data loading utilities: `data_loader.py`
 - Chart styling functions: `chart_utils.py`
 - Common data transformations: `transforms.py`
 
 **Check Cache Before Creating:**
+
 ```bash
 # Check if helper exists in cache
 if [ -f /tmp/gh-aw/cache-memory/data_loader.py ]; then
@@ -202,6 +209,7 @@ fi
 ```
 
 **Save to Cache for Future Runs:**
+
 ```bash
 # Save useful helpers to cache
 cp /tmp/gh-aw/python/data_loader.py /tmp/gh-aw/cache-memory/
@@ -252,6 +260,7 @@ print("Chart saved to /tmp/gh-aw/python/charts/chart.png")
 ## Error Handling
 
 **Check File Existence:**
+
 ```python
 import os
 
@@ -261,6 +270,7 @@ if not os.path.exists(data_file):
 ```
 
 **Validate Data:**
+
 ```python
 # Check for required columns
 required_cols = ['category', 'value']
@@ -274,11 +284,13 @@ if missing:
 Charts and source files are automatically uploaded as artifacts:
 
 **Charts Artifact:**
+
 - Name: `data-charts`
 - Contents: PNG files from `/tmp/gh-aw/python/charts/`
 - Retention: 30 days
 
 **Source and Data Artifact:**
+
 - Name: `python-source-and-data`
 - Contents: Python scripts and data files
 - Retention: 30 days
@@ -301,6 +313,7 @@ Both artifacts are uploaded with `if: always()` condition, ensuring they're avai
 Based on common use cases:
 
 **Repository Statistics:**
+
 ```python
 # Collect via GitHub API, save to data.csv
 # Then load and visualize
@@ -308,12 +321,14 @@ data = pd.read_csv('/tmp/gh-aw/python/data/repo_stats.csv')
 ```
 
 **Workflow Metrics:**
+
 ```python
 # Collect via GitHub Actions API, save to data.json
 data = pd.read_json('/tmp/gh-aw/python/data/workflow_metrics.json')
 ```
 
 **Sample Data Generation:**
+
 ```python
 # Generate with NumPy, save to file first
 import numpy as np

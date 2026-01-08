@@ -44,12 +44,14 @@ safe-outputs:
 ## 环境准备
 
 1. 安装 Beads CLI：
+
    ```bash
    curl -sSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
    export PATH="$HOME/.beads/bin:$PATH"
    ```
 
 2. 验证安装：
+
    ```bash
    bd --version
    ```
@@ -57,6 +59,7 @@ safe-outputs:
 ## 获取任务
 
 1. 查看可用任务：
+
    ```bash
    bd ready --json --limit 1
    ```
@@ -64,6 +67,7 @@ safe-outputs:
 2. 如果指定了 task_id 输入，使用该任务；否则选择优先级最高的任务
 
 3. 认领任务：
+
    ```bash
    bd update <task-id> --status in_progress
    ```
@@ -76,6 +80,7 @@ safe-outputs:
    - `skill:gameDev` → `skills/design/gameDev/SKILL.md`
 3. 按照 Skill 指导执行任务
 4. 如果发现子任务，创建并链接：
+
    ```bash
    bd create "子任务描述" --deps discovered-from:<parent-id>
    ```
@@ -83,11 +88,13 @@ safe-outputs:
 ## 完成任务
 
 1. 关闭任务：
+
    ```bash
    bd close <task-id> --reason "完成描述"
    ```
 
 2. 同步状态：
+
    ```bash
    bd sync
    ```
@@ -99,6 +106,7 @@ safe-outputs:
 ## 输出格式
 
 在评论中包含：
+
 - 任务 ID 和标题
 - 执行的步骤摘要
 - 创建的文件或变更

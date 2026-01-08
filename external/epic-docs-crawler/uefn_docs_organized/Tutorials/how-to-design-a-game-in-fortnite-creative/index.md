@@ -1,6 +1,6 @@
 # How To Design a Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/how-to-design-a-game-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/how-to-design-a-game-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:13:02.047110
 
 ---
@@ -164,7 +164,7 @@ Keep in mind that you will not be there to explain your game to everyone who pla
 
 [Iteration](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#iterate) is a key element of game development. Something that seems so obvious to you might be totally missed by your players, and ruin the game for them if they miss it, and a fresh set of eyes can catch something you missed. It's also a good idea to find as many different playtesters as you can. Every player will have their own ideas and experiences, so the more variety you have in your playtesters, the more you can understand what does and doesn't work.
 
-## This Is Just the Beginning!
+## This Is Just the Beginning
 
 This is by no means everything there is to know about game design, but hopefully it's enough to get you started in the right direction. If you've played a lot of games over time, you'll find that much of the information here is already second nature to you. And if it isn't, hopefully it will be soon!
 

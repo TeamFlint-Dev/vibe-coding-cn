@@ -1,6 +1,6 @@
 # 7. Testing Multiplayer Using the Sentry Device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-7-testing-multiplayer-using-the-sentry-device-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-7-testing-multiplayer-using-the-sentry-device-in-verse>
 > **爬取时间**: 2025-12-27T00:18:34.519174
 
 ---
@@ -15,6 +15,7 @@ Follow these steps to grant weapons to players when they score an elimination on
         TestPlayerEliminated(Agent : ?agent) : void =
                 Print("Sentry Down!")
    ```
+
 2. In `TestPlayerEliminated`, check if the Sentry was eliminated by a player, and if it was, pass the eliminating player to `GiveNextWeapon`. Because `TestPlayerEliminated` already accepts an agent option as an argument, you know implicitly which player scored this elimination.
 
    ```verse
@@ -23,6 +24,7 @@ Follow these steps to grant weapons to players when they score an elimination on
             if(TeamPlayer := Agent?):
                 GiveNextWeapon(TeamPlayer)
    ```
+
 3. In `OnBegin`, add a new `for` [loop](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#loop) to subscribe to each sentry's `EliminatedEvent` using `TestPlayerEliminated`. Your `OnBegin` code should look like the code below.
 
    ```verse

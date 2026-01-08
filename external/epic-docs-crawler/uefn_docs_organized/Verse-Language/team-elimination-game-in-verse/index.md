@@ -1,6 +1,6 @@
 # Team Elimination Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-game-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-game-in-verse>
 > **爬取时间**: 2025-12-26T23:02:07.024536
 
 ---
@@ -35,32 +35,32 @@ Follow these steps to learn how to create a multiplayer competitive game mode th
 
 1. Setting Up the Team Elimination Level
 
-Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-1-setting-up-the-level-in-verse)[![2. Finding Devices at Runtime](https://dev.epicgames.com/community/api/documentation/image/b4061807-3dd1-4496-9f15-7a631f3d1f9e?resizing_type=fit&width=640&height=640)
+Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](<https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-1-setting-up-the-level-in-verse)[![2>. Finding Devices at Runtime](<https://dev.epicgames.com/community/api/documentation/image/b4061807-3dd1-4496-9f15-7a631f3d1f9e?resizing_type=fit&width=640&height=640>)
 
-2. Finding Devices at Runtime
+1. Finding Devices at Runtime
 
-Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-2-finding-devices-at-runtime-in-verse)[![3. Subscribing to Player Events](https://dev.epicgames.com/community/api/documentation/image/06104297-24fa-45c2-87b3-919b3f8b7137?resizing_type=fit&width=640&height=640)
+Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](<https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-2-finding-devices-at-runtime-in-verse)[![3>. Subscribing to Player Events](<https://dev.epicgames.com/community/api/documentation/image/06104297-24fa-45c2-87b3-919b3f8b7137?resizing_type=fit&width=640&height=640>)
 
-3. Subscribing to Player Events
+1. Subscribing to Player Events
 
-Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-3-subscribing-to-player-events-in-verse)[![4. Tracking Players Using Maps](https://dev.epicgames.com/community/api/documentation/image/5a6dd8ca-16fa-43cb-ba16-50b62f60a5f7?resizing_type=fit&width=640&height=640)
+Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](<https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-3-subscribing-to-player-events-in-verse)[![4>. Tracking Players Using Maps](<https://dev.epicgames.com/community/api/documentation/image/5a6dd8ca-16fa-43cb-ba16-50b62f60a5f7?resizing_type=fit&width=640&height=640>)
 
-4. Tracking Players Using Maps
+1. Tracking Players Using Maps
 
-Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-4-tracking-players-using-maps-in-verse)[![5. Granting Weapons on Eliminations](https://dev.epicgames.com/community/api/documentation/image/e8c42907-0294-4a94-a124-e86c96f227f4?resizing_type=fit&width=640&height=640)
+Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](<https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-4-tracking-players-using-maps-in-verse)[![5>. Granting Weapons on Eliminations](<https://dev.epicgames.com/community/api/documentation/image/e8c42907-0294-4a94-a124-e86c96f227f4?resizing_type=fit&width=640&height=640>)
 
-5. Granting Weapons on Eliminations
+1. Granting Weapons on Eliminations
 
-Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-5-granting-weapons-on-eliminations-in-verse)[![6. Handling a Player Joining a Game in Progress](https://dev.epicgames.com/community/api/documentation/image/99a3886e-6fcd-4e15-834b-35f045ffe51e?resizing_type=fit&width=640&height=640)
+Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](<https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-5-granting-weapons-on-eliminations-in-verse)[![6>. Handling a Player Joining a Game in Progress](<https://dev.epicgames.com/community/api/documentation/image/99a3886e-6fcd-4e15-834b-35f045ffe51e?resizing_type=fit&width=640&height=640>)
 
-6. Handling a Player Joining a Game in Progress
+1. Handling a Player Joining a Game in Progress
 
-Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-6-handling-a-player-joining-a-game-in-progress-in-verse)[![7. Testing Multiplayer Using the Sentry Device](https://dev.epicgames.com/community/api/documentation/image/19cacadf-9add-4161-9ba2-182dc50c061d?resizing_type=fit&width=640&height=640)
+Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](<https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-6-handling-a-player-joining-a-game-in-progress-in-verse)[![7>. Testing Multiplayer Using the Sentry Device](<https://dev.epicgames.com/community/api/documentation/image/19cacadf-9add-4161-9ba2-182dc50c061d?resizing_type=fit&width=640&height=640>)
 
-7. Testing Multiplayer Using the Sentry Device
+1. Testing Multiplayer Using the Sentry Device
 
-Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-7-testing-multiplayer-using-the-sentry-device-in-verse)[![8. Final Result](https://dev.epicgames.com/community/api/documentation/image/93c003db-9c3f-4f69-b842-2dcca37a3329?resizing_type=fit&width=640&height=640)
+Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](<https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-7-testing-multiplayer-using-the-sentry-device-in-verse)[![8>. Final Result](<https://dev.epicgames.com/community/api/documentation/image/93c003db-9c3f-4f69-b842-2dcca37a3329?resizing_type=fit&width=640&height=640>)
 
-8. Final Result
+1. Final Result
 
-Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](https://dev.epicgames.com/documentation/en-us/fortnite/team-elimiation-8-final-result-in-verse)
+Use Verse to create a multiplayer competitive game mode that advances teams through a series of weapons.](<https://dev.epicgames.com/documentation/en-us/fortnite/team-elimiation-8-final-result-in-verse>)

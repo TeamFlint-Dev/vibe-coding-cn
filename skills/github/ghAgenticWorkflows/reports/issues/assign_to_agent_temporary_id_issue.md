@@ -17,6 +17,7 @@
 ### 1. 问题上下文
 
 `research-planner.md` 工作流设计了两个步骤：
+
 1. **创建 Issue** - 使用 `create-issue` safe-output
 2. **分配给 Copilot** - 使用 `assign-to-agent` safe-output
 
@@ -152,11 +153,13 @@ safe-outputs:
 ```
 
 **优点**：
+
 - 零代码修改
 - 原子操作（创建 + 分配一步完成）
 - 避免竞态条件
 
 **修改点**：
+
 1. 从 `safe-outputs` 中移除 `assign-to-agent`
 2. 更新工作流 Prompt，告知 Agent 无需手动分配
 
@@ -165,6 +168,7 @@ safe-outputs:
 需要修改 gh-aw 源代码，按照 [temporary-id-safe-output/SKILL.md](../../skills/github/ghAgenticWorkflows/shared/gh-aw-raw/skills/temporary-id-safe-output/SKILL.md) 的实现清单：
 
 **修改清单**：
+
 - [ ] 更新 Go Job Builder (`pkg/workflow/assign_agent.go`)
   - 接受 `createIssueJobName` 参数
   - 添加 `GH_AW_TEMPORARY_ID_MAP` 环境变量

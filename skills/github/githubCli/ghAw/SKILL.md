@@ -169,7 +169,7 @@ safe-outputs:
 
 ### 创建 Fine-grained PAT
 
-1. 访问 https://github.com/settings/tokens?type=beta
+1. 访问 <https://github.com/settings/tokens?type=beta>
 2. 点击 "Generate new token"
 3. 设置：
    - **Repository access**: 选择目标仓库
@@ -180,6 +180,7 @@ safe-outputs:
      - Pull requests: Read and write
 
 4. 设置 Secret：
+
    ```bash
    echo "<your-token>" | gh secret set COPILOT_GITHUB_TOKEN --repo owner/repo
    ```
@@ -242,21 +243,24 @@ safe-outputs:
    export PATH="$HOME/.beads/bin:$PATH"
    ```
 
-2. 获取可用任务：
+1. 获取可用任务：
+
    ```bash
    bd ready --json --limit 1
    ```
 
-3. 如果有任务，认领并执行：
+2. 如果有任务，认领并执行：
+
    ```bash
    bd update <task-id> --status in_progress
    ```
 
-4. 根据任务的 label 加载对应 Skill（从 skills/ 目录）
+3. 根据任务的 label 加载对应 Skill（从 skills/ 目录）
 
-5. 执行任务，生成代码或文档
+4. 执行任务，生成代码或文档
 
-6. 完成任务：
+5. 完成任务：
+
    ```bash
    bd close <task-id> --reason "完成描述"
    bd sync
@@ -266,6 +270,7 @@ safe-outputs:
 
 - 通过 `create-pull-request` 提交代码变更
 - 通过 `add-comment` 报告执行结果
+
 ```
 
 ---

@@ -101,6 +101,7 @@ graph LR
     style C fill:#F8CECC
     style F fill:#F8CECC
 ```
+
 这个流程确保了无论是喜欢电子表格的非技术人员，还是习惯于Git和代码编辑器的开发人员，都可以高效地协作。
 
 ---
@@ -121,6 +122,7 @@ git clone https://github.com/tukuaiai/prompt-library.git
 cd prompt-library
 pip install -r requirements.txt
 ```
+
 </details>
 
 ### 3. 使用
@@ -132,6 +134,7 @@ pip install -r requirements.txt
 # 运行交互式转换
 python3 main.py
 ```
+
 程序将扫描 `prompt_excel` 目录下的 `.xlsx` 文件，并让你选择一个进行转换。结果将输出到 `prompt_docs` 目录下一个带时间戳的文件夹中。
 </details>
 
@@ -142,6 +145,7 @@ python3 main.py
 # 运行交互式转换
 python3 main.py
 ```
+
 程序将扫描 `prompt_docs` 目录，让你选择一个文档集，然后将其转换回 Excel 文件，并输出到 `prompt_excel` 目录下一个带时间戳的文件夹中。
 </details>
 

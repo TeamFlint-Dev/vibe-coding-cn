@@ -3,6 +3,7 @@
 ## 概述
 
 本文档总结在 Webhook 服务器和 GitHub Actions 工作流中调用 GitHub API 的常用模式和最佳实践，特别关注：
+
 - 从外部 Webhook 服务器触发工作流
 - 在工作流中创建 PR 评论
 - 查询工作流运行状态
@@ -20,6 +21,7 @@ env:
 ```
 
 **权限限制：**
+
 - 无法触发其他工作流的 `workflow_dispatch`
 - 无法发送 `repository_dispatch`
 - 仅限当前仓库
@@ -27,12 +29,14 @@ env:
 ### Personal Access Token (PAT)
 
 **在工作流中使用：**
+
 ```yaml
 env:
   GH_TOKEN: ${{ secrets.MY_PAT }}
 ```
 
 **在外部 Webhook 服务器中使用：**
+
 ```python
 import os
 import requests
@@ -49,10 +53,12 @@ response = requests.post(api_url, headers=headers, json=payload)
 ```
 
 **推荐权限（Classic PAT）：**
+
 - `repo` - 完整仓库访问（触发 dispatch、创建评论）
 - `workflow` - 工作流管理（可选，用于高级操作）
 
 **安全配置：**
+
 - 存储在环境变量中，不要硬编码
 - 定期轮换 Token
 - 使用最小权限原则
@@ -62,6 +68,7 @@ response = requests.post(api_url, headers=headers, json=payload)
 ### workflow_dispatch
 
 **使用 gh workflow run：**
+
 ```bash
 gh workflow run my-workflow.yml \
   -f param1="value1" \
@@ -69,6 +76,7 @@ gh workflow run my-workflow.yml \
 ```
 
 **使用 API：**
+
 ```bash
 gh api repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches \
   -f ref="main" \
@@ -78,6 +86,7 @@ gh api repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches \
 ### repository_dispatch
 
 **正确格式（使用管道）：**
+
 ```bash
 echo '{
   "event_type": "my-event",
@@ -88,6 +97,7 @@ echo '{
 ```
 
 **常见错误（-f 会破坏 JSON）：**
+
 ```bash
 # ❌ 错误：JSON 被当作字符串
 gh api repos/{owner}/{repo}/dispatches \
@@ -96,6 +106,7 @@ gh api repos/{owner}/{repo}/dispatches \
 ```
 
 **PowerShell 版本：**
+
 ```powershell
 $payload = @{
     event_type = "my-event"
@@ -210,6 +221,7 @@ gh api repos/{owner}/{repo}/actions/variables/{name} \
 ### 设置 Step 输出
 
 **Bash：**
+
 ```bash
 echo "result=success" >> $GITHUB_OUTPUT
 
@@ -220,6 +232,7 @@ echo "EOF" >> $GITHUB_OUTPUT
 ```
 
 **PowerShell：**
+
 ```powershell
 'result=success' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 
@@ -571,6 +584,7 @@ PR Comment Created ✅
 6. **限制输出长度** - PR 评论有大小限制（65536 字符），超长输出需截断
 7. **记录 API 调用** - 便于调试和审计
 8. **实现重试逻辑** - 处理网络临时故障和速率限制
+
 ### 处理速率限制
 
 ```bash

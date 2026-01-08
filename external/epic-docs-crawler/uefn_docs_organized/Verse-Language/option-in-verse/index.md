@@ -1,6 +1,6 @@
 # Option
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/option-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/option-in-verse>
 > **爬取时间**: 2025-12-27T00:18:27.004208
 
 ---
@@ -18,8 +18,8 @@ set MaybeANumber := option{42} # assigned the value 42
 
 |  |  |
 | --- | --- |
-| ```verse MaybeANumber : ?int = option{42} # initialized as 42  MaybeAnotherNumber : ?int = false # unset optional value ``` | **Creating an option:** You can [initialize](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#initialize) an option with one of the following:   - **No value:** Assign `false` to the option to mark it as unset. - **Initial value:** Use the [keyword](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#keyword) `option` followed by `{}`, and an [expression](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#expression) between the `{}`. If the expression fails, the option will be unset and have the value `false`.   Specify the type by adding `?` before the type of value expected to be stored in the option. For example `?int`. |
-| ```verse if (Number := MaybeANumber?):     Number # if MaybeANumber is not empty, then its value is stored in Number for you to use. ``` | **Accessing an element in an option:** Use the query operator `?` with the option, such as `MaybeANumber?`. Accessing the value stored in an option is a [failable expression](failure-in-verse) because there might not be a value in the option, and so must be used in a [failure context](failure-in-verse). |
+| ```verse MaybeANumber : ?int = option{42} # initialized as 42  MaybeAnotherNumber : ?int = false # unset optional value``` | **Creating an option:** You can [initialize](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#initialize) an option with one of the following:   - **No value:** Assign `false` to the option to mark it as unset. - **Initial value:** Use the [keyword](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#keyword) `option` followed by `{}`, and an [expression](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#expression) between the `{}`. If the expression fails, the option will be unset and have the value `false`.   Specify the type by adding `?` before the type of value expected to be stored in the option. For example `?int`. |
+| ```verse if (Number := MaybeANumber?):     Number # if MaybeANumber is not empty, then its value is stored in Number for you to use.``` | **Accessing an element in an option:** Use the query operator `?` with the option, such as `MaybeANumber?`. Accessing the value stored in an option is a [failable expression](failure-in-verse) because there might not be a value in the option, and so must be used in a [failure context](failure-in-verse). |
 
 The following is an example of using an option type to save a reference to a spawned player and, when a player is spawned, to have the trigger device react:
 

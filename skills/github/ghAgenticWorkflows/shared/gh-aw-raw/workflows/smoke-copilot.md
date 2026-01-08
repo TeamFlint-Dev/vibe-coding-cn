@@ -59,6 +59,7 @@ strict: true
 ## Output
 
 Add a **very brief** comment (max 5-10 lines) to the current pull request with:
+
 - PR titles only (no descriptions)
 - ✅ or ❌ for each test result
 - Overall status: PASS or FAIL

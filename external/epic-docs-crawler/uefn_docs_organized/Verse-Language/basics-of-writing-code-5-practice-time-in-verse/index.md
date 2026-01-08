@@ -1,6 +1,6 @@
-# Lesson 5: Practice Time!
+# Lesson 5: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-5-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-5-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:09:22.203753
 
 ---
@@ -58,7 +58,7 @@ hello_world_device := class(creative_device):
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
-	
+ 
         Playspace: fort_playspace = GetPlayspace()
         AllPlayers: []player = Playspace.GetPlayers()
         if (FirstPlayer : player = AllPlayers[0]):
@@ -72,4 +72,4 @@ hello_world_device := class(creative_device):
 
 Lesson 6: Defining a Function
 
-Learn about what goes into a function to make it work, and how to put the parts together.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-6-defining-a-function-in-verse)
+Learn about what goes into a function to make it work, and how to put the parts together.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-6-defining-a-function-in-verse>)

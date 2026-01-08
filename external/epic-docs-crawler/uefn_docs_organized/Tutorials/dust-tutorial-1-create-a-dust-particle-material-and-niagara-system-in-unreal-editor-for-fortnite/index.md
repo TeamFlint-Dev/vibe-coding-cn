@@ -1,6 +1,6 @@
 # 1. Create a Dust Particle Material and Niagara Emitter
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/dust-tutorial-1-create-a-dust-particle-material-and-niagara-system-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/dust-tutorial-1-create-a-dust-particle-material-and-niagara-system-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:41:19.479817
 
 ---
@@ -64,6 +64,6 @@ Now you’re ready to test and edit how the particles behave.
 
 [![2. Modify the Emitter](https://dev.epicgames.com/community/api/documentation/image/f2e4b411-1117-4228-b340-2b43d38d9b0c?resizing_type=fit&width=640&height=640)
 
-2. Modify the Emitter
+1. Modify the Emitter
 
-Modify the dust sprites to use the dust material you created for Niagara.](https://dev.epicgames.com/documentation/en-us/fortnite/dust-tutorial-2-modify-the-emitter-in-unreal-editor-for-fortnite)
+Modify the dust sprites to use the dust material you created for Niagara.](<https://dev.epicgames.com/documentation/en-us/fortnite/dust-tutorial-2-modify-the-emitter-in-unreal-editor-for-fortnite>)

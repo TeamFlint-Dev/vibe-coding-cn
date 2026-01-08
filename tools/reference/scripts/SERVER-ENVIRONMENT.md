@@ -21,6 +21,7 @@
 - **功能**: GitHub Webhook 接收、Pipeline 调度
 
 **API 端点**:
+
 - `POST /webhook` - GitHub 事件接收
 - `POST /pipeline/ready` - Pipeline 就绪通知
 - `GET /pipeline/status/<id>` - 查询 Pipeline 状态

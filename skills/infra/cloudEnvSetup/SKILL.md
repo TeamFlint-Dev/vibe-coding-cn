@@ -14,6 +14,7 @@ version: 1.0.0
 ## When to Use This Skill
 
 当你需要：
+
 - 在 **GitHub Codespaces** 中配置 SSH 访问服务器
 - 在 **GitHub Actions** 中使用仓库 Secrets 连接服务器
 - 配置 Webhook 服务相关的密钥
@@ -143,11 +144,13 @@ ssh -i ~/.ssh/tencent-agent.pem -p $SSH_PORT $SSH_USER@$SERVER_IP
 GitHub Codespaces 默认**不会**自动访问 Repository Secrets，需要手动配置：
 
 **步骤**:
+
 1. 进入仓库 **Settings** → **Secrets and variables** → **Codespaces**
 2. 点击 **New repository secret** 或 **Manage repository secrets**
 3. 选择要暴露给 Codespaces 的 Secrets
 
 **推荐暴露的 Secrets**:
+
 - `SSH_PRIVATE_KEY` - SSH 认证
 - `SERVER_IP` - 服务器地址
 - `SSH_PORT` - SSH 端口
@@ -217,6 +220,7 @@ curl http://localhost:19527/health
 ### ✅ 推荐做法
 
 1. **始终使用 Secrets 引用**
+
    ```yaml
    # Good
    ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}
@@ -232,6 +236,7 @@ curl http://localhost:19527/health
    - Webhook Secret: 服务重部署时
 
 4. **审计 Secrets 使用**
+
    ```bash
    # 查看仓库 Secrets 列表
    gh secret list
@@ -240,12 +245,14 @@ curl http://localhost:19527/health
 ### ❌ 禁止做法
 
 1. **硬编码敏感信息**
+
    ```yaml
    # Bad - 永远不要这样做
    ssh ubuntu@193.112.183.143
    ```
 
 2. **在日志中打印 Secrets**
+
    ```yaml
    # Bad
    echo "Password: ${{ secrets.PASSWORD }}"

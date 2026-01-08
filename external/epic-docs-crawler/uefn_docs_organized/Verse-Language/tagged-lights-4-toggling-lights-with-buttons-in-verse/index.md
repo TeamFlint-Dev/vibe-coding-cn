@@ -1,6 +1,6 @@
 # 4. Toggling Lights with Buttons
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-4-toggling-lights-with-buttons-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-4-toggling-lights-with-buttons-in-verse>
 > **爬取时间**: 2025-12-27T00:38:33.035815
 
 ---
@@ -52,6 +52,7 @@ Follow these steps to toggle the lights:
                                    if (LightIndices : []int = ButtonsToLights[0]):
                                        ToggleLights(LightIndices)
       ```
+
 3. Now that you have the `LightIndex`, access the `Lights` and `LightsState` arrays at that index to get the Customizable Light Device reference and its current state. Toggling a light means: if the light is on, turn it off; and if the light is off, turn it on. Update the print statement to say what the new state of the light will be.
 
    ```verse
@@ -63,6 +64,7 @@ Follow these steps to toggle the lights:
             do:
                 Logger.Print("Turning light at {LightIndex} {if (IsLightOn?) then "Off" else "On"}")
    ```
+
 4. Now update the state of the Customizable Light Device both in-game and in the `LightsState` array.
 
    1. Call `TurnOn()` on the light if `IsLightOn` is `false` and `TurnOff()` on the light if `IsLightOn` is `true`. The last expression in a code block is the result, so setting `false` or `true` as the last expression means that value will be stored in `NewLightState`.
@@ -83,6 +85,7 @@ Follow these steps to toggle the lights:
                                                Light.TurnOn()
                                                true
       ```
+
    2. Update the `LighsState` element at `LightIndex` with the value in `NewLightState`. Since array indexing is a failable expression, setting the `LightsState` must be wrapped in a failure context. In this example, the failure context is the `if` expression. Print to the output log that the state was updated.
 
       ```verse
@@ -124,12 +127,18 @@ Follow these steps to create a custom object for event handling:
    2. A `tagged_lights_puzzle` field named `PuzzleDevice`, which is the reference to your Verse device, so you can call the `ToggleLights()` method.
    3. A method named `OnButtonPressed()` with the parameter `InPlayer : agent` and a `void` return type, which calls `ToggleLights()` on the `PuzzleDevice`.
        `button_event_handler := class():
-      # Positions used to access the lights this button controls.
+
+      # Positions used to access the lights this button controls
+
       Indices : []int
-      # tagged_lights_puzzle that created this button_event_handler so we can call functions on it.
+
+      # tagged_lights_puzzle that created this button_event_handler so we can call functions on it
+
       PuzzleDevice : tagged_lights_puzzle
       OnButtonPressed(InPlayer : agent) : void =
-      # Tell the PuzzleDevice to toggle the lights at the positions this button controls.
+
+      # Tell the PuzzleDevice to toggle the lights at the positions this button controls
+
       PuzzleDevice.ToggleLights(Indices)`
 2. Create an editable `button_device` array field in the `tagged_lights_puzzle` class to reference the buttons the player can interact with:
     `@editable
@@ -150,6 +159,7 @@ Follow these steps to create a custom object for event handling:
                                    do:
                                        button_event_handler{Indices := LightIndices, PuzzleDevice := Self}
      ```
+
 4. You can now use the newly created handler's `OnButtonPressed()` function to subscribe to the Button device's `InteractedWithEvent`. When the `OnButtonPressed()` function is called, you have access to the light indices and a reference to the `tagged_lights_puzzle` device associated with the button that the player interacted with.
 
    ```verse
@@ -162,6 +172,7 @@ Follow these steps to create a custom object for event handling:
             do:
                 Button.InteractedWithEvent.Subscribe(button_event_handler{Indices := LightIndices, PuzzleDevice := Self}.OnButtonPressed)
    ```
+
 5. Save the script in Visual Studio Code.
 6. In the UEFN toolbar, click **Build Verse Scripts** to update your Verse device in the level with your new code.
 7. In the **Outliner**, select the **tagged\_lights\_puzzle** device to open its **Details** panel.

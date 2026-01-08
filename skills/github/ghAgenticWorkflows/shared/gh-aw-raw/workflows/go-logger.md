@@ -95,6 +95,7 @@ var log = logger.New("pkg:filename")
 ```
 
 Replace `pkg:filename` with the actual package and filename:
+
 - For `pkg/workflow/compiler.go` → `"workflow:compiler"`
 - For `pkg/cli/compile.go` → `"cli:compile"`
 - For `pkg/parser/frontmatter.go` → `"parser:frontmatter"`
@@ -140,6 +141,7 @@ log.Print("Compiling...")  // Redundant with user message above
 ### When to Add Logging
 
 Add logging for:
+
 1. **Function entry** - Especially for public functions with parameters
 2. **Important control flow** - Branches, loops, error paths
 3. **State changes** - Before/after modifying important state
@@ -147,6 +149,7 @@ Add logging for:
 5. **Debugging context** - Information that would help troubleshoot issues
 
 Do NOT add logging for:
+
 1. **Simple getters/setters** - Too verbose
 2. **Already logged operations** - Don't duplicate existing logs
 3. **User-facing messages** - Debug logs are separate from console output
@@ -169,6 +172,7 @@ grep -r 'var log = logger.New' pkg --include='*.go'
 ### 2. Select Files for Enhancement
 
 From the list of Go files:
+
 1. Prioritize files without loggers or with minimal logging
 2. Focus on files with complex logic (workflows, parsers, compilers)
 3. Avoid trivial files with just simple functions
@@ -177,6 +181,7 @@ From the list of Go files:
 ### 3. Analyze Each Selected File
 
 For each selected file:
+
 1. Read the file content to understand its structure
 2. Identify functions that would benefit from logging
 3. Check if the file already has a logger declaration
@@ -207,21 +212,26 @@ For each file:
 After adding logging to the selected files, **validate your changes** before creating a PR:
 
 1. **Build the project to ensure no compilation errors:**
+
    ```bash
    make build
    ```
+
    This will compile the Go code and catch any syntax errors or import issues.
 
 2. **Test the workflow compilation with debug logging enabled:**
+
    ```bash
    DEBUG=* ./gh-aw compile dev
    ```
+
    This validates that:
    - The binary was built successfully
    - The compile command works correctly
    - Debug logging from your changes appears in the output
 
 3. **If needed, recompile workflows:**
+
    ```bash
    make recompile
    ```
@@ -237,6 +247,7 @@ After validating your changes:
 ## Example Transformation
 
 **Before:**
+
 ```go
 package workflow
 
@@ -258,6 +269,7 @@ func CompileWorkflow(path string) error {
 ```
 
 **After:**
+
 ```go
 package workflow
 

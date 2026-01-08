@@ -1,6 +1,6 @@
 # Debug Your Game with Debug Draw
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/debug-your-game-with-debug-draw-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/debug-your-game-with-debug-draw-in-verse>
 > **爬取时间**: 2025-12-27T00:03:41.318736
 
 ---
@@ -34,16 +34,19 @@ To draw your first shape with the Debug Draw API, follow these steps.
    ```verse
    using { /UnrealEngine.com/Temporary/Diagnostics }
    ```
+
 2. Create a **channel** by declaring a [subclass](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) that inherits from the `debug_draw_channel` [type](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#type). Channels are for grouping related shapes together. They are optional but it is a good practice to use them. There are [functions](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) in the Debug Draw API that you can use to show, hide, or clear many shapes all at once, but showing and hiding only works at the channel level.
 
    ```verse
    my_debug_draw := class(debug_draw_channel) {}
    ```
+
 3. Declare a new [constant](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#constant) of type `debug_draw`. This will be the object you use to call the [methods](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#method) to draw shapes. This example shows the use of the Channel parameter (created in the previous step), but it is optional.
 
    ```verse
    DebugDraw:debug_draw = debug_draw{Channel := my_debug_draw}
    ```
+
 4. Call the `DrawSphere` method. This example uses two [parameters](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#parameter).
 
 - `Center:= vector3{Z:= 150.0}`: This is a required parameter of type [vector3](https://dev.epicgames.com/documentation/en-us/uefn/verse-api/unrealenginedotcom/temporary/spatialmath/vector3) which determines the location of the sphere’s center. In this example you will use the [constructor](https://dev.epicgames.com/documentation/en-us/uefn/class-in-verse#constructingaclass) of the `vector3` type to create a literal value. This will set the center of the sphere at location `0.0, 0.0, 150.0`.
@@ -281,31 +284,36 @@ The [Audio Player Device](https://dev.epicgames.com/documentation/en-us/uefn/int
    ```verse
    DebugDrawAudio:debug_draw = debug_draw{Channel := debug_draw_audio}
    ```
+
 3. Add two `@editable` constants of type `float`. Name them `DebugAttenuationMinDistance` and `DebugAttenuationFalloffDistance`. These will be the two radii of the spheres drawn to visualize the attenuation of the Audio Player Device.
 
    ```verse
    @editable
         DebugAttenuationMinDistance:float = 100.0
-   		
+     
         @editable
         DebugAttenuationFalloffDistance:float = 100.0
    ```
+
 4. Add another `@editable` to represent the Audio Player Device. Name it `AudioPlayerDevice`.
 
    ```verse
    @editable
         AudioPlayerDevice:audio_player_device = audio_player_device{}
    ```
+
 5. Declare a function called `DrawAudioDeviceRange()` and give it two parameters of type `float`: `AttenuationMinDistance` and `AttenuationFalloffDistance`.
 
    ```verse
    DrawAudioDeviceRange(AttenuationMinDistance:float, AttenuationFalloffDistance:float):void =
    ```
+
 6. In the new function, get the Transform object of the Audio Player Device.
 
    ```verse
    AudioPlayerDeviceTransform:= AudioPlayerDevice.GetTransform()
    ```
+
 7. Using the `DrawSphere` function from the Debug Draw API, draw two spheres to represent the Attenuation Min Distance and the Attenuation Falloff Distance. The `Radius` in the second `DrawSphere` call must be set to the sum of `AttenuationMinDistance` and `AttenuationFalloffDistance` because attenuation only starts outside the radius of the Attenuation Min Distance.
 
    ```verse
@@ -318,12 +326,14 @@ The [Audio Player Device](https://dev.epicgames.com/documentation/en-us/uefn/int
             ?Radius:= AttenuationMinDistance + AttenuationFalloffDistance,
             ?DrawDurationPolicy:= debug_draw_duration_policy.Persistent)
    ```
+
 8. In the `OnBegin()` function of your Verse file, call the `DrawAudioDeviceRange()` function.
 
    ```verse
    OnBegin<override>()<suspends>:void=
         DrawAudioDeviceRange(DebugAttenuationMinDistance, DebugAttenuationFalloffDistance)
    ```
+
 9. Build your Verse code. In the Details panel of your Verse device, make sure you set the values for **DebugAttenuationMinDistance** and **DebugAttenuationFalloffDistance**. These values should be equivalent to the **Attenuation Min Distance** and **Attenuation FalloffDistance** values for your Audio Player Device multiplied by 100.
 
    The Audio Player Device uses meters for Attenuation Min Distance and Attenuation Falloff Distance. Since the Debug Draw API uses centimeters, you must convert the values.
@@ -335,24 +345,24 @@ The [Audio Player Device](https://dev.epicgames.com/documentation/en-us/uefn/int
          using { /Fortnite.com/Playspaces }
          using { /UnrealEngine.com/Temporary/Diagnostics }
          using { /UnrealEngine.com/Temporary/SpatialMath }
-    		
+      
          debug_audio_device := class(creative_device):
-    		
+      
              @editable
              AudioPlayerDevice:audio_player_device = audio_player_device{}
-    		
+      
              @editable
              DebugAttenuationMinDistance:float = 100.0
-    		
+      
              @editable
              DebugAttenuationFalloffDistance:float = 100.0
-    		
+      
              DebugDrawAudio:debug_draw = debug_draw{Channel := debug_draw_audio}
-    		
+      
              OnBegin<override>()<suspends>:void=
-    		
+      
                  DrawAudioDeviceRange(DebugAttenuationMinDistance, DebugAttenuationFalloffDistance)
-    		
+      
              DrawAudioDeviceRange(AttenuationMinDistance:float, AttenuationFalloffDistance:float):void =
                  AudioPlayerDeviceTransform:= AudioPlayerDevice.GetTransform()
                  DebugDrawAudio.DrawSphere(

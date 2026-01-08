@@ -11,6 +11,7 @@
 请生成一个生产级的 Shell 交互式控制面板脚本，用于管理和控制复杂的软件系统。该控制面板必须满足以下要求：
 
 ### 核心目标
+
 1. **自动化程度高** - 首次运行自动配置所有依赖和环境，后续运行智能检查、按需安装，而不是每次都安装，只有缺失或者没有安装的时候才安装
 2. **生产就绪** - 可直接用于生产环境，无需手动干预
 3. **双模式运行** - 支持交互式菜单和命令行直接调用
@@ -18,6 +19,7 @@
 5. **自修复能力** - 自动检测并修复常见问题
 
 ### 技术要求
+
 - **语言**: Bash Shell (兼容 bash 4.0+)
 - **依赖**: 自动检测和安装（Python3, pip, curl, git）
 - **平台**: Ubuntu/Debian, CentOS/RHEL, macOS
@@ -61,6 +63,7 @@ requirements:
 ```
 
 **关键函数**:
+
 ```bash
 detect_environment()         # 检测 OS 和包管理器
 command_exists()             # 检查命令是否存在
@@ -73,6 +76,7 @@ verify_dependencies()        # 验证所有依赖完整性，仅缺失时触发�
 ```
 
 **实现要点**:
+
 - 使用 `/etc/os-release` 检测 Linux 发行版
 - 使用 `uname` 检测 macOS
 - **智能检查优先**：每次启动前先验证环境和依赖，仅在检测到缺失或版本不符时才执行安装，每次启动前先验证环境和依赖，仅在检测到缺失或版本不符时才执行安装，每次启动前先验证环境和依赖，仅在检测到缺失或版本不符时才执行安装
@@ -116,6 +120,7 @@ requirements:
 ```
 
 **关键函数**:
+
 ```bash
 init_system()           # 系统初始化总入口
 init_directories()      # 创建目录结构
@@ -126,6 +131,7 @@ enter_safe_mode()       # 安全模式
 ```
 
 **实现要点**:
+
 - 使用 `mkdir -p` 确保父目录存在
 - 使用 `kill -0 $pid` 检查进程存活
 - 所有操作都要有错误处理
@@ -189,6 +195,7 @@ requirements:
 ```
 
 **关键函数**:
+
 ```bash
 parse_arguments()       # 解析命令行参数
 print_usage()           # 显示帮助信息
@@ -197,12 +204,14 @@ interactive_mode()      # 交互式菜单
 ```
 
 **实现要点**:
+
 - 使用 `getopts` 或手动 `while [[ $# -gt 0 ]]` 解析参数
 - 参数和命令分离处理
 - 非交互模式禁用所有 `read` 操作
 - 明确的退出码便于 CI/CD 判断
 
 **CI/CD 集成示例**:
+
 ```bash
 # GitHub Actions
 ./control.sh start --silent --force || exit 1
@@ -250,6 +259,7 @@ requirements:
 ```
 
 **关键函数**:
+
 ```bash
 load_modules()          # 扫描并加载模块
 register_module()       # 注册模块信息
@@ -258,6 +268,7 @@ list_modules()          # 列出已加载模块
 ```
 
 **模块模板**:
+
 ```bash
 #!/bin/bash
 # modules/example.sh
@@ -279,6 +290,7 @@ example_init
 ```
 
 **实现要点**:
+
 - 使用 `for module in modules/*.sh` 扫描
 - 使用 `source $module` 加载
 - 加载失败不影响主程序
@@ -347,6 +359,7 @@ requirements:
 ```
 
 **关键函数**:
+
 ```bash
 # 日志函数
 log_info()              # 信息日志
@@ -372,6 +385,7 @@ generate_diagnostic_report() # 生成诊断报告
 ```
 
 **实现要点**:
+
 - ANSI 颜色码定义为常量
 - 使用 `tee -a` 同时输出到控制台和文件
 - `ps -p $pid -o %cpu=,%mem=,etime=` 获取进程信息
@@ -403,6 +417,7 @@ requirements:
 ```
 
 **示例**:
+
 ```
 ╔══════════════════════════════════════════════╗
 ║      Enhanced Control Panel v2.0            ║
@@ -436,6 +451,7 @@ requirements:
 ```
 
 **示例**:
+
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   1) Start Service
@@ -693,6 +709,7 @@ test_cases:
 ### 输出格式
 
 生成的脚本应该：
+
 1. **单文件**: 所有代码在一个 .sh 文件中
 2. **完整性**: 可以直接运行，无需额外文件
 3. **注释**: 关键部分有清晰注释
@@ -842,6 +859,7 @@ main "$@"
 ### 文档输出
 
 生成脚本后，同时生成：
+
 1. **README.md** - 快速开始指南
 2. **模块示例** - modules/example.sh
 3. **使用说明** - 如何定制脚本
@@ -849,6 +867,7 @@ main "$@"
 ### 示例场景
 
 提供以下场景的实现示例：
+
 1. **Python 应用**: 启动 Flask/Django 应用
 2. **Node.js 应用**: 启动 Express 应用
 3. **数据库**: 启动/停止 PostgreSQL
@@ -905,11 +924,13 @@ Restart=on-failure
 用户只需修改以下 3 处即可使用：
 
 1. **项目路径**（可选）
+
    ```bash
    PROJECT_ROOT="${SCRIPT_DIR}"
    ```
 
 2. **启动逻辑**
+
    ```bash
    start_service() {
        # 👇 添加你的启动命令
@@ -919,6 +940,7 @@ Restart=on-failure
    ```
 
 3. **停止逻辑**
+
    ```bash
    stop_service() {
        # 👇 添加你的停止命令

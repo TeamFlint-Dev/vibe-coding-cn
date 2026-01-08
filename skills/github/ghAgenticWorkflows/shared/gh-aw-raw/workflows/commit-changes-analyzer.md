@@ -51,6 +51,7 @@ Your task is to analyze all changes since the specified commit and create a comp
 ### 1. Extract Commit SHA from URL
 
 Parse the commit URL provided in the input to extract:
+
 - Repository owner and name (validate it matches current repo)
 - Commit SHA
 
@@ -59,11 +60,13 @@ The URL format is typically: `https://github.com/OWNER/REPO/commit/SHA`
 ### 2. Validate the Commit
 
 Before proceeding, verify:
+
 - The commit SHA exists in the repository
 - The repository in the URL matches the current repository
 - The commit is an ancestor of the current HEAD (can trace history from current to that commit)
 
 Use bash commands like:
+
 ```bash
 # Verify commit exists
 git cat-file -t <SHA>
@@ -77,6 +80,7 @@ git merge-base --is-ancestor <SHA> HEAD
 Collect comprehensive information about all changes since the specified commit:
 
 #### File Changes
+
 - **Files added**: List all new files with brief description of purpose
 - **Files modified**: List changed files with summary of modifications
 - **Files deleted**: List removed files
@@ -84,6 +88,7 @@ Collect comprehensive information about all changes since the specified commit:
 - **Binary files changed**: Note any binary file changes
 
 Use commands like:
+
 ```bash
 # Get list of changed files with status
 git diff --name-status <SHA>..HEAD
@@ -96,12 +101,14 @@ git rev-list --count <SHA>..HEAD
 ```
 
 #### Commit Analysis
+
 - **Number of commits** since the specified commit
 - **Commit authors** and their contribution counts
 - **Commit timeline**: First and most recent commit dates
 - **Commit messages**: Extract key themes and patterns
 
 Use commands like:
+
 ```bash
 # List commits with authors
 git log --pretty=format:"%h - %an, %ar : %s" <SHA>..HEAD
@@ -115,6 +122,7 @@ git log --pretty=format:"%ai" <SHA>..HEAD | tail -1  # Oldest in range
 ```
 
 #### Code Impact Analysis
+
 - **Lines added**: Total lines of code added
 - **Lines removed**: Total lines of code removed
 - **Net change**: Overall code delta
@@ -122,6 +130,7 @@ git log --pretty=format:"%ai" <SHA>..HEAD | tail -1  # Oldest in range
 - **Largest changes**: Files with most modifications
 
 Use commands like:
+
 ```bash
 # Detailed diff statistics
 git diff --numstat <SHA>..HEAD
@@ -131,7 +140,9 @@ git diff --name-only <SHA>..HEAD | sed 's/.*\.//' | sort | uniq -c | sort -rn
 ```
 
 #### Functional Areas Affected
+
 Analyze which parts of the codebase were touched:
+
 - **Package/module changes**: Which packages/directories had changes
 - **Configuration changes**: Any config file updates
 - **Documentation changes**: README, docs, comments
@@ -141,11 +152,13 @@ Analyze which parts of the codebase were touched:
 ### 4. GitHub Integration Analysis
 
 Use GitHub tools to enrich the analysis:
+
 - **Associated Pull Requests**: Find PRs that include commits in this range
 - **Issues referenced**: Extract issue numbers from commit messages
 - **Release context**: Check if any releases occurred in this range
 
 Example GitHub tool usage:
+
 ```
 Use list_commits to get commit details
 Use search_issues or search_pull_requests to find related items
@@ -157,6 +170,7 @@ Use list_releases to check for releases in the timeframe
 Create a comprehensive markdown report with the following sections:
 
 #### Executive Summary
+
 - Brief overview of the change scope
 - Time period covered
 - Number of commits and authors involved
@@ -165,21 +179,25 @@ Create a comprehensive markdown report with the following sections:
 #### Detailed Changes
 
 **Files Changed Summary**
+
 - Breakdown by change type (added/modified/deleted/renamed)
 - Statistics table with counts and percentages
 
 **Code Impact**
+
 - Lines added/removed/changed
 - Net code growth/reduction
 - Language/file type breakdown
 
 **Commit History**
+
 - Total commits in range
 - Top contributors with commit counts
 - Timeline (date range)
 - Commit message themes/patterns
 
 **Functional Areas**
+
 - List of affected packages/modules
 - Configuration changes
 - Documentation updates
@@ -187,17 +205,20 @@ Create a comprehensive markdown report with the following sections:
 - CI/CD modifications
 
 **Notable Changes**
+
 - Largest file changes (top 10)
 - New files of significance
 - Deleted files worth noting
 - Breaking changes or major refactors
 
 **Related Work**
+
 - Associated pull requests (if found)
 - Referenced issues
 - Related releases
 
 #### Developer Notes
+
 - Potential migration concerns
 - Breaking changes to be aware of
 - New dependencies or tools introduced
@@ -206,11 +227,13 @@ Create a comprehensive markdown report with the following sections:
 ### 6. Output Format
 
 Create a GitHub discussion with:
+
 - **Title**: "Changes Analysis: Since commit [short-SHA] - [current date]"
 - **Category**: "dev" (for development discussions)
 - **Body**: Your complete analysis report in well-formatted markdown
 
 Use proper markdown formatting:
+
 - Tables for statistics
 - Code blocks for examples
 - Bullet lists for file changes
@@ -238,20 +261,24 @@ Use proper markdown formatting:
 ## Examples of Good Analysis
 
 When describing a commit:
+
 - ✅ `abc1234 - Refactor parser to use streaming approach (reduces memory by 40%)`
 - ❌ `abc1234 - parser changes`
 
 When listing files:
+
 - ✅ `pkg/parser/stream.go - New streaming parser implementation to handle large files`
 - ❌ `pkg/parser/stream.go - added`
 
 When describing impact:
+
 - ✅ `Breaking change: CLI flag --output renamed to --format (affects all users)`
 - ❌ `CLI changes made`
 
 ## Error Handling
 
 If any of these conditions occur, explain clearly in the discussion:
+
 - Invalid commit URL format
 - Commit SHA not found in repository
 - Repository mismatch between URL and current repo

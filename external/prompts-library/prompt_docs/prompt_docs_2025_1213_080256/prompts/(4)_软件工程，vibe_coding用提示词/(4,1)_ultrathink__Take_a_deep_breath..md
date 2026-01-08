@@ -86,6 +86,7 @@ When I give you a problem, I don't want the first solution that works. I want yo
        graph TB
            SystemArchitecture[系统架构总览]
        ```
+
      * 若存在则增量更新节点与关系，不重复生成；
      * 所有路径应相对项目根目录存储，以保持跨平台兼容性。
 
@@ -146,6 +147,7 @@ When I give you a problem, I don't want the first solution that works. I want yo
        %% 可视化系统架构 - 自动生成（更新时间：YYYY-MM-DD HH:mm:ss）
        %% 可直接导入 https://www.mermaidchart.com/
        ```
+
      * 图表应成为系统文档的一部分，与代码版本同步管理（建议纳入 Git 版本控制）。
 
 9. 任务追踪约定 : 每次对话后，在项目根目录维护 `任务进度.json`（无则新建），以两级结构记录用户目标与执行进度：一级为项目(Project)、二级为任务(Task)。
@@ -174,6 +176,7 @@ When I give you a problem, I don't want the first solution that works. I want yo
        ]
      }
      ```
+
    * 更新规则
 
      * 以北京时间写入 `last_updated`。

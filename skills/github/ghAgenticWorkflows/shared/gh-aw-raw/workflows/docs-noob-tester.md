@@ -71,12 +71,12 @@ done
 
 Using Playwright, navigate through the documentation site as if you're a complete beginner:
 
-1. **Visit the home page** at http://localhost:4321/gh-aw/
+1. **Visit the home page** at <http://localhost:4321/gh-aw/>
    - Take a screenshot
    - Note: Is it immediately clear what this tool does?
    - Note: Can you quickly find the "Get Started" or "Quick Start" link?
 
-2. **Follow the Quick Start Guide** at http://localhost:4321/gh-aw/setup/quick-start/
+2. **Follow the Quick Start Guide** at <http://localhost:4321/gh-aw/setup/quick-start/>
    - Take screenshots of each major section
    - Try to understand each step from a beginner's perspective
    - Questions to consider:
@@ -86,12 +86,12 @@ Using Playwright, navigate through the documentation site as if you're a complet
      - Do code examples work as shown?
      - Are error messages explained?
 
-3. **Check the CLI Commands page** at http://localhost:4321/gh-aw/setup/cli/
+3. **Check the CLI Commands page** at <http://localhost:4321/gh-aw/setup/cli/>
    - Take a screenshot
    - Note: Are the most important commands highlighted?
    - Note: Are examples provided for common use cases?
 
-4. **Explore Creating Workflows guide** at http://localhost:4321/gh-aw/setup/agentic-authoring/
+4. **Explore Creating Workflows guide** at <http://localhost:4321/gh-aw/setup/agentic-authoring/>
    - Take screenshots of confusing sections
    - Note: Is the workflow format explained clearly?
    - Note: Are there enough examples?
@@ -106,6 +106,7 @@ Using Playwright, navigate through the documentation site as if you're a complet
 As you navigate, specifically look for:
 
 ### 🔴 Critical Issues (Block getting started)
+
 - Missing prerequisites or dependencies
 - Broken links or 404 pages
 - Incomplete or incorrect code examples
@@ -114,6 +115,7 @@ As you navigate, specifically look for:
 - Steps that don't work as described
 
 ### 🟡 Confusing Areas (Slow down learning)
+
 - Unclear explanations
 - Too much jargon without definitions
 - Lack of examples or context
@@ -122,6 +124,7 @@ As you navigate, specifically look for:
 - Layout or formatting issues that make content hard to read
 
 ### 🟢 Good Stuff (What works well)
+
 - Clear, helpful examples
 - Good explanations
 - Useful screenshots or diagrams
@@ -130,6 +133,7 @@ As you navigate, specifically look for:
 ## Step 4: Take Screenshots
 
 For each confusing or broken area:
+
 - Take a screenshot showing the issue
 - Name the screenshot descriptively (e.g., "confusing-quick-start-step-3.png")
 - Note the page URL and specific section
@@ -139,25 +143,31 @@ For each confusing or broken area:
 Create a GitHub discussion titled "📚 Documentation Noob Test Report - [Date]" with:
 
 ### Summary
+
 - Date of test: [Today's date]
 - Pages visited: [List URLs]
 - Overall impression: [1-2 sentences as a new user]
 
 ### Critical Issues Found
+
 [List any blocking issues with screenshots]
 
 ### Confusing Areas
+
 [List confusing sections with explanations and screenshots]
 
 ### What Worked Well
+
 [Positive feedback on clear sections]
 
 ### Recommendations
+
 - Prioritized suggestions for improving the getting started experience
 - Quick wins that would help new users immediately
 - Longer-term documentation improvements
 
 ### Screenshots
+
 [Embed all relevant screenshots showing issues or confusing areas]
 
 Label the discussion with: `documentation`, `user-experience`, `automated-testing`
@@ -183,6 +193,7 @@ rm -f /tmp/server.pid /tmp/preview.log
 ## Success Criteria
 
 You've successfully completed this task if you:
+
 - Navigated at least 5 key documentation pages
 - Identified specific pain points with examples
 - Provided actionable recommendations

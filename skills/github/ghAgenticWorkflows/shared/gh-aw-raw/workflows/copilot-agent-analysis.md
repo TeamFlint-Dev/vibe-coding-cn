@@ -74,10 +74,12 @@ Daily analysis of pull requests created by copilot-swe-agent in the last 24 hour
 ### Phase 1: Collect PR Data
 
 **Pre-fetched Data Available**: This workflow includes a preparation step that has already fetched Copilot PR data for the last 30 days using gh CLI. The data is available at:
+
 - `/tmp/gh-aw/pr-data/copilot-prs.json` - Full PR data in JSON format
 - `/tmp/gh-aw/pr-data/copilot-prs-schema.json` - Schema showing the structure
 
 You can use `jq` to process this data directly. For example:
+
 ```bash
 # Get PRs from the last 24 hours
 TODAY="$(date -d '24 hours ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -v-24H '+%Y-%m-%dT%H:%M:%SZ')"
@@ -101,6 +103,7 @@ Search for pull requests created by Copilot in the last 24 hours.
 Use the GitHub tools with one of these strategies:
 
 1. **Use `gh pr list --search "head:copilot/"` (Recommended - used by this workflow)**:
+
    ```bash
    # Server-side filtering by branch prefix (current workflow approach)
    DATE="$(date -d '24 hours ago' '+%Y-%m-%d')"
@@ -110,12 +113,13 @@ Use the GitHub tools with one of these strategies:
      --limit 1000 \
      --json number,title,state,createdAt,closedAt,author
    ```
-   
+
    **Pros**: Most reliable method, server-side filtering, up to 1000 results
    **Cons**: None
    **Best for**: Production workflows (this is what the workflow uses)
 
 2. **Search by author (Alternative, but less reliable)**:
+
    ```bash
    # Author-based search (may miss some PRs)
    DATE="$(date -d '24 hours ago' '+%Y-%m-%d')"
@@ -125,16 +129,18 @@ Use the GitHub tools with one of these strategies:
      --state all \
      --json number,title,createdAt,author
    ```
-   
+
    **Pros**: Simple, targets specific author
    **Cons**: Limited to 100 results, may not capture all Copilot PRs
    **Best for**: Quick ad-hoc queries when branch naming is inconsistent
 
 3. **Search by branch pattern with git**:
+
    ```bash
    # List copilot branches
    git branch -r | grep copilot
    ```
+
    This finds all remote branches with "copilot" in the name.
 
 4. **List all PRs and filter by author**:
@@ -161,12 +167,15 @@ Use the GitHub tools with one of these strategies:
 For each PR created by Copilot in the last 24 hours:
 
 #### 2.1 Determine Outcome
+
 - **Merged**: PR was successfully merged
 - **Closed without merge**: PR was closed but not merged
 - **Still Open**: PR is still open (pending)
 
 #### 2.2 Count Human Comments
+
 Count comments from human users (exclude bot comments):
+
 - Use `pull_request_read` with method `get` to get PR details including comments
 - Use `pull_request_read` with method `get_review_comments` to get review comments
 - Filter out comments from bots (check comment author)
@@ -175,6 +184,7 @@ Count comments from human users (exclude bot comments):
 #### 2.3 Calculate Timing Metrics
 
 Extract timing information:
+
 - **Time to First Activity**: When did the agent start working? (PR creation time)
 - **Time to Completion**: When did the agent finish? (last commit time or PR close/merge time)
 - **Total Duration**: Time from PR creation to merge/close
@@ -185,6 +195,7 @@ Calculate these metrics using the PR timestamps from the GitHub API.
 #### 2.4 Extract Task Text
 
 For each PR created by Copilot, extract the task text from the PR body:
+
 - The task text is stored in the PR's `body` field (PR description)
 - This is the original task description that was provided when the agent task was created
 - Extract the full text, but truncate to first 100 characters for the summary table
@@ -193,6 +204,7 @@ For each PR created by Copilot, extract the task text from the PR body:
 #### 2.5 Analyze PR Quality
 
 For each PR, assess:
+
 - Number of files changed
 - Lines of code added/removed
 - Number of commits made by the agent
@@ -202,6 +214,7 @@ For each PR, assess:
 ### Phase 3: Generate Concise Summary
 
 **Create a brief summary focusing on:**
+
 - Total PRs in last 24 hours with success rate
 - **New**: Table showing all task texts from PRs (original task descriptions from PR body)
 - Only list PRs if there are issues (failed, closed without merge)
@@ -215,12 +228,14 @@ Use the repo memory folder `/tmp/gh-aw/repo-memory/default/` to maintain histori
 #### 4.1 Load Historical Data
 
 Check for existing historical data:
+
 ```bash
 find /tmp/gh-aw/repo-memory/default/copilot-agent-metrics/ -maxdepth 1 -ls
 cat /tmp/gh-aw/repo-memory/default/copilot-agent-metrics/history.json
 ```
 
 The history file should contain daily metrics in this format:
+
 ```json
 {
   "daily_metrics": [
@@ -262,6 +277,7 @@ If the history file doesn't exist or has gaps in the data, rebuild it by queryin
 #### 4.2 Store Today's Metrics
 
 Calculate today's metrics:
+
 - Total PRs created today
 - Number merged/closed/open
 - Average comments per PR
@@ -270,6 +286,7 @@ Calculate today's metrics:
 - Success rate (merged / total completed)
 
 Save to repo memory:
+
 ```bash
 mkdir -p /tmp/gh-aw/repo-memory/default/copilot-agent-metrics/
 # Append today's metrics to history.json
@@ -280,16 +297,19 @@ Store the data in JSON format with proper structure.
 #### 4.2.1 Rebuild Historical Data (if needed)
 
 **When to Rebuild:**
+
 - History file doesn't exist
 - History file has gaps (missing dates in the last 3 days)
 - Insufficient data for trend analysis (< 3 days)
 
 **Rebuilding Strategy:**
+
 1. **Assess Current State**: Check how many days of data you have
 2. **Target Collection**: Aim for 3 days maximum (for concise trends)
 3. **One Day at a Time**: Query PRs for each missing date separately to avoid context explosion
 
 **For Each Missing Day:**
+
 ```
 # Query PRs for specific date using keyword search
 repo:${{ github.repository }} is:pr "START COPILOT CODING AGENT" created:YYYY-MM-DD..YYYY-MM-DD
@@ -298,6 +318,7 @@ repo:${{ github.repository }} is:pr "START COPILOT CODING AGENT" created:YYYY-MM
 Or use `list_pull_requests` with date filtering and filter results by `user.login == "copilot"` and `user.id == 198982749`.
 
 **Process:**
+
 - Start with the oldest missing date in your target range (maximum 3 days ago)
 - For each date:
   1. Search for PRs created on that date
@@ -308,6 +329,7 @@ Or use `list_pull_requests` with date filtering and filter results by `user.logi
 - Stop at 3 days total
 
 **Important Constraints:**
+
 - Process dates in chronological order (oldest first)
 - Save after processing each day
 - **Maximum 3 days** of historical data for concise reporting
@@ -316,6 +338,7 @@ Or use `list_pull_requests` with date filtering and filter results by `user.logi
 #### 4.3 Store Today's Metrics
 
 After ensuring historical data is available (either from existing repo memory or rebuilt), add today's metrics:
+
 - Total PRs created today
 - Number merged/closed/open
 - Average comments per PR
@@ -330,12 +353,14 @@ Append to history.json in the repo memory.
 **Concise Trend Analysis** - If historical data exists (at least 3 days), show:
 
 **3-Day Comparison** (focus on last 3 days):
+
 - Success rate trend (improving/declining/stable with percentage)
 - Notable changes only - omit stable metrics
 
 **Skip monthly summaries** unless specifically showing anomalies or significant changes.
 
 **Trend Indicators**:
+
 - 📈 Improving: Metric significantly better (>10% change)
 - 📉 Declining: Metric significantly worse (>10% change)
 - ➡️ Stable: Metric within 10% (don't report unless notable)
@@ -351,6 +376,7 @@ Create a **concise** discussion with your findings using the safe-outputs create
 **Discussion Title**: `Daily Copilot Agent Analysis - [DATE]`
 
 **Concise Discussion Template**:
+
 ```markdown
 # 🤖 Copilot Agent PR Analysis - [DATE]
 
@@ -409,6 +435,7 @@ The "Agent Task Texts" section should include a table showing all PRs created in
    - If the body is empty or null, show "No description provided"
 
 2. **Table Format:**
+
    ```markdown
    | PR # | Status | Task Text (first 100 chars) |
    |------|--------|----------------------------|
@@ -425,6 +452,7 @@ The "Agent Task Texts" section should include a table showing all PRs created in
    - Omit the "Agent Task Texts" section entirely
 
 **Important Brevity Guidelines:**
+
 - **Skip the "PR Summary Table"** - use simple 3-day metrics table instead
 - **Omit "Detailed PR Analysis"** section - only show notable PRs with issues
 - **Skip "Weekly Summary"** and **"Monthly Summary"** sections - use 3-day trend only
@@ -435,18 +463,21 @@ The "Agent Task Texts" section should include a table showing all PRs created in
 ## Important Guidelines
 
 ### Security and Data Handling
+
 - **Use sanitized context**: Always use GitHub API data, not raw user input
 - **Validate dates**: Ensure date calculations are correct (handle timezone differences)
 - **Handle missing data**: Some PRs may not have complete metadata
 - **Respect privacy**: Don't expose sensitive information in discussions
 
 ### Analysis Quality
+
 - **Be accurate**: Double-check all calculations and metrics
 - **Be consistent**: Use the same metrics each day for valid comparisons
 - **Be thorough**: Don't skip PRs or data points
 - **Be objective**: Report facts without bias
 
 ### Cache Memory Management
+
 - **Organize data**: Keep historical data well-structured in JSON format
 - **Limit retention**: Keep last 90 days (3 months) of daily data for trend analysis
 - **Handle errors**: If repo memory is corrupted, reinitialize gracefully
@@ -456,6 +487,7 @@ The "Agent Task Texts" section should include a table showing all PRs created in
   - Stop at 3 days - sufficient for concise reports
 
 ### Trend Analysis
+
 - **Require sufficient data**: Don't report trends with less than 3 days of data
 - **Focus on significant changes**: Only report metrics with >10% change
 - **Be concise**: Avoid verbose explanations - use trend indicators and percentages
@@ -464,24 +496,31 @@ The "Agent Task Texts" section should include a table showing all PRs created in
 ## Edge Cases
 
 ### No PRs in Last 24 Hours
+
 If no PRs were created by Copilot in the last 24 hours:
+
 - Create a minimal discussion: "No Copilot agent activity in the last 24 hours."
 - Update repo memory with zero counts
 - Keep it to 2-3 sentences max
 
 ### Bot Username Changes
+
 If Copilot appears under different usernames:
+
 - Note briefly in Key Insights section
 - Adjust search queries accordingly
 
 ### Incomplete PR Data
+
 If some PRs have missing metadata:
+
 - Note count of incomplete PRs in one line
 - Calculate metrics only from complete data
 
 ## Success Criteria
 
 A successful **concise** analysis:
+
 - ✅ Finds all Copilot PRs from last 24 hours
 - ✅ Calculates key metrics (success rate, duration, comments)
 - ✅ Shows 3-day trend comparison (not 7-day or monthly)

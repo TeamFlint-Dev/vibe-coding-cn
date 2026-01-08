@@ -1,6 +1,6 @@
 # Expressions
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/expressions-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/expressions-in-verse>
 > **爬取时间**: 2025-12-27T00:02:00.887570
 
 ---

@@ -39,6 +39,7 @@
 **适用场景**: 需要搜索互联网/文档进行研究
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 name: Scout
@@ -75,6 +76,7 @@ strict: true
 ```
 
 **特点**:
+
 - 支持斜杠命令 + workflow_dispatch 双触发
 - 使用 MCP 服务器扩展能力
 - cache-memory 缓存研究结果
@@ -88,6 +90,7 @@ strict: true
 **适用场景**: 分解大任务为可执行子任务
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 name: Plan Command
@@ -117,6 +120,7 @@ timeout-minutes: 10
 ```
 
 **特点**:
+
 - 创建父子 Issue 层级结构
 - 支持从 Issue 和 Discussion 触发
 - 自动打标签
@@ -130,6 +134,7 @@ timeout-minutes: 10
 **适用场景**: PR 代码评审
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 description: Performs critical code review with a focus on edge cases
@@ -158,6 +163,7 @@ timeout-minutes: 10
 ```
 
 **特点**:
+
 - 可以创建行内评审评论
 - 人格化提示词设计
 - 记忆之前的评审内容
@@ -171,6 +177,7 @@ timeout-minutes: 10
 **适用场景**: 将 main 分支合并到 PR 分支
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 name: Mergefest
@@ -205,6 +212,7 @@ steps:
 ```
 
 **特点**:
+
 - 使用 `steps` 预执行 shell 命令
 - 白名单 bash 命令
 - 推送到 PR 分支
@@ -218,6 +226,7 @@ steps:
 **适用场景**: 总结 PDF/网页内容
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 description: Summarizes PDF and other documents
@@ -263,6 +272,7 @@ timeout-minutes: 15
 **适用场景**: 新 Issue 自动打标签分类
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 name: Issue Classifier
@@ -287,6 +297,7 @@ strict: true
 ```
 
 **特点**:
+
 - `reaction: "eyes"` 确认收到
 - `add-labels.allowed` 限制可用标签
 - 极简模板，5分钟超时
@@ -300,6 +311,7 @@ strict: true
 **适用场景**: 根据 Issue 内容自动执行操作
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 description: Updates issue status and assigns to Copilot agent
@@ -327,6 +339,7 @@ timeout-minutes: 5
 ```
 
 **特点**:
+
 - `lock-for-agent: true` 防止并发
 - `if` 条件过滤
 - `assign-to-agent` 指派给 Copilot
@@ -340,6 +353,7 @@ timeout-minutes: 5
 **适用场景**: 分析并关联相关 Issues
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 name: Issue Arborist
@@ -375,6 +389,7 @@ safe-outputs:
 ```
 
 **特点**:
+
 - `steps` 预处理数据
 - `link-sub-issue` 创建父子关系
 
@@ -391,6 +406,7 @@ safe-outputs:
 **适用场景**: 每日自动生成状态报告
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 timeout-minutes: 10
@@ -419,6 +435,7 @@ tools:
 ```
 
 **特点**:
+
 - `cron` 表达式定义执行时间
 - `stop-after: +1mo` 自动停止
 - `expires: 1d` Issue 自动过期
@@ -432,6 +449,7 @@ tools:
 **适用场景**: 定时扫描并修复安全问题
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 name: Security Fix PR
@@ -464,6 +482,7 @@ timeout-minutes: 20
 ```
 
 **特点**:
+
 - `skip-if-match` 避免重复创建
 - `reviewers: copilot` 自动指派评审
 
@@ -480,6 +499,7 @@ timeout-minutes: 20
 **适用场景**: 手动触发研究任务
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 description: Performs web research on any topic
@@ -514,6 +534,7 @@ strict: true
 ```
 
 **特点**:
+
 - `sandbox.agent: awf` 沙箱隔离
 - 输出到 Discussion
 
@@ -526,6 +547,7 @@ strict: true
 **适用场景**: 最简单的工作流模板
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 on: 
@@ -554,6 +576,7 @@ safe-outputs:
 ```
 
 **特点**:
+
 - 极简模板，适合学习
 - `staged: true` 需人工确认后才执行
 
@@ -570,6 +593,7 @@ safe-outputs:
 **适用场景**: 自动分析 CI 失败原因
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 description: Investigates failed CI workflows
@@ -601,6 +625,7 @@ timeout-minutes: 10
 ```
 
 **特点**:
+
 - `workflow_run` 监控指定工作流
 - `if` 只在失败时触发
 - 创建诊断 Issue
@@ -618,6 +643,7 @@ timeout-minutes: 10
 **适用场景**: 多团队协作、事件响应
 
 **Frontmatter 模板**:
+
 ```yaml
 ---
 name: Campaign - Incident Response
@@ -662,6 +688,7 @@ safe-outputs:
 ```
 
 **特点**:
+
 - `type: choice` 选择型输入
 - `repo-memory` 持久化记忆
 - 多种 safe-outputs 组合

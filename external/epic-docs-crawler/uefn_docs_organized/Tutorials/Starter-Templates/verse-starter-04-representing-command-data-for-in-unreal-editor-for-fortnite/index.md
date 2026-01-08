@@ -1,6 +1,6 @@
 # 4. Representing Command Data
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-04-representing-command-data-for-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-04-representing-command-data-for-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:30:55.317209
 
 ---
@@ -73,6 +73,6 @@ In the next step, learn how these commands are used in the UI and how to add a c
 
 [![5. Controlling the NPC with UI](https://dev.epicgames.com/community/api/documentation/image/88690df5-0ea4-459a-8142-896f2f202c8a?resizing_type=fit&width=640&height=640)
 
-5. Controlling the NPC with UI
+1. Controlling the NPC with UI
 
-Learn how to create and update a custom, dynamic in-game UI using Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-05-controlling-the-npc-with-ui-in-unreal-editor-for-fortnite)
+Learn how to create and update a custom, dynamic in-game UI using Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-05-controlling-the-npc-with-ui-in-unreal-editor-for-fortnite>)

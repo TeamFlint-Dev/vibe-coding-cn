@@ -1,6 +1,6 @@
 # 3. Creating the Game Loop
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-3-creating-the-game-loop-for-time-trial-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-3-creating-the-game-loop-for-time-trial-in-verse>
 > **爬取时间**: 2025-12-27T00:20:11.751655
 
 ---
@@ -34,12 +34,12 @@ Follow these steps to update the **game\_coordinator\_device.verse** file:
    ```verse
         OnBegin<override>;()<suspends> : void =
             SetupZones()
-   		
+     
             PickupDeliveryLoop()
-   		
+     
         PickupDeliveryLoop<private>()<suspends> : void =
             var PickupLevel : int = 0
-   		
+     
             loop:
                 if (PickupZone : base_zone = PickupZoneSelectors[PickupLevel].SelectNext[]):
                     PickupZone.ActivateZone()
@@ -48,7 +48,7 @@ Follow these steps to update the **game\_coordinator\_device.verse** file:
                 else:
                     Print("Can't find next PickupZone to select")
                     return
-   		
+     
                 if (DeliveryZone := DeliveryZoneSelector.SelectNext[]):
                     DeliveryZone.ActivateZone() 
                     DeliveryZone.ZoneCompletedEvent.Await()
@@ -57,6 +57,7 @@ Follow these steps to update the **game\_coordinator\_device.verse** file:
                     Print("Can't find next DeliveryZone to select")
                     return
    ```
+
 2. Determine the maximum number of pickup levels from the length of the tags [array](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary), and increase the `PickupLevel` every time the player completes a pickup zone as long as the pickup level isn’t greater than the max number of pickup levels.
 
    ```verse
@@ -84,6 +85,7 @@ Follow these steps to update the **game\_coordinator\_device.verse** file:
                     Print("Can't find next PickupZone to select")
                     return
    ```
+
 3. The delivery zone should activate after the player completes their first pickup, but the player should still be able to pick up items if they want to before going to the delivery zone. To do this, the pickup zone code and delivery zone code need to occur at the same time. This example uses the [race](https://dev.epicgames.com/documentation/en-us/fortnite/race-in-verse) concurrency expression because:
 
    - The delivery block should cancel the pickup zone loop when the player finishes a delivery.
@@ -131,6 +133,7 @@ Follow these steps to update the **game\_coordinator\_device.verse** file:
                         Logger.Print("Can't find next DeliveryZone to select.", ?Level:=log_level.Error)
                         return # Error out of the PickupDeliveryLoop
    ```
+
 5. The previous example activates the delivery zone at the same time the pickup zone is activated, but the activation of the delivery zone should wait until the first pickup is completed. To do this, add an event and have the delivery zone wait for the event before activating.
 
    ```verse
@@ -184,6 +187,7 @@ Follow these steps to update the **game\_coordinator\_device.verse** file:
                         Logger.Print("Can't find next DeliveryZone to select.", ?Level := log_level.Error)
                         return # Error out of the PickupDeliveryLoop
    ```
+
 6. Loop this pickup zone / delivery zone race expression until the game is done so the player can keep picking up and delivering items.
 
    ```verse
@@ -233,6 +237,7 @@ Follow these steps to update the **game\_coordinator\_device.verse** file:
                             Logger.Print("Can't find next DeliveryZone to select.", ?Level:=log_level.Error)
                             return # Error out of the PickupDeliveryLoop
    ```
+
 7. Your **game\_coordinator\_device.verse** file should now look like:
 
    ```verse
@@ -336,16 +341,19 @@ Follow these steps to set up the completion and failure states for the game:
    ```verse
    game_coordinator_device<public> := class(creative_device): @editable EndGame<public> : end_game_device = end_game_device{} var CountdownTimer<private> : countdown_timer = countdown_timer{}
    ```
+
 2. Since the constructor for `countdown_timer` requires a player reference, add an optional player variable to store a reference to the player in this single-player game and create a function named `FindPlayer()` to get the player reference. Call `FindPlayer()` in `OnBegin()` before setting up the zones.
 
    ```verse
    game_coordinator_device<public> := class(creative_device): @editable EndGame<public> : end_game_device = end_game_device{} var CountdownTimer<private> : countdown_timer = countdown_timer{} var MaybePlayer<private> : ?player = false OnBegin<override>()<suspends> : void = FindPlayer() SetupZones() FindPlayer<private>() : void = # Since this is a single player experience, the first player (at index 0) # should be the only one available. if (FirstPlayer := GetPlayspace().GetPlayers()[0]): set MaybePlayer = option{FirstPlayer} Logger.Print("Player found") else: # Log an error if we can't find a player. # This shouldn't happen because at least one player is always present. Logger.Print("Can't find valid player", ?Level := log_level.Error)
    ```
+
 3. Create a function named `HandleCountdownEnd()` that waits for the countdown timer to end and activates the End Game device.
 
    ```verse
    HandleCountdownEnd<private>(InPlayer : agent)<suspends> : void = CountdownTimer.CountdownEndedEvent.Await() EndGame.Activate(InPlayer)
    ```
+
 4. Create a function named `StartGame()`, and call this function after `SetupZones()` in `OnBegin()`. This function should:
 
    - Initialize the countdown timer.
@@ -353,6 +361,7 @@ Follow these steps to set up the completion and failure states for the game:
      ```verse
      game_coordinator_device<public> := class(creative_device): # How long the countdown timer will start counting down from. @editable InitialCountdownTime<public> : float = 30.0 @editable EndGame<public> : end_game_device = end_game_device{} OnBegin<override>()<suspends> : void = FindPlayer() SetupZones() StartGame() StartGame<private>()<suspends> : void = Logger.Print("Trying to start the game...") <# We construct a new countdown_timer that'll countdown from InitialCountdownTime once started. The countdown_timer requires a player to show their UI to. We should have a valid player by now. #> if (ValidPlayer := MaybePlayer?): Logger.Print("Valid player, starting game...") set CountdownTimer = MakeCountdownTimer(InitialCountdownTime, ValidPlayer) CountdownTimer.StartCountdown() else: Logger.Print("Can't find valid player. Aborting game start", ?Level := log_level.Error)
      ```
+
    - Use the `race` expression to both call `HandleCountdownEnd(ValidPlayer)` and `PickupDeliveryLoop()`, so that:
 
      - When the countdown ends, the game loop stops, or
@@ -362,6 +371,7 @@ Follow these steps to set up the completion and failure states for the game:
      StartGame<private>()<suspends> : void = Logger.Print("Trying to start the game...") <# We construct a new countdown_timer that'll countdown from InitialCountdownTime once started. The countdown_timer requires a player to show their UI to. We should have a valid player by now. #> if (ValidPlayer := MaybePlayer?): Logger.Print("Valid player, starting game...") set CountdownTimer = MakeCountdownTimer(InitialCountdownTime, ValidPlayer)
      CountdownTimer.StartCountdown() # We wait for the countdown to end. # At the same time, we also run the Pickup and Delivery game loop that constitutes the core gameplay. race: HandleCountdownEnd(ValidPlayer) PickupDeliveryLoop() else: Logger.Print("Can't find valid player. Aborting game start", ?Level := log_level.Error)
      ```
+
 5. Your game\_coordinate\_device.verse file should now look like:
 
    ```verse
@@ -494,6 +504,7 @@ Follow these steps to set up the completion and failure states for the game:
                                 Logger.Print("Can't find next DeliveryZone to select.", ?Level := log_level.Error)
                                 return # Error out of the PickupDeliveryLoop
    ```
+
 6. Save your Verse files, compile your code, and playtest your level.
 
 When you playtest your level, the game works the same as in the previous section, but now there’s a timer that will end the game when the countdown ends or there’s an issue in the game loop.
@@ -502,6 +513,6 @@ When you playtest your level, the game works the same as in the previous section
 
 [![4. Managing and Displaying the Score](https://dev.epicgames.com/community/api/documentation/image/e9125c7b-d02e-41aa-a82e-9e42a1013818?resizing_type=fit&width=640&height=640)
 
-4. Managing and Displaying the Score
+1. Managing and Displaying the Score
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-4-managing-and-displaying-the-score-for-time-trial-in-verse)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-4-managing-and-displaying-the-score-for-time-trial-in-verse>)

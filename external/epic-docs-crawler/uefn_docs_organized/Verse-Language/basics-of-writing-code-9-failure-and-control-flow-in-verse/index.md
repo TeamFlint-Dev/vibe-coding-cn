@@ -1,6 +1,6 @@
 # Lesson 9: Failure and Control Flow
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-9-failure-and-control-flow-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-9-failure-and-control-flow-in-verse>
 > **爬取时间**: 2025-12-26T23:09:05.300447
 
 ---
@@ -171,10 +171,10 @@ Luckily, when the expression `Tickets >= FriendsAvailable` runs, it will fail an
 - **Failure expressions** can either succeed or fail, and they must be written in a failure context. What happens after a success or failure depends on how your code is written.
 - **Failure contexts** give failure expressions a safe place to fail. Any failure within a failure context causes all the code within that context to **roll back**, as though it never ran.
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 9: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/fcc46b69-bd24-4ce0-af92-2ca6b6800c72?resizing_type=fit&width=640&height=640)
 
 Lesson 9: Practice Time!
 
-Practice using failable expressions and failure contexts.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-9-practice-time-in-verse)
+Practice using failable expressions and failure contexts.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-9-practice-time-in-verse>)

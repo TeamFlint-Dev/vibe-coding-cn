@@ -1,6 +1,6 @@
 # 4. Managing and Displaying the Score
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-4-managing-and-displaying-the-score-for-time-trial-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-4-managing-and-displaying-the-score-for-time-trial-in-verse>
 > **爬取时间**: 2025-12-27T00:20:41.021186
 
 ---
@@ -139,23 +139,27 @@ Follow these steps to create the UI for the score manager in Verse:
      set PendingScore = 0 UpdateUI() 
      set TotalGameScore += PendingScore
      ```
+
    - A function named `UpdatePendingScore()` that has the `public` specifier and an integer parameter named `Points`, which the function will add to the current pending score.
 
      ```verse
      <# Adds the given amount of points to the pending points. #> 
      UpdatePendingScore<public>(Points : int) : void =   set PendingScore += Points UpdateUI()
      ```
+
    - A function named `UpdatePickupLevel` that has the `public` specifier and an integer parameter named `Level`, which is the new value for the current pickup level.
 
      ```verse
      UpdatePickupLevel<public>(Level : int) : void = set PickupLevel = Level UpdateUI()
      ```
+
    - Create a function named `AwardScore()` that has the `public` specifier. This function awards the score to the player using the Score Manager device, and activates the device.
 
      ```verse
      <# Awards the score to the player with the Score Manager device, by activating it. #> AwardScore<public>() : void = ScoreManagerDevice.SetScoreAward(TotalGameScore) if (AwardedPlayer := MaybePlayer?):   
        ScoreManagerDevice.Activate(AwardedPlayer)
      ```
+
 9. Your `score_manager` class should now look like:
 
    ```verse
@@ -233,6 +237,7 @@ Follow these steps to create the UI for the score manager in Verse:
                     PendingScoreWidget.SetText(PendingScoreText(PendingScore))
                     PendingScoreWidget.SetText(TotalGameScoreText(TotalGameScore))
    ```
+
 10. Now that you have created your `score_manager` class, create a constructor for the class to initialize the player variables from the game. Note that you must [type cast](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#type-casting) the player reference from `agent` to `player` to get a reference to the player’s UI.
 
     ```verse
@@ -240,6 +245,7 @@ Follow these steps to create the UI for the score manager in Verse:
              MaybePlayer := option{InPlayer}
              MaybePlayerUI := option{GetPlayerUI[player[InPlayer]]}
     ```
+
 11. Your **score\_manager.verse** file should now look like:
 
     ```verse
@@ -342,27 +348,29 @@ Follow these steps to create and update your UI during the game in the **game\_c
      ScoreManagerDevice<public> : score_manager_device = score_manager_device{}`
    - An editable integer array named `PointsForPickupLevel` that has the `public` specifier, to define the points the player can score for each pickup level.
       `@editable
-     # Maps how many points a pickup is worth based on its pickup level.
+
+     # Maps how many points a pickup is worth based on its pickup level
+
      PointsForPickupLevel<public> : []int = array{1, 2, 3}`
 2. In the `StartGame` function, initialize the score manager variable by calling the constructor `MakeScoreManager()` with a reference to the player and Score Manager device, and generate the UI for the player to see.
 
    ```verse
         StartGame<private>()<suspends> : void =
             Logger.Print("Trying to start the game...")
-   		
+     
             # We construct a new countdown_timer that'll countdown from InitialCountdownTime once started.
             # Also construct a new score_manager that'll keep track of the player's score and pickup level.
             # The countdown_timer and score_manager require a player to show their UI to.
             # We should have a valid player by now: the one that entered the vehicle, triggering the game start. 
             if (ValidPlayer := MaybePlayer?):
                 Logger.Print("Valid player, starting game...")
-   		
+     
                 set ScoreManager = MakeScoreManager(ValidPlayer, ScoreManagerDevice)
                 ScoreManager.AddScoreManagerToUI()
-   		
+     
                 set CountdownTimer = MakeCountdownTimer(InitialCountdownTime, ValidPlayer)
                 CountdownTimer.StartCountdown()
-   		
+     
                 # We wait for the countdown to end.
                 # At the same time, we also run the Pickup and Delivery game loop that constitutes the core gameplay.
                 race:
@@ -371,6 +379,7 @@ Follow these steps to create and update your UI during the game in the **game\_c
             else:
                 Logger.Print("Can't find valid player. Aborting game start", ?Level := log_level.Error)
    ```
+
 3. In the game loop `PickupDeliveryLoop()` function, update the UI whenever the pickup level changes and the player finishes a pickup or delivery:
 
    ```verse
@@ -433,6 +442,7 @@ Follow these steps to create and update your UI during the game in the **game\_c
                             Logger.Print("Can't find next DeliveryZone to select.", ?Level := log_level.Error)
                             return # Error out of the PickupDeliveryLoop
    ```
+
 4. Now, when the countdown ends, award the player their score. In `HandleCountdownEnd()`, call `ScoreManager.AwardScore()`.
     `HandleCountdownEnd<private>(InPlayer : player)<suspends>:void=
    TotalTime := CountdownTimer.CountdownEndedEvent.Await()
@@ -606,6 +616,6 @@ Follow these steps to create and update your UI during the game in the **game\_c
 
 [![5. Improving Feedback and Player Experience](https://dev.epicgames.com/community/api/documentation/image/ef2f6a04-7153-4a76-9a3f-ad26e0b7ffca?resizing_type=fit&width=640&height=640)
 
-5. Improving Feedback and Player Experience
+1. Improving Feedback and Player Experience
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-5-improving-feedback-and-player-experience-for-time-trial-in-verse)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-5-improving-feedback-and-player-experience-for-time-trial-in-verse>)

@@ -1,6 +1,6 @@
 # 4. Playtest Your Island
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/first-island-04-playtest-your-island-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/first-island-04-playtest-your-island-in-fortnite>
 > **爬取时间**: 2025-12-26T23:53:37.745407
 
 ---
@@ -52,6 +52,6 @@ You can exit the live session from either UEFN or Creative.
 
 [![5. Spice Up the Gameplay with Verse](https://dev.epicgames.com/community/api/documentation/image/1994c984-daed-4338-b66d-8d180cc9d98f?resizing_type=fit&width=640&height=640)
 
-5. Spice Up the Gameplay with Verse
+1. Spice Up the Gameplay with Verse
 
-Get a painless introduction to Verse that requires no previous programming experience!](https://dev.epicgames.com/documentation/en-us/fortnite/first-island-05-spice-up-the-gameplay-with-verse-in-fortnite)
+Get a painless introduction to Verse that requires no previous programming experience!](<https://dev.epicgames.com/documentation/en-us/fortnite/first-island-05-spice-up-the-gameplay-with-verse-in-fortnite>)

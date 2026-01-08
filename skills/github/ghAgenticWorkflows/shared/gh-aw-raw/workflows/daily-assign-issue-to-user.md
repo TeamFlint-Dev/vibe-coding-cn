@@ -24,6 +24,7 @@ safe-outputs:
 # Auto-Assign Issue
 
 Find ONE open issue that:
+
 - Has no assignees
 - Does not have label `ai-generated`
 - Was not opened by `github-actions` or any bot
@@ -33,6 +34,7 @@ Pick the oldest unassigned issue.
 Then list the 5 most recent contributors from merged PRs. Pick one who seems relevant based on the issue type.
 
 If you find a match:
+
 1. Use `assign-to-user` to assign the issue
 2. Use `add-comment` with a short explanation (1-2 sentences)
 

@@ -1,6 +1,6 @@
 # 3. Finding the Lights at Runtime with Gameplay Tags
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-3-finding-the-lights-at-runtime-with-gameplay-tags-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-3-finding-the-lights-at-runtime-with-gameplay-tags-in-verse>
 > **爬取时间**: 2025-12-27T00:38:20.780282
 
 ---
@@ -21,17 +21,19 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
            using { /UnrealEngine.com/Temporary/Diagnostics }
            using { /Verse.org/Simulation/Tags }
            using { /Verse.org/Simulation }
-     								    
+                 
            log_tagged_lights_puzzle := class(log_channel){}
      ```
+
 3. Above the `log_tagged_lights_puzzle` class, add a new subclass named `puzzle_light` that inherits from the `tag` class. The inherited class name becomes a custom Gameplay Tag for you to use on any creative device.
 
    ```verse
         # Derive from the `tag` class in the Verse.org/Simulation/Tags module to create a new Gameplay Tag.
         puzzle_light := class(tag){}
-   		
+     
         log_tagged_lights_puzzle := class(log_channel){}
    ```
+
 4. In the UEFN toolbar, click **Build Verse Scripts** to compile your code and your new `puzzle_light` Gameplay Tag to your project.
 5. In the UEFN **Outliner**, select a **Customizable Light Device** to open its **Details** panel.
 6. In the Details panel:
@@ -51,12 +53,14 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
            @editable
            var LightsState : []logic = array{false, false, false, false}
      ```
+
    - An editable `customizable_light_device` variable array named `Lights` to store all the Customizable Light devices tagged with the `puzzle_light` Gameplay Tag.
 
      ```verse
            @editable
            var Lights : []customizable_light_device = array{}
      ```
+
 8. When the game begins, the device should set up the lights to match the initial configuration specified in the `LightsState` array, and save the references in the `Lights` array so they can be updated when the [game state](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#game-state) changes. This work is going to be done in a method named `SetupPuzzleLights() : void` and called in the `OnBegin()` method so that the lights are set up when the game starts.
 
    ```verse
@@ -66,6 +70,7 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
         OnBegin<override>()<suspends> : void =
             SetupPuzzleLights()
    ```
+
 9. In `SetupPuzzleLights()`, find all devices with the `puzzle_light` tag by calling `GetCreativeObjectsWithTag(puzzle_light{})` and save them in an array named `TaggedActors`. Since `TaggedActors` is a constant array whose scope is local to the method `SetupPuzzleLights()`, you don’t need to explicitly specify a type for the array because it can be inferred in this context.
 
    ```verse
@@ -83,6 +88,7 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
          do:
              TaggedActor
     ```
+
 11. The function `GetCreativeObjectsWithTag()` returns an array of type `creative_object_interface`. In this example, you’ll want to interact with each `TaggedActor` as a `customizable_light_device` so you can turn the light on or off.
 
     - You can convert a class to one of its subclasses (called [type casting](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#type-casting)) using the syntax `NewDeviceReference := device_type_to_cast_to[DeviceReference]`, where `device_type_to_cast_to` is the device type you want, which in this example is `customizable_light_device`. This is a failable expression because the type conversion will fail if the device can’t be converted to that type (for example if it’s a different type of device).
@@ -101,6 +107,7 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
             do:
                 LightDevice
       ```
+
     - The last expression in a code block is the code block’s result. The `for` expression returns the result of the code block from each iteration in an array, so the result of this `for` expression is an array of `customize_light_device` references that were tagged with `puzzle_light`. This means you can update the `Lights` array with the result of the `for` expression directly.
 
       ```verse
@@ -110,6 +117,7 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
             do:
                 LightDevice
       ```
+
     - This `for` loop should also call `TurnOn()` / `TurnOff()` on the lights to match their initial `LightsState` setup in the editor. The `for` expression can return the index used to get the current tagged device (`ActorIndex` in the example), which you can use to index into the `LightsState` array to see whether the light should be on or off.
 
       ```verse
@@ -120,6 +128,7 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
             do:
                 LightDevice
       ```
+
     - Next, call `TurnOn()` / `TurnOff()` depending on whether `ShouldLightBeOn` is `true` / `false`. You can use an `if` expression to execute different expressions based on a condition (specifically a failable expression). In this case, the failable expression can use the query operator `?` with `IsLightOn`, which will succeed if `ShouldLightBeOn` is `true` (so call `TurnOn()`), and fail if `ShouldLightBeOn` is `false` (so call `TurnOff()`).
 
       ```verse
@@ -131,6 +140,7 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
                 if (ShouldLightBeOn?) then LightDevice.TurnOn() else LightDevice.TurnOff()
                 LightDevice
       ```
+
     - It’s a good idea to also print the index of the light and its starting value so you can verify your code is working as expected and compare to what you see in the level.
     - When you use `{}` in the middle of a string, the expression between the `{}` is evaluated first and its value is added to the string. So you can use an `if` expression in the middle of a string to conditionally add values.
 
@@ -144,6 +154,7 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
                 if (ShouldLightBeOn?) then LightDevice.TurnOn() else LightDevice.TurnOff()
                 LightDevice
       ```
+
 12. Your `SetupPuzzleLights()` method should now look like this:
 
     ```verse
@@ -163,6 +174,7 @@ Follow these steps to create a new Gameplay Tag and assign it to all the lights 
                      if (ShouldLightBeOn?) then LightDevice.TurnOn() else LightDevice.TurnOff()
                      LightDevice
     ```
+
 13. Save the script in Visual Studio Code.
 14. In the UEFN toolbar, click **Build Verse Scripts** to compile your code.
 15. Click **Play** in the UEFN toolbar to playtest the level.

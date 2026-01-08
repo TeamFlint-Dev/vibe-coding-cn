@@ -46,6 +46,7 @@ tools:
 **Campaign ID**: `security-compliance-${{ github.run_id }}`
 
 **Business Context**:
+
 - Audit deadline: ${{ github.event.inputs.audit_date }}
 - Compliance requirement: SOC2, GDPR, or internal security policy
 - Executive sponsor: CISO
@@ -73,12 +74,14 @@ tools:
 ### 1. Scan & Baseline
 
 **Discover vulnerabilities**:
+
 - Query GitHub Security Advisories across all org repos
 - Filter by severity: ${{ github.event.inputs.severity_threshold }}+
 - Identify affected repositories and dependencies
 - Calculate total count, breakdown by severity and repo
 
 **Store baseline** in `memory/campaigns/security-compliance-${{ github.run_id }}/baseline.json`:
+
 ```json
 {
   "campaign_id": "security-compliance-${{ github.run_id }}",
@@ -104,6 +107,7 @@ tools:
 **Labels**: `campaign-tracker`, `security`, `compliance`, `campaign:security-compliance-${{ github.run_id }}`
 
 **Body**:
+
 ```markdown
 # Security Compliance Campaign
 
@@ -146,21 +150,25 @@ gh repo view --json defaultBranchRef | \
 ```
 
 ## 🚀 Workflow
+
 1. **Launcher** (this workflow): Scan, create epic, generate vulnerability tasks
 2. **Workers** (separate workflows): Create fix PRs for each vulnerability
 3. **Monitor** (scheduled): Daily progress reports, escalate blockers
 4. **Completion**: Final report to CISO with compliance documentation
 
 ## 💰 Budget & Cost Tracking
+
 - **Approved Budget**: $X
 - **AI Costs**: Tracked daily
 - **Engineering Hours**: Tracked per fix
 - **ROI**: Cost of campaign vs audit failure risk
 
 ## 📞 Escalation
+
 - **Blockers**: Tag @security-leads
 - **Budget overrun**: Notify @finance
 - **Timeline risk**: Escalate to @ciso
+
 ```
 
 ### 3. Generate Vulnerability Task Issues
@@ -226,6 +234,7 @@ If automatic fix fails, manual intervention required - tag @security-team.
 ### 4. Store Campaign Metadata
 
 Create `memory/campaigns/security-compliance-${{ github.run_id }}/metadata.json`:
+
 ```json
 {
   "campaign_id": "security-compliance-${{ github.run_id }}",
@@ -272,6 +281,7 @@ Create `memory/campaigns/security-compliance-${{ github.run_id }}/metadata.json`
 ## Output
 
 Campaign launched successfully:
+
 - **Campaign ID**: `security-compliance-${{ github.run_id }}`
 - **Epic Issue**: #[number]
 - **Vulnerability Tasks**: [count] created
@@ -281,6 +291,7 @@ Campaign launched successfully:
 - **Audit Deadline**: ${{ github.event.inputs.audit_date }} ([X] days remaining)
 
 **For CISO Dashboard**:
+
 ```bash
 # Campaign overview
 gh issue view [epic-issue-number]

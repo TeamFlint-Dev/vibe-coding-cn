@@ -76,6 +76,7 @@ Your task is to perform an informed merge of the main branch into the pull reque
 First, retrieve the full pull request details to get branch names:
 
 Use GitHub tools:
+
 ```
 Use pull_request_read with method "get" to get PR details including:
 - head.ref (the PR branch name)
@@ -88,6 +89,7 @@ Store the branch names for use in subsequent git commands.
 ### 2. Validate the Pull Request
 
 Before starting the merge:
+
 - Verify the PR is open (state == "open")
 - Confirm the PR is not already merged or closed
 - Check that the PR branch exists and is accessible
@@ -171,21 +173,24 @@ fi
 If there are merge conflicts:
 
 1. **Identify conflicted files**:
+
 ```bash
 git status --short | grep '^UU' || git status --short | grep '^AA' || true
 ```
 
-2. **For `.yml` files in `.github/workflows/`**:
+1. **For `.yml` files in `.github/workflows/`**:
    - NEVER attempt to resolve these conflicts automatically
    - Use the PR head version (ours):
+
    ```bash
    git checkout --ours .github/workflows/*.yml 2>/dev/null || true
    git add .github/workflows/*.yml 2>/dev/null || true
    ```
 
-3. **For `.lock.yml` files in `.github/workflows/`**:
+2. **For `.lock.yml` files in `.github/workflows/`**:
    - These are compiled workflow files that can be regenerated
    - Accept the merge and then recompile:
+
    ```bash
    # Check if there are any .lock.yml conflicts
    LOCK_CONFLICTS="$(git status --short | grep '\.lock\.yml$' || true)"
@@ -198,19 +203,21 @@ git status --short | grep '^UU' || git status --short | grep '^AA' || true
    fi
    ```
 
-4. **For other conflicts**:
+3. **For other conflicts**:
    - Analyze the conflicts using git tools
    - Use your knowledge of the repository structure to make informed decisions
    - For documentation files, prefer newer/main branch version
    - For code files, attempt to merge intelligently or keep both versions with markers
    - When in doubt, keep the PR version and document the conflict
 
-5. **Complete the merge**:
+4. **Complete the merge**:
+
 ```bash
 git merge --continue || git commit --no-edit -m "Resolve merge conflicts from main"
 ```
 
-6. **If there were .lock.yml conflicts, recompile workflows**:
+1. **If there were .lock.yml conflicts, recompile workflows**:
+
 ```bash
 # Check if we resolved any .lock.yml conflicts
 if git log -1 --stat | grep '\.lock\.yml'; then
@@ -295,6 +302,7 @@ echo "Ready to push merged changes to <PR_BRANCH>"
 ```
 
 The `push-to-pull-request-branch` safe output will automatically:
+
 - Push commits to the PR branch
 - Add appropriate commit message prefix
 - Handle authentication securely
@@ -320,6 +328,7 @@ The `push-to-pull-request-branch` safe output will automatically:
 ## Error Handling
 
 If any of these conditions occur, explain clearly in response:
+
 - PR is closed or already merged
 - PR branch is protected and cannot be pushed to
 - Merge conflicts cannot be automatically resolved

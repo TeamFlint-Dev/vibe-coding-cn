@@ -54,6 +54,7 @@ When invoked with the `/archie` command, you must:
 ## Phase 0: Setup
 
 You have access to the Serena MCP server for consistent Mermaid diagram generation. Serena is configured with:
+
 - Active workspace: ${{ github.workspace }}
 - Memory location: /tmp/gh-aw/cache-memory/serena
 
@@ -95,6 +96,7 @@ Use Serena to generate 1-3 simple Mermaid diagrams:
 - **Sweet Spot**: 2 diagrams typically provide good coverage
 
 Choose the number based on complexity:
+
 - Simple issue/PR: 1 diagram
 - Moderate complexity: 2 diagrams
 - Complex with multiple aspects: 3 diagrams
@@ -102,6 +104,7 @@ Choose the number based on complexity:
 ### Example Diagram Structures
 
 **Flowchart Example:**
+
 ```mermaid
 graph TD
     A[Start] --> B[Process]
@@ -111,6 +114,7 @@ graph TD
 ```
 
 **Sequence Diagram Example:**
+
 ```mermaid
 sequenceDiagram
     participant User
@@ -202,6 +206,7 @@ Create a well-formatted comment containing your diagrams:
 ## Success Criteria
 
 A successful Archie run:
+
 - ✅ Analyzes the trigger context and any linked references
 - ✅ Generates between 1 and 3 valid Mermaid diagrams
 - ✅ Ensures diagrams are GitHub Markdown-compatible

@@ -34,6 +34,7 @@ Generate a comprehensive ASCII tree map visualization of the repository file str
 ## Mission
 
 Your task is to analyze the repository structure and create an ASCII tree map that visualizes:
+
 1. Directory hierarchy
 2. File sizes (relative visualization)
 3. File counts per directory
@@ -44,6 +45,7 @@ Your task is to analyze the repository structure and create an ASCII tree map th
 ### 1. Collect Repository Statistics
 
 Use bash tools to gather:
+
 - **Total file count** across the repository
 - **Total repository size** (excluding .git directory)
 - **File type distribution** (count by extension)
@@ -52,6 +54,7 @@ Use bash tools to gather:
 - **Directory depth** and structure
 
 Example commands you might use:
+
 ```bash
 # Count total files
 find . -type f -not -path "./.git/*" | wc -l
@@ -72,12 +75,14 @@ du -h --max-depth=2 --exclude=.git . | sort -rh | head -15
 ### 2. Generate ASCII Tree Map
 
 Create an ASCII visualization that shows:
+
 - **Directory tree structure** with indentation
 - **Size indicators** using symbols or bars (e.g., █ ▓ ▒ ░)
 - **File counts** in brackets [count]
 - **Relative size representation** (larger files/directories shown with more bars)
 
 Example visualization format:
+
 ```
 Repository Tree Map
 ===================
@@ -115,6 +120,7 @@ Repository Tree Map
 ### 5. Output Format
 
 Create a GitHub discussion with:
+
 - **Title**: "Repository Tree Map - [current date]"
 - **Body**: Your complete tree map visualization with all sections
 - Use proper markdown formatting with code blocks for the ASCII art
@@ -134,6 +140,7 @@ Create a GitHub discussion with:
 ## Security
 
 Treat all repository content as trusted since you're analyzing the repository you're running in. However:
+
 - Don't execute any code files
 - Don't read sensitive files (.env, secrets, etc.)
 - Focus on file metadata (sizes, counts, names) rather than content

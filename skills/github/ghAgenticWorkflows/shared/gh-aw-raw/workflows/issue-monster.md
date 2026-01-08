@@ -259,6 +259,7 @@ Find up to three issues that need work and assign them to the Copilot agent for 
 The issue search has already been performed in a previous job with smart filtering and prioritization:
 
 **Filtering Applied:**
+
 - ✅ Only open issues
 - ✅ Excluded issues with labels: wontfix, duplicate, invalid, question, discussion, needs-discussion, blocked, on-hold, waiting-for-feedback, needs-more-info
 - ✅ Excluded issues that already have assignees
@@ -267,6 +268,7 @@ The issue search has already been performed in a previous job with smart filteri
 
 **Scoring System:**
 Issues are scored and sorted by priority:
+
 - Good first issue: +50 points
 - Security: +45 points
 - Bug: +40 points
@@ -281,6 +283,7 @@ Issues are scored and sorted by priority:
 **Issue Numbers**: ${{ needs.search_issues.outputs.issue_numbers }}
 
 **Available Issues (sorted by priority score):**
+
 ```
 ${{ needs.search_issues.outputs.issue_list }}
 ```
@@ -302,6 +305,7 @@ For issues with the "task" or "plan" label, check if they are sub-issues linked 
 3. **Only one sub-issue sibling PR at a time**: If a sibling sub-issue already has an open draft PR from Copilot, skip all other siblings until that PR is merged or closed
 
 **Example**: If parent issue #100 has sub-issues #101, #102, #103:
+
 - If #101 has an open PR, skip #102 and #103
 - Only after #101's PR is merged/closed, process #102
 - This ensures orderly, sequential processing of related tasks
@@ -309,6 +313,7 @@ For issues with the "task" or "plan" label, check if they are sub-issues linked 
 ### 2. Filter Out Issues Already Assigned to Copilot
 
 For each issue found, check if it's already assigned to Copilot:
+
 - Look for issues that have Copilot as an assignee
 - Check if there's already an open pull request linked to it
 - **For "task" or "plan" labeled sub-issues**: Also check if any sibling sub-issue (same parent) has an open PR from Copilot
@@ -318,6 +323,7 @@ For each issue found, check if it's already assigned to Copilot:
 ### 3. Select Up to Three Issues to Work On
 
 From the prioritized and filtered list (issues WITHOUT Copilot assignments or open PRs):
+
 - **Select up to three appropriate issues** to assign
 - **Use the priority scoring**: Issues are already sorted by score, so prefer higher-scored issues
 - **Topic Separation Required**: Issues MUST be completely separate in topic to avoid conflicts:
@@ -332,6 +338,7 @@ From the prioritized and filtered list (issues WITHOUT Copilot assignments or op
   - Clearly independent from each other
 
 **Topic Separation Examples:**
+
 - ✅ **GOOD**: Issue about CLI flags + Issue about documentation + Issue about workflow syntax
 - ✅ **GOOD**: Issue about error messages + Issue about performance optimization + Issue about test coverage
 - ❌ **BAD**: Two issues both modifying the same file or feature
@@ -339,16 +346,19 @@ From the prioritized and filtered list (issues WITHOUT Copilot assignments or op
 - ❌ **BAD**: Related issues that might have conflicting changes
 
 **If all issues are already being worked on:**
+
 - Output a message: "🍽️ All issues are already being worked on!"
 - **STOP** and do not proceed further
 
 **If fewer than 3 suitable separate issues are available:**
+
 - Assign only the issues that are clearly separate in topic
 - Do not force assignments just to reach the maximum
 
 ### 4. Read and Understand Each Selected Issue
 
 For each selected issue:
+
 - Read the full issue body and any comments
 - Understand what fix is needed
 - Identify the files that need to be modified
@@ -365,6 +375,7 @@ safeoutputs/assign_to_agent(issue_number=<issue_number>, agent="copilot")
 Do not use GitHub tools for this assignment. The `assign_to_agent` tool will handle the actual assignment.
 
 The Copilot agent will:
+
 1. Analyze the issue and related context
 2. Generate the necessary code changes
 3. Create a pull request with the fix
@@ -397,6 +408,7 @@ Om nom nom! 🍪
 ## Success Criteria
 
 A successful run means:
+
 1. You reviewed the pre-searched, filtered, and prioritized issue list
 2. The search already excluded issues with problematic labels (wontfix, question, discussion, etc.)
 3. The search already excluded issues that already have assignees
@@ -412,6 +424,7 @@ A successful run means:
 ## Error Handling
 
 If anything goes wrong:
+
 - **No issues found**: Output a friendly message and stop gracefully
 - **All issues assigned**: Output a message and stop gracefully
 - **API errors**: Log the error clearly

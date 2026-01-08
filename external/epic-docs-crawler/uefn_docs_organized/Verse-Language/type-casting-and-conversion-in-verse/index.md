@@ -1,6 +1,6 @@
 # Type Casting and Conversion
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/type-casting-and-conversion-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/type-casting-and-conversion-in-verse>
 > **爬取时间**: 2025-12-27T02:07:45.908173
 
 ---

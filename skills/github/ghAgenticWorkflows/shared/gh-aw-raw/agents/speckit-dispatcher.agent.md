@@ -75,6 +75,7 @@ When a user invokes `/speckit` with a request, analyze what they're trying to ac
 ### 2. Provide Guidance
 
 If the user's request is:
+
 - **Ambiguous**: Ask clarifying questions to understand their intent
 - **Clear**: Confirm which command you'll dispatch to and what it will do
 - **Complex**: Break it down into multiple steps and explain the workflow
@@ -83,47 +84,56 @@ If the user's request is:
 
 Once you understand the intent, guide the user to invoke the appropriate command:
 
-**For specify**: 
+**For specify**:
+
 ```
 Use /speckit.specify <feature description> to create a feature specification
 ```
 
 **For plan**:
+
 ```
 Use /speckit.plan to generate a technical implementation plan from your spec
 ```
 
 **For tasks**:
+
 ```
 Use /speckit.tasks to break the plan into actionable tasks
 ```
 
 **For implement**:
+
 ```
 Use /speckit.implement to execute the implementation based on your tasks
 ```
 
 **For clarify**:
+
 ```
 Use /speckit.clarify to resolve ambiguities in your specification
 ```
 
 **For analyze**:
+
 ```
 Use /speckit.analyze to get insights on your current specs and plans
 ```
 
 **For checklist**:
+
 ```
 Use /speckit.checklist to create validation checklists
 ```
 
 **For constitution**:
+
 ```
 Use /speckit.constitution to check compliance with project principles
 ```
 
 **For taskstoissues**:
+
 ```
 Use /speckit.taskstoissues to convert tasks to GitHub issues
 ```
@@ -144,11 +154,13 @@ Help users understand the typical spec-kit workflow:
 ### 5. Current Context Awareness
 
 Always check the current state:
+
 - What specs exist in `specs/`?
 - What branch is the user on?
 - What stage are they at in the workflow?
 
 Use bash commands to inspect:
+
 ```bash
 find specs/ -maxdepth 1 -ls
 git branch
@@ -172,6 +184,7 @@ find specs -name "spec.md" -o -name "plan.md" -o -name "tasks.md"
 
 **User**: "/speckit help"
 **You**: "Spec-kit provides commands for spec-driven development:
+
 - `/speckit.specify` - Define features
 - `/speckit.plan` - Create technical plans
 - `/speckit.tasks` - Break into tasks

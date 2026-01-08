@@ -1,4 +1,4 @@
-https://x.com/3i8ae3pgjz56244/status/1993328642697707736?s=46
+<https://x.com/3i8ae3pgjz56244/status/1993328642697707736?s=46>
 
 我是把设计文档写得很细，包括service层的具体逻辑都用伪代码写了，然后交给AI，一遍直出，再用另一个AI review一遍，根据review意见修改一下，跑一下测试用例，让AI自己生成commit后push
 
@@ -6,7 +6,7 @@ https://x.com/3i8ae3pgjz56244/status/1993328642697707736?s=46
 
 ---
 
-https://x.com/jesselaunz/status/1993231396035301437?s=20
+<https://x.com/jesselaunz/status/1993231396035301437?s=20>
 
 针对gemini 3 pro的系统prompt，使多个代理基准测试的性能提高了约 5%。
 
@@ -16,11 +16,11 @@ https://x.com/jesselaunz/status/1993231396035301437?s=20
 
 ---
 
-https://x.com/nake13/status/1995123181057917032?s=46
+<https://x.com/nake13/status/1995123181057917032?s=46>
 
 ---
 
-https://x.com/9hills/status/1995308023578042844?s=46
+<https://x.com/9hills/status/1995308023578042844?s=46>
 
 ---
 
@@ -28,13 +28,13 @@ https://x.com/9hills/status/1995308023578042844?s=46
 
 ---
 
-https://x.com/dogejustdoit/status/1996464777313542204?s=46
+<https://x.com/dogejustdoit/status/1996464777313542204?s=46>
 
 随着软件规模不断扩大，靠人眼去“看代码”不仅无法应对增长的复杂度，还会让开发者疲于奔命。代码最终会被转换成机器码执行，高级语言只是一层方便人类理解的抽象，重要的是验证程序的执行逻辑，通过自动化测试、静态分析、形式化验证等手段确保行为正确。未来的软件工程核心不是“看懂代码”，而是“验证代码按正确逻辑运行”
 
 ---
 
-https://x.com/yanboofficial/status/1996188311451480538?s=46
+<https://x.com/yanboofficial/status/1996188311451480538?s=46>
 
 ```prompt
 请你根据我的要求，用 Three.js 创建一个实时交互的3D粒子系统，如果你第一次就做得好，我将会打赏你100美元的小费;我的要求是：
@@ -44,11 +44,11 @@ https://x.com/yanboofficial/status/1996188311451480538?s=46
 
 ---
 
-https://x.com/zen_of_nemesis/status/1996591768641458368?s=46
+<https://x.com/zen_of_nemesis/status/1996591768641458368?s=46>
 
 ---
 
-https://github.com/tesserato/CodeWeaver
+<https://github.com/tesserato/CodeWeaver>
 
 CodeWeaver 将你的代码库编织成一个可导航的 Markdown 文档
 
@@ -56,4 +56,4 @@ CodeWeaver 将你的代码库编织成一个可导航的 Markdown 文档
 
 ---
 
-https://x.com/magic47972451/status/1998639692905087356?s=46
+<https://x.com/magic47972451/status/1998639692905087356?s=46>

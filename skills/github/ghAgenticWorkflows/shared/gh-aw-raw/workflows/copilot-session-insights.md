@@ -92,6 +92,7 @@ Collect data for the past 30 days (or available data) from cache memory and sess
 Generate exactly **2 high-quality trend charts**:
 
 **Chart 1: Session Completion Trends**
+
 - Multi-line chart showing:
   - Successful completions (line, green)
   - Failed/abandoned sessions (line, red)
@@ -101,6 +102,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/session_completion_trends.png`
 
 **Chart 2: Session Duration & Efficiency**
+
 - Dual visualization showing:
   - Average session duration (line)
   - Median session duration (line)
@@ -110,6 +112,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/session_duration_trends.png`
 
 **Chart Quality Requirements**:
+
 - DPI: 300 minimum
 - Figure size: 12x7 inches for better readability
 - Use seaborn styling with a professional color palette
@@ -153,6 +156,7 @@ Include the charts in your analysis report with this structure:
 ### Error Handling
 
 If insufficient data is available (less than 7 days):
+
 - Generate the charts with available data
 - Add a note in the analysis mentioning the limited data range
 - Consider using a bar chart instead of line chart for very sparse data
@@ -162,6 +166,7 @@ If insufficient data is available (less than 7 days):
 ## Mission
 
 Analyze approximately 50 Copilot agent sessions to identify:
+
 - Behavioral patterns and inefficiencies
 - Success factors and failure signals
 - Prompt quality indicators
@@ -180,15 +185,18 @@ Create a comprehensive report and publish it as a GitHub Discussion for team rev
 ### Phase 0: Setup and Prerequisites
 
 **Pre-fetched Data Available**: This workflow includes a shared component (`copilot-session-data-fetch.md`) that fetches Copilot agent session data. The data should be available at:
+
 - `/tmp/gh-aw/session-data/sessions-list.json` - List of sessions with metadata
 - `/tmp/gh-aw/session-data/logs/` - Individual session log files
 
 **Verify Setup**:
+
 1. Confirm session data was downloaded successfully
 2. Initialize or restore cache-memory from `/tmp/gh-aw/cache-memory/`
 3. Load historical analysis data if available
 
 **Cache Memory Structure**:
+
 ```
 /tmp/gh-aw/cache-memory/
 ├── session-analysis/
@@ -202,6 +210,7 @@ Create a comprehensive report and publish it as a GitHub Discussion for team rev
 The session data has already been fetched in the preparation step. You should:
 
 1. **Verify Downloaded Data**:
+
    ```bash
    # Check sessions list
    jq '.' /tmp/gh-aw/session-data/sessions-list.json
@@ -232,11 +241,13 @@ For each downloaded session log in `/tmp/gh-aw/session-data/logs/`:
 #### 2.1 Load Historical Context
 
 Check cache memory for:
+
 - Previous analysis results (`/tmp/gh-aw/cache-memory/session-analysis/history.json`)
 - Known strategies (`/tmp/gh-aw/cache-memory/session-analysis/strategies.json`)
 - Identified patterns (`/tmp/gh-aw/cache-memory/session-analysis/patterns.json`)
 
 If cache files don't exist, create them with initial structure:
+
 ```json
 {
   "analyses": [],
@@ -288,6 +299,7 @@ If cache files don't exist, create them with initial structure:
 #### 2.3 Experimental Strategies (30% of runs)
 
 **Determine if this is an experimental run**:
+
 ```bash
 # Generate random number between 0-100
 RANDOM_VALUE=$((RANDOM % 100))
@@ -327,6 +339,7 @@ RANDOM_VALUE=$((RANDOM % 100))
    - Find evolving solution strategies
 
 **Record Experimental Results**:
+
 - Store strategy name and description
 - Record what was measured
 - Note insights discovered
@@ -335,6 +348,7 @@ RANDOM_VALUE=$((RANDOM % 100))
 #### 2.4 Data Collection
 
 For each session, collect:
+
 - **Session ID**: Unique identifier
 - **Timestamp**: When the session occurred
 - **Task Type**: Category of task (bug fix, feature, refactor, etc.)
@@ -354,6 +368,7 @@ Aggregate observations across all analyzed sessions:
 #### 3.1 Success Factors
 
 Identify patterns associated with successful completions:
+
 - Common prompt characteristics
 - Effective tool combinations
 - Optimal context provision
@@ -361,6 +376,7 @@ Identify patterns associated with successful completions:
 - Clear task descriptions
 
 **Example Analysis**:
+
 ```
 SUCCESS PATTERNS:
 - Sessions with specific file references: 85% success rate
@@ -371,6 +387,7 @@ SUCCESS PATTERNS:
 #### 3.2 Failure Signals
 
 Identify common indicators of confusion or inefficiency:
+
 - Vague or ambiguous prompts
 - Missing context clues
 - Circular reasoning patterns
@@ -378,6 +395,7 @@ Identify common indicators of confusion or inefficiency:
 - Tool unavailability
 
 **Example Analysis**:
+
 ```
 FAILURE INDICATORS:
 - Prompts with "just fix it": 45% success rate
@@ -388,6 +406,7 @@ FAILURE INDICATORS:
 #### 3.3 Prompt Quality Indicators
 
 Analyze what makes prompts effective:
+
 - Specific vs. general instructions
 - Context richness
 - Clear acceptance criteria
@@ -395,6 +414,7 @@ Analyze what makes prompts effective:
 - Expected behavior descriptions
 
 **Categorize Prompts**:
+
 - **High Quality**: Specific, contextual, clear outcomes
 - **Medium Quality**: Some clarity but missing details
 - **Low Quality**: Vague, ambiguous, lacking context
@@ -402,6 +422,7 @@ Analyze what makes prompts effective:
 #### 3.4 Recommendations
 
 Based on the analysis, generate actionable recommendations:
+
 - Prompt improvement templates
 - Best practice guidelines
 - Tool usage suggestions
@@ -409,6 +430,7 @@ Based on the analysis, generate actionable recommendations:
 - Error handling strategies
 
 **Format Recommendations**:
+
 1. **For Users**: How to write better task descriptions
 2. **For System**: Potential improvements to agent behavior
 3. **For Tools**: Missing capabilities or integrations
@@ -461,6 +483,7 @@ Add newly discovered patterns:
 #### 4.4 Maintain Cache Size
 
 Keep cache manageable:
+
 - Retain last 90 days of analysis history
 - Keep top 20 most effective strategies
 - Maintain comprehensive pattern database
@@ -470,6 +493,7 @@ Keep cache manageable:
 Generate a human-readable Markdown report and create a discussion.
 
 **Discussion Title Format**:
+
 ```
 Daily Copilot Agent Session Analysis — [YYYY-MM-DD]
 ```
@@ -536,7 +560,9 @@ Common indicators of inefficiency or failure:
 
 **Example High-Quality Prompt**:
 ```
+
 [Example of an effective task description]
+
 ```
 
 ### Low-Quality Prompt Characteristics
@@ -546,7 +572,9 @@ Common indicators of inefficiency or failure:
 
 **Example Low-Quality Prompt**:
 ```
+
 [Example of an ineffective task description]
+
 ```
 
 ## Notable Observations
@@ -620,6 +648,7 @@ Common indicators of inefficiency or failure:
 ## Statistical Summary
 
 ```
+
 Total Sessions Analyzed:     [N]
 Successful Completions:      [N] ([%])
 Failed Sessions:            [N] ([%])
@@ -638,6 +667,7 @@ Tool Failures:             [N] occurrences
 High-Quality Prompts:      [N] ([%])
 Medium-Quality Prompts:    [N] ([%])
 Low-Quality Prompts:       [N] ([%])
+
 ```
 
 ## Next Steps
@@ -697,6 +727,7 @@ _Workflow: ${{ github.workflow }}_
 ### No Sessions Available
 
 If no sessions were downloaded:
+
 - Create minimal discussion noting no data
 - Don't update historical metrics
 - Note in cache that this date had no sessions
@@ -704,6 +735,7 @@ If no sessions were downloaded:
 ### Incomplete Session Data
 
 If some sessions have missing logs:
+
 - Note the count of incomplete sessions
 - Analyze available data only
 - Report data quality issues
@@ -711,6 +743,7 @@ If some sessions have missing logs:
 ### Cache Corruption
 
 If cache memory is corrupted or invalid:
+
 - Log the issue clearly
 - Reinitialize cache with current data
 - Continue with analysis
@@ -718,6 +751,7 @@ If cache memory is corrupted or invalid:
 ### Analysis Timeout
 
 If approaching timeout:
+
 - Complete current phase
 - Save partial results to cache
 - Create discussion with available insights

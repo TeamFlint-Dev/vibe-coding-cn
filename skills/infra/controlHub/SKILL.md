@@ -14,6 +14,7 @@ version: 1.0.0
 ## When to Use This Skill
 
 当你需要：
+
 - 让 Copilot 创建的 PR 自动触发构建（绕过人工批准限制）
 - 构建失败后自动请求 Copilot 修复（Bot 评论无法触发 Copilot，需用人类账号）
 - 管理多个 GitHub 账号轮换以分摊 Copilot 额度
@@ -88,6 +89,7 @@ Task = {
 ```
 
 **任务状态流转**：
+
 ```
 pending → building → success
                   ↘ failure → awaiting_fix → building (重试)
@@ -126,11 +128,13 @@ def process_callback(task_id, result, build_output):
 **文件**: `state_store.py`
 
 **职责**:
+
 - 内存存储所有任务状态
 - 按 PR 追踪重试次数
 - 自动清理旧任务（保留最近 200 个）
 
 **关键接口**:
+
 ```python
 store.create_task(pr_number, head_sha, head_ref, trigger_type) → task_id
 store.get_task(task_id) → Task
@@ -144,17 +148,20 @@ store.increment_pr_retry(pr_number) → int
 **文件**: `account_manager.py`
 
 **职责**:
+
 - 管理多个 GitHub 用户账号 PAT
 - 轮换账号以分摊 Copilot 额度消耗
 - 检测额度错误并自动禁用问题账号
 - 账号恢复（24小时后重新启用）
 
 **配置格式**:
+
 ```bash
 GITHUB_USER_PATS=user1:ghp_xxx,user2:ghp_yyy,user3:ghp_zzz
 ```
 
 **关键接口**:
+
 ```python
 manager.get_next_account() → GitHubAccount | None
 manager.mark_account_failure(username, error_message)
@@ -163,6 +170,7 @@ manager.get_stats() → dict
 ```
 
 **额度错误检测**:
+
 ```python
 QUOTA_ERROR_PATTERNS = [
     "rate limit exceeded",
@@ -177,11 +185,13 @@ QUOTA_ERROR_PATTERNS = [
 **文件**: `github_client.py`
 
 **职责**:
+
 - 封装所有 GitHub API 调用
 - 提供统一的错误处理
 - 区分 Bot PAT 和 User PAT
 
 **关键接口**:
+
 ```python
 # 使用 Bot PAT
 client.trigger_dispatch(event_type, client_payload) → bool
@@ -198,11 +208,13 @@ client.post_comment_as_user(pr_number, body, account) → bool
 **文件**: `decision_engine.py`
 
 **职责**:
+
 - 接收 Actions 回调，决定下一步操作
 - 协调 StateStore、AccountManager、GitHubClient
 - 实现重试逻辑和人类升级
 
 **决策类型**:
+
 ```python
 class ActionType(Enum):
     COMMENT_SUCCESS = "comment_success"      # 发成功评论
@@ -241,6 +253,7 @@ Agent 使用 `pipeline-notify` 命令行工具与云端服务器通信，替代�
 **工具位置**: `.github/tools/pipeline-notify.py`
 
 **用法示例**:
+
 ```bash
 # 通知调度器启动流水线（带工作分支）
 python3 .github/tools/pipeline-notify.py ready \
@@ -259,6 +272,7 @@ python3 .github/tools/pipeline-notify.py cancel --pipeline-id p001
 ```
 
 **环境变量**:
+
 - `PIPELINE_SERVER_URL`: 服务器地址（默认 `http://193.112.183.143:19527`）
 - `PIPELINE_SECRET`: 签名密钥（必需，与服务器配置一致）
 
@@ -293,6 +307,7 @@ python3 .github/tools/pipeline-notify.py cancel --pipeline-id p001
 ```
 
 **优点**:
+
 - Worker 可直接提交，无需 PR 审查
 - 所有产物隔离在独立分支
 - 只有最终合并需要人工审查
@@ -365,6 +380,7 @@ CALLBACK_SECRET: your_callback_secret
 > ⚠️ **重要**: 密钥和连接信息存储在 `scripts/webhook-server/.secrets`，执行服务器操作前必须先读取该文件。
 
 **当前生产环境**:
+
 - **服务器 IP**: `193.112.183.143`（腾讯云）
 - **SSH 端口**: `22`
 - **SSH 用户**: `ubuntu`（不是 root）
@@ -390,12 +406,14 @@ scp -i "C:\Users\Administrator\.ssh\tencent-agent.pem" -P 22 本地文件 ubuntu
 > ⚠️ **重要**: 服务器防火墙只允许来自 GitHub 的请求访问 Webhook 端口。
 
 **允许的 IP 段**（GitHub Webhook 源 IP）:
+
 - `192.30.252.0/22`
 - `185.199.108.0/22`
 - `140.82.112.0/20`
 - `143.55.64.0/20`
 
 **这意味着**:
+
 1. ❌ **本地测试无效** - 你无法从本地 curl 测试 Webhook 端口
 2. ❌ **直接访问 /health 无效** - 防火墙会拦截非 GitHub IP
 3. ✅ **只能通过 SSH 测试** - SSH 进服务器后用 localhost 测试
@@ -505,6 +523,7 @@ sudo systemctl status webhook
 ### 4. GitHub Secrets 配置
 
 在仓库 Settings → Secrets and variables → Actions 中添加：
+
 - `CALLBACK_URL`: `http://193.112.183.143:19527/callback`
 - `CALLBACK_SECRET`: 与 `.env` 中 `CALLBACK_SECRET` 一致
 

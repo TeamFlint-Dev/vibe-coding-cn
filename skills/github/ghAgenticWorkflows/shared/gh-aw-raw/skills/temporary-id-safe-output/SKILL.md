@@ -15,6 +15,7 @@ When an agent needs to create a parent issue and immediately link sub-issues to 
 ## Temporary ID Format
 
 Temporary IDs follow the pattern `aw_XXXXXXXXXXXX` where:
+
 - `aw_` is a fixed prefix identifying agentic workflow temporary IDs
 - `XXXXXXXXXXXX` is a 12-character lowercase hexadecimal string (6 random bytes)
 
@@ -43,9 +44,11 @@ replaceTemporaryIdReferences(text, map)  // Replace #aw_XXX references in text
 The `create_issue` job outputs a temporary ID map that other jobs can consume:
 
 **Go changes** (`pkg/workflow/create_issue.go`):
-- No changes needed - already outputs `temporary_id_map` 
+
+- No changes needed - already outputs `temporary_id_map`
 
 **JavaScript changes** (`pkg/workflow/js/create_issue.cjs`):
+
 - Generate temporary ID for each created issue
 - Build map of `temporary_id -> issue_number`
 - Output map via `core.setOutput("temporary_id_map", JSON.stringify(map))`
@@ -59,18 +62,21 @@ For each safe output job that needs to resolve temporary IDs:
 In `pkg/workflow/<job_name>.go`:
 
 1. Add `createIssueJobName` parameter to the build function:
+
 ```go
 func (c *Compiler) build<JobName>Job(data *WorkflowData, mainJobName string, createIssueJobName string) (*Job, error) {
 ```
 
-2. Add environment variable to pass the temporary ID map:
+1. Add environment variable to pass the temporary ID map:
+
 ```go
 if createIssueJobName != "" {
     customEnvVars = append(customEnvVars, fmt.Sprintf("          GH_AW_TEMPORARY_ID_MAP: ${{ needs.%s.outputs.temporary_id_map }}\n", createIssueJobName))
 }
 ```
 
-3. Add `create_issue` to the job's `needs` array:
+1. Add `create_issue` to the job's `needs` array:
+
 ```go
 needs := []string{mainJobName}
 if createIssueJobName != "" {
@@ -78,7 +84,8 @@ if createIssueJobName != "" {
 }
 ```
 
-4. Update the `SafeOutputJobConfig` to use the dynamic needs:
+1. Update the `SafeOutputJobConfig` to use the dynamic needs:
+
 ```go
 return c.buildSafeOutputJob(data, SafeOutputJobConfig{
     // ...
@@ -92,6 +99,7 @@ return c.buildSafeOutputJob(data, SafeOutputJobConfig{
 In `pkg/workflow/compiler_jobs.go`:
 
 Pass the `createIssueJobName` when building the job:
+
 ```go
 job, err := c.build<JobName>Job(data, mainJobName, createIssueJobName)
 ```
@@ -101,11 +109,13 @@ job, err := c.build<JobName>Job(data, mainJobName, createIssueJobName)
 In `pkg/workflow/js/<job_name>.cjs`:
 
 1. Import the temporary ID utilities:
+
 ```javascript
 const { loadTemporaryIdMap, resolveIssueNumber } = require("./temporary_id.cjs");
 ```
 
-2. Load the temporary ID map at the start of main():
+1. Load the temporary ID map at the start of main():
+
 ```javascript
 const temporaryIdMap = loadTemporaryIdMap();
 if (temporaryIdMap.size > 0) {
@@ -113,7 +123,8 @@ if (temporaryIdMap.size > 0) {
 }
 ```
 
-3. Use `resolveIssueNumber()` to resolve issue numbers:
+1. Use `resolveIssueNumber()` to resolve issue numbers:
+
 ```javascript
 const resolved = resolveIssueNumber(item.issue_number, temporaryIdMap);
 if (resolved.errorMessage) {
@@ -131,6 +142,7 @@ if (resolved.wasTemporaryId) {
 In `pkg/workflow/js/collect_ndjson_output.cjs`:
 
 Add validation for fields that accept temporary IDs:
+
 ```javascript
 function isValidIssueNumberOrTemporaryId(value) {
     if (typeof value === "number" && Number.isInteger(value) && value > 0) {
@@ -148,12 +160,14 @@ Use this validation for fields like `parent_issue_number`, `sub_issue_number`, e
 ### 4. Failure Handling
 
 When temporary ID resolution fails, the job should:
+
 - Log a warning with `core.warning()` instead of failing with `core.setFailed()`
 - Continue processing other items
 - Include failures in the step summary
 - Complete successfully with warnings
 
 This ensures that:
+
 - Partial success is possible (some links may work while others fail)
 - The workflow doesn't fail catastrophically due to a single resolution failure
 - Users can review warnings in the step summary
@@ -184,7 +198,7 @@ safe-outputs:
 
 1. `main` job: Agent generates output with temporary ID `aw_abc123def456`
 2. `create_issue` job: Creates issue #100, outputs `{"aw_abc123def456": 100}`
-3. `link_sub_issue` job: 
+3. `link_sub_issue` job:
    - Loads temporary ID map
    - Resolves `aw_abc123def456` → `100`
    - Links issues #42 and #43 as sub-issues of #100
@@ -203,6 +217,7 @@ safe-outputs:
 ### Unit Tests
 
 Add tests in `pkg/workflow/js/temporary_id.test.cjs` for:
+
 - `isTemporaryId()` with valid and invalid inputs
 - `resolveIssueNumber()` with temporary IDs and regular numbers
 - `loadTemporaryIdMap()` with various JSON inputs
@@ -210,6 +225,7 @@ Add tests in `pkg/workflow/js/temporary_id.test.cjs` for:
 ### Integration Tests
 
 Add tests in `pkg/workflow/<job_name>_dependencies_test.go` to verify:
+
 - Job includes `create_issue` in needs when configured
 - `GH_AW_TEMPORARY_ID_MAP` env var is set correctly
 - Job works without `create_issue` dependency

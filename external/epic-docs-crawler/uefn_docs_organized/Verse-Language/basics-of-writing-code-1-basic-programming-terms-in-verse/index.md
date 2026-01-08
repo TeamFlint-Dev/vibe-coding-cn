@@ -1,6 +1,6 @@
 # Lesson 1: Basic Programming Terms
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-1-basic-programming-terms-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-1-basic-programming-terms-in-verse>
 > **爬取时间**: 2025-12-26T23:09:15.760762
 
 ---
@@ -143,7 +143,7 @@ And an error in your code's **meaning** can produce a **bug**.
 
 | A Correct Expression | The Same Expression with a Bug |
 | --- | --- |
-| ```verse # If at least one mouse is caught, you win if (MiceCaught > 0):     Print("Win!") else:     Print("Lose!") ``` | ```verse # If at least one mouse is caught, you win if (MiceCaught > 1):     Print("Win!") else:     Print("Lose!") ``` |
+| ```verse # If at least one mouse is caught, you win if (MiceCaught > 0):     Print("Win!") else:     Print("Lose!")``` | ```verse # If at least one mouse is caught, you win if (MiceCaught > 1):     Print("Win!") else:     Print("Lose!")``` |
 
 There's a bug in the second example because `MiceCaught` has to be greater than `1` for the `Print(“Win!”)` expression to be executed.
 
@@ -163,10 +163,10 @@ In the example above on the right, the player doesn't win by catching a mouse be
 - **Compiler errors** are errors that prevent a program from compiling.
 - **Bugs** are when the code compiles successfully, but the program doesn't run as expected.
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 1: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/c06998da-abd6-436c-aa93-21e70e2a26fe?resizing_type=fit&width=640&height=640)
 
 Lesson 1: Practice Time!
 
-Practice writing algorithms until you're comfortable with how they work.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-1-practice-time-in-verse)
+Practice writing algorithms until you're comfortable with how they work.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-1-practice-time-in-verse>)

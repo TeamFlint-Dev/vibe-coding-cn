@@ -1,6 +1,6 @@
 # 1. Setting up the Pizza Pursuit Level
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-1-setting-up-the-level-for-time-trial-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-1-setting-up-the-level-for-time-trial-in-verse>
 > **爬取时间**: 2025-12-27T00:20:48.158234
 
 ---
@@ -81,6 +81,7 @@ Follow these steps to set up your Verse device and [gameplay tags](unreal-editor
    ```verse
    using { /Verse.org/Simulation } using { /Fortnite.com/Devices } using { /Fortnite.com/Vehicles } using { /Fortnite.com/Characters } using { /Fortnite.com/Playspaces } using { /Verse.org/Random } using { /UnrealEngine.com/Temporary/Diagnostics } using { /UnrealEngine.com/Temporary/SpatialMath } using { /UnrealEngine.com/Temporary/Curves } using { /Verse.org/Simulation/Tags }
    ```
+
 3. Create five gameplay tags in Verse, named and assigned as follows. (See [Gameplay Tags](https://dev.epicgames.com/documentation/en-us/fortnite/gameplay-tags-in-verse) for steps.)
 
    - `pickup_zone_tag` and assign to all the Item Spawner devices.
@@ -114,6 +115,6 @@ Follow these steps to set up your Verse device and [gameplay tags](unreal-editor
 
 [![2. Defining the Pickup and Delivery Zones](https://dev.epicgames.com/community/api/documentation/image/350c587d-38e5-480b-9643-b91eed7fbba7?resizing_type=fit&width=640&height=640)
 
-2. Defining the Pickup and Delivery Zones
+1. Defining the Pickup and Delivery Zones
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-2-defining-the-pickup-and-delivery-zones-for-time-trial-in-verse)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-2-defining-the-pickup-and-delivery-zones-for-time-trial-in-verse>)

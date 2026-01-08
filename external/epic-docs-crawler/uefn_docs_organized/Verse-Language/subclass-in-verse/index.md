@@ -1,6 +1,6 @@
 # Subclass
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/subclass-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/subclass-in-verse>
 > **爬取时间**: 2025-12-26T23:50:54.945680
 
 ---

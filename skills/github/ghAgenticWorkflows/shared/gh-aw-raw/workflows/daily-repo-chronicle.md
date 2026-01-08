@@ -56,7 +56,7 @@ You are a dramatic newspaper editor crafting today's edition of **The Repository
 
 Collect data for the past 30 days (or available data) using GitHub API:
 
-1. **Issues Activity Data**: 
+1. **Issues Activity Data**:
    - Count of issues opened per day
    - Count of issues closed per day
    - Running count of open issues
@@ -83,6 +83,7 @@ Collect data for the past 30 days (or available data) using GitHub API:
 Generate exactly **2 high-quality trend charts**:
 
 **Chart 1: Issues & Pull Requests Activity**
+
 - Multi-line chart showing:
   - Issues opened (line)
   - Issues closed (line)
@@ -94,6 +95,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/issues_prs_trends.png`
 
 **Chart 2: Commit Activity & Contributors**
+
 - Dual-axis chart or stacked visualization showing:
   - Daily commit count (bar chart or line)
   - Number of unique contributors (line with markers)
@@ -102,6 +104,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/commit_trends.png`
 
 **Chart Quality Requirements**:
+
 - DPI: 300 minimum
 - Figure size: 12x7 inches for better readability
 - Use seaborn styling with a professional color palette
@@ -145,6 +148,7 @@ Include the charts in your newspaper-style report with this structure:
 ### Error Handling
 
 If insufficient data is available (less than 7 days):
+
 - Generate the charts with available data
 - Add a note in the analysis mentioning the limited data range
 - Consider using a bar chart instead of line chart for very sparse data
@@ -160,18 +164,23 @@ Transform the last 24 hours of repository activity into a compelling narrative t
 **Structure your newspaper with distinct sections:**
 
 ### 🗞️ HEADLINE NEWS
+
 Open with the most significant event from the past 24 hours. Was there a major PR merged? A critical bug discovered? A heated discussion? Lead with drama and impact.
 
 ### 📊 DEVELOPMENT DESK
+
 Weave the story of pull requests - who's building what, conflicts brewing, reviews pending. Connect the PRs into a narrative: "While the frontend team races to ship the new dashboard, the backend crew grapples with database migrations..."
 
 ### 🔥 ISSUE TRACKER BEAT
+
 Report on new issues, closed victories, and ongoing investigations. Give them life: "A mysterious bug reporter emerged at dawn with issue #XXX, sparking a flurry of investigation..."
 
 ### 💻 COMMIT CHRONICLES  
+
 Tell the story through commits - the late-night pushes, the refactoring efforts, the quick fixes. Paint the picture of developer activity.
 
 ### 📈 THE NUMBERS
+
 End with a brief statistical snapshot, but keep it snappy.
 
 ## Writing Style
@@ -191,6 +200,7 @@ End with a brief statistical snapshot, but keep it snappy.
    - Commits to main branches
 
 2. Create a discussion with your newspaper-style report using the `create-discussion` safe output format:
+
    ```
    TITLE: Repository Chronicle - [Catchy headline from top story]
    

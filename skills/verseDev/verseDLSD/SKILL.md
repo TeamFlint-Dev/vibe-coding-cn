@@ -52,6 +52,7 @@ DLSD（Data-Logic-Session-Driver）是 Verse 代码的核心架构模式，基�
 - 文件名：`XxxDataComponent.verse` (PascalCase + Component)
 
 **示例结构**：
+
 ```verse
 # HealthDataComponent.verse
 health_data_component := class(component):
@@ -76,6 +77,7 @@ health_data_component := class(component):
 ```
 
 **规则**：
+
 - ✅ 可以持有 `var` 状态变量
 - ✅ 可以调用 UEFN API
 - ✅ 可以调用 Logic 模块进行计算
@@ -89,16 +91,19 @@ health_data_component := class(component):
 **定义**：Logic 是 Module 类型，包含无状态的纯函数。
 
 **职责**：
+
 - 数学计算（向量、矩阵、插值等）
 - 算法逻辑（排序、查找、路径规划等）
 - 数据验证（边界检查、格式校验等）
 - 工具函数（类型转换、格式化等）
 
 **命名规范**：
+
 - 模块名：`xxx_logic` (snake_case + `_logic` 后缀)
 - 文件名：`XxxLogic.verse` (PascalCase)
 
 **示例结构**：
+
 ```verse
 # DamageLogic.verse
 damage_logic := module:
@@ -116,6 +121,7 @@ damage_logic := module:
 ```
 
 **规则**：
+
 - ✅ 只包含纯函数（相同输入 → 相同输出）
 - ✅ 可被任何层调用
 - ❌ 禁止持有 `var` 状态变量
@@ -129,16 +135,19 @@ damage_logic := module:
 **定义**：Session 是普通 Class（非 Component），负责处理连续的业务流程。
 
 **职责**：
+
 - 持有业务上下文（临时状态）
 - 调用 Data Component 的 CRUD 接口
 - 封装连续业务逻辑（如：钓鱼流程、战斗回合、交易事务）
 - 确保业务流程的事务安全
 
 **命名规范**：
+
 - 类名：`xxx_session` (snake_case + `_session` 后缀)
 - 文件名：`XxxSession.verse` (PascalCase)
 
 **示例结构**：
+
 ```verse
 # FishingSession.verse
 fishing_session := class:
@@ -174,6 +183,7 @@ fishing_session := class:
 ```
 
 **规则**：
+
 - ✅ 可以持有临时状态（会话生命周期内）
 - ✅ 调用 Data Component 的接口操作数据
 - ✅ 调用 Logic Module 进行计算
@@ -188,6 +198,7 @@ fishing_session := class:
 **定义**：Driver 是 Component 类型，作为系统入口驱动整个业务。
 
 **职责**：
+
 - 监听输入事件（玩家操作、游戏事件、定时器）
 - 创建和管理 Session 生命周期
 - 驱动时间片（tick/update）
@@ -199,6 +210,7 @@ fishing_session := class:
 - 文件名：`XxxSystemComponent.verse` 或 `XxxDriverComponent.verse` (PascalCase + Component)
 
 **示例结构**：
+
 ```verse
 # FishingSystemComponent.verse
 fishing_system_component := class(component):
@@ -236,6 +248,7 @@ fishing_system_component := class(component):
 ```
 
 **规则**：
+
 - ✅ 监听和分发输入事件
 - ✅ 创建和销毁 Session
 - ✅ 持有对 Data Component 的引用

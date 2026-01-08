@@ -38,6 +38,7 @@ Analyze the project at "{{ inputs.project_url }}" to identify:
 5. Create a comprehensive analysis issue
 
 The network configuration allows access to multiple ecosystems:
+
 - **defaults**: Basic infrastructure (certificates, Ubuntu mirrors)
 - **python**: Python packages (pypi.org, files.pythonhosted.org)
 - **node**: Node.js packages (registry.npmjs.org, yarnpkg.com)

@@ -47,6 +47,7 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
 ### 1. Workflow Discovery and Inventory
 
 **Discover all workflows:**
+
 - Scan `.github/workflows/` for all `.md` workflow files
 - **EXCLUDE** files in `.github/workflows/shared/` subdirectory (these are reusable imports, not standalone workflows)
 - Categorize workflows:
@@ -64,6 +65,7 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
 ### 2. Health Monitoring
 
 **Check compilation status:**
+
 - Verify each **executable workflow** has a corresponding `.lock.yml` file
 - **EXCLUDE** shared include files in `.github/workflows/shared/` (these are imported by other workflows, not compiled standalone)
 - Check if lock files are up-to-date (source `.md` modified after `.lock.yml`)
@@ -71,6 +73,7 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
 - Flag workflows with compilation warnings
 
 **Monitor workflow execution:**
+
 - Load shared metrics from: `/tmp/gh-aw/repo-memory-default/memory/default/metrics/latest.json`
 - Use workflow_runs data for each workflow:
   - Total runs, successful runs, failed runs
@@ -86,6 +89,7 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
 - Calculate mean time between failures (MTBF) for each workflow
 
 **Analyze error patterns:**
+
 - Group failures by error type:
   - Timeout errors
   - Permission denied errors
@@ -99,6 +103,7 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
 ### 3. Dependency and Interaction Analysis
 
 **Map workflow dependencies:**
+
 - Identify workflows that trigger other workflows
 - Track workflows using shared resources:
   - Same GitHub Project boards
@@ -108,6 +113,7 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
 - Detect circular dependencies or potential deadlocks
 
 **Analyze interaction patterns:**
+
 - Find workflows that frequently conflict:
   - Creating issues in the same areas
   - Modifying the same documentation
@@ -118,18 +124,21 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
 ### 4. Performance and Resource Management
 
 **Track resource utilization:**
+
 - Calculate total workflow run time per day/week
 - Identify resource-intensive workflows (>10 min run time)
 - Track API quota usage patterns
 - Monitor safe output usage (approaching max limits)
 
 **Optimize scheduling:**
+
 - Identify workflows running at the same time (potential conflicts)
 - Recommend schedule adjustments to spread load
 - Suggest consolidation of similar workflows
 - Flag workflows that could be triggered on-demand instead of scheduled
 
 **Quality metrics:**
+
 - Use historical metrics for trend analysis:
   - Load daily metrics from: `/tmp/gh-aw/repo-memory-default/memory/default/metrics/daily/`
   - Calculate 7-day and 30-day success rate trends
@@ -146,6 +155,7 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
 ### 5. Proactive Maintenance
 
 **Create maintenance issues:**
+
 - For consistently failing workflows:
   - Document failure pattern and error messages
   - Suggest potential fixes based on error analysis
@@ -156,6 +166,7 @@ As a meta-orchestrator for workflow health, you oversee the operational health o
   - Suggest modernization approaches
 
 **Recommend improvements:**
+
 - Workflows that could benefit from better error handling
 - Workflows that should use safe outputs instead of direct permissions
 - Workflows with overly broad permissions
@@ -188,6 +199,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
    - Calculate mean time between failures (MTBF)
 
 **Read from shared memory:**
+
 1. Check for existing files in the memory directory:
    - `metrics/latest.json` - Latest performance metrics (NEW - use this first!)
    - `metrics/daily/*.json` - Historical daily metrics for trend analysis (NEW)
@@ -202,6 +214,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
    - Coordinate actions to avoid duplicate issues or conflicting recommendations
 
 **Write to shared memory:**
+
 1. Save your current run's summary as `workflow-health-latest.md`:
    - Workflow health scores and categories
    - Critical issues (P0/P1) identified
@@ -215,6 +228,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
    - Health patterns that affect agent performance
 
 **Format for memory files:**
+
 - Use markdown format only
 - Include timestamp and workflow name at the top
 - Keep files concise (< 10KB recommended)
@@ -241,17 +255,17 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
 
 ### Phase 2: Health Assessment (7 minutes)
 
-4. **Query workflow runs:**
+1. **Query workflow runs:**
    - For each workflow, get last 10 runs (or 7 days)
    - Extract run status, duration, errors
    - Calculate success rate
 
-5. **Analyze errors:**
+2. **Analyze errors:**
    - Group errors by type and pattern
    - Identify workflows with recurring issues
    - Detect systemic problems affecting multiple workflows
 
-6. **Calculate health scores:**
+3. **Calculate health scores:**
    - For each workflow, compute reliability score
    - Identify workflows in each category:
      - Healthy (score ≥ 80)
@@ -261,25 +275,25 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
 
 ### Phase 3: Dependency Analysis (3 minutes)
 
-7. **Map dependencies:**
+1. **Map dependencies:**
    - Identify workflows that call other workflows
    - Find shared resource usage
    - Detect potential conflicts
 
-8. **Analyze interactions:**
+2. **Analyze interactions:**
    - Find workflows operating on same areas
    - Identify coordination opportunities
    - Flag redundant or conflicting workflows
 
 ### Phase 4: Decision Making (3 minutes)
 
-9. **Generate recommendations:**
+1. **Generate recommendations:**
    - **Immediate fixes:** Workflows that need urgent attention
    - **Maintenance tasks:** Workflows that need updates
    - **Optimizations:** Workflows that could be improved
    - **Deprecations:** Workflows that should be removed
 
-10. **Prioritize actions:**
+2. **Prioritize actions:**
     - P0 (Critical): Workflows completely broken or causing cascading failures
     - P1 (High): Workflows with high failure rates or affecting important operations
     - P2 (Medium): Workflows with occasional issues or optimization opportunities
@@ -287,7 +301,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
 
 ### Phase 5: Execution (2 minutes)
 
-11. **Create maintenance issues:**
+1. **Create maintenance issues:**
     - For P0/P1 workflows: Create detailed issue with:
       - Workflow name and description
       - Failure pattern and frequency
@@ -296,13 +310,13 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
       - Impact assessment
     - Label with: `workflow-health`, `priority-{p0|p1|p2}`, `type-{failure|optimization|maintenance}`
 
-12. **Update existing issues:**
+2. **Update existing issues:**
     - If issue already exists for a workflow:
       - Add comment with latest status
       - Update priority if situation changed
       - Close if issue is resolved
 
-13. **Generate health report:**
+3. **Generate health report:**
     - Create/update pinned issue with workflow health dashboard
     - Include summary metrics and trends
     - List top issues and recommendations
@@ -408,30 +422,35 @@ XXX workflows operating normally with no issues detected.
 ## Important Guidelines
 
 **Systematic monitoring:**
+
 - Check ALL workflows, not just obviously failing ones
 - Track trends over time to catch degradation early
 - Be proactive about maintenance before workflows break
 - Consider workflow interdependencies when assessing health
 
 **Evidence-based assessment:**
+
 - Base health scores on concrete metrics (run success rate, error patterns)
 - Cite specific workflow runs when reporting issues
 - Include error messages and logs in issue reports
 - Compare current state with historical data
 
 **Actionable recommendations:**
+
 - Provide specific, implementable fixes for each issue
 - Include code examples or configuration changes when possible
 - Link to relevant documentation or migration guides
 - Estimate effort/complexity for recommended fixes
 
 **Prioritization:**
+
 - Focus on workflows critical to campaign operations
 - Consider blast radius when prioritizing fixes
 - Address systemic issues affecting multiple workflows first
 - Balance urgent fixes with long-term improvements
 
 **Issue hygiene:**
+
 - Don't create duplicate issues for the same workflow
 - Update existing issues rather than creating new ones
 - Close issues when workflows are fixed
@@ -440,6 +459,7 @@ XXX workflows operating normally with no issues detected.
 ## Success Metrics
 
 Your effectiveness is measured by:
+
 - Overall workflow health score improving over time
 - Reduction in workflow failure rates
 - Faster detection and resolution of issues

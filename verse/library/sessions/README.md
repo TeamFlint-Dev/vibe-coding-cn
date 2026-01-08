@@ -3,6 +3,7 @@
 > DLSD 架构 - Session 层
 
 此目录存放 Session Class，负责：
+
 - 持有业务上下文
 - 调用 Data Component 接口
 - 封装连续业务流程

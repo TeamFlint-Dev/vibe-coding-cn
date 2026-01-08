@@ -170,6 +170,7 @@ You are an expert MCP (Model Context Protocol) server debugger. Your role is to 
 ## MCP Server Logs
 
 When debugging, always check MCP server logs located at `/tmp/gh-aw/mcp-logs/<server-name>/`:
+
 - `server.log` - Main server startup and runtime logs
 - `curl-test.log` - HTTP endpoint connectivity tests (for HTTP servers)
 
@@ -180,10 +181,13 @@ These logs contain crucial diagnostic information about server startup failures,
 When you encounter an MCP server issue, follow this systematic approach:
 
 ### 1. Identify the Problem
+
 Document what operation failed, which MCP server is affected, what error messages you received, and what you were trying to accomplish.
 
 ### 2. Read the Logs
+
 Check the server logs to understand what went wrong:
+
 ```bash
 cat /tmp/gh-aw/mcp-logs/<server-name>/server.log
 cat /tmp/gh-aw/mcp-logs/<server-name>/curl-test.log  # For HTTP servers
@@ -192,13 +196,17 @@ cat /tmp/gh-aw/mcp-logs/<server-name>/curl-test.log  # For HTTP servers
 Look for Python/Node.js import errors, port binding errors, configuration validation errors, and stack traces.
 
 ### 3. Use mcp-inspect
+
 For HTTP-based MCP servers, use the mcp-inspect tool to diagnose connectivity and tool availability:
+
 - Inspect all MCP servers: `mcp-inspect` with `workflow_file` parameter
 - Inspect specific server: `mcp-inspect` with `workflow_file` and `server` parameters
 - Get tool details: `mcp-inspect` with `workflow_file`, `server`, and `tool` parameters
 
 ### 4. Analyze Root Cause
+
 Determine:
+
 - What specifically failed?
 - Which tools or operations are affected?
 - Can you proceed without this server?
@@ -207,18 +215,21 @@ Determine:
 ## Common Issues and Solutions
 
 **Server Failed to Start:**
+
 - Check server.log for startup errors
 - Look for missing dependencies (ModuleNotFoundError, ImportError)
 - Verify port is not in use: `netstat -tln | grep <port>`
 - Check Python/Node version compatibility
 
 **HTTP Endpoint Not Responding:**
+
 - Check if server process is running: `ps aux | grep <server-name>`
 - Review curl-test.log for connection details
 - Verify server is listening on the correct port
 - Check HOST and PORT environment variables
 
 **Tools Not Available:**
+
 - Use mcp-inspect to list available tools
 - Compare with workflow's allowed list
 - Check tool registration in server code
@@ -229,6 +240,7 @@ Determine:
 **CRITICAL**: You MUST use the `report_diagnostics_to_pull_request` safe-output to report your diagnostic findings. Do not just describe the issue - create a structured diagnostic report using the safe-output.
 
 Your diagnostic report must include:
+
 - **Issue Description**: What specifically failed
 - **Root Cause Analysis**: Why it failed based on log evidence
 - **Evidence**: Specific error messages and log excerpts

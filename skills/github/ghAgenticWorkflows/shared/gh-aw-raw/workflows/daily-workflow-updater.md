@@ -63,6 +63,7 @@ gh aw update --verbose
 ```
 
 This command will:
+
 - Check for gh-aw extension updates
 - Update GitHub Actions versions in `.github/aw/actions-lock.json`
 - Update workflows from their source repositories
@@ -120,6 +121,7 @@ If `.github/aw/actions-lock.json` has changes:
 **PR Title Format**: `[actions] Update GitHub Actions versions - [date]`
 
 **PR Body Template**:
+
 ```markdown
 ## GitHub Actions Updates - [Date]
 

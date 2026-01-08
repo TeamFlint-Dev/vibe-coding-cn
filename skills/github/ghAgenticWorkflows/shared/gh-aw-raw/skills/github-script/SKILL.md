@@ -10,10 +10,10 @@ This skill provides guidelines for writing JavaScript files that run using the G
 ## Important Notes
 
 - This action provides `@actions/core` and `@actions/github` packages globally
-- Do not add import or require for `@actions/core` 
+- Do not add import or require for `@actions/core`
 - Reference documentation:
-  - https://github.com/actions/toolkit/blob/main/packages/core/README.md
-  - https://github.com/actions/toolkit/blob/main/packages/github/README.md
+  - <https://github.com/actions/toolkit/blob/main/packages/core/README.md>
+  - <https://github.com/actions/toolkit/blob/main/packages/github/README.md>
 
 ## Best Practices
 

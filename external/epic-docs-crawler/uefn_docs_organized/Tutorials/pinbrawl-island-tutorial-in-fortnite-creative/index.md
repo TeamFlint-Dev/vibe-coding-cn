@@ -1,6 +1,6 @@
 # PinBrawl Island Tutorial
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/pinbrawl-island-tutorial-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/pinbrawl-island-tutorial-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:28:31.323279
 
 ---
@@ -148,6 +148,7 @@ Begin by placing and customizing the spawn pads for the pinball’s spawn area.
    | **Use As Island Start** | No | Players will not initially spawn on these pads. They will instead spawn in the pre-game lobby. |
    | **Visible During Games** | No | This device will be invisible during gameplay. |
    | **When Player Spawned Transmit On** | Channel 1 | A signal will be sent to another device that will receive the signal and then trigger an action. Each pad will have a different channel number. |
+
 3. With your phone tool equipped, right-click to copy the spawn pads and place them a good distance apart from each other.
 
    a. For each pad, change the setting **When Player Spawned Transmit On** to a new, unused channel. For example, the second spawn pad will be set to Channel 2 and the third pad will be set to Channel 3.
@@ -247,6 +248,7 @@ Next, select the Collectibles Gallery devices that players will run over to coll
    | **Collectible Object** | Coin | We will use the coin item from this gallery. |
    | **Score** | 0 | Players will not receive a score from picking up this item. |
    | **When Collected Transmit On** | Channel 7 | A signal will be sent to the device that grants gold once players collect the item. |
+
 3. Delete the unused gallery items.
 4. Distribute the items along the pinball arena for players to collect. You can also place them in the air for players to collect while in the air.
 
@@ -285,6 +287,7 @@ The last step in the pinbrawl area is to add the Barrier devices that will hold 
    | **Barrier Width** | 0.05 | The wall barriers should be as thin as possible. |
    | **Barrier Depth** | This number is the amount of tiles long your arena is. | The barrier will be long enough to cover the entire wall. |
    | **Barrier Height** | 6 | The side barriers will be high enough to extend to the top barrier. |
+
 3. Copy this device and paste it on the opposite wall, adjust the depth as needed.
 
    a. Repeat this step along the base of your arena to create a thin barrier that covers the length of your arena.
@@ -398,6 +401,7 @@ Select and place Player Reference devices that will represent each player.
    | **Activate When Receiving From** | Channel 5 | The timer activates this device when it completes to transmit a signal that will teleport the player. |
    | **Enable When Receiving From** | Channel 6 | The player’s information is stored in this device when the timer begins. |
    | **When Activated Transmit On** | Channel 10-13 | The ending timer will activate this device, which will then send a signal for players to teleport to the brawl arena. Each device will have a different channel ranging from channel 10 to 13. For example, one device will have this setting for Channel 10 and another will have this setting for Channel 11 and so forth. |
+
 3. Copy this device three more times. All four of the devices should have a different channel ranging from 1 to 4 for the setting **Register Player When Receiving From**. These devices should also have a different channel ranging from 10 to 13 for the setting **When Activated Transmit On**.
 
 Step 4 is important for teleporting your players to the next area.
@@ -466,6 +470,7 @@ Place the Vending Machine and select weapons to register them to the device.
    | **Cost of First Item** | 420 | The second weapon will be easier to purchase. |
    | **Third Item Resource Type** | Gold | The third weapon can be purchased with gold. |
    | **Cost of Third Item** | 200 | The third weapon will be the easiest to purchase. |
+
 3. Press the **Tab** key to open the **Creative** menu, then click the **Weapons** tab.
 
    a. Select and equip the **Mythic** quality **Skye’s Assault Rifle**, **Epic** quality **Compact SMG**, and the **Uncommon** quality **Combat Assault Rifle**.
@@ -518,6 +523,7 @@ Begin by placing and customizing the billboard devices.
    | **Text Font** | Roberto | This adds a font style to the text. |
    | **Outline** | Light | The black outline around each letter will be light in weight. |
    | **Text Color** | Lavender Purple | This color shows as a dim white that’s not too bright on the eyes. |
+
 3. Equip your phone tool and right-click to copy the billboard.
 
    a. Place the copied billboard beside the first one.
@@ -549,6 +555,7 @@ Next you will place and customize the Player Spawn Pads.
    | **Team** | None | Players will not be assigned spawn pads. |
    | **Priority Group** | Secondary | The secondary pads are used as a backup spawn from the primary pads. |
    | **Visible During Games** | No | The spawn pads will be hidden during gameplay. |
+
 3. Equip your phone tool and right-click to copy the player spawn pad.
 
    a. Paste one spawn pad beside the one you just placed.

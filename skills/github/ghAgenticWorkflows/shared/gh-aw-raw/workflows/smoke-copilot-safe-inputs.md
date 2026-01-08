@@ -48,6 +48,7 @@ This smoke test validates safe-inputs functionality. GitHub MCP is intentionally
 ## Output
 
 Add a **very brief** comment (max 5-10 lines) to the current pull request with:
+
 - ✅ or ❌ for each test result
 - Overall status: PASS or FAIL
 

@@ -1,6 +1,6 @@
 # Team Multiplayer Balancing
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-multiplayer-balancing-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-multiplayer-balancing-in-verse>
 > **爬取时间**: 2025-12-26T23:18:39.523978
 
 ---
@@ -75,6 +75,7 @@ This step shows how to split players into teams equally at the start of a game, 
             # Holds the teams found with GetTeams() 
             var Teams : []team = array{}
    ```
+
 3. In the `OnBegin()` [function](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary), update the `Teams` array to match the teams set up earlier in **Island Settings**. [Call](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#call) the `GetTeams()` function from the `fort_team_collection` API to get all the teams in the playspace.
 
    ```verse
@@ -82,6 +83,7 @@ This step shows how to split players into teams equally at the start of a game, 
             Print("Verse Device Started!")
             set Teams = Self.GetPlayspace().GetTeamCollection().GetTeams()
    ```
+
 4. Find all players in the game by calling the `GetPlayers()` function and save them in a player array named `AllPlayers`.
 
    ```verse
@@ -90,6 +92,7 @@ This step shows how to split players into teams equally at the start of a game, 
             set Teams = Self.GetPlayspace().GetTeamCollection().GetTeams()
             AllPlayers := GetPlayspace().GetPlayers()
    ```
+
 5. Iterate through the list of all players and create teams with the same number of players. You'll compare the team a player is currently on to any other team and determine whether it is the best fit for that player. In this case, you can use the team a player is automatically assigned to when the game starts by using `GetTeam[]`(since players must be on a team in game modes with multiple teams). Note that `GetTeam[]` requires a [parameter](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#parameter) of type agent, but since player is a subclass of agent, you can pass a player without [type casting](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#type).
 
    ```verse
@@ -110,6 +113,7 @@ This step shows how to split players into teams equally at the start of a game, 
            if(set TeamSize = GetPlayspace().GetTeamCollection().GetAgents[CurrentTeam].Length):
                Print("Size of this player's starting team is {TeamSize}")
      ```
+
    - Create a method named `FindSmallestTeam()`. This will return an optional team (`?team`) when passed `TeamSize` as an argument, and will handle finding and returning the team with the least amount of players. Initialize a new team [option](https://dev.epicgames.com/documentation/en-us/fortnite/option-in-verse) named `SmallestTeam` inside `FindSmallestTeam()`. You’ll use an option here because a player may already be on the smallest team when you call `FindSmallestTeam()`.
    - Since your `SmallestTeam` option defaults to false, it will remain `false` if no smaller team is found. If `FindSmallestTeam()` returns `false`, you know definitively that the given player was already on the smallest team. You also need to initialize a variable int `CurrentTeamSize` to the value of `TeamSize`. You need `CurrentTeamSize` to be variable so you can update it to the size of any other team you find with less players.
 
@@ -118,6 +122,7 @@ This step shows how to split players into teams equally at the start of a game, 
                                    var SmallestTeam : ?team = false     
                                    var TeamSize : int = CurrentTeamSize
      ```
+
    - Since `TeamSize` tracks the size of `SmallestTeam`, you need to compare it to the size of every team. Iterate through each team and get their size in a local int `CandidateTeamSize`. If `CandidateTeamSize` is smaller than `TeamSize`, set `SmallestTeam` to this team and `TeamSize` to the size of that team.
 
      The condition `TeamSize > CandidateTeamSize` is a filter condition because it is checked within the parentheses of the for loop. Using a filter condition guarantees that the code inside your loop runs only if the filter condition succeeds. This guarantees that `SmallestTeam` will be set to the team with the least players if one is found. If no team with less players is found, `SmallestTeam` will remain false.
@@ -131,11 +136,13 @@ This step shows how to split players into teams equally at the start of a game, 
        Print("Found a team with less players: {CandidateTeamSize}")               
       return SmallestTeam
      ```
+
    - In `OnBegin()`, create a new team [option](https://dev.epicgames.com/documentation/en-us/fortnite/option-in-verse) named `SmallestTeam` inside the `for` loop and initialize it to the value of `FindSmallestTeam()` when passed `TeamSize` as an argument.
 
      ```verse
        SmallestTeam : ?team = FindSmallestTeam(TeamSize)
      ```
+
    - Next, try to access the value in the `SmallestTeam` optional variable. If the value is false, the player was already on the smallest team, and no assignment is necessary. Otherwise, you’ll want to assign the player to their new team.
      Since many methods do not allow us to directly pass an option as an argument, you have to extract the value to a local variable `TeamToAssign`. You can attempt to assign a player to this team using `AddToTeam[player, team]` Note that this assignment will fail if you attempt to assign a player to a team they’re already on. This won’t have any negative effects however, as the `for` loop will just iterate to the next player and leave the first on their original team.
 
@@ -143,6 +150,7 @@ This step shows how to split players into teams equally at the start of a game, 
        if (TeamToAssign := SmallestTeam?, GetPlayspace().GetTeamCollection().AddToTeam[TeamPlayer, TeamToAssign]):
            Print("Attempting to assign player to a new team")
      ```
+
 7. `OnBegin()` should look like the code block below.
 
    ```verse
@@ -178,6 +186,7 @@ Since you also want to be able to auto-balance teams for a game in progress, you
                 if (TeamToAssign := SmallestTeam?, GetPlayspace().GetTeamCollection().AddToTeam[TeamPlayer, TeamToAssign]):
                     Print("Attempting to assign player to a new team")
    ```
+
 2. Create another method named `OnPlayerAdded()` which contains a call to `BalanceTeams()`. Although you won’t use the `player` variable, the method definition requires it since you subscribe to `PlayerAddedEvent()` using this method. See the [Coding Device Interactions](https://dev.epicgames.com/documentation/en-us/fortnite/coding-device-interactions-in-verse) page for more details on subscribable events.
 
    ```verse
@@ -185,6 +194,7 @@ Since you also want to be able to auto-balance teams for a game in progress, you
                                 Print("A new Player joined, assigning them to a team!")
                                 BalanceTeams()
    ```
+
 3. In `OnBegin()`, subscribe to `PlayerAddedEvent()` using `OnPlayerAdded`. Now, when a player joins the game, `OnPlayerAdded` will call `BalanceTeams()` to automatically balance the teams.
 
    ```verse
@@ -193,6 +203,7 @@ Since you also want to be able to auto-balance teams for a game in progress, you
                 Print("Beginning to balance teams")
                 BalanceTeams()
    ```
+
 4. Save the script in Visual Studio Code and click **Build Verse Code** to compile your script.
 5. Click **Launch Session** in the UEFN toolbar to playtest the level.
 

@@ -15,6 +15,7 @@ This document provides guidance for discovering, reviewing, and working with pul
 The GitHub Copilot agent creates branches with the `copilot/` prefix. This makes them easy to identify and filter.
 
 **Examples from this repository:**
+
 - `copilot/add-cache-for-imported-workflows`
 - `copilot/fix-istruthy-bundling-issue`
 - `copilot/update-audit-command-copilot`
@@ -23,6 +24,7 @@ The GitHub Copilot agent creates branches with the `copilot/` prefix. This makes
 ### Author Attribution
 
 Copilot agent PRs are typically authored by:
+
 - `app/github-copilot` - The GitHub Copilot bot account
 - Individual developers using Copilot as an assistant
 
@@ -31,12 +33,14 @@ Copilot agent PRs are typically authored by:
 ### Using GitHub CLI (`gh`)
 
 **Prerequisites:**
+
 ```bash
 # Authenticate with GitHub CLI
 gh auth login
 ```
 
 **Search by author (GitHub Copilot bot):**
+
 ```bash
 # List all PRs created by the Copilot bot
 gh pr list --author "app/github-copilot" --limit 100
@@ -49,6 +53,7 @@ gh pr list --author "app/github-copilot" --json number,title,author,headRefName,
 ```
 
 **Search by branch prefix:**
+
 ```bash
 # Find all PRs from copilot/* branches
 gh pr list --search "head:copilot/" --state all
@@ -59,6 +64,7 @@ gh pr list --search "head:copilot/ is:merged"
 ```
 
 **Filter with jq:**
+
 ```bash
 # Extract specific fields
 gh pr list --limit 100 --json author,number,title,headRefName \
@@ -72,6 +78,7 @@ gh pr list --limit 100 --json author,number,title \
 ### Using Git Commands
 
 **List copilot branches:**
+
 ```bash
 # Local and remote copilot branches
 git branch -a | grep copilot
@@ -81,6 +88,7 @@ git branch -r | grep copilot
 ```
 
 **Search commit history:**
+
 ```bash
 # Find commits with "copilot" in message
 git log --all --grep="copilot" --oneline
@@ -93,6 +101,7 @@ git log --all --grep="copilot" --oneline --graph
 ```
 
 **Find merged copilot PRs:**
+
 ```bash
 # Search for merge commits
 git log --all --merges --grep="copilot" --oneline
@@ -128,6 +137,7 @@ Based on analysis of this repository, Copilot agent PRs typically address:
 ### PR Metadata to Check
 
 When reviewing Copilot agent PRs, pay attention to:
+
 - **Branch name**: Should follow `copilot/descriptive-name` pattern
 - **Commit messages**: Often include "Initial plan" commits
 - **PR description**: Should explain the problem and solution
@@ -186,6 +196,7 @@ gh pr list --author "app/github-copilot" --state all --limit 100 \
 ### Authentication Issues
 
 If you see "gh auth login" prompts:
+
 ```bash
 # Authenticate with GitHub CLI
 gh auth login
@@ -197,6 +208,7 @@ export GH_TOKEN="your-github-token"
 ### No Results Found
 
 If searches return no results:
+
 1. Verify you're in the correct repository
 2. Check if the author name is correct (try `app/github-copilot` or `github-copilot`)
 3. Try searching by branch prefix instead: `gh pr list --search "head:copilot/"`
@@ -205,6 +217,7 @@ If searches return no results:
 ### Rate Limiting
 
 If you hit GitHub API rate limits:
+
 ```bash
 # Check rate limit status
 gh api rate_limit
@@ -224,7 +237,7 @@ gh auth login
 
 ## Additional Resources
 
-- GitHub CLI documentation: https://cli.github.com/manual/
-- GitHub Copilot documentation: https://docs.github.com/en/copilot
-- Git branch filtering: https://git-scm.com/docs/git-branch
-- jq JSON processing: https://stedolan.github.io/jq/manual/
+- GitHub CLI documentation: <https://cli.github.com/manual/>
+- GitHub Copilot documentation: <https://docs.github.com/en/copilot>
+- Git branch filtering: <https://git-scm.com/docs/git-branch>
+- jq JSON processing: <https://stedolan.github.io/jq/manual/>

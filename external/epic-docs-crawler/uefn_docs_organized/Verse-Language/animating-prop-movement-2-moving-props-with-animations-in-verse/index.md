@@ -1,6 +1,6 @@
 # 2. Moving Props with Animations
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-2-moving-props-with-animations-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-2-moving-props-with-animations-in-verse>
 > **爬取时间**: 2025-12-27T00:40:10.055297
 
 ---
@@ -31,12 +31,14 @@ Follow the steps below to set up animation controls for your props:
         # Represents the different movement easing types.
         move_to_ease_type<public> := enum {Linear, Ease, EaseIn, EaseOut, EaseInOut}
    ```
+
 4. Add a new `vector3` [type alias](https://dev.epicgames.com/documentation/en-us/fortnite/type-aliasing-in-verse) named `VectorOnes` that makes a `vector3` where `X`, `Y`, and `Z` are all set to `1.0`. You’ll use this vector later to make some math easier, so defining a type alias for it means you don’t have to write `vector3{X:=1.0, Y:=1.0, Z:=1.0}` repeatedly.
 
    ```verse
         # Initializes a vector3 with all values set to 1.0.
         VectorOnes<public>:vector3 = vector3{X:=1.0, Y:=1.0, Z:=1.0}
    ```
+
 5. Add a new method `GetCubicBezierForEaseType()` that takes a `move_to_ease_type` and returns a `cubic_bezier_parameters`.
 
    ```verse
@@ -56,6 +58,7 @@ Follow the steps below to set up animation controls for your props:
                 move_to_ease_type.EaseOut => InterpolationTypes.EaseOut
                 move_to_ease_type.EaseInOut => InterpolationTypes.EaseInOut
    ```
+
 7. Back in your `movable_prop` class, add a new editable `move_to_ease_type` named `MoveEaseType`. This is the easing type your prop will apply to its animation.
 
    ```verse
@@ -101,6 +104,7 @@ Follow these steps to build an animation using keyframes:
         # the type of easing to apply to the movement, and the animation mode of the animation.
         (CreativeProp:creative_prop).MoveToEase<public>(Position:vector3, Rotation:rotation, Scale:vector3, Duration:float, EaseType:move_to_ease_type, AnimationMode:animation_mode)<suspends>:void=
    ```
+
 2. In `MoveToEase()`, get the animation controller of the Creative prop using `GetAnimationController[]`. The animation controller is what lets you play animations on the prop, and also exposes an event you’ll wait on later.
 
    ```verse
@@ -108,12 +112,14 @@ Follow these steps to build an animation using keyframes:
             # Get the animation controller for the CreativeProp to move.
             if (AnimController := CreativeProp.GetAnimationController[]):
    ```
+
 3. Calculate the prop’s change in scale, called the `ScaleMultiplicative`. The `Scale` is a little more complex in this situation. Since the scale is multiplicative, the end transform’s scale needs to be the amount the original transform needs to scale by, rather than what it needs to scale to. For instance, if the original transform’s scale is `1.2`, and you wanted to scale to `1.5`, you actually need to scale by `1.25` since `1.2 * 1.25 = 1.5`. The final value is `VectorOnes` plus the difference between the new scale and the old scale divided by the old scale. You need this value to make sure your animation keeps animating properly if you change its size during the animation.
 
    ```verse
         # Calculate the multiplicative scale for the keyframe to scale to.
         ScaleMultiplicative:vector3 = VectorOnes + ((Scale - CreativeProp.GetTransform().Scale) / CreativeProp.GetTransform().Scale)
    ```
+
 4. Each animation needs an array of keyframes to run. In this function, you’ll only use a single keyframe and cast it to an array. Since this array will only have a single keyframe, your prop will make one movement to animate smoothly to a new location. And since you’ll be calling `MoveToEase()` inside a loop, the prop can keep animating without having to specify multiple animations in a row.
 
    Define a new array of `keyframe_delta` named `Keyframes`. Set this array equal to a new array, and inside that array create a new `keyfram_delta`.
@@ -123,6 +129,7 @@ Follow these steps to build an animation using keyframes:
     Keyframes:[]keyframe_delta = array:
             keyframe_delta:
    ```
+
 5. Inside the `keyframe_delta` definition, initialize each value needed to build your keyframe. Set the `DeltaLocation` to the difference between the new `Position` and the Creative prop’s translation. Set the `DeltaRotation` to the `Rotation`, and the `DeltaScale` to the `ScaleMultiplicative` you calculated earlier. Set the `Time` to the `Duration`, and get the right `Interpolation` to set by calling `GetCubicBezierForEaseType()`.
 
    ```verse
@@ -135,6 +142,7 @@ Follow these steps to build an animation using keyframes:
                 Time := Duration,
                 Interpolation := GetCubicBezierForEaseType(EaseType)
    ```
+
 6. With your `Keyframes` array built, set it as the animation of the animation controller using `SetAnimation()`, passing the `AnimationMode`. Play the animation using `Play()`, then `Await()` the `MovementCompletedEvent`. Your complete `MoveToEase()` extension method should look like this:
 
    ```verse
@@ -176,6 +184,7 @@ To solve this, you can take advantage of [function overloading](https://dev.epic
         # An overload of MoveToEase() that changes the position of the prop while keeping the rotation and scale the same.
         (CreativeProp:creative_prop).MoveToEase<public>(Position:vector3, Duration:float, EaseType:move_to_ease_type, AnimationMode:animation_mode)<suspends>:void=
    ```
+
 2. In your new `MoveToEase()`, call your original `MoveToEase()` function, passing all your inputs plus the `IdentityRotation()` and `VectorOnes` as the `Scale`. The `IdentityRotation()` returns a rotation with every value at `0`, so `(0,0,0)`. You need the `IdentityRotation()` here because you don’t want to add a rotation to your animation. Your overloaded `MoveToEase()` function should look like this:
 
    ```verse
@@ -183,6 +192,7 @@ To solve this, you can take advantage of [function overloading](https://dev.epic
         (CreativeProp:creative_prop).MoveToEase<public>(Position:vector3, Duration:float, EaseType:move_to_ease_type, AnimationMode:animation_mode)<suspends>:void=
             CreativeProp.MoveToEase(Position, IdentityRotation(), VectorOnes, Duration, EaseType, AnimationMode)
    ```
+
 3. Repeat this process to create another overloaded method that only changes the rotation, keeping the translation and scale the same. This new overloaded method should look like this:
 
    ```verse
@@ -190,6 +200,7 @@ To solve this, you can take advantage of [function overloading](https://dev.epic
         (CreativeProp:creative_prop).MoveToEase<public>(Rotation:rotation, Duration:float, EaseType:move_to_ease_type, AnimationMode:animation_mode)<suspends>:void=
             CreativeProp.MoveToEase(CreativeProp.GetTransform().Translation, Rotation, VectorOnes, Duration, EaseType, AnimationMode)
    ```
+
 4. Repeat again to create a method that only changes the scale, keeping the translation and rotation the same. However, because `translation` and `scale` are both `vector3`, the resulting function would have the same signature as the overload you made for translation, producing an error. You can solve this by reordering the function parameters. Swap the position of `Duration` and `Scale` to get your overloaded function. The overloaded method should look like this:
 
    ```verse
@@ -197,6 +208,7 @@ To solve this, you can take advantage of [function overloading](https://dev.epic
         (CreativeProp:creative_prop).MoveToEase<public>(Duration:float, Scale:vector3, EaseType:move_to_ease_type, AnimationMode:animation_mode)<suspends>:void=
             CreativeProp.MoveToEase(CreativeProp.GetTransform().Translation, IdentityRotation(), Scale, Duration, EaseType, AnimationMode)
    ```
+
 5. It is helpful to have a version of `MoveToEase()` that can handle multiple keyframes. You can handle this by setting up your keyframes beforehand, and passing them all to `MoveToEase()`. That way the function only needs to set and play the animation on the Creative prop. Add a new overload of `MoveToEase()` that takes an array of keyframes and the animation mode as input.
 
    ```verse
@@ -207,15 +219,16 @@ To solve this, you can take advantage of [function overloading](https://dev.epic
                 AnimController.Play()
                 AnimController.MovementCompleteEvent.Await()
    ```
+
 6. Save your code and compile it.
 
 With your methods set up, it’s time to get moving! In the next section, you’ll translate props to make moving platforms!
 
 [![3. Translating Props](https://dev.epicgames.com/community/api/documentation/image/a15f96c1-838a-4141-bbbd-c4cabd5a5ebd?resizing_type=fit&width=640&height=640)
 
-3. Translating Props
+1. Translating Props
 
-Use translation with Verse to set up obstacles for a Fall Guys course.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-3-translating-props-in-verse)
+Use translation with Verse to set up obstacles for a Fall Guys course.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-3-translating-props-in-verse>)
 
 ## Complete Code
 

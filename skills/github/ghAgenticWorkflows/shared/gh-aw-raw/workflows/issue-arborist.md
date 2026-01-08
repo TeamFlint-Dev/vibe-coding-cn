@@ -76,6 +76,7 @@ Analyze the last 100 open issues in repository ${{ github.repository }} and iden
 ## Pre-Downloaded Data
 
 The issue data has been pre-downloaded and is available at:
+
 - **Issues data**: `/tmp/gh-aw/issues-data/issues.json` - Contains the last 100 open issues (excluding those that are already sub-issues)
 - **Schema**: `/tmp/gh-aw/issues-data/issues-schema.json` - JSON schema showing the structure of the data
 
@@ -86,6 +87,7 @@ Use `cat /tmp/gh-aw/issues-data/issues.json | jq ...` to query and analyze the i
 ### Step 1: Load and Analyze Issues
 
 Read the pre-downloaded issues data from `/tmp/gh-aw/issues-data/issues.json`. The data includes:
+
 - Issue number
 - Title
 - Body/description
@@ -94,6 +96,7 @@ Read the pre-downloaded issues data from `/tmp/gh-aw/issues-data/issues.json`. T
 - Author, assignees, milestone, timestamps
 
 Use `jq` to filter and analyze the data. Example queries:
+
 ```bash
 # Get count of issues
 jq 'length' /tmp/gh-aw/issues-data/issues.json
@@ -119,12 +122,14 @@ Examine the issues to identify potential parent-child relationships. Look for:
 ### Step 3: Make Linking Decisions
 
 For each potential relationship, evaluate:
+
 - Is there a clear parent-child hierarchy? (parent should be broader/higher-level)
 - Are both issues in a state where linking makes sense?
 - Would linking improve organization and traceability?
 - Is the relationship strong enough to warrant a permanent link?
 
 **Creating Parent Issues for Orphan Clusters:**
+
 - If you identify a cluster of **5 or more related issues** that lack a parent issue, you may create a new parent issue
 - The parent issue should have a clear, descriptive title starting with "[Parent] " that captures the common theme
 - Include a body that explains the cluster and references all related issues
@@ -132,6 +137,7 @@ For each potential relationship, evaluate:
 - After creating the parent, link all related issues as sub-issues using the temporary ID
 
 **Constraints:**
+
 - Maximum 5 parent issues created per run
 - Maximum 50 sub-issue links per run (increased to support multiple clusters)
 - Only create a parent issue if there are 5+ strongly related issues without a parent
@@ -142,6 +148,7 @@ For each potential relationship, evaluate:
 ### Step 4: Create Parent Issues and Execute Links
 
 **For orphan clusters (5+ related issues without a parent):**
+
 1. Create a parent issue using the `create_issue` tool with a temporary ID
    - Format: `{"type": "create_issue", "temporary_id": "aw_XXXXXXXXXXXX", "title": "[Parent] Theme Description", "body": "Description with references to related issues"}`
    - Temporary ID must be `aw_` followed by 12 hex characters (e.g., `aw_abc123def456`)
@@ -149,11 +156,13 @@ For each potential relationship, evaluate:
    - Format: `{"type": "link_sub_issue", "parent_issue_number": "aw_XXXXXXXXXXXX", "sub_issue_number": 123}`
 
 **For existing parent-child relationships:**
+
 - Use the `link_sub_issue` tool with actual issue numbers to create the parent-child relationship
 
 ### Step 5: Report
 
 Create a discussion summarizing your analysis with:
+
 - Number of issues analyzed
 - Parent issues created for orphan clusters (with reasoning)
 - Relationships identified (even if not linked)

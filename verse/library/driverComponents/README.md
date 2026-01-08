@@ -3,6 +3,7 @@
 > DLSD 架构 - Driver 层
 
 此目录存放 Driver/System Component，负责：
+
 - 监听输入事件
 - 管理 Session 生命周期
 - 驱动时间片

@@ -1,6 +1,6 @@
 # 6. Managing the Game Loop
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-06-managing-the-game-loop-for-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-06-managing-the-game-loop-for-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:30:48.589690
 
 ---
@@ -187,6 +187,6 @@ This covers the main functionality of the Verse device for the minigame. You can
 
 [![7. Final Result](https://dev.epicgames.com/community/api/documentation/image/6ab54ba9-be1f-4951-99ca-7c1bc7e09166?resizing_type=fit&width=640&height=640)
 
-7. Final Result
+1. Final Result
 
-Find all the Verse code used to create the Verse Starter Template.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-07-final-result-in-unreal-editor-for-fortnite)
+Find all the Verse code used to create the Verse Starter Template.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-07-final-result-in-unreal-editor-for-fortnite>)

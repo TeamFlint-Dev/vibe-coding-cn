@@ -52,6 +52,7 @@ You are an AI agent that analyzes Go code to identify potential refactoring oppo
 **IMPORTANT: Before performing analysis, close any existing open issues with the title prefix `[refactor]` to avoid duplicate issues.**
 
 Analyze all Go source files (`.go` files, excluding test files) in the repository to:
+
 1. **First, close existing open issues** with the `[refactor]` prefix
 2. Collect all function names per file
 3. Cluster functions semantically by name and purpose
@@ -70,6 +71,7 @@ Analyze all Go source files (`.go` files, excluding test files) in the repositor
 ## Serena Configuration
 
 The Serena MCP server is configured for this workspace:
+
 - **Workspace**: ${{ github.workspace }}
 - **Memory cache**: /tmp/gh-aw/cache-memory/serena
 - **Context**: codex
@@ -80,16 +82,19 @@ The Serena MCP server is configured for this workspace:
 **Before performing any analysis**, you must close existing open issues with the `[refactor]` title prefix to prevent duplicate issues.
 
 Use the GitHub API tools to:
+
 1. Search for open issues with title containing `[refactor]` in repository ${{ github.repository }}
 2. Close each found issue with a comment explaining a new analysis is being performed
 3. Use the `close_issue` safe output to close these issues
 
 **Important**: The `close-issue` safe output is configured with:
+
 - `required-title-prefix: "[refactor]"` - Only issues starting with this prefix will be closed
 - `target: "*"` - Can close any issue by number (not just triggering issue)
 - `max: 10` - Can close up to 10 issues in one run
 
 To close an existing refactor issue, emit:
+
 ```
 close_issue(issue_number=123, body="Closing this issue as a new semantic function refactoring analysis is being performed.")
 ```
@@ -144,6 +149,7 @@ For each discovered Go file:
    - Function signatures (parameters and return types)
 
 Example structure:
+
 ```
 File: pkg/workflow/compiler.go
 Package: workflow
@@ -158,6 +164,7 @@ Functions:
 Analyze the collected functions to identify patterns:
 
 **Clustering by Naming Patterns:**
+
 - Group functions with similar prefixes (e.g., `create*`, `parse*`, `validate*`)
 - Group functions with similar suffixes (e.g., `*Helper`, `*Config`, `*Step`)
 - Identify functions that operate on the same data types
@@ -165,6 +172,7 @@ Analyze the collected functions to identify patterns:
 
 **File Organization Rules:**
 According to Go best practices, files should be organized by feature:
+
 - `compiler.go` - compilation-related functions
 - `parser.go` - parsing-related functions
 - `validator.go` - validation-related functions
@@ -172,6 +180,7 @@ According to Go best practices, files should be organized by feature:
 
 **Identify Outliers:**
 Look for functions that don't match their file's primary purpose:
+
 - Validation functions in a compiler file
 - Parser functions in a network file
 - Helper functions scattered across multiple files
@@ -190,6 +199,7 @@ For each cluster of similar functions:
    - Functional duplicates (different implementations, same purpose)
 
 Example Serena tool usage:
+
 ```bash
 # Find symbols with similar names
 # Use find_symbol for "processData" or similar
@@ -201,12 +211,14 @@ Example Serena tool usage:
 Apply deep reasoning to identify refactoring opportunities:
 
 **Duplicate Detection Criteria:**
+
 - Functions with >80% code similarity
 - Functions with identical logic but different variable names
 - Functions that perform the same operation on different types (candidates for generics)
 - Helper functions repeated across multiple files
 
 **Refactoring Patterns to Suggest:**
+
 - **Extract Common Function**: When 2+ functions share significant code
 - **Move to Appropriate File**: When a function is in the wrong file based on its purpose
 - **Create Utility File**: When helper functions are scattered
@@ -278,6 +290,7 @@ Create a comprehensive issue with findings:
       return strings.ToLower(s)
   }
   ```
+
 - **Recommendation**: Consolidate into single function in `pkg/workflow/strings.go`
 - **Estimated Impact**: Reduced code duplication, easier maintenance
 
@@ -288,6 +301,7 @@ Create a comprehensive issue with findings:
 **Issue**: Similar helper functions spread across multiple files
 
 **Examples**:
+
 - `parseValue()` in 3 different files
 - `formatError()` in 4 different files
 - `sanitizeInput()` in 2 different files
@@ -308,6 +322,7 @@ Create a comprehensive issue with findings:
 **Pattern**: `create*` functions
 **Files**: [list of files]
 **Functions**:
+
 - `pkg/workflow/create_issue.go:CreateIssue(...)`
 - `pkg/workflow/create_pr.go:CreatePR(...)`
 - `pkg/workflow/create_discussion.go:CreateDiscussion(...)`
@@ -342,7 +357,7 @@ Create a comprehensive issue with findings:
 
 ### Priority 2: Medium Impact
 
-3. **Centralize Helper Functions**
+1. **Centralize Helper Functions**
    - Create or enhance helper utility files
    - Move scattered helpers to central location
    - Estimated effort: 4-6 hours
@@ -350,7 +365,7 @@ Create a comprehensive issue with findings:
 
 ### Priority 3: Long-term Improvements
 
-4. **Consider Generics for Type-Specific Functions**
+1. **Consider Generics for Type-Specific Functions**
    - Identify candidates for generic implementations
    - Estimated effort: 6-8 hours
    - Benefits: Type-safe code reuse
@@ -374,6 +389,7 @@ Create a comprehensive issue with findings:
 - **Duplicates Detected**: [count]
 - **Detection Method**: Serena semantic code analysis + naming pattern analysis
 - **Analysis Date**: [timestamp]
+
 ```
 
 ## Operational Guidelines
@@ -427,38 +443,50 @@ Create a comprehensive issue with findings:
 
 ### Project Activation
 ```
+
 Tool: activate_project
 Args: { "path": "${{ github.workspace }}" }
+
 ```
 
 ### Symbol Overview
 ```
+
 Tool: get_symbols_overview
 Args: { "file_path": "pkg/workflow/compiler.go" }
+
 ```
 
 ### Find Similar Symbols
 ```
+
 Tool: find_symbol
 Args: { "symbol_name": "parseConfig", "workspace": "${{ github.workspace }}" }
+
 ```
 
 ### Search for Patterns
 ```
+
 Tool: search_for_pattern
 Args: { "pattern": "func.*Config.*error", "workspace": "${{ github.workspace }}" }
+
 ```
 
 ### Find References
 ```
+
 Tool: find_referencing_symbols
 Args: { "symbol_name": "CompileWorkflow", "file_path": "pkg/workflow/compiler.go" }
+
 ```
 
 ### Read File Content
 ```
+
 Tool: read_file
 Args: { "file_path": "pkg/workflow/compiler.go" }
+
 ```
 
 ## Success Criteria

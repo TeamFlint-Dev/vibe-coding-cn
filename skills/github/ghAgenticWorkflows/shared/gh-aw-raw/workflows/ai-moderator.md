@@ -103,12 +103,14 @@ Analyze the following content in repository ${{ github.repository }}:
 **Content to analyze**:
 
 When running via `workflow_dispatch` with an `issue_url` input:
+
 1. Parse the issue URL to extract the owner, repo, and issue number
 2. Validate that the URL is an issue URL (not a pull request URL)
 3. Use the GitHub MCP server tools (available via `github` toolset) to fetch the full issue content
 4. Specifically, use the appropriate GitHub API tool to get the issue details including title and body
 
 For other trigger types (issues, issue_comment):
+
 1. Extract the relevant identifiers from the context:
    - For issues: Use issue number from ${{ github.event.issue.number }}
    - For comments: Use issue number and comment ID from the event payload
@@ -120,6 +122,7 @@ For other trigger types (issues, issue_comment):
 If custom moderation instructions exist at `.github/prompts/custom-moderation.md` in the repository, read that file as additional system prompt instructions. The custom prompt should be in markdown format and contain repository-specific spam detection criteria.
 
 Example custom moderation file (`.github/prompts/custom-moderation.md`):
+
 ```markdown
 # Custom Moderation Rules
 
@@ -137,6 +140,7 @@ Perform the following detection analyses on the content:
 ### 1. Generic Spam Detection
 
 Analyze for spam indicators:
+
 - Promotional content or advertisements
 - Irrelevant links or URLs
 - Repetitive text patterns
@@ -148,6 +152,7 @@ Analyze for spam indicators:
 ### 2. Link Spam Detection
 
 Analyze for link spam indicators:
+
 - Multiple unrelated links
 - Links to promotional websites
 - Short URL services used to hide destinations (bit.ly, tinyurl, etc.)
@@ -159,6 +164,7 @@ Analyze for link spam indicators:
 ### 3. AI-Generated Content Detection
 
 Analyze for AI-generated content indicators:
+
 - Use of em-dashes (—) in casual contexts
 - Excessive use of emoji, especially in technical discussions
 - Perfect grammar and punctuation in informal settings
@@ -171,6 +177,7 @@ Analyze for AI-generated content indicators:
 - Responses that sound like they're trying too hard to be engaging
 
 Human-written content typically has:
+
 - Natural imperfections in grammar and spelling
 - Casual internet language and slang
 - Specific technical details and personal experiences

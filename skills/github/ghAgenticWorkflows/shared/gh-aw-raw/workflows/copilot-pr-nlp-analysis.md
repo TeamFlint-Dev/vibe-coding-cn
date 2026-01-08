@@ -101,7 +101,7 @@ Generate a daily NLP-based analysis report of Copilot-created PRs merged within 
 
 - **Repository**: ${{ github.repository }}
 - **Analysis Period**: Last 24 hours (merged PRs only)
-- **Data Location**: 
+- **Data Location**:
   - PR metadata: `/tmp/gh-aw/pr-data/copilot-prs.json`
   - PR comments: `/tmp/gh-aw/pr-comments/pr-*.json`
 - **Python Environment**: NumPy, Pandas, Matplotlib, Seaborn, SciPy, NLTK, scikit-learn, TextBlob, WordCloud
@@ -112,10 +112,12 @@ Generate a daily NLP-based analysis report of Copilot-created PRs merged within 
 ### Phase 1: Load and Parse PR Conversation Data
 
 **Pre-fetched Data Available**: The shared component has downloaded all Copilot PRs from the last 30 days. The data is available at:
+
 - `/tmp/gh-aw/pr-data/copilot-prs.json` - Full PR data in JSON format
 - `/tmp/gh-aw/pr-data/copilot-prs-schema.json` - Schema showing the structure
 
 **Note**: This workflow focuses on merged PRs from the last 24 hours. Use jq to filter:
+
 ```bash
 # Get PRs merged in the last 24 hours
 DATE_24H_AGO=$(date -d '1 day ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -v-1d '+%Y-%m-%dT%H:%M:%SZ')
@@ -123,6 +125,7 @@ jq --arg date "$DATE_24H_AGO" '[.[] | select(.mergedAt != null and .mergedAt >= 
 ```
 
 1. **Load PR metadata**:
+
    ```bash
    cat /tmp/gh-aw/pr-data/copilot-prs.json
    echo "Total PRs: $(jq 'length' /tmp/gh-aw/pr-data/copilot-prs.json)"
@@ -150,6 +153,7 @@ jq --arg date "$DATE_24H_AGO" '[.[] | select(.mergedAt != null and .mergedAt >= 
 ### Phase 2: Preprocess with jq and Python
 
 1. **Use jq to extract conversation threads**:
+
    ```bash
    # Example: Extract all comment bodies from a PR
    jq '.comments[].body' /tmp/gh-aw/pr-comments/pr-123.json
@@ -174,6 +178,7 @@ jq --arg date "$DATE_24H_AGO" '[.[] | select(.mergedAt != null and .mergedAt >= 
 Create Python analysis script (`/tmp/gh-aw/python/nlp_analysis.py`) to perform:
 
 #### 3.1 Sentiment Analysis
+
 - Use TextBlob or NLTK VADER for sentiment scoring
 - Calculate sentiment polarity (-1 to +1) for each message
 - Aggregate sentiment by:
@@ -182,6 +187,7 @@ Create Python analysis script (`/tmp/gh-aw/python/nlp_analysis.py`) to perform:
   - Conversation stage (early vs late messages)
 
 #### 3.2 Topic Extraction and Clustering
+
 - Use TF-IDF vectorization to identify important terms
 - Apply K-means clustering or LDA topic modeling
 - Identify common discussion themes:
@@ -192,12 +198,14 @@ Create Python analysis script (`/tmp/gh-aw/python/nlp_analysis.py`) to perform:
   - Testing concerns
 
 #### 3.3 Keyword and Phrase Analysis
+
 - Extract most frequent n-grams (1-3 words)
 - Identify recurring technical terms
 - Find common feedback patterns
 - Detect sentiment-laden phrases
 
 #### 3.4 Temporal Patterns
+
 - Analyze sentiment changes over conversation timeline
 - Identify if discussions become more positive/negative over time
 - Detect rapid sentiment shifts (controversy indicators)
@@ -213,6 +221,7 @@ Create the following charts in `/tmp/gh-aw/python/charts/`:
 5. **`keyword_trends.png`**: Top 15 keywords/phrases with occurrence counts
 
 **Chart Quality Requirements**:
+
 - DPI: 300 minimum
 - Size: 10x6 inches (or appropriate for data)
 - Style: Use seaborn styling for professional appearance
@@ -224,6 +233,7 @@ Create the following charts in `/tmp/gh-aw/python/charts/`:
 For each generated chart:
 
 1. **Verify chart was created**:
+
    ```bash
    find /tmp/gh-aw/python/charts/ -maxdepth 1 -ls
    ```
@@ -238,6 +248,7 @@ Post a comprehensive discussion with the following structure:
 **Title**: `Copilot PR Conversation NLP Analysis - [DATE]`
 
 **Content Template**:
+
 ````markdown
 # 🤖 Copilot PR Conversation NLP Analysis - [DATE]
 
@@ -405,28 +416,36 @@ Based on NLP analysis:
 ## Edge Cases and Error Handling
 
 ### No PRs in Last 24 Hours
+
 If no Copilot PRs were merged in the last 24 hours:
+
 - Create a minimal discussion noting no activity
 - Include message: "No Copilot-authored PRs were merged in the last 24 hours"
 - Still maintain cache memory with zero counts
 - Optionally show historical trends
 
 ### PRs with No Comments
+
 If PRs have no conversation data:
+
 - Analyze only PR title and body
 - Note in report: "X PRs had no discussion comments"
 - Perform sentiment on PR body text
 - Include in "merged without discussion" metric
 
 ### Insufficient Data for Clustering
+
 If fewer than 5 messages total:
+
 - Skip topic clustering
 - Perform only basic sentiment analysis
 - Note: "Sample size too small for topic modeling"
 - Focus on keyword extraction instead
 
 ### Empty or Invalid JSON
+
 Handle parsing errors gracefully:
+
 ```python
 try:
     data = json.load(file)
@@ -438,6 +457,7 @@ except json.JSONDecodeError:
 ## Success Criteria
 
 A successful analysis workflow:
+
 - ✅ Fetches only Copilot-authored PRs merged in last 24 hours
 - ✅ Pre-downloads all PR and comment data as JSON
 - ✅ Uses jq for efficient data filtering and preprocessing
@@ -452,16 +472,19 @@ A successful analysis workflow:
 ## Important Security and Data Guidelines
 
 ### Data Privacy
+
 - **No sensitive data**: Redact usernames if discussing specific examples
 - **Aggregate focus**: Report trends, not individual message content
 - **Public data only**: All analyzed data is from public PR conversations
 
 ### Rate Limiting
+
 - Sleep 0.5 seconds between PR API calls to avoid rate limits
 - Batch requests where possible
 - Handle API errors with retries
 
 ### Resource Management
+
 - Clean up temporary files after analysis
 - Use efficient data structures (pandas DataFrames)
 - Stream large files rather than loading all into memory
@@ -471,6 +494,7 @@ A successful analysis workflow:
 Store reusable components and historical data:
 
 **Historical Analysis Data** (`/tmp/gh-aw/cache-memory/nlp-history.json`):
+
 ```json
 {
   "daily_analysis": [
@@ -487,6 +511,7 @@ Store reusable components and historical data:
 ```
 
 **Reusable NLP Helper Functions** (save to cache):
+
 - Text preprocessing utilities
 - Sentiment analysis wrapper
 - Topic extraction helpers

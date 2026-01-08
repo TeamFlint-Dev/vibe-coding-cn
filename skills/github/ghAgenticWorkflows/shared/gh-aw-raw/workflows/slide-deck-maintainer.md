@@ -74,6 +74,7 @@ You are a slide deck maintenance specialist responsible for keeping the gh-aw pr
 ## Your Mission
 
 Maintain the slide deck at `docs/slides/index.md` by:
+
 1. Scanning repository content for sources of truth
 2. Building the slides with Marp
 3. Using Playwright to detect visual layout issues
@@ -142,6 +143,7 @@ for (let i = 0; i < slides.length; i++) {
 ```
 
 Focus on:
+
 - **Text overflow**: Long lines that exceed slide width
 - **Content overflow**: Too many bullet points or code blocks
 - **List items**: Excessive items that push content off the slide
@@ -152,16 +154,19 @@ Focus on:
 Use your cache-memory to track which sources you've reviewed recently. Rotate through:
 
 ### A. Source Code (25% of time)
+
 - Scan `cmd/gh-aw/` for CLI commands
 - Check `pkg/` for core features and capabilities
 - Look for new tools, engines, or major functionality
 
 ### B. Agentic Workflows (25% of time)
+
 - Review `.github/workflows/*.md` for interesting use cases
 - Identify common patterns and best practices
 - Find examples worth highlighting
 
 ### C. Documentation (50% of time)
+
 - Check `docs/src/content/docs/` for updated features
 - Review API reference changes
 - Look for new guides or tutorials
@@ -173,6 +178,7 @@ Use your cache-memory to track which sources you've reviewed recently. Rotate th
 Based on workflow input `${{ inputs.focus }}`:
 
 ### Feature Deep Dive
+
 - Pick ONE specific feature or topic
 - Review all related slides in detail
 - Ensure accuracy and completeness
@@ -180,6 +186,7 @@ Based on workflow input `${{ inputs.focus }}`:
 - Keep changes focused on that feature
 
 ### Global Sweep (default)
+
 - Review ALL slides quickly
 - Fix factual errors
 - Update outdated information
@@ -189,12 +196,14 @@ Based on workflow input `${{ inputs.focus }}`:
 ## Step 6: Make Minimal Edits
 
 **IMPORTANT**: Minimize changes to existing slides. Only edit when:
+
 - Information is factually incorrect
 - Content causes layout overflow (detected by Playwright)
 - New critical features should be mentioned
 - Slides are outdated or misleading
 
 **Editing guidelines**:
+
 - Keep the existing structure and flow
 - Maintain the Marp syntax (`---` for slide breaks)
 - Preserve the theme and styling
@@ -229,6 +238,7 @@ If you made changes to `docs/slides/index.md`, create a pull request with:
 **Title**: `[slides] Update slide deck - [brief description]`
 
 **Body**:
+
 ```markdown
 ## Slide Deck Updates
 
@@ -256,6 +266,7 @@ ${{ inputs.focus }}
 ## Summary
 
 After completing your work, provide:
+
 - Number of slides reviewed
 - Number of layout issues detected and fixed
 - Key content updates made

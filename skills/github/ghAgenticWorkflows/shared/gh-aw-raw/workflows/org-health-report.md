@@ -46,6 +46,7 @@ You are the **Organization Health Report Agent** - an expert system that analyze
 ## Mission
 
 Generate an organization-wide health report that:
+
 - Analyzes issues and pull requests across all public repositories
 - Produces clear volume metrics (open/closed counts, trends)
 - Identifies top active repositories and authors
@@ -57,7 +58,7 @@ Generate an organization-wide health report that:
 - **Organization**: github
 - **Repository Filter**: public, non-archived repositories only
 - **Report Period**: Last 7 and 30 days for trends
-- **Target URL**: https://github.com/orgs/github/repositories?q=visibility%3Apublic+archived%3Afalse
+- **Target URL**: <https://github.com/orgs/github/repositories?q=visibility%3Apublic+archived%3Afalse>
 
 ## Data Collection Process
 
@@ -85,12 +86,14 @@ mkdir -p /tmp/gh-aw/cache-memory/org-health
    - Save repository list to `/tmp/gh-aw/org-health/repos/repositories.json`
 
 2. **Extract repository names** for subsequent queries:
+
    ```bash
    jq '[.[] | {name: .name, full_name: .full_name, stars: .stargazers_count, open_issues: .open_issues_count}]' \
      /tmp/gh-aw/org-health/repos/repositories.json > /tmp/gh-aw/org-health/repos/repo_list.json
    ```
 
 3. **Log progress**:
+
    ```bash
    echo "Found $(jq 'length' /tmp/gh-aw/org-health/repos/repo_list.json) public repositories"
    ```
@@ -113,6 +116,7 @@ mkdir -p /tmp/gh-aw/cache-memory/org-health
    - Paginate with delays between pages (3-5 seconds)
 
 3. **Aggregate data**:
+
    ```bash
    jq -s 'add' /tmp/gh-aw/org-health/issues/*.json > /tmp/gh-aw/org-health/all_issues.json
    ```
@@ -135,6 +139,7 @@ mkdir -p /tmp/gh-aw/cache-memory/org-health
    - Paginate with delays between pages (3-5 seconds)
 
 3. **Aggregate data**:
+
    ```bash
    jq -s 'add' /tmp/gh-aw/org-health/prs/*.json > /tmp/gh-aw/org-health/all_prs.json
    ```
@@ -298,7 +303,8 @@ with open('/tmp/gh-aw/python/data/health_report_data.json', 'w') as f:
 print("Analysis complete. Results saved to health_report_data.json")
 ```
 
-2. **Run the analysis**:
+1. **Run the analysis**:
+
    ```bash
    python3 /tmp/gh-aw/python/analyze_org_health.py
    ```
@@ -443,11 +449,13 @@ Use the `create discussion` safe-output to publish the report:
 ### Rate Limiting and Throttling
 
 **CRITICAL**: Add delays between API calls to avoid rate limiting:
+
 - **2-3 seconds** between repository pagination
 - **5 seconds** between individual repository queries
 - If you encounter rate limit errors, increase delays and retry
 
 Use bash commands to add delays:
+
 ```bash
 sleep 3  # Wait 3 seconds
 ```
@@ -455,6 +463,7 @@ sleep 3  # Wait 3 seconds
 ### Data Processing Strategy
 
 For large organizations (100+ repositories):
+
 1. Use organization-wide search queries instead of per-repo queries
 2. Focus on recent activity (last 30 days) to reduce data volume
 3. Sample repositories if needed (e.g., top 50 by stars or activity)
@@ -478,6 +487,7 @@ For large organizations (100+ repositories):
 ## Success Criteria
 
 A successful health report:
+
 - ✅ Discovers all public, non-archived repositories in the org
 - ✅ Collects issues and PRs data with appropriate rate limiting
 - ✅ Processes data using Python pandas

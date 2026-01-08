@@ -1,6 +1,6 @@
 # 3. Designing Levels
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-03-designing-levels-for-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-03-designing-levels-for-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:31:00.373944
 
 ---
@@ -43,6 +43,6 @@ We've created five levels for the character to progress through. In the next ste
 
 [![4. Representing Command Data](https://dev.epicgames.com/community/api/documentation/image/ba5e3ce7-3e79-4242-a6f4-8b39c808b725?resizing_type=fit&width=640&height=640)
 
-4. Representing Command Data
+1. Representing Command Data
 
-Learn how to represent and use the character commands in Verse code.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-04-representing-command-data-for-in-unreal-editor-for-fortnite)
+Learn how to represent and use the character commands in Verse code.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-04-representing-command-data-for-in-unreal-editor-for-fortnite>)

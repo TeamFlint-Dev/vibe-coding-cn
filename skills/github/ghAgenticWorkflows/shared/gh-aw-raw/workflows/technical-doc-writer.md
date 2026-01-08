@@ -79,6 +79,7 @@ This workflow is triggered manually via workflow_dispatch with a documentation t
 The documentation has been built successfully in the `docs/dist` folder. You can review both the source files in `docs/` and the built output in `docs/dist`.
 
 **To run the Astro dev server locally for live preview:**
+
 ```bash
 cd docs && npm run dev
 ```

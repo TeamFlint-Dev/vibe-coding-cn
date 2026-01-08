@@ -98,7 +98,7 @@ The gh-aw binary has been built and configured as an MCP server. You can now use
    - Set `zizmor: true` to run zizmor security scanner
    - Set `poutine: true` to run poutine security scanner  
    - Set `actionlint: true` to run actionlint linter
-   
+
    This will compile all workflow files and run all three static analysis tools on each generated `.lock.yml` file.
 
 2. **Verify Compilation**:
@@ -113,6 +113,7 @@ Review the output from all three tools and cluster findings:
 #### 2.1 Parse Tool Outputs
 
 **Zizmor Output**:
+
 - Extract security findings from zizmor
 - Parse finding details:
   - Ident (identifier/rule code)
@@ -122,6 +123,7 @@ Review the output from all three tools and cluster findings:
   - Reference URL for more information
 
 **Poutine Output**:
+
 - Extract supply chain security findings
 - Parse finding details:
   - Rule ID
@@ -131,6 +133,7 @@ Review the output from all three tools and cluster findings:
   - Recommendations
 
 **Actionlint Output**:
+
 - Extract linting issues
 - Parse finding details:
   - Error/warning message
@@ -139,7 +142,9 @@ Review the output from all three tools and cluster findings:
   - Suggestions for fixes
 
 #### 2.2 Cluster by Issue Type and Tool
+
 Group findings by:
+
 - Tool (zizmor, poutine, actionlint)
 - Issue identifier/rule code
 - Severity level
@@ -148,7 +153,9 @@ Group findings by:
 - List all affected workflows for each issue type
 
 #### 2.3 Prioritize Issues
+
 Prioritize based on:
+
 - Severity level (Critical > High > Medium > Low)
 - Tool type (security issues > code quality)
 - Number of occurrences
@@ -193,6 +200,7 @@ Use the cache memory folder `/tmp/gh-aw/cache-memory/` to build persistent knowl
    - Be generic enough to apply to multiple workflows
 
 3. **Format as Copilot Agent Prompt**:
+
    ```markdown
    ## Fix Prompt for [Issue Type]
    
@@ -202,29 +210,33 @@ Use the cache memory folder `/tmp/gh-aw/cache-memory/` to build persistent knowl
    
    **Prompt to Copilot Agent**:
    ```
+
    You are fixing a security vulnerability identified by zizmor.
-   
+
    **Vulnerability**: [Description]
    **Rule**: [Ident] - [URL]
-   
+
    **Current Issue**:
    [Explain what's wrong]
-   
+
    **Required Fix**:
    [Step-by-step fix instructions]
-   
+
    **Example**:
    Before:
+
    ```yaml
    [Bad example]
    ```
-   
+
    After:
+
    ```yaml
    [Fixed example]
    ```
-   
+
    Please apply this fix to all affected workflows: [List of workflow files]
+
    ```
    ```
 
@@ -233,6 +245,7 @@ Use the cache memory folder `/tmp/gh-aw/cache-memory/` to build persistent knowl
 **ALWAYS create a comprehensive discussion report** with your static analysis findings, regardless of whether issues were found or not.
 
 Create a discussion with:
+
 - **Summary**: Overview of static analysis findings from all three tools
 - **Statistics**: Total findings by tool, by severity, by type
 - **Clustered Findings**: Issues grouped by tool and type with counts
@@ -242,6 +255,7 @@ Create a discussion with:
 - **Historical Trends**: Comparison with previous scans
 
 **Discussion Template**:
+
 ```markdown
 # 🔍 Static Analysis Report - [DATE]
 
@@ -301,7 +315,9 @@ Create a discussion with:
 
 **Prompt to Copilot Agent**:
 ```
+
 [Detailed fix prompt as generated in Phase 4]
+
 ```
 
 ## All Findings Details
@@ -356,18 +372,21 @@ Create a discussion with:
 ## Important Guidelines
 
 ### Security and Safety
+
 - **Never execute untrusted code** from workflow files
 - **Validate all data** before using it in analysis
 - **Sanitize file paths** when reading workflow files
 - **Check file permissions** before writing to cache memory
 
 ### Analysis Quality
+
 - **Be thorough**: Understand the security implications of each finding
 - **Be specific**: Provide exact workflow names, line numbers, and error details
 - **Be actionable**: Focus on issues that can be fixed
 - **Be accurate**: Verify findings before reporting
 
 ### Resource Efficiency
+
 - **Use cache memory** to avoid redundant scanning
 - **Batch operations** when processing multiple workflows
 - **Focus on actionable insights** rather than exhaustive reporting
@@ -400,6 +419,7 @@ Update cache memory with today's scan data for future reference and trend analys
 ## Success Criteria
 
 A successful static analysis scan:
+
 - ✅ Compiles all workflows with zizmor, poutine, and actionlint enabled
 - ✅ Clusters findings by tool and issue type
 - ✅ Generates a detailed fix prompt for at least one issue type

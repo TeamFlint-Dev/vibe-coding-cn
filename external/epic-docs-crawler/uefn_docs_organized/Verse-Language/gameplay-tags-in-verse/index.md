@@ -1,6 +1,6 @@
 # Gameplay Tags
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/gameplay-tags-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/gameplay-tags-in-verse>
 > **爬取时间**: 2025-12-27T00:03:34.414428
 
 ---
@@ -34,22 +34,25 @@ Follow these steps to create a new gameplay tag using Verse:
    ```verse
    using { /Verse.org/Simulation/Tags }
    ```
+
 3. Create a new [class](class-in-verse) that [inherits](subclass-in-verse) from the `tag` class. The name of your class determines the name of the tag. In this example, the class is named `mytag`, so the gameplay tag's name is **mytag**.
 
    ```verse
    # Derive from the `tag` class in the Verse.org/Simulation/Tags module to create a new gameplay tag.
         mytag := class(tag){}
    ```
+
 4. Your Verse file should look like this:
 
    ```verse
    using { /Fortnite.com/Devices }
         using { /Verse.org/Simulation }
         using { /Verse.org/Simulation/Tags }
-   		
+     
         # Derive from the `tag` class in the Verse.org/Simulation/Tags module to create a new gameplay tag.
         mytag := class(tag){}
    ```
+
 5. Save your Verse file and click **Build Verse Scripts** in the UEFN toolbar to compile your code so you can use your new gameplay tag.
 
 Gameplay tags are hierarchical labels. These tags can have any number of hierarchical levels, separated by the `_` character in the class name.
@@ -151,4 +154,4 @@ The following tutorials show how to use Gameplay Tags in a game.
 
 Tagged Lights Puzzle
 
-Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-puzzle-in-verse)
+Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-puzzle-in-verse>)

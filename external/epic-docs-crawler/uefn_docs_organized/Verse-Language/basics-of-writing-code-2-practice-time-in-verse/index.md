@@ -1,6 +1,6 @@
-# Lesson 2: Practice Time!
+# Lesson 2: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-2-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-2-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:09:40.537395
 
 ---
@@ -15,6 +15,7 @@ Ready to write some code?
         Print("15.0 / 7.0 = {15.0 / 7.0}")
         Print("I + Love + Verse = {"I" + "Love" + "Verse"}")
    ```
+
 3. Repeat this step for the second line (including working out what should print), then again for the third line.
 4. Now copy and paste this line to see what happens!
     `Print("🐈💗🐟 = {"🐈💗🐟"}")`
@@ -44,4 +45,4 @@ hello_world_device := class(creative_device):
 
 Lesson 3: Storing and Using Information
 
-Programs need information to know what to do. Learn different ways to store information in your program.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-3-storing-and-using-information-in-verse)
+Programs need information to know what to do. Learn different ways to store information in your program.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-3-storing-and-using-information-in-verse>)

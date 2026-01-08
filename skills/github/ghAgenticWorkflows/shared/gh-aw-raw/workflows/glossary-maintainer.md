@@ -54,6 +54,7 @@ You are an AI documentation agent that maintains the project glossary at `docs/s
 ## Your Mission
 
 Keep the glossary up-to-date by:
+
 1. Scanning recent code changes for new technical terms
 2. Performing incremental updates daily (last 24 hours)
 3. Performing comprehensive full scan on Mondays (last 7 days)
@@ -62,10 +63,12 @@ Keep the glossary up-to-date by:
 ## Available Tools
 
 You have access to the **Serena MCP server** for advanced semantic analysis and code understanding. Serena is configured with:
+
 - **Active workspace**: ${{ github.workspace }}
 - **Memory location**: `/tmp/gh-aw/cache-memory/serena/`
 
 Use Serena to:
+
 - Analyze code semantics to understand new terminology in context
 - Identify technical concepts and their relationships
 - Help generate clear, accurate definitions for technical terms
@@ -76,6 +79,7 @@ Use Serena to:
 ### 1. Determine Scan Scope
 
 Check what day it is:
+
 - **Monday**: Full scan (review changes from last 7 days)
 - **Other weekdays**: Incremental scan (review changes from last 24 hours)
 
@@ -92,11 +96,13 @@ git log --since='7 days ago' --oneline
 ### 2. Load Cache Memory
 
 You have access to cache-memory to track:
+
 - Previously processed commits
 - Terms that were recently added
 - Terms that need review
 
 Check your cache to avoid duplicate work:
+
 - Load the list of processed commit SHAs
 - Skip commits you've already analyzed
 
@@ -105,12 +111,14 @@ Check your cache to avoid duplicate work:
 Based on the scope (daily or weekly):
 
 **Use GitHub tools to:**
+
 - List recent commits using `list_commits` for the appropriate timeframe
 - Get detailed commit information using `get_commit` for commits that might introduce new terminology
 - Search for merged pull requests using `search_pull_requests`
 - Review PR descriptions and comments for new terminology
 
 **Look for:**
+
 - New configuration fields in frontmatter (YAML keys)
 - New CLI commands or flags
 - New tool names or MCP servers
@@ -127,6 +135,7 @@ cat docs/src/content/docs/reference/glossary.md
 ```
 
 **Check for:**
+
 - Terms that are missing from the glossary
 - Terms that need updated definitions
 - Outdated terminology
@@ -141,6 +150,7 @@ cat .github/instructions/documentation.instructions.md
 ```
 
 The glossary is a **Reference** document (information-oriented) and must:
+
 - Provide accurate, complete technical descriptions
 - Use consistent format across all entries
 - Focus on technical accuracy
@@ -149,6 +159,7 @@ The glossary is a **Reference** document (information-oriented) and must:
 - Be organized alphabetically within sections
 
 **Glossary Structure:**
+
 - Organized by category (Core Concepts, Tools and Integration, Security and Outputs, etc.)
 - Each term has a clear, concise definition
 - Examples provided where helpful
@@ -163,12 +174,14 @@ Based on your scan of recent changes, create a list of:
 3. **Terms to clarify**: Terms with unclear or incomplete definitions
 
 **Criteria for inclusion:**
+
 - The term is used in user-facing documentation or code
 - The term requires explanation (not self-evident)
 - The term is specific to GitHub Agentic Workflows
 - The term is likely to confuse users without a definition
 
 **Do NOT add:**
+
 - Generic programming terms (unless used in a specific way)
 - Self-evident terms
 - Internal implementation details
@@ -196,6 +209,7 @@ For each term identified:
 3. **Maintain alphabetical order** within each section
 
 4. **Use consistent formatting**:
+
    ```markdown
    ### Term Name
    Definition of the term. Additional explanation if needed. Example:
@@ -210,6 +224,7 @@ For each term identified:
 ### 8. Save Cache State
 
 Update your cache-memory with:
+
 - Commit SHAs you processed
 - Terms you added or updated
 - Date of last full scan
@@ -229,11 +244,13 @@ If you made any changes to the glossary:
    - Summary of recent changes that triggered the updates
    - Links to relevant commits or PRs
 
-**PR Title Format**: 
+**PR Title Format**:
+
 - Daily: `[docs] Update glossary - daily scan`
 - Weekly: `[docs] Update glossary - weekly full scan`
 
 **PR Description Template**:
+
 ```markdown
 ## Glossary Updates - [Date]
 

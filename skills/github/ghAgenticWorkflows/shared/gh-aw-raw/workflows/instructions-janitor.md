@@ -69,6 +69,7 @@ git log --since="RELEASE_DATE" --pretty=format:"%h %s" -- docs/
 ```
 
 For each commit affecting documentation:
+
 - Use `get_commit` to see detailed changes
 - Use `get_file_contents` to review modified documentation files
 - Identify new features, changed behaviors, or deprecated functionality
@@ -82,6 +83,7 @@ cat .github/aw/github-agentic-workflows.md
 ```
 
 Understand:
+
 - Current structure and organization
 - Existing examples and patterns
 - Coverage of features and capabilities
@@ -98,6 +100,7 @@ Compare documentation changes against instructions:
 - **Best Practice Updates**: New patterns that should be recommended
 
 Focus on:
+
 - Frontmatter schema changes (new fields, deprecated fields)
 - Tool configuration updates (new tools, changed APIs)
 - Safe-output patterns (new output types, changed behavior)
@@ -109,6 +112,7 @@ Focus on:
 Apply surgical updates following these principles:
 
 **Prompting Best Practices:**
+
 - Use imperative mood for instructions ("Configure X", not "You should configure X")
 - Provide minimal, focused examples that demonstrate core concepts
 - Avoid redundant explanations (if something is self-explanatory, don't explain it)
@@ -116,6 +120,7 @@ Apply surgical updates following these principles:
 - Remove examples that are similar to others (keep the most representative one)
 
 **Style Guidelines:**
+
 - Maintain neutral, technical tone
 - Prefer brevity over comprehensiveness
 - Use YAML/markdown code blocks with appropriate language tags
@@ -123,6 +128,7 @@ Apply surgical updates following these principles:
 - Group related information logically
 
 **Change Strategy:**
+
 - Make smallest possible edits
 - Update only what changed
 - Remove outdated content
@@ -130,6 +136,7 @@ Apply surgical updates following these principles:
 - Consolidate redundant sections
 
 **Specific Areas to Maintain:**
+
 1. **Frontmatter Schema**: Keep field descriptions accurate and current
 2. **Tool Configuration**: Reflect latest tool capabilities and APIs
 3. **Safe Outputs**: Ensure all safe-output types are documented
@@ -144,6 +151,7 @@ If you made updates:
 **PR Title Format**: `[instructions] Sync github-agentic-workflows.md with release X.Y.Z`
 
 **PR Description Template**:
+
 ```markdown
 ## Instructions Update - Synchronized with v[VERSION]
 

@@ -63,6 +63,7 @@ grep "Benchmark" /tmp/gh-aw/benchmarks/bench_results.txt > /tmp/gh-aw/benchmarks
 ```
 
 **Expected benchmarks**:
+
 - `BenchmarkCompileSimpleWorkflow` - Simple workflow compilation (<100ms target)
 - `BenchmarkCompileComplexWorkflow` - Complex workflows (<500ms target)
 - `BenchmarkCompileMCPWorkflow` - MCP-heavy workflows (<1s target)
@@ -307,6 +308,7 @@ cat /tmp/gh-aw/benchmarks/analysis.json | python3 -m json.tool
 If regressions are detected, open issues with detailed information.
 
 **Rules for opening issues:**
+
 1. Open one issue per regression detected (max 3 as per safe-outputs config)
 2. Include benchmark name, current performance, historical average, and change percentage
 3. Add "performance" and "automation" labels
@@ -509,6 +511,7 @@ A successful daily run will:
 ## Performance Baselines
 
 Target compilation times (from PR description):
+
 - **Simple workflows**: <100ms (0.1s or 100,000,000 ns)
 - **Complex workflows**: <500ms (0.5s or 500,000,000 ns)
 - **MCP-heavy workflows**: <1s (1,000,000,000 ns)
@@ -516,12 +519,14 @@ Target compilation times (from PR description):
 ## Cache Memory Structure
 
 Performance data is stored in:
+
 - **Location**: `/tmp/gh-aw/repo-memory/default/`
 - **File**: `benchmark_history.jsonl`
 - **Format**: JSON Lines (one entry per day)
 - **Retention**: Managed by cache-memory tool
 
 Each entry contains:
+
 ```json
 {
   "timestamp": "2025-12-31T17:00:00Z",

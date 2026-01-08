@@ -31,6 +31,7 @@
 **描述**: 依赖方向必须从上层指向下层，禁止反向依赖。
 
 **合法依赖**:
+
 ```
 Driver → Session → Data → Logic
 Driver → Data → Logic
@@ -39,6 +40,7 @@ Session → Logic
 ```
 
 **违规示例**:
+
 ```verse
 # ❌ 错误：Logic 依赖 Data
 damage_logic := module:
@@ -47,6 +49,7 @@ damage_logic := module:
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：Logic 只接受原始数据
 damage_logic := module:
@@ -63,6 +66,7 @@ damage_logic := module:
 **描述**: Data Component 只负责数据管理（CRUD），禁止包含业务流程逻辑。
 
 **判断标准**:
+
 - ✅ 数据读取（Get）
 - ✅ 数据写入（Set）
 - ✅ 数据修改（Modify/Add/Remove）
@@ -72,6 +76,7 @@ damage_logic := module:
 - ❌ 跨数据协调（修改 A 后自动修改 B）
 
 **违规示例**:
+
 ```verse
 # ❌ 错误：Data 包含业务逻辑
 health_data := class(component):
@@ -84,6 +89,7 @@ health_data := class(component):
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：Data 只做 CRUD
 health_data := class(component):
@@ -109,6 +115,7 @@ combat_session := class:
 **描述**: Logic Module 禁止持有任何状态变量。
 
 **违规示例**:
+
 ```verse
 # ❌ 错误：Logic 有状态
 damage_logic := module:
@@ -120,6 +127,7 @@ damage_logic := module:
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：纯函数
 damage_logic := module:
@@ -136,6 +144,7 @@ damage_logic := module:
 **描述**: Session 必须是普通 class，不能继承 component。
 
 **违规示例**:
+
 ```verse
 # ❌ 错误：Session 是 Component
 fishing_session := class(component):  # 违规！
@@ -143,6 +152,7 @@ fishing_session := class(component):  # 违规！
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：Session 是普通 class
 fishing_session := class:
@@ -159,6 +169,7 @@ fishing_session := class:
 **描述**: Driver/System 只负责调度（监听输入、管理 Session、驱动时间片），禁止包含具体业务逻辑。
 
 **违规示例**:
+
 ```verse
 # ❌ 错误：Driver 包含业务逻辑
 fishing_system := class(component):
@@ -171,6 +182,7 @@ fishing_system := class(component):
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：Driver 只做调度
 fishing_system := class(component):
@@ -189,6 +201,7 @@ fishing_system := class(component):
 **描述**: 只有 Data Component 可以直接调用 UEFN API。
 
 **层级调用权限**:
+
 | 层 | UEFN API |
 |----|----------|
 | Data | ✅ 可以 |
@@ -197,6 +210,7 @@ fishing_system := class(component):
 | Driver | ⚠️ 仅限输入监听 |
 
 **违规示例**:
+
 ```verse
 # ❌ 错误：Session 调用 UEFN API
 fishing_session := class:
@@ -205,6 +219,7 @@ fishing_session := class:
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：通过 Data 调用
 fishing_session := class:
@@ -223,6 +238,7 @@ fishing_session := class:
 **描述**: Data Component 之间禁止直接调用，应通过 Session 协调。
 
 **违规示例**:
+
 ```verse
 # ❌ 警告：Data 直接调用另一个 Data
 health_data := class(component):
@@ -233,6 +249,7 @@ health_data := class(component):
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：Session 协调
 death_session := class:
@@ -253,6 +270,7 @@ death_session := class:
 **描述**: Session 的创建和销毁应由 Driver 管理。
 
 **正确模式**:
+
 ```verse
 fishing_system := class(component):
     var ActiveSession:?fishing_session = false
@@ -278,6 +296,7 @@ fishing_system := class(component):
 **描述**: 游戏事件订阅应在 Driver 层进行，由 Driver 分发到 Session。
 
 **正确模式**:
+
 ```verse
 game_system := class(component):
     OnBegin<override>()<suspends>:void =
@@ -299,6 +318,7 @@ game_system := class(component):
 **描述**: `<suspends>` 异步函数主要应在 Session 和 Driver 层，Data 和 Logic 应尽量保持同步。
 
 **推荐**:
+
 | 层 | `<suspends>` |
 |----|-------------|
 | Driver | ✅ 用于生命周期和事件循环 |

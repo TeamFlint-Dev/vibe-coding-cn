@@ -286,6 +286,7 @@ tools:
 ```
 
 **Available toolset options**:
+
 - `context` - GitHub Actions context and environment
 - `repos` - Repository operations
 - `issues` - Issue management
@@ -316,6 +317,7 @@ tools:
 - **MCP Configuration**: Remote mode with all toolsets enabled
 - **Categorization**: Based on GitHub API domains and functionality
 - **Documentation**: Derived from tool names, descriptions, and usage patterns
+
 ```
 
 ## Important Guidelines
@@ -464,7 +466,7 @@ Begin your tool discovery now. Follow these steps:
    - **Use the create-pull-request tool from safe-outputs** to create a PR with your updates
 6. **Detect inconsistencies**: Check for duplicates, miscategorization, naming issues, and orphaned tools
 7. **Compare and analyze**: If previous data exists, compare current tools with previous tools to identify changes (new/removed/moved)
-8. **Analyze and recommend default toolsets**: 
+8. **Analyze and recommend default toolsets**:
    - Analyze which toolsets provide the most fundamental functionality
    - Consider which tools are most commonly needed across different workflow types
    - Evaluate the current defaults: `context`, `repos`, `issues`, `pull_requests`, `users`
@@ -481,9 +483,9 @@ Begin your tool discovery now. Follow these steps:
      - Rationale for each toolset included in defaults
      - Explanation of when to enable other toolsets
    - Best practices for toolset selection
-7. **Update documentation references**: Update the default toolsets list in:
+10. **Update documentation references**: Update the default toolsets list in:
    - `.github/aw/github-agentic-workflows.md` (search for "Default toolsets")
-8. **Document**: Categorize tools appropriately and create comprehensive documentation
-9. **Save for next run**: Save the current tools list to `/tmp/gh-aw/cache-memory/github-mcp-tools.json`
-10. **Generate report**: Create the final markdown report including change tracking and inconsistency detection
-11. **Publish**: Create a GitHub discussion with the complete tools report
+11. **Document**: Categorize tools appropriately and create comprehensive documentation
+12. **Save for next run**: Save the current tools list to `/tmp/gh-aw/cache-memory/github-mcp-tools.json`
+13. **Generate report**: Create the final markdown report including change tracking and inconsistency detection
+14. **Publish**: Create a GitHub discussion with the complete tools report

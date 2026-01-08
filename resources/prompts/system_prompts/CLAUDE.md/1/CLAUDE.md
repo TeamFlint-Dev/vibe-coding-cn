@@ -130,7 +130,7 @@ automation_rules:
       formats: [".json", ".csv", ".parquet", ".xlsx", ".pdf", ".png", ".jpg", ".jpeg", ".gif"]
       strategy:
         json:
-          preferred: "jsonc_if_allowed"   # 若项目明确接受 JSONC/配置文件可带注释，则使用 /* ... */ 样式写 JSONC
+          preferred: "jsonc_if_allowed"   # 若项目明确接受 JSONC/配置文件可带注释，则使用 /*...*/ 样式写 JSONC
           otherwise: "sidecar_meta"       # 否则写 `<filename>.meta.md`
         csv: "sidecar_meta"
         parquet: "sidecar_meta"
@@ -421,9 +421,10 @@ prohibited_git_operations:
       alternative: "测试代码仅在 test/ 分支"
 
 git_safe_practices:
-  - "在 git pull 前确认冲突风险（必要时 --rebase，但需评估）"
-  - "历史修改、清理、合并在单独分支并经管理员审核"
-  - "高风险操作前强制自动备份"
+
+- "在 git pull 前确认冲突风险（必要时 --rebase，但需评估）"
+- "历史修改、清理、合并在单独分支并经管理员审核"
+- "高风险操作前强制自动备份"
 
 appendices:
   ai_generation_spec_markdown: |

@@ -1,6 +1,6 @@
 # 4. Granting Weapons on Player Spawn
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-04-granting-weapons-on-player-spawn-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-04-granting-weapons-on-player-spawn-in-verse>
 > **爬取时间**: 2025-12-27T00:22:37.674293
 
 ---
@@ -18,6 +18,7 @@ Now that you’ve balanced players into teams, you want to grant them the correc
             if(CurrentTeam := GetPlayspace().GetTeamCollection().GetTeam[InPlayer]):
                 for(TeamIndex -&gt; PlayerTeam:Teams, PlayerTeam = CurrentTeam):
    ```
+
 3. Since your filter condition will ensure the code within the `for` loop runs with the correct team, retrieve the appropriate item granter for that team by indexing into `WeaponGranters` using the `TeamIndex` of that team. Finally, call `GrantItem()` using the given player. Your `GrantTeamWeapon()` code should look like:
 
    ```verse
@@ -47,6 +48,7 @@ Now that you’ve balanced players into teams, you want to grant them the correc
                 Logger.Print("Attempting to grant spawned player a weapon")
                 GrantTeamWeapon(SpawnedPlayer)
    ```
+
 3. In `OnBegin()`, before the call to `BalanceTeams()`, subscribe each player spawner’s `SpawnedEvent` using a `for` loop to the `OnPlayerSpawn()` function you just defined.
 
    ```verse
@@ -75,6 +77,7 @@ Now that you’ve balanced players into teams, you want to grant them the correc
             else:
                 Logger.Print("Couldn't find all teams, make sure to assign the correct teams in your island settings.")
    ```
+
 4. Save the script, build it, and click **Launch Session** in the UEFN toolbar to playtest the level. When you playtest your level, each player should end up on the team with the largest difference, and should spawn with an appropriate weapon for their team. Verify this behavior using the log.
 
    [![Granting Weapons On Spawn](https://dev.epicgames.com/community/api/documentation/image/461dc4f4-4462-402f-8970-db51aec374ba?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/461dc4f4-4462-402f-8970-db51aec374ba?resizing_type=fit)

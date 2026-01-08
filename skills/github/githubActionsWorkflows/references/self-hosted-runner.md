@@ -3,6 +3,7 @@
 ## 概述
 
 Self-Hosted Runner 允许在本地机器上执行 GitHub Actions 工作流，适用于：
+
 - 需要访问本地资源（如 UEFN、数据库）
 - 需要特定硬件（GPU、大内存）
 - 需要持久化环境（避免重复安装依赖）
@@ -17,6 +18,7 @@ Self-Hosted Runner 允许在本地机器上执行 GitHub Actions 工作流，适
    - 按照页面指示下载并解压
 
 2. **配置 Runner**
+
 ```powershell
 cd E:\github-actions-runner
 
@@ -27,7 +29,8 @@ cd E:\github-actions-runner
 .\config.cmd --labels self-hosted,windows,verse-builder
 ```
 
-3. **启动 Runner**
+1. **启动 Runner**
+
 ```powershell
 # 交互模式（调试用）
 .\run.cmd
@@ -45,6 +48,7 @@ runs-on: [self-hosted, windows, verse-builder]
 ```
 
 **推荐标签：**
+
 - `self-hosted` - 必需，标识非 GitHub 托管
 - `windows` / `linux` / `macos` - 操作系统
 - 自定义标签：`verse-builder`, `gpu`, `high-memory` 等

@@ -37,6 +37,7 @@ githubActionsWorkflows/
 ## 核心经验总结
 
 ### 1. Webhook 签名验证
+
 ```python
 import hmac
 import hashlib
@@ -48,6 +49,7 @@ def verify_signature(payload_body, signature_header):
 ```
 
 ### 2. API 调用格式
+
 ```powershell
 # 错误（JSON 被当作字符串）
 gh api repos/{owner}/{repo}/dispatches -f client_payload='{"key":"value"}'
@@ -57,6 +59,7 @@ echo '{"event_type":"build-pr","client_payload":{}}' | gh api repos/{owner}/{rep
 ```
 
 ### 3. PowerShell 输出语法
+
 ```powershell
 # 错误
 "key=value" >> $env:GITHUB_OUTPUT
@@ -66,5 +69,6 @@ echo '{"event_type":"build-pr","client_payload":{}}' | gh api repos/{owner}/{rep
 ```
 
 ### 4. 编码问题
+
 - YAML 文件中避免中文注释（可能导致解析错误）
 - 使用纯 ASCII 字符确保兼容性

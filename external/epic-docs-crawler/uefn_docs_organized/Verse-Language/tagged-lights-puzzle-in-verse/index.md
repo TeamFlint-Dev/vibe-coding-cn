@@ -1,6 +1,6 @@
 # Tagged Lights Puzzle
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-puzzle-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-puzzle-in-verse>
 > **爬取时间**: 2025-12-26T23:17:58.740354
 
 ---
@@ -35,24 +35,24 @@ Follow these steps to learn how to create a puzzle where the player needs to fin
 
 1. Creating the Algorithm
 
-Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-1-creating-the-algorithm-in-verse)[![2. Setting Up the Level](https://dev.epicgames.com/community/api/documentation/image/5fca2858-2ac5-40d4-992a-1901f8a872e4?resizing_type=fit&width=640&height=640)
+Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-1-creating-the-algorithm-in-verse)[![2>. Setting Up the Level](<https://dev.epicgames.com/community/api/documentation/image/5fca2858-2ac5-40d4-992a-1901f8a872e4?resizing_type=fit&width=640&height=640>)
 
-2. Setting Up the Level
+1. Setting Up the Level
 
-Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-2-setting-up-the-level-in-verse)[![3. Finding the Lights at Runtime with Gameplay Tags](https://dev.epicgames.com/community/api/documentation/image/66faf583-f918-4bd8-8df0-f75709fc8688?resizing_type=fit&width=640&height=640)
+Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-2-setting-up-the-level-in-verse)[![3>. Finding the Lights at Runtime with Gameplay Tags](<https://dev.epicgames.com/community/api/documentation/image/66faf583-f918-4bd8-8df0-f75709fc8688?resizing_type=fit&width=640&height=640>)
 
-3. Finding the Lights at Runtime with Gameplay Tags
+1. Finding the Lights at Runtime with Gameplay Tags
 
-Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-3-finding-the-lights-at-runtime-with-gameplay-tags-in-verse)[![4. Toggling Lights with Buttons](https://dev.epicgames.com/community/api/documentation/image/960b7181-ef00-496d-880a-5604d7cd69cc?resizing_type=fit&width=640&height=640)
+Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-3-finding-the-lights-at-runtime-with-gameplay-tags-in-verse)[![4>. Toggling Lights with Buttons](<https://dev.epicgames.com/community/api/documentation/image/960b7181-ef00-496d-880a-5604d7cd69cc?resizing_type=fit&width=640&height=640>)
 
-4. Toggling Lights with Buttons
+1. Toggling Lights with Buttons
 
-Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-4-toggling-lights-with-buttons-in-verse)[![5. Detecting When the Puzzle Is Solved](https://dev.epicgames.com/community/api/documentation/image/8feafd45-5771-4b3a-b3ba-b8455cc5e652?resizing_type=fit&width=640&height=640)
+Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-4-toggling-lights-with-buttons-in-verse)[![5>. Detecting When the Puzzle Is Solved](<https://dev.epicgames.com/community/api/documentation/image/8feafd45-5771-4b3a-b3ba-b8455cc5e652?resizing_type=fit&width=640&height=640>)
 
-5. Detecting When the Puzzle Is Solved
+1. Detecting When the Puzzle Is Solved
 
-Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-5-detecting-when-the-puzzle-is-solved-in-verse)[![6. Tagged Lights Final Result](https://dev.epicgames.com/community/api/documentation/image/ffa0edf9-104b-4b20-b01a-621b1566f2ca?resizing_type=fit&width=640&height=640)
+Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-5-detecting-when-the-puzzle-is-solved-in-verse)[![6>. Tagged Lights Final Result](<https://dev.epicgames.com/community/api/documentation/image/ffa0edf9-104b-4b20-b01a-621b1566f2ca?resizing_type=fit&width=640&height=640>)
 
-6. Tagged Lights Final Result
+1. Tagged Lights Final Result
 
-Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-6-final-result-for-tagged-lights-puzzle-in-verse)
+Create a puzzle where the player has to find the right combination of lights on and off to spawn an item, using a device created with Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-6-final-result-for-tagged-lights-puzzle-in-verse>)

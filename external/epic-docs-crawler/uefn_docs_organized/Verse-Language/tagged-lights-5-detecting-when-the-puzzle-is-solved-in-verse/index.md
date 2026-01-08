@@ -1,6 +1,6 @@
 # 5. Detecting When the Puzzle Is Solved
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-5-detecting-when-the-puzzle-is-solved-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-5-detecting-when-the-puzzle-is-solved-in-verse>
 > **爬取时间**: 2025-12-27T00:38:39.634856
 
 ---
@@ -50,11 +50,12 @@ Follow these steps to detect when the player solves the puzzle:
                         true
                 if (set LightsState[LightIndex] = NewLightState):
                     Logger.Print("Updated the state for light at {LightIndex}")
-   		    
+         
             if (IsPuzzleSolved[]):
                 Logger.Print("Puzzle solved!")
                 ItemSpawner.Enable()
    ```
+
 9. Next, make the `IsPuzzleSolved()` method detect if the puzzle is solved. Since `IsPuzzleSolved()` is a failure context, you can use failable expressions in the method body without needing to use another failure context, like an `if` expression. In this case, you will need to check if the state of every light is the same as the solved puzzle state. To test if two `logic` values are the same, you can use the equals operator `=`, which is a failable expression. The first time two values you’re checking aren’t the same, the expression fails so then the method fails and returns to its caller’s context (in this case, the `if` expression in the `ToggleLights()` method).
 
    ```verse
@@ -67,6 +68,7 @@ Follow these steps to detect when the player solves the puzzle:
             do:
                 IsLightOn = IsLightOnInSolution
    ```
+
 10. Save the changes in Visual Studio Code.
 11. In the UEFN toolbar, click **Build Verse Scripts** to compile your code.
 12. Click **Play** in the UEFN toolbar to playtest the level.
@@ -97,6 +99,7 @@ Follow these steps to remove button interactions once the puzzle is solved:
             do:
                 Button.InteractedWithEvent.Subscribe(button_event_handler{Indices := LightIndices, PuzzleDevice := Self}.OnButtonPressed)
    ```
+
 3. Finally, remember the buttons must be disabled so that the player can’t change the `LightsState` anymore. That’s achieved by unsubscribing each button’s `InteractedWithEvent` handlers with a call to their `cancelable` subscription. These `ButtonSubscriptions` were saved when the event handlers were created in `OnBegin`. All that’s left to do is iterate through this array and call cancel on each `ButtonSubcription`:
 
    ```verse
@@ -116,14 +119,15 @@ Follow these steps to remove button interactions once the puzzle is solved:
                         true
                 if (set LightsState[LightIndex] = NewLightState):
                     Logger.Print("Updated the state for light at {LightIndex}")
-   		    
+         
             if (IsPuzzleSolved[]):
                 Logger.Print("Puzzle solved!")
                 ItemSpawner.Enable()
-   		    
+         
                 for (ButtonSubscription : ButtonSubscriptions):
                     ButtonSubscription.Cancel()
    ```
+
 4. Save the changes in Visual Studio Code.
 5. In the UEFN toolbar, click **Build Verse Scripts** to compile your code.
 6. Click **Play** in the UEFN toolbar to playtest the level.

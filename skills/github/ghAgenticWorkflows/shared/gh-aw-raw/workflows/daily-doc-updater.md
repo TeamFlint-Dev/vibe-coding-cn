@@ -60,6 +60,7 @@ Scan the repository for merged pull requests and code changes from the last 24 h
 First, search for merged pull requests from the last 24 hours.
 
 Use the GitHub tools to:
+
 - Search for pull requests merged in the last 24 hours using `search_pull_requests` with a query like: `repo:${{ github.repository }} is:pr is:merged merged:>=YYYY-MM-DD` (replace YYYY-MM-DD with yesterday's date)
 - Get details of each merged PR using `pull_request_read`
 - Review commits from the last 24 hours using `list_commits`
@@ -86,12 +87,14 @@ cat .github/instructions/documentation.instructions.md
 ```
 
 The documentation follows the **Diátaxis framework** with four distinct types:
+
 - **Tutorials** (Learning-Oriented): Guide beginners through achieving specific outcomes
 - **How-to Guides** (Goal-Oriented): Solve specific real-world problems
 - **Reference** (Information-Oriented): Provide accurate technical descriptions
 - **Explanation** (Understanding-Oriented): Clarify and illuminate topics
 
 Pay special attention to:
+
 - The tone and voice guidelines (neutral, technical, not promotional)
 - Proper use of headings (markdown syntax, not bold text)
 - Code samples with appropriate language tags (use `aw` for agentic workflows)
@@ -153,6 +156,7 @@ If you made any documentation changes:
 **PR Title Format**: `[docs] Update documentation for features from [date]`
 
 **PR Description Template**:
+
 ```markdown
 ## Documentation Updates - [Date]
 

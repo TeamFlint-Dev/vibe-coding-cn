@@ -1,6 +1,6 @@
 # Lesson 8: How Input, Parameters, and Arguments Work
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-8-how-input-parameters-and-arguments-work-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-8-how-input-parameters-and-arguments-work-in-verse>
 > **爬取时间**: 2025-12-26T23:10:21.059209
 
 ---
@@ -25,7 +25,7 @@ The syntax for a function that includes a parameter looks like this:
 
 ```verse
 name(parameter : type) : type =
-	codeblock
+ codeblock
 ```
 
 In the following example, `CoinsPerMousetrap` is now a parameter for the function `BuyMousetrap()`:
@@ -61,10 +61,10 @@ For example:
         var Coins : int = 500
         # After this call, Coins is 490
         BuyMousetrap(CoinsPerMousetrap := 10)
-  		
+    
         # After this call, Coins is 485
         BuyMousetrap(5)
-  		
+    
         CoinsPerMouseTrap : int = 20
         # After this call, Coins is 465
         BuyMousetrap(CoinsPerMousetrap)
@@ -91,10 +91,10 @@ When you call the function, you'll need to separate the arguments with commas ag
 - An **argument** is the value assigned to the constant used in the parameter for that function.
 - You have to **separate multiple parameters** in a single function with commas.
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 8: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/8e575311-aff8-46f3-8fc3-ed3ee354236e?resizing_type=fit&width=640&height=640)
 
 Lesson 8: Practice Time!
 
-Practice setting parameters and arguments for functions.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-8-practice-time-in-verse)
+Practice setting parameters and arguments for functions.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-8-practice-time-in-verse>)

@@ -1,6 +1,6 @@
 # 6. Use Props to Set a Theme
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/first-island-06-use-props-to-set-a-theme-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/first-island-06-use-props-to-set-a-theme-in-fortnite>
 > **爬取时间**: 2025-12-26T23:53:10.222472
 
 ---
@@ -147,6 +147,6 @@ To make the Audio device play automatically without player interaction, the devi
 
 When the player spawns onto the island, the sound cue plays right away.
 
-## Wrapping It Up!
+## Wrapping It Up
 
 And there you go! You've created a mini-gallery shooting game using UEFN, Creative, and Verse!

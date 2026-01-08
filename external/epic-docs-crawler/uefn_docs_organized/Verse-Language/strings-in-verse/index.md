@@ -1,6 +1,6 @@
 # String
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/strings-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/strings-in-verse>
 > **爬取时间**: 2025-12-27T02:07:54.173027
 
 ---
@@ -72,7 +72,7 @@ The following example would check to see if the player has used the correct item
 ExpectedItemInternalName : string = "RedPotion"
 # This is the item that the player has selected:
 SelectedItemInternalName : string = "BluePotion"
-	
+ 
 # Check to see if the player has the right item selected.
 if (SelectedItemInternalName = ExpectedItemInternalName):
     # They do! Report that the puzzle can proceed to the next step.
@@ -91,13 +91,13 @@ The length of a string accounts for the amount of data it takes to represent the
 ```verse
 # SecondsRemaining is assumed to be non-negative
 SecondsRemaining : int = 30
-	
+ 
 # Automatically convert the int representation to a string:
 SecondsString:string = SecondsRemaining
 
 # Set up the timer display string.
 var Combined : string = "Time Remaining: "
-	
+ 
 # If the string is too long, replace it the maximum two-digit value, 99.
 if (SecondsString.Length > 2):
     # Too much time on the clock! Set the string to a hard-coded max value.

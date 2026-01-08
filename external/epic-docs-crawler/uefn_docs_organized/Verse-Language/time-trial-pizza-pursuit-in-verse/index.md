@@ -1,6 +1,6 @@
 # Time Trial: Pizza Pursuit
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/time-trial-pizza-pursuit-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/time-trial-pizza-pursuit-in-verse>
 > **爬取时间**: 2025-12-26T23:02:24.818752
 
 ---
@@ -49,24 +49,24 @@ After building the objective marker and countdown timer, complete these steps to
 
 1. Setting up the Pizza Pursuit Level
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-1-setting-up-the-level-for-time-trial-in-verse)[![2. Defining the Pickup and Delivery Zones](https://dev.epicgames.com/community/api/documentation/image/350c587d-38e5-480b-9643-b91eed7fbba7?resizing_type=fit&width=640&height=640)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-1-setting-up-the-level-for-time-trial-in-verse)[![2>. Defining the Pickup and Delivery Zones](<https://dev.epicgames.com/community/api/documentation/image/350c587d-38e5-480b-9643-b91eed7fbba7?resizing_type=fit&width=640&height=640>)
 
-2. Defining the Pickup and Delivery Zones
+1. Defining the Pickup and Delivery Zones
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-2-defining-the-pickup-and-delivery-zones-for-time-trial-in-verse)[![3. Creating the Game Loop](https://dev.epicgames.com/community/api/documentation/image/806c8e89-6c49-46fb-91aa-c9ba4d92a621?resizing_type=fit&width=640&height=640)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-2-defining-the-pickup-and-delivery-zones-for-time-trial-in-verse)[![3>. Creating the Game Loop](<https://dev.epicgames.com/community/api/documentation/image/806c8e89-6c49-46fb-91aa-c9ba4d92a621?resizing_type=fit&width=640&height=640>)
 
-3. Creating the Game Loop
+1. Creating the Game Loop
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-3-creating-the-game-loop-for-time-trial-in-verse)[![4. Managing and Displaying the Score](https://dev.epicgames.com/community/api/documentation/image/e9125c7b-d02e-41aa-a82e-9e42a1013818?resizing_type=fit&width=640&height=640)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-3-creating-the-game-loop-for-time-trial-in-verse)[![4>. Managing and Displaying the Score](<https://dev.epicgames.com/community/api/documentation/image/e9125c7b-d02e-41aa-a82e-9e42a1013818?resizing_type=fit&width=640&height=640>)
 
-4. Managing and Displaying the Score
+1. Managing and Displaying the Score
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-4-managing-and-displaying-the-score-for-time-trial-in-verse)[![5. Improving Feedback and Player Experience](https://dev.epicgames.com/community/api/documentation/image/ef2f6a04-7153-4a76-9a3f-ad26e0b7ffca?resizing_type=fit&width=640&height=640)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-4-managing-and-displaying-the-score-for-time-trial-in-verse)[![5>. Improving Feedback and Player Experience](<https://dev.epicgames.com/community/api/documentation/image/ef2f6a04-7153-4a76-9a3f-ad26e0b7ffca?resizing_type=fit&width=640&height=640>)
 
-5. Improving Feedback and Player Experience
+1. Improving Feedback and Player Experience
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-5-improving-feedback-and-player-experience-for-time-trial-in-verse)[![6. Pizza Pursuit Final Result](https://dev.epicgames.com/community/api/documentation/image/4987faba-6a74-4495-beaf-806d9aaa52fe?resizing_type=fit&width=640&height=640)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-5-improving-feedback-and-player-experience-for-time-trial-in-verse)[![6>. Pizza Pursuit Final Result](<https://dev.epicgames.com/community/api/documentation/image/4987faba-6a74-4495-beaf-806d9aaa52fe?resizing_type=fit&width=640&height=640>)
 
-6. Pizza Pursuit Final Result
+1. Pizza Pursuit Final Result
 
-Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-6-final-result-for-time-trial-in-verse)
+Create a game with Verse where players must pick up and deliver pizzas before the time runs out!](<https://dev.epicgames.com/documentation/en-us/fortnite/pizza-pursuit-6-final-result-for-time-trial-in-verse>)

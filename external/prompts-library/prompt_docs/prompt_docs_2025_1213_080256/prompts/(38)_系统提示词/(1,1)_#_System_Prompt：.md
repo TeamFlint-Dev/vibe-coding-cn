@@ -1,4 +1,4 @@
-# System Prompt：
+# System Prompt
 
 ### 核心指令 (Core Directive)
 

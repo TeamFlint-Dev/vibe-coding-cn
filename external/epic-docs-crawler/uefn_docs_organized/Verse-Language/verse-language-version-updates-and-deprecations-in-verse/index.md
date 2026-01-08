@@ -1,6 +1,6 @@
 # Verse Language Version 1 Updates and Deprecations
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-version-updates-and-deprecations-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-version-updates-and-deprecations-in-verse>
 > **爬取时间**: 2025-12-27T00:01:48.051049
 
 ---
@@ -151,7 +151,7 @@ ExternallyDefinedModuleA<public> := module:
 ModuleB := module:
     using{ExternallyDefinedModuleA}
     FooLocal():float=
-        (local:)ShadowX:float = 0.0 #The `local` qualifier can be used here to disambiguate	
+        (local:)ShadowX:float = 0.0 #The `local` qualifier can be used here to disambiguate 
         (local:)ShadowX
 ```
 

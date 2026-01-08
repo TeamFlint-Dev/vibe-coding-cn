@@ -23,6 +23,7 @@
 **修改项**:
 
 #### gameEconomyDesigner
+
 - 🟠 修复: 分段公式添加具体定义和验算示例
 - 🟡 修复: 扩展触发词（设计掉率、资源产出、消耗平衡）
 
@@ -48,6 +49,7 @@ END
 ```
 
 #### gameMechanicsDesigner
+
 - 🟡 修复: Maintenance 章节补全（添加协同设计说明）
 
 ```diff
@@ -61,12 +63,15 @@ END
 ```
 
 #### gameSystemDesigner
+
 - 🟡 修复: 扩展触发词（设计游戏架构、模块划分、系统职责）
 
 #### gameTechStackPlanner
+
 - 🟡 修复: 扩展触发词（选择框架、技术方案对比、引擎评估）
 
 #### gameImplementationPlanner
+
 - 🟡 修复: 扩展触发词（代码架构设计、开发排期、里程碑规划）
 
 ---

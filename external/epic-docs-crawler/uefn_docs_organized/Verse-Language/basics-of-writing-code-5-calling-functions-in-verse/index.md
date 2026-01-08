@@ -1,6 +1,6 @@
 # Lesson 5: Calling Functions
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-5-calling-functions-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-5-calling-functions-in-verse>
 > **爬取时间**: 2025-12-26T23:10:16.134357
 
 ---
@@ -119,10 +119,10 @@ A method, then, is a function that's attached to a class. Because of this, not e
 - A **method** is a function that belongs to a certain type, and must be called on a variable or constant of that type.
 - **Classes** are **composite** types that let you combine data from other types then share the behaviors and properties with **subclasses**
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 5: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/2bdb697c-07e8-40e3-a869-4a6289edadac?resizing_type=fit&width=640&height=640)
 
 Lesson 5: Practice Time!
 
-Ready to call some functions? Start!](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-5-practice-time-in-verse)
+Ready to call some functions? Start!](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-5-practice-time-in-verse>)

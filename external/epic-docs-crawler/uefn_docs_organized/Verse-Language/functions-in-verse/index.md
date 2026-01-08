@@ -1,6 +1,6 @@
 # Functions
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/functions-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/functions-in-verse>
 > **爬取时间**: 2025-12-27T00:02:07.802475
 
 ---

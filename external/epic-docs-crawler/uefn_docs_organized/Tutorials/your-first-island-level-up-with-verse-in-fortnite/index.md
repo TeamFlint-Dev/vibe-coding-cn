@@ -1,6 +1,6 @@
 # Your First Island: Level Up with Verse
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/your-first-island-level-up-with-verse-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/your-first-island-level-up-with-verse-in-fortnite>
 > **爬取时间**: 2025-12-26T23:08:15.896582
 
 ---
@@ -21,20 +21,20 @@ This time around, you'll learn how to:
 
 1. Combo System
 
-Create a combo for extra points when players hit the right targets and miss the wrong ones!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-01-combo-system-in-fortnite)[![2. Timer System](https://dev.epicgames.com/community/api/documentation/image/60517b39-a9a8-42ab-bb1c-b696bf1226a3?resizing_type=fit&width=640&height=640)
+Create a combo for extra points when players hit the right targets and miss the wrong ones!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-01-combo-system-in-fortnite)[![2>. Timer System](<https://dev.epicgames.com/community/api/documentation/image/60517b39-a9a8-42ab-bb1c-b696bf1226a3?resizing_type=fit&width=640&height=640>)
 
-2. Timer System
+1. Timer System
 
-Build suspense by adding a countdown to the end of the game!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-02-timer-system-in-fortnite)[![3. Bonus Time Target](https://dev.epicgames.com/community/api/documentation/image/f40e269b-bba5-46d3-a309-67a4dbc1295a?resizing_type=fit&width=640&height=640)
+Build suspense by adding a countdown to the end of the game!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-02-timer-system-in-fortnite)[![3>. Bonus Time Target](<https://dev.epicgames.com/community/api/documentation/image/f40e269b-bba5-46d3-a309-67a4dbc1295a?resizing_type=fit&width=640&height=640>)
 
-3. Bonus Time Target
+1. Bonus Time Target
 
-Reward players with a surprise extra target that can add precious seconds to the game!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-03-bonus-time-target-in-fortnite)[![4. Weapon Leveling System](https://dev.epicgames.com/community/api/documentation/image/45eb2231-80c0-4ac9-a490-51ff1d17225c?resizing_type=fit&width=640&height=640)
+Reward players with a surprise extra target that can add precious seconds to the game!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-03-bonus-time-target-in-fortnite)[![4>. Weapon Leveling System](<https://dev.epicgames.com/community/api/documentation/image/45eb2231-80c0-4ac9-a490-51ff1d17225c?resizing_type=fit&width=640&height=640>)
 
-4. Weapon Leveling System
+1. Weapon Leveling System
 
-Switch weapons while stringing combos.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-04-weapon-leveling-system-in-fortnite)[![5. Refactor and Refine](https://dev.epicgames.com/community/api/documentation/image/d73cd87f-7a6e-438b-a44b-8cc5e4c1d2a3?resizing_type=fit&width=640&height=640)
+Switch weapons while stringing combos.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-04-weapon-leveling-system-in-fortnite)[![5>. Refactor and Refine](<https://dev.epicgames.com/community/api/documentation/image/d73cd87f-7a6e-438b-a44b-8cc5e4c1d2a3?resizing_type=fit&width=640&height=640>)
 
-5. Refactor and Refine
+1. Refactor and Refine
 
-Learn some key Verse concepts as you tweak your code!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-05-refactor-and-refine-in-fortnite)
+Learn some key Verse concepts as you tweak your code!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-05-refactor-and-refine-in-fortnite>)

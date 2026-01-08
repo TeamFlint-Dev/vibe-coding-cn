@@ -1,11 +1,17 @@
 # ==========================================
+
 # SKILL.md 模板 - 组装指南版本
+
 # ==========================================
+
 # 说明: 更新后的 SKILL.md 定位为"模块索引 + 组装指南"
+
 # 位置: skills/[category]/[skillName]/SKILL.md
+
 # ==========================================
 
 ---
+
 name: skillName
 description: 技能简短描述
 version: 1.0.0
@@ -74,6 +80,7 @@ layer: X  # 仅适用于分层技能
 | [ModuleName4](modules/ModuleName4/) | v0.5.0 | 🔴 experimental | 模块简短描述 | [README](modules/ModuleName4/README.md) |
 
 **状态说明**:
+
 - 🟢 **stable**: 稳定版本，API 不会破坏性变更
 - 🟡 **beta**: 测试版本，API 相对稳定
 - 🔴 **experimental**: 实验版本，API 可能变动
@@ -197,6 +204,7 @@ graph LR
 ```
 
 **依赖说明**:
+
 - ModuleName1 是基础模块，依赖 Verse 核心库
 - ModuleName2 和 ModuleName3 依赖 ModuleName1
 
@@ -213,6 +221,7 @@ graph LR
 **原因**: 模块未正确导入或依赖缺失
 
 **解决方案**:
+
 ```verse
 # 添加 using 语句
 using { /YourProject/ModuleName }
@@ -225,6 +234,7 @@ using { /YourProject/ModuleName }
 **原因**: 未在 OnBeginSimulation 中初始化
 
 **解决方案**:
+
 ```verse
 OnBeginSimulation<override>()<suspends>:void =
     Sleep(0.0)  # 必须延迟一帧！

@@ -1,7 +1,7 @@
 # GitHub Agentic Workflows 官方案例集
 
-> 来源: https://github.com/githubnext/gh-aw/tree/main/.github/workflows
-> 
+> 来源: <https://github.com/githubnext/gh-aw/tree/main/.github/workflows>
+>
 > 本文档精选了 gh-aw 官方仓库中具有代表性的工作流案例，供开发者学习和参考。
 
 ---
@@ -106,6 +106,7 @@ When invoked with `/scout`:
 ```
 
 **关键特性**:
+
 - `slash_command` + `workflow_dispatch` 双触发
 - `roles` 限制谁可以使用
 - `imports` 导入共享指令
@@ -162,6 +163,7 @@ When invoked with `/brave`:
 ```
 
 **关键特性**:
+
 - `events: [issue_comment]` 限制触发事件类型
 - `strict: true` 严格模式编译
 - 简洁的 MCP 工具导入
@@ -245,6 +247,7 @@ ${{ needs.activation.outputs.text }}
 ```
 
 **关键特性**:
+
 - `events: [issue_comment, discussion_comment]` 双事件支持
 - `create-issue` 带 `title-prefix` 和 `labels`
 - `close-discussion` 自动关闭讨论
@@ -317,6 +320,7 @@ You are **Archie**, a specialized AI agent that generates Mermaid diagrams...
 ```
 
 **关键特性**:
+
 - `reaction: eyes` 在触发时添加反应
 - `serena: ["go"]` 使用 MCP 服务器
 - 多事件类型: issues, issue_comment, pull_request, pull_request_comment
@@ -398,6 +402,7 @@ Save review to cache memory for next time
 ```
 
 **关键特性**:
+
 - `create-pull-request-review-comment` 行级评论
 - `side: "RIGHT"` 评论在差异右侧
 - `cache-memory: true` 跨运行记忆
@@ -443,7 +448,9 @@ You are an issue classification assistant. Analyze newly created issues and clas
 - **Repository**: ${{ github.repository }}
 - **Issue Content**: 
   ```
+
   ${{ needs.activation.outputs.text }}
+
   ```
 
 ## Classification Guidelines
@@ -471,6 +478,7 @@ You are an issue classification assistant. Analyze newly created issues and clas
 ```
 
 **关键特性**:
+
 - `issues: types: [opened]` 仅对新创建的 Issue 触发
 - `add-labels` 带 `allowed` 白名单
 - 简洁明确的分类指令
@@ -537,6 +545,7 @@ Create an upbeat daily status report for the team as a GitHub issue.
 ```
 
 **关键特性**:
+
 - `schedule` 定时触发 + `workflow_dispatch` 手动触发
 - `stop-after: +1mo` 自动停止日期
 - `tracker-id` 防止重复运行
@@ -693,6 +702,7 @@ If no improvements found - save analysis and exit gracefully
 ```
 
 **关键特性**:
+
 - `steps:` 自定义前置步骤（下载数据、设置环境）
 - `bash: ["*"]` 完全 bash 访问
 - `cache-memory: true` 跨运行记忆
@@ -750,6 +760,7 @@ Read a single issue and post a poem about it as a comment in staged mode.
 ```
 
 **关键特性**:
+
 - `workflow_dispatch` 带输入参数
 - `staged: true` 暂存模式，安全确认
 - 极简的指令

@@ -31,6 +31,7 @@ safe-outputs:
 Read a single issue and post a poem about it as a comment in staged mode.
 
 **Requirements:**
+
 1. Read the issue specified by the `issue_number` input
 2. Understand the issue's title, body, and context
 3. Write a creative poem inspired by the issue content

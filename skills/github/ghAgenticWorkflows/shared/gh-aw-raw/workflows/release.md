@@ -205,6 +205,7 @@ Generate an engaging release highlights summary for **${{ github.repository }}**
 ## Data Available
 
 All data is pre-fetched in `/tmp/gh-aw/release-data/`:
+
 - `current_release.json` - Release metadata (tag, name, dates, existing body)
 - `pull_requests.json` - PRs merged between `${PREV_RELEASE_TAG}` and `${RELEASE_TAG}` (empty array if first release)
 - `CHANGELOG.md` - Full changelog for context (if exists)
@@ -213,6 +214,7 @@ All data is pre-fetched in `/tmp/gh-aw/release-data/`:
 ## Output Requirements
 
 Create a **"🌟 Release Highlights"** section that:
+
 - Is concise and scannable (users grasp key changes in 30 seconds)
 - Uses professional, enthusiastic tone (not overly casual)
 - Categorizes changes logically (features, fixes, docs, breaking changes)
@@ -240,6 +242,7 @@ cat /tmp/gh-aw/release-data/docs_files.txt
 ### 2. Categorize & Prioritize
 
 Group PRs by category (omit categories with no items):
+
 - **✨ New Features** - User-facing capabilities
 - **🐛 Bug Fixes** - Issue resolutions
 - **⚡ Performance** - Speed/efficiency improvements
@@ -250,6 +253,7 @@ Group PRs by category (omit categories with no items):
 ### 3. Write Highlights
 
 Structure:
+
 ```markdown
 ## 🌟 Release Highlights
 
@@ -272,6 +276,7 @@ For complete details, see [CHANGELOG](https://github.com/githubnext/gh-aw/blob/m
 ```
 
 **Writing Guidelines:**
+
 - Lead with benefits: "GitHub MCP now supports remote mode" not "Added remote mode"
 - Be specific: "Reduced compilation time by 40%" not "Faster compilation"
 - Skip internal changes unless they have user impact
@@ -281,6 +286,7 @@ For complete details, see [CHANGELOG](https://github.com/githubnext/gh-aw/blob/m
 ### 4. Handle Special Cases
 
 **First Release** (no `${PREV_RELEASE_TAG}`):
+
 ```markdown
 ## 🎉 First Release
 
@@ -291,6 +297,7 @@ Welcome to the inaugural release! This version includes [core capabilities].
 ```
 
 **Maintenance Release** (no user-facing changes):
+
 ```markdown
 ## 🔧 Maintenance Release
 
@@ -310,6 +317,7 @@ update_release({
 ```
 
 **Required Parameters:**
+
 - `tag` - Release tag from `${RELEASE_TAG}` environment variable (e.g., "v0.30.2")
 - `operation` - Must be `"prepend"` to add before existing notes
 - `body` - Complete markdown content (include all formatting, emojis, links)
@@ -317,6 +325,7 @@ update_release({
 **WARNING**: If you don't call the `update_release` tool, the release notes will NOT be updated!
 
 **Documentation Base URLs:**
+
 - User docs: `https://githubnext.github.io/gh-aw/`
 - Reference: `https://githubnext.github.io/gh-aw/reference/`
 - Setup: `https://githubnext.github.io/gh-aw/setup/`

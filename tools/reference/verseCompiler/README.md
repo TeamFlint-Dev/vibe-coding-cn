@@ -68,6 +68,7 @@ Python Flask 服务，接收编译请求并触发 GitHub Actions。
 | POST | `/verse/result` | Runner 回报结果 |
 
 **请求示例**:
+
 ```bash
 curl -X POST http://193.112.183.143:19527/verse/compile \
   -H "Content-Type: application/json" \
@@ -103,6 +104,7 @@ Node.js 命令行工具，实现 UEFN Verse Workflow Server 通信协议。
 | 2 | 连接失败 (UEFN 未运行) |
 
 **用法示例**:
+
 ```bash
 # 单次编译
 node verse-build.js
@@ -175,6 +177,7 @@ Content-Length: <length>\r\n\r\n<json>
 ```
 
 **解决方案**:
+
 1. 确保 UEFN 正在运行
 2. 确保已经打开了一个 Fortnite 项目
 3. 等待项目完全加载后再尝试
@@ -182,6 +185,7 @@ Content-Length: <length>\r\n\r\n<json>
 ### GitHub Actions 失败
 
 检查 Runner 是否在线：
+
 ```bash
 gh run list --workflow=verse-uefn-compile.yml
 ```

@@ -20,6 +20,7 @@ safe_outputs  Create Agent Task  No GITHUB_AW_AGENT_OUTPUT environment variable 
 ## 根因分析
 
 **Lock 文件中设置的变量名**：
+
 ```yaml
 - name: Create Agent Task
   env:
@@ -27,6 +28,7 @@ safe_outputs  Create Agent Task  No GITHUB_AW_AGENT_OUTPUT environment variable 
 ```
 
 **create_agent_task.cjs 脚本期望的变量名**：
+
 ```javascript
 // 脚本内部查找
 process.env.GITHUB_AW_AGENT_OUTPUT  // ← 注意是 GITHUB_AW_ 前缀
@@ -37,6 +39,7 @@ process.env.GITHUB_AW_AGENT_OUTPUT  // ← 注意是 GITHUB_AW_ 前缀
 ## 复现步骤
 
 1. 创建包含 `create-agent-task` 的工作流：
+
    ```yaml
    safe-outputs:
      create-agent-task:
@@ -65,8 +68,10 @@ Agent 成功调用了工具，但 Handler 找不到环境变量导致实际任�
 **暂无**。这是 gh-aw 内部脚本的 Bug，无法通过配置绕过。
 
 可选方案：
+
 1. 等待上游修复
 2. 使用 bash 工具手动创建 Agent Task：
+
    ```markdown
    使用 bash 执行：
    gh copilot task create --body "..." --repo $GITHUB_REPOSITORY
@@ -78,5 +83,5 @@ Agent 成功调用了工具，但 Handler 找不到环境变量导致实际任�
 
 ## 参考
 
-- 测试 Run: https://github.com/TeamFlint-Dev/vibe-coding-cn/actions/runs/20694498454
+- 测试 Run: <https://github.com/TeamFlint-Dev/vibe-coding-cn/actions/runs/20694498454>
 - 相关 Issue: #76

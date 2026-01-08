@@ -53,6 +53,7 @@ imports:
 ### 1. Discover All Campaigns
 
 **Query repo-memory** for all campaign data:
+
 ```bash
 memory/campaigns/
 ├── incident-*/
@@ -63,6 +64,7 @@ memory/campaigns/
 ```
 
 **Extract from each campaign**:
+
 - Type (incident-response, org-rollout, security-compliance, human-ai-collab, etc.)
 - Duration (start → complete)
 - Scope (repos affected, items processed)
@@ -253,7 +255,7 @@ Using the Python data visualization environment from `shared/trends.md` (which i
 }
 ```
 
-  ### 2.5. Visualize Campaign Trends
+### 2.5. Visualize Campaign Trends
 
   Using the `shared/trends.md` import and the metrics file written to `/tmp/gh-aw/python/data/campaign-metrics.csv`:
 
@@ -271,22 +273,22 @@ Using the Python data visualization environment from `shared/trends.md` (which i
 
   4. The shared Python data viz import will automatically upload these PNGs as workflow artifacts, so stakeholders can download high-quality screenshots from the workflow run.
 
-  5. Optionally, copy 1–2 key charts into a stable path in repo-memory (for example, `memory/intelligence/charts/`) and reference them from:
+  1. Optionally, copy 1–2 key charts into a stable path in repo-memory (for example, `memory/intelligence/charts/`) and reference them from:
     - A **monthly intelligence issue** (created via `safe-outputs.create-issue`)
     - Per-campaign final report Markdown under `memory/campaigns/.../final-report.md`
     - A pinned "Campaign Intelligence" GitHub Discussion that links to each monthly run
 
   **Recommended monthly intelligence issue format**:
 
-  - **Title**: `Campaign Intelligence – ${ANALYSIS_YEAR}-${ANALYSIS_MONTH}` (for example, `Campaign Intelligence – 2025-12`)
-  - **Body sections**:
-    - Summary metrics (campaigns analyzed, success rate, ROI, velocity)
-    - Key trends (bullet list with 3–5 bullets)
-    - Top recommendations for the next 1–2 quarters
-    - Links:
-      - To the workflow run that produced this report
-      - To the chart artifacts (trend PNGs)
-      - To any updated playbooks or campaign specs
+- **Title**: `Campaign Intelligence – ${ANALYSIS_YEAR}-${ANALYSIS_MONTH}` (for example, `Campaign Intelligence – 2025-12`)
+- **Body sections**:
+  - Summary metrics (campaigns analyzed, success rate, ROI, velocity)
+  - Key trends (bullet list with 3–5 bullets)
+  - Top recommendations for the next 1–2 quarters
+  - Links:
+    - To the workflow run that produced this report
+    - To the chart artifacts (trend PNGs)
+    - To any updated playbooks or campaign specs
 
 ### 3. Generate Recommendations
 
@@ -467,6 +469,7 @@ Using the Python data visualization environment from `shared/trends.md` (which i
 **Labels**: `intelligence-report`, `executive-briefing`
 
 **Body**:
+
 ```markdown
 # Campaign Intelligence Report - [Month Year]
 
@@ -590,6 +593,7 @@ Your organization has achieved **Expert-level campaign maturity**:
 ## Output
 
 Intelligence analysis complete:
+
 - **Campaigns Analyzed**: 23 over 2 years
 - **Intelligence Report**: #[issue-number]
 - **Full Analysis**: `memory/intelligence/campaign-analysis-${{ github.run_id }}.json`

@@ -192,6 +192,7 @@ Tasks in `tasks.md` are organized into phases. Common phases include:
 - **Polish Phase**: Optimization, documentation, code cleanup
 
 Tasks may have markers:
+
 - `[P]` - Parallel task (can be executed concurrently with other [P] tasks in the same phase)
 - `[S]` - Sequential task (must wait for previous tasks to complete)
 - `[D: TaskX]` - Dependency marker (must wait for TaskX to complete)
@@ -213,6 +214,7 @@ For each phase:
 **NON-NEGOTIABLE**: The constitution requires TDD for all new functionality.
 
 For each feature or component:
+
 1. **Write tests first** - Create test files before implementation
 2. **Run tests** - Verify they fail initially (red)
 3. **Implement code** - Write minimal code to make tests pass (green)
@@ -220,6 +222,7 @@ For each feature or component:
 5. **Validate** - Run full test suite to ensure no regressions
 
 Example workflow for a new function:
+
 ```bash
 # 1. Create test file
 # Use edit tool to create: pkg/feature/feature_test.go
@@ -247,6 +250,7 @@ make lint
 - **GitHub tools** - For searching code, viewing files, checking references
 
 **Console formatting**: When you need to add CLI output, use the console package:
+
 ```go
 import "github.com/githubnext/gh-aw/pkg/console"
 
@@ -273,6 +277,7 @@ make test-unit
 ```
 
 If any step fails:
+
 - **Fix the issues immediately** - Don't proceed to the next phase
 - **Re-run validation** - Ensure all checks pass
 - **Update tasks.md** - Mark the validation task as complete
@@ -348,8 +353,10 @@ This PR implements tasks from feature `.specify/specs/[FEATURE-NUMBER]-[FEATURE-
 ### Test Coverage
 
 ```
+
 pkg/feature/feature.go:         95.2% coverage
 pkg/feature/handler.go:         88.7% coverage
+
 ```
 
 ### Notes
@@ -369,22 +376,26 @@ pkg/feature/handler.go:         88.7% coverage
 ### Step 9: Handle Edge Cases
 
 **No Pending Work**: If no features have pending tasks or incomplete specs:
+
 - Exit gracefully with a message: "No pending spec-kit work found. All features are complete or lack required specification files."
 - Do not create a PR
 
 **Build/Test Failures**: If validation fails:
+
 - Include the error details in the PR description
 - Mark the PR as draft
 - Clearly indicate which tests failed and include relevant error messages
 - The human reviewer can decide how to proceed
 
 **Complex Decisions**: If a task requires human judgment or architectural decisions:
+
 - Document the decision point in the PR description
 - Mark the PR as draft
 - Provide context and ask for guidance
 - Complete as much as possible before blocking
 
 **Incomplete Specifications**: If a feature lacks spec.md, plan.md, or tasks.md:
+
 - Skip that feature
 - Note it in the workflow output
 - Look for the next valid feature to implement
@@ -407,6 +418,7 @@ Follow these principles throughout the implementation:
 ## Important Reminders
 
 ✅ **DO**:
+
 - Read and follow the constitution
 - Write tests before implementation
 - Use edit tool to modify files
@@ -417,6 +429,7 @@ Follow these principles throughout the implementation:
 - Respect task dependencies and phases
 
 ❌ **DON'T**:
+
 - Skip tests or validation
 - Make unnecessary changes
 - Work on multiple features at once

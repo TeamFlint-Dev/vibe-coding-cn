@@ -19,6 +19,7 @@ strict: false
 This workflow demonstrates properly configured permissions for GitHub toolsets.
 
 The workflow uses three GitHub toolsets with appropriate write permissions:
+
 - The `repos` toolset requires `contents: write` for repository operations
 - The `issues` toolset requires `issues: write` for issue management
 - The `pull_requests` toolset requires `pull-requests: write` for PR operations

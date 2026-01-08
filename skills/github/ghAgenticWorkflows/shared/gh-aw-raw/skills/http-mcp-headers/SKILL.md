@@ -112,14 +112,14 @@ env:
 
 ### Rendering Logic
 
-#### In renderSharedMCPConfig (mcp-config.go):
+#### In renderSharedMCPConfig (mcp-config.go)
 
 1. **Extract secrets** when rendering HTTP MCP configs for copilot engine
 2. **Add env section** to property order when secrets are found
 3. **Render headers** with env var references instead of secret expressions
 4. **Render env** with passthrough syntax (`\${VAR_NAME}`)
 
-#### In GetExecutionSteps (copilot_engine.go):
+#### In GetExecutionSteps (copilot_engine.go)
 
 1. **Collect all HTTP MCP header secrets** from workflow tools
 2. **Add to execution step env map** with secret expressions
@@ -134,6 +134,7 @@ env:
 ## Test Coverage
 
 ### Unit Tests (mcp_http_headers_test.go)
+
 - extractSecretsFromValue
 - extractSecretsFromHeaders
 - replaceSecretsWithEnvVars
@@ -141,6 +142,7 @@ env:
 - renderSharedMCPConfig with HTTP headers
 
 ### Integration Tests (copilot_mcp_http_integration_test.go)
+
 - Single HTTP MCP tool with secrets
 - Multiple HTTP MCP tools
 - HTTP MCP without secrets

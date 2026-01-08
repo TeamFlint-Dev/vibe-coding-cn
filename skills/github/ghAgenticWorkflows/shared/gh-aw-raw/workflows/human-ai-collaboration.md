@@ -50,6 +50,7 @@ tools:
 **Analyze scope**: ${{ github.event.inputs.scope }}
 
 **AI discovers**:
+
 - What needs attention (security issues, tech debt, cost waste, etc.)
 - Current state metrics (coverage, cost, performance, etc.)
 - Risk assessment for each item
@@ -58,6 +59,7 @@ tools:
 - Business impact analysis
 
 **Store analysis** in `memory/campaigns/human-ai-collab-${{ github.run_id }}/analysis.json`:
+
 ```json
 {
   "campaign_id": "human-ai-collab-${{ github.run_id }}",
@@ -111,6 +113,7 @@ tools:
 **Labels**: `campaign-tracker`, `awaiting-human-decision`, `campaign:human-ai-collab-${{ github.run_id }}`
 
 **Body**:
+
 ```markdown
 # AI Analysis Complete - Awaiting Human Decisions
 
@@ -286,6 +289,7 @@ This campaign demonstrates the ideal pattern:
 **Campaign Status**: 🟡 AWAITING HUMAN DECISIONS
 **Your Action Required**: Review recommendations above and check decision boxes
 **Timeline**: Decisions needed by [date] to meet 6-week target
+
 ```
 
 ### 3. Wait for Human Decisions
@@ -314,6 +318,7 @@ campaign-execute-low-risk.md:
 ```
 
 ### Medium-Risk Approval Worker
+
 ```yaml
 campaign-execute-medium-risk.md:
   trigger: Issue labeled "approved:medium-risk"
@@ -328,6 +333,7 @@ campaign-execute-medium-risk.md:
 ```
 
 ### High-Risk Review Worker
+
 ```yaml
 campaign-execute-high-risk.md:
   trigger: Issue labeled "approved:high-risk"
@@ -344,6 +350,7 @@ campaign-execute-high-risk.md:
 ## Phase 3: Learning & Feedback
 
 **Monitor workflow** tracks outcomes:
+
 ```yaml
 campaign-monitor-learn.md:
   runs: daily
@@ -359,6 +366,7 @@ campaign-monitor-learn.md:
 ```
 
 **Example learnings**:
+
 ```json
 {
   "campaign_id": "human-ai-collab-${{ github.run_id }}",
@@ -427,29 +435,34 @@ campaign-monitor-learn.md:
 ## Key Principles
 
 ### 1. **AI Proposes, Humans Dispose**
+
 - AI generates recommendations
 - Humans make final decisions
 - AI respects human judgment
 
 ### 2. **Risk-Based Approval Chains**
+
 - Low risk → auto-execute
 - Medium risk → team lead approval
 - High risk → architecture review
 - Critical risk → dedicated project
 
 ### 3. **Guardrails Always Active**
+
 - safe-outputs prevent dangerous operations
 - Tests must pass before merge
 - Rollback plans required
 - Monitoring for issues
 
 ### 4. **Transparency & Explainability**
+
 - AI explains its reasoning
 - Risk assessments documented
 - Decisions traceable
 - Outcomes visible
 
 ### 5. **Continuous Learning**
+
 - Capture what worked/failed
 - Improve risk models
 - Better recommendations next time
@@ -458,6 +471,7 @@ campaign-monitor-learn.md:
 ## Output
 
 AI analysis complete and ready for human review:
+
 - **Campaign ID**: `human-ai-collab-${{ github.run_id }}`
 - **Epic Issue**: #[number] - awaiting your decisions
 - **Items Analyzed**: 87 (2 critical, 10 high, 30 medium, 45 low risk)
@@ -468,6 +482,7 @@ AI analysis complete and ready for human review:
 **Your action**: Review epic issue #[number] and make approval decisions
 
 **Once you approve**:
+
 - Low-risk items execute automatically
 - Medium/high-risk items create approval workflows
 - You validate outcomes

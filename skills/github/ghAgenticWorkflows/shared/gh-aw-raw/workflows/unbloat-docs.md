@@ -130,6 +130,7 @@ Analyze documentation files in the `docs/` directory and make targeted improveme
 ### 1. Check Cache Memory for Previous Cleanups
 
 First, check the cache folder for notes about previous cleanups:
+
 ```bash
 find /tmp/gh-aw/cache-memory/ -maxdepth 1 -ls
 cat /tmp/gh-aw/cache-memory/cleaned-files.txt 2>/dev/null || echo "No previous cleanups found"
@@ -140,6 +141,7 @@ This will help you avoid re-cleaning files that were recently processed.
 ### 2. Find Documentation Files
 
 Scan the `docs/` directory for markdown files, excluding code-generated files:
+
 ```bash
 find docs/src/content/docs -name '*.md' -type f ! -name 'frontmatter-full.md'
 ```
@@ -163,9 +165,11 @@ Focus on markdown files in the `docs/` directory that appear in the PR's changed
 **IMPORTANT**: Work on only **ONE file at a time** to keep changes small and reviewable.
 
 **NEVER select these code-generated files**:
+
 - `docs/src/content/docs/reference/frontmatter-full.md` - Auto-generated from JSON schema
 
 Choose the file most in need of improvement based on:
+
 - Recent modification date
 - File size (larger files may have more bloat)
 - Number of bullet points or repetitive patterns
@@ -175,6 +179,7 @@ Choose the file most in need of improvement based on:
 ### 4. Analyze the File
 
 Read the selected file and identify bloat:
+
 - Count bullet points - are there excessive lists?
 - Look for duplicate information
 - Check for repetitive "What it does" / "Why it's valuable" patterns
@@ -185,24 +190,29 @@ Read the selected file and identify bloat:
 
 Make targeted edits to improve clarity:
 
-**Consolidate bullet points**: 
+**Consolidate bullet points**:
+
 - Convert long bullet lists into concise prose or tables
 - Remove redundant points that say the same thing differently
 
 **Eliminate duplicates**:
+
 - Remove repeated information
 - Consolidate similar sections
 
 **Condense verbose text**:
+
 - Make descriptions more direct and concise
 - Remove filler words and phrases
 - Keep technical accuracy while reducing word count
 
 **Standardize structure**:
+
 - Reduce repetitive "What it does" / "Why it's valuable" patterns
 - Use varied, natural language
 
 **Simplify code samples**:
+
 - Remove unnecessary complexity from code examples
 - Focus on demonstrating the core concept clearly
 - Eliminate boilerplate or setup code unless essential for understanding
@@ -212,6 +222,7 @@ Make targeted edits to improve clarity:
 ### 6. Preserve Essential Content
 
 **DO NOT REMOVE**:
+
 - Technical accuracy or specific details
 - Links to external resources
 - Code examples (though you can consolidate duplicates)
@@ -221,6 +232,7 @@ Make targeted edits to improve clarity:
 ### 7. Create a Branch for Your Changes
 
 Before making changes, create a new branch with a descriptive name:
+
 ```bash
 git checkout -b docs/unbloat-<filename-without-extension>
 ```
@@ -232,6 +244,7 @@ For example, if you're cleaning `validation-timing.md`, create branch `docs/unbl
 ### 8. Update Cache Memory
 
 After improving the file, update the cache memory to track the cleanup:
+
 ```bash
 echo "$(date -u +%Y-%m-%d) - Cleaned: <filename>" >> /tmp/gh-aw/cache-memory/cleaned-files.txt
 ```
@@ -268,11 +281,13 @@ For the modified documentation file(s):
 #### Report Blocked Domains
 
 While taking screenshots, monitor the browser console for any blocked network requests:
+
 - Look for CSS files that failed to load
 - Look for font files that failed to load
 - Look for any other resources that were blocked by network policies
 
 If you encounter any blocked domains:
+
 1. Note the domain names and resource types (CSS, fonts, images, etc.)
 2. Include this information in the PR description under a "Blocked Domains" section
 3. Example format: "Blocked: fonts.googleapis.com (fonts), cdn.example.com (CSS)"
@@ -280,6 +295,7 @@ If you encounter any blocked domains:
 ### 10. Create Pull Request
 
 After improving ONE file:
+
 1. Verify your changes preserve all essential information
 2. Update cache memory with the cleaned file
 3. Take HD screenshots (1920x1080 viewport) of the modified documentation page(s)
@@ -297,7 +313,8 @@ After improving ONE file:
 
 ## Example Improvements
 
-### Before (Bloated):
+### Before (Bloated)
+
 ```markdown
 ### Tool Name
 Description of the tool.
@@ -310,7 +327,8 @@ Description of the tool.
 - **Learn more**: [Link](url)
 ```
 
-### After (Concise):
+### After (Concise)
+
 ```markdown
 ### Tool Name
 Description of the tool that does X, Y, and Z to achieve A, B, and C.
@@ -330,6 +348,7 @@ Use it when you need X by following steps 1-5. [Learn more](url)
 ## Success Criteria
 
 A successful run:
+
 - ✅ Improves exactly **ONE** documentation file
 - ✅ Reduces bloat by at least 20% (lines, words, or bullet points)
 - ✅ Preserves all essential information

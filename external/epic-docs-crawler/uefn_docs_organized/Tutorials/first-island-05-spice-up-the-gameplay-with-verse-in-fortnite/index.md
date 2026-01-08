@@ -1,6 +1,6 @@
 # 5. Spice Up the Gameplay with Verse
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/first-island-05-spice-up-the-gameplay-with-verse-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/first-island-05-spice-up-the-gameplay-with-verse-in-fortnite>
 > **爬取时间**: 2025-12-26T23:53:27.656130
 
 ---
@@ -194,6 +194,7 @@ Your bad targets are the **Target Dummy** devices, customized as **Teddy Bears**
        OnGoodTarget3Hit():void=
            GoodTarget3.PopDown()
    ```
+
 2. Compile your code.
 3. Select the **shooting\_range\_manager\_device** in the viewport.
 4. In the **Details** panel, set the value for each bad target to a different Target Dummy device.
@@ -379,6 +380,7 @@ Now you can add the Score Manager to your Verse device and adjust the player's s
        OnBadTarget3Hit():void=
            BadTarget3.PopDown()
    ```
+
 2. Compile your code.
 3. Select the **shooting\_range\_manager\_device** in the viewport.
 4. In the **Details** panel of the **shooting\_range\_manager\_device**, set **ScoreManager** to the Score Manager device.
@@ -477,6 +479,7 @@ Now you can add the Score Manager to your Verse device and adjust the player's s
 
    <# --- New Code End --- #>
    ```
+
 6. Compile your code.
 7. Select **Verse** > **Build Verse Code** from the **Menu Bar**.
 
@@ -491,6 +494,6 @@ Now you can add the Score Manager to your Verse device and adjust the player's s
 
 [![6. Use Props to Set a Theme](https://dev.epicgames.com/community/api/documentation/image/3a929ba4-66c4-48be-bda0-6cacdc690579?resizing_type=fit&width=640&height=640)
 
-6. Use Props to Set a Theme
+1. Use Props to Set a Theme
 
-Set the appearance of your game using props and galleries from Fortnite Creative!](https://dev.epicgames.com/documentation/en-us/fortnite/first-island-06-use-props-to-set-a-theme-in-fortnite)
+Set the appearance of your game using props and galleries from Fortnite Creative!](<https://dev.epicgames.com/documentation/en-us/fortnite/first-island-06-use-props-to-set-a-theme-in-fortnite>)

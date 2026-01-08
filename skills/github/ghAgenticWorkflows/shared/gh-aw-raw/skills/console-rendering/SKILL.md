@@ -84,9 +84,11 @@ data := Billing{
 ## Rendering Behavior
 
 ### Structs
+
 Structs are rendered as key-value pairs with proper alignment.
 
 ### Slices
+
 Slices of structs are automatically rendered as tables:
 
 ```go
@@ -114,12 +116,15 @@ test  | in_progress | -
 ```
 
 ### Maps
+
 Maps are rendered as markdown-style headers with key-value pairs.
 
 ### Special Type Handling
 
 #### time.Time
+
 `time.Time` fields are automatically formatted as `"2006-01-02 15:04:05"`. Zero time values are considered empty when used with `omitempty`.
 
 #### Unexported Fields
+
 The rendering system safely handles unexported struct fields by checking `CanInterface()` before attempting to access field values.

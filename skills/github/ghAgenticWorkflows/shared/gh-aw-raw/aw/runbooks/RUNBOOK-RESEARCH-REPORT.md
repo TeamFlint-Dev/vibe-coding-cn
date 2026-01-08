@@ -42,6 +42,7 @@ gh-aw 提供了一套完整的 CLI 工具用于错误分析和诊断：
 **功能**: 下载和分析工作流执行日志
 
 **基础用法**:
+
 ```bash
 # 下载所有 agentic 工作流日志
 gh aw logs
@@ -54,6 +55,7 @@ gh aw logs --run-id <run-id> -o /tmp/workflow-logs
 ```
 
 **高级筛选**:
+
 ```bash
 # 按 AI 引擎筛选
 gh aw logs --engine copilot          # 仅 Copilot 工作流
@@ -93,6 +95,7 @@ gh aw logs -o ./workflow-logs
 **功能**: 深度审计特定工作流运行
 
 **用法**:
+
 ```bash
 # 审计特定运行（推荐 JSON 输出）
 gh aw audit <run-id> --json
@@ -142,6 +145,7 @@ gh aw mcp list-tools github <workflow-name>
 ```
 
 **工具详情输出包括**:
+
 - 工具名称、标题、描述
 - 输入 Schema 和参数
 - 是否在工作流配置中允许
@@ -260,23 +264,27 @@ GH_REPO=owner/repo gh run download <run-id> -n agent-stdio.log
 #### 类型 1: Missing Tool 错误
 
 **症状**:
+
 ```
 Error: Tool 'github:read_issue' not found
 Error: missing tool configuration for safeinputs-gh
 ```
 
 **根因分析**:
+
 - GitHub MCP 服务器未在 frontmatter 配置
 - toolsets 配置缺失或不完整
 - 工具名称拼写错误（如 `safeoutputs-create_pull_request` 而非 `create_pull_request`）
 
 **诊断步骤**:
+
 1. 检查工作流 `.md` 文件的 `tools:` 配置
 2. 运行 `gh aw mcp inspect <workflow-name>` 查看可用工具
 3. 查看 audit 输出的 `missing_tools` 数组
 4. 对比 `safe_outputs.jsonl` 中的调用记录
 
 **修复模板**:
+
 ```yaml
 ---
 tools:
@@ -287,6 +295,7 @@ tools:
 ```
 
 **可用 toolsets**:
+
 | Toolset | 包含功能 |
 |---------|----------|
 | `default` | 仓库、Issue、PR 常用操作 |
@@ -301,6 +310,7 @@ tools:
 #### 类型 2: 权限错误 (HTTP 403/401)
 
 **症状**:
+
 ```
 HTTP 403 (Forbidden) errors
 "Resource not accessible" errors
@@ -308,12 +318,14 @@ Token scope errors
 ```
 
 **根因分析**:
+
 - `permissions:` 块配置不足
 - 使用 write 权限但未禁用 strict 模式
 - GITHUB_TOKEN 无法跨仓库访问
 - Fork PR 触发时无法访问 secrets
 
 **诊断步骤**:
+
 1. 检查 frontmatter 的 `permissions:` 块
 2. 确认操作是否需要 write 权限
 3. 跨仓库操作确认是否使用 PAT
@@ -327,6 +339,7 @@ Token scope errors
 | PAT Token | 跨仓库操作 | `github-token: ${{ secrets.PAT }}` |
 
 **safe-outputs 修复模板**:
+
 ```yaml
 ---
 permissions:
@@ -342,6 +355,7 @@ safe-outputs:
 ```
 
 **显式 write 修复模板**:
+
 ```yaml
 ---
 # ⚠️ 需要 strict: false 原因：需要直接推送代码
@@ -357,6 +371,7 @@ permissions:
 #### 类型 3: Safe-inputs/outputs 配置问题
 
 **症状**:
+
 ```
 Safe-inputs action fails
 Environment variable not available
@@ -364,18 +379,21 @@ Template expression evaluation errors
 ```
 
 **根因分析**:
+
 - safe-inputs 未配置导致环境变量不可用
 - safe-outputs 的 `target` 配置不匹配
 - 缺少 `actions: read` 权限
 - GitHub context 表达式语法错误
 
 **诊断步骤**:
+
 1. 检查 `safe-inputs:` 配置是否完整
 2. 检查 `safe-outputs:` 的 target 设置
 3. 确认 `permissions.actions: read` 存在
 4. 验证 `${{ github.event.xxx }}` 表达式语法
 
 **修复模板**:
+
 ```yaml
 ---
 permissions:
@@ -403,6 +421,7 @@ safe-outputs:
 #### 类型 4: Strict 模式验证失败
 
 **症状**:
+
 ```
 Error: strict mode validation failed: write permissions not allowed
 Error: strict mode validation failed: bash wildcard tools not allowed
@@ -420,6 +439,7 @@ Strict 模式（默认启用）有以下限制：
 | ❌ 禁止通配符域名 | 不允许 `*.example.com` |
 
 **决策流程**:
+
 ```
 需要写操作？
 ├── 创建 Issue/PR/评论？ → ✅ 使用 safe-outputs
@@ -429,6 +449,7 @@ Strict 模式（默认启用）有以下限制：
 ```
 
 **修复模板**:
+
 ```yaml
 ---
 # 方案 A: safe-outputs（推荐，保持 strict）
@@ -452,21 +473,25 @@ tools:
 #### 类型 5: 网络访问限制
 
 **症状**:
+
 - 外部 API 调用失败
 - 域名解析失败
 - 连接超时
 
 **根因分析**:
+
 - 沙箱模式默认限制网络访问
 - 未配置 `network.allowed` 白名单
 - 使用了内网地址
 
 **诊断步骤**:
+
 1. 确认目标 API 端点
 2. 检查 `network:` 配置
 3. 确认非内网地址
 
 **修复模板**:
+
 ```yaml
 ---
 # 方案 A: 添加域名白名单
@@ -480,6 +505,7 @@ sandbox:
 ```
 
 **可用网络生态系统**:
+
 | 生态 | 包含域名 |
 |------|----------|
 | `defaults` | 基础域名 |
@@ -492,6 +518,7 @@ sandbox:
 #### 类型 6: 正则表达式死循环
 
 **症状**:
+
 - Agent 无响应
 - 工作流超时中断
 - 日志出现 "Infinite loop detected"
@@ -516,12 +543,14 @@ JavaScript 正则使用 `g` 标志时，如果模式可匹配空串，会导致 
 ```
 
 **安全规则**:
+
 1. 总是要求至少一个字符匹配
 2. 永远不要使用纯 `.*` 作为整个模式
 3. 测试模式是否匹配空串
 4. 尽量使用锚点 `^` `$` 或词边界 `\b`
 
 **测试方法**:
+
 ```javascript
 const regex = /your-pattern/g;
 if (regex.test("")) {
@@ -554,6 +583,7 @@ if (regex.test("")) {
 项目提供 `debug-agentic-workflow.agent.md`，专门用于调试 gh-aw 工作流。
 
 **核心能力**:
+
 - 分析工作流运行 URL
 - 执行 `gh aw audit` 并解析结果
 - 识别 missing tools 问题
@@ -562,16 +592,19 @@ if (regex.test("")) {
 **使用方式**:
 
 用户提供运行 URL：
+
 ```
 https://github.com/owner/repo/actions/runs/20135841934
 ```
 
 Agent 执行：
+
 ```bash
 gh aw audit 20135841934 --json
 ```
 
 Agent 分析：
+
 - `missing_tools` 数组 → 缺失工具
 - `safe_outputs.jsonl` → 输出调用记录
 - `agent-stdio.log` → Agent 推理过程
@@ -614,6 +647,7 @@ Agent 分析：
 ### 3.3 高级诊断技巧
 
 **轮询进行中的运行**:
+
 ```bash
 # 等待运行完成再审计
 while ! gh aw audit <run-id> --json 2>&1 | grep -q '"status":\s*"\(completed\|failure\|cancelled\)"'; do
@@ -624,6 +658,7 @@ gh aw audit <run-id> --json
 ```
 
 **检查取消原因**:
+
 ```bash
 # 查看是否被手动取消
 gh run view <run-id>
@@ -633,11 +668,13 @@ gh run view --job <job-id> --log
 ```
 
 **下载特定 artifact**:
+
 ```bash
 GH_REPO=owner/repo gh run download <run-id> -n agent-stdio.log
 ```
 
 **离线分析**:
+
 ```bash
 # 审计结果缓存在本地
 ls logs/run-<run-id>/
@@ -657,12 +694,14 @@ ls logs/run-<run-id>/
 ### 4.2 权限与安全
 
 **Permissions 配置**:
+
 - [ ] 声明的 permissions 满足任务需求
 - [ ] 写操作使用 safe-outputs 而非直接权限
 - [ ] 跨仓库操作使用 PAT 而非 GITHUB_TOKEN
 - [ ] Fork PR 触发时注意 secrets 不可访问
 
 **安全扫描**:
+
 - [ ] 运行 `gh aw compile --actionlint`
 - [ ] 运行 `gh aw compile --zizmor`
 - [ ] 生产环境使用 `--strict` 模式
@@ -702,6 +741,7 @@ gh-aw 遵循统一的错误消息格式：
 ```
 
 **三个核心问题**:
+
 1. 什么错了？ — 清晰陈述验证错误
 2. 期望什么？ — 解释有效格式或值
 3. 如何修复？ — 提供正确用法的具体示例
@@ -744,12 +784,14 @@ fmt.Errorf("invalid engine: %s", engineID)
 **背景**: 定时运行持续失败
 
 **排查过程**:
+
 1. `gh aw logs` 分析历史日志
 2. 发现 authentication errors
 3. 检查 permissions 配置
 4. 发现缺少 `actions: read`
 
 **修复**:
+
 ```yaml
 permissions:
   contents: read
@@ -766,11 +808,13 @@ permissions:
 **背景**: Run #20435819459 报错 "Tool 'github:read_issue' not found"
 
 **排查过程**:
+
 1. `gh aw audit 20435819459 --json`
 2. 检查 `missing_tools` 数组
 3. 发现 GitHub MCP 服务器未配置
 
 **修复**:
+
 ```yaml
 tools:
   github:
@@ -787,11 +831,13 @@ tools:
 **背景**: 报错 "missing tool configuration for safeinputs-gh"
 
 **排查过程**:
+
 1. 检查 `safe_outputs.jsonl` artifact
 2. 发现 PR 数据未传递给 agent
 3. 确认缺少 safe-inputs 配置
 
 **修复**:
+
 ```yaml
 safe-inputs:
   pull_request:
@@ -808,10 +854,12 @@ safe-inputs:
 **背景**: 86.7% 失败率 (26/30 runs)，每月浪费 $93
 
 **分析**:
+
 - 1034 错误跨 26 次失败运行
 - 需要分析具体错误日志
 
 **建议行动**:
+
 1. `gh aw logs --workflow ai-moderator --start-date -30d`
 2. 分析 error patterns
 3. 修复根本原因或禁用工作流
@@ -849,6 +897,7 @@ gh run watch <run-id>
 ### 7.2 配置模板速查
 
 **只读分析工作流**:
+
 ```yaml
 ---
 on: workflow_dispatch
@@ -866,6 +915,7 @@ network:
 ```
 
 **需要创建 Issue/PR**:
+
 ```yaml
 ---
 on: workflow_dispatch
@@ -889,6 +939,7 @@ network:
 ```
 
 **需要完整写权限**:
+
 ```yaml
 ---
 # ⚠️ 禁用 strict 模式原因：[写明具体原因]
@@ -958,4 +1009,3 @@ network:
 | 日期 | 版本 | 更新内容 |
 |------|------|----------|
 | 2026-01-04 | 1.0 | 初始版本，完成运维手册体系调研 |
-

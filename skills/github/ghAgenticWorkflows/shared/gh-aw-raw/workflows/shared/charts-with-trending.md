@@ -36,6 +36,7 @@ This shared workflow provides everything you need to create compelling trend vis
 
 :::tip[Quick Start Alternative]
 Looking for a simpler setup? Use `shared/trending-charts-simple.md` for:
+
 - No nested imports (standalone configuration)
 - No network restrictions (strict mode compatible)
 - Quick start examples for common trending patterns
@@ -65,6 +66,7 @@ Organize your trending data in cache-memory:
 ### Helper Functions for Trending Data
 
 **Load Historical Data:**
+
 ```bash
 # Check if historical data exists
 if [ -f /tmp/gh-aw/cache-memory/trending/issues/history.jsonl ]; then
@@ -77,6 +79,7 @@ fi
 ```
 
 **Append New Data:**
+
 ```python
 import json
 from datetime import datetime
@@ -95,6 +98,7 @@ with open('/tmp/gh-aw/cache-memory/trending/issues/history.jsonl', 'a') as f:
 ```
 
 **Load All Historical Data for Analysis:**
+
 ```python
 import pandas as pd
 import json
@@ -216,6 +220,7 @@ plt.xticks(rotation=45)
 ### 1. Use JSON Lines Format
 
 JSON Lines (`.jsonl`) is ideal for append-only trending data:
+
 - One JSON object per line
 - Easy to append new data
 - Efficient for time-series data
@@ -224,6 +229,7 @@ JSON Lines (`.jsonl`) is ideal for append-only trending data:
 ### 2. Include Metadata
 
 Store metadata alongside data:
+
 ```json
 {
   "metric_name": "issue_resolution_time",
@@ -237,6 +243,7 @@ Store metadata alongside data:
 ### 3. Maintain Index
 
 Keep an index of all tracked metrics:
+
 ```json
 {
   "metrics": [
@@ -252,6 +259,7 @@ Keep an index of all tracked metrics:
 ### 4. Data Retention Strategy
 
 Implement retention policies to prevent unbounded growth:
+
 ```python
 # Keep only last 90 days
 cutoff_date = datetime.now() - timedelta(days=90)
@@ -400,6 +408,7 @@ Analysis shows:
 ## Common Use Cases
 
 ### Repository Activity Trends
+
 ```python
 # Track: commits, PRs, issues, contributors
 # Frequency: Daily
@@ -407,6 +416,7 @@ Analysis shows:
 ```
 
 ### Performance Metrics Trends
+
 ```python
 # Track: build time, test coverage, bundle size
 # Frequency: Per commit/PR
@@ -414,6 +424,7 @@ Analysis shows:
 ```
 
 ### Quality Metrics Trends
+
 ```python
 # Track: code complexity, test failures, security alerts
 # Frequency: Weekly
@@ -421,6 +432,7 @@ Analysis shows:
 ```
 
 ### Workflow Efficiency Trends
+
 ```python
 # Track: workflow duration, token usage, success rate
 # Frequency: Per run

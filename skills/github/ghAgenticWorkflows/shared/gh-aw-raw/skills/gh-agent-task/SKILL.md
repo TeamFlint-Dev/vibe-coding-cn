@@ -8,11 +8,12 @@ description: GitHub CLI Agent Task Extension
 
 The `gh agent-task` CLI extension enables creating GitHub Copilot agent tasks through the command line. An agent task is a specialized GitHub issue that triggers GitHub Copilot to perform automated code changes based on natural language instructions.
 
-**Repository**: https://github.com/github/agent-task (internal GitHub extension)
+**Repository**: <https://github.com/github/agent-task> (internal GitHub extension)
 
 ## Overview
 
 Agent tasks are GitHub issues that:
+
 - Contain natural language instructions for code changes
 - Trigger GitHub Copilot to autonomously execute the task
 - Create pull requests with the implemented changes
@@ -49,6 +50,7 @@ gh agent-task create --repo owner/repo "Update documentation"
 ```
 
 **Command Parameters:**
+
 - **Description** (positional): Natural language description of the task
 - **`--from-file <path>`**: Read task description from file
 - **`--base <branch>`**: Base branch for the pull request (default: repository default branch)
@@ -56,6 +58,7 @@ gh agent-task create --repo owner/repo "Update documentation"
 
 **Output Format:**
 The command outputs the URL of the created agent task:
+
 ```
 https://github.com/owner/repo/issues/123
 ```
@@ -103,6 +106,7 @@ gh agent-task update 123 --from-file updated-description.md
 Agent task descriptions should be clear, specific natural language instructions:
 
 **Good Example:**
+
 ```markdown
 # Refactor User Authentication
 
@@ -116,11 +120,13 @@ Maintain backward compatibility with the existing API.
 ```
 
 **Poor Example:**
+
 ```markdown
 Fix auth
 ```
 
 **Best Practices:**
+
 - Be specific about what needs to change
 - Reference file paths when relevant
 - Include acceptance criteria
@@ -162,6 +168,7 @@ When an issue is labeled with "code-task", analyze the requirements and create a
 ### Implementation Details
 
 The safe output processor:
+
 1. Reads agent output from the workflow execution
 2. Extracts `create_agent_task` items from the structured output
 3. Writes task descriptions to temporary files
@@ -170,6 +177,7 @@ The safe output processor:
 6. Reports results in job summary
 
 **Environment Variables:**
+
 - `GITHUB_AW_AGENT_TASK_BASE`: Base branch for the pull request
 - `GITHUB_AW_TARGET_REPO`: Target repository for cross-repo task creation
 - `GITHUB_AW_SAFE_OUTPUTS_STAGED`: Preview mode flag
@@ -179,11 +187,13 @@ The safe output processor:
 Agent task creation requires elevated permissions beyond the default `GITHUB_TOKEN`:
 
 **Required Permissions:**
+
 - `contents: write` - To create branches and commits
 - `issues: write` - To create the agent task issue
 - `pull-requests: write` - To create pull requests
 
 **Token Precedence:**
+
 1. `COPILOT_GITHUB_TOKEN` - Dedicated Copilot operations token (recommended)
 2. `GH_AW_GITHUB_TOKEN` - General override token (legacy)
 3. Custom token via `github-token` configuration field
@@ -243,6 +253,7 @@ safe-outputs:
 ```
 
 **Staged Output:**
+
 ```markdown
 ## 🎭 Staged Mode: Create Agent Tasks Preview
 
@@ -331,6 +342,7 @@ Create agent task in backend repository to implement the API changes described i
 **Symptom**: No error but no task created
 
 **Check**:
+
 1. Verify `COPILOT_GITHUB_TOKEN` is set in repository secrets
 2. Confirm token has required permissions
 3. Check job logs for error messages
@@ -341,6 +353,7 @@ Create agent task in backend repository to implement the API changes described i
 **Symptom**: Task created but no automated PR
 
 **Possible Causes**:
+
 1. GitHub Copilot not enabled for repository
 2. Task description unclear or ambiguous
 3. Repository settings blocking automated PRs
@@ -353,6 +366,7 @@ Create agent task in backend repository to implement the API changes described i
 **Symptom**: Error when creating tasks in different repository
 
 **Check**:
+
 1. Token has access to target repository
 2. Target repository exists and is spelled correctly
 3. Token has required permissions in target repository
@@ -368,6 +382,7 @@ outputs:
 ```
 
 **Usage in Dependent Jobs:**
+
 ```yaml
 jobs:
   follow_up:

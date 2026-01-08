@@ -33,7 +33,7 @@ Attempt to fetch content from example.com to demonstrate network permission enfo
 
 ## Instructions
 
-1. Use the web-fetch tool to fetch content from https://example.com
+1. Use the web-fetch tool to fetch content from <https://example.com>
 2. Report whether the fetch succeeded or failed
 3. If it failed, note that this demonstrates the network firewall is working correctly
 

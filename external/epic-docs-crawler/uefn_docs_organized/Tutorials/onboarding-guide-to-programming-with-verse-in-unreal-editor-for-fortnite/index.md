@@ -1,6 +1,6 @@
 # Verse Programming Onboarding Guide
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/onboarding-guide-to-programming-with-verse-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/onboarding-guide-to-programming-with-verse-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T22:53:21.430585
 
 ---
@@ -21,7 +21,7 @@ Before you jump into any other docs, go through the steps in [Modify and Run You
 
 Modify and Run Your First Verse Program
 
-See how easy it can be to run your first Verse program and modify it!](https://dev.epicgames.com/documentation/en-us/fortnite/modify-and-run-your-first-verse-program-in-unreal-editor-for-fortnite)
+See how easy it can be to run your first Verse program and modify it!](<https://dev.epicgames.com/documentation/en-us/fortnite/modify-and-run-your-first-verse-program-in-unreal-editor-for-fortnite>)
 
 ## Step 3: Learning to Write Code
 
@@ -31,7 +31,7 @@ If you're new to programming, or want a refresher, go through [Learn the Basics 
 
 Learn the Basics of Writing Code in Verse
 
-A short course to introduce Verse to people with no programming experience whatsoever. No. Programming. Experience. Whatsoever. Seriously.](https://dev.epicgames.com/documentation/en-us/fortnite/learn-the-basics-of-writing-code-in-verse)
+A short course to introduce Verse to people with no programming experience whatsoever. No. Programming. Experience. Whatsoever. Seriously.](<https://dev.epicgames.com/documentation/en-us/fortnite/learn-the-basics-of-writing-code-in-verse>)
 
 ## Step 4: Learning to Use Verse in UEFN
 
@@ -41,7 +41,7 @@ Now that you're acquainted with the tools and a little familiar with writing cod
 
 Create Your Own Device Using Verse
 
-Make your own device and rules using Verse!](https://dev.epicgames.com/documentation/en-us/fortnite/create-your-own-device-using-verse-in-unreal-editor-for-fortnite)
+Make your own device and rules using Verse!](<https://dev.epicgames.com/documentation/en-us/fortnite/create-your-own-device-using-verse-in-unreal-editor-for-fortnite>)
 
 ## Step 5: Creating Games Using Verse from Templates and Tutorials
 
@@ -51,7 +51,7 @@ Bring all the elements you've learned together to create your own experiences. I
 
 Learn Game Mechanics
 
-Learn how to create specific mechanics and interactions in UEFN and even using Verse!](https://dev.epicgames.com/documentation/en-us/fortnite/learn-game-mechanics-in-unreal-editor-for-fortnite)
+Learn how to create specific mechanics and interactions in UEFN and even using Verse!](<https://dev.epicgames.com/documentation/en-us/fortnite/learn-game-mechanics-in-unreal-editor-for-fortnite>)
 
 Combine game mechanics together to build a full game by following these hands-on tutorials.
 
@@ -59,7 +59,7 @@ Combine game mechanics together to build a full game by following these hands-on
 
 Build a Game
 
-Follow these hands-on tutorials to learn how to combine and modify assets and create different games and experiences!](https://dev.epicgames.com/documentation/en-us/fortnite/build-a-game-in-unreal-editor-for-fortnite)
+Follow these hands-on tutorials to learn how to combine and modify assets and create different games and experiences!](<https://dev.epicgames.com/documentation/en-us/fortnite/build-a-game-in-unreal-editor-for-fortnite>)
 
 Or, use the template projects as a starting point.
 

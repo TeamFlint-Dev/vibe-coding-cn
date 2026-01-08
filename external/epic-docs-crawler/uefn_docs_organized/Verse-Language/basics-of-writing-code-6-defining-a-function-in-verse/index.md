@@ -1,6 +1,6 @@
 # Lesson 6: Defining a Function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-6-defining-a-function-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-6-defining-a-function-in-verse>
 > **爬取时间**: 2025-12-26T23:09:27.132825
 
 ---
@@ -138,10 +138,10 @@ Summary
 - **Lifetime** is the span of the scope.
 - **Don't Repeat Yourself**.
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 6: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/f3eaa961-8ed6-494b-85c6-70e202592133?resizing_type=fit&width=640&height=640)
 
 Lesson 6: Practice Time!
 
-Define a function — or two! You can do it!](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-6-practice-time-in-verse)
+Define a function — or two! You can do it!](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-6-practice-time-in-verse>)

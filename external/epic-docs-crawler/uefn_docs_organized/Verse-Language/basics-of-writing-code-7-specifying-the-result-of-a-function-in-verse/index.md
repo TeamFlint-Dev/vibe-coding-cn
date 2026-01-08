@@ -1,6 +1,6 @@
 # Lesson 7: Specifying the Result of a Function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-7-specifying-the-result-of-a-function-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-7-specifying-the-result-of-a-function-in-verse>
 > **爬取时间**: 2025-12-26T23:09:46.987837
 
 ---
@@ -112,10 +112,10 @@ You can still use the `return` keyword for functions that have a void type — y
 - An **early return** is when the keyword return is used in a code block before the end of the block. This will cause the program to **exit** that code block immediately, without running the rest of the code in the block.
 - **Void** is a type that says that the value of the function won't be used anywhere else. Or maybe it says it's just not worth bothering with. You can use void as the type for a function that doesn't need to produce a result.
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 7: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/d52e97e5-9441-4b12-a72f-f58b36d330f2?resizing_type=fit&width=640&height=640)
 
 Lesson 7: Practice Time!
 
-Practice writing functions that return a result.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-7-practice-time-in-verse)
+Practice writing functions that return a result.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-7-practice-time-in-verse>)

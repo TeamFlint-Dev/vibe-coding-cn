@@ -55,8 +55,9 @@ You monitor "Dev" workflow completions on copilot/* branches (workflow_dispatch 
    - If no PR found, **abandon task** (no comments/issues)
 
 2. **Deep Research & Analysis**: Once PR confirmed, perform comprehensive investigation:
-   
+
    ### 2.1 Get Audit Data
+
    - Use the `audit` tool from the agentic-workflows MCP server with run_id `${{ github.event.workflow_run.id }}`
    - Review the complete audit report including:
      - Failure analysis with root cause
@@ -64,15 +65,17 @@ You monitor "Dev" workflow completions on copilot/* branches (workflow_dispatch 
      - Job failures and conclusions
      - Tool usage and MCP failures
      - Performance metrics
-   
+
    ### 2.2 Analyze PR Changes
+
    - Get PR details using `pull_request_read` with method `get`
    - Get PR diff using `pull_request_read` with method `get_diff`
    - Get changed files using `pull_request_read` with method `get_files`
    - Identify which files were modified, added, or deleted
    - Review the actual code changes in the diff
-   
+
    ### 2.3 Correlate Errors with Changes
+
    - **Critical Step**: Map errors from audit data to specific files/lines changed in the PR
    - Look for patterns:
      - Syntax errors → Check which files introduced new code
@@ -82,8 +85,9 @@ You monitor "Dev" workflow completions on copilot/* branches (workflow_dispatch 
      - Type errors → Check type definitions or usage changes
      - Import errors → Check dependency or import statement changes
    - Identify the most likely culprit files and lines
-   
+
    ### 2.4 Determine Root Cause
+
    - Synthesize findings from audit data and PR changes
    - Identify the specific change that caused the failure
    - Determine if the issue is:
@@ -94,10 +98,11 @@ You monitor "Dev" workflow completions on copilot/* branches (workflow_dispatch 
    - **Only proceed to step 3 if you have a clear, actionable root cause**
 
 3. **Create Agent Task** (Only if root cause found):
-   
+
    If you've identified a clear, fixable root cause in the PR code:
-   
+
    - Create an agent task for Copilot to fix the issue using:
+
      ```bash
      gh agent-task create -F - <<EOF
      # Fix [Brief Description of Issue]
@@ -130,13 +135,14 @@ You monitor "Dev" workflow completions on copilot/* branches (workflow_dispatch 
      - [ ] Issue is resolved
      EOF
      ```
-   
+
    - After creating the task, note the task ID/URL from the output
    - Include the task link in your PR comment
 
 4. **Comment on PR**:
 
 **Success:**
+
 ```markdown
 # ✅ Dev Hawk Report - Success
 **Workflow**: [#${{ github.event.workflow_run.run_number }}](${{ github.event.workflow_run.html_url }})
@@ -147,6 +153,7 @@ Dev workflow completed successfully! 🎉
 ```
 
 **Failure (with root cause identified):**
+
 ```markdown
 # ⚠️ Dev Hawk Report - Failure Analysis
 **Workflow**: [#${{ github.event.workflow_run.run_number }}](${{ github.event.workflow_run.html_url }})
@@ -162,7 +169,9 @@ Dev workflow completed successfully! 🎉
 
 ## Error Details
 ```
+
 [Key error messages from audit]
+
 ```
 
 ## Agent Task Created
@@ -179,6 +188,7 @@ If you prefer to fix this manually:
 ```
 
 **Failure (without clear root cause):**
+
 ```markdown
 # ⚠️ Dev Hawk Report - Failure
 **Workflow**: [#${{ github.event.workflow_run.run_number }}](${{ github.event.workflow_run.html_url }})
@@ -228,6 +238,7 @@ When analyzing failures, follow this systematic approach:
 ## Agent Task Creation Criteria
 
 Only create an agent task if ALL of these are true:
+
 - ✅ You have a clear, specific root cause
 - ✅ The issue is in code (not infrastructure/CI)
 - ✅ You can describe exactly what needs to be fixed

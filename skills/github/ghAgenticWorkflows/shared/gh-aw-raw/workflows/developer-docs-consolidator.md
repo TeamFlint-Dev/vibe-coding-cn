@@ -76,6 +76,7 @@ Analyze markdown files in the specs directory, standardize their tone and format
 The Serena MCP server is configured for static analysis. The workspace is `${{ github.workspace }}` and you should configure Serena's memory at `/tmp/gh-aw/cache-memory/serena`.
 
 Use Serena's static analysis capabilities to:
+
 - Analyze code quality and consistency
 - Identify patterns and anti-patterns
 - Provide recommendations for improvements
@@ -89,6 +90,7 @@ find /tmp/gh-aw/cache-memory/ -maxdepth 1 -ls
 ```
 
 If there's a previous run's data, load it to understand historical context:
+
 - Previous tone adjustments made
 - Files that were problematic
 - Common issues found
@@ -106,12 +108,14 @@ find specs -name "*.md"
 ### 2. Read and Catalog Files
 
 For each markdown file found:
+
 - Read the content
 - Note the file path
 - Identify the general topic/purpose
 - Check file size and complexity
 
 Create an inventory of files:
+
 ```
 File: specs/README.md
 Purpose: Overview and index
@@ -127,12 +131,14 @@ Status: To be analyzed
 ### 3. Analyze with Serena MCP
 
 Use Serena's static analysis to:
+
 - Check for inconsistent terminology
 - Identify tone variations (promotional vs technical)
 - Detect formatting inconsistencies
 - Find areas needing clarification
 
 For each file, get Serena's analysis on:
+
 - Code quality (if examples present)
 - Documentation clarity
 - Consistency with project patterns
@@ -144,6 +150,7 @@ For each file, get Serena's analysis on:
 For each markdown file, analyze:
 
 **Tone Issues to Identify:**
+
 - ❌ Marketing language ("great", "easy", "powerful", "amazing")
 - ❌ Subjective adjectives without technical basis
 - ❌ Promotional content
@@ -156,11 +163,13 @@ For each markdown file, analyze:
 **Examples:**
 
 **BAD (Marketing Tone):**
+
 ```markdown
 Our amazing workflow system makes it super easy to create powerful automations!
 ```
 
 **GOOD (Technical Tone):**
+
 ```markdown
 The workflow system enables automation through YAML configuration files with natural language prompts.
 ```
@@ -168,6 +177,7 @@ The workflow system enables automation through YAML configuration files with nat
 ### 2. Check Formatting Consistency
 
 Verify formatting standards:
+
 - Headings use markdown syntax (`#`, `##`), not bold text
 - Code blocks have language tags
 - Lists are properly formatted
@@ -178,6 +188,7 @@ Verify formatting standards:
 ### 3. Check for Mermaid Diagram Opportunities
 
 Identify concepts that would benefit from Mermaid diagrams:
+
 - Process flows
 - Architecture diagrams
 - State machines
@@ -185,6 +196,7 @@ Identify concepts that would benefit from Mermaid diagrams:
 - Relationship diagrams
 
 **When to Add Mermaid:**
+
 - Complex processes with multiple steps
 - System architecture explanations
 - Data flow descriptions
@@ -200,18 +212,21 @@ Identify concepts that would benefit from Mermaid diagrams:
 For each file with tone issues, **use the edit tool to make the changes directly**:
 
 **Replace marketing language:**
+
 ```markdown
 OLD: "This powerful feature makes it easy to..."
 NEW: "This feature enables..."
 ```
 
 **Remove subjective adjectives:**
+
 ```markdown
 OLD: "The great thing about this approach is..."
 NEW: "This approach provides..."
 ```
 
 **Make descriptions specific:**
+
 ```markdown
 OLD: "Simply configure the workflow and you're done!"
 NEW: "Configure the workflow by specifying the following YAML fields:"
@@ -222,8 +237,9 @@ NEW: "Configure the workflow by specifying the following YAML fields:"
 ### 2. Standardize Formatting
 
 Apply consistent formatting **by editing the files**:
+
 - Convert bold headings to proper markdown headings
-- Add language tags to code blocks (```yaml, ```go, ```bash)
+- Add language tags to code blocks (```yaml,```go, ```bash)
 - Break up long bullet lists into prose or tables
 - Ensure consistent heading levels
 
@@ -234,6 +250,7 @@ Apply consistent formatting **by editing the files**:
 Where concepts need visual clarification, add Mermaid diagrams:
 
 **Example - Process Flow:**
+
 ```mermaid
 graph TD
     A[Workflow Triggered] --> B[Load Configuration]
@@ -244,6 +261,7 @@ graph TD
 ```
 
 **Example - Architecture:**
+
 ```mermaid
 graph LR
     MD[Markdown Workflow] --> Compiler
@@ -291,6 +309,7 @@ applyTo: "**/*"
 ### 2. Merge Content
 
 For each topic:
+
 - Combine related information from multiple spec files
 - Remove redundancy
 - Preserve important details
@@ -303,6 +322,7 @@ For each topic:
 **You have direct file editing capabilities** - Write the consolidated content directly to `.github/instructions/developer.instructions.md` using Serena's edit tools.
 
 The file should:
+
 - Start with frontmatter (description and applyTo)
 - Have a clear structure with logical sections
 - Use consistent technical tone throughout
@@ -311,6 +331,7 @@ The file should:
 - Reference specific files/code where relevant
 
 **Use Serena's tools to make the changes:**
+
 - If the file exists: Use `serena-replace_symbol_body` or standard edit tools to update sections
 - If the file doesn't exist: Use `create` tool to create the new file
 - Make all necessary edits directly - don't just report what should change
@@ -320,6 +341,7 @@ The file should:
 ### 1. Validate Consolidated File
 
 Check the generated file:
+
 - ✅ Has proper frontmatter
 - ✅ Markdown is valid
 - ✅ Code blocks have language tags
@@ -339,6 +361,7 @@ mkdir -p /tmp/gh-aw/cache-memory/consolidation
 ```
 
 Save to `/tmp/gh-aw/cache-memory/consolidation/latest.json`:
+
 ```json
 {
   "date": "2025-11-06",
@@ -470,6 +493,7 @@ Analyzed [N] markdown files in the specs directory, made [X] tone adjustments, a
 Use safe-outputs to create a discussion with the report.
 
 The discussion should:
+
 - Have a clear title: "Developer Documentation Consolidation - [DATE]"
 - Include the full report from step 3
 - Be posted in the "General" category
@@ -494,6 +518,7 @@ Before the PR is created, you need to make the actual file changes:
    - Add Mermaid diagrams to spec sources
 
 **Tools available for editing:**
+
 - `serena-replace_symbol_body` - Replace sections in structured files
 - `serena-insert_after_symbol` - Add new sections
 - Standard `edit` tool - Make targeted changes
@@ -506,6 +531,7 @@ After you've made file changes, a pull request will be created automatically wit
 **PR Title**: `[docs] Consolidate developer specifications into instructions file` (automatically prefixed)
 
 **PR Description** (you should output this for the safe-output processor):
+
 ```markdown
 ## Developer Documentation Consolidation
 
@@ -542,7 +568,8 @@ Please review:
 See the discussion [link to discussion] for detailed consolidation report.
 ```
 
-**Remember**: 
+**Remember**:
+
 - Make all file changes BEFORE outputting the PR description
 - The PR will be created automatically with your changes
 - You don't need to manually create the PR - safe-outputs handles it
@@ -552,6 +579,7 @@ See the discussion [link to discussion] for detailed consolidation report.
 ### Technical Tone Standards
 
 **Always:**
+
 - Use precise technical language
 - Provide specific details
 - Stay neutral and factual
@@ -559,6 +587,7 @@ See the discussion [link to discussion] for detailed consolidation report.
 - Use active voice where appropriate
 
 **Never:**
+
 - Use marketing language
 - Make subjective claims
 - Use vague descriptions
@@ -568,18 +597,21 @@ See the discussion [link to discussion] for detailed consolidation report.
 ### Formatting Standards
 
 **Code Blocks:**
+
 ```yaml
 # Always use language tags
 on: push
 ```
 
 **Headings:**
+
 ```markdown
 # Use markdown syntax, not bold
 ## Not **This Style**
 ```
 
 **Lists:**
+
 - Keep lists concise
 - Convert long lists to prose or tables
 - Use tables for structured data
@@ -587,12 +619,14 @@ on: push
 ### Mermaid Diagram Guidelines
 
 **Graph Types:**
+
 - `graph TD` - Top-down flowchart
 - `graph LR` - Left-right flowchart
 - `sequenceDiagram` - Sequence interactions
 - `classDiagram` - Class relationships
 
 **Best Practices:**
+
 - Keep diagrams simple and focused
 - Use clear node labels
 - Add comments when needed
@@ -610,6 +644,7 @@ on: push
 ## Success Criteria
 
 A successful consolidation run:
+
 - ✅ Analyzes all markdown files in specs/
 - ✅ Uses Serena for static analysis
 - ✅ Fixes tone issues (marketing → technical) **by directly editing files**

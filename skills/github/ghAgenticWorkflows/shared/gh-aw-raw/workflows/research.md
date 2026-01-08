@@ -56,6 +56,7 @@ Research the topic provided above and create a brief summary:
 ## Output
 
 Create a GitHub discussion with your research summary including:
+
 - Brief overview of the topic
 - Key findings from your research
 - Relevant sources and links

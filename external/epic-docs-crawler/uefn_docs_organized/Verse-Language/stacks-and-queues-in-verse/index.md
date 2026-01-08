@@ -1,6 +1,6 @@
 # Stacks and Queues
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stacks-and-queues-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stacks-and-queues-in-verse>
 > **爬取时间**: 2025-12-27T00:03:15.204300
 
 ---

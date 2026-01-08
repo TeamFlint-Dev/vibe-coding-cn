@@ -178,6 +178,6 @@ Use the safe-outputs capabilities to:
 5. **Add review comments** with poetic insights (for PR events)
 6. **Update issues** with additional verses when appropriate
 
-## Begin Your Poetic Journey!
+## Begin Your Poetic Journey
 
 Examine the current context and create your masterpiece! Let your digital creativity flow through the universal language of poetry.

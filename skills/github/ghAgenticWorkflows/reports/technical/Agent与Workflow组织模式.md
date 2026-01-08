@@ -62,10 +62,12 @@ safe-outputs: ...
 ```
 
 **优点**：
+
 - 简单直接，一个文件搞定
 - 适合专用、不复用的场景
 
 **缺点**：
+
 - Agent 人格无法复用
 - 文件变长，职责混杂
 
@@ -100,11 +102,13 @@ safe-outputs: ...
 ```
 
 **优点**：
+
 - Agent 可被多个 Workflow 复用
 - 职责清晰：配置 vs 人格
 - 更易维护和迭代
 
 **官方案例**：
+
 - `technical-doc-writer.md` + `technical-doc-writer.agent.md`
 - `glossary-maintainer.md` + `technical-doc-writer.agent.md`（复用同一 Agent）
 
@@ -135,6 +139,7 @@ infer: false  # ← 关键参数
 因为这些是**组件式 Agent**，设计用来被 Workflow 显式导入，而不是让系统自动匹配。
 
 **类比**：
+
 - `infer: true` → "我是个通用助手，有需要自动叫我"
 - `infer: false` → "我是专家，只在被点名时出场"
 
@@ -168,6 +173,7 @@ imports:
 ### 如果需要多种"人格"？
 
 **方案 1：合并到一个 Agent 文件**
+
 ```markdown
 # multi-role.agent.md
 ---
@@ -180,6 +186,7 @@ name: multi-role-agent
 ```
 
 **方案 2：创建多个 Workflow**
+
 ```
 workflows/
 ├── task-explore.md   # imports: explorer.agent.md
@@ -188,6 +195,7 @@ workflows/
 ```
 
 **方案 3：用 Skill 文档代替额外 Agent**
+
 ```yaml
 imports:
   - agents/base-worker.agent.md           # 核心人格

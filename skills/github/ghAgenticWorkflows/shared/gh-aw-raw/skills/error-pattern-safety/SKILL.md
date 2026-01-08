@@ -58,6 +58,7 @@ When using regex patterns with the JavaScript global flag (`/pattern/g`), patter
    - Never just `.*` or `.*?`
 
 3. **Test patterns against empty string**
+
    ```javascript
    const regex = /your-pattern/g;
    if (regex.test("")) {
@@ -118,6 +119,7 @@ if (regex.lastIndex === lastIndex) {
 When adding new error patterns to engines:
 
 1. **Write the pattern with required content**
+
    ```go
    {
        Pattern:      `(?i)error.*permission.*denied`,
@@ -173,11 +175,13 @@ Pattern: `(?i)access denied.*user.*not authorized`
 If you find a pattern that matches empty string:
 
 **Before (unsafe):**
+
 ```go
 Pattern: `.*error.*`  // Can match empty at start/end
 ```
 
 **After (safe):**
+
 ```go
 Pattern: `error.*`     // Requires "error" at start
 // OR
@@ -199,8 +203,8 @@ Before committing pattern changes:
 
 ## References
 
-- Go regex syntax: https://pkg.go.dev/regexp/syntax
-- JavaScript regex: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+- Go regex syntax: <https://pkg.go.dev/regexp/syntax>
+- JavaScript regex: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions>
 - Test files:
   - `pkg/workflow/engine_error_patterns_infinite_loop_test.go`
   - `pkg/workflow/js/validate_errors.test.cjs`

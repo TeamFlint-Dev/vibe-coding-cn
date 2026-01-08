@@ -18,7 +18,7 @@ engine:
 
 # Example: Custom Error Patterns
 
-This workflow demonstrates how to define custom error patterns on any agentic engine. 
+This workflow demonstrates how to define custom error patterns on any agentic engine.
 Custom error patterns help detect project-specific error formats in agent logs.
 
 ## Features

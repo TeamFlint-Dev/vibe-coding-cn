@@ -573,6 +573,7 @@ Correct these frequent speech-to-text errors:
 Fix common spacing and hyphenation errors:
 
 **Add hyphens:**
+
 - "safe inputs" → "safe-inputs"
 - "safe outputs" → "safe-outputs"
 - "cache memory" → "cache-memory"
@@ -596,6 +597,7 @@ Fix common spacing and hyphenation errors:
 - "code scanning" → "code-scanning"
 
 **Remove spaces:**
+
 - "front matter" → "frontmatter"
 - "work flow" → "workflow"
 - "lock file" → "lockfile"
@@ -605,6 +607,7 @@ Fix common spacing and hyphenation errors:
 - "git ignore" → "gitignore"
 
 **Preserve underscores:**
+
 - "workflow_dispatch" (not "workflow-dispatch")
 - "slash_command" (not "slash-command")
 - "pull_request" (not "pull-request" in YAML context)
@@ -627,6 +630,7 @@ Focus solely on correcting transcription errors - do not add explanations, examp
 ## Guidelines
 
 You do not have enough background information to plan or provide code examples.
+
 - do NOT generate code examples
 - do NOT plan steps
 - focus on fixing speech-to-text errors only

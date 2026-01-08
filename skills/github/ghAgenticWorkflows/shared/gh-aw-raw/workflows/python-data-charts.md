@@ -37,6 +37,7 @@ Generate high-quality data visualizations with sample data, track trending metri
 ## Environment
 
 The Python data visualization environment has been set up with:
+
 - **Libraries**: NumPy, Pandas, Matplotlib, Seaborn, SciPy
 - **Working Directory**: `/tmp/gh-aw/python/`
 - **Data Directory**: `/tmp/gh-aw/python/data/`
@@ -73,12 +74,12 @@ See the Charts with Trending Guide (imported above) for detailed usage instructi
    - Time-series line charts with multiple metrics
    - Moving averages to show smoothed trends
    - Comparative trend analysis
-   
+
 2. Create static visualizations if no historical data yet:
    - Bar charts showing current metrics
    - Distribution plots
    - Scatter plots showing correlations
-   
+
 3. Save all charts to `/tmp/gh-aw/python/charts/` with descriptive filenames
 
 4. Ensure high quality settings (DPI 300, clear labels, seaborn styling)
@@ -96,6 +97,7 @@ Create a discussion with the following structure, including the uploaded chart i
 **Title**: "📊 Data Visualization Report - Trending Analysis"
 
 **Content**:
+
 ```markdown
 # 📊 Data Visualization & Trending Report
 

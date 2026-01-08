@@ -89,6 +89,7 @@ High-quality documentation is critical for user adoption and success. This campa
 ## Key Performance Indicators
 
 ### Primary KPI: Documentation Coverage of Features
+
 - **Baseline**: 85% (current estimated coverage)
 - **Target**: 95% (comprehensive feature documentation)
 - **Time Window**: 90 days
@@ -98,6 +99,7 @@ High-quality documentation is critical for user adoption and success. This campa
 This KPI tracks what percentage of user-facing features have complete documentation. Coverage includes CLI commands, workflow configurations, safe outputs, tools, and all major features.
 
 ### Supporting KPI: Documentation Accessibility Score
+
 - **Baseline**: 90% (current accessibility compliance)
 - **Target**: 98% (near-perfect accessibility)
 - **Time Window**: 30 days (rolling)
@@ -107,6 +109,7 @@ This KPI tracks what percentage of user-facing features have complete documentat
 This KPI measures WCAG 2.1 AA compliance across the documentation site, including keyboard navigation, screen reader support, color contrast, and semantic HTML.
 
 ### Supporting KPI: User-Reported Documentation Issues
+
 - **Baseline**: 15 per month (current average)
 - **Target**: 5 per month (minimal confusion)
 - **Time Window**: 30 days (rolling)
@@ -118,28 +121,35 @@ Lower user-reported issues indicate clearer, more complete documentation that ad
 ## Associated Workflows
 
 ### daily-doc-updater
+
 Automatically reviews and updates documentation based on recent code changes. Daily at 6am UTC.
 
 ### docs-noob-tester
+
 Tests documentation from a beginner's perspective. Daily.
 
 ### daily-multi-device-docs-tester
+
 Tests documentation site across mobile, tablet, and desktop devices. Daily.
 
 ### unbloat-docs
+
 Reviews and simplifies documentation by reducing verbosity. Daily, or via `/unbloat` command in PR comments.
 
 ### developer-docs-consolidator
+
 Consolidates developer documentation from `specs/` directory. Daily at 3:17 AM UTC.
 
 ### technical-doc-writer
+
 Creates or enhances technical documentation for complex features. On-demand or scheduled.
 
 ## Project Board
 
-**URL**: https://github.com/orgs/githubnext/projects/67
+**URL**: <https://github.com/orgs/githubnext/projects/67>
 
 The project board serves as the campaign dashboard, tracking:
+
 - Documentation gaps and coverage
 - Quality improvement tasks
 - Accessibility issues
@@ -155,6 +165,7 @@ All campaign-related issues and PRs are tagged with: `campaign:docs-quality-main
 ## Memory Paths
 
 Campaign state and metrics are stored in:
+
 - `memory/campaigns/docs-quality-maintenance-project67/**`
 
 Metrics snapshots: `memory/campaigns/docs-quality-maintenance-project67/metrics/*.json`
@@ -162,6 +173,7 @@ Metrics snapshots: `memory/campaigns/docs-quality-maintenance-project67/metrics/
 ## Governance Policies
 
 ### Rate Limits (per run)
+
 - **Max project updates**: 15
 - **Max comments**: 10
 - **Max new items added**: 8
@@ -173,6 +185,7 @@ These limits ensure sustainable progress while preventing API rate limit exhaust
 ### Quality Standards
 
 All documentation changes must:
+
 1. **Follow Diátaxis framework**: Clearly categorize content as Tutorial, How-to, Reference, or Explanation
 2. **Maintain accessibility**: Pass WCAG 2.1 AA standards
 3. **Use proper formatting**: Follow Astro Starlight markdown conventions
@@ -195,11 +208,13 @@ This campaign does not modify production code and requires human review for all 
 ## Orchestrator
 
 This campaign uses an automatically generated orchestrator workflow:
+
 - **File**: `.github/workflows/docs-quality-maintenance-project67.campaign.g.md`
 - **Schedule**: Daily at 18:00 UTC (cron: `0 18 * * *`)
 - **Purpose**: Coordinate worker outputs and update project board
 
 The orchestrator:
+
 - Discovers worker-created issues via tracker-id
 - Adds new issues to the project board
 - Updates issue status based on state changes

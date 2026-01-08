@@ -104,6 +104,7 @@ Available sq commands:
 You have access to the `sq` data wrangling tool for working with structured data sources.
 
 **sq capabilities:**
+
 - Query CSV, Excel, JSON, and database files using jq-like syntax
 - Join data across different source types
 - Convert between data formats
@@ -113,11 +114,13 @@ You have access to the `sq` data wrangling tool for working with structured data
 
 **Using sq in this workflow:**
 The sq binary is installed and available in PATH. Use it directly:
+
 ```bash
 sq [command] [arguments]
 ```
 
 **Example commands:**
+
 ```bash
 # Inspect a data file
 sq inspect file.csv
@@ -135,4 +138,4 @@ sq '.table | where(.value > 100) | count' file.csv
 sq --markdown '.table' file.csv
 ```
 
-For more information, see: https://sq.io/docs/
+For more information, see: <https://sq.io/docs/>

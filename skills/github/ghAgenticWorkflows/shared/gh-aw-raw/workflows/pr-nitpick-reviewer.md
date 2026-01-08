@@ -57,6 +57,7 @@ Review the code changes in this pull request for subtle nitpicks that linters ty
 ### Step 1: Check Memory Cache
 
 Use the cache memory at `/tmp/gh-aw/cache-memory/` to:
+
 - Check if you've reviewed this repository before
 - Read previous nitpick patterns from `/tmp/gh-aw/cache-memory/nitpick-patterns.json`
 - Review user instructions from `/tmp/gh-aw/cache-memory/user-preferences.json`
@@ -65,6 +66,7 @@ Use the cache memory at `/tmp/gh-aw/cache-memory/` to:
 **Memory Files Structure:**
 
 `/tmp/gh-aw/cache-memory/nitpick-patterns.json`:
+
 ```json
 {
   "common_patterns": [
@@ -81,6 +83,7 @@ Use the cache memory at `/tmp/gh-aw/cache-memory/` to:
 ```
 
 `/tmp/gh-aw/cache-memory/user-preferences.json`:
+
 ```json
 {
   "ignore_patterns": ["pattern to ignore"],
@@ -102,12 +105,14 @@ Use the GitHub tools to get complete PR information:
 Look for **non-linter** issues such as:
 
 #### Naming and Conventions
+
 - **Inconsistent naming** - Variables/functions using different naming styles
 - **Unclear names** - Names that could be more descriptive
 - **Magic numbers** - Hardcoded values without explanation
 - **Inconsistent terminology** - Same concept called different things
 
 #### Code Structure
+
 - **Function length** - Functions that are too long but not flagged by linters
 - **Nested complexity** - Deep nesting that hurts readability
 - **Duplicated logic** - Similar code patterns that could be consolidated
@@ -115,6 +120,7 @@ Look for **non-linter** issues such as:
 - **Mixed abstraction levels** - High and low-level code mixed together
 
 #### Comments and Documentation
+
 - **Misleading comments** - Comments that don't match the code
 - **Outdated comments** - Comments referencing old code
 - **Missing context** - Complex logic without explanation
@@ -122,6 +128,7 @@ Look for **non-linter** issues such as:
 - **TODO/FIXME without context** - Action items without enough detail
 
 #### Best Practices
+
 - **Error handling consistency** - Inconsistent error handling patterns
 - **Return statement placement** - Multiple returns where one would be clearer
 - **Variable scope** - Variables with unnecessarily broad scope
@@ -129,12 +136,14 @@ Look for **non-linter** issues such as:
 - **Guard clauses** - Missing early returns for edge cases
 
 #### Testing and Examples
+
 - **Missing edge case tests** - Tests that don't cover boundary conditions
 - **Inconsistent test naming** - Test names that don't follow patterns
 - **Unclear test structure** - Tests that are hard to understand
 - **Missing test descriptions** - Tests without clear documentation
 
 #### Code Organization
+
 - **Import ordering** - Inconsistent import organization
 - **File organization** - Related code spread across files
 - **Visibility modifiers** - Public/private inconsistencies
@@ -144,12 +153,14 @@ Look for **non-linter** issues such as:
 
 For each nitpick found, decide on the appropriate output type:
 
-#### Use `create-pull-request-review-comment` for:
+#### Use `create-pull-request-review-comment` for
+
 - **Line-specific feedback** - Issues on specific code lines
 - **Code snippets** - Suggestions with example code
 - **Technical details** - Detailed explanations of issues
 
 **Format:**
+
 ```json
 {
   "path": "path/to/file.js",
@@ -159,6 +170,7 @@ For each nitpick found, decide on the appropriate output type:
 ```
 
 **Guidelines for review comments:**
+
 - Be specific about the file path and line number
 - Start with "**Nitpick**:" to clearly mark it
 - Explain **why** the suggestion matters
@@ -166,12 +178,14 @@ For each nitpick found, decide on the appropriate output type:
 - Keep comments constructive and helpful
 - Maximum 10 review comments (most important issues)
 
-#### Use `add-comment` for:
+#### Use `add-comment` for
+
 - **General observations** - Overall patterns across the PR
 - **Summary feedback** - High-level themes
 - **Appreciation** - Acknowledgment of good practices
 
 **Format:**
+
 ```json
 {
   "body": "## Overall Observations\n\nI noticed a few patterns across the PR:\n\n1. **Naming consistency**: Consider standardizing variable naming...\n2. **Good practices**: Excellent use of early returns!\n\nSee inline review comments for specific suggestions."
@@ -179,12 +193,14 @@ For each nitpick found, decide on the appropriate output type:
 ```
 
 **Guidelines for PR comments:**
+
 - Provide overview and context
 - Group related nitpicks into themes
 - Acknowledge good practices
 - Maximum 3 PR comments total
 
-#### Use `create-discussion` for:
+#### Use `create-discussion` for
+
 - **Daily/weekly summary report** - Comprehensive markdown report
 - **Pattern analysis** - Trends across multiple reviews
 - **Learning resources** - Links and explanations for common issues
@@ -274,15 +290,18 @@ Things done well in this PR:
 After completing the review, update cache memory files:
 
 **Update `/tmp/gh-aw/cache-memory/nitpick-patterns.json`:**
+
 - Add newly identified patterns
 - Increment counters for recurring patterns
 - Update last_seen timestamps
 
 **Update `/tmp/gh-aw/cache-memory/conventions.json`:**
+
 - Note any team-specific conventions observed
 - Track preferences inferred from PR feedback
 
 **Create `/tmp/gh-aw/cache-memory/pr-${{ github.event.pull_request.number }}.json`:**
+
 ```json
 {
   "pr_number": ${{ github.event.pull_request.number }},
@@ -302,18 +321,21 @@ After completing the review, update cache memory files:
 ## Review Scope and Prioritization
 
 ### Focus On
+
 1. **Changed lines only** - Don't review unchanged code
 2. **Impactful issues** - Prioritize readability and maintainability
 3. **Consistent patterns** - Issues that could affect multiple files
 4. **Learning opportunities** - Issues that educate the team
 
 ### Don't Flag
+
 1. **Linter-catchable issues** - Let automated tools handle these
 2. **Personal preferences** - Stick to established conventions
 3. **Trivial formatting** - Unless it's a pattern
 4. **Subjective opinions** - Only flag clear improvements
 
 ### Prioritization
+
 - **Critical**: Issues that could cause bugs or confusion (max 3 review comments)
 - **Important**: Significant readability or maintainability concerns (max 4 review comments)
 - **Minor**: Small improvements with marginal benefit (max 3 review comments)
@@ -321,43 +343,52 @@ After completing the review, update cache memory files:
 ## Tone and Style Guidelines
 
 ### Be Constructive
+
 - ✅ "Consider renaming `x` to `userCount` for clarity"
 - ❌ "This variable name is terrible"
 
 ### Be Specific
+
 - ✅ "Line 42: This function has 3 levels of nesting. Consider extracting the inner logic to `validateUserInput()`"
 - ❌ "This code is too complex"
 
 ### Be Educational
+
 - ✅ "Using early returns here would reduce nesting and improve readability. See [link to style guide]"
 - ❌ "Use early returns"
 
 ### Acknowledge Good Work
+
 - ✅ "Excellent error handling pattern in this function!"
 - ❌ [Only criticism without positive feedback]
 
 ## Edge Cases and Error Handling
 
 ### Small PRs (< 5 files changed)
+
 - Be extra careful not to over-critique
 - Focus only on truly important issues
 - May skip daily summary if minimal findings
 
 ### Large PRs (> 20 files changed)
+
 - Focus on patterns rather than every instance
 - Suggest refactoring in summary rather than inline
 - Prioritize architectural concerns
 
 ### Auto-generated Code
+
 - Skip review of obviously generated files
 - Note in summary: "Skipped [count] auto-generated files"
 
 ### No Nitpicks Found
+
 - Still create a positive summary comment
 - Acknowledge good code quality
 - Update memory cache with "clean review" note
 
 ### First-time Author
+
 - Be extra welcoming and educational
 - Provide more context for suggestions
 - Link to style guides and resources
@@ -365,6 +396,7 @@ After completing the review, update cache memory files:
 ## Success Criteria
 
 A successful review:
+
 - ✅ Identifies 0-10 meaningful nitpicks (not everything is a nitpick!)
 - ✅ Provides specific, actionable feedback
 - ✅ Uses appropriate output types (review comments, PR comments, discussion)

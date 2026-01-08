@@ -17,12 +17,14 @@ This file contains comprehensive documentation about the GitHub MCP (Model Conte
 The GitHub MCP server provides AI agents with programmatic access to GitHub's API through the Model Context Protocol. It supports two modes of operation:
 
 ### Local Mode (Docker-based)
+
 - Runs as a Docker container on the GitHub Actions runner
 - Uses `GITHUB_PERSONAL_ACCESS_TOKEN` environment variable for authentication
 - Configurable toolsets via `GITHUB_TOOLSETS` environment variable
 - Supports read-only mode via `GITHUB_READ_ONLY` environment variable
 
 ### Remote Mode (Hosted)
+
 - Connects to hosted GitHub MCP server at `https://api.githubcopilot.com/mcp/`
 - Uses Bearer token authentication in HTTP headers
 - Supports read-only mode via `X-MCP-Readonly` header
@@ -33,6 +35,7 @@ The GitHub MCP server provides AI agents with programmatic access to GitHub's AP
 ### Basic Configuration
 
 **Local Mode (Docker)**:
+
 ```yaml
 tools:
   github:
@@ -41,6 +44,7 @@ tools:
 ```
 
 **Remote Mode (Hosted)**:
+
 ```yaml
 tools:
   github:
@@ -82,16 +86,19 @@ The `allowed:` pattern for listing individual GitHub tools is **not recommended 
 
 :::tip[Best Practice]
 **Always use `toolsets:` for GitHub tools.** Toolsets provide:
+
 - **Stability**: Tool names may change between MCP server versions, but toolsets remain stable
 - **Better organization**: Clear groupings of related functionality
 - **Complete functionality**: Get all related tools automatically
 - **Reduced verbosity**: Cleaner configuration
 - **Future-proof**: New tools are automatically included as they're added
+
 :::
 
 ### Recommended Default Toolsets
 
 The following toolsets are enabled by default when `toolsets:` is not specified:
+
 - `context` - User and environment context (strongly recommended)
 - `repos` - Repository management
 - `issues` - Issue management  
@@ -128,10 +135,12 @@ The following toolsets are enabled by default when `toolsets:` is not specified:
 This section maps individual tools to their respective toolsets to help with migration from `allowed:` to `toolsets:`.
 
 ### Context Toolset
+
 - `get_teams` - List teams the user belongs to
 - `get_team_members` - List members of a specific team
 
 ### Repos Toolset
+
 - `get_repository` - Get repository information
 - `get_file_contents` - Read file contents from repository
 - `search_code` - Search code across repositories
@@ -141,6 +150,7 @@ This section maps individual tools to their respective toolsets to help with mig
 - `list_releases` - List all releases
 
 ### Issues Toolset
+
 - `issue_read` - Read issue details
 - `list_issues` - List issues in a repository
 - `create_issue` - Create a new issue
@@ -150,6 +160,7 @@ This section maps individual tools to their respective toolsets to help with mig
 - `create_issue_comment` - Add a comment to an issue
 
 ### Pull Requests Toolset
+
 - `pull_request_read` - Read pull request details
 - `list_pull_requests` - List pull requests in a repository
 - `get_pull_request` - Get details of a specific pull request
@@ -157,39 +168,47 @@ This section maps individual tools to their respective toolsets to help with mig
 - `search_pull_requests` - Search pull requests across repositories
 
 ### Actions Toolset
+
 - `list_workflows` - List GitHub Actions workflows
 - `list_workflow_runs` - List workflow runs
 - `get_workflow_run` - Get details of a specific workflow run
 - `download_workflow_run_artifact` - Download workflow artifacts
 
 ### Code Security Toolset
+
 - `list_code_scanning_alerts` - List code scanning alerts
 - `get_code_scanning_alert` - Get details of a specific alert
 - `create_code_scanning_alert` - Create a code scanning alert
 
 ### Discussions Toolset
+
 - `list_discussions` - List discussions in a repository
 - `create_discussion` - Create a new discussion
 
 ### Labels Toolset
+
 - `get_label` - Get label details
 - `list_labels` - List labels in a repository
 - `create_label` - Create a new label
 
 ### Users Toolset
+
 - `get_me` - Get current authenticated user information
 - `get_user` - Get user profile information
 - `list_users` - List users
 
 ### Notifications Toolset
+
 - `list_notifications` - List user notifications
 - `mark_notifications_read` - Mark notifications as read
 
 ### Organizations Toolset
+
 - `get_organization` - Get organization details
 - `list_organizations` - List organizations
 
 ### Gists Toolset
+
 - `create_gist` - Create a new gist
 - `list_gists` - List user's gists
 
@@ -200,10 +219,12 @@ This section maps individual tools to their respective toolsets to help with mig
 The remote mode uses Bearer token authentication:
 
 **Headers**:
+
 - `Authorization: Bearer <token>` - Required for authentication
 - `X-MCP-Readonly: true` - Optional, enables read-only mode
 
 **Token Source**:
+
 - Default: `${{ secrets.GH_AW_GITHUB_TOKEN }}` or `${{ secrets.GITHUB_TOKEN }}`
 - Custom: Configure via `github-token` field
 
@@ -212,6 +233,7 @@ The remote mode uses Bearer token authentication:
 The local mode uses environment variables:
 
 **Environment Variables**:
+
 - `GITHUB_PERSONAL_ACCESS_TOKEN` - Required for authentication
 - `GITHUB_READ_ONLY=1` - Optional, enables read-only mode
 - `GITHUB_TOOLSETS=<comma-separated-list>` - Optional, specifies enabled toolsets
@@ -238,11 +260,13 @@ Ensure your GitHub token has appropriate permissions for the toolsets you're ena
 ### Remote vs Local Mode
 
 **Use Remote Mode when**:
+
 - You want faster initialization (no Docker container to start)
 - You're running in a GitHub Actions environment with internet access
 - You want to use the latest version without specifying Docker image tags
 
 **Use Local Mode when**:
+
 - You need a specific version of the MCP server
 - You want to use custom arguments
 - You're running in an environment without internet access
@@ -255,6 +279,7 @@ If you have existing workflows using the `allowed:` pattern, we recommend migrat
 ### Migration Examples
 
 **Using `allowed:` (not recommended):**
+
 ```yaml
 tools:
   github:
@@ -268,6 +293,7 @@ tools:
 ```
 
 **Using `toolsets:` (recommended):**
+
 ```yaml
 tools:
   github:
@@ -305,6 +331,7 @@ Use this table to identify which toolset contains the tools you need:
 
 :::note[When to Use Allowed]
 The `allowed:` pattern is appropriate for:
+
 - Custom MCP servers (non-GitHub)
 - Gradual migration of existing workflows
 - Fine-grained restriction of specific tools within a toolset
@@ -328,14 +355,17 @@ For GitHub tools, `allowed:` can be combined with `toolsets:` to further restric
 ### Common Issues
 
 **Issue**: Tool not found or not available
+
 - **Solution**: Check if you're using `allowed:` to restrict tools. Consider using `toolsets:` instead to get all related tools.
 - **Verify**: Run `gh aw mcp inspect <workflow-name>` to see which tools are actually available.
 
 **Issue**: Missing functionality after specifying toolset
+
 - **Cause**: Using a too-narrow toolset that doesn't include all needed tools
 - **Solution**: Either add additional toolsets (e.g., `toolsets: [default, actions]`) or use `[all]` for full access
 
 **Issue**: Workflow using `allowed:` list is verbose and hard to maintain
+
 - **Solution**: Migrate to `toolsets:` configuration using the migration guide above
 
 ### Best Practices for Debugging

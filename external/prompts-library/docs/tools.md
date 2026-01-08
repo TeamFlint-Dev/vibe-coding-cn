@@ -1,29 +1,26 @@
 # 🛠️ 工具与资源（从Excel提取）
 
-
 ## AI优化工具
 
-
 ### OpenAI 提示词优化平台
-- **URL**: https://platform.openai.com/chat/edit?models=gpt-5&optimize=true
+
+- **URL**: <https://platform.openai.com/chat/edit?models=gpt-5&optimize=true>
 - **描述**: openai提示词优化网站
 - **数据来源**: Excel表格第7行
 
-
 ### 工具
-- **URL**: https://aistudio.google.com/
+
+- **URL**: <https://aistudio.google.com/>
 - **描述**: 打开 Gemini 2.5 Pro
 - **数据来源**: Excel表格第4行
 
-
 ## 社交媒体
 
-
 ### Twitter/X 账号
-- **URL**: https://x.com/123olp
+
+- **URL**: <https://x.com/123olp>
 - **描述**: 点击关注我的推特，获取最新动态，首页接广告位
 - **数据来源**: Excel表格第9行
-
 
 ## 使用建议
 

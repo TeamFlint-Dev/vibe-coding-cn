@@ -1,6 +1,6 @@
-# Lesson 6: Practice Time!
+# Lesson 6: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-6-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-6-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:10:52.344663
 
 ---
@@ -27,6 +27,7 @@ In the last exercise, you learned the lines of code needed to damage a player ch
         HurtPlayer()
         Print("Player Hurt")
    ```
+
 3. By now you may have guessed that there is also a method that heals a character. It's named `Heal()`, and you can call it exactly the same way that you call `Damage()`. Create your `HealPlayer()` function at the end of your Verse file using this code.
 
    ```verse
@@ -37,6 +38,7 @@ In the last exercise, you learned the lines of code needed to damage a player ch
                 if (FortniteCharacter : fort_character = FirstPlayer.GetFortCharacter[]):
                     FortniteCharacter.Heal(20.0)
    ```
+
 4. Now add the `HealPlayer()` call to the function calls in the body of `OnBegin()`.
 
    ```verse
@@ -90,4 +92,4 @@ hello_world_device := class(creative_device):
 
 Lesson 7: Specifying the Result of a Function
 
-Sometimes you want a result; sometimes you don't.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-7-specifying-the-result-of-a-function-in-verse)
+Sometimes you want a result; sometimes you don't.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-7-specifying-the-result-of-a-function-in-verse>)

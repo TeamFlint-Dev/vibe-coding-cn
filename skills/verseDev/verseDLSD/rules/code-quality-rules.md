@@ -26,6 +26,7 @@
 **描述**: 所有代码必须遵循 DLSD 命名约定。
 
 **检查项**:
+
 | 元素 | 规范 |
 |------|------|
 | Data Component | `xxx_data` |
@@ -47,6 +48,7 @@
 **描述**: 可选类型（`?T`、`option{T}`）在使用前必须进行检查。
 
 **违规示例**:
+
 ```verse
 # ❌ 错误：未检查直接使用
 ProcessPlayer(MaybePlayer:?player):void =
@@ -54,6 +56,7 @@ ProcessPlayer(MaybePlayer:?player):void =
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：先检查再使用
 ProcessPlayer(MaybePlayer:?player):void =
@@ -75,6 +78,7 @@ ProcessPlayer(MaybePlayer:?player):void =
 **描述**: 数值和集合操作必须进行边界验证。
 
 **数值边界**:
+
 ```verse
 # ❌ 警告：未做边界检查
 SetHealth(Value:int):void =
@@ -86,6 +90,7 @@ SetHealth(Value:int):void =
 ```
 
 **集合边界**:
+
 ```verse
 # ❌ 警告：直接索引
 GetItem(Index:int):item_data =
@@ -100,6 +105,7 @@ GetItem(Index:int):?item_data =
 ```
 
 **除法操作**:
+
 ```verse
 # ❌ 警告：可能除零
 CalculateRatio(A:float, B:float):float =
@@ -122,6 +128,7 @@ CalculateRatio(A:float, B:float):float =
 **描述**: 单个函数不应超过 30 行代码。超过应拆分为多个子函数。
 
 **违规示例**:
+
 ```verse
 # ❌ 警告：函数过长
 ProcessCombat():void =
@@ -129,6 +136,7 @@ ProcessCombat():void =
 ```
 
 **正确示例**:
+
 ```verse
 # ✅ 正确：拆分为子函数
 ProcessCombat():void =
@@ -152,6 +160,7 @@ UpdateUI():void = # ...
 **描述**: 公开接口必须有注释说明用途和参数。
 
 **推荐格式**:
+
 ```verse
 # 计算伤害值
 # @param BaseDamage - 基础伤害
@@ -163,6 +172,7 @@ CalculateDamage(BaseDamage:float, Armor:float, Multiplier:float):float =
 ```
 
 **必须注释的情况**:
+
 - 公开的 CRUD 接口
 - 复杂的计算逻辑
 - 非显而易见的业务规则

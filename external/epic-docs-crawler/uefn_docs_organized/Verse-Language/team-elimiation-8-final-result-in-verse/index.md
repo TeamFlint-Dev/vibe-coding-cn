@@ -1,6 +1,6 @@
 # 8. Final Result
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-elimiation-8-final-result-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-elimiation-8-final-result-in-verse>
 > **爬取时间**: 2025-12-27T00:18:20.400681
 
 ---

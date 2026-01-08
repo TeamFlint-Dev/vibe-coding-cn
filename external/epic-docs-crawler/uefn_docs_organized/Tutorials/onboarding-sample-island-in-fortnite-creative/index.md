@@ -1,6 +1,6 @@
 # Onboarding Sample Island
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/onboarding-sample-island-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/onboarding-sample-island-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:26:31.194301
 
 ---

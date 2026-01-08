@@ -1,6 +1,6 @@
 # Lesson 3: Storing and Using Information
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-3-storing-and-using-information-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-3-storing-and-using-information-in-verse>
 > **爬取时间**: 2025-12-26T23:09:53.888901
 
 ---
@@ -158,10 +158,10 @@ Both `Coins` and `CoinsPerMousetrap` in this case would be **identifiers** for *
 - Variables and constants are **declared** in Verse. This is done by giving the expression a unique name or **identifier**, a **type**, and a **value**.
 - When you set an initial value to an expression, this is called **initialization**.
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 3: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/15eba8e2-7ca7-47f8-941a-0c6e0f17b5f4?resizing_type=fit&width=640&height=640)
 
 Lesson 3: Practice Time!
 
-Practice working with constants and variables.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-3-practice-time-in-verse)
+Practice working with constants and variables.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-3-practice-time-in-verse>)

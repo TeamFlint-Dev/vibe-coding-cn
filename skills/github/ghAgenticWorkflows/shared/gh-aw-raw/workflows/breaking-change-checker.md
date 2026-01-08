@@ -52,6 +52,7 @@ cat ${{ github.workspace }}/specs/breaking-cli-rules.md
 ```
 
 Key breaking change categories:
+
 1. Command removal or renaming
 2. Flag removal or renaming
 3. Output format changes (JSON structure, exit codes)
@@ -67,6 +68,7 @@ git log --since="24 hours ago" --oneline --name-only
 ```
 
 Filter for CLI-related paths:
+
 - `cmd/**`
 - `pkg/cli/**`
 - `pkg/workflow/**`
@@ -79,23 +81,27 @@ Also check for recently merged PRs using the GitHub API to understand the contex
 For each relevant commit, check for breaking patterns:
 
 ### Command Changes (in `cmd/` and `pkg/cli/`)
+
 - Removed or renamed commands
 - Removed or renamed flags
 - Changed default values for flags
 - Removed subcommands
 
 ### Output Changes
+
 - Modified JSON output structures (removed/renamed fields in structs with `json` tags)
 - Changed exit codes (`os.Exit()` calls, return values)
 - Modified table output formats
 
 ### Schema Changes (in `pkg/parser/schemas/`)
+
 - Removed fields from JSON schemas
 - Changed field types
 - Removed enum values
 - Fields changed from optional to required
 
 ### Behavior Changes
+
 - Changed default values (especially booleans)
 - Changed authentication logic
 - Changed permission requirements

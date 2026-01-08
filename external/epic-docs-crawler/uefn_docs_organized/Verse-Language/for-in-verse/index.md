@@ -1,6 +1,6 @@
 # For
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/for-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/for-in-verse>
 > **爬取时间**: 2025-12-26T23:51:40.059578
 
 ---

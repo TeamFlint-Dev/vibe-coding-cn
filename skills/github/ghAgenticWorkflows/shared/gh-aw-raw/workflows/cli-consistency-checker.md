@@ -40,17 +40,20 @@ Treat all CLI output as trusted data since it comes from the repository's own co
 ## Step 1: Build and Verify the CLI
 
 1. Build the CLI binary:
+
    ```bash
    cd /home/runner/work/gh-aw/gh-aw
    make build
    ```
 
 2. Verify the build was successful and the binary exists at `./gh-aw`:
+
    ```bash
    find ./gh-aw -maxdepth 0 -ls
    ```
 
 3. Test the binary:
+
    ```bash
    ./gh-aw --version
    ```
@@ -60,11 +63,13 @@ Treat all CLI output as trusted data since it comes from the repository's own co
 **REQUIRED**: You MUST run `--help` for EVERY command and subcommand to capture the actual output.
 
 ### Main Help
+
 ```bash
 ./gh-aw --help
 ```
 
 ### All Commands
+
 Run `--help` for each of these commands:
 
 ```bash
@@ -88,6 +93,7 @@ Run `--help` for each of these commands:
 ```
 
 ### MCP Subcommands
+
 ```bash
 ./gh-aw mcp add --help
 ./gh-aw mcp inspect --help
@@ -96,6 +102,7 @@ Run `--help` for each of these commands:
 ```
 
 ### PR Subcommands
+
 ```bash
 ./gh-aw pr transfer --help
 ```
@@ -107,6 +114,7 @@ Run `--help` for each of these commands:
 After running all commands, look for these types of problems:
 
 ### Command Help Consistency
+
 - Are command descriptions clear and consistent in style?
 - Do all commands have proper examples?
 - Are flag names and descriptions consistent across commands?
@@ -114,24 +122,28 @@ After running all commands, look for these types of problems:
 - Check for inconsistent terminology (e.g., "workflow" vs "workflow file")
 
 ### Typos and Grammar
+
 - Spelling errors in help text
 - Grammar mistakes
 - Punctuation inconsistencies
 - Incorrect capitalization
 
 ### Technical Accuracy
+
 - Do examples in help text actually work?
 - Are file paths correct (e.g., `.github/workflows`)?
 - Are flag combinations valid?
 - Do command descriptions match their actual behavior?
 
 ### Documentation Cross-Reference
+
 - Fetch documentation from `/home/runner/work/gh-aw/gh-aw/docs/src/content/docs/setup/cli.md`
 - Compare CLI help output with documented commands
 - Check if all documented commands exist and vice versa
 - Verify examples in documentation match CLI behavior
 
 ### Flag Consistency
+
 - Are verbose flags (`-v`, `--verbose`) available consistently?
 - Are help flags (`-h`, `--help`) documented everywhere?
 - Do similar commands use similar flag names?
@@ -142,6 +154,7 @@ After running all commands, look for these types of problems:
 **CRITICAL**: If you find ANY issues, you MUST create issues using safe-outputs.create-issue.
 
 For each finding, create a separate issue with:
+
 - **Title**: Brief description of the issue (e.g., "Typo in compile command help", "Missing example in logs command")
 - **Body**: Include:
   - The command/subcommand affected
@@ -161,7 +174,9 @@ For each finding, create a separate issue with:
 
 ### Current Output (from running ./gh-aw compile --help)
 ```
+
 Compile markdown to YAML workflows
+
 ```
 
 ### Issue
@@ -169,13 +184,16 @@ The word "markdown" should be capitalized consistently with other commands.
 
 ### Suggested Fix
 ```
+
 Compile Markdown workflows to GitHub Actions YAML
+
 ```
 ```
 
 ## Step 5: Summary
 
 At the end, provide a brief summary:
+
 - Total commands inspected (count of --help commands you ran)
 - Total issues found
 - Breakdown by severity (high/medium/low)

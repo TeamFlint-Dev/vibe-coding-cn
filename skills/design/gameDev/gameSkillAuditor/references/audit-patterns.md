@@ -21,12 +21,14 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 | 格式规范 | 3% | Markdown lint | 无 lint 错误 |
 
 **必需章节**:
+
 - `## When to Use This Skill`
 - `## Not For / Boundaries`
 - `## Quick Reference`
 - `## Examples`
 
 **常见问题**:
+
 - frontmatter 缺失或格式错误
 - name 包含大写字母或特殊字符
 - description 过于简短，缺少触发词
@@ -45,16 +47,19 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 | 触发词唯一性 | 5% | 跨 Skill 对比 | 无重复触发词 |
 
 **模糊词汇黑名单**:
+
 ```
 处理、做、弄、搞、整、看看、帮我、这个、那个
 ```
 
 **具体词汇示例**:
+
 ```
 设计游戏概念、拆分系统、定义机制规则、平衡数值、选择技术栈
 ```
 
 **常见问题**:
+
 - 触发条件过于宽泛（如"帮我做游戏"）
 - 与其他 Skill 触发词冲突
 - 缺少 Not For 边界定义
@@ -73,6 +78,7 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 | 边界情况覆盖 | 5% | 语义分析 | 含异常/边界示例 |
 
 **示例必需字段**:
+
 ```markdown
 ### Example N: [场景名]
 
@@ -87,12 +93,14 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 ```
 
 **边界情况类型**:
+
 - 输入不完整
 - 依赖文件缺失
 - 数值为 0 或负数
 - 极端输入
 
 **常见问题**:
+
 - 只有 1 个示例
 - 示例缺少步骤说明
 - 输出与模板不一致
@@ -111,6 +119,7 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 | 示例可验算 | 3% | 数值计算 | 公式结果正确 |
 
 **常见单位问题**:
+
 ```
 时间: 秒/分钟/小时 混用
 货币: 金币/钻石 单位不明
@@ -118,6 +127,7 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 ```
 
 **边界值检查模板**:
+
 ```
 当 X = 0 时: [处理方式]
 当 X < 0 时: [处理方式]
@@ -125,6 +135,7 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 ```
 
 **常见问题**:
+
 - 公式引用未定义变量
 - 除法未处理除零情况
 - 概率未限制在 [0, 1] 范围
@@ -143,6 +154,7 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 | 文件命名规范 | 3% | 正则检查 | 遵循 @*.md 约定 |
 
 **文件命名规范**:
+
 ```
 项目文档 文件: @{name}.md 或 @{category}/{name}.md
 输出文件必须以 @ 开头
@@ -150,6 +162,7 @@ gameSkillAuditor 使用的深度审计模式和检查项定义。
 ```
 
 **依赖链验证**:
+
 ```
 concept.md 格式 → system-designer 输入格式
 system-breakdown.md 格式 → mechanics-designer 输入格式
@@ -157,6 +170,7 @@ system-breakdown.md 格式 → mechanics-designer 输入格式
 ```
 
 **常见问题**:
+
 - 声明依赖但未实际使用
 - 输出格式与下游 Skill 期望不匹配
 - 文件名不符合 @*.md 规范
@@ -190,6 +204,7 @@ system-breakdown.md 格式 → mechanics-designer 输入格式
 ```
 
 **审计规则**:
+
 1. 同层级可并行审计
 2. 下层审计前，上层必须通过
 3. 接口检查需上层 Skill 已审计
@@ -201,11 +216,13 @@ system-breakdown.md 格式 → mechanics-designer 输入格式
 ### 模式 P1: 公式变量未定义
 
 **识别**:
+
 ```
 公式中出现变量，但在前文无定义表或说明
 ```
 
 **修复模板**:
+
 ```markdown
 ### 变量定义
 
@@ -220,11 +237,13 @@ system-breakdown.md 格式 → mechanics-designer 输入格式
 ### 模式 P2: 示例不足
 
 **识别**:
+
 ```
 Examples 章节中 ### Example 数量 < 2
 ```
 
 **修复模板**:
+
 ```markdown
 ### Example 2: 边界情况
 
@@ -241,11 +260,13 @@ Examples 章节中 ### Example 数量 < 2
 ### 模式 P3: 触发词冲突
 
 **识别**:
+
 ```
 多个 Skill 的 description 包含相同触发词
 ```
 
 **修复方式**:
+
 ```
 1. 细化触发词（添加领域限定）
 2. 在 Not For 中排除冲突场景
@@ -255,11 +276,13 @@ Examples 章节中 ### Example 数量 < 2
 ### 模式 P4: 输出格式不一致
 
 **识别**:
+
 ```
 Examples 输出格式与 Quick Reference 模板不匹配
 ```
 
 **修复方式**:
+
 ```
 1. 对齐示例输出与模板
 2. 或更新模板以反映实际输出

@@ -72,6 +72,7 @@ Continuously review and aggregate information from the various reports created a
 ### Primary: GitHub Discussions
 
 Analyze recent discussions in this repository, focusing on:
+
 - **Daily News** reports (category: daily-news) - Repository activity summaries
 - **Audit** reports (category: audits) - Security and workflow audits
 - **Report** discussions (category: reports) - Various agent analysis reports
@@ -82,6 +83,7 @@ Use the GitHub MCP tools to list and read discussions from the past 7 days.
 ### Secondary: Workflow Logs
 
 Use the gh-aw MCP server to access workflow execution logs:
+
 - Use the `logs` tool to fetch recent agentic workflow runs
 - Analyze patterns in workflow success/failure rates
 - Track token usage trends across agents
@@ -92,12 +94,14 @@ Use the gh-aw MCP server to access workflow execution logs:
 Pre-fetched issues data from the last 7 days is available at `/tmp/gh-aw/weekly-issues-data/issues.json`.
 
 Use this data to:
+
 - Analyze recent issue activity and trends
 - Identify commonly reported problems
 - Track issue resolution rates
 - Correlate issues with workflow activity
 
 **Data Schema:**
+
 ```json
 [
   {
@@ -118,6 +122,7 @@ Use this data to:
 ```
 
 **Example jq queries:**
+
 ```bash
 # Count total issues
 jq 'length' /tmp/gh-aw/weekly-issues-data/issues.json
@@ -159,6 +164,7 @@ jq '[.[].author.login] | unique' /tmp/gh-aw/weekly-issues-data/issues.json
 ### Step 2: Gather Workflow Intelligence
 
 Use the gh-aw `logs` tool to:
+
 1. Fetch workflow runs from the past 7 days
 2. Extract:
    - Success/failure rates per workflow
@@ -169,6 +175,7 @@ Use the gh-aw `logs` tool to:
 ### Step 2.5: Analyze Repository Issues
 
 Load and analyze the pre-fetched issues data:
+
 1. Read `/tmp/gh-aw/weekly-issues-data/issues.json`
 2. Analyze:
    - Issue creation/closure trends over the week
@@ -179,6 +186,7 @@ Load and analyze the pre-fetched issues data:
 ### Step 3: Cross-Reference and Analyze
 
 Connect the dots between different data sources:
+
 1. Correlate discussion topics with workflow activity
 2. Identify agents that may be experiencing issues
 3. Find patterns that span multiple report types
@@ -201,6 +209,7 @@ Connect the dots between different data sources:
 5. **Focus on quick wins**: Tasks that can be completed quickly (< 4 hours of agent time)
 
 **Common quick win categories:**
+
 - **Code/Configuration improvements**: Consolidate patterns, add missing configs, optimize settings
 - **Documentation gaps**: Add or update missing documentation
 - **Issue/Discussion triage**: Label, organize, or respond to backlog items
@@ -208,6 +217,7 @@ Connect the dots between different data sources:
 - **Cleanup tasks**: Remove duplicates, archive stale items, organize files
 
 **Output format for each task:**
+
 ```
 Task 1: [Clear title]
 - Description: [What needs to be done and why]
@@ -219,6 +229,7 @@ Task 1: [Clear title]
 ### Step 4: Store Insights in Repo Memory
 
 Save your findings to `/tmp/gh-aw/repo-memory-default/memory/default/` as markdown files:
+
 - Update `known_patterns.md` with any new patterns discovered
 - Update `trend_data.md` with current metrics
 - Update `flagged_items.md` with items needing attention
@@ -233,6 +244,7 @@ Generate an intelligence briefing with the following sections:
 ### 🔍 Executive Summary
 
 A 2-3 paragraph overview of the current state of agent activity in the repository, highlighting:
+
 - Overall health of the agent ecosystem
 - Key findings from this analysis period
 - Any urgent items requiring attention
@@ -240,11 +252,13 @@ A 2-3 paragraph overview of the current state of agent activity in the repositor
 ### 📊 Pattern Analysis
 
 Identify and describe recurring patterns found across multiple reports:
+
 - **Positive patterns** - Healthy behaviors, improving metrics
 - **Concerning patterns** - Issues that appear repeatedly
 - **Emerging patterns** - New trends just starting to appear
 
 For each pattern:
+
 - Description of the pattern
 - Which reports/sources show this pattern
 - Frequency and timeline
@@ -253,6 +267,7 @@ For each pattern:
 ### 📈 Trend Intelligence
 
 Track how key metrics are changing over time:
+
 - Workflow success rates (trending up/down/stable)
 - Token usage patterns (efficiency trends)
 - Agent activity levels (new agents, inactive agents)
@@ -263,6 +278,7 @@ Compare against previous analysis when cache data is available.
 ### 🚨 Notable Findings
 
 Highlight items that stand out from the normal:
+
 - **Exciting discoveries** - Major improvements, breakthroughs, positive developments
 - **Suspicious activity** - Unusual patterns that warrant investigation
 - **Anomalies** - Significant deviations from expected behavior
@@ -270,6 +286,7 @@ Highlight items that stand out from the normal:
 ### 🔮 Predictions and Recommendations
 
 Based on trend analysis, provide:
+
 - Predictions for how trends may continue
 - Recommendations for workflow improvements
 - Suggestions for new agents or capabilities
@@ -278,6 +295,7 @@ Based on trend analysis, provide:
 ### ✅ Actionable Agentic Tasks (Quick Wins)
 
 **IMPORTANT**: Extract exactly **3 actionable tasks** that could be immediately assigned to an AI agent to improve the project. Focus on **quick wins** - tasks that are:
+
 - **Specific and well-defined** - Clear scope with measurable outcome
 - **Achievable by an agent** - Can be automated or assisted by AI
 - **High impact, low effort** - Maximum benefit with minimal implementation time
@@ -285,6 +303,7 @@ Based on trend analysis, provide:
 - **Independent** - Can be completed without blocking dependencies
 
 For each task, provide:
+
 1. **Task Title** - Clear, action-oriented name (e.g., "Reduce token usage in daily-news workflow")
 2. **Description** - 2-3 sentences explaining what needs to be done and why
 3. **Expected Impact** - What improvement or benefit this will deliver
@@ -294,6 +313,7 @@ For each task, provide:
 **If no actionable tasks are identified** (the project is in excellent shape), explicitly state: "No actionable tasks identified - the project is operating optimally."
 
 **Examples of good actionable tasks:**
+
 - "Consolidate duplicate error handling patterns in 5 workflow files"
 - "Add missing cache configuration to 3 high-frequency workflows"
 - "Create automated labels for 10 unlabeled issues based on content analysis"
@@ -303,6 +323,7 @@ For each task, provide:
 ### 📚 Source Attribution
 
 List all reports and data sources analyzed:
+
 - Discussion references with links
 - Workflow run references with links
 - Time range of data analyzed

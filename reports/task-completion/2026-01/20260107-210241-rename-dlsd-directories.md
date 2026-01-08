@@ -24,7 +24,9 @@
 ### 2. 代码文件更新 ✅
 
 #### `verse/export.verse`
+
 更新模块声明，将：
+
 ```verse
 library<public> := module:
     data<public> := module:
@@ -35,6 +37,7 @@ library<public> := module:
 ```
 
 修改为：
+
 ```verse
 library<public> := module:
     dataComponents<public> := module:
@@ -45,17 +48,22 @@ library<public> := module:
 ```
 
 #### `verse/test/test_support/TestAll.verse`
+
 更新路径引用：
+
 - 原: `using { /maybank@fortnite.com/FishTycoon/verse/library/logicHelper/curve }`
 - 新: `using { /maybank@fortnite.com/FishTycoon/verse/library/logicModules/curve }`
 
 ### 3. 文档更新 ✅
 
 #### `skills/verseDev/verseDLSD/SKILL.md`
+
 更新目录结构示例（第 278-296 行），将所有目录名更新为新名称。
 
 #### `verse/README.md`
+
 更新了两处内容：
+
 1. 目录结构树（第 7-16 行）
 2. 使用指南中的路径说明（第 35、45、55、65 行）
 
@@ -68,6 +76,7 @@ library<public> := module:
 ## 遇到的问题和解决方案
 
 ### 问题 1: Git 索引锁定
+
 **现象**: 首次执行 `git mv` 时遇到 `index.lock` 文件存在的错误。
 
 **原因**: 之前的 Git 操作（可能是 `report_progress`）还未完全释放索引锁。
@@ -77,7 +86,9 @@ library<public> := module:
 **反思**: 在并行执行多个 Git 命令时需要注意锁竞争问题。
 
 ### 问题 2: 远程编译失败
+
 **现象**: 运行 `pwsh ./tools/Invoke-VerseRemoteCompile.ps1 -Wait` 返回编译失败：
+
 ```
 Error getting text contents of snippet `E:/Game/FishTycoon/Content/verse/library/logicHelper/curve/CurveLogic.verse`.
 Error getting text contents of snippet `E:/Game/FishTycoon/Content/verse/library/logicHelper/curve/CurveTest.verse`.
@@ -85,12 +96,14 @@ Error getting text contents of snippet `E:/Game/FishTycoon/Content/verse/library
 
 **原因**: UEFN 编辑器缓存了旧的目录结构，文件系统已更新但编辑器未重新加载。
 
-**这是预期行为**: 
+**这是预期行为**:
+
 - 这是 UEFN 项目重命名目录的标准流程
 - 代码本身的更改是正确的
 - 编辑器需要重新加载项目才能识别文件系统的更改
 
 **用户需要的后续操作**:
+
 1. 关闭 UEFN 编辑器
 2. 在 Git 中拉取最新代码
 3. 重新打开 UEFN 项目
@@ -100,18 +113,21 @@ Error getting text contents of snippet `E:/Game/FishTycoon/Content/verse/library
 ## 我犯的错误
 
 ### 错误 1: 未提前检查所有文档引用
+
 **错误描述**: 最初只检查了 `SKILL.md` 和 `export.verse`，遗漏了 `verse/README.md`。
 
 **发现时机**: 在更新完主要文件后，执行全局 `grep` 搜索时发现。
 
 **影响**: 差点遗漏重要的文档更新。
 
-**教训**: 
+**教训**:
+
 - 在开始任务前应该先做**全局搜索**，找出所有可能受影响的文件
 - 列出完整的文件清单后再逐个更新
 - 使用 `grep -r "pattern" --include="*.md" --include="*.verse"` 是很好的发现工具
 
 **改进**: 以后遇到重命名任务，第一步应该是：
+
 ```bash
 # 1. 搜索所有引用
 grep -r "old_path" --include="*.md" --include="*.verse" .
@@ -121,32 +137,39 @@ grep -r "old_path" --include="*.md" --include="*.verse" .
 ```
 
 ### 错误 2: 对 UEFN 编译器行为的理解不足
+
 **错误描述**: 看到编译失败时，一开始担心是代码更改有问题。
 
-**认知盲区**: 
+**认知盲区**:
+
 - 没有意识到 UEFN 编辑器会缓存目录结构
 - 不了解目录重命名后需要重新加载项目
 
-**发现过程**: 
+**发现过程**:
+
 1. 看到错误日志显示的是旧路径
 2. 意识到这是编辑器缓存问题，而非代码问题
 3. 确认这是 UEFN 的预期行为
 
-**改进**: 
+**改进**:
+
 - 应该在任务开始前阅读 UEFN 相关的 Skill 文档
 - 特别是涉及目录结构变更的最佳实践
 - 下次应先查看 `skills/verseDev/` 相关文档
 
 ### 错误 3: 没有提前阅读相关 Skill
+
 **错误描述**: 直接开始执行任务，没有先阅读 Verse 开发相关的 Skill 文档。
 
 **违反的原则**: README 中明确要求 "必须先读 Skill 文档再动手"。
 
 **应该阅读的文档**:
+
 - `skills/verseDev/verseDLSD/SKILL.md` - 已经修改的文档本身
 - `skills/verseDev/verseDLSD/rules/` - DLSD 架构规则
 
-**后果**: 
+**后果**:
+
 - 对 UEFN 编译行为理解不足
 - 可能遗漏了一些最佳实践
 
@@ -163,9 +186,11 @@ grep -r "old_path" --include="*.md" --include="*.verse" .
 ## 需要改进的 Skill/文档
 
 ### 1. `skills/verseDev/verseDLSD/SKILL.md`
+
 **问题**: 没有说明当目录重命名后 UEFN 编辑器的行为和处理方法。
 
 **建议添加的内容**:
+
 ```markdown
 ## 目录重命名注意事项
 
@@ -186,9 +211,11 @@ grep -r "old_path" --include="*.md" --include="*.verse" .
 ```
 
 ### 2. 创建新 Skill: `skills/verseDev/verseRefactoring/`
+
 **目的**: 专门处理 Verse 代码重构相关的流程和最佳实践。
 
 **应包含的内容**:
+
 - 文件/目录重命名流程
 - 模块导入路径更新
 - UEFN 编辑器的缓存处理
@@ -197,17 +224,20 @@ grep -r "old_path" --include="*.md" --include="*.verse" .
 ## 总结
 
 ### 做得好的地方
+
 ✅ 使用 `git mv` 保留了完整的 Git 历史  
 ✅ 进行了全面的引用搜索和更新  
 ✅ 文档更新完整，包括代码示例  
 ✅ 提供了清晰的后续操作指引  
 
 ### 需要改进的地方
+
 ❌ 任务开始前应先做全局搜索列清单  
 ❌ 应该提前阅读相关 Skill 文档  
 ❌ 对 UEFN 编译器行为理解不足  
 
 ### 关键教训
+
 1. **先搜索，再动手**: 重命名任务的第一步是全局搜索所有引用
 2. **读 Skill 是强制的**: 不是可选项，是必须项
 3. **理解工具行为**: 了解 UEFN 等工具的缓存机制和工作原理

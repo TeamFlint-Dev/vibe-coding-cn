@@ -1,6 +1,6 @@
 # 5. Making Players Invisible
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-making-players-invisible-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-making-players-invisible-in-verse>
 > **爬取时间**: 2025-12-27T00:22:25.192911
 
 ---
@@ -24,41 +24,57 @@ Follow these steps to learn how to turn Infiltrators invisible when they spawn.
    1. An editable array of player spawners `PlayerSpawners`. This will track the player spawners for the Infiltrators and will be used to make them invisible when they spawn
        `invisibility_manager := class(creative_device):
       Logger:log = log{Channel := triad_invisibility_log_channel}
+
       # Array of players spawners for the Infiltrators team
+
       @editable
       PlayersSpawners:[]player_spawner_device = array{}`
    2. An editable logic `IsVisibilityShared`. This will determine if flickering after being damaged happens for all Infiltrators at the same time or only for the player that was damaged.
        `# Array of players spawners for the Infiltrators team
       @editable
       PlayersSpawners:[]player_spawner_device = array{}
-      # Whether the visibility of the infiltrators is shared with teammates.
+
+      # Whether the visibility of the infiltrators is shared with teammates
+
       @editable
       IsVisibilityShared:logic = true`
    3. An editable float `VulnerableSeconds` and an editable float `FlickerRateSeconds`. The first one controls how long Infiltrators flicker after being damaged, and the second controls how fast the flickering animation plays.
        `# Whether the visibility of the infiltrators is shared with teammates.
       @editable
       IsVisibilityShared:logic = true
-      # How long the infiltrators are visible for after being damaged.
+
+      # How long the infiltrators are visible for after being damaged
+
       @editable
       VulnerableSeconds:float = 3.0
-      # How quickly infiltrators flicker after being damaged.
+
+      # How quickly infiltrators flicker after being damaged
+
       @editable
       FlickerRateSeconds:float = 0.4`
    4. A variable team array named `Teams`. You'll use this to check whether a player is an Infiltrator.
        `# How quickly infiltrators flicker after being damaged.
       @editable
       FlickerRateSeconds:float = 0.4
-      # Array of all teams in the game.
+
+      # Array of all teams in the game
+
       var Teams:[]team = array{}`
    5. A variable map of `agent` to `float` named `PlayerVisibilitySeconds`. This maps individual agents to the number of seconds of flickering they have left after being damaged.
        `var Teams:[]team = array{}
-      # Array of all teams in the game.
+
+      # Array of all teams in the game
+
       var Teams:[]team = array{}
-      # Map of players to the amount of seconds they have left to keep blinking.
+
+      # Map of players to the amount of seconds they have left to keep blinking
+
       var PlayerVisibilitySeconds:[agent]float = map{}`
 4. In `OnBegin()`, add a simple log statement to verify that the device has started. You want to make sure that `invisibility_manager` runs after teams have been balanced by the `triad_infiltration_game` script to prevent players on the wrong team from ending up with invisibility. To guarantee this, you'll start `invisibility_manager` from `triad_infiltration_game`, rather than having code run in `OnBegin()`.
     `OnBegin<override>()<suspends>:void=
-   # Wait for teams to be balanced before subscribing to events that make the players invisible.
+
+   # Wait for teams to be balanced before subscribing to events that make the players invisible
+
    Logger.Print("Waiting for teams to be balanced...")`
 5. Add a new method `OnPlayerSpawn()` to the `invisibility_manager` class definition. You want to make sure the Infiltrators are invisible whenever they spawn, so you'll handle this function first.
 
@@ -78,6 +94,7 @@ Follow these steps to learn how to turn Infiltrators invisible when they spawn.
                                        FortCharacter:fort_character = SpawnedAgent.GetFortCharacter[]
                                        CurrentTeam := GetPlayspace().GetTeamCollection().GetTeam[SpawnedAgent]
       ```
+
    2. Check if `CurrentTeam` matches the first team in the `Teams` array, which should be the Infiltrators. If so, this agent is an Infiltrator, and you can call `Hide()` on the agent's `FortCharacter`. This will make the agent invisible when they spawn. Your `OnPlayerSpawn()` function should look like:
 
       ```verse
@@ -92,6 +109,7 @@ Follow these steps to learn how to turn Infiltrators invisible when they spawn.
                                    then:
                                        FortCharacter.Hide()
       ```
+
 6. Add a new method `StartInvisibilityManager()` to the `invisibility_manager` class definition. This function takes an array of type team `AllTeams`, an array of type player `AllPlayers`, and a reference to the Infiltrators team of type `team`. You'll call this from `triad_infiltration_game` to start the `invisibility_manager` logic, so this function must have the `<public>` specifier to allow `triad_infiltration_game` to find it.
     `# Starts the invisibility manager logic. Called from triad_infiltration class after team balancing finishes
    StartInvisibilityManager<public>(AllTeams:[]team, AllPlayers:[]player, Infiltrators:team):void=
@@ -111,7 +129,7 @@ Follow these steps to learn how to turn Infiltrators invisible when they spawn.
       ```verse
                                for(PlayerSpawner:PlayersSpawners):
                                    PlayerSpawner.SpawnedEvent.Subscribe(OnPlayerSpawn)
-      								        
+                      
                                # For each player, if they spawned on the infiltrator team, spawn an OnInfiltratorDamaged function for that
                                # player. Then make their character invisible. 
                                for(TeamPlayer:AllPlayers):
@@ -119,6 +137,7 @@ Follow these steps to learn how to turn Infiltrators invisible when they spawn.
                                        FortCharacter:fort_character = TeamPlayer.GetFortCharacter[]
                                        CurrentTeam := GetPlayspace().GetTeamCollection().GetTeam[TeamPlayer]
       ```
+
    4. Check if `CurrentTeam` matches the `Infiltrators` team you passed to this function. If so, set the player's key in `PlayerVisibilitySeconds` to `0.0`.
 
       ```verse
@@ -131,6 +150,7 @@ Follow these steps to learn how to turn Infiltrators invisible when they spawn.
                                        set PlayerVisibilitySeconds[TeamPlayer] = 0.0
                                        Logger.Print("Added player to PlayerVisibilitySeconds")
       ```
+
    5. Finally, make the player invisible by calling `Hide()` on the player's `FortCharacter`. Your `StartInvisibilityManager` should look like the following:
 
       ```verse
@@ -198,6 +218,7 @@ Follow these steps to learn how to turn Infiltrators invisible when they spawn.
             else:
                 Logger.Print("Couldn't find all teams, make sure to assign the correct teams in your island settings.")
    ```
+
 3. Save the files and compile them. Select the device in the **Outliner**, and assign any spawn pads for the Infiltrators to the **PlayerSpawners** array.
 4. Select your **triad\_infiltration\_game** device in the **Outliner**, and assign your **invisibility\_manager** device to its **InvisibilityManager** property.
 5. Click **Launch Session** in the UEFN toolbar to playtest the level.

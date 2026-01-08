@@ -79,6 +79,7 @@ Collect data for the past 30 days (or available data) from cache memory and fire
 Generate exactly **2 high-quality trend charts**:
 
 **Chart 1: Firewall Request Trends**
+
 - Stacked area chart or multi-line chart showing:
   - Allowed requests (area/line, green)
   - Denied requests (area/line, red)
@@ -88,6 +89,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/firewall_requests_trends.png`
 
 **Chart 2: Top Blocked Domains Frequency**
+
 - Horizontal bar chart showing:
   - Top 10-15 most frequently blocked domains
   - Total block count for each domain
@@ -97,6 +99,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/blocked_domains_frequency.png`
 
 **Chart Quality Requirements**:
+
 - DPI: 300 minimum
 - Figure size: 12x7 inches for better readability
 - Use seaborn styling with a professional color palette
@@ -140,6 +143,7 @@ Include the charts in your firewall report with this structure:
 ### Error Handling
 
 If insufficient data is available (less than 7 days):
+
 - Generate the charts with available data
 - Add a note in the analysis mentioning the limited data range
 - Consider using a bar chart instead of line chart for very sparse data
@@ -149,6 +153,7 @@ If insufficient data is available (less than 7 days):
 ## Objective
 
 Generate a comprehensive daily report of all rejected domains across all agentic workflows that use the firewall feature. This helps identify:
+
 - Which domains are being blocked
 - Patterns in blocked traffic
 - Potential issues with network permissions
@@ -178,17 +183,20 @@ Use the `logs` tool from the agentic-workflows MCP server to efficiently collect
 
 **Using the logs tool:**
 Call the `logs` tool with the following parameters:
+
 - `firewall`: true (boolean - to filter only runs with firewall enabled)
 - `start_date`: "-7d" (to get runs from the past 7 days)
 - `count`: 100 (to get up to 100 matching runs)
 
 The tool will:
+
 1. Filter runs based on the `steps.firewall` field in `aw_info.json` (e.g., "squid" when enabled)
 2. Return only runs where firewall was enabled
 3. Limit to runs from the past 7 days
 4. Return up to 100 matching runs
 
 **Tool call example:**
+
 ```json
 {
   "firewall": true,
@@ -200,6 +208,7 @@ The tool will:
 ### Step 2: Analyze Firewall Logs from Collected Runs
 
 For each run collected in Step 1:
+
 1. Use the `audit` tool from the agentic-workflows MCP server to get detailed firewall information
 2. Store the run ID, workflow name, and timestamp for tracking
 
@@ -207,6 +216,7 @@ For each run collected in Step 1:
 Call the `audit` tool with the run_id parameter for each run from Step 1.
 
 **Tool call example:**
+
 ```json
 {
   "run_id": 12345678
@@ -214,11 +224,13 @@ Call the `audit` tool with the run_id parameter for each run from Step 1.
 ```
 
 The audit tool returns structured firewall analysis data including:
+
 - Total requests, allowed requests, denied requests
 - Lists of allowed and denied domains
 - Request statistics per domain
 
 **Example of extracting firewall data from audit result:**
+
 ```javascript
 // From the audit tool result, access:
 result.firewall_analysis.denied_domains  // Array of denied domain names
@@ -232,6 +244,7 @@ result.firewall_analysis.denied_requests  // Number of denied requests
 ### Step 3: Parse and Analyze Firewall Logs
 
 Use the JSON output from the `audit` tool to extract firewall information. The `firewall_analysis` field in the audit JSON contains:
+
 - `total_requests` - Total number of network requests
 - `allowed_requests` - Count of allowed requests
 - `denied_requests` - Count of denied/blocked requests
@@ -240,6 +253,7 @@ Use the JSON output from the `audit` tool to extract firewall information. The `
 - `requests_by_domain` - Object mapping domains to request statistics (allowed/denied counts)
 
 **Example jq filter for aggregating denied domains:**
+
 ```bash
 # Get only denied domains across multiple runs
 gh aw audit <run-id> --json | jq -r '.firewall_analysis.denied_domains[]? // empty'
@@ -254,6 +268,7 @@ gh aw audit <run-id> --json | jq -r '
 ```
 
 For each workflow run with firewall data:
+
 1. Extract the firewall analysis from the audit JSON output
 2. Track the following metrics per workflow:
    - Total requests (from `total_requests`)
@@ -265,6 +280,7 @@ For each workflow run with firewall data:
 ### Step 4: Aggregate Results
 
 Combine data from all workflows:
+
 1. Create a master list of all denied domains across all workflows
 2. Track how many times each domain was blocked
 3. Track which workflows blocked which domains
@@ -279,6 +295,7 @@ Combine data from all workflows:
 Create a comprehensive markdown report with the following sections:
 
 #### 1. Executive Summary
+
 - Date of report (today's date)
 - Total workflows analyzed
 - Total runs analyzed  
@@ -287,7 +304,9 @@ Create a comprehensive markdown report with the following sections:
 - Percentage of denied vs allowed traffic
 
 #### 2. Top Blocked Domains
+
 A table showing the most frequently blocked domains:
+
 - Domain name
 - Number of times blocked
 - Workflows that blocked it
@@ -296,20 +315,26 @@ A table showing the most frequently blocked domains:
 Sort by frequency (most blocked first), show top 20.
 
 #### 3. Blocked Domains by Workflow
+
 For each workflow that had blocked domains:
+
 - Workflow name
 - Number of unique blocked domains
 - List of blocked domains
 - Total denied requests for this workflow
 
 #### 4. Complete Blocked Domains List
+
 An alphabetically sorted list of all unique blocked domains with:
+
 - Domain name
 - Total occurrences across all workflows
 - First seen date (from run timestamps)
 
 #### 5. Recommendations
+
 Based on the analysis, provide:
+
 - Domains that appear to be legitimate services that should be allowlisted
 - Potential security concerns (e.g., suspicious domains)
 - Suggestions for network permission improvements
@@ -318,6 +343,7 @@ Based on the analysis, provide:
 ### Step 6: Create Discussion
 
 Create a new GitHub discussion with:
+
 - **Title**: "Daily Firewall Report - [Today's Date]"
 - **Category**: audits
 - **Body**: The complete markdown report generated in Step 5

@@ -1,6 +1,6 @@
 # 2. Place and Customize a Device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/first-island-02-place-and-customize-devices-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/first-island-02-place-and-customize-devices-in-fortnite>
 > **爬取时间**: 2025-12-26T23:53:15.166008
 
 ---
@@ -56,6 +56,7 @@ Think of an **instance** as a unique copy of your asset. The original asset dete
    | --- |
    | On Grant Action = **Keep All** |
    | Grant = **All Items** |
+
 4. Without collapsing User Options, expand **Advanced**, then customize these settings:
 
    |  |
@@ -124,7 +125,7 @@ If you ever have difficulties finding the settings you're looking for, click the
 
 ## Move Objects
 
-You can move an **asset**, also known as an **object**, using one of the **Move** tools. 
+You can move an **asset**, also known as an **object**, using one of the **Move** tools.
 
 [![](https://dev.epicgames.com/community/api/documentation/image/3c4a64c3-127a-4127-8309-36c059b462d2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/3c4a64c3-127a-4127-8309-36c059b462d2?resizing_type=fit)
 
@@ -143,6 +144,6 @@ The other key component of moving objects is the **axis**. **Axes** are directio
 
 [![3. Build a Shooting Gallery](https://dev.epicgames.com/community/api/documentation/image/126bd430-2bc9-47d2-8208-f8d2d20b33b9?resizing_type=fit&width=640&height=640)
 
-3. Build a Shooting Gallery
+1. Build a Shooting Gallery
 
-Add some target devices to build your gallery and a barrier to keep players from getting too close.](https://dev.epicgames.com/documentation/en-us/fortnite/first-island-03-build-a-shooting-gallery-in-fortnite)
+Add some target devices to build your gallery and a barrier to keep players from getting too close.](<https://dev.epicgames.com/documentation/en-us/fortnite/first-island-03-build-a-shooting-gallery-in-fortnite>)

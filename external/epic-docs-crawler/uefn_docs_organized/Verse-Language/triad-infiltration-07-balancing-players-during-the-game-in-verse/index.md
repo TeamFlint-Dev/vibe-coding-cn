@@ -1,6 +1,6 @@
 # 7. Balancing Players During the Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-07-balancing-players-during-the-game-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-07-balancing-players-during-the-game-in-verse>
 > **爬取时间**: 2025-12-27T00:21:59.902503
 
 ---
@@ -28,7 +28,9 @@ Follow the steps below to learn how to balance players to the correct team when 
 
    1. Add a new method `BalancePlayer()` to the `triad_infiltration_game` class definition. This method takes a player and balances them asymmetrically onto the correct team.
        `# For each player, iterate through the list of teams and assign them to the
-      # team with the least amount of players, or their starting team in case of ties.
+
+      # team with the least amount of players, or their starting team in case of ties
+
       BalancePlayer(InPlayer:player):void=
       Logger.Print("Beginning to balance player")`
    2. Extract the code inside the `for` loop in `BalanceTeams()` and place it inside `BalancePlayer()`, renaming `TeamPlayer` to `InPlayer`. Your `BalancePlayer()` code should look like the following:
@@ -45,6 +47,7 @@ Follow the steps below to learn how to balance players to the correct team when 
                                    else:
                                        Logger.Print("This player was already on the smallest team")
       ```
+
    3. Now in `BalanceTeams()`, add a call to `BalancePlayer()` inside the `for` loop. This preserves the functionality of `BalanceTeams()` while also allowing you to balance a player individually. Your `BalanceTeams()` code should look like:
        `# Balances all players on all teams in the game
       BalanceTeams():void=
@@ -60,7 +63,9 @@ Follow the steps below to learn how to balance players to the correct team when 
    Logger.Print("A new Player joined, assigning them to a team")
    FortTeamCollection := GetPlayspace().GetTeamCollection()
    set AllPlayers = GetPlayspace().GetPlayers()
+
    # Assign the new player to the smallest team
+
    BalancePlayer(InPlayer)`
 6. Find the index of player's team after balancing by iterating through each team in the `Teams` array, using `GetTeam[]` as a filter to check that it equals `PlayerTeam`.
 
@@ -69,14 +74,15 @@ Follow the steps below to learn how to balance players to the correct team when 
         OnPlayerAdded(InPlayer:player):void=
             Logger.Print("A new Player joined, assigning them to a team")
             FortTeamCollection := GetPlayspace().GetTeamCollection()
-   		        
+             
             # Assign the new player to the smallest team, asymmetrically.
             BalancePlayer(InPlayer)
-   		
+     
             for:
                 TeamIndex -> PlayerTeam:Teams
                 PlayerTeam = FortTeamCollection.GetTeam[InPlayer]
    ```
+
 7. Get the teleporter associated with the player's team by indexing into the `Teleporters` array using `TeamIndex` and storing it in a variable `TeamTeleporter`. Store the transform of that teleporter in a variable `Transform`. Then respawn the new player at their team's starting teleporter.
 
    ```verse
@@ -89,6 +95,7 @@ Follow the steps below to learn how to balance players to the correct team when 
             InPlayer.Respawn(Transform.Translation, Transform.Rotation)
             Logger.Print("Teleported the spawned player to their start location")
    ```
+
 8. Finally, check if the player who just joined is an Infiltrator by comparing their team against the `Infiltrators` option you set up earlier. If they are, call `OnInfiltratorJoined()` from the `invisibility_manager` class on the new player to allow them to start flickering. Your `OnPlayerAdded()` code should look like:
 
    ```verse
@@ -96,10 +103,10 @@ Follow the steps below to learn how to balance players to the correct team when 
         OnPlayerAdded(InPlayer:player):void=
             Logger.Print("A new Player joined, assigning them to a team")
             FortTeamCollection := GetPlayspace().GetTeamCollection()
-   		        
+             
             # Assign the new player to the smallest team, asymmetrically.
             BalancePlayer(InPlayer)
-   		
+     
             for:
                 TeamIndex -> PlayerTeam:Teams
                 PlayerTeam = FortTeamCollection.GetTeam[InPlayer]
@@ -113,6 +120,7 @@ Follow the steps below to learn how to balance players to the correct team when 
                 if(PlayerTeam = MaybeInfiltrators?):
                     InvisibilityManager.OnInfiltratorJoined(InPlayer)
    ```
+
 9. Save the script, build it, and click **Launch Session** in the UEFN toolbar to playtest the level. When you playtest your level, players should join the correct team when they join a game in progress. If that player is an Infiltrator, they should spawn invisible and flicker on taking damage.
 
 ## Next Step

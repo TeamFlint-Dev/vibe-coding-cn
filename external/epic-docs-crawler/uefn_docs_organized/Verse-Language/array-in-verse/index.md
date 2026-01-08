@@ -1,6 +1,6 @@
 # Array
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/array-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/array-in-verse>
 > **爬取时间**: 2025-12-26T23:51:09.230960
 
 ---

@@ -1,6 +1,6 @@
 # Coordinate Battle Tutorial
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/coordinate-battle-tutorial
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/coordinate-battle-tutorial>
 > **爬取时间**: 2025-12-26T23:03:23.730010
 
 ---
@@ -67,32 +67,32 @@ To learn more about building the game mechanics of Coordinate Battle, go through
 
 1. Overview of Coordinate Spaces
 
-Coordinate Battle! uses multiple coordinate spaces to define gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/overview-of-coordinate-spaces)[![2. Define the Game Board](https://dev.epicgames.com/community/api/documentation/image/972bf32b-51aa-4393-ba92-0608b27f0073?resizing_type=fit&width=640&height=640)
+Coordinate Battle! uses multiple coordinate spaces to define gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/overview-of-coordinate-spaces)[![2>. Define the Game Board](<https://dev.epicgames.com/community/api/documentation/image/972bf32b-51aa-4393-ba92-0608b27f0073?resizing_type=fit&width=640&height=640>)
 
-2. Define the Game Board
+1. Define the Game Board
 
-Represent game board space as tiles and manage conversion.](https://dev.epicgames.com/documentation/en-us/fortnite/2-define-the-game-board)[![3. Set and Remove Pawns](https://dev.epicgames.com/community/api/documentation/image/b3d94e2f-c0a7-4496-b4fc-4db0bfabeb96?resizing_type=fit&width=640&height=640)
+Represent game board space as tiles and manage conversion.](<https://dev.epicgames.com/documentation/en-us/fortnite/2-define-the-game-board)[![3>. Set and Remove Pawns](<https://dev.epicgames.com/community/api/documentation/image/b3d94e2f-c0a7-4496-b4fc-4db0bfabeb96?resizing_type=fit&width=640&height=640>)
 
-3. Set and Remove Pawns
+1. Set and Remove Pawns
 
-Add pawns to the board and remove them when needed.](https://dev.epicgames.com/documentation/en-us/fortnite/3-set-and-remove-pawns)[![4. Generate the Board](https://dev.epicgames.com/community/api/documentation/image/50b9fc38-f65e-462f-bcff-e1d84112772d?resizing_type=fit&width=640&height=640)
+Add pawns to the board and remove them when needed.](<https://dev.epicgames.com/documentation/en-us/fortnite/3-set-and-remove-pawns)[![4>. Generate the Board](<https://dev.epicgames.com/community/api/documentation/image/50b9fc38-f65e-462f-bcff-e1d84112772d?resizing_type=fit&width=640&height=640>)
 
-4. Generate the Board
+1. Generate the Board
 
-Generate and randomly place pawns on the board.](https://dev.epicgames.com/documentation/en-us/fortnite/4-generate-the-board)[![5. Define the Miniboard](https://dev.epicgames.com/community/api/documentation/image/356f9821-4d06-4e6b-b465-9b9db647226a?resizing_type=fit&width=640&height=640)
+Generate and randomly place pawns on the board.](<https://dev.epicgames.com/documentation/en-us/fortnite/4-generate-the-board)[![5>. Define the Miniboard](<https://dev.epicgames.com/community/api/documentation/image/356f9821-4d06-4e6b-b465-9b9db647226a?resizing_type=fit&width=640&height=640>)
 
-5. Define the Miniboard
+1. Define the Miniboard
 
-Create the miniboard and place it in the world.](https://dev.epicgames.com/documentation/en-us/fortnite/5-define-the-miniboard)[![6. Set Miniboard Markers](https://dev.epicgames.com/community/api/documentation/image/9b8004dc-3246-46bc-8d69-76a920cfa8ba?resizing_type=fit&width=640&height=640)
+Create the miniboard and place it in the world.](<https://dev.epicgames.com/documentation/en-us/fortnite/5-define-the-miniboard)[![6>. Set Miniboard Markers](<https://dev.epicgames.com/community/api/documentation/image/9b8004dc-3246-46bc-8d69-76a920cfa8ba?resizing_type=fit&width=640&height=640>)
 
-6. Set Miniboard Markers
+1. Set Miniboard Markers
 
-Reflect the game board state on the miniboard.](https://dev.epicgames.com/documentation/en-us/fortnite/6-set-miniboard-markers)[![7. Construct the Game](https://dev.epicgames.com/community/api/documentation/image/76d9ae9d-edfc-4d12-9ced-e4019c412960?resizing_type=fit&width=640&height=640)
+Reflect the game board state on the miniboard.](<https://dev.epicgames.com/documentation/en-us/fortnite/6-set-miniboard-markers)[![7>. Construct the Game](<https://dev.epicgames.com/community/api/documentation/image/76d9ae9d-edfc-4d12-9ced-e4019c412960?resizing_type=fit&width=640&height=640>)
 
-7. Construct the Game
+1. Construct the Game
 
-Create the game loop logic.](https://dev.epicgames.com/documentation/en-us/fortnite/7-construct-the-game)[![8. Complete Code Files for Coordinate Battle](https://dev.epicgames.com/community/api/documentation/image/a6ec599a-ca82-42f7-beec-449f636a7bf2?resizing_type=fit&width=640&height=640)
+Create the game loop logic.](<https://dev.epicgames.com/documentation/en-us/fortnite/7-construct-the-game)[![8>. Complete Code Files for Coordinate Battle](<https://dev.epicgames.com/community/api/documentation/image/a6ec599a-ca82-42f7-beec-449f636a7bf2?resizing_type=fit&width=640&height=640>)
 
-8. Complete Code Files for Coordinate Battle
+1. Complete Code Files for Coordinate Battle
 
-All of the Verse code for this tutorial in one handy place!](https://dev.epicgames.com/documentation/en-us/fortnite/8-complete-code-files-for-coordinate-battle)
+All of the Verse code for this tutorial in one handy place!](<https://dev.epicgames.com/documentation/en-us/fortnite/8-complete-code-files-for-coordinate-battle>)

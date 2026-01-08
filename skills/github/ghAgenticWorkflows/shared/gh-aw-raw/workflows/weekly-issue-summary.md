@@ -70,6 +70,7 @@ Collect data for the past 30 days (or available data) using GitHub API:
 Generate exactly **2 high-quality trend charts**:
 
 **Chart 1: Issue Activity Trends**
+
 - Multi-line chart showing:
   - Issues opened per week (line or bar)
   - Issues closed per week (line or bar)
@@ -80,6 +81,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/issue_activity_trends.png`
 
 **Chart 2: Issue Resolution Time Trends**
+
 - Line chart with statistics showing:
   - Average time to close (in days, 7-day moving average)
   - Median time to close
@@ -89,6 +91,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/issue_resolution_trends.png`
 
 **Chart Quality Requirements**:
+
 - DPI: 300 minimum
 - Figure size: 12x7 inches for better readability
 - Use seaborn styling with a professional color palette
@@ -132,6 +135,7 @@ Include the charts in your weekly summary with this structure:
 ### Error Handling
 
 If insufficient data is available (less than 7 days):
+
 - Generate the charts with available data
 - Add a note in the analysis mentioning the limited data range
 - Consider using a bar chart instead of line chart for very sparse data
@@ -143,6 +147,7 @@ If insufficient data is available (less than 7 days):
 Analyze all issues opened in the repository ${{ github.repository }} over the last 7 days.
 
 Create a comprehensive summary that includes:
+
 - Total number of issues opened
 - List of issue titles with their numbers and authors
 - Any notable patterns or trends (common labels, types of issues, etc.)

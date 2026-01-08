@@ -1,6 +1,6 @@
 # 6. Blinking Player Visibility on Damage
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-06-blinking-player-visibility-on-damage-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-06-blinking-player-visibility-on-damage-in-verse>
 > **爬取时间**: 2025-12-27T00:22:13.082072
 
 ---
@@ -52,6 +52,7 @@ You need a way to break out of this loop function when the character should stop
                 if:
                     TimeRemaining := set PlayerVisibilitySeconds[InCharacter.GetAgent[]] -= FlickerRateSeconds * 2
    ```
+
 2. Check if `TimeRemaining` is less than or equal to 0, which indicates that the character should stop flickering. To do this, call `Hide()` on the character to make them invisible again, and `break` out of the loop. Your `FlickerCharacter()` function should look like:
 
    ```verse
@@ -85,9 +86,12 @@ Consider what happens when an Infiltrator gets damaged while already flickering.
         IsFlickering(InAgent:agent)<decides><transacts>:void=
             PlayerVisibilitySeconds[InAgent] > 0.0
    ```
+
 2. Add a new function `StartOrResetFlickering()` to the `invisibility_manager` class definition. This function takes an agent as an argument and determines whether a player should start or reset flickering.
     `# Starts a new flicker event if the agent was invisible, otherwise
-   # resets the agent's ongoing flickering.
+
+   # resets the agent's ongoing flickering
+
    StartOrResetFlickering(InAgent:agent):void=`
 3. In `StartOrResetFlickering()`, check if the given agent is **not** flickering. If not, you need to start a new flicker event for this agent. Retrieve the `fort_character` for that agent and save it in a variable `FortCharacter`.
 
@@ -98,6 +102,7 @@ Consider what happens when an Infiltrator gets damaged while already flickering.
             if (not IsFlickering[InAgent], FortCharacter := InAgent.GetFortCharacter[]):
                 Logger.Print("Attempting to start NEW FlickerEvent for this character")
    ```
+
 4. Set the value of the agent in `PlayerVisibilitySeconds` to `VulnerableSeconds`, then `spawn` a new `FlickerCharacter()` function for this agent, passing their `FortCharacter`.
 
    ```verse
@@ -108,6 +113,7 @@ Consider what happens when an Infiltrator gets damaged while already flickering.
                 spawn{FlickerCharacter(FortCharacter)}
                 Logger.Print("Spawned a FlickerEvent for this character")
    ```
+
 5. If the agent was already flickering, you only need to reset its value in `PlayerVisibilitySeconds` to `VulnerableSeconds`. Remember that the `FlickerCharacter()` function from earlier will be asynchronously reading this value, so if the value is reset while `FlickerCharacter()` is looping, it will continue to loop without `break`'ing. Your `StartOrResetFlickering()` function should look like following:
 
    ```verse
@@ -154,6 +160,7 @@ To tie all these functions together, you're going to define a function that hand
             loop:
                 if(IsVisibilityShared?, CurrentTeam := TeamCollection.GetTeam[InAgent], TeamAgents := TeamCollection.GetAgents[CurrentTeam]):
    ```
+
 5. Now in a `for` loop, call `StartOrResetFlickering` on each Teammate.
 
    ```verse
@@ -163,6 +170,7 @@ To tie all these functions together, you're going to define a function that hand
                 Logger.Print("Calling StartOrResetFlickering on a Teammate")
                     StartOrResetFlickering(Teammate)
    ```
+
 6. If visibility is not shared, then call `StartOrResetFlickering` on the agent this function monitors.
 
    ```verse
@@ -177,6 +185,7 @@ To tie all these functions together, you're going to define a function that hand
                 Logger.Print("Calling StartOrResetFlickering on InAgent")
                 StartOrResetFlickering(InAgent)
    ```
+
 7. Finally at the end of the loop, `Await()` the given character's `DamagedEvent()`. This way the loop will only iterate when a character is damaged. Note that this loop will run at least once when the function starts, which means at least one call to `StartOrResetFlickering()`. Because of this, the Infiltrators start the game flickering, then go invisible. This helps to remind the Infiltrators that they're invisible, but also that invisibility is not permanent. Your `OnInfiltratorDamaged()` function should look like the following:
 
    ```verse

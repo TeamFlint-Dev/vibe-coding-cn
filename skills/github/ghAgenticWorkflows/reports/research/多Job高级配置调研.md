@@ -1,7 +1,7 @@
 # GitHub Agentic Workflows 多 Job 高级配置调研
 
 > **原始资料**: [shared/gh-aw-raw/aw/github-agentic-workflows.md](shared/gh-aw-raw/aw/github-agentic-workflows.md)
-> 
+>
 > 本文档仅供阅读参考，不会被自动应用到工作流中。
 
 ## 概述
@@ -22,6 +22,7 @@
 用于在 AI Agent 执行前后添加自定义步骤。
 
 **适用场景**：
+
 - AI Agent 执行前需要数据准备（搜索 Issue、收集信息）
 - 需要条件判断是否运行 AI Agent
 - 需要多阶段串行或并行处理
@@ -62,6 +63,7 @@ engine: copilot
 ```
 
 **关键点**：
+
 - 自定义 Job 可以通过 `needs:` 依赖系统自动生成的 Job（如 `pre_activation`, `activation`）
 - 自定义 Job 的 `outputs` 可以在 Prompt 或其他 Job 中使用
 - 主 AI Agent Job 可以用顶层 `if:` 条件决定是否执行
@@ -73,10 +75,12 @@ engine: copilot
 用于在 AI Agent 完成后执行**写操作**（发邮件、发 Slack 消息、调用外部 API）。
 
 **⚠️ 重要规则**：
+
 - **不要用 `post-steps:` 做写操作**！`post-steps:` 仅用于清理/日志
 - 所有 AI Agent 触发的外部写操作**必须**使用 `safe-outputs.jobs:`
 
 **适用场景**：
+
 - 发送通知（Email、Slack、Discord、Teams）
 - 创建/更新外部系统记录（Notion、Jira、数据库）
 - 触发部署或调用 Webhook
@@ -141,6 +145,7 @@ safe-outputs:
 ```
 
 **关键点**：
+
 - `safe-outputs.jobs:` 下的 Job 在 AI Agent 完成后自动执行
 - 这些 Job 可以访问 `$GH_AW_AGENT_OUTPUT` 环境变量获取 Agent 输出
 - 输入通过 `inputs:` 定义，支持 `string`、`choice` 等类型
@@ -443,6 +448,7 @@ safe-outputs:
 ```
 
 **工作原理**：
+
 1. Agent 分析并选择要处理的 Issue
 2. 输出 `assign_to_agent` 类型的 JSON
 3. Safe Output Job 调用 GitHub API 将 `@copilot` 添加为 assignee
@@ -477,6 +483,7 @@ safe-outputs:
 ```
 
 **工作原理**：
+
 1. Agent 生成详细的任务描述
 2. 输出 `create_agent_task` 类型的 JSON
 3. Safe Output Job 执行 `gh agent-task create --from-file <file> --base <branch>`
@@ -486,6 +493,7 @@ safe-outputs:
 **认证要求**：需要 `COPILOT_GITHUB_TOKEN` 或 `GH_AW_GITHUB_TOKEN`
 
 **权限要求**：
+
 - `contents: write` - 创建分支和提交
 - `issues: write` - 创建/分配 Issue
 - `pull-requests: write` - 创建 PR

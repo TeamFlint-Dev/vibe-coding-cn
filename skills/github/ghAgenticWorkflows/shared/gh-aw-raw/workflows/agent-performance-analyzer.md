@@ -40,6 +40,7 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 ### 1. Agent Output Quality Analysis
 
 **Analyze safe output quality:**
+
 - Review issues, PRs, and comments created by agents
 - Assess quality dimensions:
   - **Clarity:** Are outputs clear and well-structured?
@@ -51,6 +52,7 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 - Identify agents producing low-quality outputs
 
 **Review code changes:**
+
 - For agents creating PRs:
   - Check if changes compile and pass tests
   - Assess code quality and style compliance
@@ -60,6 +62,7 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 - Identify agents with high PR rejection rates
 
 **Analyze communication quality:**
+
 - Review issue and comment tone and professionalism
 - Check for appropriate emoji and formatting usage
 - Assess responsiveness to follow-up questions
@@ -68,6 +71,7 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 ### 2. Agent Effectiveness Measurement
 
 **Task completion rates:**
+
 - Track how often agents complete their intended tasks using historical metrics
 - Measure:
   - Issues resolved vs. created (from metrics data)
@@ -79,6 +83,7 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 - Compare current rates to historical averages (7-day and 30-day trends)
 
 **Decision quality:**
+
 - Review strategic decisions made by orchestrator agents
 - Assess:
   - Appropriateness of priority assignments
@@ -88,6 +93,7 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 - Track decision outcomes (were recommendations followed? did they work?)
 
 **Resource efficiency:**
+
 - Measure agent efficiency:
   - Time to complete tasks
   - Number of safe output operations used
@@ -99,6 +105,7 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 ### 3. Behavioral Pattern Analysis
 
 **Identify problematic patterns:**
+
 - **Over-creation:** Agents creating too many issues/PRs/comments
 - **Under-creation:** Agents not producing expected outputs
 - **Repetition:** Agents creating duplicate or redundant work
@@ -107,12 +114,14 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 - **Inconsistency:** Agent behavior varying significantly between runs
 
 **Detect bias and drift:**
+
 - Check if agents show preference for certain types of tasks
 - Identify agents consistently over/under-prioritizing certain areas
 - Detect prompt drift (behavior changing over time without configuration changes)
 - Flag agents that may need prompt refinement
 
 **Analyze collaboration patterns:**
+
 - Track how agents interact with each other's outputs
 - Identify productive collaborations (agents building on each other's work)
 - Detect conflicts (agents undoing each other's work)
@@ -121,18 +130,21 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 ### 4. Agent Ecosystem Health
 
 **Coverage analysis:**
+
 - Map what areas of the codebase/repository agents cover
 - Identify gaps (areas with no agent coverage)
 - Find redundancy (areas with too many agents)
 - Assess balance across different types of work
 
 **Agent diversity:**
+
 - Track distribution of agent types (copilot, claude, codex)
 - Analyze engine-specific performance patterns
 - Identify opportunities to leverage different agent strengths
 - Recommend agent type for different tasks
 
 **Lifecycle management:**
+
 - Identify inactive agents (not running or producing outputs)
 - Flag deprecated agents that should be retired
 - Recommend consolidation opportunities
@@ -141,6 +153,7 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 ### 5. Quality Improvement Recommendations
 
 **Agent prompt improvements:**
+
 - Identify agents that could benefit from:
   - More specific instructions
   - Better context or examples
@@ -149,12 +162,14 @@ As a meta-orchestrator for agent performance, you assess how well AI agents are 
 - Recommend specific prompt changes
 
 **Configuration optimization:**
+
 - Suggest better tool configurations
 - Recommend timeout adjustments
 - Propose permission refinements
 - Optimize safe output limits
 
 **Training and guidance:**
+
 - Identify common agent mistakes
 - Recommend shared guidance documents
 - Suggest new skills or templates
@@ -185,6 +200,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
    - Calculate week-over-week and month-over-month changes
 
 **Use metrics data to:**
+
 - Avoid redundant API queries (metrics already collected)
 - Compare current performance to historical baselines
 - Identify trends (improving, declining, stable)
@@ -192,6 +208,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
 - Benchmark individual workflows against ecosystem averages
 
 **Read from shared memory:**
+
 1. Check for existing files in the memory directory:
    - `metrics/latest.json` - Latest performance metrics (NEW - use this first!)
    - `metrics/daily/*.json` - Historical daily metrics for trend analysis (NEW)
@@ -206,6 +223,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
    - Coordinate actions to avoid duplicate issues or conflicting recommendations
 
 **Write to shared memory:**
+
 1. Save your current run's summary as `agent-performance-latest.md`:
    - Agent quality scores and rankings
    - Top performers and underperformers
@@ -219,6 +237,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
    - Performance patterns requiring campaign adjustments
 
 **Format for memory files:**
+
 - Use markdown format only
 - Include timestamp and workflow name at the top
 - Keep files concise (< 10KB recommended)
@@ -261,7 +280,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
 
 ### Phase 2: Quality Assessment (10 minutes)
 
-4. **Evaluate output quality:**
+1. **Evaluate output quality:**
    - For a sample of outputs from each agent:
      - Rate clarity (1-5)
      - Rate accuracy (1-5)
@@ -270,14 +289,14 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
    - Calculate average quality score
    - Identify quality outliers (very high or very low)
 
-5. **Assess effectiveness:**
+2. **Assess effectiveness:**
    - Calculate task completion rates
    - Measure time-to-completion
    - Track merge rates for PRs
    - Evaluate user engagement with outputs
    - Compute effectiveness score (0-100)
 
-6. **Analyze resource efficiency:**
+3. **Analyze resource efficiency:**
    - Calculate average run time
    - Measure safe output usage rate
    - Estimate API quota consumption
@@ -285,32 +304,32 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
 
 ### Phase 3: Pattern Detection (5 minutes)
 
-7. **Identify behavioral patterns:**
+1. **Identify behavioral patterns:**
    - Detect over/under-creation patterns
    - Find repetition or duplication
    - Identify scope creep instances
    - Flag inconsistent behavior
 
-8. **Analyze collaboration:**
+2. **Analyze collaboration:**
    - Map agent interactions
    - Find productive collaborations
    - Detect conflicts or redundancy
    - Identify coordination gaps
 
-9. **Assess coverage:**
+3. **Assess coverage:**
    - Map agent coverage across repository
    - Identify gaps and redundancy
    - Evaluate balance of agent types
 
 ### Phase 4: Insights and Recommendations (3 minutes)
 
-10. **Generate insights:**
+1. **Generate insights:**
     - Rank agents by quality score
     - Identify top performers and underperformers
     - Detect systemic issues affecting multiple agents
     - Find optimization opportunities
 
-11. **Develop recommendations:**
+2. **Develop recommendations:**
     - Specific improvements for low-performing agents
     - Ecosystem-wide optimizations
     - New agent opportunities
@@ -318,7 +337,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
 
 ### Phase 5: Reporting (2 minutes)
 
-12. **Create performance report:**
+1. **Create performance report:**
     - Generate comprehensive discussion with:
       - Executive summary
       - Agent rankings and scores
@@ -326,7 +345,7 @@ The Metrics Collector workflow runs daily and stores performance metrics in a st
       - Detailed recommendations
       - Action items
 
-13. **Create improvement issues:**
+2. **Create improvement issues:**
     - For critical agent issues: Create detailed improvement issue
     - For systemic problems: Create architectural discussion
     - Link all issues to the performance report
@@ -524,30 +543,35 @@ Create a weekly discussion with this structure:
 ## Important Guidelines
 
 **Fair and objective assessment:**
+
 - Base all scores on measurable metrics
 - Consider agent purpose and context
 - Compare agents within their category (don't compare campaign orchestrators to worker workflows)
 - Acknowledge when issues may be due to external factors (API issues, etc.)
 
 **Actionable insights:**
+
 - Every insight should lead to a specific recommendation
 - Recommendations should be implementable (concrete changes)
 - Include expected impact of each recommendation
 - Prioritize based on effort vs. impact
 
 **Constructive feedback:**
+
 - Frame findings positively when possible
 - Focus on improvement opportunities, not just problems
 - Recognize and celebrate high performers
 - Provide specific examples for both good and bad patterns
 
 **Continuous improvement:**
+
 - Track improvements over time
 - Measure impact of previous recommendations
 - Adjust evaluation criteria based on learnings
 - Update benchmarks as ecosystem matures
 
 **Comprehensive analysis:**
+
 - Review agents across all categories (campaigns, health, utilities, etc.)
 - Consider both quantitative metrics (scores) and qualitative factors (behavior patterns)
 - Look at system-level patterns, not just individual agents
@@ -556,6 +580,7 @@ Create a weekly discussion with this structure:
 ## Success Metrics
 
 Your effectiveness is measured by:
+
 - Improvement in overall agent quality scores over time
 - Increase in agent effectiveness rates
 - Reduction in problematic behavioral patterns

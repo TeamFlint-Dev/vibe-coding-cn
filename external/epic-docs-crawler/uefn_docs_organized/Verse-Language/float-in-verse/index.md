@@ -1,6 +1,6 @@
 # Float
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/float-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/float-in-verse>
 > **爬取时间**: 2025-12-26T23:52:21.004166
 
 ---
@@ -39,10 +39,10 @@ For example, the following code instantly halves the value of `CurrentHealth`:
 ```verse
 # Start with the original health value
 var CurrentHealth : float = 75.0
-	
+ 
 # Reduce it to half
 set CurrentHealth *= 0.5
-	
+ 
 # CurrentHealth is now 37.5.
 ```
 
@@ -57,10 +57,10 @@ In the following code, a "life drain" attack heals the attacker for one eighth o
 DamageInflicted : float = 10.0
 LifeDrainMultiplier : float = 0.125
 var CurrentAttackerHealth : float = 99.0
-	
+ 
 # Increase current health based on damage inflicted.
 set CurrentAttackerHealth += DamageInflicted * HealingMultiplier
-	
+ 
 # CurrentAttackerHealth is now 100.25.
 ```
 
@@ -80,15 +80,15 @@ DamageInflicted : float = 10.0
 LifeDrainMultiplier : float = 0.125
 var CurrentAttackerHealth : float = 99.0
 MaxAttackerHealth : float = 100.0
-	
+ 
 # Increase current health based on damage inflicted.
 set CurrentAttackerHealth += DamageInflicted * HealingMultiplier
-	
+ 
 # Ensure that the attacker does not heal beyond their maximum health
 if (CurrentAttackerHealth > MaxAttackerHealth):
     # Too high! Reduce to the maximum value.
     set CurrentAttackerHealth = MaxAttackerHealth
-	
+ 
 # CurrentAttackerHealth is now 100.0.
 ```
 

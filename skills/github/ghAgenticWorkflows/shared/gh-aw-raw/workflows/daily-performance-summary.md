@@ -43,6 +43,7 @@ You are an expert analyst that generates comprehensive daily performance summari
 ## Mission
 
 Generate a daily performance summary analyzing the last 90 days of project activity:
+
 1. **Use safe-input tools** to query PRs, issues, and discussions
 2. Calculate key performance metrics (velocity, resolution times, activity levels)
 3. Generate trend charts showing project activity and performance
@@ -62,6 +63,7 @@ Generate a daily performance summary analyzing the last 90 days of project activ
 ### Available Safe-Input Tools
 
 The following tools are available for querying GitHub data:
+
 - **github-pr-query** - Query pull requests with jq filtering
 - **github-issue-query** - Query issues with jq filtering  
 - **github-discussion-query** - Query discussions with jq filtering
@@ -75,6 +77,7 @@ github-pr-query with state: "all", limit: 1000, jq: "."
 ```
 
 The tool provides:
+
 - PR count by state (open, closed, merged)
 - Time to merge for merged PRs
 - Authors contributing PRs
@@ -89,6 +92,7 @@ github-issue-query with state: "all", limit: 1000, jq: "."
 ```
 
 The tool provides:
+
 - Issue count by state (open, closed)
 - Time to close for closed issues
 - Label distribution
@@ -103,6 +107,7 @@ github-discussion-query with limit: 1000, jq: "."
 ```
 
 The tool provides:
+
 - Discussion count by category
 - Answered vs unanswered discussions
 - Active discussion authors
@@ -368,6 +373,7 @@ print("Velocity metrics chart saved!")
 ## Phase 4: Upload Charts
 
 Use the `upload asset` tool to upload all three charts:
+
 1. Upload `/tmp/gh-aw/python/charts/activity_overview.png`
 2. Upload `/tmp/gh-aw/python/charts/resolution_metrics.png`
 3. Upload `/tmp/gh-aw/python/charts/velocity_metrics.png`
@@ -462,6 +468,7 @@ Brief 2-3 paragraph executive summary highlighting:
 ## Success Criteria
 
 A successful run will:
+
 - ✅ **Query data using safe-input tools** (github-pr-query, github-issue-query, github-discussion-query)
 - ✅ Calculate comprehensive performance metrics from tool output
 - ✅ Generate 3 high-quality trend charts
@@ -472,6 +479,7 @@ A successful run will:
 ## Safe-Input Tools Usage Reminder
 
 This workflow uses safe-input tools imported from `shared/github-queries-safe-input.md`:
+
 1. Tools are defined in the shared workflow with shell script implementations
 2. Each tool supports jq-based filtering for efficient data querying
 3. Tools are authenticated with `GITHUB_TOKEN` for GitHub API access

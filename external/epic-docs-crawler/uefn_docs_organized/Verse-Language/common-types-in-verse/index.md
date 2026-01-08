@@ -1,6 +1,6 @@
 # Common Types
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/common-types-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/common-types-in-verse>
 > **爬取时间**: 2025-12-26T23:52:52.387601
 
 ---
@@ -17,32 +17,32 @@ The following pages describe the common types of Verse:
 
 Logic
 
-The logic type represents the Boolean values true and false.](https://dev.epicgames.com/documentation/en-us/fortnite/logic-in-verse)[![Int](https://dev.epicgames.com/community/api/documentation/image/8decb59c-4ee8-4147-ab27-d947f58dd688?resizing_type=fit&width=640&height=640)
+The logic type represents the Boolean values true and false.](<https://dev.epicgames.com/documentation/en-us/fortnite/logic-in-verse)[![Int>](<https://dev.epicgames.com/community/api/documentation/image/8decb59c-4ee8-4147-ab27-d947f58dd688?resizing_type=fit&width=640&height=640>)
 
 Int
 
-The int type represents integer (non-fractional number) values.](https://dev.epicgames.com/documentation/en-us/fortnite/int-in-verse)[![Float](https://dev.epicgames.com/community/api/documentation/image/e39f7e56-3f93-47d2-937f-97d688e2b15c?resizing_type=fit&width=640&height=640)
+The int type represents integer (non-fractional number) values.](<https://dev.epicgames.com/documentation/en-us/fortnite/int-in-verse)[![Float>](<https://dev.epicgames.com/community/api/documentation/image/e39f7e56-3f93-47d2-937f-97d688e2b15c?resizing_type=fit&width=640&height=640>)
 
 Float
 
-The float type represents all non-integer numerical values. It can hold large values and precise fractions.](https://dev.epicgames.com/documentation/en-us/fortnite/float-in-verse)[![String](https://dev.epicgames.com/community/api/documentation/image/1fd3ea7a-7c0d-4dea-bcf1-a4e529b04c54?resizing_type=fit&width=640&height=640)
+The float type represents all non-integer numerical values. It can hold large values and precise fractions.](<https://dev.epicgames.com/documentation/en-us/fortnite/float-in-verse)[![String>](<https://dev.epicgames.com/community/api/documentation/image/1fd3ea7a-7c0d-4dea-bcf1-a4e529b04c54?resizing_type=fit&width=640&height=640>)
 
 String
 
-The string type represents non-numerical values like words, names, sentences, and other collections of characters.](https://dev.epicgames.com/documentation/en-us/fortnite/string-in-verse)[![Rational](https://dev.epicgames.com/community/api/documentation/image/3af49836-b19d-4549-bc4b-10fb2a5ea546?resizing_type=fit&width=640&height=640)
+The string type represents non-numerical values like words, names, sentences, and other collections of characters.](<https://dev.epicgames.com/documentation/en-us/fortnite/string-in-verse)[![Rational>](<https://dev.epicgames.com/community/api/documentation/image/3af49836-b19d-4549-bc4b-10fb2a5ea546?resizing_type=fit&width=640&height=640>)
 
 Rational
 
-The rational type is used as the result of integer division.](https://dev.epicgames.com/documentation/en-us/fortnite/rational-in-verse)[![Any](https://dev.epicgames.com/community/api/documentation/image/10698879-a819-4c66-b956-803caad59804?resizing_type=fit&width=640&height=640)
+The rational type is used as the result of integer division.](<https://dev.epicgames.com/documentation/en-us/fortnite/rational-in-verse)[![Any>](<https://dev.epicgames.com/community/api/documentation/image/10698879-a819-4c66-b956-803caad59804?resizing_type=fit&width=640&height=640>)
 
 Any
 
-Any is the supertype of all types, meaning whatever behavior is defined for it is also defined for all the any subtypes.](https://dev.epicgames.com/documentation/en-us/fortnite/any-in-verse)[![Comparable](https://dev.epicgames.com/community/api/documentation/image/6c3addbb-ae62-46d0-b665-8959d351896c?resizing_type=fit&width=640&height=640)
+Any is the supertype of all types, meaning whatever behavior is defined for it is also defined for all the any subtypes.](<https://dev.epicgames.com/documentation/en-us/fortnite/any-in-verse)[![Comparable>](<https://dev.epicgames.com/community/api/documentation/image/6c3addbb-ae62-46d0-b665-8959d351896c?resizing_type=fit&width=640&height=640>)
 
 Comparable
 
-A subtype of any, comparable adds the requirement that any value of this type can be compared to any other value of this type.](https://dev.epicgames.com/documentation/en-us/fortnite/comparable-in-verse)[![Void](https://dev.epicgames.com/community/api/documentation/image/3a01a400-ef16-4523-afd9-782576c6e6c6?resizing_type=fit&width=640&height=640)
+A subtype of any, comparable adds the requirement that any value of this type can be compared to any other value of this type.](<https://dev.epicgames.com/documentation/en-us/fortnite/comparable-in-verse)[![Void>](<https://dev.epicgames.com/community/api/documentation/image/3a01a400-ef16-4523-afd9-782576c6e6c6?resizing_type=fit&width=640&height=640>)
 
 Void
 
-The void type can only be used as a return type of a function and indicates that the result of the function is not useful.](https://dev.epicgames.com/documentation/en-us/fortnite/void-in-verse)
+The void type can only be used as a return type of a function and indicates that the result of the function is not useful.](<https://dev.epicgames.com/documentation/en-us/fortnite/void-in-verse>)

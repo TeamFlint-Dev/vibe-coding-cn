@@ -1,6 +1,6 @@
 # Animating Prop Movement
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-in-verse>
 > **爬取时间**: 2025-12-26T23:19:00.426950
 
 ---
@@ -21,24 +21,24 @@ To see a platformer tutorial like this one using Scene Graph, check out the [Sce
 
 1. Making Movable Props With Verse
 
-Learn how to use Verse to animate prop movement with Verse to build a Fall Guys obstacle course.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-1-making-movable-props-in-verse)[![2. Moving Props with Animations](https://dev.epicgames.com/community/api/documentation/image/eef23c78-e1f2-4438-97ff-0d44e347cde6?resizing_type=fit&width=640&height=640)
+Learn how to use Verse to animate prop movement with Verse to build a Fall Guys obstacle course.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-1-making-movable-props-in-verse)[![2>. Moving Props with Animations](<https://dev.epicgames.com/community/api/documentation/image/eef23c78-e1f2-4438-97ff-0d44e347cde6?resizing_type=fit&width=640&height=640>)
 
-2. Moving Props with Animations
+1. Moving Props with Animations
 
-Learn how to use this powerful tool to build your own animations and get your props moving!](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-2-moving-props-with-animations-in-verse)[![3. Translating Props](https://dev.epicgames.com/community/api/documentation/image/a15f96c1-838a-4141-bbbd-c4cabd5a5ebd?resizing_type=fit&width=640&height=640)
+Learn how to use this powerful tool to build your own animations and get your props moving!](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-2-moving-props-with-animations-in-verse)[![3>. Translating Props](<https://dev.epicgames.com/community/api/documentation/image/a15f96c1-838a-4141-bbbd-c4cabd5a5ebd?resizing_type=fit&width=640&height=640>)
 
-3. Translating Props
+1. Translating Props
 
-Use translation with Verse to set up obstacles for a Fall Guys course.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-3-translating-props-in-verse)[![4. Rotating Props](https://dev.epicgames.com/community/api/documentation/image/94685952-c1b7-45da-9713-f745ee0041dc?resizing_type=fit&width=640&height=640)
+Use translation with Verse to set up obstacles for a Fall Guys course.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-3-translating-props-in-verse)[![4>. Rotating Props](<https://dev.epicgames.com/community/api/documentation/image/94685952-c1b7-45da-9713-f745ee0041dc?resizing_type=fit&width=640&height=640>)
 
-4. Rotating Props
+1. Rotating Props
 
-Learn how to rotate obstacles on your course Fall Guys course.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-4-rotating-props-in-verse)[![5. Scaling Props](https://dev.epicgames.com/community/api/documentation/image/eb32ad64-f177-436e-9aff-093b15e3ea5b?resizing_type=fit&width=640&height=640)
+Learn how to rotate obstacles on your course Fall Guys course.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-4-rotating-props-in-verse)[![5>. Scaling Props](<https://dev.epicgames.com/community/api/documentation/image/eb32ad64-f177-436e-9aff-093b15e3ea5b?resizing_type=fit&width=640&height=640>)
 
-5. Scaling Props
+1. Scaling Props
 
-Learn how to manipulate object scales with Verse so they grow and shrink.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-5-scaling-props-in-verse)[![6. Combining Movement, Rotation, and Scale](https://dev.epicgames.com/community/api/documentation/image/d6d62e48-faeb-4c2c-9813-430e0dbf9c23?resizing_type=fit&width=640&height=640)
+Learn how to manipulate object scales with Verse so they grow and shrink.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-5-scaling-props-in-verse)[![6>. Combining Movement, Rotation, and Scale](<https://dev.epicgames.com/community/api/documentation/image/d6d62e48-faeb-4c2c-9813-430e0dbf9c23?resizing_type=fit&width=640&height=640>)
 
-6. Combining Movement, Rotation, and Scale
+1. Combining Movement, Rotation, and Scale
 
-Time to combine different aspects of your moving props with Verse to build a Fall Guys obstacle course.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-6-combining-movement-rotation-and-scale-in-verse)
+Time to combine different aspects of your moving props with Verse to build a Fall Guys obstacle course.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-6-combining-movement-rotation-and-scale-in-verse>)

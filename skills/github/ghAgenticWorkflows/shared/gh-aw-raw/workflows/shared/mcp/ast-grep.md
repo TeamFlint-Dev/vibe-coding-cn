@@ -13,6 +13,7 @@ ast-grep is a powerful structural search and replace tool for code. It uses tree
 ### Available Tools
 
 The ast-grep MCP server provides MCP tools for structural code analysis. The specific tools exposed by the server can be discovered using the MCP protocol. This server enables:
+
 - Searching code patterns using tree-sitter grammars
 - Structural code analysis
 - Pattern-based code transformations
@@ -25,7 +26,7 @@ The MCP server exposes ast-grep functionality through its MCP tools interface. W
 
 1. **Unmarshal with dash tag** (problematic Go pattern):
    - Pattern: `json:"-"`
-   - Reference: https://ast-grep.github.io/catalog/go/unmarshal-tag-is-dash.html
+   - Reference: <https://ast-grep.github.io/catalog/go/unmarshal-tag-is-dash.html>
 
 2. **Error handling patterns:**
    - Pattern: `if err != nil { $$$A }`
@@ -35,7 +36,7 @@ The MCP server exposes ast-grep functionality through its MCP tools interface. W
 
 ### More Information
 
-- Documentation: https://ast-grep.github.io/
-- Go patterns catalog: https://ast-grep.github.io/catalog/go/
-- Pattern syntax guide: https://ast-grep.github.io/guide/pattern-syntax.html
-- Docker image: https://hub.docker.com/r/mcp/ast-grep
+- Documentation: <https://ast-grep.github.io/>
+- Go patterns catalog: <https://ast-grep.github.io/catalog/go/>
+- Pattern syntax guide: <https://ast-grep.github.io/guide/pattern-syntax.html>
+- Docker image: <https://hub.docker.com/r/mcp/ast-grep>

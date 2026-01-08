@@ -1,6 +1,6 @@
 # 2. Modify the Emitter
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/dust-tutorial-2-modify-the-emitter-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/dust-tutorial-2-modify-the-emitter-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:41:24.558536
 
 ---
@@ -84,6 +84,6 @@ This effect works great for a room with a large amount of light, but what if you
 
 [![3. Edit the Spawn Effect Shape](https://dev.epicgames.com/community/api/documentation/image/ca7dbd7c-51af-47ce-a70d-c554d8d4eb55?resizing_type=fit&width=640&height=640)
 
-3. Edit the Spawn Effect Shape
+1. Edit the Spawn Effect Shape
 
-Create a shaft of illuminated dust particles.](https://dev.epicgames.com/documentation/en-us/fortnite/dust-tutorial-3-edit-the-spawn-effect-shape-in-unreal-editor-for-fortnite)
+Create a shaft of illuminated dust particles.](<https://dev.epicgames.com/documentation/en-us/fortnite/dust-tutorial-3-edit-the-spawn-effect-shape-in-unreal-editor-for-fortnite>)

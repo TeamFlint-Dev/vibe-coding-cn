@@ -1,6 +1,6 @@
 # Tuple
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tuple-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tuple-in-verse>
 > **爬取时间**: 2025-12-26T23:51:01.850864
 
 ---

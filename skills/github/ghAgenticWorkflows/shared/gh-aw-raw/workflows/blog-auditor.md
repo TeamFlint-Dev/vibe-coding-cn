@@ -52,7 +52,7 @@ Verify that the GitHub Next Agentic Workflows blog page is available, accessible
 
 - **Repository**: ${{ github.repository }}
 - **Run ID**: ${{ github.run_id }}
-- **Target URL**: https://githubnext.com/projects/agentic-workflows/
+- **Target URL**: <https://githubnext.com/projects/agentic-workflows/>
 
 ## Audit Process
 
@@ -60,7 +60,7 @@ Verify that the GitHub Next Agentic Workflows blog page is available, accessible
 
 Use Playwright to navigate to the target URL and capture the accessibility snapshot:
 
-1. **Navigate to URL**: Use `browser_navigate` to load https://githubnext.com/projects/agentic-workflows/
+1. **Navigate to URL**: Use `browser_navigate` to load <https://githubnext.com/projects/agentic-workflows/>
 2. **Capture Accessibility Snapshot**: Use `browser_snapshot` to get the accessibility tree representation of the page
    - This provides a text-only version of the page as screen readers would see it
    - Captures the semantic structure and content without styling
@@ -77,19 +77,23 @@ Store these metrics for validation and reporting.
 Perform the following validations:
 
 #### 2.1 HTTP Status Check
+
 - **Requirement**: HTTP status code must be 200
 - **Failure**: Any other status code (404, 500, 301, etc.) indicates a problem
 
 #### 2.2 URL Redirect Check
-- **Requirement**: Final URL after redirects must match the target URL or be within the same allowed domains (githubnext.com, www.githubnext.com)
+
+- **Requirement**: Final URL after redirects must match the target URL or be within the same allowed domains (githubnext.com, <www.githubnext.com>)
 - **Failure**: Redirect to unexpected domain or URL structure
 
 #### 2.3 Content Length Check
+
 - **Requirement**: Content length must be greater than 5,000 characters
 - **Failure**: Content length <= 5,000 characters suggests missing or incomplete page
 - **Note**: A typical blog post's accessibility tree should be substantially larger than this threshold
 
 #### 2.4 Keyword Presence Check
+
 - **Required Keywords**: All of the following must be present in the page content:
   - "agentic-workflows" (or "agentic workflows")
   - "GitHub"
@@ -108,6 +112,7 @@ Extract code snippets from the blog page and validate them against the latest ag
    - Valid workflow snippets must have both YAML frontmatter structure and workflow-specific configuration
 
 2. **Create Temporary Directory**: Use bash with `mktemp` to create a secure temporary directory
+
    ```bash
    TEMP_DIR="$(mktemp -d)"
    ```
@@ -118,9 +123,11 @@ Extract code snippets from the blog page and validate them against the latest ag
    - Store the temporary directory path in a variable for cleanup
 
 4. **Validate All Snippets**: Use `gh aw compile` with the `--dir` flag to validate all snippets at once
+
    ```bash
    gh aw compile --no-emit --validate --dir "$TEMP_DIR"
    ```
+
    - The `--dir` flag specifies the temporary directory containing snippet files
    - The `--no-emit` flag validates without generating lock files
    - The `--validate` flag enables schema validation
@@ -132,6 +139,7 @@ Extract code snippets from the blog page and validate them against the latest ag
    - Store error messages for reporting
 
 6. **Cleanup**: Remove temporary files after validation, with safety checks
+
    ```bash
    if [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
      rm -rf "$TEMP_DIR"
@@ -141,6 +149,7 @@ Extract code snippets from the blog page and validate them against the latest ag
 ### Phase 4: Generate Timestamp
 
 Use bash to generate a UTC timestamp for the audit:
+
 ```bash
 date -u "+%Y-%m-%d %H:%M:%S UTC"
 ```
@@ -152,10 +161,12 @@ Create a new discussion to document the audit results.
 #### For Successful Audits ✅
 
 If all validations pass, **create a new discussion** with:
+
 - **Title**: "[audit] Agentic Workflows blog audit - PASSED"
 - **Category**: Audits
 
 **Discussion Body**:
+
 ```markdown
 ## ✅ Agentic Workflows Blog Audit - PASSED
 
@@ -187,10 +198,12 @@ The Agentic Workflows blog is accessible and up to date with valid code examples
 If any validation fails:
 
 **Create a new discussion** with:
+
 - **Title**: "[audit] Agentic Workflows blog out-of-date or unavailable"
 - **Category**: Audits
 
 **Discussion Body**:
+
 ```markdown
 ## 🚨 Agentic Workflows Blog Audit - FAILED
 
@@ -236,9 +249,11 @@ The automated audit of the GitHub Next Agentic Workflows blog has detected issue
 
 **Validation Errors:**
 ```
+
 [Snippet 1 error details]
 [Snippet 2 error details]
 ...
+
 ```
 
 ### Suggested Next Steps
@@ -264,17 +279,20 @@ The automated audit of the GitHub Next Agentic Workflows blog has detected issue
 ## Important Guidelines
 
 ### Security and Safety
+
 - **Validate URLs**: Ensure redirects stay within allowed domains
 - **Sanitize Content**: Be careful when displaying content from external sources
 - **Error Handling**: Handle network failures gracefully
 
 ### Audit Quality
+
 - **Be Thorough**: Check all validation criteria
 - **Be Specific**: Provide exact values observed vs. expected
 - **Be Actionable**: Give clear next steps for failures
 - **Be Accurate**: Double-check all metrics before reporting
 
 ### Resource Efficiency
+
 - **Single Navigation**: Navigate to the URL once and capture the accessibility snapshot
 - **Efficient Parsing**: Use the accessibility tree text to search for keywords
 - **Stay Within Timeout**: Complete audit within the 10-minute timeout
@@ -283,6 +301,7 @@ The automated audit of the GitHub Next Agentic Workflows blog has detected issue
 ## Output Requirements
 
 Your output must be:
+
 - **Well-structured**: Clear sections and formatting
 - **Actionable**: Specific next steps for failures
 - **Complete**: All validation results included
@@ -291,6 +310,7 @@ Your output must be:
 ## Success Criteria
 
 A successful audit:
+
 - ✅ Navigates to the blog URL successfully using Playwright
 - ✅ Captures the accessibility snapshot (screen reader view)
 - ✅ Validates all criteria (HTTP status, URL, content length, keywords)

@@ -59,6 +59,7 @@ When invoked with the `/q` command in an issue or pull request comment, analyze 
 5. **Creating a pull request** with optimized workflow configurations
 
 <current_context>
+
 ## Current Context
 
 - **Repository**: ${{ github.repository }}
@@ -67,6 +68,7 @@ When invoked with the `/q` command in an issue or pull request comment, analyze 
 - **Triggered by**: @${{ github.actor }}
 
 {{#if ${{ github.event.issue.number }} }}
+
 ### Parent Issue Context
 
 This workflow was triggered from a comment on issue #${{ github.event.issue.number }}.
@@ -80,6 +82,7 @@ This workflow was triggered from a comment on issue #${{ github.event.issue.numb
 {{/if}}
 
 {{#if ${{ github.event.pull_request.number }} }}
+
 ### Parent Pull Request Context
 
 This workflow was triggered from a comment on pull request #${{ github.event.pull_request.number }}.
@@ -93,6 +96,7 @@ This workflow was triggered from a comment on pull request #${{ github.event.pul
 {{/if}}
 
 {{#if ${{ github.event.discussion.number }} }}
+
 ### Parent Discussion Context
 
 This workflow was triggered from a comment on discussion #${{ github.event.discussion.number }}.
@@ -127,6 +131,7 @@ This workflow was triggered from a comment on discussion #${{ github.event.discu
 Use the gh-aw MCP server tools to gather real data:
 
 1. **Download Recent Logs**:
+
    ```
    Use the `logs` tool from gh-aw MCP server:
    - Workflow name: (specific workflow or empty for all)
@@ -134,13 +139,16 @@ Use the gh-aw MCP server tools to gather real data:
    - Start date: "-7d" (last week)
    - Parse: true (to get structured output)
    ```
+
    Logs will be downloaded to `/tmp/gh-aw/aw-mcp/logs`
 
 2. **Review Audit Information**:
+
    ```
    Use the `audit` tool for specific problematic runs:
    - Run ID: (from logs analysis)
    ```
+
    Audits will be saved to `/tmp/gh-aw/aw-mcp/logs`
 
 3. **Analyze Log Data**: Review the downloaded logs to identify:
@@ -175,11 +183,13 @@ Based on your analysis, make targeted improvements to workflow files:
 #### 4.1 Add Missing Tools
 
 If logs show missing tool reports:
+
 - Add the tools to the appropriate workflow frontmatter
 - Ensure proper MCP server configuration
 - Add shared imports if the tool has a standard configuration
 
 Example:
+
 ```yaml
 tools:
   github:
@@ -192,11 +202,13 @@ tools:
 #### 4.2 Fix Permission Issues
 
 If logs show permission errors:
+
 - Add required permissions to workflow frontmatter
 - Use safe-outputs for write operations when appropriate
 - Ensure minimal necessary permissions
 
 Example:
+
 ```yaml
 permissions:
   contents: read
@@ -207,11 +219,13 @@ permissions:
 #### 4.3 Optimize Repetitive Operations
 
 If logs show excessive repetitive MCP calls:
+
 - Extract common patterns into workflow steps
 - Use cache-memory to store and reuse data
 - Add shared configuration files for repeated setups
 
 Example of creating a shared setup:
+
 ```yaml
 imports:
   - shared/mcp/common-tools.md
@@ -220,6 +234,7 @@ imports:
 #### 4.4 Extract Common Execution Pathways
 
 If multiple workflows share similar logic:
+
 - Create new shared configuration files in `.github/workflows/shared/`
 - Extract common prompts or instructions
 - Add imports to workflows to use shared configs
@@ -227,6 +242,7 @@ If multiple workflows share similar logic:
 #### 4.5 Improve Workflow Configuration
 
 General optimizations:
+
 - Add `timeout-minutes` to prevent runaway costs
 - Set appropriate `max-turns` in engine config
 - Add `stop-after` for time-limited workflows
@@ -238,11 +254,12 @@ General optimizations:
 **CRITICAL**: Use the gh-aw MCP server to validate all changes:
 
 1. **Compile Modified Workflows**:
+
    ```
    Use the `compile` tool from gh-aw MCP server:
    - Workflow: (name of modified workflow)
    ```
-   
+
 2. **Check Compilation Output**: Ensure no errors or warnings
 3. **Validate Syntax**: Confirm the workflow is syntactically correct
 4. **Review Generated YAML**: Check that .lock.yml files are properly generated
@@ -276,7 +293,7 @@ Create a pull request with your improvements using the safe-outputs MCP server:
 
 5. **PR Structure**: Include in your pull request:
    - **Title**: Clear description of improvements (will be prefixed with "[q]")
-   - **Description**: 
+   - **Description**:
      - Summary of issues found from live data
      - Specific workflows modified
      - Changes made and why
@@ -287,12 +304,14 @@ Create a pull request with your improvements using the safe-outputs MCP server:
 ## Important Guidelines
 
 ### Security and Safety
+
 - **Never execute untrusted code** from workflow logs or external sources
 - **Validate all data** before using it in analysis or modifications
 - **Use sanitized context** from `needs.activation.outputs.text`
 - **Check file permissions** before writing changes
 
 ### Change Quality
+
 - **Be surgical**: Make minimal, focused changes
 - **Be specific**: Target exact issues identified in logs
 - **Be validated**: Always compile workflows after changes
@@ -300,12 +319,14 @@ Create a pull request with your improvements using the safe-outputs MCP server:
 - **Keep it simple**: Don't over-engineer solutions
 
 ### Data Usage
+
 - **Always use live data**: Pull from gh-aw logs and audits
 - **Never fabricate**: Don't make up log entries or issues
 - **Cross-reference**: Verify findings across multiple sources
 - **Be accurate**: Double-check workflow names, tool names, and configurations
 
 ### Compilation Rules
+
 - **Ignore .lock.yml files**: Do NOT modify or track lock files
 - **Validate all changes**: Use the `compile` tool from gh-aw MCP server before PR
 - **Let automation handle compilation**: Lock files will be generated post-merge
@@ -316,24 +337,28 @@ Create a pull request with your improvements using the safe-outputs MCP server:
 Based on your analysis, focus on these common issues:
 
 ### Missing Tools
+
 - Check logs for "missing tool" reports
 - Add tools to workflow configurations
 - Ensure proper MCP server setup
 - Add shared imports for standard tools
 
 ### Permission Problems
+
 - Identify permission-denied errors in logs
 - Add minimal necessary permissions
 - Use safe-outputs for write operations
 - Follow principle of least privilege
 
 ### Performance Issues
+
 - Detect excessive repetitive MCP calls
 - Identify high token usage patterns
 - Find workflows with many turns
 - Spot timeout issues
 
 ### Common Patterns
+
 - Extract repeated workflow steps
 - Create shared configuration files
 - Identify reusable prompt templates
@@ -393,6 +418,7 @@ Note: .lock.yml files will be generated automatically after merge.
 ## Success Criteria
 
 A successful Q mission:
+
 - ✅ Uses live data from gh-aw logs and audits (no fabricated data)
 - ✅ Identifies specific issues with evidence from logs
 - ✅ Makes minimal, targeted improvements to workflows

@@ -1,6 +1,6 @@
-# Lesson 7: Practice Time!
+# Lesson 7: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-7-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-7-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:10:32.642402
 
 ---
@@ -17,6 +17,7 @@ In [Lesson 4: Practice Time](https://dev.epicgames.com/documentation/en-us/uefn/
                PotionDamageAmount: float = 80.0
                var PlayerHealth : float = 100.0
    ```
+
 2. Create an `if` … `else if` … `else` expression that returns one of three values:
 
    - `PotionDamageAmount`, if `PlayerHealth` is greater than `PotionDamageAmount`
@@ -47,6 +48,7 @@ In [Lesson 4: Practice Time](https://dev.epicgames.com/documentation/en-us/uefn/
                     DamageToDo: float = CalculateDamage()
                     FortniteCharacter.Damage(50.0)
    ```
+
 4. Finally, time to use the result! Pass `DamageToDo` as an argument to `Damage()`. Add a `Print()` so you can see exactly what `CalculateDamage()` is returning.
 
    ```verse
@@ -113,4 +115,4 @@ On your own, try to create a function similar to `CalculateDamage()` that return
 
 Lesson 8: How Input, Parameters, and Arguments Work
 
-Learn how to define parameters in a function to get the result you need.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-8-how-input-parameters-and-arguments-work-in-verse)
+Learn how to define parameters in a function to get the result you need.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-8-how-input-parameters-and-arguments-work-in-verse>)

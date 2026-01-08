@@ -12,6 +12,7 @@
 **核心职责**：管理玩家的能力提升和进度解锁。
 
 **设计目标**：
+
 - 提供明确的成长感和目标
 - 升级效果立竿见影
 - 费用曲线合理，不卡进度也不过快
@@ -47,6 +48,7 @@
 | 10 | +5% | +45% | 2,562 | 7,486 |
 
 **费用公式**：
+
 ```
 UpgradeCost(level) = Floor(100 × 1.5^(level-2))
 ```
@@ -354,6 +356,7 @@ OnRarityBonusChanged(NewBonus : float) : void =
 **升级系统机制设计完成** ✅
 
 **全部 5 个核心系统机制设计完成：**
+
 - ✅ `@mechanics/fishing.md` - 钓鱼系统
 - ✅ `@mechanics/trophy.md` - 战利品系统
 - ✅ `@mechanics/base.md` - 基地系统

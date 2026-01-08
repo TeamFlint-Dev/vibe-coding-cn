@@ -73,6 +73,7 @@ find pkg -name '*.go' ! -name '*_test.go' -type f -exec wc -l {} \; | sort -rn |
 ```
 
 Extract:
+
 - **File path**: Full path to the largest file
 - **Line count**: Number of lines in the file
 
@@ -116,6 +117,7 @@ fi
 ```
 
 Calculate:
+
 - **Test-to-source ratio**: If test file exists, compute (test LOC / source LOC)
 - **Missing tests**: Identify areas needing additional test coverage
 
@@ -222,6 +224,7 @@ Add comprehensive tests for each new file:
 Your output MUST either:
 
 1. **If largest file < 800 lines**: Output a simple status message
+
    ```
    ✅ All files are healthy! Largest file: [FILE_PATH] ([LINE_COUNT] lines)
    No refactoring needed today.
@@ -304,11 +307,13 @@ To support enterprise reporting and visual trends for the
 ## Serena Configuration
 
 The Serena MCP server is configured for this workspace with:
+
 - **Context**: codex
 - **Project**: ${{ github.workspace }}
 - **Memory**: `/tmp/gh-aw/cache-memory/serena/`
 
 Use Serena to:
+
 - Analyze semantic relationships between functions
 - Identify duplicate or similar code patterns
 - Suggest logical module boundaries

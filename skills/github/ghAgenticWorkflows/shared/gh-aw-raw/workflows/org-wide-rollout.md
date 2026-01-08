@@ -66,6 +66,7 @@ safe-outputs:
 ## Why Campaigns Solve This (Not GitHub Actions)
 
 **Problem**: "Update all 200 repos from Node 18 → Node 20" or "Add CODEOWNERS to all repos" requires:
+
 - Discovery of all affected repos
 - Dependency analysis (which repos depend on which)
 - Phased rollout (batch 1 → test → batch 2)
@@ -87,11 +88,13 @@ safe-outputs:
 #### 1. Discover Target Repos
 
 **Query GitHub** for repos matching `${{ github.event.inputs.target_repos }}`:
+
 - If pattern like "githubnext/*": List all org repos
 - If comma-separated: Parse specific repos
 - Filter: Active repos (not archived), with required access
 
 **Store discovery** in `memory/campaigns/org-rollout-${{ github.run_id }}/discovery.json`:
+
 ```json
 {
   "campaign_id": "org-rollout-${{ github.run_id }}",
@@ -112,11 +115,13 @@ safe-outputs:
 #### 2. Analyze Dependencies
 
 **For each discovered repo**:
+
 - Check if it's a dependency of other repos (package.json, go.mod, etc.)
 - Check if it depends on other discovered repos
 - Build dependency graph
 
 **Store dependency graph** in `memory/campaigns/org-rollout-${{ github.run_id }}/dependencies.json`:
+
 ```json
 {
   "dependency_graph": {
@@ -148,6 +153,7 @@ Use `create-issue`:
 **Labels**: `campaign-tracker`, `tracker:org-rollout-${{ github.run_id }}`, `org-rollout`, `type:${{ github.event.inputs.rollout_type }}`
 
 **Body**:
+
 ```markdown
 # Org-Wide Rollout Campaign
 
@@ -201,6 +207,7 @@ gh pr list --search "tracker:org-rollout-${{ github.run_id }}"
 ---
 
 **Updates will be posted after each batch completes**
+
 ```
 
 ### Phase 2: Batch Execution
@@ -342,6 +349,7 @@ Reply with:
 #### 7. Execute Remaining Batches
 
 Repeat steps 4-6 for each batch, respecting:
+
 - Dependency order (batch N only starts after dependencies in batch N-1 succeed)
 - Approval gates (if enabled)
 - Rollback threshold (stop if >10% failure rate)
@@ -399,6 +407,7 @@ Campaign closed.
 #### 9. Generate Learnings
 
 Create `memory/campaigns/org-rollout-${{ github.run_id }}/learnings.json`:
+
 ```json
 {
   "campaign_id": "org-rollout-${{ github.run_id }}",
@@ -456,6 +465,7 @@ Create `memory/campaigns/org-rollout-${{ github.run_id }}/learnings.json`:
 ## Output
 
 Provide summary:
+
 - Campaign ID: `org-rollout-${{ github.run_id }}`
 - Command center issue: #[number]
 - Rollout type: ${{ github.event.inputs.rollout_type }}

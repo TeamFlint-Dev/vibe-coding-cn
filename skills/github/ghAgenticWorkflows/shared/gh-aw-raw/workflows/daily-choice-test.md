@@ -64,10 +64,12 @@ This workflow tests the choice type functionality in safe-output jobs with Claud
 ## Task
 
 Use the `test_environment` tool to configure a test deployment. Choose:
+
 1. An environment: staging or production
 2. A test type: smoke, integration, or e2e
 
 Make your selection based on the day of the week:
+
 - Monday/Wednesday/Friday: Use "staging" environment with "smoke" tests
 - Tuesday/Thursday: Use "production" environment with "integration" tests
 

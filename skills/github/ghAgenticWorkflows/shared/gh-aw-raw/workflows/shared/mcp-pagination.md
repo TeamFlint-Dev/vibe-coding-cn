@@ -5,6 +5,7 @@ MCP tool responses have a **25,000 token limit**. When GitHub API responses exce
 ### Common Scenarios
 
 **Problem**: Fetching large result sets without pagination
+
 - `list_pull_requests` with many PRs (75,897 tokens in one case)
 - `pull_request_read` with large diff/comments (31,675 tokens observed)
 - `search_issues`, `search_code` with many results

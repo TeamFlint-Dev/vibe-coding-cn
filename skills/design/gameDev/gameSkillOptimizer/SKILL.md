@@ -105,17 +105,21 @@ description: "技能优化器：基于审计报告直接修改 SKILL.md，实现
 ---
 
 ### [4] 2025-12-26 14:00 - gameMechanicsDesigner
+
 ...
 
-### [3] ...
-### [2] ...
-### [1] ...
+### [3]
+
+### [2]
+
+### [1]
 
 ---
 
 ## 归档记录
 
 超过 5 条的历史记录存储在 `@evolution-log-archive.md`
+
 ```
 
 ### 修改验证检查
@@ -132,11 +136,13 @@ description: "技能优化器：基于审计报告直接修改 SKILL.md，实现
 ### 回滚机制
 
 ```
+
 修改前自动备份: SKILL.md.bak
 │
 ├── 验证通过？
 │   ├── 是 → 删除备份，记录日志
 │   └── 否 → 恢复备份，报告失败
+
 ```
 
 ## Examples
@@ -156,15 +162,18 @@ description: "技能优化器：基于审计报告直接修改 SKILL.md，实现
 **输出**:
 
 ```
+
 已完成优化：
 
 ✅ gameEconomyDesigner (2 项修改)
-   - 🔴 已修复: 添加变量定义表
-   - 🟠 已修复: 新增边界示例
+
+- 🔴 已修复: 添加变量定义表
+- 🟠 已修复: 新增边界示例
 
 评分变化: 72 → 91 (+19)
 
 已记录到 @evolution-log.md
+
 ```
 
 ### Example 2: 快速优化模式
@@ -182,15 +191,18 @@ description: "技能优化器：基于审计报告直接修改 SKILL.md，实现
 **输出**:
 
 ```
+
 快速优化完成：
 
 审计 → 优化 → 验证 循环执行
 
 修改统计:
+
 - gameEconomyDesigner: 72 → 95 (+23)
 - gameMechanicsDesigner: 85 → 92 (+7)
 
 总问题: 5 → 0 (全部修复)
+
 ```
 
 ### Example 3: 进化日志滚动
@@ -207,10 +219,12 @@ description: "技能优化器：基于审计报告直接修改 SKILL.md，实现
 **输出**:
 
 ```
+
 已归档: [1] 2025-12-20 gameConceptDesigner
 
 当前日志保留 5 条最新记录
 归档记录已存入 @evolution-log-archive.md
+
 ```
 
 ## References

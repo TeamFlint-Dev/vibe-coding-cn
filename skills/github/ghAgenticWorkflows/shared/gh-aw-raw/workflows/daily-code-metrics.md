@@ -60,6 +60,7 @@ Analyze codebase daily: compute size, quality, health metrics. Track 7/30-day tr
 ## Data Storage
 
 Store as JSON Lines in `/tmp/gh-aw/repo-memory/default/history.jsonl`:
+
 ```json
 {"date": "2024-01-15", "timestamp": 1705334400, "metrics": {"size": {...}, "quality": {...}, "tests": {...}, "churn": {...}, "workflows": {...}, "docs": {...}}}
 ```
@@ -71,8 +72,10 @@ Generate **6 high-quality charts** to visualize code metrics and trends using Py
 ### Required Charts
 
 #### 1. LOC by Language (`loc_by_language.png`)
+
 **Type**: Horizontal bar chart
 **Content**: Distribution of lines of code by programming language
+
 - Sort by LOC descending
 - Include percentage labels on bars
 - Use color-coding by language type (e.g., compiled vs interpreted)
@@ -80,8 +83,10 @@ Generate **6 high-quality charts** to visualize code metrics and trends using Py
 - Save to: `/tmp/gh-aw/python/charts/loc_by_language.png`
 
 #### 2. Top Directories (`top_directories.png`)
+
 **Type**: Horizontal bar chart
 **Content**: Top 10 directories by lines of code
+
 - Show full directory paths
 - Display LOC count and percentage of total codebase
 - Highlight key directories (cmd, pkg, docs, workflows)
@@ -89,8 +94,10 @@ Generate **6 high-quality charts** to visualize code metrics and trends using Py
 - Save to: `/tmp/gh-aw/python/charts/top_directories.png`
 
 #### 3. Quality Score Breakdown (`quality_score_breakdown.png`)
+
 **Type**: Stacked bar or pie chart with breakdown
 **Content**: Quality score component breakdown
+
 - Test Coverage: 30%
 - Code Organization: 25%
 - Documentation: 20%
@@ -101,8 +108,10 @@ Generate **6 high-quality charts** to visualize code metrics and trends using Py
 - Save to: `/tmp/gh-aw/python/charts/quality_score_breakdown.png`
 
 #### 4. Test Coverage (`test_coverage.png`)
+
 **Type**: Grouped bar chart or side-by-side comparison
 **Content**: Test vs source code comparison
+
 - Test LOC vs Source LOC by language
 - Test-to-source ratio visualization
 - Include trend indicator if historical data available
@@ -110,8 +119,10 @@ Generate **6 high-quality charts** to visualize code metrics and trends using Py
 - Save to: `/tmp/gh-aw/python/charts/test_coverage.png`
 
 #### 5. Code Churn (`code_churn.png`)
+
 **Type**: Diverging bar chart
 **Content**: Top 10 most changed files in last 7 days
+
 - Show lines added (positive) and deleted (negative)
 - Net change highlighting
 - Color-code by file type
@@ -119,8 +130,10 @@ Generate **6 high-quality charts** to visualize code metrics and trends using Py
 - Save to: `/tmp/gh-aw/python/charts/code_churn.png`
 
 #### 6. Historical Trends (`historical_trends.png`)
+
 **Type**: Multi-line time series chart
 **Content**: Track key metrics over 30 days
+
 - Total LOC trend line
 - Test coverage percentage trend line
 - Quality score trend line
@@ -206,6 +219,7 @@ After generating charts:
    - Collect the returned URLs for embedding
 
 2. **Embed in discussion report**:
+
    ```markdown
    ## 📊 Visualizations
    
@@ -389,4 +403,3 @@ Weighted average: Test coverage (30%), Code organization (25%), Documentation (2
 - Upload charts as assets for permanent URLs
 - Embed charts in discussion report with analysis
 - Store metrics to repo memory, create discussion report with visualizations
-

@@ -1,6 +1,6 @@
 # 5. Scaling Props
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-5-scaling-props-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-5-scaling-props-in-verse>
 > **爬取时间**: 2025-12-27T00:40:38.226023
 
 ---
@@ -21,6 +21,7 @@ Follow these steps to build the code that scales your props:
         # A prop that scales toward either a given scale or a Creative prop's scale.
         scaling_prop<public> := class<concrete>(movable_prop):
    ```
+
 2. Add the `using { /Fortnite.com/Devices/CreativeAnimation }` and `using { /UnrealEngine.com/Temporary/SpatialMath }` statements to the top of the file to import these modules. You’ll need these to animate your prop. The tooltips used in this section are also included here.
 
    ```verse
@@ -34,6 +35,7 @@ Follow these steps to build the code that scales your props:
         # A prop that scales toward either a given scale or a Creative prop's scale.
         scaling_prop<public> := class<concrete>(movable_prop):
    ```
+
 3. At the top of the `scaling_prop` class definition, add the following fields.
 
    1. An editable `vector3` array `ScaleTargets`. These are the scales that your prop will grow and shrink to. After `Move()` completes, the prop’s scale will be multiplied by this value.
@@ -43,6 +45,7 @@ Follow these steps to build the code that scales your props:
        @editable {ToolTip := MoveTargetsTip}
        var ScaleTargets:[]vector3= array{}
       ```
+
    2. An editable optional `creative_prop` named `MatchScaleTarget`. If you want your prop to scale to match another prop’s scale, you can set this value rather than using the `ScaleTargets`. For example, you could use this if you wanted to create a series of platforms that all grew to the same size before resetting.
 
       ```verse
@@ -50,12 +53,14 @@ Follow these steps to build the code that scales your props:
        @editable {ToolTip := MatchScaleTargetTip}
        var MatchScaleTarget:?creative_prop = false
       ```
+
    3. A variable `rotation` named `TargetScale`. This is the scale the prop is currently scaling toward.
 
       ```verse
        # The scale the prop is currently targeting.
        var TargetScale:vector3 = vector3{}
       ```
+
 4. Your final class definition should look like this:
 
    ```verse
@@ -80,6 +85,7 @@ Follow these steps to build the code that scales your props:
             # The scale the prop is currently targeting.
             var TargetScale:vector3 = vector3{}
    ```
+
 5. Since you already set up the `Move()` function that moves your prop in `movable_prop`, you can override it in this class. Override the `Move()` function in your `scaling_prop` class. In `Move()`, first, check if the `MatchScaleTarget` is set and save it in a variable `ScaleToMatch`. If so, set the `TargetScale` to the `ScaleToMatch`, then call `MoveToEase()`, passing in the `TargetScale`, the `MoveDuration`, the `MoveEaseType`, and `animation_mode.OneShot`. This is the `MoveToEase()` function you overloaded earlier that only modifies the scale.
 
    ```verse
@@ -94,6 +100,7 @@ Follow these steps to build the code that scales your props:
                 # Call MoveToEase to start scaling the prop. The OneShot animation mode will play the animation once.
                 RootProp.MoveToEase(MoveDuration, TargetScale, MoveEaseType, animation_mode.OneShot)
    ```
+
 6. If you didn’t set a `MatchScaleTarget`, then you need to iterate through your `ScaleTargets` array. In a `for` expression, iterate through each `ScaleTarget` in `ScaleTargets` and set the `TargetScale` to the `ScaleTarget`. Then call `MoveToEase()`, passing the same values as before. Your complete `Move()` function should look like this:
 
    ```verse
@@ -118,6 +125,7 @@ Follow these steps to build the code that scales your props:
                     # Call MoveToEase to start scaling the prop. The OneShot animation mode will play the animation once.
                     RootProp.MoveToEase(MoveDuration, TargetScale, MoveEaseType, animation_mode.OneShot)
    ```
+
 7. In your `prop_animator` device class, add a new editable array of `scaling_prop` named `ScalingProps`. Add another `for` expression to `OnBegin()` that loops through all the scaling props and calls `Setup()` on them. Your updated `prop_animator` class should look like this:
 
    ```verse
@@ -161,6 +169,7 @@ Follow these steps to build the code that scales your props:
                 do:
                     Prop.Setup()
    ```
+
 8. Save your code and compile it.
 
 ## Linking Props to Devices
@@ -186,9 +195,9 @@ In the next section, you’ll combine movement, rotation, and scale to create pr
 
 [![6. Combining Movement, Rotation, and Scale](https://dev.epicgames.com/community/api/documentation/image/d6d62e48-faeb-4c2c-9813-430e0dbf9c23?resizing_type=fit&width=640&height=640)
 
-6. Combining Movement, Rotation, and Scale
+1. Combining Movement, Rotation, and Scale
 
-Time to combine different aspects of your moving props with Verse to build a Fall Guys obstacle course.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-6-combining-movement-rotation-and-scale-in-verse)
+Time to combine different aspects of your moving props with Verse to build a Fall Guys obstacle course.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-6-combining-movement-rotation-and-scale-in-verse>)
 
 ## Complete Code
 

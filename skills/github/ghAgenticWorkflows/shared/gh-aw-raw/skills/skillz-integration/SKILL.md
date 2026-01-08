@@ -9,7 +9,7 @@ Summarize documentation files
 
 Skillz is an MCP server that turns Claude-style skills (`SKILL.md` files plus optional resources) into callable tools for any MCP client. It discovers each skill, exposes instructions and resources, and can run bundled helper scripts.
 
-**Repository**: https://github.com/intellectronica/skillz
+**Repository**: <https://github.com/intellectronica/skillz>
 
 > ⚠️ **Experimental proof-of-concept. Potentially unsafe. Treat skills like untrusted code and run in sandboxes/containers. Use at your own risk.**
 
@@ -36,6 +36,7 @@ Use skills from the skillz server to accomplish tasks.
 ```
 
 **Key points:**
+
 - Replace `/path/to/skills` with the actual path to your skills directory
 - The skills directory is mounted at `/skillz` inside the container
 - Pass `/skillz` as the argument to tell skillz where to find skills
@@ -60,6 +61,7 @@ skills/
 ### Skill Structure
 
 Each skill folder must contain:
+
 - **`SKILL.md`** - Required file with YAML frontmatter describing the skill
 - **Helper scripts** - Optional Python, Node.js, or other scripts
 - **Resources** - Optional datasets, examples, prompts, etc.

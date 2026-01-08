@@ -168,6 +168,7 @@ Safe-outputs 是 gh-aw 的核心安全机制，所有写操作都通过这个沙
 | hide-comment                   | 隐藏评论              | -                                     | ❌      |
 
 > **临时 ID 说明**:
+>
 > - `生产者`: 可以输出 `temporary_id`，供其他 Job 消费
 > - `✅`: 支持解析临时 ID（`aw_xxxxxxxxxxxx` 格式）
 > - `⚠️ 不支持`: 明确不支持临时 ID，使用时需确保传入真实 issue_number
@@ -227,6 +228,7 @@ safe-outputs:
 ```
 
 **优势**：
+
 - `issue-assigner` 触发时，真实 Issue 编号已存在于 `github.event.issue.number`
 - 绕过 `create-issue.assignees` 编译器 Bug
 - 可复用：任何创建 `[Plan]` 前缀 Issue 的 workflow 都会自动触发分配
@@ -248,6 +250,7 @@ safe-outputs:
 **结果**：Agent 调用成功，但 Handler 找不到输出文件，任务不会被创建。
 
 **日志特征**：
+
 ```
 safe_outputs  Create Agent Task  No GITHUB_AW_AGENT_OUTPUT environment variable found
 ```
@@ -265,11 +268,13 @@ safe_outputs  Create Agent Task  No GITHUB_AW_AGENT_OUTPUT environment variable 
 #### Bug 1: 编译器不传入配置
 
 编译后的 `GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG` 仅包含 `max`：
+
 ```json
 {"create_issue":{"max":1}}  // ← 没有 assignees, labels, title-prefix
 ```
 
 配置被转为工具描述文本：
+
 ```
 "Assignees [copilot] will be automatically assigned."  // ← 仅文本提示
 ```
@@ -279,12 +284,14 @@ safe_outputs  Create Agent Task  No GITHUB_AW_AGENT_OUTPUT environment variable 
 **即使手动将 assignees 添加到 handler config，handler 也不处理它**！
 
 手动测试（Issue #75）：
+
 ```yaml
 # 手动修改 lock.yml
 GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"create_issue\":{\"max\":1,\"assignees\":[\"copilot\"],\"labels\":[\"research-task\",\"copilot-task\"],\"title_prefix\":\"[Research] \"}}"
 ```
 
 结果：
+
 - ✅ Labels: 正确应用
 - ✅ Title Prefix: 正确应用
 - ❌ **Assignees: 仍然为空**
@@ -327,6 +334,7 @@ gh issue edit <number> --add-assignee copilot
 **方案 3: 使用 copilot-task 标签**
 
 手动修改 lock.yml 添加 labels config（labels 手动添加后可生效）：
+
 ```json
 {"create_issue":{"max":1,"labels":["copilot-task"]}}
 ```
@@ -369,6 +377,7 @@ gh api \
 ```
 
 **关键点**：
+
 - 必须使用 PAT（`COPILOT_GITHUB_TOKEN`），默认 `GITHUB_TOKEN` 权限不足
 - assignee 格式为 `copilot-swe-agent[bot]`（带 `[bot]` 后缀）
 - 完整方案详见 [启动 Agent 替代方案调研](research-reports/启动Agent替代方案调研-2026-01-04.md)

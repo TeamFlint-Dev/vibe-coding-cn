@@ -1,11 +1,11 @@
 # Movement and Interaction
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/sample-tutorial-02-movement-and-interaction-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/sample-tutorial-02-movement-and-interaction-in-fortnite>
 > **爬取时间**: 2025-12-27T02:39:00.131377
 
 ---
 
-The lanterns in the Scene Graph tutorial use multiple Verse-authored components to create 
+The lanterns in the Scene Graph tutorial use multiple Verse-authored components to create
 dynamic and interactive prefabs. This is possible by programming movement and interactability into a Verse-authored component.
 
 ## Simulating Simple Movement

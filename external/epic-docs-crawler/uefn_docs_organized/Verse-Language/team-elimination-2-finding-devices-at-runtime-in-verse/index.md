@@ -1,6 +1,6 @@
 # 2. Finding Devices at Runtime
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-2-finding-devices-at-runtime-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-2-finding-devices-at-runtime-in-verse>
 > **爬取时间**: 2025-12-27T00:18:57.903387
 
 ---
@@ -20,6 +20,7 @@ This section shows how to find the devices at runtime that you set up earlier.
        using { /Fortnite.com/Teams }
        using { /Verse.org/Simulation }
      ```
+
 3. In the `team_elimination_game` class definition, add the following fields:
 
    - An [editable](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#editable) `item_granter_device` [array](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) [variable](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) named `WeaponGranters` to store all the item granters needed to grant weapons to players.
@@ -28,34 +29,40 @@ This section shows how to find the devices at runtime that you set up earlier.
        @editable
        var WeaponGranters : []item_granter_device = array{}
      ```
+
    - An integer variable named `EliminationsToEndGame` to represent the number of eliminations needed for one player to win for their team. A team wins once one of their players advances past the final weapon in the sequence.
 
      ```verse
        var EliminationsToEndGame : int = 0
      ```
+
    - An editable `end_game_device` named `EndGameDevice` to end the game once a team reaches `EliminationsToEndGame`.
 
      ```verse
        @editable
        EndGameDevice : end_game_device = end_game_device{}
      ```
+
    - An editable `sentry_device` array variable named `Sentries` to store the sentries for testing eliminations.
 
      ```verse
        @editable
        var Sentries : []sentry_device = array{}
      ```
+
    - An editable `player_spawner_device` array variable named `PlayerSpawners` to store the player spawn pads for both teams.
 
      ```verse
        @editable
        var PlayerSpawners : []player_spawner_device = array{}
      ```
+
    - A team array variable named `Teams` to store a reference to each team in the game.
 
      ```verse
        var Teams : []team = array{}
      ```
+
    - Your `team_elimination_game` class definition should now look like the code below:
 
      ```verse
@@ -71,6 +78,7 @@ This section shows how to find the devices at runtime that you set up earlier.
            var EliminationsToEndGame : int = 0
            var Teams : []team = array{}
      ```
+
 4. In `OnBegin()`, update the `Teams` array with each team that you set up earlier in **Island Settings**. You can use the `GetTeams()` function from the `fort_team_collection` API to get an array of all teams in the playspace.
 
    ```verse
@@ -78,6 +86,7 @@ This section shows how to find the devices at runtime that you set up earlier.
             # Get all the players
             set Teams = GetPlayspace().GetTeamCollection().GetTeams()
    ```
+
 5. Set the `EliminationsToEndGame` to the length of `WeaponGranters`. This ensures that the game only ends once a player progresses past the final weapon. Your `OnBegin()` code should now look like the code below:
 
    ```verse
@@ -87,6 +96,7 @@ This section shows how to find the devices at runtime that you set up earlier.
            set EliminationsToEndGame = WeaponGranters.Length
            Print("Number of eliminations to end game is {EliminationsToEndGame}")
    ```
+
 6. Save the script in Visual Studio Code, and in the UEFN toolbar, click **Verse**, then **Build Verse Code** to update your Verse-authored device in the level.
 7. Select the **team\_elimination\_game** device. In the **Details** panel, add each **Item Granter** to the **WeaponGranters** array, each **Player Spawn Pad** to the **PlayerSpawners** array, each **Sentry** to **Sentries**, and the **End Game Device** to **EndGameDevice.**
 

@@ -68,27 +68,32 @@ find .github/workflows -name "*.lock.yml" | wc -l
 For each lock file, extract the following patterns using `yq`:
 
 **Action Uses Patterns** (GitHub Actions being used):
+
 ```bash
 yq '.jobs.*.steps[].uses' .github/workflows/*.lock.yml | grep -v "^---$" | grep -v "^null$" | sort -u
 ```
 
 **Artifact Names** (uploaded/downloaded artifacts):
+
 ```bash
 yq '.jobs.*.steps[] | select(.uses | contains("upload-artifact")) | .with.name' .github/workflows/*.lock.yml | grep -v "^---$" | grep -v "^null$" | sort -u
 yq '.jobs.*.steps[] | select(.uses | contains("download-artifact")) | .with.name' .github/workflows/*.lock.yml | grep -v "^---$" | grep -v "^null$" | sort -u
 ```
 
 **Job Names** (common job patterns):
+
 ```bash
 yq '.jobs | keys' .github/workflows/*.lock.yml | grep -v "^---$" | sort -u
 ```
 
 **File Paths Referenced** (paths in checkout, setup steps, etc.):
+
 ```bash
 yq '.jobs.*.steps[].with.path' .github/workflows/*.lock.yml | grep -v "^---$" | grep -v "^null$" | sort -u
 ```
 
 **Working Directory Patterns**:
+
 ```bash
 yq '.jobs.*.steps[]."working-directory"' .github/workflows/*.lock.yml | grep -v "^---$" | grep -v "^null$" | sort -u
 ```
@@ -98,17 +103,20 @@ yq '.jobs.*.steps[]."working-directory"' .github/workflows/*.lock.yml | grep -v 
 Search Go files in `pkg/workflow/` for common patterns:
 
 **Artifact name constants**:
+
 ```bash
 grep -h "artifact" pkg/workflow/*.go | grep -E "(const|var|string)" | head -20
 ```
 
 **File path patterns**:
+
 ```bash
 grep -h '".github' pkg/workflow/*.go | grep -v "//" | head -20
 grep -h '"pkg/' pkg/workflow/*.go | grep -v "//" | head -20
 ```
 
 **Folder references**:
+
 ```bash
 grep -rh "filepath.Join" pkg/workflow/*.go | head -20
 ```
@@ -118,11 +126,13 @@ grep -rh "filepath.Join" pkg/workflow/*.go | head -20
 Search JavaScript files in `pkg/workflow/js/` for patterns:
 
 **Artifact references**:
+
 ```bash
 grep -h "artifact" pkg/workflow/js/*.cjs | head -20
 ```
 
 **File path patterns**:
+
 ```bash
 grep -h "path" pkg/workflow/js/*.cjs | grep -E "(const|let|var)" | head -20
 ```
@@ -251,6 +261,7 @@ If `specs/layout.md` has changes, use the **create-pull-request** safe-output:
 **PR Title**: `[specs] Update layout specification - [DATE]`
 
 **PR Body**:
+
 ```markdown
 ## Layout Specification Update
 

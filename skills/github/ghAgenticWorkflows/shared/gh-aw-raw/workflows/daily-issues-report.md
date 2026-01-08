@@ -41,6 +41,7 @@ You are an expert analyst that generates comprehensive daily reports about repos
 ## Mission
 
 Generate a daily report analyzing up to 1000 issues from the repository:
+
 1. Cluster issues by topic/theme using natural language analysis
 2. Calculate various metrics (open/closed rates, response times, label distribution)
 3. Generate trend charts showing issue activity over time
@@ -58,6 +59,7 @@ Generate a daily report analyzing up to 1000 issues from the repository:
 The issues data has been pre-fetched and is available at `/tmp/gh-aw/issues-data/issues.json`.
 
 1. **Load the issues data**:
+
    ```bash
    jq 'length' /tmp/gh-aw/issues-data/issues.json
    ```
@@ -73,12 +75,14 @@ Create a Python script to analyze and cluster the issues. Use scikit-learn for c
 ### Required Analysis
 
 **Clustering Requirements**:
+
 - Use TF-IDF vectorization on issue titles and bodies
 - Apply K-means or hierarchical clustering
 - Identify 5-10 major issue clusters/themes
 - Label each cluster based on common keywords
 
 **Metrics to Calculate**:
+
 - Total issues (open vs closed)
 - Issues opened in last 7, 14, 30 days
 - Average time to close (for closed issues)
@@ -178,6 +182,7 @@ with open('/tmp/gh-aw/python/data/metrics.json', 'w') as f:
 ### Install Additional Libraries
 
 If needed for better clustering:
+
 ```bash
 pip install --user scikit-learn
 ```
@@ -187,14 +192,16 @@ pip install --user scikit-learn
 Generate exactly **2 high-quality charts**:
 
 ### Chart 1: Issue Activity Trends
+
 - **Title**: "Issue Activity - Last 30 Days"
-- **Content**: 
+- **Content**:
   - Line showing issues opened per day
   - Line showing issues closed per day
   - 7-day moving average overlay
 - **Save to**: `/tmp/gh-aw/python/charts/issue_activity_trends.png`
 
 ### Chart 2: Issue Distribution by Cluster
+
 - **Title**: "Issue Clusters by Theme"
 - **Chart Type**: Horizontal bar chart
 - **Content**:
@@ -204,6 +211,7 @@ Generate exactly **2 high-quality charts**:
 - **Save to**: `/tmp/gh-aw/python/charts/issue_clusters.png`
 
 ### Chart Quality Requirements
+
 - DPI: 300 minimum
 - Figure size: 12x7 inches
 - Use seaborn styling with professional colors
@@ -213,6 +221,7 @@ Generate exactly **2 high-quality charts**:
 ## Phase 4: Upload Charts
 
 Use the `upload asset` tool to upload both charts:
+
 1. Upload `/tmp/gh-aw/python/charts/issue_activity_trends.png`
 2. Upload `/tmp/gh-aw/python/charts/issue_clusters.png`
 3. Collect the returned URLs for embedding in the discussion
@@ -320,21 +329,25 @@ Brief 2-3 paragraph summary of key findings: total issues analyzed, main cluster
 ## Important Guidelines
 
 ### Data Quality
+
 - Handle missing fields gracefully (null checks)
 - Validate date formats before processing
 - Skip malformed issues rather than failing
 
 ### Clustering Tips
+
 - If scikit-learn is not available, use keyword-based clustering
 - Focus on meaningful themes, not just statistical clusters
 - Aim for 5-10 clusters maximum for readability
 
 ### Chart Quality
+
 - Use consistent color schemes
 - Make charts readable when embedded in markdown
 - Include proper axis labels and titles
 
 ### Report Quality
+
 - Be specific with numbers and percentages
 - Highlight actionable insights
 - Keep the summary brief but informative
@@ -342,6 +355,7 @@ Brief 2-3 paragraph summary of key findings: total issues analyzed, main cluster
 ## Success Criteria
 
 A successful run will:
+
 - ✅ Load and analyze all available issues data
 - ✅ Cluster issues into meaningful themes
 - ✅ Generate 2 high-quality trend charts

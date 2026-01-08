@@ -258,6 +258,7 @@ Write an upbeat, friendly, motivating summary of recent activity in the repo.
 - Files stored here will be available in the next workflow run via Git branches
 
 **Example use cases**:
+
 - Save aggregated statistics (e.g., `/tmp/gh-aw/repo-memory/default/monthly-stats.json`)
 - Cache processed trend data for faster chart generation
 - Store analysis results that can inform future reports
@@ -308,6 +309,7 @@ Use the pre-downloaded data from `/tmp/gh-aw/daily-news-data/` to generate all s
 2. Execute the Python script to generate the CSVs
 
 **Guardrails**:
+
 - **Maximum issues to process**: 200 (100 open + 100 closed from pre-downloaded data)
 - **Maximum PRs to process**: 130 (50 open + 50 merged + 30 closed from pre-downloaded data)
 - **Maximum commits to process**: 100 (from pre-downloaded data)
@@ -319,6 +321,7 @@ Use the pre-downloaded data from `/tmp/gh-aw/daily-news-data/` to generate all s
 Generate exactly **2 high-quality trend charts**:
 
 **Chart 1: Issues & Pull Requests Activity**
+
 - Multi-line chart showing:
   - Issues opened (line)
   - Issues closed (line)
@@ -330,6 +333,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/issues_prs_trends.png`
 
 **Chart 2: Commit Activity & Contributors**
+
 - Dual-axis chart or stacked visualization showing:
   - Daily commit count (bar chart or line)
   - Number of unique contributors (line with markers)
@@ -338,6 +342,7 @@ Generate exactly **2 high-quality trend charts**:
 - Save as: `/tmp/gh-aw/python/charts/commit_trends.png`
 
 **Chart Quality Requirements**:
+
 - DPI: 300 minimum
 - Figure size: 12x7 inches for better readability
 - Use seaborn styling with a professional color palette
@@ -381,6 +386,7 @@ Include the charts in your daily news discussion report with this structure:
 ### Error Handling
 
 If insufficient data is available (less than 7 days):
+
 - Generate the charts with available data
 - Add a note in the analysis mentioning the limited data range
 - Consider using a bar chart instead of line chart for very sparse data
@@ -388,13 +394,14 @@ If insufficient data is available (less than 7 days):
 ---
 
 **Data Sources** - Use the pre-downloaded files in `/tmp/gh-aw/daily-news-data/`:
+
 - Include some or all of the following from the JSON files:
-  * Recent issues activity (from `issues.json`)
-  * Recent pull requests (from `pull_requests.json`)
-  * Recent discussions (from `discussions.json`)
-  * Recent releases (from `releases.json`)
-  * Recent code changes (from `commits.json`)
-  * Changesets (from `changesets.txt` file list)
+  - Recent issues activity (from `issues.json`)
+  - Recent pull requests (from `pull_requests.json`)
+  - Recent discussions (from `discussions.json`)
+  - Recent releases (from `releases.json`)
+  - Recent code changes (from `commits.json`)
+  - Changesets (from `changesets.txt` file list)
 
 - If little has happened, don't write too much.
 
@@ -411,11 +418,11 @@ If insufficient data is available (less than 7 days):
 - Include a short haiku at the end of the report to help orient the team to the season of their work.
 
 - In a note at the end of the report, include a log of:
-  * All web search queries you used (if any)
-  * All files you read from `/tmp/gh-aw/daily-news-data/`
-  * Summary statistics: number of issues/PRs/commits/discussions analyzed
-  * Date range of data analyzed
-  * Any data limitations encountered
+  - All web search queries you used (if any)
+  - All files you read from `/tmp/gh-aw/daily-news-data/`
+  - Summary statistics: number of issues/PRs/commits/discussions analyzed
+  - Date range of data analyzed
+  - Any data limitations encountered
 
 Create a new GitHub discussion with a title containing today's date (e.g., "Daily Status - 2024-10-10") containing a markdown report with your findings. Use links where appropriate.
 

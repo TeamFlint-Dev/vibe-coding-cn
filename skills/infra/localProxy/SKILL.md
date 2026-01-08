@@ -21,6 +21,7 @@
 ### 问题1：请求超时/连接失败
 
 **症状**：
+
 - SSH 连接超时
 - curl/HTTP 请求返回 503
 - "连接方在一段时间后没有正确答复"
@@ -32,6 +33,7 @@
 ### 问题2：GitHub Actions Runner 下载失败
 
 **症状**：
+
 - `Failed to download action 'actions/checkout@v4'`
 - `不知道这样的主机 (codeload.github.com:443)`
 
@@ -98,6 +100,7 @@ Write-Host "已添加直连规则，请重启 V2RayN"
 ## 重启代理服务
 
 修改配置后必须重启：
+
 - V2RayN 托盘图标 → 右键 → 重启服务
 - 或关闭 V2RayN 后重新打开
 

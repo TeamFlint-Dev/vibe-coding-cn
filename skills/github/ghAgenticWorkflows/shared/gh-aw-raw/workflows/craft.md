@@ -40,7 +40,7 @@ You are an expert workflow designer for GitHub Agentic Workflows. Your task is t
 
 - **Repository**: ${{ github.repository }}
 - **Issue/Comment**: ${{ github.event.issue.number }}
-- **Request**: 
+- **Request**:
 
 <!-- ${{ needs.activation.outputs.text }} -->
 
@@ -59,6 +59,7 @@ cat /home/runner/work/gh-aw/gh-aw/.github/aw/github-agentic-workflows.md
 ```
 
 This file contains the complete specification for agentic workflow format including:
+
 - YAML frontmatter schema
 - Available triggers and permissions
 - Tool configurations
@@ -68,6 +69,7 @@ This file contains the complete specification for agentic workflow format includ
 ### 2. Analyze the Request
 
 Parse the user's request to understand:
+
 - **Workflow purpose**: What should this workflow do?
 - **Trigger**: When should it run? (issues, pull_request, command, schedule, etc.)
 - **Required tools**: What tools does it need? (github, bash, edit, web-fetch, etc.)
@@ -79,6 +81,7 @@ Parse the user's request to understand:
 Create a workflow that includes:
 
 **Frontmatter (YAML):**
+
 - `on:` - Appropriate trigger(s)
 - `permissions:` - Minimal required permissions
 - `engine:` - Default to "copilot"
@@ -87,6 +90,7 @@ Create a workflow that includes:
 - `timeout-minutes:` - Reasonable timeout (typically 10-15 minutes)
 
 **Markdown Content:**
+
 - Clear title describing the workflow's purpose
 - Mission statement explaining what the AI should do
 - Context section with allowed GitHub expressions (see documentation for allowed expressions like `${{ github.repository }}`, `${{ github.event.issue.number }}`, and `${{ needs.activation.outputs.text }}`)
@@ -97,6 +101,7 @@ Create a workflow that includes:
 ### 4. Generate Workflow File
 
 Choose an appropriate filename based on the workflow's purpose:
+
 - Use kebab-case (e.g., `my-workflow.md`)
 - Keep it descriptive but concise
 - Avoid generic names like `workflow.md`
@@ -113,6 +118,7 @@ cd /home/runner/work/gh-aw/gh-aw
 ```
 
 If compilation fails:
+
 1. Review the error messages carefully
 2. Fix the frontmatter or markdown content
 3. Recompile until successful
@@ -122,6 +128,7 @@ If compilation fails:
 **IMPORTANT**: Only commit the `.md` file, NOT the `.lock.yml` file.
 
 After creating and compiling the workflow successfully, use the `push-to-pull-request-branch` safe output to commit and push your changes. The system will automatically:
+
 - Stage the new workflow markdown file
 - Create a commit with an appropriate message
 - Push to the pull request branch
@@ -131,6 +138,7 @@ You don't need to manually run git commands - the `push-to-pull-request-branch` 
 ### 7. Report Results
 
 Add a comment to the issue with:
+
 - ✅ Confirmation that the workflow was created
 - 📝 Filename and path of the new workflow
 - 📋 Brief description of what the workflow does
@@ -140,6 +148,7 @@ Add a comment to the issue with:
 ## Best Practices
 
 ### Workflow Design
+
 - **Keep it focused**: Each workflow should have a single, clear purpose
 - **Use safe-outputs**: Prefer `safe-outputs` over direct write permissions
 - **Minimize permissions**: Request only the permissions actually needed
@@ -147,12 +156,15 @@ Add a comment to the issue with:
 - **Repository-agnostic**: Don't hardcode repository-specific details
 
 ### Security
+
 - **Use sanitized context**: Prefer `${{ needs.activation.outputs.text }}` over raw event fields
 - **Validate inputs**: Check that user requests are reasonable and safe
 - **Minimal tools**: Only enable tools that are actually used
 
 ### Tool Selection
+
 Common tool configurations:
+
 - **GitHub API**: `github: { toolsets: [default] }` or specific toolsets
 - **File editing**: `edit:` (required for creating/modifying files)
 - **Shell commands**: `bash:` with allowed commands
@@ -162,6 +174,7 @@ Common tool configurations:
 ### Common Workflow Patterns
 
 **Issue Triage Bot:**
+
 ```yaml
 on:
   issues:
@@ -173,6 +186,7 @@ safe-outputs:
 ```
 
 **Command Bot:**
+
 ```yaml
 on:
   slash_command:
@@ -185,6 +199,7 @@ safe-outputs:
 ```
 
 **Scheduled Analysis:**
+
 ```yaml
 on:
   schedule: weekly on monday at 09:00
@@ -195,6 +210,7 @@ safe-outputs:
 ```
 
 **Pull Request Review:**
+
 ```yaml
 on:
   pull_request:
@@ -208,6 +224,7 @@ safe-outputs:
 ## Error Handling
 
 If compilation fails:
+
 1. **Read the error message carefully** - it will tell you what's wrong
 2. **Common issues:**
    - Invalid YAML syntax in frontmatter

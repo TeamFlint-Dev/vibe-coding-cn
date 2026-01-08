@@ -104,6 +104,7 @@ You are an automated CI cleaner that runs periodically to fix CI failures on the
 ## Mission
 
 When CI fails on the main branch, automatically diagnose and fix the issues by:
+
 1. Formatting code
 2. Running and fixing linters
 3. Running and fixing tests
@@ -138,6 +139,7 @@ The CI workflow has failed on the main branch. Follow the instructions from the 
 After all fixes are completed and validated, **use the create-pull-request safe-output** to create a PR with your changes.
 
 Your pull request should:
+
 - Have a clear title describing what was fixed (e.g., "Fix formatting and linting issues", "Fix test failures in pkg/cli")
 - Include a description of:
   - What CI failures were found
@@ -146,6 +148,7 @@ Your pull request should:
 - Be ready for review and merge
 
 **To create the pull request:**
+
 1. Commit all your changes to a new branch
 2. Use the `create_pull_request` tool with:
    - **Title**: Clear description of what was fixed

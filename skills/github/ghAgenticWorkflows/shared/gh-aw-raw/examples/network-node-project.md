@@ -36,6 +36,7 @@ Analyze the npm package "{{ inputs.package_name }}" by:
 5. Creating a summary issue with your findings
 
 The network configuration allows access to:
+
 - **defaults**: Basic infrastructure for certificates and system packages
 - **node**: Full Node.js ecosystem (registry.npmjs.org, yarnpkg.com, nodejs.org)
 - **github**: GitHub API for creating the issue

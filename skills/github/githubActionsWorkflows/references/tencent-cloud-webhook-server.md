@@ -73,6 +73,7 @@ chmod 600 /opt/webhook/.env
 ```
 
 **重要参数说明：**
+
 - `GITHUB_PAT`: GitHub Personal Access Token (Classic)，需要 `repo` 权限，用于触发工作流
 - `GITHUB_USER_PAT`: 个人账号的 PAT，用于以用户身份发表 @copilot 评论
 - `WEBHOOK_SECRET`: 与 GitHub Webhook 配置中的 Secret 一致
@@ -91,6 +92,7 @@ ssh -i ~/.ssh/key.pem ubuntu@server "sudo cp /tmp/webhook_server.py /opt/webhook
 ```
 
 **验证文件内容：**
+
 ```bash
 head -5 /opt/webhook/webhook_server.py
 # 应该显示 Python 代码，而不是 "404: Not Found"

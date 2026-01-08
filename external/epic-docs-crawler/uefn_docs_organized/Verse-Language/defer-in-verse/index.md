@@ -1,6 +1,6 @@
 # Defer
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/defer-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/defer-in-verse>
 > **爬取时间**: 2025-12-27T00:20:55.720607
 
 ---
@@ -39,14 +39,14 @@ A `defer` has no result, and cannot be used as an argument or an assignment valu
 
 | defer | defer before an exit |
 | --- | --- |
-| ```verse expression0 defer:     expression1     expression2 expression3 ``` | ```verse name() : type =     expression0     defer:         expression1         expression2     return expression3 ``` |
+| ```verse expression0 defer:     expression1     expression2 expression3``` | ```verse name() : type =     expression0     defer:         expression1         expression2     return expression3``` |
 | [Control flow diagram of defer expression](https://dev.epicgames.com/community/api/documentation/image/a76a2d37-b182-4bb7-b9da-cf9670129b14?resizing_type=fit)  *Click image to enlarge.* | [Control flow diagram of defer expression](https://dev.epicgames.com/community/api/documentation/image/69115a53-915d-4aa8-b54a-2afa133ff173?resizing_type=fit)  *Click image to enlarge.* |
 
 A `defer` expression will only execute if it is encountered before an early exit occurs.
 
 | defer with early return | defer with a canceled async expression |
 | --- | --- |
-| ```verse expression0 if (conditions):     return defer:     expression1 expression2 ``` | ```verse expression0 race:     block: # canceled during slow-async-expression         slow-async-expression         defer:             expression1         expression2      block: # finishes first          fast-async-expression          defer: ``` |
+| ```verse expression0 if (conditions):     return defer:     expression1 expression2``` | ```verse expression0 race:     block: # canceled during slow-async-expression         slow-async-expression         defer:             expression1         expression2      block: # finishes first          fast-async-expression          defer:``` |
 | [Control flow diagram of defer expression with early exit](https://dev.epicgames.com/community/api/documentation/image/80402e62-9f9b-45df-9dee-dee2bfb36cf9?resizing_type=fit)  *Click image to enlarge.* | [Control flow diagram of defer expression with canceled concurrent task](https://dev.epicgames.com/community/api/documentation/image/d7cbd348-628c-4004-9260-38bb7bae0172?resizing_type=fit)  *Click image to enlarge.* |
 
 Multiple `defer` expressions appearing in the same scope accumulate. The order they are executed is the reverse order they are encountered — first-in-last-out (FILO) order. Since the last encountered `defer` in a given scope is executed first, expressions inside that last encountered `defer` can refer to context (such as variables) that will be cleaned up by other `defer` expressions that were encountered earlier and executed later.
@@ -55,7 +55,7 @@ Verse does not have [deterministic destruction](https://dev.epicgames.com/docume
 
 | Multiple defer expressions in a code block | Multiple defer expressions in different code blocks |
 | --- | --- |
-| ```verse expression0 defer:     expression1 expression2 defer:     expression3 expression4 ``` | ```verse expression0 if (conditions):     expression1     defer:         expression2     expression3 expression4 defer:     expression5 expression6 ``` |
+| ```verse expression0 defer:     expression1 expression2 defer:     expression3 expression4``` | ```verse expression0 if (conditions):     expression1     defer:         expression2     expression3 expression4 defer:     expression5 expression6``` |
 | [Control flow diagram of multiple defer expressions](https://dev.epicgames.com/community/api/documentation/image/b650d15e-c5e6-4054-8204-cbeda1330427?resizing_type=fit)  *Click image to enlarge.* | [Control flow diagram of multiple defer expressions in different code blocks](https://dev.epicgames.com/community/api/documentation/image/426f93cb-56a5-4f4f-bf60-93ee1a9d7db3?resizing_type=fit)  *Click image to enlarge.* |
 
 Exiting early is allowed within a `defer` block as long as the exit does not transfer control outside the scope of the `defer`. For example, using a loop with `break` is allowed within a `defer`, but that `break` must keep the code execution within the `defer` block. It cannot refer to a `loop` outside of the `defer` block.
@@ -67,7 +67,7 @@ Remember that `defer` runs last at the time of scope exit. This means that it us
 ```verse
 var MyScore = 5
 defer: 
-	Print(MyScore)
+ Print(MyScore)
 set MyScore = 10
 ```
 
@@ -75,4 +75,4 @@ Using a `defer` expression as the last expression within a scope is the same as 
 
 | Without defer | With defer |
 | --- | --- |
-| ```verse expression0 expression1 expression2 ``` | ```verse expression0 expression1 defer:     expression2 ``` |
+| ```verse expression0 expression1 expression2``` | ```verse expression0 expression1 defer:     expression2``` |

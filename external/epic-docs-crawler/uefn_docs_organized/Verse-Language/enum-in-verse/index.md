@@ -1,6 +1,6 @@
 # Enum
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/enum-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/enum-in-verse>
 > **爬取时间**: 2025-12-27T02:07:59.565511
 
 ---
@@ -33,9 +33,9 @@ Open enums are best used when you expect the number of values in your enum may i
 
 | Action | Code Example |
 | --- | --- |
-| **Creating closed enums:**  Enums are closed by default.  Use the keyword `enum` followed by `{}`. If you want to specify initial elements in the enum, add the enumerators between the `{}`, separated by `,`.  You can explicitly define the enum as **closed** by including the `<closed>` specifier after the `enum` keyword. | ```verse # If not specified, enums are closed by default. direction := enum{Up, Down, Left, Right}  # The same as the previous enum, where its closed nature is explicit. direction := enum<closed>{Up, Down, Left, Right} ``` |
-| **Creating open enums:**  You must explicitly define an **open**enum by including the `<open>` specifier after the `enum` keyword. | ```verse # You can add and reorder enum values, or change this to a <closed> enum direction := enum<open>{Up, Down, Left, Right} ``` |
-| **Accessing an enumerator:** Use `.` on the enum, followed by the enumerator you want to use. For example `direction.Up`. | ```verse direction.Up ``` |
+| **Creating closed enums:**  Enums are closed by default.  Use the keyword `enum` followed by `{}`. If you want to specify initial elements in the enum, add the enumerators between the `{}`, separated by `,`.  You can explicitly define the enum as **closed** by including the `<closed>` specifier after the `enum` keyword. | ```verse # If not specified, enums are closed by default. direction := enum{Up, Down, Left, Right}  # The same as the previous enum, where its closed nature is explicit. direction := enum<closed>{Up, Down, Left, Right}``` |
+| **Creating open enums:**  You must explicitly define an **open**enum by including the `<open>` specifier after the `enum` keyword. | ```verse # You can add and reorder enum values, or change this to a <closed> enum direction := enum<open>{Up, Down, Left, Right}``` |
+| **Accessing an enumerator:** Use `.` on the enum, followed by the enumerator you want to use. For example `direction.Up`. | ```verse direction.Up``` |
 
 ## Persistable Type
 

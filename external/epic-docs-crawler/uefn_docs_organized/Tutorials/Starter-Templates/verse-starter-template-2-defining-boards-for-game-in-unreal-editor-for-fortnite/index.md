@@ -1,6 +1,6 @@
 # 2. Defining Boards for the Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-template-2-defining-boards-for-game-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-template-2-defining-boards-for-game-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:22:14.352226
 
 ---
@@ -208,6 +208,6 @@ We've defined the gameboards and shown how to add as many as you want. In the ne
 
 [![3. Designing Levels](https://dev.epicgames.com/community/api/documentation/image/19ab3795-416b-4ebf-a49b-4f92d594909b?resizing_type=fit&width=640&height=640)
 
-3. Designing Levels
+1. Designing Levels
 
-Learn how to design levels for a top-down camera and controlling a character through commands.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-03-designing-levels-for-in-unreal-editor-for-fortnite)
+Learn how to design levels for a top-down camera and controlling a character through commands.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-03-designing-levels-for-in-unreal-editor-for-fortnite>)

@@ -50,6 +50,7 @@ ffmpeg -i input.mp4 -vn -acodec libopus -ac 1 -ab 12k -application voip -map_met
 ```
 
 **Key flags:**
+
 - `-vn`: No video output
 - `-acodec`: Audio codec (libmp3lame, pcm_s16le, aac, libopus)
 - `-ab`: Audio bitrate (128k, 192k, 256k, 320k, or 12k for transcription)
@@ -58,6 +59,7 @@ ffmpeg -i input.mp4 -vn -acodec libopus -ac 1 -ab 12k -application voip -map_met
 - `-map_metadata -1`: Remove metadata
 
 **For transcription:**
+
 - Use `libopus` codec with OGG format
 - Mono channel (`-ac 1`) is sufficient for speech
 - Low bitrate (12k) keeps file size small
@@ -77,6 +79,7 @@ ffmpeg -i input.mp4 -ss 00:00:05 -frames:v 1 frame.jpg
 ```
 
 **Key flags:**
+
 - `-vf`: Video filter
 - `-fps_mode vfr`: Variable frame rate (for keyframes)
 - `-frame_pts 1`: Include frame presentation timestamp
@@ -97,6 +100,7 @@ ffmpeg -i input.mp4 -vf "select='gt(scene,0.3)',showinfo" -fps_mode passthrough 
 ```
 
 **Scene detection tips:**
+
 - Start with threshold 0.4 and adjust based on results
 - Use `showinfo` filter to see timestamps in logs
 - Lower threshold detects more scenes but may include false positives
@@ -116,6 +120,7 @@ ffmpeg -i input.mp4 -c:v libx264 -crf 23 -c:a aac -b:a 128k output.mp4
 ```
 
 **Quality flags:**
+
 - `-crf`: Constant Rate Factor (0-51, lower=better quality, 23 is default)
 - `18`: Visually lossless
 - `23`: High quality (default)
@@ -139,6 +144,7 @@ ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s
 Compute a SHA-256 hash that uniquely identifies an ffmpeg command and all input files it references. This is useful for caching and detecting when re-processing is needed.
 
 **Steps:**
+
 1. Capture the full ffmpeg command line (exact text with all arguments)
 2. Concatenate the command string with the binary contents of each input file in the same order
 3. Pipe the combined data into `sha256sum` (or `shasum -a 256` on macOS)
@@ -154,8 +160,8 @@ cmd='ffmpeg -i input1.mp4 -i input2.wav -filter_complex "..." -c:v libx264 outpu
 ```
 
 This hash changes only when:
+
 - The ffmpeg command arguments change
 - Any input file content changes
 
 Use this hash as a cache key in `/tmp/gh-aw/ffmpeg/` to avoid reprocessing identical operations.
-

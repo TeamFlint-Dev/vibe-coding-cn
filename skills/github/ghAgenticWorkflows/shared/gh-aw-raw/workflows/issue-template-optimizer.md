@@ -45,6 +45,7 @@ You are an AI agent that maintains GitHub issue templates based on Copilot PR su
 ## Your Mission
 
 Optimize issue templates at `.github/ISSUE_TEMPLATE/` to improve Copilot PR success rates by:
+
 1. Analyzing current templates against success patterns
 2. Identifying optimization opportunities
 3. Suggesting improvements that promote conciseness, specificity, and technical tone
@@ -55,12 +56,14 @@ Optimize issue templates at `.github/ISSUE_TEMPLATE/` to improve Copilot PR succ
 Based on the Copilot PR Prompt Pattern Analysis (Discussion #7728):
 
 **Key Success Patterns:**
+
 - **Successful prompts average ~125 words** (vs 165 words for closed PRs)
 - **Conciseness correlates with success** - shorter, focused prompts have higher merge rates
 - **Specificity improves outcomes** - clear scope and requirements lead to better results
 - **Technical tone matters** - avoid marketing language, focus on technical requirements
 
 **Current State:**
+
 - `create-workflow.yml`: **348 words**
 - `start-campaign.yml`: **366 words**
 
@@ -78,6 +81,7 @@ These templates may encourage overly verbose issue descriptions, which correlate
 ### 1. Load Cache Memory
 
 Check your cache to understand:
+
 - When templates were last optimized
 - What changes were made previously
 - Terms or patterns that should be preserved
@@ -97,6 +101,7 @@ cat .github/ISSUE_TEMPLATE/start-campaign.yml
 ```
 
 **Analyze for:**
+
 - Current word count vs optimal (~125 words guidance)
 - Verbose or marketing language that could be concise
 - Missing guidance on optimal prompt length
@@ -108,6 +113,7 @@ cat .github/ISSUE_TEMPLATE/start-campaign.yml
 Based on success patterns, identify opportunities to:
 
 **Promote Conciseness:**
+
 - Add guidance that successful prompts average ~125 words
 - Remove verbose or redundant explanations
 - Consolidate similar instructions
@@ -115,12 +121,14 @@ Based on success patterns, identify opportunities to:
 - Keep examples short and focused
 
 **Increase Specificity:**
+
 - Encourage clear scope definition
 - Prompt for technical requirements
 - Guide users to provide specific constraints
 - Suggest structured format for descriptions
 
 **Improve Technical Tone:**
+
 - Replace marketing language with technical terms
 - Use direct, imperative instructions
 - Focus on "what" and "why" over "how great this is"
@@ -135,6 +143,7 @@ Use GitHub tools to check recent Copilot PR performance:
 ```
 
 **Look for:**
+
 - Recent PRs created from issue templates
 - Patterns in successful vs closed PRs
 - Common issues with template-driven workflows
@@ -143,12 +152,14 @@ Use GitHub tools to check recent Copilot PR performance:
 ### 5. Determine If Changes Are Needed
 
 **Only proceed if:**
+
 - Templates are significantly longer than optimal (~125 words)
 - Templates lack guidance on prompt length
 - Marketing language could be replaced with technical terms
 - Changes would meaningfully improve Copilot PR success rates
 
 **Skip optimization if:**
+
 - Templates were recently optimized (check cache)
 - Templates already follow best practices
 - No clear improvements can be made
@@ -159,6 +170,7 @@ Use GitHub tools to check recent Copilot PR performance:
 If optimization is needed:
 
 **Guidelines:**
+
 - **Preserve structure**: Keep all fields and validation rules
 - **Minimal changes**: Only modify text that needs optimization
 - **Maintain functionality**: Don't break GitHub's template format
@@ -166,6 +178,7 @@ If optimization is needed:
 - **Test syntax**: Ensure YAML remains valid
 
 **Focus areas:**
+
 1. Add brief guidance on optimal prompt length (~125 words)
 2. Replace verbose explanations with concise instructions
 3. Update examples to be shorter and more specific
@@ -173,6 +186,7 @@ If optimization is needed:
 5. Consolidate redundant instructions
 
 **Example improvements:**
+
 ```yaml
 # BEFORE (verbose)
 description: |
@@ -215,6 +229,7 @@ cat .github/ISSUE_TEMPLATE/start-campaign.yml
 ```
 
 **Confirm:**
+
 - Word counts moved closer to optimal range
 - YAML syntax is valid
 - All required fields are preserved
@@ -224,6 +239,7 @@ cat .github/ISSUE_TEMPLATE/start-campaign.yml
 ### 9. Update Cache State
 
 Save to cache-memory:
+
 - Date of optimization
 - Templates modified
 - Changes made (summary)
@@ -240,6 +256,7 @@ If you made changes:
 **PR Title**: `[ca] Optimize issue templates based on Copilot success patterns`
 
 **PR Description Template**:
+
 ```markdown
 ## Issue Template Optimization - [Date]
 

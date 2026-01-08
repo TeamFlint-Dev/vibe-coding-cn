@@ -1,6 +1,6 @@
-# Lesson 9: Practice Time!
+# Lesson 9: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-9-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-9-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:10:44.199173
 
 ---
@@ -166,4 +166,4 @@ Now that you know the basics, you're ready to use Verse to create your own devic
 
 Create Your Own Device Using Verse
 
-Make your own device and rules using Verse!](https://dev.epicgames.com/documentation/en-us/fortnite/create-your-own-device-using-verse-in-unreal-editor-for-fortnite)
+Make your own device and rules using Verse!](<https://dev.epicgames.com/documentation/en-us/fortnite/create-your-own-device-using-verse-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
-# Lesson 1: Practice Time!
+# Lesson 1: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-1-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-1-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:10:09.755338
 
 ---
@@ -23,4 +23,4 @@ There is no wrong way to do this. It's an exercise to get you thinking about how
 
 Lesson 2: Basic Programming Components
 
-Time to look at some of the elements that make code work.](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-2-basic-programming-concepts-in-verse)
+Time to look at some of the elements that make code work.](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-2-basic-programming-concepts-in-verse>)

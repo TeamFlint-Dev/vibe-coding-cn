@@ -1,6 +1,6 @@
 # Verse Starter Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:08:34.025375
 
 ---
@@ -41,28 +41,28 @@ Follow these steps to learn more about creating this minigame.
 
 1. Creating the NPC Behavior
 
-Learn how to control the NPC through commands using Verse in the Verse Starter Template.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-01-creating-the-npc-behavior-in-unreal-editor-for-fortnite)[![2. Defining Boards for the Game](https://dev.epicgames.com/community/api/documentation/image/aa8ee667-63cb-4225-aa8d-36ef417da110?resizing_type=fit&width=640&height=640)
+Learn how to control the NPC through commands using Verse in the Verse Starter Template.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-01-creating-the-npc-behavior-in-unreal-editor-for-fortnite)[![2>. Defining Boards for the Game](<https://dev.epicgames.com/community/api/documentation/image/aa8ee667-63cb-4225-aa8d-36ef417da110?resizing_type=fit&width=640&height=640>)
 
-2. Defining Boards for the Game
+1. Defining Boards for the Game
 
-Create modular levels that you can customize in Unreal Editor for Fortnite using Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-02-defining-boards-for-the-game-in-unreal-editor-for-fortnite)[![3. Designing Levels](https://dev.epicgames.com/community/api/documentation/image/19ab3795-416b-4ebf-a49b-4f92d594909b?resizing_type=fit&width=640&height=640)
+Create modular levels that you can customize in Unreal Editor for Fortnite using Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-02-defining-boards-for-the-game-in-unreal-editor-for-fortnite)[![3>. Designing Levels](<https://dev.epicgames.com/community/api/documentation/image/19ab3795-416b-4ebf-a49b-4f92d594909b?resizing_type=fit&width=640&height=640>)
 
-3. Designing Levels
+1. Designing Levels
 
-Learn how to design levels for a top-down camera and controlling a character through commands.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-03-designing-levels-for-in-unreal-editor-for-fortnite)[![4. Representing Command Data](https://dev.epicgames.com/community/api/documentation/image/ba5e3ce7-3e79-4242-a6f4-8b39c808b725?resizing_type=fit&width=640&height=640)
+Learn how to design levels for a top-down camera and controlling a character through commands.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-03-designing-levels-for-in-unreal-editor-for-fortnite)[![4>. Representing Command Data](<https://dev.epicgames.com/community/api/documentation/image/ba5e3ce7-3e79-4242-a6f4-8b39c808b725?resizing_type=fit&width=640&height=640>)
 
-4. Representing Command Data
+1. Representing Command Data
 
-Learn how to represent and use the character commands in Verse code.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-04-representing-command-data-for-in-unreal-editor-for-fortnite)[![5. Controlling the NPC with UI](https://dev.epicgames.com/community/api/documentation/image/88690df5-0ea4-459a-8142-896f2f202c8a?resizing_type=fit&width=640&height=640)
+Learn how to represent and use the character commands in Verse code.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-04-representing-command-data-for-in-unreal-editor-for-fortnite)[![5>. Controlling the NPC with UI](<https://dev.epicgames.com/community/api/documentation/image/88690df5-0ea4-459a-8142-896f2f202c8a?resizing_type=fit&width=640&height=640>)
 
-5. Controlling the NPC with UI
+1. Controlling the NPC with UI
 
-Learn how to create and update a custom, dynamic in-game UI using Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-05-controlling-the-npc-with-ui-in-unreal-editor-for-fortnite)[![6. Managing the Game Loop](https://dev.epicgames.com/community/api/documentation/image/d8c7cdb0-a36f-47b8-bc0a-723ebf7ac92a?resizing_type=fit&width=640&height=640)
+Learn how to create and update a custom, dynamic in-game UI using Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-05-controlling-the-npc-with-ui-in-unreal-editor-for-fortnite)[![6>. Managing the Game Loop](<https://dev.epicgames.com/community/api/documentation/image/d8c7cdb0-a36f-47b8-bc0a-723ebf7ac92a?resizing_type=fit&width=640&height=640>)
 
-6. Managing the Game Loop
+1. Managing the Game Loop
 
-Learn how to define the core behavior of the minigame in the Verse Starter Template.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-06-managing-the-game-loop-for-in-unreal-editor-for-fortnite)[![7. Final Result](https://dev.epicgames.com/community/api/documentation/image/6ab54ba9-be1f-4951-99ca-7c1bc7e09166?resizing_type=fit&width=640&height=640)
+Learn how to define the core behavior of the minigame in the Verse Starter Template.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-06-managing-the-game-loop-for-in-unreal-editor-for-fortnite)[![7>. Final Result](<https://dev.epicgames.com/community/api/documentation/image/6ab54ba9-be1f-4951-99ca-7c1bc7e09166?resizing_type=fit&width=640&height=640>)
 
-7. Final Result
+1. Final Result
 
-Find all the Verse code used to create the Verse Starter Template.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-07-final-result-in-unreal-editor-for-fortnite)
+Find all the Verse code used to create the Verse Starter Template.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-07-final-result-in-unreal-editor-for-fortnite>)

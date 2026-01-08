@@ -9,6 +9,7 @@ This directory contains operational runbooks for managing and troubleshooting Gi
 ## Purpose
 
 Runbooks provide step-by-step procedures for:
+
 - Diagnosing workflow issues
 - Resolving common failure patterns
 - Applying learnings from incident response
@@ -25,6 +26,7 @@ Runbooks provide step-by-step procedures for:
 ## Contributing
 
 When creating new runbooks:
+
 - Focus on actionable procedures
 - Include real-world examples and case studies
 - Document commands and configuration patterns

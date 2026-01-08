@@ -53,6 +53,7 @@ temporary ID instead of a valid issue number
 ```
 
 Agent 输出：
+
 ```json
 {"type": "create_issue", "temporary_id": "aw_abc123def456", "title": "..."}
 {"type": "assign_to_agent", "issue_number": "aw_abc123def456"}
@@ -65,10 +66,12 @@ Agent 输出：
 `assign_to_agent` Job **未实现临时 ID 解析功能**。
 
 根据 `temporary-id-safe-output/SKILL.md`，临时 ID 支持需要：
+
 1. 从 `create_issue` Job 获取 `temporary_id_map`
 2. 使用 `resolveIssueNumber()` 解析临时 ID
 
 当前仅以下 Job 支持临时 ID：
+
 - `link_sub_issue` ✅
 - `add_comment` ✅
 - `assign_to_agent` ❌ 不支持
@@ -138,21 +141,27 @@ Issue #71 创建成功，但 assignees 为空。
 验证步骤及结果：
 
 1. **检查编译后的 config.json**（第 162-163 行）:
+
    ```json
    {"create_issue":{"max":1},"missing_tool":{"max":0},"noop":{"max":1}}
    ```
+
    ❌ 仅包含 `max:1`，**没有 `assignees`、`labels`、`title-prefix`**
 
 2. **检查 tools.json 工具描述**（第 168 行）:
+
    ```
    "description": "...CONSTRAINTS: Maximum 1 issue(s) can be created. Assignees [copilot] will be automatically assigned."
    ```
+
    ⚠️ `assignees` 仅作为描述文本传递给 LLM，**不是实际配置**
 
 3. **检查 GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG**（第 1090 行）:
+
    ```yaml
    GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"create_issue\":{\"max\":1}}"
    ```
+
    ❌ handler 配置中**无 assignees**
 
 4. **搜索编译后 lock.yml**:
@@ -161,6 +170,7 @@ Issue #71 创建成功，但 assignees 为空。
    - `title-prefix`: 不存在
 
 **结论**: gh-aw 编译器 bug，将 `safe-outputs.create-issue` 的以下配置仅转为描述文本，未传入 handler:
+
 - `labels`
 - `title-prefix`
 - `assignees`
@@ -184,15 +194,18 @@ GH_AW_ASSIGN_COPILOT: "true"
 ```
 
 测试结果（Issue #75）：
+
 - ✅ Labels: `research-task, copilot-task` - **正确应用**
 - ✅ Title Prefix: `[Research]` - **正确应用**
 - ❌ Assignees: `[]` - **仍然为空！**
 
 **结论**: 这是**双重 Bug**：
+
 1. 编译器不将 `assignees` 传入 handler config
 2. Handler 代码本身不处理 `assignees` 字段
 
 Handler 日志证据：
+
 ```
 Default labels: research-task, copilot-task   ← 处理了
 Title prefix: [Research]                       ← 处理了
@@ -224,6 +237,7 @@ gh issue edit <number> --add-assignee copilot
 **方案 3: 使用 `copilot-task` 标签**
 
 添加 `copilot-task` 标签让 Copilot 自动响应：
+
 ```yaml
 safe-outputs:
   create-issue:
@@ -267,6 +281,7 @@ safe-outputs:
 ```
 
 日志显示 handler 正确加载并尝试创建 Issue：
+
 ```
 ✓ Loaded and initialized handler for: create_issue
 Processing create_issue: title=测试assign功能, bodyLength=256, temporaryId=aw_test_assign_01, repo=TeamFlint-Dev/vibe-coding-cn
@@ -283,16 +298,19 @@ Body length: 512
 **核心问题: Fine-grained PAT 权限不足或配置错误**
 
 GitHub API 返回 404 Not Found 通常意味着：
+
 1. Token 没有访问目标仓库的权限
 2. Token 没有 `issues: write` 权限
 3. Token 已过期或无效
 
 工作流配置：
+
 ```yaml
 github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
 ```
 
 验证步骤：
+
 1. **本地测试成功** - 使用用户自己的 Token 可以创建 Issue
 2. **Secrets 存在** - `COPILOT_GITHUB_TOKEN` 已在仓库中配置
 3. **Handler 正常** - 日志显示 handler 加载成功，config 正确解析
@@ -325,6 +343,7 @@ permissions:
 **方案 3: 使用 Classic PAT**
 
 如果 Fine-grained PAT 配置复杂，可以使用 Classic PAT：
+
 - 勾选 `repo` 范围（包含 Issue 写权限）
 - 重新生成并更新 Secret
 
@@ -342,6 +361,7 @@ permissions:
    - Metadata: Read ← 默认已有
 
 4. **验证 Token 有效性**
+
    ```bash
    # 使用 Token 测试 API
    curl -H "Authorization: token YOUR_TOKEN" \
@@ -365,7 +385,7 @@ permissions:
 #### 参考
 
 - 工作流运行日志: `gh run view 20695610080 --log`
-- GitHub PAT 文档: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+- GitHub PAT 文档: <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens>
 
 ---
 
@@ -427,6 +447,7 @@ assign_to_agent 'issue_number' must be a valid positive integer (got: aw_abc123d
 ```
 
 Agent 输出序列：
+
 ```json
 {"type": "create_issue", "temporary_id": "aw_abc123def456", "title": "[Plan] 测试目标"}
 {"type": "assign_to_agent", "issue_number": "aw_abc123def456", "agent": "copilot"}
@@ -459,6 +480,7 @@ Agent 输出序列：
 ```
 
 **关键约束**：
+
 1. Agent 在输出时只能看到临时 ID（`aw_*` 格式）
 2. 真实 Issue 编号在 safe-output job 执行 `create_issue` 后才产生
 3. 此时 Agent Job 已经结束，无法获取真实编号
@@ -489,6 +511,7 @@ goal-planner                    issue-assigner
 ```
 
 **Workflow 1: goal-planner.md**（创建 Issue）
+
 ```yaml
 safe-outputs:
   create-issue:
@@ -498,6 +521,7 @@ safe-outputs:
 ```
 
 **Workflow 2: issue-assigner.md**（自动分配）
+
 ```yaml
 on:
   issues:
@@ -517,6 +541,7 @@ safe-outputs:
 ```
 
 **优势**：
+
 1. ✅ `issue-assigner` 触发时，真实 Issue 编号已存在（`github.event.issue.number`）
 2. ✅ 无需临时 ID 解析
 3. ✅ 绕过 `create-issue.assignees` 编译器 Bug（FC-002）

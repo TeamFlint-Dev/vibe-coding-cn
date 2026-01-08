@@ -1,6 +1,6 @@
 # 1. Create and Explore a Project
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/first-island-01-create-and-explore-a-project-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/first-island-01-create-and-explore-a-project-in-fortnite>
 > **爬取时间**: 2025-12-26T23:53:32.728464
 
 ---
@@ -99,6 +99,6 @@ To move the camera using these keys, hold either mouse button down, then press t
 
 [![2. Place and Customize a Device](https://dev.epicgames.com/community/api/documentation/image/8ff5847b-c80c-4bc9-87b2-608dbd346117?resizing_type=fit&width=640&height=640)
 
-2. Place and Customize a Device
+1. Place and Customize a Device
 
-Add some devices, customize them, and bind them with other devices for gameplay interactions.](https://dev.epicgames.com/documentation/en-us/fortnite/first-island-02-place-and-customize-devices-in-fortnite)
+Add some devices, customize them, and bind them with other devices for gameplay interactions.](<https://dev.epicgames.com/documentation/en-us/fortnite/first-island-02-place-and-customize-devices-in-fortnite>)

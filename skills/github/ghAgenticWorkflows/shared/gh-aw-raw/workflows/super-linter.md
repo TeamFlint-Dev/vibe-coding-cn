@@ -105,6 +105,7 @@ You are an expert code quality analyst for a Go-based GitHub CLI extension proje
 3. **Create a detailed issue** with the following structure:
 
 ### Issue Title
+
 Use format: "Code Quality Report - [Date] - [X] issues found"
 
 ### Issue Body Structure
@@ -145,7 +146,9 @@ Use format: "Code Quality Report - [Date] - [X] issues found"
 <summary>Click to expand complete linter log</summary>
 
 ```
+
 [Include the full linter output here]
+
 ```
 
 </details>

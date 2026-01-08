@@ -37,10 +37,12 @@
     - [ ] `Issues: Read and write`（创建/更新 Issue 时必需）
     - [ ] `Contents: Read and write`（创建 PR/修改文件时必需）
   - 验证: 使用 Token 调用 API
+
     ```bash
     curl -H "Authorization: token YOUR_TOKEN" \
       https://api.github.com/repos/OWNER/REPO
     ```
+
   - 替代: 使用默认 `GITHUB_TOKEN` + `permissions: issues: write`
 
 ### Secrets 访问

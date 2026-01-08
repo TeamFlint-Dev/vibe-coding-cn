@@ -1,25 +1,27 @@
-# Lesson 4: Practice Time!
+# Lesson 4: Practice Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-4-practice-time-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-4-practice-time-in-verse>
 > **爬取时间**: 2025-12-26T23:10:04.939624
 
 ---
 
 Return to your magic potion code from the last exercise. You will want to run the healing code when the player drinks a healing potion, and the damage code when they drink a damaging potion.
 
-### First You Write Some Code ...
+### First You Write Some Code
 
 1. Sounds like you'll have to answer a question about the type of potion, so you can create a new variable to keep track of that, a string called `PotionType`.
 
    ```verse
         var PotionType: string = "heal"
    ```
+
 2. Now you can ask if the variable `PotionType` is equal to another string. When you ask if `PotionType` is equal to `"heal"`, the answer will be yes. The healing code would then run.
 
    ```verse
         if (PotionType = "heal"):
             set PlayerHealth = PlayerHealth + PotionHealAmount
    ```
+
 3. Now write a similar if expression for the damage code.
 
    ```verse
@@ -197,4 +199,4 @@ hello_world_device := class(creative_device):
 
 Lesson 5: Calling Functions
 
-Why do the same work twice if you don't have to?](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-5-calling-functions-in-verse)
+Why do the same work twice if you don't have to?](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-5-calling-functions-in-verse>)

@@ -58,10 +58,12 @@ your-project/
 ## 文件组织
 
 ```
+
 src/
 ├── [目录说明]
 ├── [目录说明]
 └── [目录说明]
+
 ```
 
 ## 关键文件
@@ -98,6 +100,7 @@ src/
 # 检查
 [命令]
 ```
+
 ```
 
 ---
@@ -181,6 +184,7 @@ Before starting development, read:
 
 - [path/to/doc1] - [purpose]
 - [path/to/doc2] - [purpose]
+
 ```
 
 ---
@@ -203,7 +207,6 @@ Before starting development, read:
 1. Apply Component-ization boundary principle (see R00 report)
 2. Components communicate only through Scene Events
 3. Each file should be under 300 lines
-4. Run `make lint` before committing
 
 ## Never Rules
 
@@ -233,6 +236,7 @@ ParentEntity.SendUp(item_collected_event:
 # 错误：直接引用其他组件
 OtherComponent.DoSomething()  # ❌ 不要这样做
 ```
+
 ```
 
 ### 3. project-docs 集成
@@ -336,6 +340,7 @@ Before starting development, read:
 - `project-docs/@architecture.md` - Entity hierarchy and events
 - `project-docs/@implementation-plan.md` - Current phase and tasks
 - `project-docs/@progress.md` - What's done, what's blocked
+
 ```
 
 ---

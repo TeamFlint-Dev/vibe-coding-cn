@@ -162,9 +162,11 @@ The agent should output JSON with items of type `post_to_slack_channel`:
 ```
 
 **Required Environment Variable:**
+
 - `GH_AW_SLACK_CHANNEL_ID`: The Slack channel ID (e.g., C1234567890) where messages will be posted
 
 **Message Field:**
+
 - `message`: The message text to post (maximum 200 characters)
 
 **Message Length Limit:**
@@ -172,6 +174,7 @@ Messages are limited to 200 characters to ensure concise, focused updates. Items
 
 **Supported Slack Markdown:**
 The message supports basic Slack markdown syntax:
+
 - `*bold*` - Bold text
 - `_italic_` - Italic text
 - `~strike~` - Strikethrough text
@@ -196,7 +199,7 @@ This safe-job fully supports staged mode. When `staged: true` is set in the work
 ### Setup
 
 1. **Create a Slack App** with a Bot User OAuth Token:
-   - Go to https://api.slack.com/apps
+   - Go to <https://api.slack.com/apps>
    - Create a new app or select an existing one
    - Navigate to "OAuth & Permissions"
    - Add the `chat:write` bot token scope
@@ -213,6 +216,7 @@ This safe-job fully supports staged mode. When `staged: true` is set in the work
    - Add `GH_AW_SLACK_CHANNEL_ID` as an environment variable or repository variable with the Slack channel ID
 
 4. **Include this configuration in your workflow**:
+
    ```yaml
    imports:
      - shared/mcp/slack.md

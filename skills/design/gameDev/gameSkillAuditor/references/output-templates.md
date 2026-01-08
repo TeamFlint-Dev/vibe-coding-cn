@@ -76,6 +76,7 @@ gameSkillAuditor 和 gameSkillOptimizer 的标准输出文件模板。
 ```
 
 **建议修改为**:
+
 ```markdown
 {修改后内容}
 ```
@@ -112,6 +113,7 @@ gameSkillAuditor 和 gameSkillOptimizer 的标准输出文件模板。
 | 🟠 MAJOR | {n} | {skills} |
 | 🟡 MINOR | {n} | {skills} |
 | 🔵 INFO | {n} | {skills} |
+
 ```
 
 ---
@@ -147,15 +149,19 @@ gameSkillAuditor 和 gameSkillOptimizer 的标准输出文件模板。
 ---
 
 ### [4] {YYYY-MM-DD HH:mm} - {skill-name}
+
 ...
 
 ### [3] {YYYY-MM-DD HH:mm} - {skill-name}
+
 ...
 
 ### [2] {YYYY-MM-DD HH:mm} - {skill-name}
+
 ...
 
 ### [1] {YYYY-MM-DD HH:mm} - {skill-name}
+
 ...
 
 ---
@@ -184,6 +190,7 @@ gameSkillAuditor 和 gameSkillOptimizer 的标准输出文件模板。
 |-------|----------|----------|----------|
 | {skill} | {initial} | {current} | {count} |
 | ... | ... | ... | ... |
+
 ```
 
 ---

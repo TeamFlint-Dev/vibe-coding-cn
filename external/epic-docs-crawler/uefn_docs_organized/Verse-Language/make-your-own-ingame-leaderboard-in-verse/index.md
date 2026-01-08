@@ -1,6 +1,6 @@
 # Make Your Own In-Game Leaderboard in Verse
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/make-your-own-ingame-leaderboard-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/make-your-own-ingame-leaderboard-in-verse>
 > **爬取时间**: 2025-12-26T23:19:21.866076
 
 ---
@@ -73,6 +73,7 @@ Follow the steps below to create your player stats table:
            # The number of Wins for a player.
            Wins<public>:int = 0
       ```
+
 2. Modify the `MakePlayerStatsTable()` constructor function in your file to reflect the updated stats.
 
    ```verse
@@ -82,6 +83,7 @@ Follow the steps below to create your player stats table:
             Points := OldTable.Points
             Wins := OldTable.Wins
    ```
+
 3. Add a new struct `player_and_stats` to your **player\_stats\_table.verse** file. This struct contains a reference to a `player` and their `player_stats_table` class, to let you use both data in functions without needing to repeatedly retrieve them. Your complete `player_and_stats` struct should look like this:
 
    ```verse
@@ -113,6 +115,7 @@ Follow the steps below to build your modified `player_stats_manager` file.
             else:
                 Print("Unable to initialize player stats")
    ```
+
 2. Modify the function signature of `AddScore()` to `AddPoints()`. Then remove the `AddLosses()` function since your `player_stats_table` no longer contains that value. Your complete `player_stats_manager` file should look like this:
 
    ```verse
@@ -187,6 +190,7 @@ Follow the steps below to create functions that update your devices in-level:
         StatsMessage<localizes>(CurrentPlayer:message, Points:message, Wins:message):message=
             "{CurrentPlayer}:\n{Points}\n{Wins}"
    ```
+
 3. Add three more `message` variables, one for each of the inputs to `StatsMessage`. The `PlayerText` message takes an `Agent`, the `PointsText` message takes that agent’s points, and the `WinsText` message takes that agent’s wins. The `StatsMessage` will build a message from all of these to cleanly display your data in the level.
 
    ```verse
@@ -197,12 +201,14 @@ Follow the steps below to create functions that update your devices in-level:
         PointsText<localizes>(Points:int):message = "Total Points {Points}"
         WinsText<localizes>(Wins:int):message = "{Wins} Total Wins"
    ```
+
 4. To update a billboard, you’ll call the `UpdateStatsBillboard()` function from the Player Persistent Statistics tutorial. Because this function is defined in a separate file from the Verse device, you need to add a `StatsBillboard` as an additional argument to specify which billboard you’ll be updating.
 
    ```verse
         # Updates the given billboard device to display the stats of the given player.
         UpdateStatsBillboard<public>(Player:agent, StatsBillboard:billboard_device):void=
    ```
+
 5. First, get the stats of the player passed as an argument using `GetPlayerStats[]`. You don’t need a reference to a `player_stats_manager` since it’s no longer a separate class. Then construct a new `StatsMessage` using the player and the `Points` and `Wins` from their `CurrentPlayerStats`. Finally, call `SetText()` on the `StatsBillboard` to update the billboard text in-level. Your complete `UpdateStatsBillboard()` function should look like this:
 
    ```verse
@@ -232,6 +238,7 @@ Follow the steps below to add comparison and sorting to your billboards, and fin
             Left.StatsTable.Points > Right.StatsTable.Points
             Left
    ```
+
 2. Copy this function three times, one for a less points comparison and two for comparing wins. Your comparison functions should look like the following:
 
    ```verse
@@ -255,6 +262,7 @@ Follow the steps below to add comparison and sorting to your billboards, and fin
             Left.StatsTable.Points < Right.StatsTable.Points
             Left
    ```
+
 3. Add the [Merge Sort](https://dev.epicgames.com/documentation/en-us/fortnite/sorting-algorithms-in-verse) algorithm. You can place this in a separate file or module and test the algorithm on the provided test file.
 4. Back in `player_leaderboards`, add a new function `UpdateStatsBillboards()`. This function takes an array of agents and an array of billboards, sorts them, and calls `UpdateStatsBillboard()` to update each billboard in the level.
 
@@ -263,6 +271,7 @@ Follow the steps below to add comparison and sorting to your billboards, and fin
         # each player has.
         UpdateStatsBillboards<public>(Players:[]agent, StatsBillboards:[]billboard_device):void=
    ```
+
 5. In `UpdateStatsBillboards()`, initialize a new array variable of `player_and_stats` named `PlayerAndStatsArray`. Set this equal to the result of a `for` expression. In that `for` expression, for each `agent`, get the `player` for that `agent`, and retrieve their `player_stats_table` using `GetPlayerStats[]`. Then return a `player_and_stats` struct constructed from the `player` and their stats table.
 
    ```verse
@@ -277,6 +286,7 @@ Follow the steps below to add comparison and sorting to your billboards, and fin
                         Player := Player
                         StatsTable := PlayerStats
    ```
+
 6. To sort your `PlayerAndStatsArray`, initialize a new variable `SortedPlayersAndStats` to the result of calling `MergeSort()`, passing the array and the `MorePointsComparison`. After sorting in a `for` expression, iterate through each element in `SortedPlayerAndStats`, storing the element index in a variable `PlayerIndex`. Use `PlayerIndex` to index into the `StatsBillboards` array, then call `UpdateStatsBillboard` passing the player and the billboard to update. Your complete `UpdateStatsBillboards()` function should look like this:
 
    ```verse
@@ -305,6 +315,7 @@ Follow the steps below to add comparison and sorting to your billboards, and fin
             do:
                 UpdateStatsBillboard(PlayerAndStats.Player, StatsBillboard)
    ```
+
 7. To update your player references, you’re going to use a very similar function named `UpdatePlayerReferences()`. This function takes an array of `player_reference_device` instead of billboards, and instead of calling `UpdateStatsBillboard()` at the end, it calls `Register()` on the player reference device for each player. Copy your `UpdateStatsBillboard()` code into a new function `UpdatePlayerReferences()` with the above changes. Your complete `UpdatePlayerReferences()` function should look like this:
 
    ```verse
@@ -349,6 +360,7 @@ With everything set up, it’s time to show off your players! You’ll create a 
        @editable
        PlayerReferences:[]player_reference_device = array{}
      ```
+
    - An editable array of Billboard devices named `Leaderboards`. These display each player’s stats on a billboard in the level.
 
      ```verse
@@ -356,6 +368,7 @@ With everything set up, it’s time to show off your players! You’ll create a 
        @editable
        Leaderboards:[]billboard_device = array{}
      ```
+
    - An editable Race Manager device named `RaceManager`. You’ll subscribe to events from the Race Manager to know when a player finishes the race.
 
      ```verse
@@ -363,6 +376,7 @@ With everything set up, it’s time to show off your players! You’ll create a 
        @editable
        RaceManager:race_manager_device = race_manager_device{}
      ```
+
    - An editable integer named `PlacementRequiredForWin`. This is the placement a player needs to make to be awarded a win.
 
      ```verse
@@ -370,6 +384,7 @@ With everything set up, it’s time to show off your players! You’ll create a 
        @editable
        PlacementRequiredForWin:int = 1
      ```
+
    - An editable array of integers named `PointsPerPlace`. These are the number of points each player earns based on their placement.
 
      ```verse
@@ -379,6 +394,7 @@ With everything set up, it’s time to show off your players! You’ll create a 
        @editable
        PointsPerPlace:[]int = array{5, 3, 1}
      ```
+
    - An integer variable named `CurrentFinishOrder`. This is the placement of the player who most recently completed the race.
 
      ```verse
@@ -400,6 +416,7 @@ Follow these steps to awards stats to players when they finish the race:
         # their placement was better than the PlacementRequiredForWin.
         RecordPlayerFinish(Player:agent):void=
    ```
+
 2. In `RecordPlayerFinish()`, get the placement of this player by getting the current value of `CurrentFinishOrder` in a new `int` named `PlayerFinishOrder`. Then increment `CurrentFinishOrder` so that the next player who finishes won’t finish in the same place.
 
    ```verse
@@ -407,6 +424,7 @@ Follow these steps to awards stats to players when they finish the race:
             PlayerFinishOrder:int = CurrentFinishOrder
             set CurrentFinishOrder += 1
    ```
+
 3. Now it’s time to award stats. To know how many points to award this player, in an `if` expression, index into the `PointsPerPlace` array using the `PlayerFinishOrder`. Then call `AddPoints()` to award that player that many points.
 
    ```verse
@@ -416,6 +434,7 @@ Follow these steps to awards stats to players when they finish the race:
             then:
                 AddPoints(Player, PointsToAward)
    ```
+
 4. If the player’s placement was high enough to get a win, you need to record a win in their stats table. In another `if` expression, check if the `PlayerFinishOrder` was less than the `PlacementRequiredToWin`. If so, call `AddWin()`, passing the player and a win to award them. Your complete `RecordPlayerFinish()` function should look like this:
 
    ```verse
@@ -447,6 +466,7 @@ Now that you’ve got stat recording ready, you need to know when a player finis
         # When a player finishes the race, record a finish in their stats table.
         WaitForPlayerToFinishRace(Player:agent)<suspends>:void=
    ```
+
 2. In `WaitForPlayerToFinishRace()`, in a `race` expression, start two loops. The first will wait for the player to finish the race, and the other will handle what happens if a player leaves the session before finishing. If a player leaves you don’t want the loop to keep running forever, so you need a way to break out of it in that situation.
 
    ```verse
@@ -458,6 +478,7 @@ Now that you’ve got stat recording ready, you need to know when a player finis
                 # Waiting for this player to leave the game.
                 loop:
    ```
+
 3. In the first loop, await the `RaceManager.RaceCompletedEvent` and store the result in a variable named `FinishingPlayer`. Because this event fires whenever any player finishes the race, you need to make sure that the player you stored is the player you were monitoring. Compare the `FinishingPlayer` to the player this loop is monitoring. If the two are equal, then pass the player to `RecordPlayerFinish()`, and break out of the loop
 
    ```verse
@@ -470,6 +491,7 @@ Now that you’ve got stat recording ready, you need to know when a player finis
                 RecordPlayerFinish(Player)
                 break
    ```
+
 4. In the second loop, await the playspace event `PlayerRemovedEvent()`. As before, get the player who just left and store it in a variable `LeavingPlayer`. If the player who just left is the player this loop is waiting on, then break out of the loop. Your complete `WaitForPlayerToFinishRace()` function should look like this:
 
    ```verse
@@ -484,7 +506,7 @@ Now that you’ve got stat recording ready, you need to know when a player finis
                     then:
                         RecordPlayerFinish(Player)
                         break
-   		
+     
                 # Waiting for this player to leave the game.
                 loop:
                     LeavingPlayer := GetPlayspace().PlayerRemovedEvent().Await()
@@ -510,6 +532,7 @@ Follow these steps to link your logic to your devices:
             Players := GetPlayspace().GetPlayers()
             InitializeAllPlayerStats(Players)
    ```
+
 2. Call `UpdateStatsBillboards()`, passing the `Players` and `Leaderboards` arrays to update the in-level billboards with each player’s current data.Then call `UpdatePlayerReferences()` to update the in-level references to match the players. Finally, in a `for` expression, spawn a `WaitForPlayerToFinishRace()` function for each player. Your complete `OnBegin()` function should look like this:
 
    ```verse
@@ -529,6 +552,7 @@ Follow these steps to link your logic to your devices:
 
                 spawn{WaitForPlayerToFinishRace(Player)}
    ```
+
 3. Save your code and compile it.
 
 Drag the **player\_leaderboards\_example** device into your level. Assign your player references to the **PlayerReferences** array, keeping note of the order. The device in the first index should correspond to the player reference for the top player, the second index for the second-best player, and so on. Do the same for leaderboards, making sure to keep them aligned with the player reference devices. Don’t forget to assign your Race Manager device as well!

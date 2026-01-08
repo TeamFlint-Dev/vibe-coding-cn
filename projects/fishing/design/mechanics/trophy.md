@@ -12,6 +12,7 @@
 **核心职责**：管理战利品的获取、存储、查看和状态追踪。
 
 **设计目标**：
+
 - 清晰的收集进度反馈
 - 首次发现的惊喜感
 - 背包管理简单直观
@@ -82,6 +83,7 @@ collection_entry := struct:
 | QueryFish | UI 查看 | 返回背包内容 |
 
 **伪代码**：
+
 ```verse
 AddToInventory(FishId : string) : void =
     if Inventory.Contains(FishId):
@@ -118,6 +120,7 @@ AddToInventory(FishId : string) : void =
 | Epic | 500 金币 | 紫色烟花 |
 
 **伪代码**：
+
 ```verse
 UpdateCollection(FishId : string) : void =
     entry := Collection[FishId]

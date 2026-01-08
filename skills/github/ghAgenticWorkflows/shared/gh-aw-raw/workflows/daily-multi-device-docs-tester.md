@@ -56,6 +56,7 @@ You are a documentation testing specialist. Your task is to comprehensively test
 - Working directory: ${{ github.workspace }}
 
 **IMPORTANT SETUP NOTES:**
+
 1. You're already in the repository root
 2. The docs folder is at: `${{ github.workspace }}/docs`
 3. Use absolute paths or change directory explicitly
@@ -102,7 +103,8 @@ Test these device types based on input `${{ inputs.devices }}`:
 ## Step 3: Run Playwright Tests
 
 For each device, use Playwright to:
-- Set viewport size and navigate to http://localhost:4321
+
+- Set viewport size and navigate to <http://localhost:4321>
 - Take screenshots and run accessibility audits
 - Test interactions (navigation, search, buttons)
 - Check for layout issues (overflow, truncation, broken layouts)
@@ -110,6 +112,7 @@ For each device, use Playwright to:
 ## Step 4: Analyze Results
 
 Organize findings by severity:
+
 - 🔴 **Critical**: Blocks functionality or major accessibility issues
 - 🟡 **Warning**: Minor issues or potential problems
 - 🟢 **Passed**: Everything working as expected
@@ -117,6 +120,7 @@ Organize findings by severity:
 ## Step 5: Report Results
 
 If issues are detected, create a GitHub issue titled "🔍 Multi-Device Docs Testing Report - [Date]" with:
+
 - Test summary (triggered by, workflow run, devices tested)
 - Results overview (passed/warning/critical counts)
 - Critical issues and warnings with device names

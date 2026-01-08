@@ -61,7 +61,7 @@ The gh-aw binary has been built and configured as an MCP server. You can now use
    - Start date: "-1d" (last 24 hours)
    - Engine: (optional filter by claude, codex, or copilot)
    - Branch: (optional filter by branch name)
-   
+
    The logs will be downloaded to `/tmp/gh-aw/aw-mcp/logs` automatically.
 
 2. **Verify Log Collection**:
@@ -78,6 +78,7 @@ Review the downloaded logs and GitHub Actions workflow logs in `/tmp/gh-aw/aw-mc
 #### 2.1 Safe Output Job Types
 
 Safe output jobs are the separate jobs created to handle output from agentic workflows:
+
 - `create_discussion` - Job that creates GitHub discussions from agent output
 - `create_issue` - Job that creates GitHub issues from agent output
 - `add_comment` - Job that adds comments to issues/PRs from agent output
@@ -95,7 +96,7 @@ To find safe output job errors:
 1. **Examine workflow-logs directories** in each run folder:
    - Look for job log files named after safe output jobs (e.g., `create_discussion.txt`, `create_issue.txt`, `add_comment.txt`)
    - These contain the actual execution logs from the safe output jobs
-   
+
 2. **Parse job logs for errors**:
    - Look for ERROR level messages
    - Check for failed step status indicators
@@ -114,6 +115,7 @@ To find safe output job errors:
 #### 2.3 Root Cause Analysis
 
 For each error found:
+
 - Identify the specific safe output job that failed
 - Extract the exact error message
 - Determine the workflow run where it occurred
@@ -123,6 +125,7 @@ For each error found:
 #### 2.4 Clustering Similar Errors
 
 Group errors by:
+
 - Error type (API, parsing, validation, etc.)
 - Safe output job type (create_issue, add_comment, etc.)
 - Error message pattern (same root cause)
@@ -194,7 +197,9 @@ Create a discussion with the following structure:
 - **Affected Workflows**: [Workflow names]
 - **Sample Error**:
   ```
+
   [Error message excerpt]
+
   ```
 - **Root Cause**: [Analysis of underlying cause]
 - **Impact**: [Severity and impact description]
@@ -357,6 +362,7 @@ Update cache memory with today's audit data for future reference and trend analy
 ## Success Criteria
 
 A successful audit:
+
 - ✅ Analyzes all safe output jobs from the last 24 hours
 - ✅ Identifies and clusters errors by type and root cause
 - ✅ Provides specific, actionable recommendations

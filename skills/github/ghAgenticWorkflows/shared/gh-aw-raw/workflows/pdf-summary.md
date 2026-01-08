@@ -73,18 +73,21 @@ When invoked with the `/summarize` command or triggered via workflow_dispatch, y
 ### 1. Identify Resources and Query
 
 **For Command Trigger (`/summarize`):**
+
 - Parse the triggering comment/issue to extract URL(s) to resources
 - Look for URLs in the comment text (e.g., `/summarize https://example.com/document.pdf`)
 - Extract any query or question after the URL(s)
 - If no query is provided, use: "summarize in the context of this repository"
 
 **For Workflow Dispatch:**
+
 - Use the provided `url` input (may contain comma-separated URLs)
 - Use the provided `query` input (defaults to "summarize in the context of this repository")
 
 ### 2. Fetch and Convert Resources
 
 For each identified URL:
+
 - Use the markitdown MCP server to convert the resource to markdown
 - Supported formats include: PDF, HTML, Word documents, PowerPoint, images, and more
 - Handle conversion errors gracefully and note any issues
@@ -175,6 +178,7 @@ You have access to persistent storage in `/tmp/gh-aw/cache-memory/` across workf
 4. **Avoid Redundancy**: Check if a resource has been analyzed before and reference prior findings
 
 Example structure for stored analysis:
+
 ```json
 {
   "timestamp": "2024-01-15T10:30:00Z",

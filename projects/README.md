@@ -14,6 +14,7 @@
 - ❌ `uefn研究`（避免中文目录名）
 
 **原因**：
+
 1. UEFN 编译器对特殊字符（如 `-`）敏感
 2. 避免跨平台路径问题
 3. 符合 JavaScript/TypeScript 变量命名习惯
@@ -25,6 +26,7 @@
 项目的显示名称（displayName）可以使用中文或英文，用于文档、Issue 和用户界面。
 
 示例：
+
 - 目录名：`uefnResearch`
 - 显示名：`uefn基础模块研究`
 
@@ -222,11 +224,13 @@ project_name: "uefnResearch"
 ### ⚠️ 不要重命名现有项目目录
 
 一旦项目目录创建，**不要轻易重命名**，因为：
+
 1. Git 历史记录会丢失上下文
 2. 现有 Issue 和 PR 中的引用会失效
 3. 可能有外部工具依赖该路径
 
 如果必须重命名，请：
+
 1. 创建一个 Issue 说明理由
 2. 更新所有相关文档和映射
 3. 通知团队成员
@@ -234,10 +238,12 @@ project_name: "uefnResearch"
 ### 💡 优先使用显示名称
 
 在面向用户的场景（Issue、文档、UI）中，优先使用 `displayName`：
+
 - ✅ "uefn基础模块研究项目已完成第一阶段"
 - ❌ "uefnResearch 项目已完成第一阶段"
 
 在代码和技术场景中，使用目录名（`id`）：
+
 - ✅ `cd projects/uefnResearch`
 - ✅ `find projects/uefnResearch -name "*.md"`
 

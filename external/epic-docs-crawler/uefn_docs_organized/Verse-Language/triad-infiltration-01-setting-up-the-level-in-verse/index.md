@@ -1,6 +1,6 @@
 # 1. Setting Up the Triad Infiltration Level
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-01-setting-up-the-level-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-01-setting-up-the-level-in-verse>
 > **爬取时间**: 2025-12-27T00:22:30.764682
 
 ---
@@ -102,6 +102,7 @@ Follow these steps to set up your level:
    | **Item Definition** | Makeshift SMG L1 | You want the Attackers to have an easy-to-use weapon, but one that is still weaker than the Defenders weapon since the Defenders have to deal with two teams. |
    | **Item Definition** | Flint-Knock Pistol L1 | The Flint-Knock Pistol gives the Attackers extra mobility, and is a powerful close-range option for burst damage. Note that Attackers cannot use the Flint-Knock pistol when holding the flag, which prevents them from escaping quickly. |
    | **Receiving Players** | Team Index, 2 | This is the item granter for the Attackers, so it needs to be Team Index 2 to match. |
+
 3. Duplicate the item granter. This will be the item granter for the Defenders.
 
    | Option | Value | Explanation |

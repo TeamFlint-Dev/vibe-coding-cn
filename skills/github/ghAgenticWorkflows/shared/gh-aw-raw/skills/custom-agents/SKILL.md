@@ -24,23 +24,27 @@ GitHub Copilot supports custom agent instructions through Markdown files with YA
 Custom agent files can be placed in several locations, each serving a different scope:
 
 ### 1. Repository-wide Instructions
+
 - **File**: `.github/copilot-instructions.md`
 - **Scope**: Applies to all code generation in the repository
 - **Use case**: General coding standards, security requirements, testing practices
 
 ### 2. Path-specific Instructions
+
 - **Directory**: `.github/instructions/`
 - **Pattern**: `*.instructions.md` (e.g., `frontend.instructions.md`, `backend.instructions.md`)
 - **Scope**: Can target specific directories or file patterns using `applyTo` in frontmatter
 - **Use case**: Framework-specific guidelines, component-specific rules
 
 ### 3. Custom Agent Profiles
+
 - **Directory**: `.github/agents/` or `.github/copilot/instructions/`
 - **Pattern**: `AGENTS.md`, `*.md` (e.g., `readme-creator.md`, `test-writer.md`)
 - **Scope**: Defines specialized agents with specific capabilities and instructions
 - **Use case**: Task-specific agents (documentation, testing, refactoring)
 
 ### 4. agentic workflow integration
+
 - **Location**: Imported via `imports` field in workflow frontmatter
 - **Pattern**: Any markdown files under `.github/agents/` directory
 - **Scope**: Custom agent for specific agentic workflow execution
@@ -102,16 +106,19 @@ settings:                         # Custom runtime or connection settings
 ### Core Fields
 
 #### name (string, required for agent profiles)
+
 - Unique identifier for the custom agent
 - Used to reference the agent in workflows or assignments
 - Convention: lowercase with hyphens (e.g., `readme-creator`, `test-writer`)
 
 #### description (string, optional)
+
 - Human-friendly description of the agent's focus and behavior
 - Helps users understand what the agent specializes in
 - Can be multi-line using YAML's `>` or `|` syntax
 
 #### prompt (string, optional)
+
 - Alternative to using the markdown body for instructions
 - Contains freeform natural language instructions
 - Use YAML's `|` (literal) or `>` (folded) for multi-line content
@@ -120,6 +127,7 @@ settings:                         # Custom runtime or connection settings
 ### Tool Configuration
 
 #### tools (array of strings, optional)
+
 - List of tools the agent is allowed to use
 - If omitted or set to `["*"]`, agent has access to all available tools
 - Tool names are **case-insensitive**
@@ -150,6 +158,7 @@ For backward compatibility, these legacy tool names are still supported:
 **MCP Server Tool Prefixes:**
 
 When using Model Context Protocol (MCP) servers, you can specify tools with server prefixes:
+
 - Single tool: `my-mcp-server/tool-name`
 - All tools from a server: `my-mcp-server/*`
 
@@ -185,12 +194,14 @@ tools: []
 ### Path Targeting
 
 #### applyTo (array of strings, optional)
+
 - Only used in `.instructions.md` files
 - Specifies glob patterns for files/directories these instructions apply to
 - Supports wildcards: `*` (any characters), `**` (any directories)
 - Multiple patterns can be specified
 
 **Example:**
+
 ```yaml
 applyTo:
   - "src/frontend/**/*.tsx"
@@ -201,15 +212,18 @@ applyTo:
 ### Enterprise Features
 
 #### mcp-server (object, optional)
+
 - Configuration for external MCP (Model Context Protocol) servers
 - Typically used in enterprise or organization settings
 - Allows integration with custom tools and services
 
 **Fields:**
+
 - `url` (string): MCP server endpoint
 - `api-key` (string): Authentication key (use GitHub secrets)
 
 **Example:**
+
 ```yaml
 mcp-server:
   url: https://internal-tools.company.com/mcp
@@ -217,6 +231,7 @@ mcp-server:
 ```
 
 #### settings (object, optional)
+
 - Custom runtime or connection settings
 - Key-value pairs for agent-specific configuration
 - Format and available keys depend on the agent implementation
@@ -462,31 +477,37 @@ Analyze the issue and categorize it appropriately.
 ## Best Practices
 
 ### 1. Keep Instructions Focused
+
 - Each agent should have a clear, specific purpose
 - Avoid mixing unrelated concerns in a single agent
 - Create multiple specialized agents rather than one general-purpose agent
 
 ### 2. Be Explicit and Specific
+
 - Provide concrete examples of expected behavior
 - Define clear success criteria
 - Specify edge cases and error handling
 
 ### 3. Use Appropriate Scoping
+
 - Repository-wide instructions for universal standards
 - Path-specific instructions for framework or directory-specific rules
 - Custom agents for task-specific workflows
 
 ### 4. Test Agent Behavior
+
 - Verify agent follows instructions correctly
 - Test with various input scenarios
 - Iterate based on actual agent performance
 
 ### 5. Maintain and Update
+
 - Keep instructions current with codebase changes
 - Review and refine based on agent performance
 - Remove outdated or conflicting instructions
 
 ### 6. Security Considerations
+
 - Limit tool access to what's necessary
 - Be cautious with file deletion permissions
 - Use secrets for sensitive configuration
@@ -495,6 +516,7 @@ Analyze the issue and categorize it appropriately.
 ## Common Patterns
 
 ### Documentation Agent
+
 ```yaml
 name: documentation-specialist
 description: Creates and maintains technical documentation
@@ -502,6 +524,7 @@ tools: [read, edit, search]
 ```
 
 ### Refactoring Agent
+
 ```yaml
 name: code-refactorer
 description: Improves code quality and structure
@@ -509,6 +532,7 @@ tools: [read, edit, search]
 ```
 
 ### Security Auditor
+
 ```yaml
 name: security-auditor
 description: Reviews code for security vulnerabilities
@@ -516,6 +540,7 @@ tools: [read, search]
 ```
 
 ### Migration Assistant
+
 ```yaml
 name: migration-helper
 description: Assists with framework or library migrations
@@ -523,6 +548,7 @@ tools: [read, edit, search]
 ```
 
 ### Issue Management Agent
+
 ```yaml
 name: issue-manager
 description: Manages GitHub issues and project tracking
@@ -530,6 +556,7 @@ tools: [read, issue]
 ```
 
 ### Pull Request Assistant
+
 ```yaml
 name: pr-assistant
 description: Assists with pull request creation and management
@@ -539,22 +566,26 @@ tools: [read, edit, pr]
 ## Troubleshooting
 
 ### Agent Not Following Instructions
+
 - Make instructions more explicit and specific
 - Provide concrete examples
 - Break down complex instructions into steps
 - Ensure instructions don't conflict
 
 ### Tool Access Issues
+
 - Verify tools are listed in `tools` array
 - Check agent has necessary permissions
 - Ensure tools are available in the environment
 
 ### Path Targeting Not Working
+
 - Verify glob patterns are correct
 - Check file paths match patterns
 - Ensure `applyTo` is only used in `.instructions.md` files
 
 ### Custom Agent File Not Found
+
 - Verify agent file is imported in the `imports` field
 - Ensure file exists and is committed under `.github/agents/` directory
 - Confirm agent file path is correct in imports list

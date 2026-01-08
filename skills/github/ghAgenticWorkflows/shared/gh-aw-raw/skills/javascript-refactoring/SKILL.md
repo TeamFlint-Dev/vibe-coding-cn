@@ -11,6 +11,7 @@ This guide explains how to refactor JavaScript code into a separate `.cjs` file 
 ## Overview
 
 The gh-aw project uses CommonJS modules (`.cjs` files) for JavaScript code that runs in GitHub Actions workflows. These files are:
+
 - Embedded in the Go binary using `//go:embed` directives
 - Bundled using a custom JavaScript bundler that inlines local `require()` calls
 - Executed in GitHub Actions using `actions/github-script@v8`
@@ -20,6 +21,7 @@ The gh-aw project uses CommonJS modules (`.cjs` files) for JavaScript code that 
 Top-level `.cjs` scripts (those that are executed directly in workflows) follow a specific pattern:
 
 **✅ Correct Pattern - Export main, but don't call it:**
+
 ```javascript
 async function main() {
   // Script logic here
@@ -30,6 +32,7 @@ module.exports = { main };
 ```
 
 **❌ Incorrect Pattern - Don't call main in the file:**
+
 ```javascript
 async function main() {
   // Script logic here
@@ -42,12 +45,14 @@ module.exports = { main };
 ```
 
 **Why this pattern?**
+
 - The bundler automatically injects `await main()` during inline execution in GitHub Actions
 - This allows the script to be both imported (for testing) and executed (in workflows)
 - It provides a clean separation between module definition and execution
 - It enables better testing by allowing tests to import and call `main()` with mocks
 
 **Examples of top-level scripts:**
+
 - `create_issue.cjs` - Creates GitHub issues
 - `add_comment.cjs` - Adds comments to issues/PRs
 - `add_labels.cjs` - Adds labels to issues/PRs
@@ -60,11 +65,13 @@ All of these files export `main` but do not call it directly.
 Create your new file in `/home/runner/work/gh-aw/gh-aw/pkg/workflow/js/` with a descriptive name:
 
 **File naming convention:**
+
 - Use snake_case for filenames (e.g., `sanitize_content.cjs`, `load_agent_output.cjs`)
 - Use `.cjs` extension (CommonJS module)
 - Choose names that clearly describe the module's purpose
 
 **Example file structure:**
+
 ```javascript
 // @ts-check
 /// <reference types="@actions/github-script" />
@@ -90,6 +97,7 @@ module.exports = {
 ```
 
 **Key points:**
+
 - Include `// @ts-check` for TypeScript checking
 - Include `/// <reference types="@actions/github-script" />` for GitHub Actions types
 - Use JSDoc comments for documentation
@@ -101,6 +109,7 @@ module.exports = {
 Create a test file with the same base name plus `.test.cjs`:
 
 **Example: `pkg/workflow/js/my_module.test.cjs`**
+
 ```javascript
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
@@ -147,6 +156,7 @@ describe("myFunction", () => {
 ```
 
 **Testing guidelines:**
+
 - Use vitest for testing framework
 - Mock `core` and `github` globals as needed
 - Use dynamic imports (`await import()`) to allow mocking before module load
@@ -155,6 +165,7 @@ describe("myFunction", () => {
 - Follow existing test patterns in `pkg/workflow/js/*.test.cjs` files
 
 **Run tests:**
+
 ```bash
 make test-js
 ```
@@ -163,7 +174,7 @@ make test-js
 
 Add an `//go:embed` directive and variable in the appropriate Go file:
 
-### For shared utility functions (used by multiple scripts):
+### For shared utility functions (used by multiple scripts)
 
 Add to **`pkg/workflow/js.go`**:
 
@@ -176,19 +187,19 @@ Then add to the `GetJavaScriptSources()` function:
 
 ```go
 func GetJavaScriptSources() map[string]string {
-	return map[string]string{
-		"sanitize_content.cjs":       sanitizeContentScript,
-		"sanitize_label_content.cjs": sanitizeLabelContentScript,
-		"sanitize_workflow_name.cjs": sanitizeWorkflowNameScript,
-		"load_agent_output.cjs":      loadAgentOutputScript,
-		"staged_preview.cjs":         stagedPreviewScript,
-		"is_truthy.cjs":              isTruthyScript,
-		"my_module.cjs":              myModuleScript,  // Add this line
-	}
+ return map[string]string{
+  "sanitize_content.cjs":       sanitizeContentScript,
+  "sanitize_label_content.cjs": sanitizeLabelContentScript,
+  "sanitize_workflow_name.cjs": sanitizeWorkflowNameScript,
+  "load_agent_output.cjs":      loadAgentOutputScript,
+  "staged_preview.cjs":         stagedPreviewScript,
+  "is_truthy.cjs":              isTruthyScript,
+  "my_module.cjs":              myModuleScript,  // Add this line
+ }
 }
 ```
 
-### For main scripts (top-level scripts that use bundling):
+### For main scripts (top-level scripts that use bundling)
 
 Add to **`pkg/workflow/scripts.go`**:
 
@@ -201,29 +212,30 @@ Then create a getter function with bundling:
 
 ```go
 var (
-	myScript     string
-	myScriptOnce sync.Once
+ myScript     string
+ myScriptOnce sync.Once
 )
 
 // getMyScript returns the bundled my_script script
 // Bundling is performed on first access and cached for subsequent calls
 func getMyScript() string {
-	myScriptOnce.Do(func() {
-		sources := GetJavaScriptSources()
-		bundled, err := BundleJavaScriptFromSources(myScriptSource, sources, "")
-		if err != nil {
-			scriptsLog.Printf("Bundling failed for my_script, using source as-is: %v", err)
-			// If bundling fails, use the source as-is
-			myScript = myScriptSource
-		} else {
-			myScript = bundled
-		}
-	})
-	return myScript
+ myScriptOnce.Do(func() {
+  sources := GetJavaScriptSources()
+  bundled, err := BundleJavaScriptFromSources(myScriptSource, sources, "")
+  if err != nil {
+   scriptsLog.Printf("Bundling failed for my_script, using source as-is: %v", err)
+   // If bundling fails, use the source as-is
+   myScript = myScriptSource
+  } else {
+   myScript = bundled
+  }
+ })
+ return myScript
 }
 ```
 
-**Important:** 
+**Important:**
+
 - Variables in `js.go` are for **shared utilities** that get bundled into other scripts
 - Variables in `scripts.go` are for **main scripts** that use the bundler to inline dependencies
 - Use `sync.Once` pattern for lazy bundling in `scripts.go`
@@ -234,6 +246,7 @@ func getMyScript() string {
 If you're creating a shared utility that will be used by other scripts via `require()`, it's automatically available through the `GetJavaScriptSources()` map (Step 3).
 
 **The bundler will:**
+
 1. Detect `require('./my_module.cjs')` in any script
 2. Look up the file in the `GetJavaScriptSources()` map
 3. Inline the required module's content
@@ -247,6 +260,7 @@ If you're creating a shared utility that will be used by other scripts via `requ
 To use your new module in other JavaScript files, use CommonJS `require()`:
 
 **Example usage in another `.cjs` file:**
+
 ```javascript
 // @ts-check
 /// <reference types="@actions/github-script" />
@@ -264,12 +278,14 @@ module.exports = { main };
 **Important:** Top-level scripts should export `main` but **NOT** call it directly. The bundler injects `await main()` during inline execution in GitHub Actions.
 
 **Require guidelines:**
+
 - Use relative paths starting with `./`
 - Include the `.cjs` extension
 - Use destructuring to import specific functions
 - The bundler will inline the required module at compile time
 
 **Multiple requires example:**
+
 ```javascript
 const { sanitizeContent } = require("./sanitize_content.cjs");
 const { loadAgentOutput } = require("./load_agent_output.cjs");
@@ -354,21 +370,21 @@ describe("formatTimestampHuman", () => {
 });
 ```
 
-### 3. Add to `pkg/workflow/js.go`:
+### 3. Add to `pkg/workflow/js.go`
 
 ```go
 //go:embed js/format_timestamp.cjs
 var formatTimestampScript string
 
 func GetJavaScriptSources() map[string]string {
-	return map[string]string{
-		// ... existing entries ...
-		"format_timestamp.cjs": formatTimestampScript,
-	}
+ return map[string]string{
+  // ... existing entries ...
+  "format_timestamp.cjs": formatTimestampScript,
+ }
 }
 ```
 
-### 4. Use in another script:
+### 4. Use in another script
 
 ```javascript
 // @ts-check
@@ -386,7 +402,7 @@ module.exports = { main };
 
 **Note:** The script exports `main` but does not call it. The bundler will inject `await main()` when the script is executed inline in GitHub Actions.
 
-### 5. Build and test:
+### 5. Build and test
 
 ```bash
 # Format the code
@@ -423,6 +439,7 @@ Before committing your refactored code:
 ### Pattern 1: Shared Utility Function
 
 Files like `sanitize_content.cjs`, `load_agent_output.cjs` that provide reusable functions:
+
 - Add to `js.go` with `//go:embed`
 - Add to `GetJavaScriptSources()` map
 - Use via `require()` in other scripts
@@ -430,6 +447,7 @@ Files like `sanitize_content.cjs`, `load_agent_output.cjs` that provide reusable
 ### Pattern 2: Main Workflow Script
 
 Files like `create_issue.cjs`, `add_labels.cjs` that are top-level scripts:
+
 - Add to `scripts.go` with `//go:embed` as `xxxSource` variable
 - Create bundling getter function with `sync.Once` pattern
 - These scripts can `require()` utilities from `GetJavaScriptSources()`
@@ -438,6 +456,7 @@ Files like `create_issue.cjs`, `add_labels.cjs` that are top-level scripts:
 ### Pattern 3: Log Parser
 
 Files like `parse_claude_log.cjs` that parse AI engine logs:
+
 - Add to `js.go` with `//go:embed`
 - Add case in `GetLogParserScript()` function
 - Used by workflow compilation system
@@ -455,6 +474,7 @@ Files like `parse_claude_log.cjs` that parse AI engine logs:
 **Cause:** Missing global mocks
 
 **Solution:** Add proper mocks before importing the module:
+
 ```javascript
 global.core = mockCore;
 global.github = mockGithub;
@@ -470,7 +490,8 @@ global.github = mockGithub;
 
 **Cause:** Go build cache not recognizing embedded file changes
 
-**Solution:** 
+**Solution:**
+
 ```bash
 make clean
 make build

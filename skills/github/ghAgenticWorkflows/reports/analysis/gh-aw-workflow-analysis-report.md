@@ -377,6 +377,7 @@ Plan Command #6268
 ### 7.2 工作流文件示例
 
 **ChatOps 工作流 (scout.md)**:
+
 ```yaml
 ---
 on:
@@ -399,6 +400,7 @@ When triggered, research the topic thoroughly using web search...
 ```
 
 **定时工作流 (daily-team-status.md)**:
+
 ```yaml
 ---
 on:

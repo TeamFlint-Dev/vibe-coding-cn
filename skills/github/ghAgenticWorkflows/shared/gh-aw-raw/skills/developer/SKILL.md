@@ -23,7 +23,6 @@ This document consolidates technical specifications and development guidelines f
 - [Breaking CLI Rules](#breaking-cli-rules)
 - [Go Module Summaries](#go-module-summaries)
 
-
 ## Capitalization Guidelines
 
 The gh-aw CLI follows context-based capitalization to distinguish between the product name and generic workflow references.
@@ -42,7 +41,6 @@ This convention distinguishes between the product name (GitHub Agentic Workflows
 
 The capitalization rules are enforced through automated tests in `cmd/gh-aw/capitalization_test.go` that run as part of the standard test suite.
 
-
 ## Code Organization
 
 ### File Organization Principles
@@ -54,6 +52,7 @@ The codebase follows clear patterns for organizing code by functionality rather 
 Organize code into focused files of 100-500 lines rather than creating large monolithic files.
 
 **Example:**
+
 ```
 create_issue.go (160 lines)
 create_pull_request.go (238 lines)
@@ -63,6 +62,7 @@ create_discussion.go (118 lines)
 #### Group by Functionality, Not by Type
 
 **Recommended approach:**
+
 ```
 create_issue.go            # Issue creation logic
 create_issue_test.go       # Issue creation tests
@@ -71,6 +71,7 @@ add_comment_test.go        # Comment tests
 ```
 
 **Avoid:**
+
 ```
 models.go                  # All structs
 logic.go                   # All business logic
@@ -82,12 +83,14 @@ tests.go                   # All tests
 #### Create Functions Pattern
 
 One file per GitHub entity creation operation:
+
 - `create_issue.go` - GitHub issue creation logic
 - `create_pull_request.go` - Pull request creation logic
 - `create_discussion.go` - Discussion creation logic
 - `create_code_scanning_alert.go` - Code scanning alert creation
 
 Benefits:
+
 - Clear separation of concerns
 - Easy to locate specific functionality
 - Prevents files from becoming too large
@@ -96,6 +99,7 @@ Benefits:
 #### Engine Separation Pattern
 
 Each AI engine has its own file with shared helpers in `engine_helpers.go`:
+
 - `copilot_engine.go` - GitHub Copilot engine
 - `claude_engine.go` - Claude engine
 - `codex_engine.go` - Codex engine
@@ -105,6 +109,7 @@ Each AI engine has its own file with shared helpers in `engine_helpers.go`:
 #### Test Organization Pattern
 
 Tests live alongside implementation files:
+
 - Feature tests: `feature.go` + `feature_test.go`
 - Integration tests: `feature_integration_test.go`
 - Specific scenario tests: `feature_scenario_test.go`
@@ -153,6 +158,7 @@ graph TD
 The refactoring of `pkg/parser/frontmatter.go` demonstrates applying file organization principles to a large monolithic file.
 
 #### Initial State
+
 - **Original file**: 1,907 lines (monolithic structure)
 - **Problem**: Difficult to navigate, understand, and maintain
 - **Goal**: Split into focused, maintainable modules
@@ -223,6 +229,7 @@ graph TD
 #### Remaining Work
 
 Three complex modules remain in the original file (requiring future work):
+
 - **tool_sections.go** (~420 LOC): Tool configuration extraction and merging
 - **include_expander.go** (~430 LOC): Recursive include resolution with cycle detection
 - **frontmatter_imports.go** (~360 LOC): BFS import traversal and processing
@@ -232,20 +239,25 @@ These remain due to high interdependency, stateful logic, and complex recursive 
 ### Anti-Patterns to Avoid
 
 #### God Files
+
 Single file doing everything - split by responsibility instead. The frontmatter.go refactoring demonstrates how a 1,907-line "god file" can be systematically broken down.
 
 #### Vague Naming
+
 Avoid non-descriptive file names like `utils.go`, `helpers.go`, `misc.go`, `common.go`.
 
 Use specific names like `ansi_strip.go`, `remote_fetch.go`, or `workflow_update.go` that clearly indicate their purpose.
 
 #### Mixed Concerns
+
 Keep files focused on one domain. Don't mix unrelated functionality in one file.
 
 #### Test Pollution
+
 Split tests by scenario rather than having one massive test file.
 
 #### Premature Abstraction
+
 Wait until you have 2-3 use cases before extracting common patterns.
 
 ### Helper File Conventions
@@ -255,11 +267,13 @@ Helper files contain shared utility functions used across multiple modules. Foll
 #### When to Create Helper Files
 
 Create a helper file when you have:
+
 1. **Shared utilities** used by 3+ files in the same domain
 2. **Clear domain focus** (e.g., configuration parsing, MCP rendering, CLI wrapping)
 3. **Stable functionality** that won't change frequently
 
 **Examples of Good Helper Files:**
+
 - `github_cli.go` - GitHub CLI wrapping functions (ExecGH, ExecGHWithOutput)
 - `config_helpers.go` - Safe output configuration parsing (parseLabelsFromConfig, parseTitlePrefixFromConfig)
 - `map_helpers.go` - Generic map/type utilities (parseIntValue, filterMapKeys)
@@ -270,11 +284,13 @@ Create a helper file when you have:
 Helper file names should be **specific and descriptive**, not generic:
 
 **Good Names:**
+
 - `github_cli.go` - Indicates GitHub CLI helpers
 - `mcp_renderer.go` - Indicates MCP rendering helpers
 - `config_helpers.go` - Indicates configuration parsing helpers
 
 **Avoid:**
+
 - `helpers.go` - Too generic
 - `utils.go` - Too vague
 - `misc.go` - Indicates poor organization
@@ -283,12 +299,14 @@ Helper file names should be **specific and descriptive**, not generic:
 #### What Belongs in Helper Files
 
 **Include:**
+
 - Small (< 50 lines) utility functions used by multiple files
 - Domain-specific parsing/validation functions
 - Wrapper functions that simplify common operations
 - Type conversion utilities
 
 **Exclude:**
+
 - Complex business logic (belongs in domain-specific files)
 - Functions used by only 1-2 callers (co-locate with callers)
 - Large functions (> 100 lines) - consider dedicated files
@@ -310,12 +328,14 @@ Helper file names should be **specific and descriptive**, not generic:
 #### When NOT to Create Helper Files
 
 Avoid creating helper files when:
+
 1. **Single caller** - Co-locate with the caller instead
 2. **Tight coupling** - Function is tightly coupled to one module
 3. **Frequent changes** - Helper files should be stable
 4. **Mixed concerns** - Multiple unrelated utilities (split into focused files)
 
 **Example of co-location preference:**
+
 ```go
 // Instead of: helpers.go containing formatStepName() used only by compiler.go
 // Do: Put formatStepName() directly in compiler.go
@@ -324,6 +344,7 @@ Avoid creating helper files when:
 #### Refactoring Guidelines
 
 When refactoring helper files:
+
 1. **Group by domain** - MCP rendering → mcp_renderer.go, not engine_helpers.go
 2. **Keep functions small** - Large helpers (> 100 lines) may need dedicated files
 3. **Document usage** - Add comments explaining when to use each helper
@@ -332,12 +353,14 @@ When refactoring helper files:
 #### Example: MCP Function Reorganization
 
 The MCP rendering functions were moved from `engine_helpers.go` to `mcp_renderer.go` because:
+
 - **Domain focus**: All functions relate to MCP configuration rendering
 - **Multiple callers**: Used by Claude, Copilot, Codex, and Custom engines
 - **Cohesive**: Functions work together to render MCP configs
 - **Stable**: Rendering patterns don't change frequently
 
 **Before:**
+
 ```
 engine_helpers.go (478 lines)
   - Agent helpers
@@ -346,6 +369,7 @@ engine_helpers.go (478 lines)
 ```
 
 **After:**
+
 ```
 engine_helpers.go (213 lines)
   - Agent helpers
@@ -367,6 +391,7 @@ The codebase uses two distinct patterns for string processing with different pur
 **When to use**: When you need to ensure a string contains only valid characters for a specific context (identifiers, YAML artifact names, filesystem paths).
 
 **What it does**:
+
 - Removes special characters that are invalid in the target context
 - Replaces separators (colons, slashes, spaces) with hyphens
 - Converts to lowercase for consistency
@@ -379,6 +404,7 @@ The codebase uses two distinct patterns for string processing with different pur
 **When to use**: When you need to convert between different representations of the same logical entity (e.g., file extensions, naming conventions).
 
 **What it does**:
+
 - Removes file extensions (.md, .lock.yml)
 - Converts between naming conventions (dashes to underscores)
 - Standardizes identifiers to a canonical form
@@ -387,11 +413,13 @@ The codebase uses two distinct patterns for string processing with different pur
 #### Function Reference
 
 **Sanitize Functions**:
+
 - `SanitizeName(name string, opts *SanitizeOptions) string` - Configurable sanitization with custom character preservation
 - `SanitizeWorkflowName(name string) string` - Sanitizes workflow names for artifact names and file paths
 - `SanitizeIdentifier(name string) string` - Creates clean identifiers for user agent strings
 
 **Normalize Functions**:
+
 - `normalizeWorkflowName(name string) string` - Removes file extensions to get base workflow identifier
 - `normalizeSafeOutputIdentifier(identifier string) string` - Converts dashes to underscores for safe output identifiers
 
@@ -426,6 +454,7 @@ graph TD
 #### Anti-Patterns
 
 **Don't sanitize already-normalized strings**:
+
 ```go
 // BAD: Sanitizing a normalized workflow name
 normalized := normalizeWorkflowName("weekly-research.md")
@@ -433,13 +462,13 @@ sanitized := SanitizeWorkflowName(normalized) // Unnecessary!
 ```
 
 **Don't normalize for character validity**:
+
 ```go
 // BAD: Using normalize for invalid characters
 userInput := "My Workflow: Test/Build"
 normalized := normalizeWorkflowName(userInput) // Wrong tool!
 // normalized = "My Workflow: Test/Build" (unchanged - invalid chars remain)
 ```
-
 
 ## Validation Architecture
 
@@ -467,6 +496,7 @@ graph LR
 **Purpose:** General-purpose validation that applies across the entire workflow system
 
 **Key Functions:**
+
 - `validateExpressionSizes()` - Ensures GitHub Actions expression size limits
 - `validateContainerImages()` - Verifies Docker images exist and are accessible
 - `validateRuntimePackages()` - Validates runtime package dependencies
@@ -478,6 +508,7 @@ graph LR
 - `validateWorkflowRunBranches()` - Validates workflow run branch configuration
 
 **When to add validation here:**
+
 - Cross-cutting concerns that span multiple domains
 - Core workflow integrity checks
 - GitHub Actions compatibility validation
@@ -493,6 +524,7 @@ Domain-specific validation is organized into separate files:
 **Files:** `pkg/workflow/strict_mode.go`, `pkg/workflow/validation_strict_mode.go`
 
 Enforces security and safety constraints in strict mode:
+
 - `validateStrictPermissions()` - Refuses write permissions
 - `validateStrictNetwork()` - Requires explicit network configuration
 - `validateStrictMCPNetwork()` - Requires network config on custom MCP servers
@@ -503,6 +535,7 @@ Enforces security and safety constraints in strict mode:
 **File:** `pkg/workflow/pip.go`
 
 Validates Python package availability on PyPI:
+
 - `validatePipPackages()` - Validates pip packages
 - `validateUvPackages()` - Validates uv packages
 
@@ -621,7 +654,6 @@ func (c *Compiler) validateStrictMode(frontmatter map[string]any, networkPermiss
 }
 ```
 
-
 ## Security Best Practices
 
 This section outlines security best practices for GitHub Actions workflows based on static analysis tools (actionlint, zizmor, poutine) and security research.
@@ -697,6 +729,7 @@ graph TB
 #### Recent Fixes (November 2025)
 
 Template injection vulnerabilities were identified and fixed in:
+
 - `copilot-session-insights.md` - Step output passed through environment variable
 - Pattern: Move template expressions from bash scripts to environment variable assignments
 
@@ -710,6 +743,7 @@ Analyze this content: "${{ needs.activation.outputs.text }}"
 ```
 
 The `needs.activation.outputs.text` output is automatically sanitized:
+
 - @mentions neutralized
 - Bot triggers protected
 - XML tags converted to safe format
@@ -720,6 +754,7 @@ The `needs.activation.outputs.text` output is automatically sanitized:
 #### Safe Context Variables
 
 **Always safe to use in expressions:**
+
 - `github.actor`
 - `github.repository`
 - `github.run_id`
@@ -727,6 +762,7 @@ The `needs.activation.outputs.text` output is automatically sanitized:
 - `github.sha`
 
 **Never safe in expressions without environment variable indirection:**
+
 - `github.event.issue.title`
 - `github.event.issue.body`
 - `github.event.comment.body`
@@ -739,6 +775,7 @@ The `needs.activation.outputs.text` output is automatically sanitized:
 #### SC2086: Double Quote to Prevent Globbing and Word Splitting
 
 **Insecure:**
+
 ```yaml
 steps:
   - name: Process files
@@ -752,6 +789,7 @@ steps:
 **Why vulnerable:** Variables can be split on whitespace, glob patterns are expanded, potential command injection.
 
 **Secure:**
+
 ```yaml
 steps:
   - name: Process files
@@ -771,6 +809,7 @@ steps:
 - Use shellcheck to catch common issues
 
 **Example secure script:**
+
 ```yaml
 steps:
   - name: Secure script
@@ -797,6 +836,7 @@ Supply chain attacks target dependencies in CI/CD pipelines.
 #### Pin Action Versions with SHA
 
 **Insecure:**
+
 ```yaml
 steps:
   - uses: actions/checkout@v5           # Tag can be moved
@@ -806,6 +846,7 @@ steps:
 **Why vulnerable:** Tags can be deleted and recreated, branches can be force-pushed, repository ownership can change.
 
 **Secure:**
+
 ```yaml
 steps:
   - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -829,6 +870,7 @@ curl -s https://api.github.com/repos/actions/checkout/git/refs/tags/v4.1.1
 #### Minimal Permissions Principle
 
 **Insecure:**
+
 ```yaml
 name: CI
 on: [push]
@@ -837,6 +879,7 @@ permissions: write-all
 ```
 
 **Secure:**
+
 ```yaml
 name: CI
 on: [push]
@@ -920,12 +963,14 @@ gh aw compile --strict --actionlint --zizmor --poutine
 ### Security Checklist
 
 #### Template Injection
+
 - [ ] No untrusted input in `${{ }}` expressions
 - [ ] Untrusted data passed via environment variables
 - [ ] Safe context variables used where possible
 - [ ] Sanitized context used (gh-aw: `needs.activation.outputs.text`)
 
 #### Shell Scripts
+
 - [ ] All variables quoted: `"$VAR"`
 - [ ] No SC2086 warnings (unquoted expansion)
 - [ ] Strict mode enabled: `set -euo pipefail`
@@ -933,22 +978,24 @@ gh aw compile --strict --actionlint --zizmor --poutine
 - [ ] shellcheck passes with no warnings
 
 #### Supply Chain
+
 - [ ] All actions pinned to SHA (not tags/branches)
 - [ ] Version comments added to pinned actions
 - [ ] Actions from verified creators or reviewed
 - [ ] Dependencies scanned for vulnerabilities
 
 #### Permissions
+
 - [ ] Minimal permissions specified
 - [ ] No `write-all` permissions
 - [ ] Job-level permissions used when needed
 - [ ] Fork PR handling secure
 
 #### Static Analysis
+
 - [ ] actionlint passes (no errors)
 - [ ] zizmor passes (High/Critical addressed)
 - [ ] poutine passes (supply chain secure)
-
 
 ## Safe Output Messages
 
@@ -991,6 +1038,7 @@ graph TD
 ```
 
 **Flow Stages:**
+
 1. **AI Agent Output** - AI generates content for GitHub operations
 2. **Staged Mode Check** - Determines if operation is in preview mode
 3. **Safe Output Processing** - Routes to appropriate GitHub operation type
@@ -1009,6 +1057,7 @@ Identifies content as AI-generated and links to workflow run:
 ```
 
 With triggering context:
+
 ```markdown
 > AI generated by [WorkflowName](run_url) for #123
 ```
@@ -1058,29 +1107,32 @@ Limits: Max 500 lines or 2000 characters (truncated with "... (truncated)" if ex
 ### Design Principles
 
 #### Consistency
+
 - All AI-generated content uses same blockquote footer format
 - 🎭 emoji consistently marks staged preview mode
 - URL patterns match GitHub conventions
 - Step summaries follow same heading and list structure
 
 #### Clarity
+
 - Clear distinction between preview and actual operations
 - Explicit error messages with actionable guidance
 - Helpful fallback instructions when operations fail
 - Field labels consistently use bold text
 
 #### Discoverability
+
 - Installation instructions included in footers when available
 - Related items automatically linked across workflow outputs
 - Step summaries provide quick access to created items
 - Collapsible sections keep large content manageable
 
 #### Safety
+
 - Labels sanitized to prevent unintended @mentions
 - Patch sizes validated and truncated when needed
 - Staged mode allows testing without side effects
 - Graceful fallbacks when primary operations fail
-
 
 ## Schema Validation
 
@@ -1135,6 +1187,7 @@ var mainWorkflowSchema string
 ```
 
 This means:
+
 - Schema changes require running `make build` to take effect
 - Schemas are validated at runtime, not at build time
 - No external JSON files need to be distributed with the binary
@@ -1148,7 +1201,6 @@ When adding new fields to schemas:
 3. Add test cases to verify the new field works
 4. Update documentation if the field is user-facing
 
-
 ## YAML Compatibility
 
 YAML has two major versions with incompatible boolean parsing behavior that affects workflow validation.
@@ -1160,6 +1212,7 @@ YAML has two major versions with incompatible boolean parsing behavior that affe
 In YAML 1.1, certain plain strings are automatically converted to boolean values. The workflow trigger key `on:` can be misinterpreted as boolean `true` instead of string `"on"`.
 
 **Example:**
+
 ```python
 # Python yaml.safe_load (YAML 1.1 parser)
 import yaml
@@ -1183,6 +1236,7 @@ This creates false positives when validating workflows with Python-based tools.
 YAML 1.2 parsers treat `on`, `off`, `yes`, and `no` as regular strings, not booleans. Only explicit boolean literals `true` and `false` are treated as booleans.
 
 **Example:**
+
 ```go
 // Go goccy/go-yaml (YAML 1.2 parser) - Used by gh-aw
 var result map[string]interface{}
@@ -1228,6 +1282,7 @@ YAML 1.2 treats all of the above as strings. Only these are booleans: `true`, `f
 #### For Workflow Authors
 
 1. **Use gh-aw's compiler for validation:**
+
    ```bash
    gh aw compile workflow.md
    ```
@@ -1235,6 +1290,7 @@ YAML 1.2 treats all of the above as strings. Only these are booleans: `true`, `f
 2. **Don't trust Python yaml.safe_load for validation** - it will give false positives for the `on:` trigger key.
 
 3. **Use explicit booleans when you mean boolean values:**
+
    ```yaml
    enabled: true      # Explicit boolean
    disabled: false    # Explicit boolean
@@ -1255,7 +1311,6 @@ YAML 1.2 treats all of the above as strings. Only these are booleans: `true`, `f
 2. **Document parser version in your tool**
 
 3. **Consider adding compatibility mode** to switch between YAML 1.1 and 1.2 parsing
-
 
 ## MCP Logs Guardrail
 
@@ -1332,21 +1387,25 @@ Token estimation uses approximately 4 characters per token (OpenAI's rule of thu
 Filter output using jq syntax:
 
 **Get only summary statistics:**
+
 ```json
 { "jq": ".summary" }
 ```
 
 **Get run IDs and basic info:**
+
 ```json
 { "jq": ".runs | map({database_id, workflow_name, status})" }
 ```
 
 **Get only failed runs:**
+
 ```json
 { "jq": ".runs | map(select(.conclusion == \"failure\"))" }
 ```
 
 **Get high token usage runs:**
+
 ```json
 { "jq": ".runs | map(select(.token_usage > 10000))" }
 ```
@@ -1354,10 +1413,12 @@ Filter output using jq syntax:
 ### Implementation Details
 
 **Constants:**
+
 - `DefaultMaxMCPLogsOutputTokens`: 12000 tokens (default limit)
 - `CharsPerToken`: 4 characters per token (estimation factor)
 
 **Files:**
+
 - `pkg/cli/mcp_logs_guardrail.go` - Core guardrail implementation
 - `pkg/cli/mcp_logs_guardrail_test.go` - Unit tests
 - `pkg/cli/mcp_logs_guardrail_integration_test.go` - Integration tests
@@ -1370,7 +1431,6 @@ Filter output using jq syntax:
 3. Self-documenting with schema description
 4. Preserves functionality with jq filtering
 5. Transparent messaging about why guardrail triggered
-
 
 ## Release Management
 
@@ -1389,6 +1449,7 @@ make version
 ```
 
 This command:
+
 - Reads all changeset files from `.changeset/` directory
 - Determines the appropriate version bump (major > minor > patch)
 - Shows a preview of the CHANGELOG entry
@@ -1405,6 +1466,7 @@ make release
 ```
 
 This command:
+
 - Checks prerequisites (clean tree, main branch)
 - Updates `CHANGELOG.md` with new version and changes
 - Deletes processed changeset files (if any exist)
@@ -1412,6 +1474,7 @@ This command:
 - Creates and pushes a git tag for the release
 
 **Flags:**
+
 - `--yes` or `-y`: Skip confirmation prompt
 
 ### Release Workflow
@@ -1441,6 +1504,7 @@ Brief description of the change
 ```
 
 **Bump types:**
+
 - `patch` - Bug fixes and minor changes (0.0.x)
 - `minor` - New features, backward compatible (0.x.0)
 - `major` - Breaking changes (x.0.0)
@@ -1468,12 +1532,12 @@ node scripts/changeset.js release --yes
 ```
 
 The script will:
+
 - Default to patch release if no type specified
 - Add a generic "Maintenance release" entry to CHANGELOG.md
 - Commit the changes
 - Create a git tag
 - Push the tag to remote
-
 
 ## Firewall Log Parsing
 
@@ -1488,6 +1552,7 @@ timestamp client_ip:port domain dest_ip:port proto method status decision url us
 ```
 
 **Example:**
+
 ```
 1761332530.474 172.30.0.20:35288 api.enterprise.githubcopilot.com:443 140.82.112.22:443 1.1 CONNECT 200 TCP_TUNNEL:HIER_DIRECT api.enterprise.githubcopilot.com:443 "-"
 ```
@@ -1519,10 +1584,12 @@ graph TD
 ```
 
 **Allowed Indicators:**
+
 - Status codes: 200, 206, 304
 - Decisions containing: TCP_TUNNEL, TCP_HIT, TCP_MISS
 
 **Denied Indicators:**
+
 - Status codes: 403, 407
 - Decisions containing: NONE_NONE, TCP_DENIED
 
@@ -1574,6 +1641,7 @@ Denied Domains:
 ### Integration Points
 
 The `logs` and `audit` commands automatically:
+
 1. Search for firewall logs in run directories
 2. Parse all `.log` files in `firewall-logs/` or `squid-logs/` directories
 3. Aggregate statistics across all log files
@@ -1583,11 +1651,13 @@ The `logs` and `audit` commands automatically:
 ### Implementation
 
 **Files:**
+
 - `pkg/cli/firewall_log.go` (396 lines) - Core parser implementation
 - `pkg/cli/firewall_log_test.go` (437 lines) - Unit tests
 - `pkg/cli/firewall_log_integration_test.go` (238 lines) - Integration tests
 
 **Testing:**
+
 ```bash
 # Unit tests
 make test-unit
@@ -1595,7 +1665,6 @@ make test-unit
 # Integration tests
 go test ./pkg/cli -run TestFirewallLogIntegration
 ```
-
 
 ## Breaking CLI Rules
 
@@ -1610,6 +1679,7 @@ Breaking changes require special attention during development and review because
 #### Breaking Changes (Major Version Bump)
 
 The following changes are **always breaking** and require:
+
 - A `major` changeset type
 - Documentation in CHANGELOG.md with migration guidance
 - Review by maintainers
@@ -1617,68 +1687,80 @@ The following changes are **always breaking** and require:
 **1. Command Removal or Renaming**
 
 Breaking:
+
 - Removing a command entirely (e.g., removing `gh aw logs`)
 - Renaming a command without an alias (e.g., `gh aw compile` → `gh aw build`)
 - Removing a subcommand (e.g., removing `gh aw mcp inspect`)
 
 Examples from past releases:
+
 - Removing `--no-instructions` flag from compile command (v0.17.0)
 
 **2. Flag Removal or Renaming**
 
 Breaking:
+
 - Removing a flag (e.g., removing `--strict` flag)
 - Changing a flag name without backward compatibility (e.g., `--output` → `--out`)
 - Changing a flag's short form (e.g., `-o` → `-f`)
 - Changing a required flag to have no default when it previously had one
 
 Examples from past releases:
+
 - Remove GITHUB_TOKEN fallback for Copilot operations (v0.24.0)
 
 **3. Output Format Changes**
 
 Breaking:
+
 - Changing the structure of JSON output (removing fields, renaming fields)
 - Changing the order of columns in table output that users might parse positionally
 - Changing exit codes for specific scenarios
 - Removing output fields that scripts may depend on
 
 Examples from past releases:
+
 - Update status command JSON output structure (v0.21.0): replaced `agent` with `engine_id`, removed `frontmatter` and `prompt` fields
 
 **4. Behavior Changes**
 
 Breaking:
+
 - Changing default values for flags (e.g., `strict: false` → `strict: true`)
 - Changing authentication requirements
 - Changing permission requirements
 - Changing the semantics of existing options
 
 Examples from past releases:
+
 - Change strict mode default from false to true (v0.31.0)
 - Remove per-tool Squid proxy - unify network filtering (v0.25.0)
 
 **5. Schema Changes**
 
 Breaking:
+
 - Removing fields from workflow frontmatter schema
 - Making optional fields required
 - Changing the type of a field (e.g., string → object)
 - Removing allowed values from enums
 
 Examples from past releases:
+
 - Remove "defaults" section from main JSON schema (v0.24.0)
 - Remove deprecated "claude" top-level field (v0.24.0)
 
 #### Non-Breaking Changes (Minor or Patch Version Bump)
 
 The following changes are **not breaking** and typically require:
+
 - A `minor` changeset for new features
 - A `patch` changeset for bug fixes
 
 **1. Additions**
 
 Not Breaking:
+
 - Adding new commands
 - Adding new flags with reasonable defaults
 - Adding new fields to JSON output
@@ -1687,17 +1769,20 @@ Not Breaking:
 - Adding new exit codes for new scenarios
 
 Examples:
+
 - Add `--json` flag to status command (v0.20.0)
 - Add mcp-server command (v0.17.0)
 
 **2. Deprecations**
 
 Not Breaking (when handled correctly):
+
 - Deprecating commands (with warning, keeping functionality)
 - Deprecating flags (with warning, keeping functionality)
 - Deprecating schema fields (with warning, keeping functionality)
 
 Requirements for deprecation:
+
 - Print deprecation warning to stderr
 - Document the deprecation and migration path
 - Keep deprecated functionality working for at least one minor release
@@ -1706,6 +1791,7 @@ Requirements for deprecation:
 **3. Bug Fixes**
 
 Not Breaking (when fixing unintended behavior):
+
 - Fixing incorrect output
 - Fixing incorrect exit codes
 - Fixing schema validation that was too permissive
@@ -1715,6 +1801,7 @@ Note: Fixing a bug that users depend on may require a breaking change notice.
 **4. Performance Improvements**
 
 Not Breaking:
+
 - Faster execution
 - Reduced memory usage
 - Parallel processing optimizations
@@ -1722,6 +1809,7 @@ Not Breaking:
 **5. Documentation Changes**
 
 Not Breaking:
+
 - Improving help text
 - Adding examples
 - Clarifying error messages
@@ -1780,6 +1868,7 @@ Remove deprecated `--old-flag` option
 **Changeset Format for Non-Breaking Changes:**
 
 For new features:
+
 ```markdown
 "gh-aw": minor
 
@@ -1787,6 +1876,7 @@ Add --json flag to logs command for structured output
 ```
 
 For bug fixes:
+
 ```markdown
 "gh-aw": patch
 
@@ -1839,8 +1929,7 @@ Special consideration for strict mode changes:
 
 - **Changeset System**: See Release Management section for version management details
 - **CHANGELOG**: See `CHANGELOG.md` for examples of breaking changes
-- **Semantic Versioning**: https://semver.org/
-
+- **Semantic Versioning**: <https://semver.org/>
 
 ## Go Module Summaries
 
@@ -1849,6 +1938,7 @@ The `specs/mods/` directory contains AI-generated summaries of Go module usage p
 ### Purpose
 
 Go module summaries provide:
+
 - **Module overview** and version information
 - **Files and APIs** that use the module
 - **Research findings** from the module's GitHub repository
@@ -1904,7 +1994,6 @@ Each module summary includes the following sections:
 - **Research Findings**: Information from the module's repository (recent releases, documentation, best practices)
 - **Improvement Opportunities**: Suggestions for better module usage
 - **References**: Links to documentation, changelog, and GitHub repository
-
 
 **Last Updated:** 2025-12-01
 **Maintainers:** GitHub Next Team

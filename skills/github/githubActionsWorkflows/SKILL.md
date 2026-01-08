@@ -10,6 +10,7 @@ description: "Webhook 驱动的 PR 自动构建系统：外部 Webhook 服务器
 ## When to Use This Skill
 
 触发条件：
+
 - 部署外部 Webhook 服务器接收 GitHub PR 事件
 - 配置 Self-Hosted Runner 执行本地编译任务
 - 使用 `repository_dispatch` 触发工作流
@@ -18,12 +19,14 @@ description: "Webhook 驱动的 PR 自动构建系统：外部 Webhook 服务器
 ## Not For / Boundaries
 
 此技能不涉及：
+
 - GitHub Actions 基础语法（假设已了解）
 - 具体业务逻辑实现（如 Verse 编译细节）
 - 第三方 Actions 的具体配置
 - Webhook 服务器的基础设施部署（服务器购买、域名配置等）
 
 必需输入：
+
 - 目标仓库和权限信息（需要 repo 级别的 PAT）
 - Self-Hosted Runner 的运行环境
 
@@ -32,6 +35,7 @@ description: "Webhook 驱动的 PR 自动构建系统：外部 Webhook 服务器
 ### Webhook 触发工作流模式
 
 **典型流程：**
+
 ```
 GitHub PR Event → Webhook Server → repository_dispatch(build-pr) → Self-Hosted Runner
                                                                    → Check Changed Files
@@ -41,6 +45,7 @@ GitHub PR Event → Webhook Server → repository_dispatch(build-pr) → Self-Ho
 ```
 
 **核心配置要点：**
+
 - Webhook 接收 PR 事件 (`opened`, `synchronize`, `reopened`)
 - 调用 `gh api repos/{repo}/dispatches` 触发工作流
 - 使用 `client_payload` 传递 PR 信息（`pr_number`, `head_ref`, `pr_title`）
@@ -59,11 +64,13 @@ GitHub PR Event → Webhook Server → repository_dispatch(build-pr) → Self-Ho
 ### API 调用模式
 
 **触发 workflow_dispatch（推荐）：**
+
 ```powershell
 gh workflow run <workflow>.yml -f param1=value1 -f param2=value2
 ```
 
 **触发 repository_dispatch：**
+
 ```powershell
 # 正确格式 - 通过管道传递 JSON
 $payload = @{
@@ -79,6 +86,7 @@ echo $payload | gh api repos/{owner}/{repo}/dispatches --input -
 ```
 
 **错误格式（常见陷阱）：**
+
 ```powershell
 # ❌ 错误：-f 会将 JSON 当作字符串
 gh api repos/{owner}/{repo}/dispatches -f client_payload='{"key":"value"}'
@@ -87,6 +95,7 @@ gh api repos/{owner}/{repo}/dispatches -f client_payload='{"key":"value"}'
 ### PowerShell 输出语法
 
 **设置 step outputs：**
+
 ```powershell
 # ✅ 正确
 'result=success' | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
@@ -103,11 +112,13 @@ $errorMessage | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
 ### Self-Hosted Runner 配置
 
 **标签设置：**
+
 ```yaml
 runs-on: [self-hosted, windows, verse-builder]
 ```
 
 **Runner 注册命令：**
+
 ```powershell
 .\config.cmd --url https://github.com/{owner}/{repo} --token <TOKEN> --labels self-hosted,windows,verse-builder
 .\run.cmd
@@ -116,18 +127,21 @@ runs-on: [self-hosted, windows, verse-builder]
 ### 腾讯云服务器 SSH 连接
 
 **快速连接命令（PowerShell）：**
+
 ```powershell
 # SSH 密钥路径：C:\Users\Administrator\.ssh\tencent-agent.pem
 ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" ubuntu@193.112.183.143
 ```
 
 **检查 Webhook 服务状态：**
+
 ```powershell
 # 一行命令查看状态
 ssh -i "C:\Users\Administrator\.ssh\tencent-agent.pem" ubuntu@193.112.183.143 "sudo systemctl status webhook --no-pager"
 ```
 
 **常用运维命令（连接后执行）：**
+
 ```bash
 # 查看服务状态
 sudo systemctl status webhook
@@ -155,6 +169,7 @@ tail -f /opt/webhook/webhook.log
    - ❌ **不勾选** Require approval for fork pull request workflows
 
 2. **工作流文件**：
+
 ```yaml
 on:
   pull_request_target:  # 不是 pull_request
@@ -179,6 +194,7 @@ GitHub PR → Webhook Server → GitHub API → repository_dispatch → Runner
 ```
 
 核心配置：
+
 ```python
 # /opt/webhook/webhook_server.py
 def trigger_repository_dispatch(self, pr_number, action):
@@ -191,6 +207,7 @@ def trigger_repository_dispatch(self, pr_number, action):
 ```
 
 接收工作流：
+
 ```yaml
 on:
   repository_dispatch:
@@ -208,6 +225,7 @@ jobs:
 详见：[references/tencent-cloud-webhook-server.md](references/tencent-cloud-webhook-server.md)
 
 **验证：**
+
 ```bash
 # 检查运行状态
 gh api repos/{owner}/{repo}/actions/runs/{run_id} --jq '{conclusion, triggering_actor: .triggering_actor.login}'
@@ -242,6 +260,7 @@ run: |
 **场景：** Copilot 创建 PR 后自动触发编译
 
 **Webhook 服务器代码片段（Python Flask）：**
+
 ```python
 import hmac
 import hashlib
@@ -281,6 +300,7 @@ def handle_pull_request(payload, action):
 完整 Webhook 服务器部署详见：[references/tencent-cloud-webhook-server.md](references/tencent-cloud-webhook-server.md)
 
 **接收工作流（pr-builder-dispatch.yml）：**
+
 ```yaml
 name: "PR Builder - Dispatch Trigger"
 
@@ -356,6 +376,7 @@ jobs:
 **场景：** 配置本地 Windows Runner 执行编译任务
 
 **智能文件检测（跳过不必要的构建）：**
+
 ```yaml
 - name: Check for Verse files
   id: check_files
@@ -382,6 +403,7 @@ jobs:
 ```
 
 **注册 Runner：**
+
 ```powershell
 # 下载 Runner
 cd E:\GitHub-Runner
@@ -396,6 +418,7 @@ Expand-Archive -Path actions-runner.zip -DestinationPath .
 ```
 
 **工作流中使用：**
+
 ```yaml
 jobs:
   build:
@@ -426,6 +449,7 @@ jobs:
 ### 架构演进
 
 **2024-12-31 重大简化：**
+
 - 从多工作流事件驱动架构简化为单一 Webhook 触发模式
 - 删除未实施的 `task:start`/`orchestrator`/`agent:start` 事件系统
 - 删除 gh-aw 相关内容（工具已不使用）

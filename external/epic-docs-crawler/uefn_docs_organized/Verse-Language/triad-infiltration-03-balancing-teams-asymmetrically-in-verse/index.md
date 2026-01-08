@@ -1,6 +1,6 @@
 # 3. Balancing Teams Asymmetrically
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-03-balancing-teams-asymmetrically-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-03-balancing-teams-asymmetrically-in-verse>
 > **爬取时间**: 2025-12-27T00:22:44.357974
 
 ---
@@ -41,12 +41,16 @@ This step shows how to balance teams of players asymmetrically at the start of a
    set TeamToAssign = FindTeamWithLargestDifference()`
 4. Create the function `FindTeamWithLargestDifference()` in the `triad_infiltration_game` class definition. This function will handle finding the team with the largest difference in the number of players from their maximum, and returns an optional `team`. You want the returned `team` to be an option to prevent reassigning a player when they are already on the team with the largest difference.
     `# Finds the team with the largest difference in their number of players from their
+
    # maximum number of players
+
    FindTeamWithLargestDifference():?team =
    Logger.Print("Attempting to find smallest team")`
 5. Initialize an optional team variable named `TeamToAssign` which will store a reference to the team with the largest difference in players, and an integer `LargestDifference` to track that difference in players.
     `# Finds the team with the largest difference in their number of players from their
-   # maximum number of players.
+
+   # maximum number of players
+
    FindTeamWithLargestDifference():?team =
    Logger.Print("Attempting to find smallest team")
    var TeamToAssign:?team = false
@@ -61,6 +65,7 @@ This step shows how to balance teams of players asymmetrically at the start of a
             CurrentTeamSize := GetPlayspace().GetTeamCollection().GetAgents[CandidateTeam].Length
             MaximumTeamSize := TeamsAndTotals[CandidateTeam]
    ```
+
 7. For each team, calculate the `DifferenceFromMaximum`, which is the difference between the maximum size of this team and the number of players it currently has. If the team has a larger difference than `LargestDifference`, set `LargestDifference` to `DifferenceFromMaximum`, and wrap `TeamToAssign` in an `option`.
 
    ```verse
@@ -78,6 +83,7 @@ This step shows how to balance teams of players asymmetrically at the start of a
                 set TeamToAssign = option{CandidateTeam}
                 Logger.Print("Found a team under maximum players: {DifferenceFromMaximum}")
    ```
+
 8. Finally, return `TeamToAssign`. Your `FindTeamWithLargestDifference()` code should now look like:
 
    ```verse
@@ -102,6 +108,7 @@ This step shows how to balance teams of players asymmetrically at the start of a
                     Logger.Print("Found a team under minimum players: {DifferenceFromMaximum}")
             return TeamToAssign
    ```
+
 9. Back in `BalanceTeams()`, assign the player to a new team through the `FortTeamCollection.AddToTeam[]` function. If this assignment fails, the player was already on the smallest team.
 
    ```verse
@@ -110,6 +117,7 @@ This step shows how to balance teams of players asymmetrically at the start of a
         if (AssignedTeam := TeamToAssign?, FortTeamCollection.AddToTeam[TeamPlayer, AssignedTeam]):
             Logger.Print("Attempting to assign player to a new team")
    ```
+
 10. Your `BalanceTeams()` function should look like:
 
     ```verse
@@ -119,7 +127,7 @@ This step shows how to balance teams of players asymmetrically at the start of a
              var AllPlayers:[]player := GetPlayspace().GetPlayers()
              set AllPlayers = Shuffle(AllPlayers)
              Logger.Print("AllPlayers Length is {AllPlayers.Length}")
-    		        
+              
              for (TeamPlayer : AllPlayers):
                  var TeamToAssign:?team = false
                  set TeamToAssign = FindTeamWithLargestDifference()
@@ -171,6 +179,7 @@ Even though players will end up on the team with the largest difference, they mi
                     TeamPlayer.Respawn(Transform.Translation, Transform.Rotation)
                     Logger.Print("Teleported this player to their start location")
    ```
+
 5. In `OnBegin()`, add a call to `BalanceTeams()` after shuffling `AllPlayers`. This will ensure that players are balanced in a random order rather than ending up on the same team every time. Then teleport players to their start locations by calling `TeleportPlayersToStartLocations()`.
 
    ```verse
@@ -197,6 +206,7 @@ Even though players will end up on the team with the largest difference, they mi
             else:
                 Logger.Print("Couldn't find all teams, make sure to assign the correct teams in your island settings.")
    ```
+
 6. Save the script, compile it, and click Launch Session in the UEFN toolbar to playtest the level. When you playtest your level, each player should end up on the team with the largest difference, and spawn in that team's spawn area. Verify this behavior using the log. You can adjust the maximum number of players per team in your `triad_infiltration_game` to test this functionality when you have fewer than your max number of players. For example, when testing alone, try setting the maximum number of players on the team you're trying to end up on higher than the other two teams. If you want to end up on the Attackers, set `MaximumAttackers` higher. If you want to end up on the Infiltrators, set `MaximumInfiltrators` higher.
 
    [![Balancing Teams Asymmetrically](https://dev.epicgames.com/community/api/documentation/image/d2b82d76-9c65-432f-a725-37021da1ad36?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d2b82d76-9c65-432f-a725-37021da1ad36?resizing_type=fit)

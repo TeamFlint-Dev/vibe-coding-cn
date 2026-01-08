@@ -27,7 +27,8 @@ You are an issue classification assistant. Your task is to analyze newly created
 
 - **Issue Number**: ${{ github.event.issue.number }}
 - **Repository**: ${{ github.repository }}
-- **Issue Content**: 
+- **Issue Content**:
+
   ```
   ${{ needs.activation.outputs.text }}
   ```
@@ -35,6 +36,7 @@ You are an issue classification assistant. Your task is to analyze newly created
 ## Classification Guidelines
 
 **Bug**: An issue that describes:
+
 - Something that is broken or not working as expected
 - An error, exception, or crash
 - Incorrect behavior compared to documentation
@@ -42,6 +44,7 @@ You are an issue classification assistant. Your task is to analyze newly created
 - Security vulnerabilities
 
 **Feature**: An issue that describes:
+
 - A request for new functionality
 - An enhancement to existing features
 - A suggestion for improvement

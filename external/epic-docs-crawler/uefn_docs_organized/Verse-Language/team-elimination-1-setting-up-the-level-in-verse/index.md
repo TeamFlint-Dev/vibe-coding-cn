@@ -1,6 +1,6 @@
 # 1. Setting Up the Team Elimination Level
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-1-setting-up-the-level-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-elimination-1-setting-up-the-level-in-verse>
 > **爬取时间**: 2025-12-27T00:18:46.199028
 
 ---

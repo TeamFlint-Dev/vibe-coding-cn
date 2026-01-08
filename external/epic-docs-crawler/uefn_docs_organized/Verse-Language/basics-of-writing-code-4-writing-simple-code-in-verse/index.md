@@ -1,6 +1,6 @@
 # Lesson 4: Writing Simple Code
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-4-writing-simple-code-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-4-writing-simple-code-in-verse>
 > **爬取时间**: 2025-12-26T23:09:33.910300
 
 ---
@@ -21,11 +21,11 @@ The simplest way to write a code comment is to put a `#` in front of the comment
 
 |  |  |
 | --- | --- |
-| ```verse 1+2 # Hello ``` | **single-line comment:** Anything that appears between `#` and the end of line is part of the code comment. |
-| ```verse 1<# inline comment #>+2 ``` | **inline block comment:** Anything that appears between `<#` and `#>` is part of the code comment. Inline block comments can be between expressions on a single line and don't change the expressions. |
-| ```verse DoThis() <# And they can run multiple long lines #> DoThat() ``` | **multi-line block comment:** Anything that appears between `<#` and `#>` is part of the code comment. Multi-line block comments can span multiple lines. |
-| ```verse <# Block comments nest <# like this #> #> ``` | **nested block comment:** Anything that appears between `<#` and `#>` is part of the code comment, and they can nest. This can be useful if you want to comment out some expressions in a line for testing and debugging without changing an existing code comment. |
-| ```verse <#>     Here is a long     description spanning     multiple lines. DoThis() # This expression is not part of the indented comment ``` | **indented comment:** Anything that appears on new lines after `<#>` and is indented four spaces over is part of the code comment. The first line that isn't indented four spaces over is not part of the code comment and ends the code comment. |
+| ```verse 1+2 # Hello``` | **single-line comment:** Anything that appears between `#` and the end of line is part of the code comment. |
+| ```verse 1<# inline comment #>+2``` | **inline block comment:** Anything that appears between `<#` and `#>` is part of the code comment. Inline block comments can be between expressions on a single line and don't change the expressions. |
+| ```verse DoThis() <# And they can run multiple long lines #> DoThat()``` | **multi-line block comment:** Anything that appears between `<#` and `#>` is part of the code comment. Multi-line block comments can span multiple lines. |
+| ```verse <# Block comments nest <# like this #> #>``` | **nested block comment:** Anything that appears between `<#` and `#>` is part of the code comment, and they can nest. This can be useful if you want to comment out some expressions in a line for testing and debugging without changing an existing code comment. |
+| ```verse <#>     Here is a long     description spanning     multiple lines. DoThis() # This expression is not part of the indented comment``` | **indented comment:** Anything that appears on new lines after `<#>` and is indented four spaces over is part of the code comment. The first line that isn't indented four spaces over is not part of the code comment and ends the code comment. |
 
 ## Using Conditionals to Make Decisions in Code
 
@@ -48,9 +48,9 @@ var Tired: logic = false
 var WhatToWatch: string = "nothing"
 
 if (Tired?):
-	set WhatToWatch = "your eyelids"
+ set WhatToWatch = "your eyelids"
 else:
-	set WhatToWatch = "cartoons"
+ set WhatToWatch = "cartoons"
 
 Print("You should watch {WhatToWatch}")
 
@@ -71,9 +71,9 @@ For example:
 
 ```verse
 if (Tired?):
-	set WhatToWatch = "your eyelids"
+ set WhatToWatch = "your eyelids"
 else:
-	set WhatToWatch = "cartoons"
+ set WhatToWatch = "cartoons"
 ```
 
 The `set WhatToWatch = "your eyelids"` line is indented under the `if (Tired?):` line. The same pattern repeats for the `else:` line.
@@ -109,9 +109,9 @@ var SchoolTomorrow: logic = true
 var WhatToWatch: string = "nothing"
 
 if (Tired? or SchoolTomorrow?):
-	set WhatToWatch = "your eyelids"
+ set WhatToWatch = "your eyelids"
 else:
-	set WhatToWatch = "cartoons"
+ set WhatToWatch = "cartoons"
 
 Print("You should watch {WhatToWatch}")
 
@@ -137,7 +137,7 @@ Next, you would update the code to check if your friends are available — but o
 
 ```verse
 if (Tired? or SchoolTomorrow?):
-	set WhatToWatch = "your eyelids"
+ set WhatToWatch = "your eyelids"
 else if (FriendsAvailable?):
     set WhatToWatch = "a movie with your friends"
 else: 
@@ -175,10 +175,10 @@ The process of identifying and removing bugs is called **debugging**, and a tool
 - Use **variables** for values that should change based on input.
 - **Bugs** and **compilation errors** are caused by errors in the code.
 
-## Practice Time!
+## Practice Time
 
 [![Lesson 4: Practice Time!](https://dev.epicgames.com/community/api/documentation/image/dfbb7a0c-61ed-4bee-91ba-166e2f4320df?resizing_type=fit&width=640&height=640)
 
 Lesson 4: Practice Time!
 
-In this hands-on exercise, you'll get to write some code, then debug it when it doesn't work as expected!](https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-4-practice-time-in-verse)
+In this hands-on exercise, you'll get to write some code, then debug it when it doesn't work as expected!](<https://dev.epicgames.com/documentation/en-us/fortnite/basics-of-writing-code-4-practice-time-in-verse>)

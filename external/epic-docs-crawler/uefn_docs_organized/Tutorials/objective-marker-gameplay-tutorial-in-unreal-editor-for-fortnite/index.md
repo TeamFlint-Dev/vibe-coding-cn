@@ -1,6 +1,6 @@
 # Moving Objective Marker
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/objective-marker-gameplay-tutorial-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/objective-marker-gameplay-tutorial-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:18:25.904020
 
 ---
@@ -40,6 +40,7 @@ The first step to getting a device moving with Verse is moving a prop with the P
    ```verse
         using { /UnrealEngine.com/Temporary/SpatialMath }
    ```
+
 3. Add two editable properties:
 
    - A `creative_prop` constant named `RootProp` to store a reference to the moving prop.
@@ -54,6 +55,7 @@ The first step to getting a device moving with Verse is moving a prop with the P
            @editable
            Destination<public> : transform = transform{}
      ```
+
 4. If you run this code and drag your **objective\_coordinator\_device** into your level, you will see the two properties in the **Details** panel.
 5. The `TeleportTo[]` method is what actually moves the prop. Call it within an [if expression](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#if-expression) and use [square brackets](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#brackets) instead of parentheses because `TeleportTo[]` is a failable expression. The `if` creates a [failure context](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#failure-context).
 
@@ -63,6 +65,7 @@ The first step to getting a device moving with Verse is moving a prop with the P
         else:
             Print("Prop move failed")
    ```
+
 6. The arguments for `TeleportTo[]` are **Translation** and **Rotation**. Both of these come from your **Destination** property.
 7. Back in the editor, drag in a prop from **Fortnite > Galleries > Props** in the **Content Browser**. The one used in this guide is called **Coastal Buoy 02B**, but anything from the Props folder should work.
 8. Select your **objective coordinator device** in the **Outliner**. In the **Details** panel, set **RootProp** to your prop. In this example, RootProp is set to Coastal Buoy 02B.
@@ -95,6 +98,7 @@ The first step to getting a device moving with Verse is moving a prop with the P
             else:
                 Print("Prop move failed")
    ```
+
 10. Click **Verse**, then **Build Verse Code**, then click **Launch Session**. Finally, click **Start Game**. You should see your prop move.
 
 ### Parent and Structs
@@ -208,11 +212,13 @@ The method you need to activate the objective pulse is called `ActivateObjective
 
             AllPlayers := Self.GetPlayspace().GetPlayers()
    ```
+
 3. To get the reference to the one and only player in your level, assign the first array element to its own variable. Accessing an array is a [failable expression](https://dev.epicgames.com/documentation/en-us/fortnite/failure-in-verse), so place it in an `if` expression.
 
    ```verse
         if (FirstPlayer := AllPlayers[0]):
    ```
+
 4. Because assigning your `player` to a variable could fail, you want to use an [option](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) type variable when referencing the player in your code. Declare an optional player variable `?player`. It should go with your other member variables.
 
    ```verse
@@ -231,6 +237,7 @@ The method you need to activate the objective pulse is called `ActivateObjective
         @editable
         MoveTime<public> : float = 0.0
    ```
+
 5. Set your new variable and create an `else` block with a `Print()` expression that will let you know if a player was not found. Your `FindPlayer()` function is now complete.
 
    ```verse
@@ -258,6 +265,7 @@ Back in the `OnBegin()` function, you need to make two more changes:
 
             FindPlayer()
    ```
+
 2. After your call to `MoveMarker()`, use another `if` expression to set your optional player variable to a new variable, and pass that as an argument to `PickupMarker.MapIndicator.ActivateObjectivePulse()`
 
    ```verse

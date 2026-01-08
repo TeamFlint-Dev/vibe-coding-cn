@@ -321,6 +321,7 @@ governance:
 **触发方式**: 创建标题以 `[Campaign]` 或 `[Agentic Campaign]` 开头的 Issue
 
 **职责**:
+
 - 解析 Issue 中的 Campaign 需求
 - 更新 Issue 状态为 "In progress"
 - 使用 `assign-to-agent` 分配给 Campaign Designer Agent
@@ -342,6 +343,7 @@ safe-outputs:
 **文件**: `.github/agents/agentic-campaign-designer.agent.md`
 
 **职责**:
+
 - 从 Issue 或对话中收集需求
 - 设计 Campaign 规范
 - 创建 `.campaign.md` 文件
@@ -353,6 +355,7 @@ safe-outputs:
 **文件**: `<campaign-id>.campaign.g.md` (自动生成)
 
 **职责**:
+
 - 协调 Worker Workflow 输出
 - 更新 GitHub Project 看板
 - 追踪 Campaign 进度
@@ -367,6 +370,7 @@ safe-outputs:
 **触发**: 每日定时
 
 **职责**:
+
 1. **发现所有活跃 Campaign**
 2. **分析每个 Campaign 健康度（0-100分）**:
    - Orchestrator 存在且最新: +20 分
@@ -550,6 +554,7 @@ governance:
 **目标**: 系统性调研 API 能力边界
 
 **设计模式**:
+
 ```
 晚上 22:00 Planner → 创建明日任务 Issue
 白天 Worker → 逐个处理 Issue，写入 Memory

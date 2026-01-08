@@ -1,6 +1,6 @@
 # Triad Infiltration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-in-verse>
 > **爬取时间**: 2025-12-26T23:02:49.634823
 
 ---
@@ -48,40 +48,40 @@ After Team Multiplayer Balancing and Team Elimination Game, follow these steps t
 
 1. Setting Up the Triad Infiltration Level
 
-Populate the level with devices to set up your game.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-01-setting-up-the-level-in-verse)[![2. Finding Players at Runtime](https://dev.epicgames.com/community/api/documentation/image/fd9b0584-062b-41d7-bea7-811d085d250d?resizing_type=fit&width=640&height=640)
+Populate the level with devices to set up your game.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-01-setting-up-the-level-in-verse)[![2>. Finding Players at Runtime](<https://dev.epicgames.com/community/api/documentation/image/fd9b0584-062b-41d7-bea7-811d085d250d?resizing_type=fit&width=640&height=640>)
 
-2. Finding Players at Runtime
+1. Finding Players at Runtime
 
-Use Verse find players and teams at runtime.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-02-finding-players-at-runtime-in-verse)[![3. Balancing Teams Asymmetrically](https://dev.epicgames.com/community/api/documentation/image/85f483cf-f437-4224-9aea-0576a16977d1?resizing_type=fit&width=640&height=640)
+Use Verse find players and teams at runtime.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-02-finding-players-at-runtime-in-verse)[![3>. Balancing Teams Asymmetrically](<https://dev.epicgames.com/community/api/documentation/image/85f483cf-f437-4224-9aea-0576a16977d1?resizing_type=fit&width=640&height=640>)
 
-3. Balancing Teams Asymmetrically
+1. Balancing Teams Asymmetrically
 
-Learn to balance teams of players asymmetrically.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-03-balancing-teams-asymmetrically-in-verse)[![4. Granting Weapons on Player Spawn](https://dev.epicgames.com/community/api/documentation/image/47961020-55ed-4456-b9e2-f6915d9b883d?resizing_type=fit&width=640&height=640)
+Learn to balance teams of players asymmetrically.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-03-balancing-teams-asymmetrically-in-verse)[![4>. Granting Weapons on Player Spawn](<https://dev.epicgames.com/community/api/documentation/image/47961020-55ed-4456-b9e2-f6915d9b883d?resizing_type=fit&width=640&height=640>)
 
-4. Granting Weapons on Player Spawn
+1. Granting Weapons on Player Spawn
 
-Grant players weapons when they spawn in a match.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-04-granting-weapons-on-player-spawn-in-verse)[![5. Making Players Invisible](https://dev.epicgames.com/community/api/documentation/image/3e02454b-6357-4fb8-b82f-82ede665925a?resizing_type=fit&width=640&height=640)
+Grant players weapons when they spawn in a match.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-04-granting-weapons-on-player-spawn-in-verse)[![5>. Making Players Invisible](<https://dev.epicgames.com/community/api/documentation/image/3e02454b-6357-4fb8-b82f-82ede665925a?resizing_type=fit&width=640&height=640>)
 
-5. Making Players Invisible
+1. Making Players Invisible
 
-Make the Infiltrators invisible when they spawn.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-making-players-invisible-in-verse)[![6. Blinking Player Visibility on Damage](https://dev.epicgames.com/community/api/documentation/image/f2e34dda-403a-4a96-aa9c-0f606a72c982?resizing_type=fit&width=640&height=640)
+Make the Infiltrators invisible when they spawn.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-making-players-invisible-in-verse)[![6>. Blinking Player Visibility on Damage](<https://dev.epicgames.com/community/api/documentation/image/f2e34dda-403a-4a96-aa9c-0f606a72c982?resizing_type=fit&width=640&height=640>)
 
-6. Blinking Player Visibility on Damage
+1. Blinking Player Visibility on Damage
 
-Blink a player's character when they take damage to create a flickering effect.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-06-blinking-player-visibility-on-damage-in-verse)[![7. Balancing Players During the Game](https://dev.epicgames.com/community/api/documentation/image/3a6f5f32-d860-4d03-872d-bedae25883e5?resizing_type=fit&width=640&height=640)
+Blink a player's character when they take damage to create a flickering effect.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-06-blinking-player-visibility-on-damage-in-verse)[![7>. Balancing Players During the Game](<https://dev.epicgames.com/community/api/documentation/image/3a6f5f32-d860-4d03-872d-bedae25883e5?resizing_type=fit&width=640&height=640>)
 
-7. Balancing Players During the Game
+1. Balancing Players During the Game
 
-Balance players who join during a game in progress.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-07-balancing-players-during-the-game-in-verse)[![8. Visualizing Players Holding Objectives](https://dev.epicgames.com/community/api/documentation/image/d1f922da-675d-42a9-9c4e-33818f4f3943?resizing_type=fit&width=640&height=640)
+Balance players who join during a game in progress.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-07-balancing-players-during-the-game-in-verse)[![8>. Visualizing Players Holding Objectives](<https://dev.epicgames.com/community/api/documentation/image/d1f922da-675d-42a9-9c4e-33818f4f3943?resizing_type=fit&width=640&height=640>)
 
-8. Visualizing Players Holding Objectives
+1. Visualizing Players Holding Objectives
 
-Create visuals to help find players holding objectives.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-08-visualizing-players-holding-objectives-in-verse)[![9. Creating Visual Aids](https://dev.epicgames.com/community/api/documentation/image/b40ac74f-031b-43c1-8a53-edb1c06da05c?resizing_type=fit&width=640&height=640)
+Create visuals to help find players holding objectives.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-08-visualizing-players-holding-objectives-in-verse)[![9>. Creating Visual Aids](<https://dev.epicgames.com/community/api/documentation/image/b40ac74f-031b-43c1-8a53-edb1c06da05c?resizing_type=fit&width=640&height=640>)
 
-9. Creating Visual Aids
+1. Creating Visual Aids
 
-Create visual aids to quickly teach players about their role on each team.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-inflitration-09-creating-visual-aids-in-verse)[![10. Final Result](https://dev.epicgames.com/community/api/documentation/image/bc858239-5db3-42c5-81cd-5a2bddf3574d?resizing_type=fit&width=640&height=640)
+Create visual aids to quickly teach players about their role on each team.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-inflitration-09-creating-visual-aids-in-verse)[![10>. Final Result](<https://dev.epicgames.com/community/api/documentation/image/bc858239-5db3-42c5-81cd-5a2bddf3574d?resizing_type=fit&width=640&height=640>)
 
-10. Final Result
+1. Final Result
 
-The complete code for the Triad Infiltration game.](https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-10-final-result-in-verse)
+The complete code for the Triad Infiltration game.](<https://dev.epicgames.com/documentation/en-us/fortnite/triad-infiltration-10-final-result-in-verse>)

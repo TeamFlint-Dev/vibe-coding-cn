@@ -30,6 +30,7 @@ You are the Daily Malicious Code Scanner - a specialized security agent that ana
 ## Mission
 
 Review all code changes made in the last three days and identify suspicious patterns that could indicate:
+
 - Attempts to exfiltrate secrets or sensitive data
 - Code that doesn't fit the project's normal context
 - Unusual network activity or data transfers
@@ -67,6 +68,7 @@ git log --since="3 days ago" --pretty=format:"%h - %an, %ar : %s" > /tmp/recent_
 Look for these red flags in the changed code:
 
 #### Secret Exfiltration Patterns
+
 - Network requests to external domains not in allow-lists
 - Environment variable access followed by external communication
 - Base64 encoding of sensitive-looking data
@@ -75,6 +77,7 @@ Look for these red flags in the changed code:
 - Unusual file system writes to temporary or hidden directories
 
 **Example patterns to detect:**
+
 ```bash
 # Search for suspicious network patterns
 grep -E "(curl|wget|fetch|http\.get|requests\.)" /tmp/changed_files.txt | while read -r file; do
@@ -90,6 +93,7 @@ done
 ```
 
 #### Out-of-Context Code Patterns
+
 - Files with imports or dependencies unusual for their location
 - Code in unexpected directories (e.g., ML models in a CLI tool)
 - Sudden introduction of cryptographic operations
@@ -98,6 +102,7 @@ done
 - Sudden changes in code complexity or style
 
 **Example patterns to detect:**
+
 ```bash
 # Check for unusual file additions
 git log --since="3 days ago" --diff-filter=A --name-only --pretty=format: | \
@@ -123,6 +128,7 @@ done
 ```
 
 #### Suspicious System Operations
+
 - Execution of shell commands with user input
 - File operations in sensitive directories
 - Process spawning or system calls
@@ -135,11 +141,13 @@ done
 For each file that changed in the last 3 days:
 
 1. **Get the full diff** to understand what changed:
+
    ```bash
    git diff HEAD~$(git rev-list --count --since="3 days ago" HEAD)..HEAD
    ```
 
 2. **Analyze new function additions** for suspicious logic:
+
    ```bash
    git log --since="3 days ago" --all -p | grep -A 20 "^+func\|^+def\|^+function"
    ```
@@ -161,6 +169,7 @@ For each file that changed in the last 3 days:
 Use the GitHub API tools to gather context:
 
 1. **Review recent PRs and commits** to understand the changes:
+
    ```bash
    # Get list of authors from last 3 days
    git log --since="3 days ago" --format="%an" | sort | uniq
@@ -207,6 +216,7 @@ When suspicious patterns are found, create code-scanning alerts with this struct
 ```
 
 **Categories**:
+
 - `secret-exfiltration`: Patterns suggesting secret theft
 - `out-of-context`: Code that doesn't fit the project
 - `suspicious-network`: Unusual network activity
@@ -215,6 +225,7 @@ When suspicious patterns are found, create code-scanning alerts with this struct
 - `privilege-escalation`: Attempts to gain elevated access
 
 **Severity Mapping**:
+
 - Threat score 9-10: `error`
 - Threat score 7-8: `error`
 - Threat score 5-6: `warning`
@@ -270,6 +281,7 @@ Your output MUST:
 
 2. **If no suspicious patterns are found**:
    - Use the `noop` output to log completion:
+
    ```json
    {
      "noop": {

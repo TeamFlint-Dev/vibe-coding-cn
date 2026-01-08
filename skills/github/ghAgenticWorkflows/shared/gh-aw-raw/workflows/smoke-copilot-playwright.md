@@ -117,7 +117,7 @@ post-steps:
 
 ## Test Requirements
 
-1. **Playwright MCP Testing**: Use playwright to navigate to https://github.com and verify the page title contains "GitHub"
+1. **Playwright MCP Testing**: Use playwright to navigate to <https://github.com> and verify the page title contains "GitHub"
 2. **Cache Memory Testing**: Write a test file to `/tmp/gh-aw/cache-memory/smoke-test-${{ github.run_id }}.txt` with content "Cache memory test for run ${{ github.run_id }}" and verify it was created successfully
 
 **Safe Input gh Tool Testing**: Use the `safeinputs-gh` tool to run "gh issues list --limit 3" to verify the tool can access GitHub issues
@@ -125,6 +125,7 @@ post-steps:
 ## Output
 
 Add a **very brief** comment (max 5-10 lines) to the current pull request with:
+
 - ✅ or ❌ for each test result
 - Overall status: PASS or FAIL
 

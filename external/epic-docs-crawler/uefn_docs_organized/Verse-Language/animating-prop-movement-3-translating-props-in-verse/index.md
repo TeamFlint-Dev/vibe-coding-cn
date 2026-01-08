@@ -1,6 +1,6 @@
 # 3. Translating Props
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-3-translating-props-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-3-translating-props-in-verse>
 > **爬取时间**: 2025-12-27T00:40:02.620349
 
 ---
@@ -20,6 +20,7 @@ Follow the steps below to build the code that translates your platforms:
         # or a position in world space.
         translating_prop<public> := class<concrete>(movable_prop):
    ```
+
 2. Add the `using { /Fortnite.com/Devices/CreativeAnimation }` and `using { /UnrealEngine.com/Temporary/SpatialMath }` statements to the top of the file to import these modules. You’ll need these to animate your prop. The tooltips used in this section are also included here.
 
    ```verse
@@ -34,6 +35,7 @@ Follow the steps below to build the code that translates your platforms:
         # or a position in world space.
         translating_prop<public> := class<concrete>(movable_prop):
    ```
+
 3. At the top of the `translating_prop` class definition, add the following fields:
 
    1. An editable array of `creative_prop` named `MoveTargets`. These are the Creative props your `RootProp` will move to during gameplay. Using another prop rather than a transform, as the target to move to makes it easier to visualize where your props are headed. You’ll make these invisible during gameplay in the editor later.
@@ -42,8 +44,9 @@ Follow the steps below to build the code that translates your platforms:
                               # The Creative prop targets for the RootProp to move toward.
                               @editable {ToolTip := MoveTargetsTip}
                               var MoveTargets:[]creative_prop = array{}
-      								
+              
       ```
+
    2. An editable optional `vector3` variable named `MovePosition`. If you do not assign a `MoveTarget` prop, your root prop will use this to know where to move to.
 
       ```verse
@@ -51,15 +54,17 @@ Follow the steps below to build the code that translates your platforms:
                                # do not want to set a MoveTarget.
                                @editable {ToolTip := MovePositionTip}
                                var MovePosition:?vector3 = false
-      								
+              
       ```
+
    3. A variable `vector3` named `TargetPosition`. This is the position your prop will actually move to and will be set to either the move target’s position or the `MovePosition`.
 
       ```verse
                                # The position the prop is currently targeting.
                                var TargetPosition:vector3 = vector3{}
-      								
+              
       ```
+
    4. Your class definition should look like this:
 
       ```verse
@@ -79,12 +84,14 @@ Follow the steps below to build the code that translates your platforms:
            # The position the prop is currently targeting.
            var TargetPosition:vector3 = vector3{}
       ```
+
 4. Since you already set up the `Move()` function that moves your prop in `movable_prop`, you can override it in this class. Override the `Move()` function in your `translating_prop` class.
 
    ```verse
         # Translate toward the MovePosition, or MoveTarget if one is set.
         Move<override>()<suspends>:void=
    ```
+
 5. In `Move()`, in an `if` expression, check if the `MovePosition` is set and stored in a value `NewPosition`. If so, set the `TargetPosition` to the `NewPosition`.
 
    ```verse
@@ -96,6 +103,7 @@ Follow the steps below to build the code that translates your platforms:
             then:
                 set TargetPosition = NewPosition
    ```
+
 6. Your `MoveToEase()` function needs an `animation_mode` to pass to it. Your animation plays once each time `Move()` is called, and the `animation_mode` controls what happens when your animation ends. Call `MoveToEase()` to pass the `TargetPosition`, the `MoveDuration`, the `MoveEaseType`, and `animation_mode.OneShot`. Using this animation mode means your animation will stop once your object reaches its target. This is the overloaded `MoveToEase()` function you set up earlier that doesn’t take a rotation or scale.
 
    ```verse
@@ -104,7 +112,7 @@ Follow the steps below to build the code that translates your platforms:
             NewPosition := MovePosition?
         then:
             set TargetPosition = NewPosition
-   		            
+                 
             # Call MoveToEase to start moving the prop. The OneShot animation mode will play the animation once.
             RootProp.MoveToEase(TargetPosition, MoveDuration, MoveEaseType, animation_mode.OneShot)
    ```
@@ -129,6 +137,7 @@ Follow the steps below to build the code that translates your platforms:
                 then:
                     set TargetPosition = MoveTarget.GetTransform().Translation
    ```
+
 8. Finally, call `MoveToEase()`, again with `animation_mode.OneShot` as the animation mode. Doing this in a `for` expression will move your prop to each of the targets in sequence, resetting at the end or continuing on based on the parameters you set. Your complete `Move()` function should look like this:
 
    ```verse
@@ -188,6 +197,7 @@ Now that your Verse code is complete, you need a way to call it in-level. You’
                 do:
                     Prop.Setup()
    ```
+
 3. Save your code and compile it.
 4. Drag your `prop_animator` device into the level.
 
@@ -216,9 +226,9 @@ Translation is down, and In the next section, you’ll create props that rotate 
 
 [![4. Rotating Props](https://dev.epicgames.com/community/api/documentation/image/94685952-c1b7-45da-9713-f745ee0041dc?resizing_type=fit&width=640&height=640)
 
-4. Rotating Props
+1. Rotating Props
 
-Learn how to rotate obstacles on your course Fall Guys course.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-4-rotating-props-in-verse)
+Learn how to rotate obstacles on your course Fall Guys course.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-4-rotating-props-in-verse>)
 
 ## Complete Code
 

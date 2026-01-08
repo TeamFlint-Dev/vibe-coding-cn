@@ -21,6 +21,7 @@
 ### 类型命名（snake_case + 后缀）
 
 **Data Component**:
+
 ```verse
 health_data_component := class(component):        # ✅
 player_data_component := class(component):        # ✅
@@ -31,6 +32,7 @@ health_data := class(component):   # ❌ 缺少 _component 后缀
 ```
 
 **Logic Module**:
+
 ```verse
 damage_logic := module:                 # ✅
 math_logic := module:                   # ✅
@@ -41,6 +43,7 @@ damage_helper := module:                # ❌ 错误后缀
 ```
 
 **Session Class**:
+
 ```verse
 fishing_session := class:               # ✅
 combat_session := class:                # ✅
@@ -51,6 +54,7 @@ fishing_handler := class:               # ❌ 错误后缀
 ```
 
 **Driver/System Component**:
+
 ```verse
 fishing_system_component := class(component):     # ✅
 game_driver_component := class(component):        # ✅
@@ -76,6 +80,7 @@ fishing_system := class(component):     # ❌ 缺少 _component 后缀
 ### 函数命名（PascalCase）
 
 **Data - CRUD 风格**:
+
 ```verse
 # 读取
 GetHealth():int
@@ -97,6 +102,7 @@ FindItem(ItemId:string):?item_data
 ```
 
 **Logic - 计算风格**:
+
 ```verse
 # 计算
 CalculateDamage(Base:float, Armor:float):float
@@ -112,6 +118,7 @@ Clamp(Value:float, Min:float, Max:float):float
 ```
 
 **Session - 业务动作风格**:
+
 ```verse
 # 流程
 StartFishing()<suspends>:fishing_result
@@ -128,6 +135,7 @@ HandleInput(Input:player_input):void
 ```
 
 **Driver - 事件响应风格**:
+
 ```verse
 # 事件处理
 OnPlayerJoin(Player:player):void
@@ -148,6 +156,7 @@ BroadcastMessage(Message:string):void
 ### 变量命名（PascalCase）
 
 **状态变量**:
+
 ```verse
 var CurrentHealth:int
 var ActiveSession:?fishing_session
@@ -155,12 +164,14 @@ var PlayerState:player_state
 ```
 
 **配置变量**:
+
 ```verse
 @editable var MaxHealth:int = 100
 @editable var SpawnInterval:float = 5.0
 ```
 
 **私有变量**:
+
 ```verse
 var InternalCounter<private>:int
 var CachedValue<private>:float
@@ -171,6 +182,7 @@ var CachedValue<private>:float
 ### 事件命名
 
 **事件类型**（snake_case + `_event`）:
+
 ```verse
 health_changed_event := class:
     OldValue:int
@@ -186,6 +198,7 @@ session_completed_event := class:
 ```
 
 **事件发布器**（PascalCase）:
+
 ```verse
 var OnHealthChanged:event(health_changed_event) = event(health_changed_event){}
 var OnPlayerDied:event(player_died_event) = event(player_died_event){}

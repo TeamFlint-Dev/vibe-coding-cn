@@ -1,6 +1,6 @@
 # 4. Rotating Props
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-4-rotating-props-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-4-rotating-props-in-verse>
 > **爬取时间**: 2025-12-27T00:40:30.764672
 
 ---
@@ -20,6 +20,7 @@ Follow these steps to build code that rotates your props:
         # a Creative prop's rotation.
         rotating_prop<public> := class<concrete>(movable_prop):
    ```
+
 2. Add the `using { /Fortnite.com/Devices/CreativeAnimation }` and `using { /UnrealEngine.com/Temporary/SpatialMath }` statements to the top of the file to import these modules. You’ll need these to animate your prop. The tooltips used in this section are also included here.
 
    ```verse
@@ -36,6 +37,7 @@ Follow these steps to build code that rotates your props:
         # a Creative prop's rotation.
         rotating_prop<public> := class<concrete>(movable_prop):
    ```
+
 3. At the top of the `rotating_prop` class definition, add the following fields.
 
    1. An editable `rotation` named `AdditionalRotation`. This is the rotation to apply to the prop. After `Move()` completes, the prop’s rotation will be offset by this value.
@@ -45,6 +47,7 @@ Follow these steps to build code that rotates your props:
                                @editable {ToolTip := AdditionalRotationTip}
                                AdditionalRotation:rotation = rotation{}
       ```
+
    2. An editable `logic` named `ShouldRotateForever`. This specifies whether the prop should keep rotating without resetting.
 
       ```verse
@@ -52,6 +55,7 @@ Follow these steps to build code that rotates your props:
        @editable {ToolTip := ShouldRotateForeverTip}
        ShouldRotateForever:logic = true
       ```
+
    3. An editable optional `creative_prop` named `MatchRotationTarget`. If you want your prop to rotate to match another prop’s rotation, you can set this value rather than using the `AdditionalRotation`.
 
       ```verse
@@ -60,12 +64,14 @@ Follow these steps to build code that rotates your props:
        @editable {ToolTip := MatchRotationTargetTip}
        MatchRotationTarget:?creative_prop = false
       ```
+
    4. A variable `rotation` named `TargetRotation`. This is the rotation the prop is currently rotating toward.
 
       ```verse
        # The rotation the prop is currently rotating toward.
        var TargetRotation:rotation = rotation{}
       ```
+
 4. Your final class definition should look like this:
 
    ```verse
@@ -98,6 +104,7 @@ Follow these steps to build code that rotates your props:
             # The rotation the prop is currently rotating towards.
             var TargetRotation:rotation = rotation{}
    ```
+
 5. Since you already set up the `Move()` function that moves your prop in `movable_prop`, you can override it in this class. Override the `Move()` function in your `rotating_prop` class. In `Move()`, first, check if the `MatchRotationTarget` is set and save it in a variable `RotationToMatch`. If so, set the `TargetRotation` to the `RotationToMatch`. Otherwise, set it to the `AdditionalRotation`.
 
    ```verse
@@ -112,6 +119,7 @@ Follow these steps to build code that rotates your props:
             else:
                 set TargetRotation = AdditionalRotation
    ```
+
 6. As with `translating_prop`, specify the animation mode for your animation to play. Initialize a new `animation_mode` variable named `AnimationMode` to `animation_mode.OneShot`. This means your animation will stop once your object reaches its target. If the prop should not rotate forever or not move once and stop, set the animation mode to ping pong. Using ping pong will let you make objects that oscillate back and forth, like the bar on a metronome or a bridge that raises and lowers.
 
    ```verse
@@ -156,6 +164,7 @@ Follow these steps to build code that rotates your props:
             RotateByTargetRotation := StartingTransform.Rotation.RotateBy(TargetRotation)
             RootProp.MoveToEase(RotateByTargetRotation, MoveDuration, MoveEaseType, AnimationMode)
    ```
+
 8. In your `prop_animator` device class, add a new editable array of `rotating_prop` named `RotatingProps`. Add another `for` expression to `OnBegin()` that loops through all the rotating props and calls `Setup()` on them. Your updated `prop_animator` class should look like this:
 
    ```verse
@@ -189,6 +198,7 @@ Follow these steps to build code that rotates your props:
                 do:
                     Prop.Setup()
    ```
+
 9. Save your code and compile it.
 
 ## Linking Props to Devices
@@ -216,9 +226,9 @@ In the next section, you’ll combine movement and rotation to create props that
 
 [![5. Scaling Props](https://dev.epicgames.com/community/api/documentation/image/eb32ad64-f177-436e-9aff-093b15e3ea5b?resizing_type=fit&width=640&height=640)
 
-5. Scaling Props
+1. Scaling Props
 
-Learn how to manipulate object scales with Verse so they grow and shrink.](https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-5-scaling-props-in-verse)
+Learn how to manipulate object scales with Verse so they grow and shrink.](<https://dev.epicgames.com/documentation/en-us/fortnite/animating-prop-movement-5-scaling-props-in-verse>)
 
 ## Complete Code
 

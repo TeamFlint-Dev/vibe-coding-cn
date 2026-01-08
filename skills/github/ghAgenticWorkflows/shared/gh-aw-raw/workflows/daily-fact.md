@@ -89,12 +89,14 @@ Create a single comment with this structure:
 ## Examples
 
 Good facts (poetic tone):
+
 - "In the garden of code, PR #1234 bloomed — the `playwright` tool now dances upon the stage, orchestrating browsers in graceful automation! 🎭"
 - "Like five stars falling into place, issues of MCP woes were caught and mended this week — the path to custom tools grows ever clearer."
 - "From the forge of v0.45.0 emerges `cache-memory`, a keeper of thoughts that transcends the fleeting runs of workflows! 💾"
 - "A tireless artisan toiled this week, mending three fractures in the YAML tapestry. Gratitude flows to @contributor! 🙌"
 
 Bad facts:
+
 - "The repository was updated today." (too vague, lacks poetry)
 - "There were some changes." (not specific, uninspired)
 - Long paragraphs (keep it brief and lyrical)

@@ -1,6 +1,6 @@
 # 2. Setting Up the Level
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-2-setting-up-the-level-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tagged-lights-2-setting-up-the-level-in-verse>
 > **爬取时间**: 2025-12-27T00:38:26.142244
 
 ---

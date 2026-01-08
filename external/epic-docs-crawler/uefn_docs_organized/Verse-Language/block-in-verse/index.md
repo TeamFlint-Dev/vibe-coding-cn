@@ -1,6 +1,6 @@
 # Block
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/block-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/block-in-verse>
 > **爬取时间**: 2025-12-26T23:52:57.404569
 
 ---

@@ -12,6 +12,7 @@ This guide covers adding a new safe output type to process AI agent outputs in J
 ### 1. Update JSON Schema (`schemas/agent-output.json`)
 
 Add object definition in `$defs` section:
+
    ```json
    "YourNewTypeOutput": {
      "title": "Your New Type Output",
@@ -43,6 +44,7 @@ Add to `SafeOutput` oneOf array: `{"$ref": "#/$defs/YourNewTypeOutput"}`
 ### 2. Update TypeScript Types
 
 **File**: `pkg/workflow/js/types/safe-outputs.d.ts`
+
    ```typescript
    /**
     * JSONL item for [description]
@@ -164,7 +166,7 @@ const yourNewTypeHandler = args => {
 };
 ```
 
-2. **Attach the handler to the tool** (around line 570-580):
+1. **Attach the handler to the tool** (around line 570-580):
 
 ```javascript
 // Attach handlers to tools that need them
@@ -219,52 +221,52 @@ Add to `enabledTools` map in `generateFilteredToolsJSON` (~line 1120):
 // generateFilteredToolsJSON filters the ALL_TOOLS array based on enabled safe outputs
 // Returns a JSON string containing only the tools that are enabled in the workflow
 func generateFilteredToolsJSON(data *WorkflowData) (string, error) {
-	if data.SafeOutputs == nil {
-		return "[]", nil
-	}
+ if data.SafeOutputs == nil {
+  return "[]", nil
+ }
 
-	safeOutputsLog.Print("Generating filtered tools JSON for workflow")
+ safeOutputsLog.Print("Generating filtered tools JSON for workflow")
 
-	// Load the full tools JSON
-	allToolsJSON := GetSafeOutputsToolsJSON()
+ // Load the full tools JSON
+ allToolsJSON := GetSafeOutputsToolsJSON()
 
-	// Parse the JSON to get all tools
-	var allTools []map[string]any
-	if err := json.Unmarshal([]byte(allToolsJSON), &allTools); err != nil {
-		return "", fmt.Errorf("failed to parse safe outputs tools JSON: %w", err)
-	}
+ // Parse the JSON to get all tools
+ var allTools []map[string]any
+ if err := json.Unmarshal([]byte(allToolsJSON), &allTools); err != nil {
+  return "", fmt.Errorf("failed to parse safe outputs tools JSON: %w", err)
+ }
 
-	// Create a set of enabled tool names
-	enabledTools := make(map[string]bool)
+ // Create a set of enabled tool names
+ enabledTools := make(map[string]bool)
 
-	// Check which safe outputs are enabled and add their corresponding tool names
-	if data.SafeOutputs.CreateIssues != nil {
-		enabledTools["create_issue"] = true
-	}
-	// ... existing checks ...
-	if data.SafeOutputs.YourNewType != nil {
-		enabledTools["your_new_type"] = true  // Add your new type here
-	}
+ // Check which safe outputs are enabled and add their corresponding tool names
+ if data.SafeOutputs.CreateIssues != nil {
+  enabledTools["create_issue"] = true
+ }
+ // ... existing checks ...
+ if data.SafeOutputs.YourNewType != nil {
+  enabledTools["your_new_type"] = true  // Add your new type here
+ }
 
-	// Filter tools to only include enabled ones
-	var filteredTools []map[string]any
-	for _, tool := range allTools {
-		toolName, ok := tool["name"].(string)
-		if !ok {
-			continue
-		}
-		if enabledTools[toolName] {
-			filteredTools = append(filteredTools, tool)
-		}
-	}
+ // Filter tools to only include enabled ones
+ var filteredTools []map[string]any
+ for _, tool := range allTools {
+  toolName, ok := tool["name"].(string)
+  if !ok {
+   continue
+  }
+  if enabledTools[toolName] {
+   filteredTools = append(filteredTools, tool)
+  }
+ }
 
-	// Serialize filtered tools to JSON
-	filteredJSON, err := json.Marshal(filteredTools)
-	if err != nil {
-		return "", fmt.Errorf("failed to marshal filtered tools: %w", err)
-	}
+ // Serialize filtered tools to JSON
+ filteredJSON, err := json.Marshal(filteredTools)
+ if err != nil {
+  return "", fmt.Errorf("failed to marshal filtered tools: %w", err)
+ }
 
-	return string(filteredJSON), nil
+ return string(filteredJSON), nil
 }
 ```
 
@@ -409,10 +411,10 @@ Create a step config builder function that will be called from `buildConsolidate
 // YourNewTypeConfig holds configuration for your new type from agent output
 // Embed shared config types for common fields to reduce duplication
 type YourNewTypeConfig struct {
-	BaseSafeOutputConfig   `yaml:",inline"`
-	SafeOutputTargetConfig `yaml:",inline"` // Provides Target and TargetRepoSlug fields
-	CustomOption           string           `yaml:"custom-option,omitempty"`  // Custom configuration option
-	AnotherOption          *bool            `yaml:"another-option,omitempty"` // Another optional configuration
+ BaseSafeOutputConfig   `yaml:",inline"`
+ SafeOutputTargetConfig `yaml:",inline"` // Provides Target and TargetRepoSlug fields
+ CustomOption           string           `yaml:"custom-option,omitempty"`  // Custom configuration option
+ AnotherOption          *bool            `yaml:"another-option,omitempty"` // Another optional configuration
 }
 ```
 
@@ -421,39 +423,39 @@ type YourNewTypeConfig struct {
 ```go
 // buildYourNewTypeStepConfig creates the step configuration for your_new_type
 func (c *Compiler) buildYourNewTypeStepConfig(data *WorkflowData, mainJobName string, threatDetectionEnabled bool) SafeOutputStepConfig {
-	cfg := data.SafeOutputs.YourNewType
+ cfg := data.SafeOutputs.YourNewType
 
-	// Build custom environment variables specific to your-new-type
-	var customEnvVars []string
-	
-	// Add your custom configuration options as environment variables
-	if cfg.CustomOption != "" {
-		customEnvVars = append(customEnvVars, fmt.Sprintf("          GH_AW_CUSTOM_OPTION: %q\n", cfg.CustomOption))
-	}
-	
-	if cfg.AnotherOption != nil && *cfg.AnotherOption {
-		customEnvVars = append(customEnvVars, "          GH_AW_ANOTHER_OPTION: \"true\"\n")
-	}
+ // Build custom environment variables specific to your-new-type
+ var customEnvVars []string
+ 
+ // Add your custom configuration options as environment variables
+ if cfg.CustomOption != "" {
+  customEnvVars = append(customEnvVars, fmt.Sprintf("          GH_AW_CUSTOM_OPTION: %q\n", cfg.CustomOption))
+ }
+ 
+ if cfg.AnotherOption != nil && *cfg.AnotherOption {
+  customEnvVars = append(customEnvVars, "          GH_AW_ANOTHER_OPTION: \"true\"\n")
+ }
 
-	// Use shared env var builders for common fields
-	customEnvVars = append(customEnvVars, BuildTargetEnvVar("GH_AW_YOUR_NEW_TYPE_TARGET", cfg.Target)...)
-	customEnvVars = append(customEnvVars, BuildMaxCountEnvVar("GH_AW_YOUR_NEW_TYPE_MAX_COUNT", cfg.Max)...)
+ // Use shared env var builders for common fields
+ customEnvVars = append(customEnvVars, BuildTargetEnvVar("GH_AW_YOUR_NEW_TYPE_TARGET", cfg.Target)...)
+ customEnvVars = append(customEnvVars, BuildMaxCountEnvVar("GH_AW_YOUR_NEW_TYPE_MAX_COUNT", cfg.Max)...)
 
-	// Add standard safe output environment variables
-	customEnvVars = append(customEnvVars, c.buildStandardSafeOutputEnvVars(data, cfg.TargetRepoSlug)...)
+ // Add standard safe output environment variables
+ customEnvVars = append(customEnvVars, c.buildStandardSafeOutputEnvVars(data, cfg.TargetRepoSlug)...)
 
-	// Build step condition - step only runs when there are your_new_type items in the JSONL
-	condition := BuildSafeOutputType("your_new_type")
+ // Build step condition - step only runs when there are your_new_type items in the JSONL
+ condition := BuildSafeOutputType("your_new_type")
 
-	return SafeOutputStepConfig{
-		StepName:      "Execute Your New Type",
-		StepID:        "your_new_type",
-		ScriptName:    "your_new_type",       // For file mode (references your_new_type.cjs)
-		Script:        getYourNewTypeScript(), // For inline mode fallback
-		CustomEnvVars: customEnvVars,
-		Condition:     condition,
-		Token:         cfg.GitHubToken,
-	}
+ return SafeOutputStepConfig{
+  StepName:      "Execute Your New Type",
+  StepID:        "your_new_type",
+  ScriptName:    "your_new_type",       // For file mode (references your_new_type.cjs)
+  Script:        getYourNewTypeScript(), // For inline mode fallback
+  CustomEnvVars: customEnvVars,
+  Condition:     condition,
+  Token:         cfg.GitHubToken,
+ }
 }
 
 **Step 3: Add Config Parser** (typically in `pkg/workflow/safe_outputs.go` or alongside the step config builder):
@@ -461,42 +463,42 @@ func (c *Compiler) buildYourNewTypeStepConfig(data *WorkflowData, mainJobName st
 ```go
 // parseYourNewTypeConfig handles your-new-type configuration using shared parsers
 func (c *Compiler) parseYourNewTypeConfig(outputMap map[string]any) *YourNewTypeConfig {
-	if configData, exists := outputMap["your-new-type"]; exists {
-		yourNewTypeConfig := &YourNewTypeConfig{}
-		yourNewTypeConfig.Max = 1 // Default max is 1
+ if configData, exists := outputMap["your-new-type"]; exists {
+  yourNewTypeConfig := &YourNewTypeConfig{}
+  yourNewTypeConfig.Max = 1 // Default max is 1
 
-		if configMap, ok := configData.(map[string]any); ok {
-			// Parse common base fields
-			c.parseBaseSafeOutputConfig(configMap, &yourNewTypeConfig.BaseSafeOutputConfig)
+  if configMap, ok := configData.(map[string]any); ok {
+   // Parse common base fields
+   c.parseBaseSafeOutputConfig(configMap, &yourNewTypeConfig.BaseSafeOutputConfig)
 
-			// Parse target config using shared helper (handles target and target-repo)
-			targetConfig, isInvalid := ParseTargetConfig(configMap)
-			if isInvalid {
-				// target-repo validation error (wildcard not allowed)
-				return nil
-			}
-			yourNewTypeConfig.SafeOutputTargetConfig = targetConfig
+   // Parse target config using shared helper (handles target and target-repo)
+   targetConfig, isInvalid := ParseTargetConfig(configMap)
+   if isInvalid {
+    // target-repo validation error (wildcard not allowed)
+    return nil
+   }
+   yourNewTypeConfig.SafeOutputTargetConfig = targetConfig
 
-			// Parse custom-option using generic string parser
-			yourNewTypeConfig.CustomOption = ParseStringFromConfig(configMap, "custom-option")
+   // Parse custom-option using generic string parser
+   yourNewTypeConfig.CustomOption = ParseStringFromConfig(configMap, "custom-option")
 
-			// Parse another-option (boolean example - no shared helper for booleans yet)
-			if anotherOption, exists := configMap["another-option"]; exists {
-				if anotherOptionBool, ok := anotherOption.(bool); ok {
-					yourNewTypeConfig.AnotherOption = &anotherOptionBool
-				}
-			}
-		}
+   // Parse another-option (boolean example - no shared helper for booleans yet)
+   if anotherOption, exists := configMap["another-option"]; exists {
+    if anotherOptionBool, ok := anotherOption.(bool); ok {
+     yourNewTypeConfig.AnotherOption = &anotherOptionBool
+    }
+   }
+  }
 
-		return yourNewTypeConfig
-	}
+  return yourNewTypeConfig
+ }
 
-	return nil
+ return nil
 }
 
 // getYourNewTypeScript returns the JavaScript implementation
 func getYourNewTypeScript() string {
-	return embedJavaScript("your_new_type.cjs")
+ return embedJavaScript("your_new_type.cjs")
 }
 ```
 
@@ -505,8 +507,8 @@ func getYourNewTypeScript() string {
 ```go
 // In pkg/workflow/scripts.go, add to script registry:
 registry.Register("your_new_type", ScriptInfo{
-	Source:     getYourNewTypeScript(),
-	ActionPath: "", // Leave empty if not using custom action
+ Source:     getYourNewTypeScript(),
+ ActionPath: "", // Leave empty if not using custom action
 })
 ```
 
@@ -517,26 +519,25 @@ Add your step to the `buildConsolidatedSafeOutputsJob()` function:
 ```go
 // Add to script collection section (around line 62-128)
 if data.SafeOutputs.YourNewType != nil {
-	scriptNames = append(scriptNames, "your_new_type")
+ scriptNames = append(scriptNames, "your_new_type")
 }
 
 // Add step building section (around line 163-435)
 // N. Your New Type step
 if data.SafeOutputs.YourNewType != nil {
-	stepConfig := c.buildYourNewTypeStepConfig(data, mainJobName, threatDetectionEnabled)
-	stepYAML := c.buildConsolidatedSafeOutputStep(data, stepConfig)
-	steps = append(steps, stepYAML...)
-	safeOutputStepNames = append(safeOutputStepNames, stepConfig.StepID)
+ stepConfig := c.buildYourNewTypeStepConfig(data, mainJobName, threatDetectionEnabled)
+ stepYAML := c.buildConsolidatedSafeOutputStep(data, stepConfig)
+ steps = append(steps, stepYAML...)
+ safeOutputStepNames = append(safeOutputStepNames, stepConfig.StepID)
 
-	// Add outputs if needed
-	outputs["your_new_type_result_id"] = "${{ steps.your_new_type.outputs.result_id }}"
-	outputs["your_new_type_result_url"] = "${{ steps.your_new_type.outputs.result_url }}"
+ // Add outputs if needed
+ outputs["your_new_type_result_id"] = "${{ steps.your_new_type.outputs.result_id }}"
+ outputs["your_new_type_result_url"] = "${{ steps.your_new_type.outputs.result_url }}"
 
-	// Merge permissions - adjust as needed for your use case
-	permissions.Merge(NewPermissionsContentsReadYourPermissions())
+ // Merge permissions - adjust as needed for your use case
+ permissions.Merge(NewPermissionsContentsReadYourPermissions())
 }
 ```
-
 
 **Key Points**:
 
@@ -578,25 +579,26 @@ if data.SafeOutputs.YourNewType != nil {
    - `Outputs` - Not used in step config (added to job outputs separately)
 
 **Close Operations Example**:
+
 ```go
 type CloseYourTypeConfig struct {
-	BaseSafeOutputConfig `yaml:",inline"`
-	CloseJobConfig       `yaml:",inline"`
+ BaseSafeOutputConfig `yaml:",inline"`
+ CloseJobConfig       `yaml:",inline"`
 }
 closeConfig, isInvalid := ParseCloseJobConfig(configMap)
 customEnvVars = append(customEnvVars, BuildCloseJobEnvVars("GH_AW_CLOSE_YOUR_TYPE", config.CloseJobConfig)...)
 ```
 
 **List Operations Example**:
+
 ```go
 type AddYourTypeConfig struct {
-	BaseSafeOutputConfig `yaml:",inline"`
-	ListJobConfig        `yaml:",inline"`
+ BaseSafeOutputConfig `yaml:",inline"`
+ ListJobConfig        `yaml:",inline"`
 }
 listConfig, isInvalid := ParseListJobConfig(configMap, "allowed")
 customEnvVars = append(customEnvVars, BuildListJobEnvVars("GH_AW_ADD_YOUR_TYPE", config.ListJobConfig, config.Max)...)
 ```
-
 
 ### 11. Build and Test
 
@@ -637,8 +639,8 @@ Test workflow with staged/non-staged modes, error handling, JSON schema validati
 
 ## References
 
-- JSON Schema: https://json-schema.org/draft-07/schema
-- GitHub Actions Core: https://github.com/actions/toolkit/tree/main/packages/core  
-- GitHub REST API: https://docs.github.com/en/rest
-- Vitest: https://vitest.dev/
+- JSON Schema: <https://json-schema.org/draft-07/schema>
+- GitHub Actions Core: <https://github.com/actions/toolkit/tree/main/packages/core>  
+- GitHub REST API: <https://docs.github.com/en/rest>
+- Vitest: <https://vitest.dev/>
 - Existing implementations: `pkg/workflow/js/*.cjs`

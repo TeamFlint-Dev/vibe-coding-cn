@@ -5,6 +5,7 @@ Provides Verse language support.
 ## Features
 
 Verse code `.verse` support
+
 - Editor windows
   - Syntax Highlighting - colors text based on Verse grammar
   - Mouse Hover Tooltips - additional information when hovering mouse over identifiers and errors
@@ -16,7 +17,7 @@ Verse code `.verse` support
   - Auto-formatting - formats text as you type and with copy and paste
   - Auto-save - saves whenever focus lost
 - Document outline - Auto generated based on .verse file contents and allows quick navigation within a `.verse` file. Located at the bottom of the VS Code Explorer.
-- Problems window - Lists out errors detected by the Verse extension language server 
+- Problems window - Lists out errors detected by the Verse extension language server
 
 ## Verse Documentation
 

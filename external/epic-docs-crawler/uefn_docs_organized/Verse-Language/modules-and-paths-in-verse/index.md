@@ -1,6 +1,6 @@
 # Modules and Paths
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/modules-and-paths-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/modules-and-paths-in-verse>
 > **爬取时间**: 2025-12-26T23:50:21.259464
 
 ---

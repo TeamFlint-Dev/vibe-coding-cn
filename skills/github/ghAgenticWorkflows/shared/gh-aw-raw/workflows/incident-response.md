@@ -59,6 +59,7 @@ safe-outputs:
 ## Why Campaigns Solve This (Not GitHub Actions)
 
 **Problem**: Production incident affecting multiple repos/teams requires:
+
 - Central command & control
 - Multi-team coordination
 - Real-time status tracking
@@ -78,6 +79,7 @@ safe-outputs:
 ### 1. Initialize Command Center (repo-memory)
 
 Create file `memory/campaigns/incident-${{ github.run_id }}/command-center.json`:
+
 ```json
 {
   "campaign_id": "incident-${{ github.run_id }}",
@@ -106,6 +108,7 @@ Use `create-issue`:
 **Labels**: `campaign-tracker`, `tracker:incident-${{ github.run_id }}`, `incident`, `severity:${{ github.event.inputs.incident_severity }}`
 
 **Body**:
+
 ```markdown
 # Incident Response: INC-${{ github.run_id }}
 
@@ -147,6 +150,7 @@ gh pr list --search "tracker:incident-${{ github.run_id }}"
 ---
 
 **Updates will be posted here every 30 minutes or on status changes**
+
 ```
 
 ### 3. AI Analysis Phase
@@ -223,18 +227,21 @@ Reply with:
 **Based on human decisions**:
 
 **If "execute-immediate"**:
+
 - Create PRs for rollbacks/hotfixes
 - Apply labels: `incident-fix`, `tracker:incident-${{ github.run_id }}`
 - Add comments linking back to command center
 - Update command center with execution status
 
 **If "approve-medium [actions]"**:
+
 - Create issues for each approved action
 - Assign to relevant teams
 - Track progress in command center
 - Update SLA countdown
 
 **If "escalate-high"**:
+
 - Create executive escalation issue
 - Tag VP/CTO for approval
 - Document business impact
@@ -279,6 +286,7 @@ Also post sanitized update to stakeholder issue #${{ github.event.inputs.stakeho
 ### 7. Store Timeline Events (repo-memory)
 
 Update `memory/campaigns/incident-${{ github.run_id }}/timeline.json` continuously:
+
 ```json
 {
   "incident_id": "INC-${{ github.run_id }}",
@@ -433,6 +441,7 @@ Create `memory/campaigns/incident-${{ github.run_id }}/post-mortem-template.md`:
 ## Output
 
 Provide summary:
+
 - Campaign ID: `incident-${{ github.run_id }}`
 - Incident ID: `INC-${{ github.run_id }}`
 - Command center issue: #[number]

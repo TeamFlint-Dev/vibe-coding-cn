@@ -1,6 +1,6 @@
 # Failure
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/failure-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/failure-in-verse>
 > **爬取时间**: 2025-12-26T23:50:05.720254
 
 ---
@@ -55,26 +55,31 @@ The following list includes all of the failure contexts in Verse:
   ```verse
   if (test-arg-block) { … }
   ```
+
 - The iteration expressions and filter expressions in `for` expressions. Note that `for` is special in that it creates a failure context for each iteration. If iterations are [nested](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#nested), then the failure contexts will also be nested. When an expression fails, the innermost failure context is aborted, and the enclosing iteration, if any, continues with the next iteration.
 
   ```verse
   for (Item : Collection, test-arg-block) { … }
   ```
+
 - The body of a function or method that has the `<decides>` effect specifier.
 
   ```verse
   IsEqual()<decides><transacts> : void = { … }
   ```
+
 - The operand for the `not` operator.
 
   ```verse
   not expression
   ```
+
 - The left operand for `or`.
 
   ```verse
   expression1 or expression2
   ```
+
 - Initializing a variable that has the `option` type.
 
   ```verse

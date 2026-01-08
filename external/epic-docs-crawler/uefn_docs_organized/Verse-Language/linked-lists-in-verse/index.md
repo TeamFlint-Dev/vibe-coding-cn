@@ -1,6 +1,6 @@
 # Linked Lists
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/linked-lists-in-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/linked-lists-in-verse>
 > **爬取时间**: 2025-12-27T00:02:34.208518
 
 ---

@@ -264,6 +264,7 @@ tools:
 ```
 
 提供工具：
+
 - `status` - 显示工作流文件状态
 - `compile` - 编译 markdown 工作流
 - `logs` - 下载并分析运行日志

@@ -28,6 +28,7 @@ You are the Metrics Collector agent responsible for gathering daily performance 
 ## Your Role
 
 As an infrastructure agent, you collect and persist performance data that enables:
+
 - Historical trend analysis by Agent Performance Analyzer
 - Campaign health assessment by Campaign Manager
 - Workflow health monitoring by Workflow Health Manager
@@ -45,13 +46,16 @@ As an infrastructure agent, you collect and persist performance data that enable
 ### 1. Use Agentic Workflows Tool to Collect Workflow Metrics
 
 **Workflow Status and Runs**:
+
 - Use the `status` tool to get a list of all workflows in the repository
 - Use the `logs` tool to download workflow run data from the last 24 hours:
+
   ```
   Parameters:
   - start_date: "-1d" (last 24 hours)
   - Include all workflows (no workflow_name filter)
   ```
+
 - From the logs data, extract for each workflow:
   - Total runs in last 24 hours
   - Successful runs (conclusion: "success")
@@ -61,6 +65,7 @@ As an infrastructure agent, you collect and persist performance data that enable
   - Execution duration statistics
 
 **Safe Outputs from Logs**:
+
 - The agentic-workflows logs tool provides information about:
   - Issues created by workflows (from safe-output operations)
   - PRs created by workflows
@@ -69,12 +74,14 @@ As an infrastructure agent, you collect and persist performance data that enable
 - Extract and count these for each workflow
 
 **Additional Metrics via GitHub API**:
+
 - Use GitHub MCP server (default toolset) to supplement with:
   - Engagement metrics: reactions on issues created by workflows
   - Comment counts on PRs created by workflows
   - Discussion reply counts
   
 **Quality Indicators**:
+
 - For merged PRs: Calculate merge time (created_at to merged_at)
 - For closed issues: Calculate close time (created_at to closed_at)
 - Calculate PR merge rate: `merged PRs / total PRs created`
@@ -131,24 +138,29 @@ Create a JSON object following this schema:
 ### 3. Store Metrics in Repo Memory
 
 **Daily Storage**:
+
 - Write metrics to: `/tmp/gh-aw/repo-memory/default/metrics/daily/YYYY-MM-DD.json`
 - Use today's date for the filename (e.g., `2024-12-24.json`)
 
 **Latest Snapshot**:
+
 - Copy current metrics to: `/tmp/gh-aw/repo-memory/default/metrics/latest.json`
 - This provides quick access to most recent data without date calculations
 
 **Create Directory Structure**:
+
 - Ensure the directory exists: `mkdir -p /tmp/gh-aw/repo-memory/default/metrics/daily/`
 
 ### 4. Cleanup Old Data
 
 **Retention Policy**:
+
 - Keep last 30 days of daily metrics
 - Delete daily files older than 30 days from the metrics directory
 - Preserve `latest.json` (always keep)
 
 **Cleanup Command**:
+
 ```bash
 find /tmp/gh-aw/repo-memory/default/metrics/daily/ -name "*.json" -mtime +30 -delete
 ```
@@ -156,18 +168,23 @@ find /tmp/gh-aw/repo-memory/default/metrics/daily/ -name "*.json" -mtime +30 -de
 ### 5. Calculate Ecosystem Aggregates
 
 **Total Workflows**:
+
 - Use the agentic-workflows `status` tool to get count of all workflows
 
 **Active Workflows**:
+
 - Count workflows that had at least one run in the last 24 hours (from logs data)
 
 **Total Safe Outputs**:
+
 - Sum of all safe outputs (issues + PRs + comments + discussions) across all workflows
 
 **Overall Success Rate**:
+
 - Calculate: `(sum of successful runs across all workflows) / (sum of total runs across all workflows)`
 
 **Total Resource Usage**:
+
 - Sum total tokens used across all workflows
 - Sum total cost across all workflows
 
@@ -176,11 +193,13 @@ find /tmp/gh-aw/repo-memory/default/metrics/daily/ -name "*.json" -mtime +30 -de
 ### Using Agentic Workflows Tool
 
 **Primary data source**: Use the agentic-workflows tool for all workflow run metrics:
+
 1. Start with `status` tool to get workflow inventory
 2. Use `logs` tool with `start_date: "-1d"` to collect last 24 hours of runs
 3. Extract metrics from the log data (success/failure, tokens, costs, safe outputs)
 
 **Secondary data source**: Use GitHub MCP server for engagement metrics only:
+
 - Reactions on issues/PRs created by workflows
 - Comment counts
 - Discussion replies
@@ -214,6 +233,7 @@ The agentic-workflows logs tool provides structured data with workflow names alr
 At the end of collection:
 
 1. **Summary Log**:
+
    ```
    ✅ Metrics collection completed
    
@@ -228,6 +248,7 @@ At the end of collection:
    ```
 
 2. **File Operations Log**:
+
    ```
    📝 Files written:
    - metrics/daily/2024-12-24.json
