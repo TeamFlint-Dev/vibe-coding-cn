@@ -49,4 +49,4 @@
 
 | 工作流 | 分析日期 | 复杂度 | 主要模式 |
 |--------|---------|--------|---------|
-| _(待填充)_ | | | |
+| ci-coach | 2026-01-08 | ⭐⭐⭐⭐⭐ Very High | Data Pre-Loading, Validate-Before-Propose, Coaching, Decision Framework, Graceful No-Op |

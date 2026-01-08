@@ -112,6 +112,42 @@ tools:
 
 ---
 
+### 6. Data Pre-Loading 模式 ⭐
+
+**适用场景**: Agent 需要大量 API 数据或 artifacts
+
+```yaml
+---
+steps:
+  - name: Pre-load historical data
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    run: |
+      # Download data using gh CLI
+      gh run list --repo ${{ github.repository }} \
+        --limit 100 --json status,conclusion > /tmp/data.json
+      
+      # Download artifacts
+      mkdir -p /tmp/artifacts
+      gh run download <run-id> --dir /tmp/artifacts
+      
+      echo "Data ready at /tmp/data.json"
+---
+```
+
+**Agent prompt 中引用**:
+```markdown
+## Data Available
+- **Run History**: `/tmp/data.json` - Last 100 workflow runs
+- **Artifacts**: `/tmp/artifacts/` - Recent test reports
+```
+
+**优势**: 避免 API 配额，Agent 启动更快
+
+**典型案例**: ci-coach (来源: #3)
+
+---
+
 ## 📦 代码片段库
 
 ### Frontmatter 模板
@@ -205,6 +241,170 @@ messages:
 
 ---
 
+### Data Pre-Loading Template ⭐
+
+**When**: Agent needs expensive API data or large artifacts
+
+```yaml
+---
+steps:
+  - name: Pre-load data
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    run: |
+      # Download via GitHub CLI
+      gh api /repos/${{ github.repository }}/actions/runs \
+        --jq '.workflow_runs[:100]' > /tmp/runs.json
+      
+      # Create working directory
+      mkdir -p /tmp/analysis
+      
+      echo "✅ Data saved to /tmp/runs.json"
+---
+```
+
+Agent prompt references: `/tmp/runs.json`
+
+**Benefits**: No API quotas, instant access, faster agent startup
+
+(来源: ci-coach 分析 #3)
+
+---
+
+### Validation Gate Template ⭐
+
+**When**: Workflow makes automated code changes
+
+```markdown
+### Validation Phase
+
+Before creating a PR, validate your changes:
+
+```bash
+# 1. Syntax validation
+make lint || npm run lint
+
+# 2. Build validation
+make build || npm run build
+
+# 3. Behavioral validation
+make test || npm test
+```
+
+**CRITICAL**: Only create PR if ALL validations pass.
+
+If any fail:
+- Fix issues and re-validate, OR
+- Abandon changes if too risky
+
+Do NOT propose broken changes.
+```
+
+(来源: ci-coach 分析 #3)
+
+---
+
+### Decision Framework Template ⭐
+
+**When**: Multiple optimization options, need prioritization
+
+```markdown
+### Cost-Benefit Analysis
+
+For each proposed change:
+
+| Change | Impact | Risk | Effort | Priority |
+|--------|--------|------|--------|----------|
+| Option A | High (10 min) | Low | Low | ⭐⭐⭐ High |
+| Option B | Medium (3 min) | Medium | Low | ⭐⭐ Med |
+| Option C | Low (1 min) | High | High | ⭐ Low |
+
+**Prioritization Criteria**:
+- ✅ High impact (>10% improvement)
+- ✅ Low risk
+- ✅ Low to medium effort
+
+**Decision**: Proceed with ⭐⭐⭐ High priority items.
+```
+
+(来源: ci-coach 分析 #3)
+
+---
+
+### Educational PR Template ⭐
+
+**When**: Proposing changes to humans, want to build understanding
+
+```markdown
+## Optimization: [Name]
+
+### Current Behavior
+```yaml
+# Show existing code/config
+current: |
+  runs sequentially (10 minutes)
+```
+
+### Proposed Behavior
+```yaml
+# Show improved code/config
+proposed: |
+  runs in parallel (4 minutes)
+```
+
+### Benefits
+- **Impact**: 6 minutes saved per run (60% improvement)
+- **Rationale**: Jobs don't depend on each other, can parallelize
+
+### Risk Assessment
+- **Risk Level**: Low
+- **Mitigation**: Validated with `make test`
+
+### Validation Results
+✅ Lint: Passed
+✅ Build: Passed  
+✅ Tests: Passed
+```
+
+**Structure**: Current → Proposed → Benefits → Rationale → Risk → Validation
+
+(来源: ci-coach 分析 #3)
+
+---
+
+### Graceful No-Op Template ⭐
+
+**When**: Recurring analysis, might have nothing to report
+
+```markdown
+### No Changes Path
+
+If no improvements found or all changes too risky:
+
+1. **Save analysis to memory**:
+   ```bash
+   mkdir -p /tmp/cache-memory/my-workflow
+   cat > /tmp/cache-memory/my-workflow/last-run.json << EOF
+   {
+     "date": "$(date -I)",
+     "status": "no-changes-needed",
+     "reason": "System already optimized",
+     "metrics_reviewed": 127
+   }
+   EOF
+   ```
+
+2. **Exit gracefully** - no PR, no noise
+
+3. **Knowledge preserved** for future runs
+
+**Success Metric**: Only create PR if impact > 5% improvement
+```
+
+(来源: ci-coach 分析 #3)
+
+---
+
 ## ✅ 最佳实践
 
 ### 权限
@@ -212,6 +412,7 @@ messages:
 - ✅ 使用最小权限原则
 - ✅ 优先使用 `safe-outputs` 而非直接 `write` 权限
 - ❌ 避免 `contents: write` 除非真的需要
+- ✅ **Data Pre-Loading**: 在 frontmatter `steps:` 中预下载数据 (来源: #3)
 
 ### 超时
 
@@ -221,6 +422,8 @@ messages:
 | 中等分析 | 15-20 分钟 |
 | 复杂任务 | 25-30 分钟 |
 
+**设置原则**: 基于实测而非猜测，留小量缓冲 (来源: ci-coach #3)
+
 ### Prompt 设计
 
 - ✅ 明确的角色定义
@@ -228,6 +431,15 @@ messages:
 - ✅ 使用 `{{#if}}` 处理条件逻辑
 - ✅ 提供成功标准
 - ❌ 避免模糊的指令
+- ✅ **Time Budgets**: 为每个 Phase 设置时间预算指导工作量分配 (来源: #3)
+- ✅ **Worked Examples**: 复杂推理提供完整示例+计算 (来源: #3)
+
+### 自动化变更
+
+- ✅ **Validation Gates**: 变更前必须运行 lint + build + test (来源: #3)
+- ✅ **Decision Framework**: 提供明确的 Impact/Risk/Effort 评分标准 (来源: #3)
+- ✅ **Graceful No-Op**: 无有意义变更时静默退出 (来源: #3)
+- ✅ **Educational Output**: PR 包含 Why + Rationale，教育人类 (来源: #3)
 
 ---
 
