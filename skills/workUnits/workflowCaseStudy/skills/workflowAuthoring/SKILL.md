@@ -253,6 +253,134 @@ You're being invoked directly via workflow_dispatch or agent session.
 
 ---
 
+### 9. Meta-Orchestrator 模式 ⭐⭐⭐
+
+**适用场景**: 监控和管理其他工作流的健康状况
+
+```yaml
+---
+on: daily  # 定时批处理
+permissions:
+  contents: read
+  issues: read
+  actions: read  # 查询workflow runs
+tools:
+  repo-memory:
+    branch-name: memory/meta-orchestrators
+    file-glob: "**"
+  github:
+    toolsets: [default, actions]
+safe-outputs:
+  create-issue:
+    max: 10
+    expires: 1d  # 自动过期
+  update-issue:
+    max: 5
+---
+
+# Meta-Orchestrator
+
+You monitor the health of all workflows in this repository.
+
+## Your Role
+- Discover all workflows
+- Check compilation and execution status
+- Identify failing patterns
+- Create maintenance issues
+
+## Important: Exclude Rules
+**DO NOT** check files in `.github/workflows/shared/` - these are imports.
+
+## Execution Phases
+
+### Phase 1: Discovery (5 minutes)
+[扫描所有工作流]
+
+### Phase 2: Health Assessment (7 minutes)
+[评估健康状况]
+
+### Phase 3: Reporting (3 minutes)
+[创建/更新issues]
+```
+
+**典型案例**: workflow-health-manager (来源: #6)
+
+**关键设计点**:
+- 定时批处理而非事件触发
+- 只读权限 + 通过issue报告
+- 不直接修改其他工作流
+- 使用共享metrics避免重复API调用
+
+**与普通编排器的区别**:
+- 监控对象是工作流本身（元级别）
+- 定时运行，不被其他工作流触发
+- 操作类型仅限报告（issue、评论）
+
+---
+
+### 10. Shared Metrics Infrastructure 模式 ⭐⭐⭐
+
+**适用场景**: 多个编排器需要共享metrics数据，避免重复API调用
+
+```yaml
+# Metrics Collector 工作流
+---
+on: daily
+tools:
+  repo-memory:
+    branch-name: memory/default
+---
+
+# Metrics Collector
+
+Collect workflow run statistics daily.
+
+**Save to**:
+- `/tmp/gh-aw/repo-memory-default/memory/default/metrics/latest.json`
+- `/tmp/gh-aw/repo-memory-default/memory/default/metrics/daily/YYYY-MM-DD.json`
+
+**Format**:
+​```json
+{
+  "timestamp": "2026-01-08T00:00:00Z",
+  "workflow_runs": {
+    "workflow-name": {
+      "total_runs": 45,
+      "successful_runs": 43,
+      "success_rate": 0.956
+    }
+  }
+}
+​```
+```
+
+```yaml
+# Consumer 工作流
+---
+tools:
+  repo-memory:
+    branch-name: memory/default
+---
+
+# Consumer
+
+**Read metrics from**:
+- Latest: `/tmp/gh-aw/repo-memory-default/memory/default/metrics/latest.json`
+- Historical: `/tmp/gh-aw/repo-memory-default/memory/default/metrics/daily/*.json`
+
+Use this data instead of querying GitHub API.
+```
+
+**典型案例**: workflow-health-manager + metrics-collector (来源: #6)
+
+**优势**:
+- 避免重复API调用（120个工作流只查询一次）
+- 提供历史视图（30天趋势分析）
+- 解耦采集和消费
+- 降低API限流风险
+
+---
+
 ## 📦 代码片段库
 
 ### Frontmatter 模板
@@ -678,6 +806,36 @@ Here's what will happen:
 - ✅ **Decision Framework**: 提供明确的 Impact/Risk/Effort 评分标准 (来源: #3)
 - ✅ **Graceful No-Op**: 无有意义变更时静默退出 (来源: #3)
 - ✅ **Educational Output**: PR 包含 Why + Rationale，教育人类 (来源: #3)
+
+### 元编排器设计
+
+- ✅ **定时批处理**: 使用 `on: daily` 避免事件触发复杂性 (来源: #6)
+- ✅ **只读+报告**: 元编排器不应修改工作流，只创建issue (来源: #6)
+- ✅ **共享Metrics**: 使用专门采集器，避免每个编排器重复查询 (来源: #6)
+- ✅ **自我监控**: 元编排器也需要健康检查（可能需要更高层监控） (来源: #6)
+- ✅ **排除规则**: 明确排除不需要检查的目录，多处重复强调 (来源: #6)
+
+### 批量监控
+
+- ✅ **分层监控**: 编译、执行、错误、依赖、性能多层次检查 (来源: #6)
+- ✅ **健康评分**: 量化健康状态，支持优先级排序和趋势分析 (来源: #6)
+- ✅ **Issue管理**: 更新现有issue而非创建新issue，使用expires防止堆积 (来源: #6)
+- ✅ **actions权限**: 监控工作流需要 `actions: read` 权限查询runs (来源: #6)
+- ✅ **update-issue**: 使用 `update-issue` safe-output 更新issue属性而非关闭重建 (来源: #6)
+
+### 编排器协作
+
+- ✅ **共享内存**: 通过 repo-memory 共享状态和协调 (来源: #6)
+- ✅ **协调文件**: 使用 shared-alerts.md 避免重复操作 (来源: #6)
+- ✅ **状态文件**: 每个编排器写入 [name]-latest.md 供其他读取 (来源: #6)
+- ✅ **格式规范**: Markdown格式，< 10KB，包含时间戳 (来源: #6)
+- ✅ **分层存储**: latest.json(最新) + daily/*.json(历史30天) (来源: #6)
+
+### 时间管理
+
+- ✅ **Phase时间预算**: 每个Phase标注时间，给Agent明确的时间感 (来源: #6)
+- ✅ **总时间匹配**: Phase总时间 < timeout，留10-20%缓冲 (来源: #6)
+- ✅ **关键阶段优先**: 复杂阶段分配更多时间 (来源: #6)
 
 ---
 
