@@ -9,8 +9,8 @@ on:
         required: false
         type: string
 permissions:
-  contents: write
-  issues: write
+  contents: read
+  issues: read
 engine: copilot
 imports:
   - shared/workunit-tools.md

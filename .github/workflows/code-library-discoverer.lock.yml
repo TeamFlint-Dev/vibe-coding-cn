@@ -20,6 +20,10 @@
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
 # 发现可复用的代码模式，建议抽取到 verse/library
+#
+# Resolved workflow manifest:
+#   Imports:
+#     - shared/workunit-tools.md
 
 name: "Code Library Discoverer"
 "on":
@@ -92,6 +96,9 @@ jobs:
           persist-credentials: false
       - name: Create gh-aw temp directory
         run: bash /tmp/gh-aw/actions/create_gh_aw_tmp_dir.sh
+      - name: Set up Work Unit tools
+        run: "mkdir -p /tmp/gh-aw\n\n# ========== workunit-init.sh ==========\ncat > /tmp/gh-aw/workunit-init.sh << 'INIT_EOF'\n#!/usr/bin/env bash\n# Work Unit 初始化工具\n# 用法: /tmp/gh-aw/workunit-init.sh <unit_name> <think_model>\n\nset -e\n\nUNIT_NAME=\"${1:-}\"\nTHINK_MODEL=\"${2:-craftsman}\"\n\nif [ -z \"$UNIT_NAME\" ]; then\n  echo \"错误: 需要指定 Work Unit 名称\"\n  echo \"用法: /tmp/gh-aw/workunit-init.sh <unit_name> [think_model]\"\n  echo \"可用的思维模型: skeptic, craftsman, explorer\"\n  exit 1\nfi\n\n# 路径定义\nSKILLS_DIR=\"skills/workUnits/${UNIT_NAME}\"\nJOURNAL_DIR=\"journals/workUnits/${UNIT_NAME}\"\nSKILL_FILE=\"${SKILLS_DIR}/SKILL.md\"\nTODAY=$(date +%Y-%m-%d)\nJOURNAL_FILE=\"${JOURNAL_DIR}/${TODAY}.md\"\n\nTHINK_MODEL_FILE=\".github/shared/thinkModels/${THINK_MODEL}.md\"\nMETA_COGNITIVE_FILE=\".github/shared/metaCognitive/toolkit.md\"\n\necho \"═══════════════════════════════════════════════════════════════\"\necho \"🚀 Work Unit 初始化: ${UNIT_NAME}\"\necho \"═══════════════════════════════════════════════════════════════\"\necho \"\"\n\n# 初始化目录\nmkdir -p \"$SKILLS_DIR\"\nmkdir -p \"$JOURNAL_DIR\"\n\n# 初始化 Skills 骨架（如不存在）\nif [ ! -f \"$SKILL_FILE\" ]; then\n  cat > \"$SKILL_FILE\" << SKILL_EOF\n# ${UNIT_NAME} Skills\n\n> **首次创建**: ${TODAY}\n> **最后更新**: ${TODAY}\n> **执行次数**: 0\n\n## 任务目标\n\n*待填充*\n\n## 最佳路线\n\n*待多次执行后总结*\n\n## 已知限制\n\n*待发现后补充*\n\n## 常见陷阱\n\n*待踩坑后记录*\nSKILL_EOF\n  echo \"📝 Skills 骨架已创建\"\nfi\necho \"\"\n\n# 输出思维模型\necho \"═══════════════════════════════════════════════════════════════\"\necho \"🧠 思维模型: ${THINK_MODEL}\"\necho \"═══════════════════════════════════════════════════════════════\"\nif [ -f \"$THINK_MODEL_FILE\" ]; then\n  cat \"$THINK_MODEL_FILE\"\nelse\n  echo \"警告: 思维模型文件不存在: ${THINK_MODEL_FILE}\"\nfi\necho \"\"\n\n# 输出元认知工具\necho \"═══════════════════════════════════════════════════════════════\"\necho \"🔧 元认知工具\"\necho \"═══════════════════════════════════════════════════════════════\"\nif [ -f \"$META_COGNITIVE_FILE\" ]; then\n  cat \"$META_COGNITIVE_FILE\"\nelse\n  echo \"警告: 元认知工具文件不存在: ${META_COGNITIVE_FILE}\"\nfi\necho \"\"\n\n# 输出已有 Skills\necho \"═══════════════════════════════════════════════════════════════\"\necho \"📚 已积累的 Skills\"\necho \"═══════════════════════════════════════════════════════════════\"\ncat \"$SKILL_FILE\"\necho \"\"\n\n# 输出路径信息和任务提醒\necho \"═══════════════════════════════════════════════════════════════\"\necho \"📍 任务完成时需要更新的文件\"\necho \"═══════════════════════════════════════════════════════════════\"\necho \"JOURNAL_FILE=${JOURNAL_FILE}\"\necho \"SKILL_FILE=${SKILL_FILE}\"\necho \"\"\necho \"📝 Journal 记录你的工作路线、尝试、发现\"\necho \"📚 Skills 沉淀可复用的经验（如有新发现）\"\necho \"\"\necho \"═══════════════════════════════════════════════════════════════\"\necho \"✅ 初始化完成，开始工作吧！\"\necho \"═══════════════════════════════════════════════════════════════\"\nINIT_EOF\nchmod +x /tmp/gh-aw/workunit-init.sh\n\necho \"✅ Work Unit 工具已安装\"\n"
+
       - name: Configure Git credentials
         env:
           REPO_NAME: ${{ github.repository }}
@@ -473,9 +480,55 @@ jobs:
         run: |
           bash /tmp/gh-aw/actions/create_prompt_first.sh
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
+          ## Work Unit 初始化工具
+          
+          在任务开始时调用，加载思维模型、元认知工具和已有 Skills。
+          
+          ### 用法
+          
+          ```bash
+          /tmp/gh-aw/workunit-init.sh <unit_name> [think_model]
+          ```
+          
+          **参数**：
+          - `unit_name`：工作单元名称（必填）
+          - `think_model`：思维模型，可选 `skeptic`、`craftsman`、`explorer`（默认 `craftsman`）
+          
+          ### 功能
+          
+          1. 创建 Skills 目录和 Journal 目录
+          2. 初始化 Skills 骨架（如不存在）
+          3. 输出思维模型内容
+          4. 输出元认知工具
+          5. 输出已有 Skills
+          6. 输出 Journal 和 Skills 文件路径
+          
+          ### 任务完成时
+          
+          Agent 应根据初始化时获取的信息，自行决定：
+          - 写入 `JOURNAL_FILE` 记录工作过程
+          - 更新 `SKILL_FILE` 沉淀经验（如有新发现）
+          
           # 🧩 Code Library Discoverer
           
           你是代码复用专家，负责发现可以抽取到公共库的代码模式。
+          
+          ---
+          
+          ## 初始化：加载上下文
+          
+          ```bash
+          /tmp/gh-aw/workunit-init.sh codeLibraryDiscoverer craftsman
+          ```
+          
+          **阅读上面输出的内容，理解：**
+          1. **思维模型**（工匠）— 如何思考问题
+          2. **元认知工具** — 反思、反问、假设、总结
+          3. **已有 Skills** — 最佳路线和常见陷阱
+          
+          **记住输出的 `JOURNAL_FILE` 和 `SKILL_FILE` 路径，任务结束时需要写入。**
+          
+          ---
           
           ## 任务上下文
           
@@ -633,6 +686,14 @@ jobs:
           - 发现的可复用模式数
           - 预计可减少的重复代码量
           - 建议的抽取优先级
+          
+          ---
+          
+          ## 🔴 任务完成前
+          
+          用 edit 工具更新初始化时输出的文件路径：
+          1. **Journal** — 记录这次执行的路线、发现、踩坑
+          2. **Skills** — 沉淀可复用的经验（如有新发现）
           
           PROMPT_EOF
       - name: Substitute placeholders
@@ -792,7 +853,7 @@ jobs:
       - name: Execute GitHub Copilot CLI
         id: agentic_execution
         # Copilot CLI tool arguments (sorted):
-        timeout-minutes: 20
+        timeout-minutes: 25
         run: |
           set -o pipefail
           sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --mount /home/runner/.copilot:/home/runner/.copilot:rw --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.7.0 \
