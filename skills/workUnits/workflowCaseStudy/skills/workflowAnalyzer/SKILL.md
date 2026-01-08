@@ -49,6 +49,14 @@
 | **Multi-Context** | `{{#if github.event.*}}` | plan, cloclo |
 | **Memory-Enabled** | `cache-memory: true` | grumpy-reviewer |
 | **Multi-Tool** | 多个 MCP 集成 | cloclo |
+| **Data Pre-Loading** ⭐ | frontmatter `steps:` 下载数据 | ci-coach |
+| **Validate-Before-Propose** ⭐ | 变更前运行 lint+build+test | ci-coach |
+| **Coaching/Educational** ⭐ | PR 包含 Why + Rationale | ci-coach |
+| **Embedded Decision Framework** ⭐ | 明确的 Impact/Risk/Effort 评分 | ci-coach |
+| **Graceful No-Op** ⭐ | 无变更时静默退出 + 记录 | ci-coach |
+| **Example-Driven Reasoning** ⭐ | 提供完整示例+计算过程 | ci-coach |
+
+⭐ = 新发现模式 (来源: ci-coach 分析 #3)
 
 ---
 
@@ -113,11 +121,45 @@ grep -n "{{#if" path/to/workflow.md
 
 | 日期 | 工作流 | 主要发现 |
 |------|--------|---------|
-| _(待填充)_ | | |
+| 2026-01-08 | ci-coach | 发现 6 个新模式：数据预加载、验证后提议、教练模式等 |
 
 ### 新发现的模式
 
-_(待填充)_
+#### Data Pre-Loading Pattern (ci-coach #3)
+- **识别特征**: frontmatter 中使用 `steps:` 预下载数据到 `/tmp/`
+- **用途**: Agent 需要大量 API 数据或 artifacts
+- **优势**: 避免 API 配额限制，Agent 启动更快
+- **示例**: 预下载 CI 运行历史、测试报告、覆盖率数据
+
+#### Validate-Before-Propose Pattern (ci-coach #3)
+- **识别特征**: 在创建 PR 前运行完整验证套件
+- **验证门**: `make lint` + `make build` + `make test`
+- **安全性**: 只有验证全部通过才创建 PR
+- **用途**: 任何自动化代码变更工作流
+
+#### Coaching/Educational Pattern (ci-coach #3)
+- **识别特征**: PR 描述不仅说明"是什么"，更解释"为什么"
+- **结构**: Current → Proposed → Benefits → Rationale
+- **价值**: 教育人类，建立信任
+- **用途**: 向人类提议变更的工作流
+
+#### Embedded Decision Framework Pattern (ci-coach #3)
+- **识别特征**: 提供明确的决策评分标准
+- **格式**: Impact/Risk/Effort 表格
+- **优势**: 消除决策模糊性
+- **用途**: 需要在多个选项间权衡的场景
+
+#### Graceful No-Op Pattern (ci-coach #3)
+- **识别特征**: 无有意义变更时静默退出
+- **知识捕获**: 仍将分析结果保存到 cache-memory
+- **优势**: 减少噪音，尊重人类注意力
+- **用途**: 定期运行的分析工作流
+
+#### Example-Driven Reasoning Pattern (ci-coach #3)
+- **识别特征**: 提供完整工作示例含计算过程
+- **格式**: 当前状态 → 优化状态 → 数值计算 → 百分比改进
+- **用途**: 教授复杂推理（如并行化优化）
+- **示例**: CI 关键路径分析（12.5 min → 7.5 min = 40% 改进）
 
 ### 分析中遇到的困难
 
