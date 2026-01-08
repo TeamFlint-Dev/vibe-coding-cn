@@ -148,6 +148,111 @@ steps:
 
 ---
 
+### 7. Coordinator-Executor 模式 ⭐⭐
+
+**适用场景**: 快速响应 + 复杂处理分离
+
+```yaml
+---
+on:
+  issues:
+    types: [opened]
+    lock-for-agent: true
+  workflow_dispatch:
+timeout-minutes: 5  # 快速协调
+safe-outputs:
+  assign-to-agent:  # 委托给专门的 agent
+---
+
+# Coordinator
+
+You are a lightweight coordinator for [task].
+
+## Your Role
+
+Your job is to:
+1. Validate input quickly
+2. Setup required resources (create project, etc.)
+3. Assign work to specialist agent
+4. Keep users informed
+
+**Do NOT** perform heavy computation yourself. Delegate to the specialist agent.
+
+## Steps
+
+### Step 1: Quick Validation
+[快速验证逻辑]
+
+### Step 2: Create Resources
+[创建必要的资源]
+
+### Step 3: Assign to Specialist
+Use `assign-to-agent` to delegate work to `specialist-agent`.
+
+The specialist will handle [详细任务].
+```
+
+**典型案例**: campaign-generator (来源: #5)
+
+**关键设计点**:
+- 协调器超时 < 10min（快速反馈）
+- 专门 agent 处理复杂逻辑（慢速思考）
+- 清晰的责任边界
+
+---
+
+### 8. Dual-Mode Workflow 模式 ⭐⭐
+
+**适用场景**: 需要同时支持人工触发和 agent 调用
+
+```yaml
+---
+on:
+  issues:
+    types: [opened]
+    lock-for-agent: true
+  workflow_dispatch:
+  reaction: "eyes"
+if: startsWith(github.event.issue.title, '[Your Prefix]') || github.event_name == 'workflow_dispatch'
+---
+
+# Your Workflow
+
+## Your Task
+
+You handle [task] in two modes:
+
+### Mode 1: Issue-Triggered
+A user has submitted a request via GitHub issue #${{ github.event.issue.number }}.
+
+### Mode 2: Workflow Dispatch
+You're being invoked directly via workflow_dispatch or agent session.
+
+## Workflow Steps
+
+### Step 1: [共享步骤]
+[Both modes execute this]
+
+### Step 2: [条件步骤] (Issue Mode Only)
+**Only if triggered by an issue**, do ...
+
+{{#if github.event.issue}}
+[Issue-specific operations]
+{{/if}}
+
+### Step 3: [另一个共享步骤]
+[Both modes execute this]
+```
+
+**典型案例**: campaign-generator (来源: #5)
+
+**关键设计点**:
+- 明确标注 "Mode 1" / "Mode 2"
+- 条件步骤用 "(Mode Only)" 标签
+- 使用 `{{#if}}` 条件渲染
+
+---
+
 ## 📦 代码片段库
 
 ### Frontmatter 模板
@@ -405,6 +510,112 @@ If no improvements found or all changes too risky:
 
 ---
 
+### Create-Project Safe-Output Template ⭐⭐
+
+**When**: Need to create GitHub Project Board for tracking
+
+```markdown
+### Create New Project
+
+Use the `create-project` safe output:
+
+**For Issue Mode:**
+​```
+create_project({
+  title: "Project: <descriptive-name>",
+  owner: "${{ github.owner }}",
+  item_url: "${{ github.server_url }}/${{ github.repository }}/issues/${{ github.event.issue.number }}"
+})
+​```
+
+**For Workflow Dispatch Mode:**
+​```
+create_project({
+  title: "Project: <descriptive-name>",
+  owner: "${{ github.owner }}"
+})
+​```
+```
+
+**Frontmatter**:
+```yaml
+safe-outputs:
+  create-project:
+    max: 1
+    github-token: "${{ secrets.GH_AW_PROJECT_GITHUB_TOKEN }}"
+```
+
+(来源: campaign-generator 分析 #5)
+
+---
+
+### Assign-to-Agent Template ⭐⭐
+
+**When**: Delegate work to a specialist agent
+
+```markdown
+### Assign to Specialist
+
+Use `assign-to-agent` to delegate to `specialist-agent`:
+
+The specialist will handle [detailed tasks].
+```
+
+**Frontmatter**:
+```yaml
+safe-outputs:
+  assign-to-agent:
+```
+
+(来源: campaign-generator 分析 #5)
+
+---
+
+### Lock-for-Agent Template ⭐⭐
+
+**When**: Prevent concurrent processing of same issue
+
+```yaml
+on:
+  issues:
+    lock-for-agent: true
+```
+
+(来源: campaign-generator 分析 #5)
+
+---
+
+### Conditional Step Template ⭐⭐
+
+```markdown
+### Step X: Action (Issue Mode Only)
+
+**Only if triggered by an issue**, do ...
+```
+
+(来源: campaign-generator 分析 #5)
+
+---
+
+### Expectation Management Template ⭐⭐
+
+```markdown
+​```markdown
+🤖 **[Phase] Started**
+
+Here's what will happen:
+1. ✅ [Done]
+2. 🔄 [Current]
+3. 📝 [Next]
+
+**Estimated Time:** typically [X] minutes
+​```
+```
+
+(来源: campaign-generator 分析 #5)
+
+---
+
 ## ✅ 最佳实践
 
 ### 权限
@@ -433,6 +644,33 @@ If no improvements found or all changes too risky:
 - ❌ 避免模糊的指令
 - ✅ **Time Budgets**: 为每个 Phase 设置时间预算指导工作量分配 (来源: #3)
 - ✅ **Worked Examples**: 复杂推理提供完整示例+计算 (来源: #3)
+
+### 并发控制
+
+- ✅ **Lock-for-Agent**: 状态修改工作流使用 `lock-for-agent: true` (来源: #5)
+- ✅ **幂等性设计**: 即使锁失效也应保证安全 (来源: #5)
+- ❌ **过度锁定**: 只读工作流不要使用 lock
+
+### 多 Agent 协作
+
+- ✅ **协调器模式**: 轻量级协调器（<10min）+ 专门执行者 (来源: #5)
+- ✅ **上下文传递**: 通过 safe-outputs 传递数据（如 project URL）(来源: #5)
+- ✅ **责任明确**: Prompt 中清晰划分协调器和执行者职责 (来源: #5)
+- ✅ **快速反馈**: 协调器应快速响应，复杂逻辑委托给专门 agent (来源: #5)
+
+### 双模式工作流
+
+- ✅ **条件步骤标注**: 使用 "(Mode Only)" 标签明确条件步骤 (来源: #5)
+- ✅ **共享逻辑提取**: 相同的逻辑只写一次，避免重复 (来源: #5)
+- ✅ **模式明确声明**: Prompt 中用 "Mode 1" / "Mode 2" 章节 (来源: #5)
+- ✅ **条件渲染**: 使用 `{{#if}}` 处理模式特定内容 (来源: #5)
+
+### 内联代码示例
+
+- ✅ **完整调用示例**: 包含所有必需参数的函数调用 (来源: #5)
+- ✅ **占位符标注**: 明确哪些需要替换（`<placeholder>`）(来源: #5)
+- ✅ **变量展示**: 展示 GitHub 变量用法（`${{ }}`）(来源: #5)
+- ✅ **紧跟解释**: 示例后立即解释如何使用 (来源: #5)
 
 ### 自动化变更
 

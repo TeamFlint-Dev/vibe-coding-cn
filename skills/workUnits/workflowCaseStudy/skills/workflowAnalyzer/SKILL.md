@@ -55,8 +55,16 @@
 | **Embedded Decision Framework** ⭐ | 明确的 Impact/Risk/Effort 评分 | ci-coach |
 | **Graceful No-Op** ⭐ | 无变更时静默退出 + 记录 | ci-coach |
 | **Example-Driven Reasoning** ⭐ | 提供完整示例+计算过程 | ci-coach |
+| **Coordinator-Executor** ⭐⭐ | `assign-to-agent`, timeout < 10min | campaign-generator |
+| **Dual-Mode Workflow** ⭐⭐ | `on: [issues, workflow_dispatch]`, Mode 1/Mode 2 | campaign-generator |
+| **Safe-Output Chaining** ⭐⭐ | 多个 safe-outputs 顺序调用 | campaign-generator |
+| **Lock-for-Agent** ⭐⭐ | `lock-for-agent: true` | campaign-generator |
+| **Conditional Step Labeling** ⭐⭐ | "(Mode Only)" 标注 | campaign-generator |
+| **Inline Code Example** ⭐⭐ | 函数调用示例代码块 | campaign-generator |
+| **Expectation Setting** ⭐⭐ | 时间估计 + Next Steps | campaign-generator |
 
-⭐ = 新发现模式 (来源: ci-coach 分析 #3)
+⭐ = 新发现模式 (来源: ci-coach 分析 #3)  
+⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)
 
 ---
 
@@ -121,6 +129,7 @@ grep -n "{{#if" path/to/workflow.md
 
 | 日期 | 工作流 | 主要发现 |
 |------|--------|---------|
+| 2026-01-08 | campaign-generator | 发现 7 个新模式：协调器-执行者、双模式、锁机制等 |
 | 2026-01-08 | ci-coach | 发现 6 个新模式：数据预加载、验证后提议、教练模式等 |
 
 ### 新发现的模式
@@ -160,6 +169,48 @@ grep -n "{{#if" path/to/workflow.md
 - **格式**: 当前状态 → 优化状态 → 数值计算 → 百分比改进
 - **用途**: 教授复杂推理（如并行化优化）
 - **示例**: CI 关键路径分析（12.5 min → 7.5 min = 40% 改进）
+
+#### Coordinator-Executor Pattern (campaign-generator #5)
+- **识别特征**: 轻量级协调器工作流（超时 < 10min）+ `assign-to-agent`
+- **用途**: 快速响应 + 复杂处理分离
+- **优势**: 协调器快速反馈，执行者慢速思考
+- **示例**: campaign-generator（5min）→ campaign-designer agent
+
+#### Dual-Mode Workflow Pattern (campaign-generator #5)
+- **识别特征**: 单个工作流支持多种触发方式（issues + workflow_dispatch）
+- **Prompt 标注**: 明确的 "Mode 1" / "Mode 2" 章节
+- **条件步骤**: "(Issue Mode Only)" 标签
+- **用途**: 提高工作流复用性，减少重复代码
+
+#### Safe-Output Chaining Pattern (campaign-generator #5)
+- **识别特征**: 多个 safe-outputs 按顺序调用，形成数据流
+- **示例**: create-project → add-comment → assign-to-agent → add-comment
+- **用途**: 编排复杂的多步骤操作
+- **注意**: 每个 safe-output 都有 max 限制，需考虑部分成功
+
+#### Lock-for-Agent Pattern (campaign-generator #5)
+- **识别特征**: frontmatter 中 `lock-for-agent: true`
+- **用途**: 防止并发处理同一 issue，确保幂等性
+- **适用**: 状态修改工作流（创建资源、发送通知）
+- **不适用**: 纯只读操作、已幂等操作
+
+#### Conditional Step Labeling Pattern (campaign-generator #5)
+- **识别特征**: 步骤标题包含条件说明，如 "(Issue Mode Only)"
+- **Prompt 强调**: "**Only if ...**" 加粗文本
+- **用途**: 复杂条件逻辑的清晰表达，避免 agent 误执行
+- **示例**: "### Step 2: Post Comment (Issue Mode Only)"
+
+#### Inline Code Example Pattern (campaign-generator #5)
+- **识别特征**: Prompt 中包含完整的函数调用示例代码块
+- **格式**: 占位符（`<name>`）+ 变量（`${{ }}`）+ 参数说明
+- **用途**: 消除 API 调用歧义，提高执行成功率
+- **示例**: 完整的 `create_project({...})` 调用示例
+
+#### Expectation Setting Pattern (campaign-generator #5)
+- **识别特征**: 明确告知用户需要等待多久，使用 "typically", "usually"
+- **结构**: 当前状态 + 时间估计 + Next Steps 清单
+- **用途**: 管理用户期望，减少焦虑和重复询问
+- **心理学**: 已知的等待比未知的等待更容易忍受
 
 ### 分析中遇到的困难
 
