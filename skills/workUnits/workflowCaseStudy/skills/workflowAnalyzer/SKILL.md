@@ -138,6 +138,87 @@
 
 ⭐⭐⭐⭐⭐ = 新发现模式 (来源: cloclo 分析 #10)
 
+#### Reusable Workflow Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: `on: workflow_call` + 参数化 `inputs` 定义 + 单一职责设计
+- **工作方式**: 被其他工作流通过 `uses:` 调用，类似函数调用
+- **配置示例**: `on: { workflow_call: { inputs: { param: { required: true, type: string } } } }`
+- **调用方式**: `jobs: { task: { uses: ./.github/workflows/reusable.md, with: { param: "value" } } }`
+- **设计价值**: DRY 原则（逻辑只写一次）、一致性（所有调用者使用相同逻辑）、可维护性（修改一处全部受益）
+- **用途**: 可重用的诊断、部署、通知、测试等通用功能
+- **对比**: 与 Agent 委托不同，workflow_call 在同一 Runner 内执行，共享工作区
+- **典型案例**: smoke-detector（失败诊断可重用工作流）
+
+#### MCP-Specialized Tool Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 导入专门 MCP + Prompt 明确指导使用特定工具 + 工具职责边界清晰
+- **约束示例**: "**IMPORTANT**: Use `gh-aw_audit` tool [...] Do NOT use GitHub MCP server for workflow run analysis"
+- **工具选择决策**: 需要工作流诊断 → gh-aw MCP | 需要仓库操作 → GitHub MCP
+- **设计意图**: 专业化（每个 MCP 专注特定领域）、防止误用（明确约束）、性能优化（专业工具更好）
+- **gh-aw MCP 工具集**: `gh-aw_audit`（诊断）+ `gh-aw_logs`（日志）+ `gh-aw_status`（状态）+ `gh-aw_compile`（编译）
+- **用途**: 需要明确工具边界的多工具工作流
+- **对比 cloclo**: cloclo 使用 3 个 MCP 平等协作，smoke-detector 使用 1 个主 MCP + 明确优先级
+- **典型案例**: smoke-detector（工作流元编程和诊断）
+
+#### File-Based Knowledge Accumulation Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: cache-memory 用于持久化知识 + 结构化文件组织 + 跨运行学习
+- **知识架构**: `/tmp/gh-aw/cache-memory/` → `investigations/`（调查报告）+ `patterns/`（错误模式）+ `logs/`（日志缓存）
+- **知识生命周期**: 失败发生 → 提取数据 → 分析模式 → 存储 JSON → 未来查询 → 模式识别
+- **存储格式**: 结构化 JSON（timestamp, run_id, root_cause, error_signature, resolution）
+- **检索策略**: 文件系统索引 + 错误签名匹配 + 相似度判断
+- **设计价值**: 机器学习基础、快速诊断（参考历史）、知识复利（每次运行让系统更智能）
+- **用途**: 需要长期学习和改进的工作流
+- **对比**: 与 cloclo 的对话上下文（短期）不同，这是长期知识库
+- **典型案例**: smoke-detector（失败模式积累和去重）
+
+#### Dynamic Output Routing Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 运行时查询上下文 + 基于查询结果选择输出方式 + 双输出配置
+- **路由逻辑**: 查询关联 PR（使用 commit SHA）→ 找到 PR → add_comment | 未找到 → create_issue
+- **实现细节**: GitHub 搜索 API `repo:${{ github.repository }} is:pr <commit-sha>`
+- **safe-outputs 配置**: `add-comment: { target: "*" }` + `create-issue: { expires: 2h }`
+- **设计优雅**: 上下文感知（失败信息出现在最相关的地方）、减少噪音（PR 失败不创建独立 Issue）
+- **用途**: 需要智能选择输出位置的工作流
+- **通用性**: 可应用于任何需要"上下文感知通知"的场景
+- **典型案例**: smoke-detector（PR 失败评论到 PR，否则创建 Issue）
+
+#### Phased Investigation Framework Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 多个明确 Phase + 每个 Phase 有专门职责 + 漏斗式流程
+- **Phase 流水线**: Phase 1（分类）→ Phase 2（日志）→ Phase 3（历史）→ Phase 4（根因）→ Phase 5（存储）→ Phase 6（去重）→ Phase 7（报告）
+- **Phase 边界**: 输入明确、输出明确、可跳过（如 Phase 6 发现重复跳过 Phase 7）
+- **时间分配哲学**: 快速分类（35%）→ 深度分析（40%）→ 输出轻量（10%）
+- **漏斗设计**: 收集数据 → 分析理解 → 知识管理 → 行动输出
+- **设计价值**: 高效分配时间、明确责任边界、可复用的调查框架
+- **用途**: 系统化调查场景（失败分析、性能调优、安全审计）
+- **通用性**: 不仅适用于工作流失败，也适用于任何需要系统化调查的场景
+- **典型案例**: smoke-detector（7 个 Phase，总 20 分钟）
+
+#### Expiring Issue Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: `create-issue` 配置 `expires: 2h`（或其他时间）
+- **设计意图**: 临时通知（Issue 仅作为通知）、防止堆积、快速反馈（强制开发者响应）
+- **配置示例**: `create-issue: { expires: 2h, title-prefix: "[临时] ", labels: [temporary] }`
+- **适用场景**: ✅ 临时通知、快速反馈 | ❌ 长期跟踪、功能请求
+- **最佳实践**: 结合 cache-memory 持久化重要信息、在 Issue 中明确说明临时性质
+- **风险考虑**: 如果时间内未处理，Issue 自动关闭可能丢失信息
+- **用途**: 每日报告、失败调查、临时通知
+- **对比**: workflow-health-manager 使用 1d，smoke-detector 使用 2h
+- **典型案例**: smoke-detector（2小时后自动关闭失败调查 Issue）
+
+#### Themed Messages Pattern（Functional Variant）⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 定制化 messages + 功能性主题（非娱乐性）+ Emoji 一致性
+- **smoke-detector 变体**: 火警主题（🔥 🚨 📋）+ "BEEP BEEP", "detected smoke", "alarm malfunction"
+- **功能性分析**: ✅ 可识别性（立即识别工作流）、✅ 紧迫感（隐喻传达严重性）、✅ 专业性（隐喻恰当）
+- **对比 cloclo**: cloclo 娱乐性主题（Claude François）vs smoke-detector 功能性主题（火警系统）
+- **设计价值**: 不只是"好玩"，而是通过主题传达工作流特性
+- **用途**: 需要明确身份识别和情绪传达的工作流
+- **典型案例**: smoke-detector（火警主题传达失败的紧迫性）
+
+⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: smoke-detector 分析 #11)
+
 ---
 
 ## 📏 质量评估标准
