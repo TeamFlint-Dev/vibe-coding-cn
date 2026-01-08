@@ -1,7 +1,10 @@
 ---
 name: Workflow Case Study
 description: 智能分析 GitHub Agentic Workflows，持续沉淀知识到 Skills
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */4 * * *"
 permissions:
   contents: read
   issues: read

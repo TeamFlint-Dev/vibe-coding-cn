@@ -22,7 +22,10 @@
 # 智能分析 GitHub Agentic Workflows，持续沉淀知识到 Skills
 
 name: "Workflow Case Study"
-"on": workflow_dispatch
+"on":
+  schedule:
+  - cron: "17 */4 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -39,8 +42,6 @@ env:
 
 jobs:
   activation:
-    needs: pre_activation
-    if: needs.pre_activation.outputs.activated == 'true'
     runs-on: ubuntu-slim
     permissions:
       contents: read
@@ -1296,28 +1297,6 @@ jobs:
           name: threat-detection.log
           path: /tmp/gh-aw/threat-detection/detection.log
           if-no-files-found: ignore
-
-  pre_activation:
-    runs-on: ubuntu-slim
-    outputs:
-      activated: ${{ steps.check_membership.outputs.is_team_member == 'true' }}
-    steps:
-      - name: Setup Scripts
-        uses: githubnext/gh-aw/actions/setup@1183162e13ecd5a7947169ab65e7b988d1ec1128 # v0.34.3
-        with:
-          destination: /tmp/gh-aw/actions
-      - name: Check team membership for workflow
-        id: check_membership
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
-        env:
-          GH_AW_REQUIRED_ROLES: admin,maintainer,write
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
-            setupGlobals(core, github, context, exec, io);
-            const { main } = require('/tmp/gh-aw/actions/check_membership.cjs');
-            await main();
 
   safe_outputs:
     needs:
