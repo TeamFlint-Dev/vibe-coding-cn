@@ -1003,6 +1003,114 @@ Before creating `.github/workflows/<workflow-id>.md`:
 
 ---
 
+### 7. MCP Multi-Server Imports 模板 ⭐⭐⭐⭐⭐
+
+**When**: 需要多种专业能力（代码分析、工作流管理、文档检索等）
+
+```yaml
+---
+imports:
+  - shared/mcp/gh-aw.md         # 工作流自省
+  - shared/mcp/serena.md        # 代码分析
+  - shared/jqschema.md          # JSON 工具
+tools:
+  serena: ["go"]                # MCP 服务器参数
+---
+```
+
+**Prompt 中引用**:
+```markdown
+## Available Tools
+
+You have access to:
+1. **Serena MCP**: Code analysis and intelligence
+2. **gh-aw MCP**: Workflow introspection
+3. **JQ Schema**: JSON structure discovery
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 8. Tool Selection Decision Tree 模板 ⭐⭐⭐⭐
+
+**When**: "瑞士军刀"式多功能工作流
+
+```markdown
+### If Code Changes Are Needed
+1. Use **MCP** for analysis
+2. Use **edit** tool
+3. **ALWAYS create PR**
+
+### If Web Automation Is Needed
+1. Use **Playwright**
+2. **ALWAYS add comment**
+
+⚠️ **NEVER** modify `.github/.workflows`
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 9. Themed Persona Messages 模板 ⭐⭐⭐⭐
+
+```yaml
+messages:
+  footer: "> 🎭 *[Themed message] by [{workflow_name}]({run_url})*"
+  run-started: "🎵 [Start message]..."
+  run-success: "🎤 [Success]! 🌟"
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 10. High-Turn + Memory 模板 ⭐⭐⭐
+
+```yaml
+engine:
+  id: claude
+  max-turns: 100
+tools:
+  cache-memory:
+    key: ${{ github.workflow }}-memory-${{ github.run_id }}
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 11. Queued Execution 模板 ⭐⭐⭐
+
+```yaml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false  # 排队而非取消
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 12. Progressive Context Disclosure 模板 ⭐⭐⭐⭐
+
+```handlebars
+{{#if github.event.issue.number}}
+## Issue Context
+- **Issue Number**: ${{ github.event.issue.number }}
+{{/if}}
+
+{{#if github.event.pull_request.number}}
+## Pull Request Context
+**IMPORTANT**: Capture branch info...
+{{/if}}
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
 ## ✅ 最佳实践
 
 ### 权限
@@ -1095,6 +1203,34 @@ Before creating `.github/workflows/<workflow-id>.md`:
 - ✅ **Phase时间预算**: 每个Phase标注时间，给Agent明确的时间感 (来源: #6)
 - ✅ **总时间匹配**: Phase总时间 < timeout，留10-20%缓冲 (来源: #6)
 - ✅ **关键阶段优先**: 复杂阶段分配更多时间 (来源: #6)
+
+### MCP 集成
+
+- ✅ **分离关注点**: 每个 MCP 专注一个领域（代码分析、工作流管理、文档检索） (来源: #10)
+- ✅ **配置复用**: 通过 imports 机制共享 MCP 配置（shared/mcp/目录） (来源: #10)
+- ✅ **显式说明**: Prompt 中明确列出每个 MCP 的能力 (来源: #10)
+- ✅ **多 MCP 协作**: 设计清晰的工具选择决策树，避免混乱 (来源: #10)
+
+### 工具编排
+
+- ✅ **决策树优先**: 多工具场景下提供明确的 If-Then 分支 (来源: #10)
+- ✅ **ALWAYS 约束**: 确保关键步骤（如创建 PR、添加评论）不被遗漏 (来源: #10)
+- ✅ **NEVER 约束**: 明确禁止危险操作（如修改 .github/workflows） (来源: #10)
+- ✅ **元级别保护**: 保护工作流目录不被 AI 意外修改 (来源: #10)
+
+### 人格化设计
+
+- ✅ **功能优先**: 确保功能正确后再添加人格化元素 (来源: #10)
+- ✅ **风格一致性**: 使用定制 messages 和 Prompt 风格指导 (来源: #10)
+- ✅ **适度原则**: 避免过度人格化降低专业性 (来源: #10)
+- ⚠️ **语言门槛**: 避免使用外语或过于小众的文化梗 (来源: #10)
+
+### 引擎和并发
+
+- ✅ **Claude vs Copilot**: 复杂推理选 Claude，常规任务选 Copilot (来源: #10)
+- ✅ **高 max-turns**: 复杂交互场景配置 50-100 turns + cache-memory (来源: #10)
+- ✅ **并发策略**: 有副作用选排队（cancel-in-progress: false），无副作用选取消 (来源: #10)
+- ✅ **成本监控**: 高 turns 可能导致高成本，需监控实际使用 (来源: #10)
 
 ---
 
