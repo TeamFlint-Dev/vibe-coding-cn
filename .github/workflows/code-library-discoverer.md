@@ -16,7 +16,7 @@ env:
   WORK_UNIT_NAME: codeLibraryDiscoverer
   THINK_MODEL: craftsman
 imports:
-  - shared/workunit-tools.md
+  - shared/思维模型.md
 tools:
   github:
     toolsets: [issues, repos]
