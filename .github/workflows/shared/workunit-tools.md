@@ -8,20 +8,20 @@ steps:
       mkdir -p /tmp/gh-aw
       
       # ========== workunit-init.sh ==========
+      # 这个脚本只负责初始化目录和输出路径信息
+      # 思维模型和元认知工具已经直接嵌入到 workflow prompt 中
       cat > /tmp/gh-aw/workunit-init.sh << 'INIT_EOF'
       #!/usr/bin/env bash
-      # Work Unit 初始化工具
-      # 用法: /tmp/gh-aw/workunit-init.sh <unit_name> <think_model>
+      # Work Unit 目录初始化
+      # 用法: /tmp/gh-aw/workunit-init.sh <unit_name>
       
       set -e
       
       UNIT_NAME="${1:-}"
-      THINK_MODEL="${2:-craftsman}"
       
       if [ -z "$UNIT_NAME" ]; then
         echo "错误: 需要指定 Work Unit 名称"
-        echo "用法: /tmp/gh-aw/workunit-init.sh <unit_name> [think_model]"
-        echo "可用的思维模型: skeptic, craftsman, explorer"
+        echo "用法: /tmp/gh-aw/workunit-init.sh <unit_name>"
         exit 1
       fi
       
@@ -31,14 +31,6 @@ steps:
       SKILL_FILE="${SKILLS_DIR}/SKILL.md"
       TODAY=$(date +%Y-%m-%d)
       JOURNAL_FILE="${JOURNAL_DIR}/${TODAY}.md"
-      
-      THINK_MODEL_FILE=".github/shared/thinkModels/${THINK_MODEL}.md"
-      META_COGNITIVE_FILE=".github/shared/metaCognitive/toolkit.md"
-      
-      echo "═══════════════════════════════════════════════════════════════"
-      echo "🚀 Work Unit 初始化: ${UNIT_NAME}"
-      echo "═══════════════════════════════════════════════════════════════"
-      echo ""
       
       # 初始化目录
       mkdir -p "$SKILLS_DIR"
@@ -69,83 +61,50 @@ steps:
       
       *待踩坑后记录*
       SKILL_EOF
-        echo "📝 Skills 骨架已创建"
+        echo "📝 Skills 骨架已创建: ${SKILL_FILE}"
       fi
-      echo ""
       
-      # 输出思维模型
-      echo "═══════════════════════════════════════════════════════════════"
-      echo "🧠 思维模型: ${THINK_MODEL}"
-      echo "═══════════════════════════════════════════════════════════════"
-      if [ -f "$THINK_MODEL_FILE" ]; then
-        cat "$THINK_MODEL_FILE"
-      else
-        echo "警告: 思维模型文件不存在: ${THINK_MODEL_FILE}"
-      fi
-      echo ""
-      
-      # 输出元认知工具
-      echo "═══════════════════════════════════════════════════════════════"
-      echo "🔧 元认知工具"
-      echo "═══════════════════════════════════════════════════════════════"
-      if [ -f "$META_COGNITIVE_FILE" ]; then
-        cat "$META_COGNITIVE_FILE"
-      else
-        echo "警告: 元认知工具文件不存在: ${META_COGNITIVE_FILE}"
-      fi
-      echo ""
-      
-      # 输出已有 Skills
-      echo "═══════════════════════════════════════════════════════════════"
-      echo "📚 已积累的 Skills"
-      echo "═══════════════════════════════════════════════════════════════"
-      cat "$SKILL_FILE"
-      echo ""
-      
-      # 输出路径信息和任务提醒
-      echo "═══════════════════════════════════════════════════════════════"
-      echo "📍 任务完成时需要更新的文件"
-      echo "═══════════════════════════════════════════════════════════════"
+      # 输出路径信息（简洁）
       echo "JOURNAL_FILE=${JOURNAL_FILE}"
       echo "SKILL_FILE=${SKILL_FILE}"
-      echo ""
-      echo "📝 Journal 记录你的工作路线、尝试、发现"
-      echo "📚 Skills 沉淀可复用的经验（如有新发现）"
-      echo ""
-      echo "═══════════════════════════════════════════════════════════════"
-      echo "✅ 初始化完成，开始工作吧！"
-      echo "═══════════════════════════════════════════════════════════════"
       INIT_EOF
       chmod +x /tmp/gh-aw/workunit-init.sh
       
       echo "✅ Work Unit 工具已安装"
 ---
 
-## Work Unit 初始化工具
+## Work Unit 系统
 
-在任务开始时调用，加载思维模型、元认知工具和已有 Skills。
+> **本节内容会直接嵌入到 AI 的 prompt 中，确保 AI 能看到。**
 
-### 用法
+### 🧠 思维模型：工匠 (Craftsman)
+
+**核心特质**：追求精确、简洁、可复用。不满足于"能用"，追求"优雅"。
+
+**思考时问自己**：
+- 这个方案足够简洁吗？有没有多余的部分？
+- 下次遇到类似问题，这个方案能直接复用吗？
+- 如果交给别人维护，他们能看懂吗？
+- 我是在解决问题，还是在掩盖问题？
+
+### 🔧 元认知工具
+
+在工作过程中，使用这些工具帮助思考：
+
+| 工具 | 何时使用 | 问自己 |
+|------|----------|--------|
+| **反思** | 完成一个阶段后 | "刚才的过程中，我有哪些假设可能是错的？" |
+| **反问** | 准备采取行动前 | "如果这个方案是错的，会是为什么？" |
+| **假设** | 遇到不确定性时 | "如果 X 成立，会怎样？如果不成立呢？" |
+| **总结** | 任务结束时 | "这次经历中，有什么可复用的经验？" |
+
+### 📍 任务完成时
+
+任务完成后，运行初始化脚本获取文件路径，然后更新：
 
 ```bash
-/tmp/gh-aw/workunit-init.sh <unit_name> [think_model]
+/tmp/gh-aw/workunit-init.sh <unit_name>
 ```
 
-**参数**：
-- `unit_name`：工作单元名称（必填）
-- `think_model`：思维模型，可选 `skeptic`、`craftsman`、`explorer`（默认 `craftsman`）
-
-### 功能
-
-1. 创建 Skills 目录和 Journal 目录
-2. 初始化 Skills 骨架（如不存在）
-3. 输出思维模型内容
-4. 输出元认知工具
-5. 输出已有 Skills
-6. 输出 Journal 和 Skills 文件路径
-
-### 任务完成时
-
-Agent 应根据初始化时获取的信息，自行决定：
-- 写入 `JOURNAL_FILE` 记录工作过程
-- 更新 `SKILL_FILE` 沉淀经验（如有新发现）
+- **JOURNAL_FILE**: 记录工作路线、尝试、发现
+- **SKILL_FILE**: 沉淀可复用的经验（如有新发现）
