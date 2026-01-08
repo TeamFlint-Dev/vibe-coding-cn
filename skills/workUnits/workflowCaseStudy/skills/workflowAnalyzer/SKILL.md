@@ -62,9 +62,16 @@
 | **Conditional Step Labeling** ⭐⭐ | "(Mode Only)" 标注 | campaign-generator |
 | **Inline Code Example** ⭐⭐ | 函数调用示例代码块 | campaign-generator |
 | **Expectation Setting** ⭐⭐ | 时间估计 + Next Steps | campaign-generator |
+| **Meta-Orchestrator** ⭐⭐⭐ | 监控其他工作流，定时运行 | workflow-health-manager |
+| **Shared Metrics Infrastructure** ⭐⭐⭐ | 专门采集器+分层存储+多消费者 | workflow-health-manager |
+| **Exclude Rules** ⭐⭐⭐ | 明确排除目录，多处重复强调 | workflow-health-manager |
+| **Multi-Layered Health Check** ⭐⭐⭐ | 多维度检查+聚合评分+分类 | workflow-health-manager |
+| **Coordinated Orchestrators** ⭐⭐⭐ | 多编排器通过repo-memory协调 | workflow-health-manager |
+| **Time-Boxed Phases** ⭐⭐⭐ | Phase时间预算，确保完成 | workflow-health-manager |
 
 ⭐ = 新发现模式 (来源: ci-coach 分析 #3)  
-⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)
+⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)  
+⭐⭐⭐ = 新发现模式 (来源: workflow-health-manager 分析 #6)
 
 ---
 
@@ -129,6 +136,7 @@ grep -n "{{#if" path/to/workflow.md
 
 | 日期 | 工作流 | 主要发现 |
 |------|--------|---------|
+| 2026-01-08 | workflow-health-manager | 发现 6 个新模式：元编排器、共享metrics、多层健康检查等 |
 | 2026-01-08 | campaign-generator | 发现 7 个新模式：协调器-执行者、双模式、锁机制等 |
 | 2026-01-08 | ci-coach | 发现 6 个新模式：数据预加载、验证后提议、教练模式等 |
 
@@ -211,6 +219,48 @@ grep -n "{{#if" path/to/workflow.md
 - **结构**: 当前状态 + 时间估计 + Next Steps 清单
 - **用途**: 管理用户期望，减少焦虑和重复询问
 - **心理学**: 已知的等待比未知的等待更容易忍受
+
+#### Meta-Orchestrator Pattern (workflow-health-manager #6)
+- **识别特征**: 工作流监控其他工作流（元级别），定时运行，只读权限+issue报告
+- **架构**: 触发(schedule) → 数据源(repo-memory) → 处理(发现→评估→分类→报告) → 输出(issues)
+- **用途**: 监控120+工作流健康状况，主动维护而非被动响应
+- **与普通编排器的区别**: 监控对象是工作流本身，定时批处理，不直接修改其他工作流
+- **可复用场景**: CI/CD管道健康监控、微服务健康管理、定时任务管理系统
+
+#### Shared Metrics Infrastructure Pattern (workflow-health-manager #6)
+- **识别特征**: 专门的 Metrics Collector 工作流 + 结构化JSON存储 + 分层存储(latest.json + daily/*.json) + 多消费者共享
+- **架构**: Metrics Collector 采集 → repo-memory 存储 → 多个编排器读取
+- **优势**: 避免重复API调用（120个工作流只查询一次）、提供历史视图（30天趋势）、解耦生产和消费、降低API限流风险
+- **数据分层**: latest.json(最新) + daily/*.json(历史)
+- **用途**: 大规模工作流系统的metrics基础设施
+
+#### Exclude Rules Pattern (workflow-health-manager #6)
+- **识别特征**: 明确排除特定目录/文件，在多处重复强调（防止误报），使用大写和加粗提醒
+- **Prompt 表达**: "**DO NOT**...", "**EXCLUDE**...", "**SKIP**..." 等不同表达
+- **用途**: 防止批处理工作流误报不需要检查的文件（如 shared/ 导入文件）
+- **重复策略**: 在概述、职责、执行等不同位置重复，使用不同动词，增强记忆
+- **典型场景**: shared/ 目录包含可复用imports，不需要.lock.yml
+
+#### Multi-Layered Health Check Pattern (workflow-health-manager #6)
+- **识别特征**: 多个维度的健康检查 + 每层独立检查逻辑 + 聚合为整体健康分数
+- **五层架构**: 编译层(.lock.yml存在性) + 执行层(成功率) + 错误层(错误分组) + 依赖层(工作流关系) + 性能层(运行时间)
+- **聚合策略**: 加权求和（编译20% + 执行30% + 超时20% + 错误处理15% + 文档15%）
+- **健康分类**: 健康(≥80) / 警告(60-79) / 危急(<60) / 不活跃(无运行)
+- **用途**: 服务健康检查、代码质量评分、系统可靠性评估
+
+#### Coordinated Orchestrators Pattern (workflow-health-manager #6)
+- **识别特征**: 多个编排器共享 repo-memory + 通过 shared-alerts.md 协调 + 读取彼此的状态文件
+- **协作机制**: 每个编排器写入自己的状态文件(如workflow-health-latest.md)，读取其他编排器的状态，通过shared-alerts.md避免重复操作
+- **避免的问题**: 重复创建相同issue、相互矛盾的建议、重复的API查询
+- **三层repo-memory**: 协调层(shared-alerts.md) + 状态层(各编排器latest.md) + 度量层(metrics/*.json)
+- **用途**: 多Agent系统协作、分布式监控系统、多模块日志聚合
+
+#### Time-Boxed Phases Pattern (workflow-health-manager #6)
+- **识别特征**: 明确的Phase划分 + 每个Phase有时间预算 + 总时间在timeout范围内
+- **时间分配示例**: Phase 1(5min 25%) + Phase 2(7min 35%) + Phase 3(3min 15%) + Phase 4(3min 15%) + Phase 5(2min 10%) = 20min
+- **Prompt 表达**: "### Phase 1: Discovery (5 minutes)" - Phase标题直接包含时间
+- **设计意图**: 防止某阶段耗时过长、确保在timeout前完成、给Agent明确的时间感
+- **最佳实践**: 复杂阶段分配更多时间、留10-20%缓冲、关键阶段优先执行
 
 ### 分析中遇到的困难
 
