@@ -68,10 +68,17 @@
 | **Multi-Layered Health Check** ⭐⭐⭐ | 多维度检查+聚合评分+分类 | workflow-health-manager |
 | **Coordinated Orchestrators** ⭐⭐⭐ | 多编排器通过repo-memory协调 | workflow-health-manager |
 | **Time-Boxed Phases** ⭐⭐⭐ | Phase时间预算，确保完成 | workflow-health-manager |
+| **Dual-Mode Agent** ⭐⭐⭐⭐ | Agent支持双模式运行（批处理+交互） | create-agentic-workflow |
+| **Progressive Disclosure** ⭐⭐⭐⭐ | 渐进式信息收集，避免overwhelm | create-agentic-workflow |
+| **Embedded Security Framework** ⭐⭐⭐⭐ | 四层安全防御（权限+工具+输出+网络） | create-agentic-workflow |
+| **Fuzzy Scheduling Advocacy** ⭐⭐⭐⭐ | 推荐模糊调度避免负载尖峰 | create-agentic-workflow |
+| **Safe Outputs Jobs** ⭐⭐⭐⭐ | 自定义安全输出作业 | create-agentic-workflow |
+| **Fail-Safe File Creation** ⭐⭐⭐⭐ | 创建前检查，避免覆盖 | create-agentic-workflow |
 
 ⭐ = 新发现模式 (来源: ci-coach 分析 #3)  
 ⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)  
-⭐⭐⭐ = 新发现模式 (来源: workflow-health-manager 分析 #6)
+⭐⭐⭐ = 新发现模式 (来源: workflow-health-manager 分析 #6)  
+⭐⭐⭐⭐ = 新发现模式 (来源: create-agentic-workflow 分析 #9)
 
 ---
 
@@ -136,6 +143,7 @@ grep -n "{{#if" path/to/workflow.md
 
 | 日期 | 工作流 | 主要发现 |
 |------|--------|---------|
+| 2026-01-08 | create-agentic-workflow (Agent) | 发现 6 个新模式：双模式 Agent、渐进式披露、嵌入式安全框架等 |
 | 2026-01-08 | workflow-health-manager | 发现 6 个新模式：元编排器、共享metrics、多层健康检查等 |
 | 2026-01-08 | campaign-generator | 发现 7 个新模式：协调器-执行者、双模式、锁机制等 |
 | 2026-01-08 | ci-coach | 发现 6 个新模式：数据预加载、验证后提议、教练模式等 |
@@ -261,6 +269,48 @@ grep -n "{{#if" path/to/workflow.md
 - **Prompt 表达**: "### Phase 1: Discovery (5 minutes)" - Phase标题直接包含时间
 - **设计意图**: 防止某阶段耗时过长、确保在timeout前完成、给Agent明确的时间感
 - **最佳实践**: 复杂阶段分配更多时间、留10-20%缓冲、关键阶段优先执行
+
+#### Dual-Mode Agent Pattern (create-agentic-workflow #9)
+- **识别特征**: Agent 文件支持两种运行模式 + 开头明确的 "Two Modes of Operation" 章节 + 条件性指令："(Mode Only)"
+- **模式类型**: Mode 1(批处理/自动化) + Mode 2(交互式/对话)
+- **架构**: 共享能力章节（Both Modes）+ 模式特定章节（Mode Only标注）
+- **与 Workflow Dual-Mode 区别**: Workflow 是多触发器，Agent 是多交互方式
+- **用途**: 一个 Agent 服务多种使用场景，解决"灵活性悖论"
+- **示例**: Issue Form 自动创建 vs 对话式引导创建
+
+#### Progressive Disclosure Pattern (create-agentic-workflow #9)
+- **识别特征**: "Don't overwhelm the user" + 首次只问一个问题 + "Wait for the user to respond"
+- **实现方式**: 初始问题极简 → 根据回答展开 → 渐进式收集信息
+- **心理学原理**: 认知负荷理论 - 一次处理的信息量有限
+- **用途**: 交互式 Agent，避免"问卷式"体验
+- **示例**: "What do you want to automate?" → 根据回答询问触发器 → 根据任务询问工具
+
+#### Embedded Security Framework Pattern (create-agentic-workflow #9)
+- **识别特征**: 多层安全约束 + 显式警告标记（⚠️、IMPORTANT、NEVER）+ 正反向指导
+- **四层防御**: 原则层（最小权限）+ 工具层（禁用危险工具）+ 输出层（强制 safe-outputs）+ 网络层（白名单）
+- **约束表达**: "**Never recommend** X" + "**Always use** Y"
+- **用途**: 确保 AI 生成的配置符合安全最佳实践
+- **价值**: 从 Prompt 级别嵌入安全规则，多层防御确保即使 AI 犯错也安全
+
+#### Fuzzy Scheduling Advocacy Pattern (create-agentic-workflow #9)
+- **识别特征**: 专门的 "Scheduling Best Practices" 章节 + 明确推荐 `schedule: daily` + 明确反对 `cron: "0 0 * * *"`
+- **设计意图**: 避免负载尖峰（100+ 工作流同时运行 → GitHub Actions 限流）
+- **实现**: 编译器自动散列时间，均匀分布到一天中
+- **适用场景**: 日常报告、维护任务（精确时间不重要）
+- **不适用**: 与外部系统集成、需要协调的工作流
+
+#### Safe Outputs Jobs Pattern (create-agentic-workflow #9)
+- **识别特征**: 专门章节 "Custom Safe Output Jobs" + 区分 `safe-outputs.jobs:` 和 `post-steps:` + 完整示例（70行）
+- **用途**: 自定义 safe outputs（发送邮件、Slack 通知、调用 Webhook）
+- **关键区别**: jobs 用于基于 AI 输出的写操作，post-steps 用于清理/日志
+- **结构**: inputs（AI 提供参数）+ steps（实际执行逻辑）
+- **示例**: email 发送、Slack 通知、第三方 API 调用
+
+#### Fail-Safe File Creation Pattern (create-agentic-workflow #9)
+- **识别特征**: 创建文件前检查存在性 + 存在时自动修改文件名（`-v2`、时间戳）
+- **实现**: 先 view 检查 → 存在则追加后缀 → 创建修改后的文件名
+- **用途**: 防止意外覆盖用户已有的工作流
+- **重要性**: 工作流文件通常是精心设计的，覆盖会导致数据丢失
 
 ### 分析中遇到的困难
 

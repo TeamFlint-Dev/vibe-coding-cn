@@ -381,6 +381,147 @@ Use this data instead of querying GitHub API.
 
 ---
 
+### 11. Dual-Mode Agent 模式 ⭐⭐⭐⭐
+
+**适用场景**: Agent 需要同时支持批处理和交互式两种使用方式
+
+```markdown
+---
+description: [Agent description]
+infer: false  # 禁用自动推断，需明确指定模式
+---
+
+# [Agent Name]
+
+## Two Modes of Operation
+
+### Mode 1: Automated Mode (批处理)
+When triggered by [specific condition] (e.g., issue form):
+1. Parse structured input automatically
+2. Execute without human interaction
+3. Create output (file, PR, etc.)
+
+### Mode 2: Interactive Mode (对话式)
+When working directly with user:
+- Engage in conversation
+- Gather requirements iteratively
+- Build solution collaboratively
+
+## Capabilities & Responsibilities (Both Modes)
+[共享能力：工具使用、安全规范等]
+
+## [Automated Mode Section] (Mode 1 Only)
+[批处理特定逻辑]
+
+## [Interactive Mode Section] (Mode 2 Only)
+[交互式特定逻辑]
+
+## Guidelines (Both Modes)
+[通用指南]
+```
+
+**典型案例**: create-agentic-workflow (来源: #9)
+
+**关键设计点**:
+- `infer: false` 避免模式误判
+- 开头明确声明两种模式
+- 用 "(Mode Only)" 标注特定逻辑
+- 共享部分只写一次
+
+**解决的问题**: "灵活性悖论" - 简单任务需要自动化，复杂任务需要交互
+
+---
+
+### 12. Progressive Disclosure 模式 ⭐⭐⭐⭐
+
+**适用场景**: 交互式 Agent，需要收集用户需求但避免overwhelm
+
+```markdown
+## Starting the Conversation (Interactive Mode Only)
+
+1. **Initial Question**
+   Start by asking one simple question:
+   - [Your opening question]
+
+   That's it, no more text. **Wait for the user to respond.**
+
+2. **Progressive Questions**
+   Based on the user's response, ask clarifying questions **one at a time**:
+   
+   - If user mentions [X], ask about [related topic 1]
+   - If user mentions [Y], ask about [related topic 2]
+   
+   **DO NOT ask all questions at once**; engage in back-and-forth conversation.
+
+3. **Depth Control**
+   - Keep questions focused and specific
+   - Use "typically", "usually" to set expectations
+   - Confirm understanding before proceeding
+```
+
+**典型案例**: create-agentic-workflow (来源: #9)
+
+**设计原则**:
+- "Don't overwhelm the user"
+- 一次一个问题
+- 根据回答动态调整后续问题
+- 等待用户回应，不自作主张
+
+**心理学基础**: 认知负荷理论 - 一次处理信息量有限
+
+---
+
+### 13. Embedded Security Framework 模式 ⭐⭐⭐⭐
+
+**适用场景**: Agent 生成配置文件，需要确保符合安全最佳实践
+
+```markdown
+## Security Best Practices
+
+Apply these security layers to ALL generated workflows:
+
+### Layer 1: Permissions (Default Minimal)
+- ✅ **Default**: `permissions: read-all`
+- ❌ **Avoid**: Granting write permissions unless absolutely necessary
+
+### Layer 2: Tools (Disable Dangerous Operations)
+- ⚠️ **NEVER** recommend GitHub mutation tools like `create_issue`, `update_issue`
+- ✅ **ALWAYS** use `safe-outputs` for write operations
+
+### Layer 3: Outputs (Force Safe Outputs)
+- ⚠️ **IMPORTANT**: All write operations MUST use `safe-outputs`
+- Supported: `create-issue`, `add-comment`, `create-pull-request`, etc.
+
+### Layer 4: Network (Explicit Allowlist)
+- ⚠️ If the task requires network access, **explicitly ask** about configuring `network:` allowlist
+- Examples: `node`, `python`, `playwright`, specific domains
+
+**Example**:
+```yaml
+permissions:
+  contents: read
+  issues: read
+tools:
+  github:
+    toolsets: [default]  # Read-only
+safe-outputs:
+  add-comment:
+    max: 1
+network:
+  allowed:
+    - localhost
+```
+```
+
+**典型案例**: create-agentic-workflow (来源: #9)
+
+**关键约束表达**:
+- 使用 ⚠️ 和加粗强调
+- "**NEVER** X" + "**ALWAYS** Y"
+- 多层防御确保安全
+
+---
+
 ## 📦 代码片段库
 
 ### Frontmatter 模板
@@ -741,6 +882,124 @@ Here's what will happen:
 ```
 
 (来源: campaign-generator 分析 #5)
+
+---
+
+### Fuzzy Scheduling Template ⭐⭐⭐⭐
+
+**When**: Creating scheduled workflows (daily/weekly reports, maintenance tasks)
+
+```markdown
+## Scheduling Guidance
+
+📅 For scheduled workflows:
+- ✨ **Recommended**: `schedule: daily` (fuzzy - time scattered automatically by compiler)
+- ⚠️ **Avoid**: `cron: "0 0 * * *"` (fixed time - creates load spikes)
+
+**Why fuzzy scheduling?**
+- Distributes workflow execution across the day
+- Reduces API rate limiting risk
+- Improves overall system reliability
+
+**When to use fixed time**:
+- Integration with external systems (must run at specific time)
+- Coordination with other workflows
+- Time-critical operations
+```
+
+**Example frontmatter**:
+```yaml
+on:
+  schedule: daily  # Compiler will scatter to e.g., "43 5 * * *"
+  workflow_dispatch:  # Also allow manual runs
+```
+
+(来源: create-agentic-workflow 分析 #9)
+
+---
+
+### Custom Safe Output Job Template ⭐⭐⭐⭐
+
+**When**: Need to perform custom write operations (email, Slack, webhook) based on AI output
+
+```yaml
+safe-outputs:
+  jobs:
+    custom-action:
+      description: "Perform custom action based on AI output"
+      runs-on: ubuntu-latest
+      output: "Action completed successfully!"
+      inputs:
+        param1:
+          description: "First parameter from AI"
+          required: true
+          type: string
+        param2:
+          description: "Second parameter from AI"
+          required: false
+          type: string
+      steps:
+        - name: Execute custom action
+          env:
+            SECRET_TOKEN: "${{ secrets.MY_SECRET }}"
+            PARAM_1: "${{ inputs.param1 }}"
+            PARAM_2: "${{ inputs.param2 }}"
+          run: |
+            # Example: Send notification
+            curl -X POST https://api.example.com/notify \
+              -H "Authorization: Bearer $SECRET_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "{\"message\": \"$PARAM_1\", \"details\": \"$PARAM_2\"}"
+```
+
+**Key distinction**:
+```yaml
+safe-outputs.jobs:  # For custom write operations (based on AI output)
+post-steps:         # For cleanup/logging (NOT based on AI output)
+```
+
+**Example use cases**:
+- Send email notifications
+- Post to Slack/Discord
+- Trigger webhooks
+- Update third-party systems (Jira, Notion)
+
+(来源: create-agentic-workflow 分析 #9)
+
+---
+
+### Fail-Safe File Creation Template ⭐⭐⭐⭐
+
+**When**: Agent creates files that may already exist
+
+```markdown
+### File Creation with Safety Check
+
+Before creating `.github/workflows/<workflow-id>.md`:
+
+1. **Check existence**:
+   ```bash
+   # Use view tool
+   view .github/workflows/<workflow-id>.md
+   ```
+
+2. **If file exists**, modify the workflow ID:
+   - Append version suffix: `<workflow-id>-v2`, `<workflow-id>-v3`
+   - Or use timestamp: `<workflow-id>-20260108`
+   - Or make it more specific: `<original>-<detail>`
+
+3. **Create with modified ID**:
+   ```bash
+   create .github/workflows/<modified-id>.md
+   ```
+
+**Why important**: Prevents accidental overwrite of user's existing workflows
+
+**Error handling**:
+- If check fails (e.g., permission issue), inform user and ask for confirmation
+```
+
+(来源: create-agentic-workflow 分析 #9)
 
 ---
 
