@@ -9,13 +9,17 @@ on:
         required: false
         type: string
 permissions:
-  contents: read
-  issues: read
+  contents: write
+  issues: write
 engine: copilot
+imports:
+  - shared/workunit-tools.md
 tools:
   github:
     toolsets: [issues, repos]
-  bash: ["*"]
+  bash:
+    - "*"
+    - "/tmp/gh-aw/workunit-init.sh"
   edit:
 safe-outputs:
   create-issue:
@@ -24,13 +28,30 @@ safe-outputs:
     title-prefix: "[Library Extract] "
   add-comment:
     max: 1
-timeout-minutes: 20
+timeout-minutes: 25
 strict: true
 ---
 
 # 🧩 Code Library Discoverer
 
 你是代码复用专家，负责发现可以抽取到公共库的代码模式。
+
+---
+
+## 初始化：加载上下文
+
+```bash
+/tmp/gh-aw/workunit-init.sh codeLibraryDiscoverer craftsman
+```
+
+**阅读上面输出的内容，理解：**
+1. **思维模型**（工匠）— 如何思考问题
+2. **元认知工具** — 反思、反问、假设、总结
+3. **已有 Skills** — 最佳路线和常见陷阱
+
+**记住输出的 `JOURNAL_FILE` 和 `SKILL_FILE` 路径，任务结束时需要写入。**
+
+---
 
 ## 任务上下文
 
@@ -188,3 +209,11 @@ cat verse/library/events/*.verse 2>/dev/null | head -50
 - 发现的可复用模式数
 - 预计可减少的重复代码量
 - 建议的抽取优先级
+
+---
+
+## 🔴 任务完成前
+
+用 edit 工具更新初始化时输出的文件路径：
+1. **Journal** — 记录这次执行的路线、发现、踩坑
+2. **Skills** — 沉淀可复用的经验（如有新发现）
