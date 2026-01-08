@@ -12,6 +12,9 @@ permissions:
   contents: read
   issues: read
 engine: copilot
+env:
+  WORK_UNIT_NAME: codeLibraryDiscoverer
+  THINK_MODEL: craftsman
 imports:
   - shared/workunit-tools.md
 tools:
@@ -19,7 +22,6 @@ tools:
     toolsets: [issues, repos]
   bash:
     - "*"
-    - "/tmp/gh-aw/workunit-init.sh"
   edit:
 safe-outputs:
   create-issue:
@@ -201,12 +203,6 @@ cat verse/library/events/*.verse 2>/dev/null | head -50
 
 ## 🔴 任务完成前
 
-**1. 初始化 Work Unit 目录并获取文件路径：**
-
-```bash
-/tmp/gh-aw/workunit-init.sh codeLibraryDiscoverer
-```
-
-**2. 用 edit 工具更新这些文件：**
-- **JOURNAL_FILE** — 记录这次执行的路线、发现、踩坑
-- **SKILL_FILE** — 沉淀可复用的经验（如有新发现）
+用 edit 工具更新：
+- `skills/workUnits/${{ env.WORK_UNIT_NAME }}/SKILL.md` — 沉淀可复用的经验
+- `journals/workUnits/${{ env.WORK_UNIT_NAME }}/$(date +%Y-%m-%d).md` — 记录工作过程

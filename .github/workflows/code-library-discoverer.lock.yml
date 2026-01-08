@@ -43,6 +43,10 @@ concurrency:
 
 run-name: "Code Library Discoverer"
 
+env:
+  THINK_MODEL: craftsman
+  WORK_UNIT_NAME: codeLibraryDiscoverer
+
 jobs:
   activation:
     runs-on: ubuntu-slim
@@ -96,9 +100,6 @@ jobs:
           persist-credentials: false
       - name: Create gh-aw temp directory
         run: bash /tmp/gh-aw/actions/create_gh_aw_tmp_dir.sh
-      - name: Set up Work Unit tools
-        run: "mkdir -p /tmp/gh-aw\n\n# ========== workunit-init.sh ==========\n# 这个脚本只负责初始化目录和输出路径信息\n# 思维模型和元认知工具已经直接嵌入到 workflow prompt 中\ncat > /tmp/gh-aw/workunit-init.sh << 'INIT_EOF'\n#!/usr/bin/env bash\n# Work Unit 目录初始化\n# 用法: /tmp/gh-aw/workunit-init.sh <unit_name>\n\nset -e\n\nUNIT_NAME=\"${1:-}\"\n\nif [ -z \"$UNIT_NAME\" ]; then\n  echo \"错误: 需要指定 Work Unit 名称\"\n  echo \"用法: /tmp/gh-aw/workunit-init.sh <unit_name>\"\n  exit 1\nfi\n\n# 路径定义\nSKILLS_DIR=\"skills/workUnits/${UNIT_NAME}\"\nJOURNAL_DIR=\"journals/workUnits/${UNIT_NAME}\"\nSKILL_FILE=\"${SKILLS_DIR}/SKILL.md\"\nTODAY=$(date +%Y-%m-%d)\nJOURNAL_FILE=\"${JOURNAL_DIR}/${TODAY}.md\"\n\n# 初始化目录\nmkdir -p \"$SKILLS_DIR\"\nmkdir -p \"$JOURNAL_DIR\"\n\n# 初始化 Skills 骨架（如不存在）\nif [ ! -f \"$SKILL_FILE\" ]; then\n  cat > \"$SKILL_FILE\" << SKILL_EOF\n# ${UNIT_NAME} Skills\n\n> **首次创建**: ${TODAY}\n> **最后更新**: ${TODAY}\n> **执行次数**: 0\n\n## 任务目标\n\n*待填充*\n\n## 最佳路线\n\n*待多次执行后总结*\n\n## 已知限制\n\n*待发现后补充*\n\n## 常见陷阱\n\n*待踩坑后记录*\nSKILL_EOF\n  echo \"📝 Skills 骨架已创建: ${SKILL_FILE}\"\nfi\n\n# 输出路径信息（简洁）\necho \"JOURNAL_FILE=${JOURNAL_FILE}\"\necho \"SKILL_FILE=${SKILL_FILE}\"\nINIT_EOF\nchmod +x /tmp/gh-aw/workunit-init.sh\n\necho \"✅ Work Unit 工具已安装\"\n"
-
       - name: Configure Git credentials
         env:
           REPO_NAME: ${{ github.repository }}
@@ -475,16 +476,13 @@ jobs:
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
+          GH_AW_ENV_WORK_UNIT_NAME: ${{ env.WORK_UNIT_NAME }}
           GH_AW_GITHUB_EVENT_INPUTS_SCAN_PATH: ${{ github.event.inputs.scan_path }}
           GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           bash /tmp/gh-aw/actions/create_prompt_first.sh
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
-          ## Work Unit 系统
-          
-          > **本节内容会直接嵌入到 AI 的 prompt 中，确保 AI 能看到。**
-          
-          ### 🧠 思维模型：工匠 (Craftsman)
+          ## 🧠 思维模型：工匠 (Craftsman)
           
           **核心特质**：追求精确、简洁、可复用。不满足于"能用"，追求"优雅"。
           
@@ -494,9 +492,7 @@ jobs:
           - 如果交给别人维护，他们能看懂吗？
           - 我是在解决问题，还是在掩盖问题？
           
-          ### 🔧 元认知工具
-          
-          在工作过程中，使用这些工具帮助思考：
+          ## 🔧 元认知工具
           
           | 工具 | 何时使用 | 问自己 |
           |------|----------|--------|
@@ -505,16 +501,20 @@ jobs:
           | **假设** | 遇到不确定性时 | "如果 X 成立，会怎样？如果不成立呢？" |
           | **总结** | 任务结束时 | "这次经历中，有什么可复用的经验？" |
           
-          ### 📍 任务完成时
+          ## 📚 Work Unit: __GH_AW_ENV_WORK_UNIT_NAME__
           
-          任务完成后，运行初始化脚本获取文件路径，然后更新：
+          **Skills 文件**: `skills/workUnits/__GH_AW_ENV_WORK_UNIT_NAME__/SKILL.md`
+          **Journal 目录**: `journals/workUnits/__GH_AW_ENV_WORK_UNIT_NAME__/`
+          
+          任务开始前，先阅读已有 Skills：
           
           ```bash
-          /tmp/gh-aw/workunit-init.sh <unit_name>
+          cat skills/workUnits/__GH_AW_ENV_WORK_UNIT_NAME__/SKILL.md 2>/dev/null || echo "尚无积累的经验"
           ```
           
-          - **JOURNAL_FILE**: 记录工作路线、尝试、发现
-          - **SKILL_FILE**: 沉淀可复用的经验（如有新发现）
+          任务完成时，更新这些文件：
+          - **Journal** — 记录工作路线、尝试、发现（按日期命名）
+          - **Skills** — 沉淀可复用的经验（如有新发现）
           
           # 🧩 Code Library Discoverer
           
@@ -685,21 +685,16 @@ jobs:
           
           ## 🔴 任务完成前
           
-          **1. 初始化 Work Unit 目录并获取文件路径：**
-          
-          ```bash
-          /tmp/gh-aw/workunit-init.sh codeLibraryDiscoverer
-          ```
-          
-          **2. 用 edit 工具更新这些文件：**
-          - **JOURNAL_FILE** — 记录这次执行的路线、发现、踩坑
-          - **SKILL_FILE** — 沉淀可复用的经验（如有新发现）
+          用 edit 工具更新：
+          - `skills/workUnits/__GH_AW_ENV_WORK_UNIT_NAME__/SKILL.md` — 沉淀可复用的经验
+          - `journals/workUnits/__GH_AW_ENV_WORK_UNIT_NAME__/$(date +%Y-%m-%d).md` — 记录工作过程
           
           PROMPT_EOF
       - name: Substitute placeholders
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
+          GH_AW_ENV_WORK_UNIT_NAME: ${{ env.WORK_UNIT_NAME }}
           GH_AW_GITHUB_EVENT_INPUTS_SCAN_PATH: ${{ github.event.inputs.scan_path }}
           GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
         with:
@@ -710,6 +705,7 @@ jobs:
             return await substitutePlaceholders({
               file: process.env.GH_AW_PROMPT,
               substitutions: {
+                GH_AW_ENV_WORK_UNIT_NAME: process.env.GH_AW_ENV_WORK_UNIT_NAME,
                 GH_AW_GITHUB_EVENT_INPUTS_SCAN_PATH: process.env.GH_AW_GITHUB_EVENT_INPUTS_SCAN_PATH,
                 GH_AW_GITHUB_REPOSITORY: process.env.GH_AW_GITHUB_REPOSITORY
               }
@@ -824,6 +820,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
+          GH_AW_ENV_WORK_UNIT_NAME: ${{ env.WORK_UNIT_NAME }}
           GH_AW_GITHUB_EVENT_INPUTS_SCAN_PATH: ${{ github.event.inputs.scan_path }}
           GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
         with:
