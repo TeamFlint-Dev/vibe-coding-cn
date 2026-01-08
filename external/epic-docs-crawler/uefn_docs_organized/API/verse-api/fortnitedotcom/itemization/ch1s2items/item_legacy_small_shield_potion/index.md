@@ -1,6 +1,6 @@
 # item_legacy_small_shield_potion class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s2items/item_legacy_small_shield_potion
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s2items/item_legacy_small_shield_potion>
 > **爬取时间**: 2025-12-27T03:58:22.865833
 
 ---

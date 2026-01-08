@@ -2,45 +2,56 @@
 
 **Total: 3033 pages**
 
-##  (1)
+## (1)
+
 - [Fortnite.com module](./API/Fortnite.com/fortnitedotcom/index.md)
 
 ## ai (1)
+
 - [AI module](./API/Fortnite.com/ai/index.md)
 
 ## ai/ai_action_error_type (1)
+
 - [ai_action_error_type enumeration](./API/Fortnite.com/ai_action_error_type/index.md)
 
 ## ai/equipped_sidekick_component (4)
+
 - [GetMood function](./API/Fortnite.com/getmood/index.md)
 - [GetOwningAgent function](./API/Fortnite.com/getowningagent/index.md)
 - [PlayReaction function](./API/Fortnite.com/playreaction/index.md)
 - [equipped_sidekick_component class](./API/Fortnite.com/equipped_sidekick_component/index.md)
 
 ## ai/focus_interface (3)
+
 - [MaintainFocus function](./API/Fortnite.com/maintainfocus-1/index.md)
 - [MaintainFocus function](./API/Fortnite.com/maintainfocus/index.md)
 - [focus_interface interface](./API/Fortnite.com/focus_interface/index.md)
 
 ## ai/fort_leashable (4)
+
 - [ClearLeash function](./API/Fortnite.com/clearleash/index.md)
 - [SetLeashAgent function](./API/Fortnite.com/setleashagent/index.md)
 - [SetLeashPosition function](./API/Fortnite.com/setleashposition/index.md)
 - [fort_leashable interface](./API/Fortnite.com/fort_leashable/index.md)
 
 ## ai/getfocusinterface (1)
+
 - [(InCharacter:fort_character).GetFocusInterface extension](./API/Fortnite.com/getfocusinterface/index.md)
 
 ## ai/getfortleashable (1)
+
 - [(InCharacter:fort_character).GetFortLeashable extension](./API/Fortnite.com/getfortleashable/index.md)
 
 ## ai/getnavigatable (1)
+
 - [(InCharacter:fort_character).GetNavigatable extension](./API/Fortnite.com/getnavigatable/index.md)
 
 ## ai/getnpcbehavior (1)
+
 - [(InAgent:agent).GetNPCBehavior extension](./API/Fortnite.com/getnpcbehavior/index.md)
 
 ## ai/guard_actions_component (12)
+
 - [Attack function](./API/Fortnite.com/attack/index.md)
 - [Crouch function](./API/Fortnite.com/crouch/index.md)
 - [Jump function](./API/Fortnite.com/jump/index.md)
@@ -55,28 +66,36 @@
 - [guard_actions_component class](./API/Fortnite.com/guard_actions_component/index.md)
 
 ## ai/guard_alert_level (1)
+
 - [guard_alert_level enumeration](./API/Fortnite.com/guard_alert_level/index.md)
 
 ## ai/guard_awareness_component (2)
+
 - [GetAlertLevel function](./API/Fortnite.com/getalertlevel/index.md)
 - [guard_awareness_component class](./API/Fortnite.com/guard_awareness_component/index.md)
 
 ## ai/makenavigationtarget (1)
+
 - [MakeNavigationTarget function](./API/Fortnite.com/makenavigationtarget/index.md)
 
 ## ai/makenavigationtarget-1 (1)
+
 - [MakeNavigationTarget function](./API/Fortnite.com/makenavigationtarget-1/index.md)
 
 ## ai/makenavigationtarget-2 (1)
+
 - [MakeNavigationTarget function](./API/Fortnite.com/makenavigationtarget-2/index.md)
 
 ## ai/movement_type (1)
+
 - [movement_type enumeration](./API/Fortnite.com/movement_type/index.md)
 
 ## ai/movement_types (1)
+
 - [movement_types module](./API/Fortnite.com/movement_types/index.md)
 
 ## ai/navigatable (6)
+
 - [GetCurrentDestination function](./API/Fortnite.com/getcurrentdestination/index.md)
 - [NavigateTo function](./API/Fortnite.com/navigateto/index.md)
 - [SetMovementSpeedMultiplier function](./API/Fortnite.com/setmovementspeedmultiplier/index.md)
@@ -85,18 +104,23 @@
 - [navigatable interface](./API/Fortnite.com/navigatable/index.md)
 
 ## ai/navigation_action_error_type (1)
+
 - [navigation_action_error_type enumeration](./API/Fortnite.com/navigation_action_error_type/index.md)
 
 ## ai/navigation_action_success_type (1)
+
 - [navigation_action_success_type enumeration](./API/Fortnite.com/navigation_action_success_type/index.md)
 
 ## ai/navigation_result (1)
+
 - [navigation_result enumeration](./API/Fortnite.com/navigation_result/index.md)
 
 ## ai/navigation_target (1)
+
 - [navigation_target class](./API/Fortnite.com/navigation_target/index.md)
 
 ## ai/npc_actions_component (7)
+
 - [Focus function](./API/Fortnite.com/focus/index.md)
 - [Focus function](./API/Fortnite.com/focus-1/index.md)
 - [GetCurrentDestination function](./API/Fortnite.com/getcurrentdestination/index.md)
@@ -106,9 +130,11 @@
 - [npc_actions_component class](./API/Fortnite.com/npc_actions_component/index.md)
 
 ## ai/npc_awareness_component (1)
+
 - [npc_awareness_component class](./API/Fortnite.com/npc_awareness_component/index.md)
 
 ## ai/npc_behavior (5)
+
 - [GetAgent function](./API/Fortnite.com/getagent/index.md)
 - [GetEntity function](./API/Fortnite.com/getentity/index.md)
 - [OnBegin function](./API/Fortnite.com/onbegin/index.md)
@@ -116,31 +142,39 @@
 - [npc_behavior class](./API/Fortnite.com/npc_behavior/index.md)
 
 ## ai/npc_sidekick_component (3)
+
 - [GetMood function](./API/Fortnite.com/getmood/index.md)
 - [PlayReaction function](./API/Fortnite.com/playreaction/index.md)
 - [npc_sidekick_component class](./API/Fortnite.com/npc_sidekick_component/index.md)
 
 ## ai/npc_target_info (1)
+
 - [npc_target_info class](./API/Fortnite.com/npc_target_info/index.md)
 
 ## ai/sidekick_component (3)
+
 - [GetMood function](./API/Fortnite.com/getmood/index.md)
 - [PlayReaction function](./API/Fortnite.com/playreaction/index.md)
 - [sidekick_component class](./API/Fortnite.com/sidekick_component/index.md)
 
 ## ai/sidekick_mood (1)
+
 - [sidekick_mood enumeration](./API/Fortnite.com/sidekick_mood/index.md)
 
 ## ai/sidekick_reaction (1)
+
 - [sidekick_reaction enumeration](./API/Fortnite.com/sidekick_reaction/index.md)
 
 ## ai/spark_mode_component (1)
+
 - [spark_mode_component class](./API/Fortnite.com/spark_mode_component/index.md)
 
 ## animation (1)
+
 - [Animation module](./API/Fortnite.com/animation/index.md)
 
 ## animation/playanimation (12)
+
 - [(InCharacter:fort_character).GetPlayAnimationController extension](./API/Fortnite.com/getplayanimationcontroller/index.md)
 - [Await function](./API/Fortnite.com/await/index.md)
 - [GetState function](./API/Fortnite.com/getstate/index.md)
@@ -155,9 +189,11 @@
 - [play_animation_state enumeration](./API/Fortnite.com/play_animation_state/index.md)
 
 ## characters (1)
+
 - [Characters module](./API/Fortnite.com/characters/index.md)
 
 ## characters/fort_character (30)
+
 - [ApplyForce function](./API/Fortnite.com/applyforce/index.md)
 - [ApplyLinearImpulse function](./API/Fortnite.com/applylinearimpulse/index.md)
 - [CrouchedEvent function](./API/Fortnite.com/crouchedevent/index.md)
@@ -190,24 +226,30 @@
 - [fort_character interface](./API/Fortnite.com/fort_character/index.md)
 
 ## characters/getfortcharacter (1)
+
 - [(InAgent:agent).GetFortCharacter extension](./API/Fortnite.com/getfortcharacter/index.md)
 
 ## characters/getinstigator (1)
+
 - [(InAgent:agent).GetInstigator extension](./API/Fortnite.com/getinstigator/index.md)
 
 ## characters/getinstigatoragent (1)
+
 - [(InInstigator:game_action_instigator).GetInstigatorAgent extension](./API/Fortnite.com/getinstigatoragent/index.md)
 
 ## characters/stasis_args (1)
+
 - [stasis_args struct](./API/Fortnite.com/stasis_args/index.md)
 
 ## devices/accolades_device (4)
+
 - [Award function](./API/Fortnite.com/award/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [accolades_device class](./API/Fortnite.com/accolades_device/index.md)
 
 ## devices/advanced_storm_beacon_device (5)
+
 - [MoveTo function](./API/Fortnite.com/moveto/index.md)
 - [MoveTo function](./API/Fortnite.com/moveto-1/index.md)
 - [TeleportTo function](./API/Fortnite.com/teleportto/index.md)
@@ -215,9 +257,11 @@
 - [advanced_storm_beacon_device class](./API/Fortnite.com/advanced_storm_beacon_device/index.md)
 
 ## devices/advanced_storm_controller_device (1)
+
 - [advanced_storm_controller_device class](./API/Fortnite.com/advanced_storm_controller_device/index.md)
 
 ## devices/ai_patrol_path_device (5)
+
 - [Assign function](./API/Fortnite.com/assign/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -225,24 +269,28 @@
 - [ai_patrol_path_device class](./API/Fortnite.com/ai_patrol_path_device/index.md)
 
 ## devices/air_vent_device (4)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [air_vent_device class](./API/Fortnite.com/air_vent_device/index.md)
 
 ## devices/analytics_device (4)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Submit function](./API/Fortnite.com/submit/index.md)
 - [analytics_device class](./API/Fortnite.com/analytics_device/index.md)
 
 ## devices/animated_mesh_device (4)
+
 - [Pause function](./API/Fortnite.com/pause/index.md)
 - [Play function](./API/Fortnite.com/play/index.md)
 - [PlayReverse function](./API/Fortnite.com/playreverse/index.md)
 - [animated_mesh_device class](./API/Fortnite.com/animated_mesh_device/index.md)
 
 ## devices/assembly_device (16)
+
 - [Assemble function](./API/Fortnite.com/assemble-1/index.md)
 - [Assemble function](./API/Fortnite.com/assemble/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -261,10 +309,12 @@
 - [assembly_device class](./API/Fortnite.com/assembly_device/index.md)
 
 ## devices/attribute_evaluator_device (2)
+
 - [EvaluateAgent function](./API/Fortnite.com/evaluateagent/index.md)
 - [attribute_evaluator_device class](./API/Fortnite.com/attribute_evaluator_device/index.md)
 
 ## devices/audio_mixer_device (6)
+
 - [ActivateMix function](./API/Fortnite.com/activatemix/index.md)
 - [DeactivateMix function](./API/Fortnite.com/deactivatemix/index.md)
 - [Register function](./API/Fortnite.com/register/index.md)
@@ -273,6 +323,7 @@
 - [audio_mixer_device class](./API/Fortnite.com/audio_mixer_device/index.md)
 
 ## devices/audio_player_device (12)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Hide function](./API/Fortnite.com/hide/index.md)
@@ -287,6 +338,7 @@
 - [audio_player_device class](./API/Fortnite.com/audio_player_device/index.md)
 
 ## devices/automated_turret_device (19)
+
 - [ClearTarget function](./API/Fortnite.com/cleartarget/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -308,11 +360,13 @@
 - [automated_turret_device class](./API/Fortnite.com/automated_turret_device/index.md)
 
 ## devices/ball_spawner_device (3)
+
 - [HideHUD function](./API/Fortnite.com/hidehud/index.md)
 - [ShowHUD function](./API/Fortnite.com/showhud/index.md)
 - [ball_spawner_device class](./API/Fortnite.com/ball_spawner_device/index.md)
 
 ## devices/bank_vault_device (15)
+
 - [DestroyActiveWeakpoint function](./API/Fortnite.com/destroyactiveweakpoint/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -330,6 +384,7 @@
 - [bank_vault_device class](./API/Fortnite.com/bank_vault_device/index.md)
 
 ## devices/bank_vault_interface (12)
+
 - [DestroyActiveWeakpoint function](./API/Fortnite.com/destroyactiveweakpoint/index.md)
 - [ForceOpen function](./API/Fortnite.com/forceopen/index.md)
 - [GetActiveWeakpointHealth function](./API/Fortnite.com/getactiveweakpointhealth/index.md)
@@ -344,6 +399,7 @@
 - [bank_vault_interface interface](./API/Fortnite.com/bank_vault_interface/index.md)
 
 ## devices/barrier_device (6)
+
 - [AddToIgnoreList function](./API/Fortnite.com/addtoignorelist/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -352,14 +408,17 @@
 - [barrier_device class](./API/Fortnite.com/barrier_device/index.md)
 
 ## devices/base_item_spawner_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [base_item_spawner_device class](./API/Fortnite.com/base_item_spawner_device/index.md)
 
 ## devices/basic_storm_controller_device (1)
+
 - [basic_storm_controller_device class](./API/Fortnite.com/basic_storm_controller_device/index.md)
 
 ## devices/beacon_device (6)
+
 - [AddToShowList function](./API/Fortnite.com/addtoshowlist/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -368,6 +427,7 @@
 - [beacon_device class](./API/Fortnite.com/beacon_device/index.md)
 
 ## devices/billboard_device (9)
+
 - [GetShowBorder function](./API/Fortnite.com/getshowborder/index.md)
 - [GetTextSize function](./API/Fortnite.com/gettextsize/index.md)
 - [HideText function](./API/Fortnite.com/hidetext/index.md)
@@ -379,11 +439,13 @@
 - [billboard_device class](./API/Fortnite.com/billboard_device/index.md)
 
 ## devices/bouncer_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [bouncer_device class](./API/Fortnite.com/bouncer_device/index.md)
 
 ## devices/button_device (9)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [GetInteractionTime function](./API/Fortnite.com/getinteractiontime/index.md)
@@ -395,6 +457,7 @@
 - [button_device class](./API/Fortnite.com/button_device/index.md)
 
 ## devices/campfire_device (6)
+
 - [AddWood function](./API/Fortnite.com/addwood/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -403,6 +466,7 @@
 - [campfire_device class](./API/Fortnite.com/campfire_device/index.md)
 
 ## devices/capture_area_device (18)
+
 - [ActivateObjectivePulse function](./API/Fortnite.com/activateobjectivepulse/index.md)
 - [AllowCapture function](./API/Fortnite.com/allowcapture/index.md)
 - [DeactivateObjectivePulse function](./API/Fortnite.com/deactivateobjectivepulse/index.md)
@@ -423,14 +487,17 @@
 - [capture_area_device class](./API/Fortnite.com/capture_area_device/index.md)
 
 ## devices/capture_item_spawner_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [capture_item_spawner_device class](./API/Fortnite.com/capture_item_spawner_device/index.md)
 
 ## devices/carryable_spawner_agent_impact_result (1)
+
 - [carryable_spawner_agent_impact_result struct](./API/Fortnite.com/carryable_spawner_agent_impact_result/index.md)
 
 ## devices/carryable_spawner_device (12)
+
 - [Despawn function](./API/Fortnite.com/despawn/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -445,6 +512,7 @@
 - [carryable_spawner_device class](./API/Fortnite.com/carryable_spawner_device/index.md)
 
 ## devices/chair_device (11)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [DisableExit function](./API/Fortnite.com/disableexit/index.md)
 - [Eject function](./API/Fortnite.com/eject-1/index.md)
@@ -458,13 +526,16 @@
 - [chair_device class](./API/Fortnite.com/chair_device/index.md)
 
 ## devices/changing_booth_device (1)
+
 - [changing_booth_device class](./API/Fortnite.com/changing_booth_device/index.md)
 
 ## devices/channel_device (2)
+
 - [Transmit function](./API/Fortnite.com/transmit/index.md)
 - [channel_device class](./API/Fortnite.com/channel_device/index.md)
 
 ## devices/character_device (6)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Hide function](./API/Fortnite.com/hide/index.md)
@@ -473,6 +544,7 @@
 - [character_device class](./API/Fortnite.com/character_device/index.md)
 
 ## devices/cinematic_sequence_device (19)
+
 - [GetPlayRate function](./API/Fortnite.com/getplayrate/index.md)
 - [GetPlaybackFrame function](./API/Fortnite.com/getplaybackframe/index.md)
 - [GetPlaybackTime function](./API/Fortnite.com/getplaybacktime/index.md)
@@ -494,6 +566,7 @@
 - [cinematic_sequence_device class](./API/Fortnite.com/cinematic_sequence_device/index.md)
 
 ## devices/class_and_team_selector_device (7)
+
 - [ChangeClass function](./API/Fortnite.com/changeclass/index.md)
 - [ChangeSelectorTeam function](./API/Fortnite.com/changeselectorteam/index.md)
 - [ChangeTeam function](./API/Fortnite.com/changeteam/index.md)
@@ -503,17 +576,20 @@
 - [class_and_team_selector_device class](./API/Fortnite.com/class_and_team_selector_device/index.md)
 
 ## devices/class_designer_device (3)
+
 - [GetClassMembers function](./API/Fortnite.com/getclassmembers/index.md)
 - [IsOfClass function](./API/Fortnite.com/isofclass/index.md)
 - [class_designer_device class](./API/Fortnite.com/class_designer_device/index.md)
 
 ## devices/class_selector_ui_device (4)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Show function](./API/Fortnite.com/show/index.md)
 - [class_selector_ui_device class](./API/Fortnite.com/class_selector_ui_device/index.md)
 
 ## devices/collectible_object_device (5)
+
 - [Hide function](./API/Fortnite.com/hide/index.md)
 - [Respawn function](./API/Fortnite.com/respawn/index.md)
 - [RespawnForAll function](./API/Fortnite.com/respawnforall/index.md)
@@ -521,6 +597,7 @@
 - [collectible_object_device class](./API/Fortnite.com/collectible_object_device/index.md)
 
 ## devices/color_changing_tiles_device (7)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Hide function](./API/Fortnite.com/hide/index.md)
@@ -530,6 +607,7 @@
 - [color_changing_tiles_device class](./API/Fortnite.com/color_changing_tiles_device/index.md)
 
 ## devices/conditional_button_device (18)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -550,6 +628,7 @@
 - [conditional_button_device class](./API/Fortnite.com/conditional_button_device/index.md)
 
 ## devices/conversation_device (12)
+
 - [CanInitiateConversation function](./API/Fortnite.com/caninitiateconversation/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -564,11 +643,13 @@
 - [conversation_device class](./API/Fortnite.com/conversation_device/index.md)
 
 ## devices/crash_pad_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [crash_pad_device class](./API/Fortnite.com/crash_pad_device/index.md)
 
 ## devices/creative_device (10)
+
 - [GetTransform function](./API/Fortnite.com/gettransform/index.md)
 - [Hide function](./API/Fortnite.com/hide/index.md)
 - [MoveTo function](./API/Fortnite.com/moveto-1/index.md)
@@ -581,12 +662,15 @@
 - [creative_device class](./API/Fortnite.com/creative_device/index.md)
 
 ## devices/creative_device_asset (1)
+
 - [creative_device_asset class](./API/Fortnite.com/creative_device_asset/index.md)
 
 ## devices/creative_device_base (1)
+
 - [creative_device_base class](./API/Fortnite.com/creative_device_base/index.md)
 
 ## devices/creative_object (6)
+
 - [GetTransform function](./API/Fortnite.com/gettransform/index.md)
 - [MoveTo function](./API/Fortnite.com/moveto-1/index.md)
 - [MoveTo function](./API/Fortnite.com/moveto/index.md)
@@ -595,9 +679,11 @@
 - [creative_object class](./API/Fortnite.com/creative_object/index.md)
 
 ## devices/creative_object_interface (1)
+
 - [creative_object_interface interface](./API/Fortnite.com/creative_object_interface/index.md)
 
 ## devices/creative_prop (19)
+
 - [ApplyAngularImpulse function](./API/Fortnite.com/applyangularimpulse/index.md)
 - [ApplyForce function](./API/Fortnite.com/applyforce/index.md)
 - [ApplyLinearImpulse function](./API/Fortnite.com/applylinearimpulse/index.md)
@@ -619,9 +705,11 @@
 - [creative_prop class](./API/Fortnite.com/creative_prop/index.md)
 
 ## devices/creative_prop_asset (1)
+
 - [creative_prop_asset class](./API/Fortnite.com/creative_prop_asset/index.md)
 
 ## devices/creativeanimation (16)
+
 - [(Prop:creative_prop).GetAnimationController extension](./API/Fortnite.com/getanimationcontroller/index.md)
 - [AwaitNextKeyframe function](./API/Fortnite.com/awaitnextkeyframe/index.md)
 - [CreativeAnimation module](./API/Fortnite.com/creativeanimation/index.md)
@@ -640,14 +728,17 @@
 - [keyframe_delta struct](./API/Fortnite.com/keyframe_delta/index.md)
 
 ## devices/creature_manager_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [creature_manager_device class](./API/Fortnite.com/creature_manager_device/index.md)
 
 ## devices/creature_placer_device (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/creature_placer_device/index.md)
 
 ## devices/creature_spawner_device (7)
+
 - [DestroySpawner function](./API/Fortnite.com/destroyspawner/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [EliminateCreatures function](./API/Fortnite.com/eliminatecreatures/index.md)
@@ -657,11 +748,13 @@
 - [creature_spawner_device class](./API/Fortnite.com/creature_spawner_device/index.md)
 
 ## devices/crowd_volume_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [crowd_volume_device class](./API/Fortnite.com/crowd_volume_device/index.md)
 
 ## devices/customizable_light_device (9)
+
 - [DimLight function](./API/Fortnite.com/dimlight/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -673,11 +766,13 @@
 - [customizable_light_device class](./API/Fortnite.com/customizable_light_device/index.md)
 
 ## devices/damage_amplifier_powerup_device (3)
+
 - [GetMagnitude function](./API/Fortnite.com/getmagnitude/index.md)
 - [SetMagnitude function](./API/Fortnite.com/setmagnitude/index.md)
 - [damage_amplifier_powerup_device class](./API/Fortnite.com/damage_amplifier_powerup_device/index.md)
 
 ## devices/damage_volume_device (7)
+
 - [GetAgentsInVolume function](./API/Fortnite.com/getagentsinvolume/index.md)
 - [GetDamage function](./API/Fortnite.com/getdamage/index.md)
 - [IsInVolume function](./API/Fortnite.com/isinvolume/index.md)
@@ -687,6 +782,7 @@
 - [damage_volume_device class](./API/Fortnite.com/damage_volume_device/index.md)
 
 ## devices/dance_mannequin_device (8)
+
 - [ActivateDefaultPreset function](./API/Fortnite.com/activatedefaultpreset/index.md)
 - [ActivatePreset2 function](./API/Fortnite.com/activatepreset2/index.md)
 - [ActivatePreset3 function](./API/Fortnite.com/activatepreset3/index.md)
@@ -697,9 +793,11 @@
 - [dance_mannequin_device class](./API/Fortnite.com/dance_mannequin_device/index.md)
 
 ## devices/device_ai_interaction_result (1)
+
 - [device_ai_interaction_result struct](./API/Fortnite.com/device_ai_interaction_result/index.md)
 
 ## devices/disguise_device (9)
+
 - [ApplyDisguise function](./API/Fortnite.com/applydisguise/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -711,6 +809,7 @@
 - [disguise_device class](./API/Fortnite.com/disguise_device/index.md)
 
 ## devices/down_but_not_out_device (5)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Down function](./API/Fortnite.com/down/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -718,6 +817,7 @@
 - [down_but_not_out_device class](./API/Fortnite.com/down_but_not_out_device/index.md)
 
 ## devices/earth_sprite_device (10)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [DisableItemGranting function](./API/Fortnite.com/disableitemgranting/index.md)
 - [DisableTradingForPlayer function](./API/Fortnite.com/disabletradingforplayer/index.md)
@@ -730,11 +830,13 @@
 - [earth_sprite_device class](./API/Fortnite.com/earth_sprite_device/index.md)
 
 ## devices/effect_volume_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [effect_volume_device class](./API/Fortnite.com/effect_volume_device/index.md)
 
 ## devices/elimination_feed_device (5)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Activate function](./API/Fortnite.com/activate-1/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -742,18 +844,22 @@
 - [elimination_feed_device class](./API/Fortnite.com/elimination_feed_device/index.md)
 
 ## devices/elimination_manager_device (1)
+
 - [elimination_manager_device class](./API/Fortnite.com/elimination_manager_device/index.md)
 
 ## devices/end_game_device (4)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [end_game_device class](./API/Fortnite.com/end_game_device/index.md)
 
 ## devices/experience_settings_device (1)
+
 - [experience_settings_device class](./API/Fortnite.com/experience_settings_device/index.md)
 
 ## devices/explosive_device (5)
+
 - [Explode function](./API/Fortnite.com/explode/index.md)
 - [Hide function](./API/Fortnite.com/hide/index.md)
 - [Reset function](./API/Fortnite.com/reset/index.md)
@@ -761,23 +867,29 @@
 - [explosive_device class](./API/Fortnite.com/explosive_device/index.md)
 
 ## devices/findcreativeobjectswithtag (1)
+
 - [(InCreativeDevice:creative_device).FindCreativeObjectsWithTag extension](./API/Fortnite.com/findcreativeobjectswithtag/index.md)
 
 ## devices/findcreativeobjectswithtag-1 (1)
+
 - [(InCreativeDevice:creative_device_base).FindCreativeObjectsWithTag extension](./API/Fortnite.com/findcreativeobjectswithtag-1/index.md)
 
 ## devices/findcreativeobjectswithtag-2 (1)
+
 - [(InNPCBehavior:npc_behavior).FindCreativeObjectsWithTag extension](./API/Fortnite.com/findcreativeobjectswithtag-2/index.md)
 
 ## devices/findcreativeobjectswithtag-3 (1)
+
 - [(InEntity:entity).FindCreativeObjectsWithTag extension](./API/Fortnite.com/findcreativeobjectswithtag-3/index.md)
 
 ## devices/fire_volume_device (3)
+
 - [Extinguish function](./API/Fortnite.com/extinguish/index.md)
 - [Ignite function](./API/Fortnite.com/ignite/index.md)
 - [fire_volume_device class](./API/Fortnite.com/fire_volume_device/index.md)
 
 ## devices/firefly_spawner_device (5)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [ResetRespawnCount function](./API/Fortnite.com/resetrespawncount/index.md)
@@ -785,6 +897,7 @@
 - [firefly_spawner_device class](./API/Fortnite.com/firefly_spawner_device/index.md)
 
 ## devices/fishing_zone_device (5)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Reset function](./API/Fortnite.com/reset/index.md)
@@ -792,6 +905,7 @@
 - [fishing_zone_device class](./API/Fortnite.com/fishing_zone_device/index.md)
 
 ## devices/fuel_pump_device (5)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Empty function](./API/Fortnite.com/empty/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -799,6 +913,7 @@
 - [fuel_pump_device class](./API/Fortnite.com/fuel_pump_device/index.md)
 
 ## devices/gameplay_camera_device (7)
+
 - [AddTo function](./API/Fortnite.com/addto/index.md)
 - [AddToAll function](./API/Fortnite.com/addtoall/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -808,18 +923,23 @@
 - [gameplay_camera_device class](./API/Fortnite.com/gameplay_camera_device/index.md)
 
 ## devices/gameplay_camera_first_person_device (1)
+
 - [gameplay_camera_first_person_device class](./API/Fortnite.com/gameplay_camera_first_person_device/index.md)
 
 ## devices/gameplay_camera_fixed_angle_device (1)
+
 - [gameplay_camera_fixed_angle_device class](./API/Fortnite.com/gameplay_camera_fixed_angle_device/index.md)
 
 ## devices/gameplay_camera_fixed_point_device (1)
+
 - [gameplay_camera_fixed_point_device class](./API/Fortnite.com/gameplay_camera_fixed_point_device/index.md)
 
 ## devices/gameplay_camera_orbit_device (1)
+
 - [gameplay_camera_orbit_device class](./API/Fortnite.com/gameplay_camera_orbit_device/index.md)
 
 ## devices/gameplay_controls_device (7)
+
 - [AddTo function](./API/Fortnite.com/addto/index.md)
 - [AddToAll function](./API/Fortnite.com/addtoall/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -829,33 +949,43 @@
 - [gameplay_controls_device class](./API/Fortnite.com/gameplay_controls_device/index.md)
 
 ## devices/gameplay_controls_side_scroller_device (1)
+
 - [gameplay_controls_side_scroller_device class](./API/Fortnite.com/gameplay_controls_side_scroller_device/index.md)
 
 ## devices/gameplay_controls_third_person_device (1)
+
 - [gameplay_controls_third_person_device class](./API/Fortnite.com/gameplay_controls_third_person_device/index.md)
 
 ## devices/getcreativeobjectswithtag (1)
+
 - [GetCreativeObjectsWithTag function](./API/Fortnite.com/getcreativeobjectswithtag/index.md)
 
 ## devices/getcreativeobjectswithtags (1)
+
 - [GetCreativeObjectsWithTags function](./API/Fortnite.com/getcreativeobjectswithtags/index.md)
 
 ## devices/getplayspace (1)
+
 - [(CreativeObject:creative_object_interface).GetPlayspace extension](./API/Fortnite.com/getplayspace/index.md)
 
 ## devices/getsimulationentity (1)
+
 - [(CreativeDevice:creative_device).GetSimulationEntity extension](./API/Fortnite.com/getsimulationentity/index.md)
 
 ## devices/getsimulationentity-1 (1)
+
 - [(CreativeObject:creative_object).GetSimulationEntity extension](./API/Fortnite.com/getsimulationentity-1/index.md)
 
 ## devices/gettags (1)
+
 - [(CreativeObject:creative_object_interface).GetTags extension](./API/Fortnite.com/gettags/index.md)
 
 ## devices/grind_powerup_device (1)
+
 - [grind_powerup_device class](./API/Fortnite.com/grind_powerup_device/index.md)
 
 ## devices/grind_rail_device (6)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Hide function](./API/Fortnite.com/hide/index.md)
@@ -864,9 +994,11 @@
 - [grind_rail_device class](./API/Fortnite.com/grind_rail_device/index.md)
 
 ## devices/guard_spawner_accuracy (1)
+
 - [guard_spawner_accuracy enumeration](./API/Fortnite.com/guard_spawner_accuracy/index.md)
 
 ## devices/guard_spawner_device (19)
+
 - [Despawn function](./API/Fortnite.com/despawn-1/index.md)
 - [Despawn function](./API/Fortnite.com/despawn/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -888,9 +1020,11 @@
 - [guard_spawner_device class](./API/Fortnite.com/guard_spawner_device/index.md)
 
 ## devices/guard_spawner_visibility_range_restriction (1)
+
 - [guard_spawner_visibility_range_restriction enumeration](./API/Fortnite.com/guard_spawner_visibility_range_restriction/index.md)
 
 ## devices/has_spire_functionality (7)
+
 - [Destroy function](./API/Fortnite.com/destroy/index.md)
 - [IsActivated function](./API/Fortnite.com/isactivated/index.md)
 - [IsDestroyed function](./API/Fortnite.com/isdestroyed/index.md)
@@ -900,6 +1034,7 @@
 - [has_spire_functionality interface](./API/Fortnite.com/has_spire_functionality/index.md)
 
 ## devices/healing_cactus_device (6)
+
 - [Burst function](./API/Fortnite.com/burst/index.md)
 - [Burst function](./API/Fortnite.com/burst-1/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -908,11 +1043,13 @@
 - [healing_cactus_device class](./API/Fortnite.com/healing_cactus_device/index.md)
 
 ## devices/health_powerup_device (3)
+
 - [GetMagnitude function](./API/Fortnite.com/getmagnitude/index.md)
 - [SetMagnitude function](./API/Fortnite.com/setmagnitude/index.md)
 - [health_powerup_device class](./API/Fortnite.com/health_powerup_device/index.md)
 
 ## devices/hero_chest_device (14)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [GetRankAsString function](./API/Fortnite.com/getrankasstring/index.md)
@@ -929,9 +1066,11 @@
 - [hero_chest_device class](./API/Fortnite.com/hero_chest_device/index.md)
 
 ## devices/hero_chest_rank (1)
+
 - [hero_chest_rank enumeration](./API/Fortnite.com/hero_chest_rank/index.md)
 
 ## devices/hiding_prop_device (7)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [EjectAllHiddenPlayers function](./API/Fortnite.com/ejectallhiddenplayers/index.md)
 - [EjectHiddenPlayer function](./API/Fortnite.com/ejecthiddenplayer/index.md)
@@ -941,6 +1080,7 @@
 - [hiding_prop_device class](./API/Fortnite.com/hiding_prop_device/index.md)
 
 ## devices/hive_stash_device (17)
+
 - [ClearSpawnerLink function](./API/Fortnite.com/clearspawnerlink/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -960,12 +1100,15 @@
 - [hive_stash_device class](./API/Fortnite.com/hive_stash_device/index.md)
 
 ## devices/hive_stash_style (1)
+
 - [hive_stash_style enumeration](./API/Fortnite.com/hive_stash_style/index.md)
 
 ## devices/holoscreen_device (1)
+
 - [holoscreen_device class](./API/Fortnite.com/holoscreen_device/index.md)
 
 ## devices/hud_controller_device (7)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [ResetAffectedClass function](./API/Fortnite.com/resetaffectedclass/index.md)
@@ -975,6 +1118,7 @@
 - [hud_controller_device class](./API/Fortnite.com/hud_controller_device/index.md)
 
 ## devices/hud_message_device (11)
+
 - [ClearAllMessages function](./API/Fortnite.com/clearallmessages/index.md)
 - [GetDisplayTime function](./API/Fortnite.com/getdisplaytime/index.md)
 - [Hide function](./API/Fortnite.com/hide/index.md)
@@ -988,6 +1132,7 @@
 - [hud_message_device class](./API/Fortnite.com/hud_message_device/index.md)
 
 ## devices/input_trigger_device (7)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [IsHeld function](./API/Fortnite.com/isheld/index.md)
@@ -997,6 +1142,7 @@
 - [input_trigger_device class](./API/Fortnite.com/input_trigger_device/index.md)
 
 ## devices/item_granter_device (16)
+
 - [ClearSaveData function](./API/Fortnite.com/clearsavedata/index.md)
 - [CycleToNextItem function](./API/Fortnite.com/cycletonextitem/index.md)
 - [CycleToPreviousItem function](./API/Fortnite.com/cycletopreviousitem/index.md)
@@ -1015,22 +1161,26 @@
 - [item_granter_device class](./API/Fortnite.com/item_granter_device/index.md)
 
 ## devices/item_placer_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [item_placer_device class](./API/Fortnite.com/item_placer_device/index.md)
 
 ## devices/item_remover_device (4)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Remove function](./API/Fortnite.com/remove/index.md)
 - [item_remover_device class](./API/Fortnite.com/item_remover_device/index.md)
 
 ## devices/item_shop_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [item_shop_device class](./API/Fortnite.com/item_shop_device/index.md)
 
 ## devices/item_spawner_device (7)
+
 - [CycleToNextItem function](./API/Fortnite.com/cycletonextitem/index.md)
 - [GetEnableRespawnTimer function](./API/Fortnite.com/getenablerespawntimer/index.md)
 - [GetTimeBetweenSpawns function](./API/Fortnite.com/gettimebetweenspawns/index.md)
@@ -1040,6 +1190,7 @@
 - [item_spawner_device class](./API/Fortnite.com/item_spawner_device/index.md)
 
 ## devices/lock_device (7)
+
 - [Close function](./API/Fortnite.com/close/index.md)
 - [Lock function](./API/Fortnite.com/lock/index.md)
 - [Open function](./API/Fortnite.com/open/index.md)
@@ -1049,6 +1200,7 @@
 - [lock_device class](./API/Fortnite.com/lock_device/index.md)
 
 ## devices/map_controller_device (9)
+
 - [Activate function](./API/Fortnite.com/activate-1/index.md)
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Deactivate function](./API/Fortnite.com/deactivate/index.md)
@@ -1060,6 +1212,7 @@
 - [map_controller_device class](./API/Fortnite.com/map_controller_device/index.md)
 
 ## devices/map_indicator_device (5)
+
 - [ActivateObjectivePulse function](./API/Fortnite.com/activateobjectivepulse/index.md)
 - [DeactivateObjectivePulse function](./API/Fortnite.com/deactivateobjectivepulse/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1067,20 +1220,24 @@
 - [map_indicator_device class](./API/Fortnite.com/map_indicator_device/index.md)
 
 ## devices/matchmaking_portal_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [matchmaking_portal_device class](./API/Fortnite.com/matchmaking_portal_device/index.md)
 
 ## devices/move_to_result (1)
+
 - [move_to_result enumeration](./API/Fortnite.com/move_to_result/index.md)
 
 ## devices/movement_modulator_device (4)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [movement_modulator_device class](./API/Fortnite.com/movement_modulator_device/index.md)
 
 ## devices/mutator_zone_device (5)
+
 - [GetAgentsInVolume function](./API/Fortnite.com/getagentsinvolume/index.md)
 - [IsInVolume function](./API/Fortnite.com/isinvolume/index.md)
 - [UpdateSelectedClass function](./API/Fortnite.com/updateselectedclass/index.md)
@@ -1088,6 +1245,7 @@
 - [mutator_zone_device class](./API/Fortnite.com/mutator_zone_device/index.md)
 
 ## devices/nitro_barrel_spawner_device (11)
+
 - [AllowRespawn function](./API/Fortnite.com/allowrespawn/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [DisallowRespawn function](./API/Fortnite.com/disallowrespawn/index.md)
@@ -1101,6 +1259,7 @@
 - [nitro_barrel_spawner_device class](./API/Fortnite.com/nitro_barrel_spawner_device/index.md)
 
 ## devices/nitro_hoop_device (11)
+
 - [AllowCooldown function](./API/Fortnite.com/allowcooldown/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [DisallowCooldown function](./API/Fortnite.com/disallowcooldown/index.md)
@@ -1114,6 +1273,7 @@
 - [nitro_hoop_device class](./API/Fortnite.com/nitro_hoop_device/index.md)
 
 ## devices/npc_spawner_device (8)
+
 - [DespawnAll function](./API/Fortnite.com/despawnall/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1124,6 +1284,7 @@
 - [npc_spawner_device class](./API/Fortnite.com/npc_spawner_device/index.md)
 
 ## devices/objective_device (17)
+
 - [ActivateObjectivePulse function](./API/Fortnite.com/activateobjectivepulse/index.md)
 - [Damage function](./API/Fortnite.com/damage/index.md)
 - [Damage function](./API/Fortnite.com/damage-1/index.md)
@@ -1143,6 +1304,7 @@
 - [objective_device class](./API/Fortnite.com/objective_device/index.md)
 
 ## devices/overlord_spire_device (14)
+
 - [ClearTarget function](./API/Fortnite.com/cleartarget/index.md)
 - [Destroy function](./API/Fortnite.com/destroy/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1159,6 +1321,7 @@
 - [overlord_spire_device class](./API/Fortnite.com/overlord_spire_device/index.md)
 
 ## devices/patchwork (20)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Patchwork module](./API/Fortnite.com/patchwork/index.md)
@@ -1181,6 +1344,7 @@
 - [value_setter_device class](./API/Fortnite.com/value_setter_device/index.md)
 
 ## devices/perception_trigger_device (5)
+
 - [GetLookingAtDeviceAgents function](./API/Fortnite.com/getlookingatdeviceagents/index.md)
 - [GetPerceivedAgents function](./API/Fortnite.com/getperceivedagents/index.md)
 - [IsLookingAtDevice function](./API/Fortnite.com/islookingatdevice/index.md)
@@ -1188,33 +1352,39 @@
 - [perception_trigger_device class](./API/Fortnite.com/perception_trigger_device/index.md)
 
 ## devices/physics_boulder_device (4)
+
 - [DestroyBase function](./API/Fortnite.com/destroybase/index.md)
 - [DestroyRollingBoulder function](./API/Fortnite.com/destroyrollingboulder/index.md)
 - [ReleaseRollingBoulder function](./API/Fortnite.com/releaserollingboulder/index.md)
 - [physics_boulder_device class](./API/Fortnite.com/physics_boulder_device/index.md)
 
 ## devices/physics_object_base_device (1)
+
 - [physics_object_base_device class](./API/Fortnite.com/physics_object_base_device/index.md)
 
 ## devices/physics_tree_device (4)
+
 - [DestroyLog function](./API/Fortnite.com/destroylog/index.md)
 - [DestroyStump function](./API/Fortnite.com/destroystump/index.md)
 - [ReleaseLog function](./API/Fortnite.com/releaselog/index.md)
 - [physics_tree_device class](./API/Fortnite.com/physics_tree_device/index.md)
 
 ## devices/pinball_bumper_device (4)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [pinball_bumper_device class](./API/Fortnite.com/pinball_bumper_device/index.md)
 
 ## devices/pinball_flipper_device (4)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [pinball_flipper_device class](./API/Fortnite.com/pinball_flipper_device/index.md)
 
 ## devices/player_checkpoint_device (6)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [GetRegisteredAgents function](./API/Fortnite.com/getregisteredagents/index.md)
@@ -1223,6 +1393,7 @@
 - [player_checkpoint_device class](./API/Fortnite.com/player_checkpoint_device/index.md)
 
 ## devices/player_counter_device (20)
+
 - [CompareToTarget function](./API/Fortnite.com/comparetotarget/index.md)
 - [DecrementTargetCount function](./API/Fortnite.com/decrementtargetcount/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1245,6 +1416,7 @@
 - [player_counter_device class](./API/Fortnite.com/player_counter_device/index.md)
 
 ## devices/player_marker_device (6)
+
 - [Attach function](./API/Fortnite.com/attach/index.md)
 - [Detach function](./API/Fortnite.com/detach/index.md)
 - [DetachFromAll function](./API/Fortnite.com/detachfromall/index.md)
@@ -1253,6 +1425,7 @@
 - [player_marker_device class](./API/Fortnite.com/player_marker_device/index.md)
 
 ## devices/player_movement_settings_device (10)
+
 - [AddTo function](./API/Fortnite.com/addto/index.md)
 - [AddToAll function](./API/Fortnite.com/addtoall/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1265,6 +1438,7 @@
 - [player_movement_settings_device class](./API/Fortnite.com/player_movement_settings_device/index.md)
 
 ## devices/player_reference_device (9)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Clear function](./API/Fortnite.com/clear/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1276,11 +1450,13 @@
 - [player_reference_device class](./API/Fortnite.com/player_reference_device/index.md)
 
 ## devices/player_spawner_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [player_spawner_device class](./API/Fortnite.com/player_spawner_device/index.md)
 
 ## devices/popup_dialog_device (14)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [GetButtonText function](./API/Fortnite.com/getbuttontext/index.md)
@@ -1297,6 +1473,7 @@
 - [popup_dialog_device class](./API/Fortnite.com/popup_dialog_device/index.md)
 
 ## devices/post_process_device (11)
+
 - [BlendIn function](./API/Fortnite.com/blendin/index.md)
 - [BlendInForAll function](./API/Fortnite.com/blendinforall/index.md)
 - [BlendOut function](./API/Fortnite.com/blendout/index.md)
@@ -1310,6 +1487,7 @@
 - [post_process_device class](./API/Fortnite.com/post_process_device/index.md)
 
 ## devices/powerup_device (10)
+
 - [Despawn function](./API/Fortnite.com/despawn/index.md)
 - [GetDuration function](./API/Fortnite.com/getduration/index.md)
 - [GetRemainingTime function](./API/Fortnite.com/getremainingtime/index.md)
@@ -1322,12 +1500,15 @@
 - [powerup_device class](./API/Fortnite.com/powerup_device/index.md)
 
 ## devices/progress_based_mesh_device (1)
+
 - [progress_based_mesh_device class](./API/Fortnite.com/progress_based_mesh_device/index.md)
 
 ## devices/progress_device_state (1)
+
 - [progress_device_state enumeration](./API/Fortnite.com/progress_device_state/index.md)
 
 ## devices/prop_manipulator_device (10)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [DisableResourceNodeOverrides function](./API/Fortnite.com/disableresourcenodeoverrides/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1340,6 +1521,7 @@
 - [prop_manipulator_device class](./API/Fortnite.com/prop_manipulator_device/index.md)
 
 ## devices/prop_mover_device (12)
+
 - [Advance function](./API/Fortnite.com/advance/index.md)
 - [Begin function](./API/Fortnite.com/begin/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1354,6 +1536,7 @@
 - [prop_mover_device class](./API/Fortnite.com/prop_mover_device/index.md)
 
 ## devices/prop_o_matic_manager_device (8)
+
 - [IsPlayerProp function](./API/Fortnite.com/isplayerprop/index.md)
 - [PingPlayerProp function](./API/Fortnite.com/pingplayerprop/index.md)
 - [PingPlayerProps function](./API/Fortnite.com/pingplayerprops/index.md)
@@ -1364,6 +1547,7 @@
 - [prop_o_matic_manager_device class](./API/Fortnite.com/prop_o_matic_manager_device/index.md)
 
 ## devices/prop_spawner_base_device (5)
+
 - [DestroyAllSpawnedObjects function](./API/Fortnite.com/destroyallspawnedobjects/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1371,6 +1555,7 @@
 - [prop_spawner_base_device class](./API/Fortnite.com/prop_spawner_base_device/index.md)
 
 ## devices/pulse_trigger_device (13)
+
 - [Begin function](./API/Fortnite.com/begin/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1386,12 +1571,14 @@
 - [pulse_trigger_device class](./API/Fortnite.com/pulse_trigger_device/index.md)
 
 ## devices/race_checkpoint_device (4)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [SetAsCurrentCheckpoint function](./API/Fortnite.com/setascurrentcheckpoint/index.md)
 - [race_checkpoint_device class](./API/Fortnite.com/race_checkpoint_device/index.md)
 
 ## devices/race_manager_device (5)
+
 - [Begin function](./API/Fortnite.com/begin/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1399,6 +1586,7 @@
 - [race_manager_device class](./API/Fortnite.com/race_manager_device/index.md)
 
 ## devices/radio_device (8)
+
 - [Hide function](./API/Fortnite.com/hide/index.md)
 - [Play function](./API/Fortnite.com/play/index.md)
 - [Register function](./API/Fortnite.com/register/index.md)
@@ -1409,29 +1597,35 @@
 - [radio_device class](./API/Fortnite.com/radio_device/index.md)
 
 ## devices/real_time_clock_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [real_time_clock_device class](./API/Fortnite.com/real_time_clock_device/index.md)
 
 ## devices/reboot_card_purchase_options (1)
+
 - [reboot_card_purchase_options class](./API/Fortnite.com/reboot_card_purchase_options/index.md)
 
 ## devices/reboot_progress_decay_behavior (1)
+
 - [reboot_progress_decay_behavior enumeration](./API/Fortnite.com/reboot_progress_decay_behavior/index.md)
 
 ## devices/reboot_van_device (4)
+
 - [DisableReboot function](./API/Fortnite.com/disablereboot/index.md)
 - [EnableReboot function](./API/Fortnite.com/enablereboot/index.md)
 - [IsEnabledReboot function](./API/Fortnite.com/isenabledreboot/index.md)
 - [reboot_van_device class](./API/Fortnite.com/reboot_van_device/index.md)
 
 ## devices/reboot_van_interface (4)
+
 - [DisableReboot function](./API/Fortnite.com/disablereboot/index.md)
 - [EnableReboot function](./API/Fortnite.com/enablereboot/index.md)
 - [IsEnabledReboot function](./API/Fortnite.com/isenabledreboot/index.md)
 - [reboot_van_interface interface](./API/Fortnite.com/reboot_van_interface/index.md)
 
 ## devices/rift_point_volume_device (6)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [GetAgentsInVolume function](./API/Fortnite.com/getagentsinvolume/index.md)
@@ -1440,6 +1634,7 @@
 - [rift_point_volume_device class](./API/Fortnite.com/rift_point_volume_device/index.md)
 
 ## devices/rng_device (6)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Activate function](./API/Fortnite.com/activate-1/index.md)
 - [Cancel function](./API/Fortnite.com/cancel/index.md)
@@ -1448,6 +1643,7 @@
 - [rng_device class](./API/Fortnite.com/rng_device/index.md)
 
 ## devices/roly_poly (13)
+
 - [Damage function](./API/Fortnite.com/damage/index.md)
 - [Damage function](./API/Fortnite.com/damage-1/index.md)
 - [DamagedEvent function](./API/Fortnite.com/damagedevent/index.md)
@@ -1463,6 +1659,7 @@
 - [roly_poly class](./API/Fortnite.com/roly_poly/index.md)
 
 ## devices/roly_poly_spawner_device (8)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Dismiss function](./API/Fortnite.com/dismiss/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1473,6 +1670,7 @@
 - [roly_poly_spawner_device class](./API/Fortnite.com/roly_poly_spawner_device/index.md)
 
 ## devices/round_settings_device (8)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [DisableEndRoundConditions function](./API/Fortnite.com/disableendroundconditions/index.md)
 - [DisableMatchmaking function](./API/Fortnite.com/disablematchmaking/index.md)
@@ -1483,6 +1681,7 @@
 - [round_settings_device class](./API/Fortnite.com/round_settings_device/index.md)
 
 ## devices/score_manager_device (17)
+
 - [Activate function](./API/Fortnite.com/activate-1/index.md)
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [Decrement function](./API/Fortnite.com/decrement-1/index.md)
@@ -1502,6 +1701,7 @@
 - [score_manager_device class](./API/Fortnite.com/score_manager_device/index.md)
 
 ## devices/scout_spire_device (11)
+
 - [Despawn function](./API/Fortnite.com/despawn/index.md)
 - [Destroy function](./API/Fortnite.com/destroy/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1515,6 +1715,7 @@
 - [scout_spire_device class](./API/Fortnite.com/scout_spire_device/index.md)
 
 ## devices/sentry_device (11)
+
 - [DestroySentry function](./API/Fortnite.com/destroysentry/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1528,6 +1729,7 @@
 - [sentry_device class](./API/Fortnite.com/sentry_device/index.md)
 
 ## devices/service_station_device (12)
+
 - [Damage function](./API/Fortnite.com/damage-1/index.md)
 - [Damage function](./API/Fortnite.com/damage/index.md)
 - [DamagedEvent function](./API/Fortnite.com/damagedevent/index.md)
@@ -1542,6 +1744,7 @@
 - [service_station_device class](./API/Fortnite.com/service_station_device/index.md)
 
 ## devices/shooting_range_target_device (8)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [HopDown function](./API/Fortnite.com/hopdown/index.md)
@@ -1552,6 +1755,7 @@
 - [shooting_range_target_device class](./API/Fortnite.com/shooting_range_target_device/index.md)
 
 ## devices/shooting_range_target_track_device (14)
+
 - [ActivateTrack function](./API/Fortnite.com/activatetrack/index.md)
 - [DeactivateTrack function](./API/Fortnite.com/deactivatetrack/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1568,11 +1772,13 @@
 - [shooting_range_target_track_device class](./API/Fortnite.com/shooting_range_target_track_device/index.md)
 
 ## devices/signal_remote_manager_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [signal_remote_manager_device class](./API/Fortnite.com/signal_remote_manager_device/index.md)
 
 ## devices/skilled_interaction_device (12)
+
 - [BeginInteraction function](./API/Fortnite.com/begininteraction-1/index.md)
 - [BeginInteraction function](./API/Fortnite.com/begininteraction/index.md)
 - [ClearQueue function](./API/Fortnite.com/clearqueue/index.md)
@@ -1587,6 +1793,7 @@
 - [skilled_interaction_device class](./API/Fortnite.com/skilled_interaction_device/index.md)
 
 ## devices/skydive_volume_device (5)
+
 - [DisableVolumeLocking function](./API/Fortnite.com/disablevolumelocking/index.md)
 - [EnableVolumeLocking function](./API/Fortnite.com/enablevolumelocking/index.md)
 - [GetAgentsInVolume function](./API/Fortnite.com/getagentsinvolume/index.md)
@@ -1594,23 +1801,29 @@
 - [skydive_volume_device class](./API/Fortnite.com/skydive_volume_device/index.md)
 
 ## devices/skydome_device (3)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [skydome_device class](./API/Fortnite.com/skydome_device/index.md)
 
 ## devices/spawn_on_enable_behavior (1)
+
 - [spawn_on_enable_behavior enumeration](./API/Fortnite.com/spawn_on_enable_behavior/index.md)
 
 ## devices/spawn_prop_result (1)
+
 - [spawn_prop_result enumeration](./API/Fortnite.com/spawn_prop_result/index.md)
 
 ## devices/spawnprop (1)
+
 - [SpawnProp function](./API/Fortnite.com/spawnprop/index.md)
 
 ## devices/spawnprop-1 (1)
+
 - [SpawnProp function](./API/Fortnite.com/spawnprop-1/index.md)
 
 ## devices/spire_spike_device (7)
+
 - [ChargeKnockback function](./API/Fortnite.com/chargeknockback/index.md)
 - [Despawn function](./API/Fortnite.com/despawn/index.md)
 - [Destroy function](./API/Fortnite.com/destroy/index.md)
@@ -1620,6 +1833,7 @@
 - [spire_spike_device class](./API/Fortnite.com/spire_spike_device/index.md)
 
 ## devices/stat_creator_device (14)
+
 - [GetLevel function](./API/Fortnite.com/getlevel-1/index.md)
 - [GetLevel function](./API/Fortnite.com/getlevel/index.md)
 - [GetLevelForMatch function](./API/Fortnite.com/getlevelformatch/index.md)
@@ -1636,11 +1850,13 @@
 - [stat_creator_device class](./API/Fortnite.com/stat_creator_device/index.md)
 
 ## devices/stat_powerup_device (3)
+
 - [GetMagnitude function](./API/Fortnite.com/getmagnitude/index.md)
 - [SetMagnitude function](./API/Fortnite.com/setmagnitude/index.md)
 - [stat_powerup_device class](./API/Fortnite.com/stat_powerup_device/index.md)
 
 ## devices/storm_controller_device (7)
+
 - [DestroyStorm function](./API/Fortnite.com/destroystorm/index.md)
 - [GenerateStorm function](./API/Fortnite.com/generatestorm/index.md)
 - [MoveTo function](./API/Fortnite.com/moveto-1/index.md)
@@ -1650,6 +1866,7 @@
 - [storm_controller_device class](./API/Fortnite.com/storm_controller_device/index.md)
 
 ## devices/supply_drop_spawner_device (8)
+
 - [DestroyBalloon function](./API/Fortnite.com/destroyballoon/index.md)
 - [DestroySpawnedDrops function](./API/Fortnite.com/destroyspawneddrops/index.md)
 - [Lock function](./API/Fortnite.com/lock/index.md)
@@ -1660,9 +1877,11 @@
 - [supply_drop_spawner_device class](./API/Fortnite.com/supply_drop_spawner_device/index.md)
 
 ## devices/support_a_creator_device (1)
+
 - [support_a_creator_device class](./API/Fortnite.com/support_a_creator_device/index.md)
 
 ## devices/switch_device (28)
+
 - [CheckState function](./API/Fortnite.com/checkstate/index.md)
 - [ClearAllPersistenceData function](./API/Fortnite.com/clearallpersistencedata/index.md)
 - [ClearPersistenceData function](./API/Fortnite.com/clearpersistencedata/index.md)
@@ -1693,9 +1912,11 @@
 - [switch_device class](./API/Fortnite.com/switch_device/index.md)
 
 ## devices/sword_in_the_stone_device (1)
+
 - [sword_in_the_stone_device class](./API/Fortnite.com/sword_in_the_stone_device/index.md)
 
 ## devices/team_settings_and_inventory_device (6)
+
 - [EndRound function](./API/Fortnite.com/endround/index.md)
 - [GetTeamMembers function](./API/Fortnite.com/getteammembers/index.md)
 - [IsOnTeam function](./API/Fortnite.com/isonteam/index.md)
@@ -1704,6 +1925,7 @@
 - [team_settings_and_inventory_device class](./API/Fortnite.com/team_settings_and_inventory_device/index.md)
 
 ## devices/teleporter_device (8)
+
 - [Activate function](./API/Fortnite.com/activate/index.md)
 - [ActivateLinkToTarget function](./API/Fortnite.com/activatelinktotarget/index.md)
 - [DeactivateLinkToTarget function](./API/Fortnite.com/deactivatelinktotarget/index.md)
@@ -1714,6 +1936,7 @@
 - [teleporter_device class](./API/Fortnite.com/teleporter_device/index.md)
 
 ## devices/timed_objective_device (11)
+
 - [Begin function](./API/Fortnite.com/begin/index.md)
 - [Complete function](./API/Fortnite.com/complete/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1727,6 +1950,7 @@
 - [timed_objective_device class](./API/Fortnite.com/timed_objective_device/index.md)
 
 ## devices/timer_device (40)
+
 - [ClearPersistenceData function](./API/Fortnite.com/clearpersistencedata/index.md)
 - [ClearPersistenceDataForAll function](./API/Fortnite.com/clearpersistencedataforall/index.md)
 - [ClearPersistenceDataForAll function](./API/Fortnite.com/clearpersistencedataforall-1/index.md)
@@ -1769,6 +1993,7 @@
 - [timer_device class](./API/Fortnite.com/timer_device/index.md)
 
 ## devices/tracker_device (28)
+
 - [Assign function](./API/Fortnite.com/assign/index.md)
 - [AssignToAll function](./API/Fortnite.com/assigntoall/index.md)
 - [ClearPersistence function](./API/Fortnite.com/clearpersistence/index.md)
@@ -1799,6 +2024,7 @@
 - [tracker_device class](./API/Fortnite.com/tracker_device/index.md)
 
 ## devices/trick_tile_device (13)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [DisableAgentContactTrigger function](./API/Fortnite.com/disableagentcontacttrigger/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1814,6 +2040,7 @@
 - [trick_tile_device class](./API/Fortnite.com/trick_tile_device/index.md)
 
 ## devices/trigger_base_device (11)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [GetMaxTriggerCount function](./API/Fortnite.com/getmaxtriggercount/index.md)
@@ -1827,15 +2054,18 @@
 - [trigger_base_device class](./API/Fortnite.com/trigger_base_device/index.md)
 
 ## devices/trigger_device (3)
+
 - [Trigger function](./API/Fortnite.com/trigger-1/index.md)
 - [Trigger function](./API/Fortnite.com/trigger/index.md)
 - [trigger_device class](./API/Fortnite.com/trigger_device/index.md)
 
 ## devices/vehicle_mod_box_settings (2)
+
 - [ApplyDefaultVisuals function](./API/Fortnite.com/applydefaultvisuals/index.md)
 - [vehicle_mod_box_settings class](./API/Fortnite.com/vehicle_mod_box_settings/index.md)
 
 ## devices/vehicle_mod_box_spawner_device (28)
+
 - [CycleToNextValidIndex function](./API/Fortnite.com/cycletonextvalidindex/index.md)
 - [CycleToPreviousValidIndex function](./API/Fortnite.com/cycletopreviousvalidindex/index.md)
 - [DespawnBox function](./API/Fortnite.com/despawnbox/index.md)
@@ -1866,31 +2096,40 @@
 - [vehicle_mod_box_spawner_device class](./API/Fortnite.com/vehicle_mod_box_spawner_device/index.md)
 
 ## devices/vehicle_spawner_armored_battle_bus_device (1)
+
 - [vehicle_spawner_armored_battle_bus_device class](./API/Fortnite.com/vehicle_spawner_armored_battle_bus_device/index.md)
 
 ## devices/vehicle_spawner_armored_transport_device (1)
+
 - [vehicle_spawner_armored_transport_device class](./API/Fortnite.com/vehicle_spawner_armored_transport_device/index.md)
 
 ## devices/vehicle_spawner_atk_device (1)
+
 - [vehicle_spawner_atk_device class](./API/Fortnite.com/vehicle_spawner_atk_device/index.md)
 
 ## devices/vehicle_spawner_baller_device (2)
+
 - [RefillEnergy function](./API/Fortnite.com/refillenergy/index.md)
 - [vehicle_spawner_baller_device class](./API/Fortnite.com/vehicle_spawner_baller_device/index.md)
 
 ## devices/vehicle_spawner_big_rig_device (1)
+
 - [vehicle_spawner_big_rig_device class](./API/Fortnite.com/vehicle_spawner_big_rig_device/index.md)
 
 ## devices/vehicle_spawner_biplane_device (1)
+
 - [vehicle_spawner_biplane_device class](./API/Fortnite.com/vehicle_spawner_biplane_device/index.md)
 
 ## devices/vehicle_spawner_boat_device (1)
+
 - [vehicle_spawner_boat_device class](./API/Fortnite.com/vehicle_spawner_boat_device/index.md)
 
 ## devices/vehicle_spawner_cannon_device (1)
+
 - [vehicle_spawner_cannon_device class](./API/Fortnite.com/vehicle_spawner_cannon_device/index.md)
 
 ## devices/vehicle_spawner_device (6)
+
 - [AssignDriver function](./API/Fortnite.com/assigndriver/index.md)
 - [DestroyVehicle function](./API/Fortnite.com/destroyvehicle/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -1899,72 +2138,95 @@
 - [vehicle_spawner_device class](./API/Fortnite.com/vehicle_spawner_device/index.md)
 
 ## devices/vehicle_spawner_dirtbike_device (1)
+
 - [vehicle_spawner_dirtbike_device class](./API/Fortnite.com/vehicle_spawner_dirtbike_device/index.md)
 
 ## devices/vehicle_spawner_driftboard_device (1)
+
 - [vehicle_spawner_driftboard_device class](./API/Fortnite.com/vehicle_spawner_driftboard_device/index.md)
 
 ## devices/vehicle_spawner_getaway_device (1)
+
 - [vehicle_spawner_getaway_device class](./API/Fortnite.com/vehicle_spawner_getaway_device/index.md)
 
 ## devices/vehicle_spawner_hammerhead_choppa_device (1)
+
 - [vehicle_spawner_hammerhead_choppa_device class](./API/Fortnite.com/vehicle_spawner_hammerhead_choppa_device/index.md)
 
 ## devices/vehicle_spawner_heavy_turret_device (1)
+
 - [vehicle_spawner_heavy_turret_device class](./API/Fortnite.com/vehicle_spawner_heavy_turret_device/index.md)
 
 ## devices/vehicle_spawner_helicopter_device (1)
+
 - [vehicle_spawner_helicopter_device class](./API/Fortnite.com/vehicle_spawner_helicopter_device/index.md)
 
 ## devices/vehicle_spawner_nitro_drifter_sedan_device (1)
+
 - [vehicle_spawner_nitro_drifter_sedan_device class](./API/Fortnite.com/vehicle_spawner_nitro_drifter_sedan_device/index.md)
 
 ## devices/vehicle_spawner_octane_device (1)
+
 - [vehicle_spawner_octane_device class](./API/Fortnite.com/vehicle_spawner_octane_device/index.md)
 
 ## devices/vehicle_spawner_pickup_truck_device (1)
+
 - [vehicle_spawner_pickup_truck_device class](./API/Fortnite.com/vehicle_spawner_pickup_truck_device/index.md)
 
 ## devices/vehicle_spawner_quadcrasher_device (1)
+
 - [vehicle_spawner_quadcrasher_device class](./API/Fortnite.com/vehicle_spawner_quadcrasher_device/index.md)
 
 ## devices/vehicle_spawner_rocketracing_device (1)
+
 - [vehicle_spawner_rocketracing_device class](./API/Fortnite.com/vehicle_spawner_rocketracing_device/index.md)
 
 ## devices/vehicle_spawner_sedan_device (1)
+
 - [vehicle_spawner_sedan_device class](./API/Fortnite.com/vehicle_spawner_sedan_device/index.md)
 
 ## devices/vehicle_spawner_shopping_cart_device (1)
+
 - [vehicle_spawner_shopping_cart_device class](./API/Fortnite.com/vehicle_spawner_shopping_cart_device/index.md)
 
 ## devices/vehicle_spawner_siege_cannon_device (1)
+
 - [vehicle_spawner_siege_cannon_device class](./API/Fortnite.com/vehicle_spawner_siege_cannon_device/index.md)
 
 ## devices/vehicle_spawner_sportbike_device (1)
+
 - [vehicle_spawner_sportbike_device class](./API/Fortnite.com/vehicle_spawner_sportbike_device/index.md)
 
 ## devices/vehicle_spawner_sports_car_device (1)
+
 - [vehicle_spawner_sports_car_device class](./API/Fortnite.com/vehicle_spawner_sports_car_device/index.md)
 
 ## devices/vehicle_spawner_surfboard_device (1)
+
 - [vehicle_spawner_surfboard_device class](./API/Fortnite.com/vehicle_spawner_surfboard_device/index.md)
 
 ## devices/vehicle_spawner_tank_device (1)
+
 - [vehicle_spawner_tank_device class](./API/Fortnite.com/vehicle_spawner_tank_device/index.md)
 
 ## devices/vehicle_spawner_taxi_device (1)
+
 - [vehicle_spawner_taxi_device class](./API/Fortnite.com/vehicle_spawner_taxi_device/index.md)
 
 ## devices/vehicle_spawner_ufo_device (1)
+
 - [vehicle_spawner_ufo_device class](./API/Fortnite.com/vehicle_spawner_ufo_device/index.md)
 
 ## devices/vehicle_spawner_valet_suv_device (1)
+
 - [vehicle_spawner_valet_suv_device class](./API/Fortnite.com/vehicle_spawner_valet_suv_device/index.md)
 
 ## devices/vehicle_spawner_war_bus_device (1)
+
 - [vehicle_spawner_war_bus_device class](./API/Fortnite.com/vehicle_spawner_war_bus_device/index.md)
 
 ## devices/vending_machine_device (5)
+
 - [CycleToNextItem function](./API/Fortnite.com/cycletonextitem/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -1972,6 +2234,7 @@
 - [vending_machine_device class](./API/Fortnite.com/vending_machine_device/index.md)
 
 ## devices/vfx_creator_device (19)
+
 - [Begin function](./API/Fortnite.com/begin-1/index.md)
 - [Begin function](./API/Fortnite.com/begin/index.md)
 - [BeginForAll function](./API/Fortnite.com/beginforall/index.md)
@@ -1993,12 +2256,14 @@
 - [vfx_creator_device class](./API/Fortnite.com/vfx_creator_device/index.md)
 
 ## devices/vfx_spawner_device (4)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Restart function](./API/Fortnite.com/restart/index.md)
 - [vfx_spawner_device class](./API/Fortnite.com/vfx_spawner_device/index.md)
 
 ## devices/video_player_device (15)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [DisableCollision function](./API/Fortnite.com/disablecollision/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
@@ -2016,6 +2281,7 @@
 - [video_player_device class](./API/Fortnite.com/video_player_device/index.md)
 
 ## devices/vine_rail_device (5)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Hide function](./API/Fortnite.com/hide/index.md)
@@ -2023,14 +2289,17 @@
 - [vine_rail_device class](./API/Fortnite.com/vine_rail_device/index.md)
 
 ## devices/visual_effect_powerup_device (1)
+
 - [visual_effect_powerup_device class](./API/Fortnite.com/visual_effect_powerup_device/index.md)
 
 ## devices/volume_device (3)
+
 - [GetAgentsInVolume function](./API/Fortnite.com/getagentsinvolume/index.md)
 - [IsInVolume function](./API/Fortnite.com/isinvolume/index.md)
 - [volume_device class](./API/Fortnite.com/volume_device/index.md)
 
 ## devices/vote_group_device (7)
+
 - [BeginVote function](./API/Fortnite.com/beginvote/index.md)
 - [EndVote function](./API/Fortnite.com/endvote/index.md)
 - [GetMaxVotesPerPlayer function](./API/Fortnite.com/getmaxvotesperplayer/index.md)
@@ -2040,6 +2309,7 @@
 - [vote_group_device class](./API/Fortnite.com/vote_group_device/index.md)
 
 ## devices/vote_option_device (6)
+
 - [CastVote function](./API/Fortnite.com/castvote/index.md)
 - [GetOptionDescription function](./API/Fortnite.com/getoptiondescription/index.md)
 - [GetVoteCount function](./API/Fortnite.com/getvotecount/index.md)
@@ -2048,6 +2318,7 @@
 - [vote_option_device class](./API/Fortnite.com/vote_option_device/index.md)
 
 ## devices/vote_option_interface (6)
+
 - [CastVote function](./API/Fortnite.com/castvote/index.md)
 - [GetOptionDescription function](./API/Fortnite.com/getoptiondescription/index.md)
 - [GetVoteCount function](./API/Fortnite.com/getvotecount/index.md)
@@ -2056,6 +2327,7 @@
 - [vote_option_interface interface](./API/Fortnite.com/vote_option_interface/index.md)
 
 ## devices/water_device (8)
+
 - [BeginVerticalEmptying function](./API/Fortnite.com/beginverticalemptying/index.md)
 - [BeginVerticalFilling function](./API/Fortnite.com/beginverticalfilling/index.md)
 - [Disable function](./API/Fortnite.com/disable/index.md)
@@ -2066,6 +2338,7 @@
 - [water_device class](./API/Fortnite.com/water_device/index.md)
 
 ## devices/wildlife_spawner_device (20)
+
 - [ConsumeEnergy function](./API/Fortnite.com/consumeenergy/index.md)
 - [ConsumeEnergyForAll function](./API/Fortnite.com/consumeenergyforall/index.md)
 - [Despawn function](./API/Fortnite.com/despawn/index.md)
@@ -2088,6 +2361,7 @@
 - [wildlife_spawner_device class](./API/Fortnite.com/wildlife_spawner_device/index.md)
 
 ## devices/wilds_plant_device (7)
+
 - [Disable function](./API/Fortnite.com/disable/index.md)
 - [Enable function](./API/Fortnite.com/enable/index.md)
 - [Explode function](./API/Fortnite.com/explode/index.md)
@@ -2097,71 +2371,91 @@
 - [wilds_plant_device class](./API/Fortnite.com/wilds_plant_device/index.md)
 
 ## fortplayerutilities (1)
+
 - [FortPlayerUtilities module](./API/Fortnite.com/fortplayerutilities/index.md)
 
 ## fortplayerutilities/getplayersspectating (1)
+
 - [(InPlayer:player).GetPlayersSpectating extension](./API/Fortnite.com/getplayersspectating/index.md)
 
 ## fortplayerutilities/getspectatedagent (1)
+
 - [(InAgent:agent).GetSpectatedAgent extension](./API/Fortnite.com/getspectatedagent/index.md)
 
 ## fortplayerutilities/getspectators (1)
+
 - [(InAgent:agent).GetSpectators extension](./API/Fortnite.com/getspectators/index.md)
 
 ## fortplayerutilities/isspectator (1)
+
 - [(InAgent:agent).IsSpectator extension](./API/Fortnite.com/isspectator/index.md)
 
 ## fortplayerutilities/respawn (1)
+
 - [(InAgent:agent).Respawn extension](./API/Fortnite.com/respawn/index.md)
 
 ## fortplayerutilities/sendtolobby (1)
+
 - [(InPlayer:player).SendToLobby extension](./API/Fortnite.com/sendtolobby/index.md)
 
 ## game (1)
+
 - [Game module](./API/Fortnite.com/game/index.md)
 
 ## game/damage_args (1)
+
 - [damage_args struct](./API/Fortnite.com/damage_args/index.md)
 
 ## game/damage_result (1)
+
 - [damage_result struct](./API/Fortnite.com/damage_result/index.md)
 
 ## game/damageable (4)
+
 - [Damage function](./API/Fortnite.com/damage/index.md)
 - [Damage function](./API/Fortnite.com/damage-1/index.md)
 - [DamagedEvent function](./API/Fortnite.com/damagedevent/index.md)
 - [damageable interface](./API/Fortnite.com/damageable/index.md)
 
 ## game/elimination_result (1)
+
 - [elimination_result struct](./API/Fortnite.com/elimination_result/index.md)
 
 ## game/fort_round_manager (3)
+
 - [SubscribeRoundEnded function](./API/Fortnite.com/subscriberoundended/index.md)
 - [SubscribeRoundStarted function](./API/Fortnite.com/subscriberoundstarted/index.md)
 - [fort_round_manager interface](./API/Fortnite.com/fort_round_manager/index.md)
 
 ## game/game_action_causer (1)
+
 - [game_action_causer interface](./API/Fortnite.com/game_action_causer/index.md)
 
 ## game/game_action_instigator (1)
+
 - [game_action_instigator interface](./API/Fortnite.com/game_action_instigator/index.md)
 
 ## game/getfortroundmanager (1)
+
 - [(InEntity:entity).GetFortRoundManager extension](./API/Fortnite.com/getfortroundmanager/index.md)
 
 ## game/healable (4)
+
 - [Heal function](./API/Fortnite.com/heal-1/index.md)
 - [Heal function](./API/Fortnite.com/heal/index.md)
 - [HealedEvent function](./API/Fortnite.com/healedevent/index.md)
 - [healable interface](./API/Fortnite.com/healable/index.md)
 
 ## game/healing_args (1)
+
 - [healing_args struct](./API/Fortnite.com/healing_args/index.md)
 
 ## game/healing_result (1)
+
 - [healing_result struct](./API/Fortnite.com/healing_result/index.md)
 
 ## game/healthful (5)
+
 - [GetHealth function](./API/Fortnite.com/gethealth/index.md)
 - [GetMaxHealth function](./API/Fortnite.com/getmaxhealth/index.md)
 - [SetHealth function](./API/Fortnite.com/sethealth/index.md)
@@ -2169,10 +2463,12 @@
 - [healthful interface](./API/Fortnite.com/healthful/index.md)
 
 ## game/positional (2)
+
 - [GetTransform function](./API/Fortnite.com/gettransform/index.md)
 - [positional interface](./API/Fortnite.com/positional/index.md)
 
 ## game/shieldable (7)
+
 - [DamagedShieldEvent function](./API/Fortnite.com/damagedshieldevent/index.md)
 - [GetMaxShield function](./API/Fortnite.com/getmaxshield/index.md)
 - [GetShield function](./API/Fortnite.com/getshield/index.md)
@@ -2182,15 +2478,19 @@
 - [shieldable interface](./API/Fortnite.com/shieldable/index.md)
 
 ## input (1)
+
 - [Input module](./API/Fortnite.com/input/index.md)
 
 ## input/character (1)
+
 - [Character module](./API/Fortnite.com/character/index.md)
 
 ## itemization (1)
+
 - [Itemization module](./API/Fortnite.com/itemization/index.md)
 
 ## itemization/absolutedoomitems (22)
+
 - [AbsoluteDoomItems module](./API/Fortnite.com/absolutedoomitems/index.md)
 - [item_chainsaw class](./API/Fortnite.com/item_chainsaw/index.md)
 - [item_dual_micro_smgs_common class](./API/Fortnite.com/item_dual_micro_smgs_common/index.md)
@@ -2215,6 +2515,7 @@
 - [item_modular_striker_burst_rifle_uncommon class](./API/Fortnite.com/item_modular_striker_burst_rifle_uncommon/index.md)
 
 ## itemization/ballisticitems (26)
+
 - [BallisticItems module](./API/Fortnite.com/ballisticitems/index.md)
 - [item_bubble_shield class](./API/Fortnite.com/item_bubble_shield/index.md)
 - [item_burst_ar_common class](./API/Fortnite.com/item_burst_ar_common/index.md)
@@ -2243,6 +2544,7 @@
 - [item_veiled_precision_smg_common class](./API/Fortnite.com/item_veiled_precision_smg_common/index.md)
 
 ## itemization/ch1s1items (7)
+
 - [CH1S1Items module](./API/Fortnite.com/ch1s1items/index.md)
 - [item_bush class](./API/Fortnite.com/item_bush/index.md)
 - [item_pumpkin_launcher_epic class](./API/Fortnite.com/item_pumpkin_launcher_epic/index.md)
@@ -2252,6 +2554,7 @@
 - [item_smoke_grenade class](./API/Fortnite.com/item_smoke_grenade/index.md)
 
 ## itemization/ch1s2items (10)
+
 - [CH1S2Items module](./API/Fortnite.com/ch1s2items/index.md)
 - [item_boogie_bomb class](./API/Fortnite.com/item_boogie_bomb/index.md)
 - [item_cozy_campfire class](./API/Fortnite.com/item_cozy_campfire/index.md)
@@ -2264,6 +2567,7 @@
 - [item_minigun_legendary class](./API/Fortnite.com/item_minigun_legendary/index.md)
 
 ## itemization/ch1s3items (13)
+
 - [CH1S3Items module](./API/Fortnite.com/ch1s3items/index.md)
 - [item_clinger class](./API/Fortnite.com/item_clinger/index.md)
 - [item_egg_launcher_epic class](./API/Fortnite.com/item_egg_launcher_epic/index.md)
@@ -2279,6 +2583,7 @@
 - [item_remote_explosives class](./API/Fortnite.com/item_remote_explosives/index.md)
 
 ## itemization/ch1s4items (13)
+
 - [CH1S4Items module](./API/Fortnite.com/ch1s4items/index.md)
 - [item_apple class](./API/Fortnite.com/item_apple/index.md)
 - [item_burst_assault_rifle_epic class](./API/Fortnite.com/item_burst_assault_rifle_epic/index.md)
@@ -2294,6 +2599,7 @@
 - [item_thermal_scoped_assault_rifle_legendary class](./API/Fortnite.com/item_thermal_scoped_assault_rifle_legendary/index.md)
 
 ## itemization/ch1s5items (16)
+
 - [CH1S5Items module](./API/Fortnite.com/ch1s5items/index.md)
 - [item_compact_smg_epic class](./API/Fortnite.com/item_compact_smg_epic/index.md)
 - [item_compact_smg_legendary class](./API/Fortnite.com/item_compact_smg_legendary/index.md)
@@ -2312,6 +2618,7 @@
 - [item_suppressed_assault_rifle_legendary class](./API/Fortnite.com/item_suppressed_assault_rifle_legendary/index.md)
 
 ## itemization/ch1s6items (14)
+
 - [CH1S6Items module](./API/Fortnite.com/ch1s6items/index.md)
 - [item_balloons class](./API/Fortnite.com/item_balloons/index.md)
 - [item_dynamite class](./API/Fortnite.com/item_dynamite/index.md)
@@ -2328,6 +2635,7 @@
 - [item_six_shooter_uncommon class](./API/Fortnite.com/item_six_shooter_uncommon/index.md)
 
 ## itemization/ch1s7items (16)
+
 - [CH1S7Items module](./API/Fortnite.com/ch1s7items/index.md)
 - [item_boom_box class](./API/Fortnite.com/item_boom_box/index.md)
 - [item_bottle_rockets class](./API/Fortnite.com/item_bottle_rockets/index.md)
@@ -2346,6 +2654,7 @@
 - [item_suppressed_sniper_rifle_legendary class](./API/Fortnite.com/item_suppressed_sniper_rifle_legendary/index.md)
 
 ## itemization/ch1s8items (14)
+
 - [CH1S8Items module](./API/Fortnite.com/ch1s8items/index.md)
 - [item_banana class](./API/Fortnite.com/item_banana/index.md)
 - [item_boom_bow_legendary class](./API/Fortnite.com/item_boom_bow_legendary/index.md)
@@ -2362,6 +2671,7 @@
 - [item_shadow_bomb class](./API/Fortnite.com/item_shadow_bomb/index.md)
 
 ## itemization/ch1s9items (23)
+
 - [CH1S9Items module](./API/Fortnite.com/ch1s9items/index.md)
 - [item_air_strike class](./API/Fortnite.com/item_air_strike/index.md)
 - [item_burst_smg_common class](./API/Fortnite.com/item_burst_smg_common/index.md)
@@ -2387,6 +2697,7 @@
 - [item_tactical_assault_rifle_rare class](./API/Fortnite.com/item_tactical_assault_rifle_rare/index.md)
 
 ## itemization/ch1sxitems (13)
+
 - [CH1SXItems module](./API/Fortnite.com/ch1sxitems/index.md)
 - [item_automatic_sniper_rifle_epic class](./API/Fortnite.com/item_automatic_sniper_rifle_epic/index.md)
 - [item_automatic_sniper_rifle_legendary class](./API/Fortnite.com/item_automatic_sniper_rifle_legendary/index.md)
@@ -2402,6 +2713,7 @@
 - [item_torch class](./API/Fortnite.com/item_torch/index.md)
 
 ## itemization/ch2s1items (12)
+
 - [CH2S1Items module](./API/Fortnite.com/ch2s1items/index.md)
 - [item_bandage_bazooka class](./API/Fortnite.com/item_bandage_bazooka/index.md)
 - [item_flopper class](./API/Fortnite.com/item_flopper/index.md)
@@ -2416,6 +2728,7 @@
 - [item_small_fry class](./API/Fortnite.com/item_small_fry/index.md)
 
 ## itemization/ch2s2items (26)
+
 - [CH2S2Items module](./API/Fortnite.com/ch2s2items/index.md)
 - [item_authority_keycard class](./API/Fortnite.com/item_authority_keycard/index.md)
 - [item_brutus_minigun_mythic class](./API/Fortnite.com/item_brutus_minigun_mythic/index.md)
@@ -2444,6 +2757,7 @@
 - [item_suppressed_sniper_rifle_rare class](./API/Fortnite.com/item_suppressed_sniper_rifle_rare/index.md)
 
 ## itemization/ch2s3items (21)
+
 - [CH2S3Items module](./API/Fortnite.com/ch2s3items/index.md)
 - [item_cabbage class](./API/Fortnite.com/item_cabbage/index.md)
 - [item_catty_corner_keycard class](./API/Fortnite.com/item_catty_corner_keycard/index.md)
@@ -2467,6 +2781,7 @@
 - [item_oceans_burst_assault_rifle_mythic class](./API/Fortnite.com/item_oceans_burst_assault_rifle_mythic/index.md)
 
 ## itemization/ch2s4items (15)
+
 - [CH2S4Items module](./API/Fortnite.com/ch2s4items/index.md)
 - [item_candy_corn class](./API/Fortnite.com/item_candy_corn/index.md)
 - [item_fire_trap class](./API/Fortnite.com/item_fire_trap/index.md)
@@ -2484,6 +2799,7 @@
 - [item_vendetta_flopper class](./API/Fortnite.com/item_vendetta_flopper/index.md)
 
 ## itemization/ch2s5items (26)
+
 - [CH2S5Items module](./API/Fortnite.com/ch2s5items/index.md)
 - [item_boom_sniper_rifle_exotic class](./API/Fortnite.com/item_boom_sniper_rifle_exotic/index.md)
 - [item_burst_quad_launcher_exotic class](./API/Fortnite.com/item_burst_quad_launcher_exotic/index.md)
@@ -2512,6 +2828,7 @@
 - [item_zero_point_fish class](./API/Fortnite.com/item_zero_point_fish/index.md)
 
 ## itemization/ch4s1items (47)
+
 - [CH4S1Items module](./API/Fortnite.com/ch4s1items/index.md)
 - [item_big_bush_bomb class](./API/Fortnite.com/item_big_bush_bomb/index.md)
 - [item_ex_caliber_rifle_common class](./API/Fortnite.com/item_ex_caliber_rifle_common/index.md)
@@ -2561,6 +2878,7 @@
 - [item_twin_mag_smg_uncommon class](./API/Fortnite.com/item_twin_mag_smg_uncommon/index.md)
 
 ## itemization/ch6ms2items (10)
+
 - [CH6MS2Items module](./API/Fortnite.com/ch6ms2items/index.md)
 - [item_compact_smg_rare class](./API/Fortnite.com/item_compact_smg_rare/index.md)
 - [item_compact_smg_uncommon class](./API/Fortnite.com/item_compact_smg_uncommon/index.md)
@@ -2573,6 +2891,7 @@
 - [item_tactical_shotgun_legendary class](./API/Fortnite.com/item_tactical_shotgun_legendary/index.md)
 
 ## itemization/ch7s1items (51)
+
 - [CH7S1Items module](./API/Fortnite.com/ch7s1items/index.md)
 - [item_arc_lightning_gun_epic class](./API/Fortnite.com/item_arc_lightning_gun_epic/index.md)
 - [item_arc_lightning_gun_legendary class](./API/Fortnite.com/item_arc_lightning_gun_legendary/index.md)
@@ -2626,6 +2945,7 @@
 - [item_yule_troopers_holo_rush_smg_mythic class](./API/Fortnite.com/item_yule_troopers_holo_rush_smg_mythic/index.md)
 
 ## itemization/creativeitems (97)
+
 - [CreativeItems module](./API/Fortnite.com/creativeitems/index.md)
 - [item_acorn class](./API/Fortnite.com/item_acorn/index.md)
 - [item_active_powercell class](./API/Fortnite.com/item_active_powercell/index.md)
@@ -2725,6 +3045,7 @@
 - [item_yellow_mushroom class](./API/Fortnite.com/item_yellow_mushroom/index.md)
 
 ## itemization/cubeditems (43)
+
 - [CubedItems module](./API/Fortnite.com/cubeditems/index.md)
 - [item_armored_wall class](./API/Fortnite.com/item_armored_wall/index.md)
 - [item_chili_chug_splash class](./API/Fortnite.com/item_chili_chug_splash/index.md)
@@ -2770,6 +3091,7 @@
 - [item_zero_point_pretzel class](./API/Fortnite.com/item_zero_point_pretzel/index.md)
 
 ## itemization/flippeditems (67)
+
 - [FlippedItems module](./API/Fortnite.com/flippeditems/index.md)
 - [item_auto_shotgun_common class](./API/Fortnite.com/item_auto_shotgun_common/index.md)
 - [item_auto_shotgun_epic class](./API/Fortnite.com/item_auto_shotgun_epic/index.md)
@@ -2839,41 +3161,53 @@
 - [item_the_foundations_mk_seven_assault_rifle_mythic class](./API/Fortnite.com/item_the_foundations_mk_seven_assault_rifle_mythic/index.md)
 
 ## itemization/fort_inventory_ammo_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_ammo_component/index.md)
 
 ## itemization/fort_inventory_build_hotbar_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_build_hotbar_component/index.md)
 
 ## itemization/fort_inventory_collectibles_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_collectibles_component/index.md)
 
 ## itemization/fort_inventory_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_component/index.md)
 
 ## itemization/fort_inventory_currencies_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_currencies_component/index.md)
 
 ## itemization/fort_inventory_harvest_tool_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_harvest_tool_component/index.md)
 
 ## itemization/fort_inventory_resources_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_resources_component/index.md)
 
 ## itemization/fort_inventory_trap_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_trap_component/index.md)
 
 ## itemization/fort_inventory_weapon_hotbar_component (1)
+
 - [Fortnite Documentation](./API/Fortnite.com/fort_inventory_weapon_hotbar_component/index.md)
 
 ## itemization/fort_item_pickup_component (3)
+
 - [OnBeginSimulation function](./API/Fortnite.com/onbeginsimulation/index.md)
 - [OnEndSimulation function](./API/Fortnite.com/onendsimulation/index.md)
 - [fort_item_pickup_component class](./API/Fortnite.com/fort_item_pickup_component/index.md)
 
 ## itemization/fortniteitemcategories (1)
+
 - [FortniteItemCategories module](./API/Fortnite.com/fortniteitemcategories/index.md)
 
 ## itemization/fortniteogitems (79)
+
 - [FortniteOGItems module](./API/Fortnite.com/fortniteogitems/index.md)
 - [item_assault_rifle_common_1 class](./API/Fortnite.com/item_assault_rifle_common_1/index.md)
 - [item_assault_rifle_common_2 class](./API/Fortnite.com/item_assault_rifle_common_2/index.md)
@@ -2955,6 +3289,7 @@
 - [item_zapotron_legendary class](./API/Fortnite.com/item_zapotron_legendary/index.md)
 
 ## itemization/huntersitems (53)
+
 - [HuntersItems module](./API/Fortnite.com/huntersitems/index.md)
 - [item_blizzard_grenade class](./API/Fortnite.com/item_blizzard_grenade/index.md)
 - [item_enhanced_fury_assault_rifle_mythic class](./API/Fortnite.com/item_enhanced_fury_assault_rifle_mythic/index.md)
@@ -3010,6 +3345,7 @@
 - [item_void_oni_mask class](./API/Fortnite.com/item_void_oni_mask/index.md)
 
 ## itemization/invasionitems (17)
+
 - [InvasionItems module](./API/Fortnite.com/invasionitems/index.md)
 - [item_alien_nanites class](./API/Fortnite.com/item_alien_nanites/index.md)
 - [item_burst_pulse_rifle_exotic class](./API/Fortnite.com/item_burst_pulse_rifle_exotic/index.md)
@@ -3029,6 +3365,7 @@
 - [item_zyg_and_choppys_ray_gun_mythic class](./API/Fortnite.com/item_zyg_and_choppys_ray_gun_mythic/index.md)
 
 ## itemization/lastresortitems (43)
+
 - [LastResortItems module](./API/Fortnite.com/lastresortitems/index.md)
 - [item_business_turret class](./API/Fortnite.com/item_business_turret/index.md)
 - [item_crash_pad_jr class](./API/Fortnite.com/item_crash_pad_jr/index.md)
@@ -3074,6 +3411,7 @@
 - [item_wood_stake_shotgun_rare class](./API/Fortnite.com/item_wood_stake_shotgun_rare/index.md)
 
 ## itemization/lawlessitems (51)
+
 - [LawlessItems module](./API/Fortnite.com/lawlessitems/index.md)
 - [item_barons_double_down_pistol_mythic class](./API/Fortnite.com/item_barons_double_down_pistol_mythic/index.md)
 - [item_chug_jug class](./API/Fortnite.com/item_chug_jug/index.md)
@@ -3127,6 +3465,7 @@
 - [item_thermite class](./API/Fortnite.com/item_thermite/index.md)
 
 ## itemization/megaitems (29)
+
 - [MEGAItems module](./API/Fortnite.com/megaitems/index.md)
 - [item_combat_shotgun_common class](./API/Fortnite.com/item_combat_shotgun_common/index.md)
 - [item_enhanced_havoc_shotgun_mythic class](./API/Fortnite.com/item_enhanced_havoc_shotgun_mythic/index.md)
@@ -3158,6 +3497,7 @@
 - [item_submachine_gun_legendary class](./API/Fortnite.com/item_submachine_gun_legendary/index.md)
 
 ## itemization/mythsandmortalsitems (41)
+
 - [MythsAndMortalsItems module](./API/Fortnite.com/mythsandmortalsitems/index.md)
 - [item_ares_modular_warforged_assault_rifle_mythic class](./API/Fortnite.com/item_ares_modular_warforged_assault_rifle_mythic/index.md)
 - [item_banana_of_the_gods class](./API/Fortnite.com/item_banana_of_the_gods/index.md)
@@ -3201,6 +3541,7 @@
 - [item_wings_of_icarus class](./API/Fortnite.com/item_wings_of_icarus/index.md)
 
 ## itemization/paradiseitems (28)
+
 - [ParadiseItems module](./API/Fortnite.com/paradiseitems/index.md)
 - [item_birthday_presents class](./API/Fortnite.com/item_birthday_presents/index.md)
 - [item_cobra_dmr_common class](./API/Fortnite.com/item_cobra_dmr_common/index.md)
@@ -3231,6 +3572,7 @@
 - [item_rapid_fire_smg_mythic class](./API/Fortnite.com/item_rapid_fire_smg_mythic/index.md)
 
 ## itemization/preseasonitems (21)
+
 - [PreSeasonItems module](./API/Fortnite.com/preseasonitems/index.md)
 - [item_ammo_heavy_bullets class](./API/Fortnite.com/item_ammo_heavy_bullets/index.md)
 - [item_ammo_light_bullets class](./API/Fortnite.com/item_ammo_light_bullets/index.md)
@@ -3254,6 +3596,7 @@
 - [item_wood class](./API/Fortnite.com/item_wood/index.md)
 
 ## itemization/primalitems (67)
+
 - [PrimalItems module](./API/Fortnite.com/primalitems/index.md)
 - [item_ammo_arrows class](./API/Fortnite.com/item_ammo_arrows/index.md)
 - [item_animal_bones class](./API/Fortnite.com/item_animal_bones/index.md)
@@ -3323,6 +3666,7 @@
 - [item_vehicle_mod_off_road_tires class](./API/Fortnite.com/item_vehicle_mod_off_road_tires/index.md)
 
 ## itemization/rebellionitems (30)
+
 - [RebellionItems module](./API/Fortnite.com/rebellionitems/index.md)
 - [item_anvil_rocket_launcher_epic class](./API/Fortnite.com/item_anvil_rocket_launcher_epic/index.md)
 - [item_anvil_rocket_launcher_legendary class](./API/Fortnite.com/item_anvil_rocket_launcher_legendary/index.md)
@@ -3355,6 +3699,7 @@
 - [item_vehicle_mod_cow_catcher class](./API/Fortnite.com/item_vehicle_mod_cow_catcher/index.md)
 
 ## itemization/shocknawesomeitems (43)
+
 - [ShockNAwesomeItems module](./API/Fortnite.com/shocknawesomeitems/index.md)
 - [item_bug_blaster_epic class](./API/Fortnite.com/item_bug_blaster_epic/index.md)
 - [item_bug_blaster_legendary class](./API/Fortnite.com/item_bug_blaster_legendary/index.md)
@@ -3400,6 +3745,7 @@
 - [item_wrecker_revolver_uncommon class](./API/Fortnite.com/item_wrecker_revolver_uncommon/index.md)
 
 ## itemization/superitems (37)
+
 - [SuperItems module](./API/Fortnite.com/superitems/index.md)
 - [item_ascended_myst_legendary class](./API/Fortnite.com/item_ascended_myst_legendary/index.md)
 - [item_bass_boost_epic class](./API/Fortnite.com/item_bass_boost_epic/index.md)
@@ -3439,6 +3785,7 @@
 - [item_unstable_yoink_shotgun_exotic class](./API/Fortnite.com/item_unstable_yoink_shotgun_exotic/index.md)
 
 ## itemization/undergrounditems (58)
+
 - [UndergroundItems module](./API/Fortnite.com/undergrounditems/index.md)
 - [item_ballistic_shield_epic class](./API/Fortnite.com/item_ballistic_shield_epic/index.md)
 - [item_bandage class](./API/Fortnite.com/item_bandage/index.md)
@@ -3499,6 +3846,7 @@
 - [item_valerias_modular_hyper_smg_mythic class](./API/Fortnite.com/item_valerias_modular_hyper_smg_mythic/index.md)
 
 ## itemization/vibinitems (40)
+
 - [VibinItems module](./API/Fortnite.com/vibinitems/index.md)
 - [item_charge_smg_common class](./API/Fortnite.com/item_charge_smg_common/index.md)
 - [item_charge_smg_epic class](./API/Fortnite.com/item_charge_smg_epic/index.md)
@@ -3541,6 +3889,7 @@
 - [item_two_shot_shotgun_uncommon class](./API/Fortnite.com/item_two_shot_shotgun_uncommon/index.md)
 
 ## itemization/wildsitems (35)
+
 - [WildsItems module](./API/Fortnite.com/wildsitems/index.md)
 - [item_cloak_gauntlets class](./API/Fortnite.com/item_cloak_gauntlets/index.md)
 - [item_enhanced_drum_shotgun_mythic class](./API/Fortnite.com/item_enhanced_drum_shotgun_mythic/index.md)
@@ -3578,6 +3927,7 @@
 - [item_wildwasp_jar class](./API/Fortnite.com/item_wildwasp_jar/index.md)
 
 ## itemization/wreckeditems (26)
+
 - [WreckedItems module](./API/Fortnite.com/wreckeditems/index.md)
 - [item_heavy_impact_sniper_rifle_epic class](./API/Fortnite.com/item_heavy_impact_sniper_rifle_epic/index.md)
 - [item_heavy_impact_sniper_rifle_legendary class](./API/Fortnite.com/item_heavy_impact_sniper_rifle_legendary/index.md)
@@ -3606,46 +3956,60 @@
 - [item_tow_hook_cannon_rare class](./API/Fortnite.com/item_tow_hook_cannon_rare/index.md)
 
 ## marketplace (1)
+
 - [Marketplace module](./API/Fortnite.com/marketplace/index.md)
 
 ## marketplace/bundle_offer (1)
+
 - [bundle_offer class](./API/Fortnite.com/bundle_offer/index.md)
 
 ## marketplace/buyoffer (1)
+
 - [BuyOffer function](./API/Fortnite.com/buyoffer/index.md)
 
 ## marketplace/consumeentitlement (1)
+
 - [ConsumeEntitlement function](./API/Fortnite.com/consumeentitlement/index.md)
 
 ## marketplace/entitlement (1)
+
 - [entitlement class](./API/Fortnite.com/entitlement/index.md)
 
 ## marketplace/entitlement_change (1)
+
 - [entitlement_change function](./API/Fortnite.com/entitlement_change/index.md)
 
 ## marketplace/entitlement_offer (1)
+
 - [entitlement_offer class](./API/Fortnite.com/entitlement_offer/index.md)
 
 ## marketplace/getentitlementschangedevent (1)
+
 - [GetEntitlementsChangedEvent function](./API/Fortnite.com/getentitlementschangedevent/index.md)
 
 ## marketplace/getpricevbucks (1)
+
 - [GetPriceVBucks function](./API/Fortnite.com/getpricevbucks/index.md)
 
 ## marketplace/getpurchasedentitlements (1)
+
 - [GetPurchasedEntitlements function](./API/Fortnite.com/getpurchasedentitlements/index.md)
 
 ## marketplace/grantentitlement (1)
+
 - [GrantEntitlement function](./API/Fortnite.com/grantentitlement/index.md)
 
 ## marketplace/makepricevbucks (1)
+
 - [MakePriceVBucks function](./API/Fortnite.com/makepricevbucks/index.md)
 
 ## marketplace/offer (2)
+
 - [GetMinPurchaseAge function](./API/Fortnite.com/getminpurchaseage/index.md)
 - [offer class](./API/Fortnite.com/offer/index.md)
 
 ## marketplace/offer_interactable_component (5)
+
 - [CanInteract function](./API/Fortnite.com/caninteract/index.md)
 - [InteractMessage function](./API/Fortnite.com/interactmessage/index.md)
 - [OnBeginSimulation function](./API/Fortnite.com/onbeginsimulation/index.md)
@@ -3653,24 +4017,31 @@
 - [offer_interactable_component class](./API/Fortnite.com/offer_interactable_component/index.md)
 
 ## marketplace/price_dimension (1)
+
 - [price_dimension class](./API/Fortnite.com/price_dimension/index.md)
 
 ## marketplace/price_vbucks (1)
+
 - [price_vbucks class](./API/Fortnite.com/price_vbucks/index.md)
 
 ## marketplace/restrictdirectpromptstopurchase (1)
+
 - [RestrictDirectPromptsToPurchase function](./API/Fortnite.com/restrictdirectpromptstopurchase/index.md)
 
 ## marketplace/restrictpaidrandomitems (1)
+
 - [RestrictPaidRandomItems function](./API/Fortnite.com/restrictpaidrandomitems/index.md)
 
 ## marketplace/showoffersdialog (1)
+
 - [ShowOffersDialog function](./API/Fortnite.com/showoffersdialog/index.md)
 
 ## playspaces (1)
+
 - [Playspaces module](./API/Fortnite.com/playspaces/index.md)
 
 ## playspaces/fort_playspace (8)
+
 - [GetParticipants function](./API/Fortnite.com/getparticipants/index.md)
 - [GetPlayers function](./API/Fortnite.com/getplayers/index.md)
 - [GetTeamCollection function](./API/Fortnite.com/getteamcollection/index.md)
@@ -3681,12 +4052,15 @@
 - [fort_playspace interface](./API/Fortnite.com/fort_playspace/index.md)
 
 ## playspaces/getplayspaceforentity (1)
+
 - [(InEntity:entity).GetPlayspaceForEntity extension](./API/Fortnite.com/getplayspaceforentity/index.md)
 
 ## teams (1)
+
 - [Teams module](./API/Fortnite.com/teams/index.md)
 
 ## teams/fort_team_collection (8)
+
 - [AddToTeam function](./API/Fortnite.com/addtoteam/index.md)
 - [GetAgents function](./API/Fortnite.com/getagents/index.md)
 - [GetTeam function](./API/Fortnite.com/getteam/index.md)
@@ -3697,99 +4071,131 @@
 - [fort_team_collection interface](./API/Fortnite.com/fort_team_collection/index.md)
 
 ## teams/team_attitude (1)
+
 - [team_attitude enumeration](./API/Fortnite.com/team_attitude/index.md)
 
 ## ui (1)
+
 - [UI module](./API/Fortnite.com/ui/index.md)
 
 ## ui/button_loud (1)
+
 - [button_loud class](./API/Fortnite.com/button_loud/index.md)
 
 ## ui/button_quiet (1)
+
 - [button_quiet class](./API/Fortnite.com/button_quiet/index.md)
 
 ## ui/button_regular (1)
+
 - [button_regular class](./API/Fortnite.com/button_regular/index.md)
 
 ## ui/creative_hud_identifier_all (1)
+
 - [creative_hud_identifier_all class](./API/Fortnite.com/creative_hud_identifier_all/index.md)
 
 ## ui/creative_hud_identifier_build_menu (1)
+
 - [creative_hud_identifier_build_menu class](./API/Fortnite.com/creative_hud_identifier_build_menu/index.md)
 
 ## ui/creative_hud_identifier_crafting_resources (1)
+
 - [creative_hud_identifier_crafting_resources class](./API/Fortnite.com/creative_hud_identifier_crafting_resources/index.md)
 
 ## ui/creative_hud_identifier_elimination_counter (1)
+
 - [creative_hud_identifier_elimination_counter class](./API/Fortnite.com/creative_hud_identifier_elimination_counter/index.md)
 
 ## ui/creative_hud_identifier_equipped_item (1)
+
 - [creative_hud_identifier_equipped_item class](./API/Fortnite.com/creative_hud_identifier_equipped_item/index.md)
 
 ## ui/creative_hud_identifier_experience_level (1)
+
 - [creative_hud_identifier_experience_level class](./API/Fortnite.com/creative_hud_identifier_experience_level/index.md)
 
 ## ui/creative_hud_identifier_experience_supercharged (1)
+
 - [creative_hud_identifier_experience_supercharged class](./API/Fortnite.com/creative_hud_identifier_experience_supercharged/index.md)
 
 ## ui/creative_hud_identifier_experience_ui (1)
+
 - [creative_hud_identifier_experience_ui class](./API/Fortnite.com/creative_hud_identifier_experience_ui/index.md)
 
 ## ui/creative_hud_identifier_health (1)
+
 - [creative_hud_identifier_health class](./API/Fortnite.com/creative_hud_identifier_health/index.md)
 
 ## ui/creative_hud_identifier_health_numbers (1)
+
 - [creative_hud_identifier_health_numbers class](./API/Fortnite.com/creative_hud_identifier_health_numbers/index.md)
 
 ## ui/creative_hud_identifier_hud_info (1)
+
 - [creative_hud_identifier_hud_info class](./API/Fortnite.com/creative_hud_identifier_hud_info/index.md)
 
 ## ui/creative_hud_identifier_interaction_prompts (1)
+
 - [creative_hud_identifier_interaction_prompts class](./API/Fortnite.com/creative_hud_identifier_interaction_prompts/index.md)
 
 ## ui/creative_hud_identifier_map_prompts (1)
+
 - [creative_hud_identifier_map_prompts class](./API/Fortnite.com/creative_hud_identifier_map_prompts/index.md)
 
 ## ui/creative_hud_identifier_mimimap (1)
+
 - [creative_hud_identifier_mimimap class](./API/Fortnite.com/creative_hud_identifier_mimimap/index.md)
 
 ## ui/creative_hud_identifier_minimap (1)
+
 - [creative_hud_identifier_minimap class](./API/Fortnite.com/creative_hud_identifier_minimap/index.md)
 
 ## ui/creative_hud_identifier_pickup_stream (1)
+
 - [creative_hud_identifier_pickup_stream class](./API/Fortnite.com/creative_hud_identifier_pickup_stream/index.md)
 
 ## ui/creative_hud_identifier_player_count (1)
+
 - [creative_hud_identifier_player_count class](./API/Fortnite.com/creative_hud_identifier_player_count/index.md)
 
 ## ui/creative_hud_identifier_player_inventory (1)
+
 - [creative_hud_identifier_player_inventory class](./API/Fortnite.com/creative_hud_identifier_player_inventory/index.md)
 
 ## ui/creative_hud_identifier_round_info (1)
+
 - [creative_hud_identifier_round_info class](./API/Fortnite.com/creative_hud_identifier_round_info/index.md)
 
 ## ui/creative_hud_identifier_round_timer (1)
+
 - [creative_hud_identifier_round_timer class](./API/Fortnite.com/creative_hud_identifier_round_timer/index.md)
 
 ## ui/creative_hud_identifier_shield_numbers (1)
+
 - [creative_hud_identifier_shield_numbers class](./API/Fortnite.com/creative_hud_identifier_shield_numbers/index.md)
 
 ## ui/creative_hud_identifier_shields (1)
+
 - [creative_hud_identifier_shields class](./API/Fortnite.com/creative_hud_identifier_shields/index.md)
 
 ## ui/creative_hud_identifier_shileds (1)
+
 - [creative_hud_identifier_shileds class](./API/Fortnite.com/creative_hud_identifier_shileds/index.md)
 
 ## ui/creative_hud_identifier_storm_notifications (1)
+
 - [creative_hud_identifier_storm_notifications class](./API/Fortnite.com/creative_hud_identifier_storm_notifications/index.md)
 
 ## ui/creative_hud_identifier_storm_timer (1)
+
 - [creative_hud_identifier_storm_timer class](./API/Fortnite.com/creative_hud_identifier_storm_timer/index.md)
 
 ## ui/creative_hud_identifier_team_info (1)
+
 - [creative_hud_identifier_team_info class](./API/Fortnite.com/creative_hud_identifier_team_info/index.md)
 
 ## ui/fort_hud_controller (7)
+
 - [HideElements function](./API/Fortnite.com/hideelements/index.md)
 - [HideElementsForPlayer function](./API/Fortnite.com/hideelementsforplayer/index.md)
 - [ResetElementVisibility function](./API/Fortnite.com/resetelementvisibility/index.md)
@@ -3799,60 +4205,79 @@
 - [fort_hud_controller interface](./API/Fortnite.com/fort_hud_controller/index.md)
 
 ## ui/gethudcontroller (1)
+
 - [(Playspace:fort_playspace).GetHUDController extension](./API/Fortnite.com/gethudcontroller/index.md)
 
 ## ui/hidehudelements (1)
+
 - [(PlayerUI:player_ui).HideHUDElements extension](./API/Fortnite.com/hidehudelements/index.md)
 
 ## ui/hud_element_identifier (1)
+
 - [hud_element_identifier class](./API/Fortnite.com/hud_element_identifier/index.md)
 
 ## ui/hud_identifier_visual_sound_effect_all (1)
+
 - [hud_identifier_visual_sound_effect_all class](./API/Fortnite.com/hud_identifier_visual_sound_effect_all/index.md)
 
 ## ui/hud_identifier_visual_sound_effect_healing (1)
+
 - [hud_identifier_visual_sound_effect_healing class](./API/Fortnite.com/hud_identifier_visual_sound_effect_healing/index.md)
 
 ## ui/hud_identifier_visual_sound_effect_loot (1)
+
 - [hud_identifier_visual_sound_effect_loot class](./API/Fortnite.com/hud_identifier_visual_sound_effect_loot/index.md)
 
 ## ui/hud_identifier_visual_sound_effect_movement (1)
+
 - [hud_identifier_visual_sound_effect_movement class](./API/Fortnite.com/hud_identifier_visual_sound_effect_movement/index.md)
 
 ## ui/hud_identifier_visual_sound_effect_vehicle (1)
+
 - [hud_identifier_visual_sound_effect_vehicle class](./API/Fortnite.com/hud_identifier_visual_sound_effect_vehicle/index.md)
 
 ## ui/hud_identifier_visual_sound_effect_weapons (1)
+
 - [hud_identifier_visual_sound_effect_weapons class](./API/Fortnite.com/hud_identifier_visual_sound_effect_weapons/index.md)
 
 ## ui/hud_identifier_world_resource_gold_currency (1)
+
 - [hud_identifier_world_resource_gold_currency class](./API/Fortnite.com/hud_identifier_world_resource_gold_currency/index.md)
 
 ## ui/hud_identifier_world_resource_ingredient (1)
+
 - [hud_identifier_world_resource_ingredient class](./API/Fortnite.com/hud_identifier_world_resource_ingredient/index.md)
 
 ## ui/hud_identifier_world_resource_metal (1)
+
 - [hud_identifier_world_resource_metal class](./API/Fortnite.com/hud_identifier_world_resource_metal/index.md)
 
 ## ui/hud_identifier_world_resource_permanite (1)
+
 - [hud_identifier_world_resource_permanite class](./API/Fortnite.com/hud_identifier_world_resource_permanite/index.md)
 
 ## ui/hud_identifier_world_resource_stone (1)
+
 - [hud_identifier_world_resource_stone class](./API/Fortnite.com/hud_identifier_world_resource_stone/index.md)
 
 ## ui/hud_identifier_world_resource_wood (1)
+
 - [hud_identifier_world_resource_wood class](./API/Fortnite.com/hud_identifier_world_resource_wood/index.md)
 
 ## ui/player_hud_identifier_all (1)
+
 - [player_hud_identifier_all class](./API/Fortnite.com/player_hud_identifier_all/index.md)
 
 ## ui/resethudelementvisibility (1)
+
 - [(PlayerUI:player_ui).ResetHUDElementVisibility extension](./API/Fortnite.com/resethudelementvisibility/index.md)
 
 ## ui/showhudelements (1)
+
 - [(PlayerUI:player_ui).ShowHUDElements extension](./API/Fortnite.com/showhudelements/index.md)
 
 ## ui/slider_regular (10)
+
 - [GetMaxValue function](./API/Fortnite.com/getmaxvalue/index.md)
 - [GetMinValue function](./API/Fortnite.com/getminvalue/index.md)
 - [GetStepSize function](./API/Fortnite.com/getstepsize/index.md)
@@ -3865,6 +4290,7 @@
 - [slider_regular class](./API/Fortnite.com/slider_regular/index.md)
 
 ## ui/text_block (7)
+
 - [GetShadowColor function](./API/Fortnite.com/getshadowcolor/index.md)
 - [GetShadowOffset function](./API/Fortnite.com/getshadowoffset/index.md)
 - [GetShadowOpacity function](./API/Fortnite.com/getshadowopacity/index.md)
@@ -3874,15 +4300,18 @@
 - [text_block class](./API/Fortnite.com/text_block/index.md)
 
 ## ui/text_button_base (4)
+
 - [GetText function](./API/Fortnite.com/gettext/index.md)
 - [OnClick function](./API/Fortnite.com/onclick/index.md)
 - [SetText function](./API/Fortnite.com/settext/index.md)
 - [text_button_base class](./API/Fortnite.com/text_button_base/index.md)
 
 ## vehicles (1)
+
 - [Vehicles module](./API/Fortnite.com/vehicles/index.md)
 
 ## vehicles/fort_vehicle (8)
+
 - [GetFuelCapacity function](./API/Fortnite.com/getfuelcapacity/index.md)
 - [GetFuelRemaining function](./API/Fortnite.com/getfuelremaining/index.md)
 - [GetPassengers function](./API/Fortnite.com/getpassengers/index.md)
@@ -3893,5 +4322,5 @@
 - [fort_vehicle interface](./API/Fortnite.com/fort_vehicle/index.md)
 
 ## vehicles/getvehicle (1)
-- [(InCharacter:fort_character).GetVehicle extension](./API/Fortnite.com/getvehicle/index.md)
 
+- [(InCharacter:fort_character).GetVehicle extension](./API/Fortnite.com/getvehicle/index.md)

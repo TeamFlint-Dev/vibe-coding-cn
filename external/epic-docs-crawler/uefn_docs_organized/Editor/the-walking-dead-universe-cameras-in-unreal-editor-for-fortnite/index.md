@@ -1,6 +1,6 @@
 # The Walking Dead Universe Cameras
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-cameras-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-cameras-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:15:26.286024
 
 ---
@@ -52,4 +52,4 @@ Learn how to add a custom user interface (UI) to fit The Walking Dead Universe a
 
 TWDU Custom HUD: Vitals and Selected Item
 
-Learn how to add custom UI showing a player's vitals and selected item to your TWDU island using a plug-and-play setup used in the Walker NPC template.](https://dev.epicgames.com/documentation/en-us/fortnite/twdu-custom-hud-vitals-and-selected-item-in-unreal-editor-for-fortnite)
+Learn how to add custom UI showing a player's vitals and selected item to your TWDU island using a plug-and-play setup used in the Walker NPC template.](<https://dev.epicgames.com/documentation/en-us/fortnite/twdu-custom-hud-vitals-and-selected-item-in-unreal-editor-for-fortnite>)

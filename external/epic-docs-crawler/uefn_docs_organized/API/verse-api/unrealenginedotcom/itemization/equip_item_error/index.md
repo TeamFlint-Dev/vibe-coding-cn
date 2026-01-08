@@ -1,6 +1,6 @@
 # equip_item_error class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/equip_item_error
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/equip_item_error>
 > **爬取时间**: 2025-12-27T01:02:57.167291
 
 ---

@@ -1,6 +1,6 @@
 # Create a Puzzle with Prefabs
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-05-create-a-puzzle-with-prefabs-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-05-create-a-puzzle-with-prefabs-in-fortnite>
 > **爬取时间**: 2025-12-27T02:38:45.553476
 
 ---

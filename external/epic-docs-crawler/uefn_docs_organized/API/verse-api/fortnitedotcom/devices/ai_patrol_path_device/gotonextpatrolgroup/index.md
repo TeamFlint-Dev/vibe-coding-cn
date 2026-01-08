@@ -1,6 +1,6 @@
 # GoToNextPatrolGroup function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/ai_patrol_path_device/gotonextpatrolgroup
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/ai_patrol_path_device/gotonextpatrolgroup>
 > **爬取时间**: 2025-12-27T05:22:23.766156
 
 ---

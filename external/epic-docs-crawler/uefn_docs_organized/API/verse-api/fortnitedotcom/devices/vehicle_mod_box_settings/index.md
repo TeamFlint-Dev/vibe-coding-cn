@@ -1,6 +1,6 @@
 # vehicle_mod_box_settings class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_mod_box_settings
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_mod_box_settings>
 > **爬取时间**: 2025-12-27T01:47:20.128252
 
 ---

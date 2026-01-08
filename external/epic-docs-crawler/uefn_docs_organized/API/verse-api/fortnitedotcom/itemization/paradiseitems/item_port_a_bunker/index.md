@@ -1,6 +1,6 @@
 # item_port_a_bunker class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/paradiseitems/item_port_a_bunker
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/paradiseitems/item_port_a_bunker>
 > **爬取时间**: 2025-12-27T03:17:54.153320
 
 ---

@@ -1,6 +1,6 @@
 # hud_identifier_world_resource_permanite class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/hud_identifier_world_resource_permanite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/hud_identifier_world_resource_permanite>
 > **爬取时间**: 2025-12-27T01:05:41.942880
 
 ---

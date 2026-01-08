@@ -1,6 +1,6 @@
 # 5. Refactor and Refine
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-05-refactor-and-refine-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-05-refactor-and-refine-in-fortnite>
 > **爬取时间**: 2025-12-27T00:29:04.981091
 
 ---
@@ -33,6 +33,7 @@ Writing readable code is a great programming practice. For example, `GetFirstPla
        GetFirstPlayer()<decides><transacts>:player=
            return GetPlayspace().GetPlayers()[0]
    ```
+
 3. Modify the `AdjustScore` method to use the new `GetFirstPlayer` method.
 
    Notice that the `GetFirstPlayer` method is called with brackets instead of parentheses because it is failable.
@@ -76,6 +77,7 @@ Writing readable code is a great programming practice. For example, `GetFirstPla
                    # Enable the BonusTimeTarget.
                    BonusTimeTarget.Enable()
    ```
+
 4. Modify the `IncreaseWeaponLevel` method to use the new `GetFirstPlayer` method.
 
    ```verse
@@ -141,6 +143,7 @@ This not only reduces duplication but also improves scalability. You can add as 
            set IsHit = false
            Target.Enable()
    ```
+
 2. Define the `bad_target_wrapper` class. You can put this above your `shooting_range_manager_device` class definition.
 
    ```verse
@@ -167,6 +170,7 @@ This not only reduces duplication but also improves scalability. You can add as 
            RangeManager.AdjustScore(Score)
            RangeManager.ResetCombo()
    ```
+
 3. Add the following array properties to your shooting range manager device.
 
    ```verse
@@ -176,6 +180,7 @@ This not only reduces duplication but also improves scalability. You can add as 
        @editable
        BadTargets:[]bad_target_wrapper = array{}
    ```
+
 4. Remove the following from your shooting range manager device. These are handled by the wrapper classes now.
 
    - GoodTarget1-3
@@ -215,6 +220,7 @@ This not only reduces duplication but also improves scalability. You can add as 
            # Disabling the BonusTimeTarget on game start.
            BonusTimeTarget.Disable()
    ```
+
 6. Modify the `CheckCombo` method to check for combo completion by looping through the Good Target array.
 
    ```verse
@@ -233,6 +239,7 @@ This not only reduces duplication but also improves scalability. You can add as 
            # If all of the good targets are hit, enable the combo target.
            ComboTarget.Enable()
    ```
+
 7. Update the `ResetCombo` method to loop through the Good Target array.
 
    ```verse
@@ -249,6 +256,7 @@ This not only reduces duplication but also improves scalability. You can add as 
            ComboTarget.PopDown()
            ComboTarget.Disable()
    ```
+
 8. Save and build your Verse code.
 
 ## Complete Code

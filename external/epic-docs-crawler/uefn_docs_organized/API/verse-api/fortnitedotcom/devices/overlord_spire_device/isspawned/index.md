@@ -1,6 +1,6 @@
 # IsSpawned function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/overlord_spire_device/isspawned
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/overlord_spire_device/isspawned>
 > **爬取时间**: 2025-12-27T06:35:00.350862
 
 ---

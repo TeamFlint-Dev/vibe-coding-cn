@@ -1,6 +1,6 @@
 # LEGO® Bloom Tycoon Levels and Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lego-bloom-tycoon-levels-and-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lego-bloom-tycoon-levels-and-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:25:12.924611
 
 ---
@@ -107,4 +107,4 @@ Learn how to set up and customize the grid system for your island.
 
 Creating a LEGO® Grid Placement System
 
-Learn to create a grid system for placing props in your LEGO Island as shown in Bloom Tycoon.](https://dev.epicgames.com/documentation/en-us/fortnite/creating-a-lego-grid-placement-system-in-unreal-editor-for-fortnite)
+Learn to create a grid system for placing props in your LEGO Island as shown in Bloom Tycoon.](<https://dev.epicgames.com/documentation/en-us/fortnite/creating-a-lego-grid-placement-system-in-unreal-editor-for-fortnite>)

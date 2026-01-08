@@ -1,6 +1,6 @@
 # AddWidget function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/canvas/addwidget
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/canvas/addwidget>
 > **爬取时间**: 2025-12-27T07:16:29.591381
 
 ---

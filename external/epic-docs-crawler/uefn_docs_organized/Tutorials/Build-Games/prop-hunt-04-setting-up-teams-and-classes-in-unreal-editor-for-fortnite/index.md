@@ -1,6 +1,6 @@
 # 4. Setting up Teams and Classes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-04-setting-up-teams-and-classes-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-04-setting-up-teams-and-classes-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:23:20.474752
 
 ---
@@ -278,6 +278,6 @@ Now that you know how `AwaitNoLongerAProp()` works, you can write the infinite l
 
 [![5. Game Loop and Round Management](https://dev.epicgames.com/community/api/documentation/image/7d0d4062-a5b2-46bb-8235-d02eaff0750e?resizing_type=fit&width=640&height=640)
 
-5. Game Loop and Round Management
+1. Game Loop and Round Management
 
-Use the Verse code in this section to add a game loop and round management system.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-05-game-loop-and-round-management-in-unreal-editor-for-fortnite)
+Use the Verse code in this section to add a game loop and round management system.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-05-game-loop-and-round-management-in-unreal-editor-for-fortnite>)

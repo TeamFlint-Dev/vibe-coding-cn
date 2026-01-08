@@ -1,6 +1,6 @@
 # 3. Set and Remove Pawns
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/3-set-and-remove-pawns
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/3-set-and-remove-pawns>
 > **爬取时间**: 2025-12-27T00:24:32.469847
 
 ---
@@ -23,15 +23,15 @@ using { /Verse.org/Simulation }
 
 DataTypes<public> := module:
 
-	...
+ ...
 
 UtilityFunctions<public> := module:
 
-	...
+ ...
 
-	AreTileCoordinatesEqual<public>(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<decides><transacts>:void =
-		LeftTileCoordinate.Left = RightTileCoordinate.Left
-		LeftTileCoordinate.Forward = RightTileCoordinate.Forward
+ AreTileCoordinatesEqual<public>(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<decides><transacts>:void =
+  LeftTileCoordinate.Left = RightTileCoordinate.Left
+  LeftTileCoordinate.Forward = RightTileCoordinate.Forward
 ```
 
 This function succeeds if and only if each component of the two input tile coordinates are equal as integers.
@@ -51,12 +51,12 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	...
+ ...
 
 GetTileCoordinate<public>(Pawn:creative_prop)<decides><transacts>:tile_coordinate =
-        	PawnWorldTransform := Pawn.GetTransform()
+         PawnWorldTransform := Pawn.GetTransform()
 PawnWorldLocation := PawnWorldTransform.Translation
-       	ToTileCoordinate[PawnWorldLocation]
+        ToTileCoordinate[PawnWorldLocation]
 ```
 
 This function succeeds if and only if the world location of the input creative prop can be converted to a tile coordinate on the game board. It also uses the function `ToTileCoordinate` previously defined to convert a world location to a board space location.
@@ -76,26 +76,26 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	...
+ ...
 
-	var<private> Pawns:[]creative_prop = array{}
+ var<private> Pawns:[]creative_prop = array{}
 
-	...
+ ...
 
-	GetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:creative_prop =
-		# Find all pawns at the input location
-		FoundPawns := for:
-			Pawn : Pawns
-			PawnTileCoordinate := GetTileCoordinate[Pawn]
-			AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
-		do:
-			Pawn
+ GetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:creative_prop =
+  # Find all pawns at the input location
+  FoundPawns := for:
+   Pawn : Pawns
+   PawnTileCoordinate := GetTileCoordinate[Pawn]
+   AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
+  do:
+   Pawn
 
-		# Ensure there is only one there
-		FoundPawns.Length = 1
-		
-		# Return the only pawn at the input location
-		FoundPawns[0]
+  # Ensure there is only one there
+  FoundPawns.Length = 1
+  
+  # Return the only pawn at the input location
+  FoundPawns[0]
 ```
 
 This function performs the following steps:
@@ -129,33 +129,33 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	@editable
-	PawnStaticMesh:mesh = Meshes.SM_Box_asset
+ @editable
+ PawnStaticMesh:mesh = Meshes.SM_Box_asset
 
-	...
+ ...
 
-	SetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
-		IsTileCoordinateOnBoard[TileCoordinate]
+ SetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
+  IsTileCoordinateOnBoard[TileCoordinate]
 
-		# Are there any pawns at the input location?
-		FoundPawns := for:
-			Pawn : Pawns
-			PawnTileCoordinate := GetTileCoordinate[Pawn]
-			AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
-		do:
-			Pawn
+  # Are there any pawns at the input location?
+  FoundPawns := for:
+   Pawn : Pawns
+   PawnTileCoordinate := GetTileCoordinate[Pawn]
+   AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
+  do:
+   Pawn
 
-		# Ensure there are no pawns there already
-		FoundPawns.Length = 0
-		
-		# Construct the pawn
-		PawnWorldLocation := ToVector3[TileCoordinate]
-		PawnSpawnResult := SpawnProp(DefaultCreativePropAsset, PawnWorldLocation, IdentityRotation())
-		PawnPropTemp := PawnSpawnResult(0)?
-		PawnPropTemp.SetMesh(PawnStaticMesh)
-		
-		# Add pawn to pawns array
-		set Pawns += array{PawnPropTemp}
+  # Ensure there are no pawns there already
+  FoundPawns.Length = 0
+  
+  # Construct the pawn
+  PawnWorldLocation := ToVector3[TileCoordinate]
+  PawnSpawnResult := SpawnProp(DefaultCreativePropAsset, PawnWorldLocation, IdentityRotation())
+  PawnPropTemp := PawnSpawnResult(0)?
+  PawnPropTemp.SetMesh(PawnStaticMesh)
+  
+  # Add pawn to pawns array
+  set Pawns += array{PawnPropTemp}
 ```
 
 This function performs the following steps:
@@ -185,24 +185,24 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	...
+ ...
 
-	RemovePawn<public>(PawnToRemove:creative_prop)<decides><transacts>:void =
-		# Props are not comparable, get all props but the one to remove
-		RemainingPawns := for:
-			Pawn : Pawns
-			PawnTileCoordinate := GetTileCoordinate[Pawn]
-			PawnToRemoveTileCoordinate := GetTileCoordinate[PawnToRemove]
-			not AreTileCoordinatesEqual[PawnTileCoordinate, PawnToRemoveTileCoordinate]
-		do:
-			Pawn
-	
-		# Ensure remaining pawns is 1 less than before
-		RemainingPawns.Length = Pawns.Length - 1
-	
-		# Update Pawns array and dispose of pawn
-		set Pawns = RemainingPawns
-		PawnToRemove.Dispose()
+ RemovePawn<public>(PawnToRemove:creative_prop)<decides><transacts>:void =
+  # Props are not comparable, get all props but the one to remove
+  RemainingPawns := for:
+   Pawn : Pawns
+   PawnTileCoordinate := GetTileCoordinate[Pawn]
+   PawnToRemoveTileCoordinate := GetTileCoordinate[PawnToRemove]
+   not AreTileCoordinatesEqual[PawnTileCoordinate, PawnToRemoveTileCoordinate]
+  do:
+   Pawn
+ 
+  # Ensure remaining pawns is 1 less than before
+  RemainingPawns.Length = Pawns.Length - 1
+ 
+  # Update Pawns array and dispose of pawn
+  set Pawns = RemainingPawns
+  PawnToRemove.Dispose()
 ```
 
 ## Summary
@@ -220,27 +220,27 @@ using { /Verse.org/Simulation }
 
 DataTypes<public> := module:
 
-	tile_coordinate<public> := class<concrete>:
-		@editable
-		Left<public>:int = 0
-		@editable
-		Forward<public>:int = 0
+ tile_coordinate<public> := class<concrete>:
+  @editable
+  Left<public>:int = 0
+  @editable
+  Forward<public>:int = 0
 
-	bounds<public> := class<concrete>:
-		@editable
-		Low<public>:int = 0
-		@editable
-		High<public>:int = 0
+ bounds<public> := class<concrete>:
+  @editable
+  Low<public>:int = 0
+  @editable
+  High<public>:int = 0
 
-	board_bounds<public> := class<concrete>:
-		@editable
-		LeftBounds<public>:bounds = bounds{}
-		@editable
-		ForwardBounds<public>:bounds = bounds{}
+ board_bounds<public> := class<concrete>:
+  @editable
+  LeftBounds<public>:bounds = bounds{}
+  @editable
+  ForwardBounds<public>:bounds = bounds{}
 
-	AreTileCoordinatesEqual<public>(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<decides><transacts>:void =
-		LeftTileCoordinate.Left = RightTileCoordinate.Left
-		LeftTileCoordinate.Right = RightTileCoordinate.Right
+ AreTileCoordinatesEqual<public>(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<decides><transacts>:void =
+  LeftTileCoordinate.Left = RightTileCoordinate.Left
+  LeftTileCoordinate.Right = RightTileCoordinate.Right
 ```
 
 ```verse
@@ -254,104 +254,104 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	@editable
-	Bounds<public>:board_bounds = board_bounds{}
+ @editable
+ Bounds<public>:board_bounds = board_bounds{}
 
-	@editable
-	TileSize<public>:vector2 = vector2{}
+ @editable
+ TileSize<public>:vector2 = vector2{}
 
-	@editable
-	PawnStaticMesh:mesh = Meshes.SM_Pawn
+ @editable
+ PawnStaticMesh:mesh = Meshes.SM_Pawn
 
-	var<private> Pawns:[]creative_prop = array{}
+ var<private> Pawns:[]creative_prop = array{}
 
-	<# Tile <--> World #>
+ <# Tile <--> World #>
 
-	# tile_coordinate within board_bounds
-	IsTileCoordinateOnBoard<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
-		Bounds.LeftBounds.Low <= TileCoordinate.Left <= Bounds.LeftBounds.High
-		Bounds.ForwardBounds.Low <= TileCoordinate.Forward <= Bounds.ForwardBounds.High
+ # tile_coordinate within board_bounds
+ IsTileCoordinateOnBoard<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
+  Bounds.LeftBounds.Low <= TileCoordinate.Left <= Bounds.LeftBounds.High
+  Bounds.ForwardBounds.Low <= TileCoordinate.Forward <= Bounds.ForwardBounds.High
 
-	# tile_coordinate -> vector3
+ # tile_coordinate -> vector3
 ToVector3<public>(TileLocation:tile_coordinate)<decides><transacts>:vector3 =
 IsTileCoordinateOnBoard[TileLocation]
-		BoardTransform:transform = GetTransform()
-		CenterOfBoard:vector3 = BoardTransform.Translation
-		TileOffsetFromCenter:vector3 = vector3:
-			X := (TileLocation.Forward * TileSize.X)
-			Y := (-TileLocation.Left * TileSize.Y)
-			Z := 0.0
-		CenterOfBoard + TileOffsetFromCenter
+  BoardTransform:transform = GetTransform()
+  CenterOfBoard:vector3 = BoardTransform.Translation
+  TileOffsetFromCenter:vector3 = vector3:
+   X := (TileLocation.Forward * TileSize.X)
+   Y := (-TileLocation.Left * TileSize.Y)
+   Z := 0.0
+  CenterOfBoard + TileOffsetFromCenter
 
-	# vector3 -> tile_coordinate
-	ToTileCoordinate<public>(WorldLocation:vector3)<decides><transacts>:tile_coordinate =
-		BoardTransform:transform = GetTransform()
-		CenterOfBoard:vector3 = BoardTransform.Translation
-		ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
-		LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
-			Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
-			Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
-		IsTileCoordinateOnBoard[LocationAsTileCoordinate]
-		LocationAsTileCoordinate
+ # vector3 -> tile_coordinate
+ ToTileCoordinate<public>(WorldLocation:vector3)<decides><transacts>:tile_coordinate =
+  BoardTransform:transform = GetTransform()
+  CenterOfBoard:vector3 = BoardTransform.Translation
+  ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
+  LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
+   Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
+   Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
+  IsTileCoordinateOnBoard[LocationAsTileCoordinate]
+  LocationAsTileCoordinate
 
-	<# Pawns #>
+ <# Pawns #>
 
-	GetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:creative_prop =
-		# Find all pawns at the input location
-		FoundPawns := for:
-			Pawn : Pawns
-			PawnWorldTransform := Pawn.GetTransform()
-			PawnWorldLocation := PawnWorldTransform.Translation
-			PawnTileCoordinate := ToTileCoordinate[PawnWorldLocation]
-			AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
-		do:
-			Pawn
+ GetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:creative_prop =
+  # Find all pawns at the input location
+  FoundPawns := for:
+   Pawn : Pawns
+   PawnWorldTransform := Pawn.GetTransform()
+   PawnWorldLocation := PawnWorldTransform.Translation
+   PawnTileCoordinate := ToTileCoordinate[PawnWorldLocation]
+   AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
+  do:
+   Pawn
 
-		# Ensure there is only one there
-		FoundPawns.Length = 1
-		
-		# Return the only pawn at the input location
-		FoundPawns[0]
+  # Ensure there is only one there
+  FoundPawns.Length = 1
+  
+  # Return the only pawn at the input location
+  FoundPawns[0]
 
-	SetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
-		# Are there any pawns at the input location?
-		FoundPawns := for:
-			Pawn : Pawns
-			PawnWorldTransform := Pawn.GetTransform()
-			PawnWorldLocation := PawnWorldTransform.Translation
-			PawnTileCoordinate := ToTileCoordinate[PawnWorldLocation]
-			AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
-		do:
-			Pawn
+ SetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
+  # Are there any pawns at the input location?
+  FoundPawns := for:
+   Pawn : Pawns
+   PawnWorldTransform := Pawn.GetTransform()
+   PawnWorldLocation := PawnWorldTransform.Translation
+   PawnTileCoordinate := ToTileCoordinate[PawnWorldLocation]
+   AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
+  do:
+   Pawn
 
-		# Ensure there are no pawns there already
-		FoundPawns.Length = 0
-		
-		# Construct the pawn
-		PawnMesh := PawnStaticMesh?
-		PawnWorldLocation := ToVector3[TileCoordinate]
-		PawnSpawnResult := SpawnProp(DefaultCreativePropAsset, PawnWorldLocation, IdentityRotation())
-		PawnPropTemp := PawnSpawnResult(0)?
+  # Ensure there are no pawns there already
+  FoundPawns.Length = 0
+  
+  # Construct the pawn
+  PawnMesh := PawnStaticMesh?
+  PawnWorldLocation := ToVector3[TileCoordinate]
+  PawnSpawnResult := SpawnProp(DefaultCreativePropAsset, PawnWorldLocation, IdentityRotation())
+  PawnPropTemp := PawnSpawnResult(0)?
 PawnMesh := PawnStaticMesh?
-		PawnPropTemp.SetMesh(PawnMesh)
-		
-		# Add pawn to pawns array
-		set Pawns += array{PawnPropTemp}
+  PawnPropTemp.SetMesh(PawnMesh)
+  
+  # Add pawn to pawns array
+  set Pawns += array{PawnPropTemp}
 
-	RemovePawn<public>(PawnToRemove:creative_prop)<decides><transacts>:void =
-		# Props are not comparable, get all props but the one to remove
-		RemainingPawns := for:
-			Pawn : Pawns
-			PawnTileCoordinate := GetTileCoordinate[Pawn]
-			PawnToRemoveTileCoordinate := GetTileCoordinate[PawnToRemove]
-			not AreTileCoordinatesEqual[PawnTileCoordinate, PawnToRemoveTileCoordinate]
-		do:
-			Pawn
-	
-		# Ensure remaining pawns is 1 less than before
-		RemainingPawns.Length = Pawns.Length - 1
-	
-		# Update Pawns array and dispose of pawn
-		set Pawns = RemainingPawns
-		PawnToRemove.Dispose()
+ RemovePawn<public>(PawnToRemove:creative_prop)<decides><transacts>:void =
+  # Props are not comparable, get all props but the one to remove
+  RemainingPawns := for:
+   Pawn : Pawns
+   PawnTileCoordinate := GetTileCoordinate[Pawn]
+   PawnToRemoveTileCoordinate := GetTileCoordinate[PawnToRemove]
+   not AreTileCoordinatesEqual[PawnTileCoordinate, PawnToRemoveTileCoordinate]
+  do:
+   Pawn
+ 
+  # Ensure remaining pawns is 1 less than before
+  RemainingPawns.Length = Pawns.Length - 1
+ 
+  # Update Pawns array and dispose of pawn
+  set Pawns = RemainingPawns
+  PawnToRemove.Dispose()
 ```

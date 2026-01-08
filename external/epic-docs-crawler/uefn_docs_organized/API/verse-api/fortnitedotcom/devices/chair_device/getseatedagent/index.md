@@ -1,6 +1,6 @@
 # GetSeatedAgent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/chair_device/getseatedagent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/chair_device/getseatedagent>
 > **爬取时间**: 2025-12-27T06:50:05.542787
 
 ---

@@ -1,6 +1,6 @@
 # Make a Physics Puzzle Dungeon
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/make-a-physics-puzzle-dungeon-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/make-a-physics-puzzle-dungeon-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:59:43.536291
 
 ---
@@ -45,6 +45,7 @@ Follow this tutorial to build a puzzle room that uses the new experimental Physi
       | **Max Players** | 1 | This tutorial is designed for a single player. |
       | **Teams** | Team Index: 1 | You want to set this to a Team Index so you can set up the Player Spawner correctly. |
       | **Team Size** | 1 | Since this is single-player, the team will only have one player. |
+
    3. Click the arrow to expand **Player**, then expand **Equipment**.
    4. Change the following settings as shown in the image and the table below.
 
@@ -63,7 +64,7 @@ First you need to build the room itself.
 
 **Building Set Used**: Underworld
 
-To find this set, 
+To find this set,
 open the **Fortnite** folder in your project, and go to **Props > Underworld**. In this folder you'll find building pieces and props that you can use to build the puzzle room.
 
 [![Find the Underworld Assets](https://dev.epicgames.com/community/api/documentation/image/be50e2c4-1ce4-4d13-bb19-cc5ee5236da4?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/be50e2c4-1ce4-4d13-bb19-cc5ee5236da4?resizing_type=fit)
@@ -72,7 +73,7 @@ Find the Underworld Assets
 
 Alternatively, you could launch a Fortnite session, and in Edit Mode open the **Creative Content Browser** by pressing **M** and then clicking the **Content** tab. Type "underworld" in the search bar. This will display the **Underworld Wall & Roof Gallery**, the **Underworld Floor & Stair Gallery**, the **Underworld Prop Gallery**, the **Underworld Nature Gallery**, and the **Styx Water Gallery**. You can select building pieces and props from the **Underworld Wall & Roof Gallery** and the **Underworld Floor & Stair Gallery**, and props from the **Underworld Prop Gallery**.
 
-Use the UEFN Content Browser or the Creative method, whichever feels easier to you. 
+Use the UEFN Content Browser or the Creative method, whichever feels easier to you.
 Refer to the diagrams below to see how the example was built.
 
 | Side View | Top Down View |
@@ -132,6 +133,7 @@ Next you will add the physics-enabled props for the puzzle room.
    | **Mass** | 75.0 |
    | **Enable Gravity** | True (check the box) |
    | **Start Awake** | True (check the box) |
+
 9. In the Outliner, select the cube. Right-click and select **Edit > Rename**. Name this "Cube 1".
 10. Once you have the first cube set up, copy the first cube and paste to create a second cube.
 11. Follow steps 4 - 8 to make the second cube a physics-enabled object.
@@ -187,7 +189,7 @@ While this tutorial instructs you to set specific values in the Transform settin
 When you have the first cube's platform built, you can add a Prop Mover device to move the platform.
 
 1. In the Content Browser, select the **Fortnite > Devices** folder. In the search bar, type "prop".
-2. Drag the Prop Mover device into your level. 
+2. Drag the Prop Mover device into your level.
    You want to place the device so it penetrates the platform you want to move.
 
    [![Prop Mover intersecting with cube with directional arrow](https://dev.epicgames.com/community/api/documentation/image/4c807e69-5d4b-462c-a2c8-0080f34f7dcd?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/4c807e69-5d4b-462c-a2c8-0080f34f7dcd?resizing_type=fit)
@@ -206,6 +208,7 @@ When you have the first cube's platform built, you can add a Prop Mover device t
    | **Distance** | 20.0 |
    | **Speed** | 5.0 |
    | **Should Move From Start** | False (uncheck box) |
+
 4. Expand the **Advanced Options** section. Adjust the following options. Any option not listed can be left at the default value.
 
    [![Cube 1 Prop Mover Advanced Options](https://dev.epicgames.com/community/api/documentation/image/fa4a2189-4ec2-420a-aadd-f55bdb4c2b6e?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fa4a2189-4ec2-420a-aadd-f55bdb4c2b6e?resizing_type=fit)
@@ -220,6 +223,7 @@ When you have the first cube's platform built, you can add a Prop Mover device t
    | **Player Damage on Collision** | 0.0 |
    | **On Prop Collision Behavior** | Continue |
    | **Prop Damage on Collision** | 0.0 |
+
 5. In the Outliner, select the Prop Mover. Right-click and select **Edit > Rename**. Name this "Cube 1 Prop Mover".
 
 ### Connect the Switch Device to the Prop Mover
@@ -326,7 +330,7 @@ For this example, you will copy the physics cube and rescale it to be taller and
 3. In the Details panel, select the StaticMeshComponent. In the **Transform** section, locate the **Scale** settings. Change the depth to .25, and the height to 10. Leave the width the same.
 
    The material you used for the cubes will be stretched and distorted with these dimensions, so you might want to change it to a different material.
-4. This prop already has the FortPhysics component, but it needs different settings than the cubes. 
+4. This prop already has the FortPhysics component, but it needs different settings than the cubes.
    Select the FortPhysics component on the bridge, then adjust the following settings.
 
    [![Bridge Physics User Options](https://dev.epicgames.com/community/api/documentation/image/eac0c7a2-0aa3-41a8-89e5-db0e818703cc?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/eac0c7a2-0aa3-41a8-89e5-db0e818703cc?resizing_type=fit)
@@ -369,6 +373,7 @@ Follow these steps to add and configure a Prop Mover that moves the pillar.
    | **Speed** | 1.0 |
    | **Should Move From Start** | False (uncheck the box) |
    | **Allow Reverse Past Start** | False (uncheck the box) |
+
 6. Expand the **Advanced Options** section. Adjust the following options.
 
    [![Pillar Prop Mover Advanced Options](https://dev.epicgames.com/community/api/documentation/image/02e2c43e-ae09-44ca-b5c1-c0ea7b87bc08?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/02e2c43e-ae09-44ca-b5c1-c0ea7b87bc08?resizing_type=fit)
@@ -384,6 +389,7 @@ Follow these steps to add and configure a Prop Mover that moves the pillar.
    | **Player Damage on Collision** | 0.0 |
    | **On Prop Collision Behavior** | Continue |
    | **Prop Damage on Collision** | 0.0 |
+
 7. In the Details panel, expand the **User Options - Functions** section.
 
    [![Pillar Prop Mover Functions](https://dev.epicgames.com/community/api/documentation/image/a18b8414-df9c-461a-96be-1babef22d5f7?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a18b8414-df9c-461a-96be-1babef22d5f7?resizing_type=fit)

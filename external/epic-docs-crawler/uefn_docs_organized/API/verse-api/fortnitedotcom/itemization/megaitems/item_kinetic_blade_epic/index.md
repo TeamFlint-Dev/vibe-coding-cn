@@ -1,6 +1,6 @@
 # item_kinetic_blade_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/megaitems/item_kinetic_blade_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/megaitems/item_kinetic_blade_epic>
 > **爬取时间**: 2025-12-27T04:39:34.772545
 
 ---

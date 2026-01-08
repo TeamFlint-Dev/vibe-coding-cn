@@ -1,6 +1,6 @@
 # widget_visibility enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget_visibility
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget_visibility>
 > **爬取时间**: 2025-12-27T07:09:07.901069
 
 ---

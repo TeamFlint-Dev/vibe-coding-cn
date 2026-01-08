@@ -1,6 +1,6 @@
 # Timed Objective Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-timed-objective-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-timed-objective-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:35:54.470177
 
 ---
@@ -141,6 +141,7 @@ One of the most useful functions of the Timed Objective is using it to send sign
    | Time From Start | Off | The Prop Movers will not automatically activate after an amount of time has elapsed from the start of the round. |
    | On Prop Collision Behavior | Continue | Any contact with other props that the doors make while moving will be ignored. |
    | Prop Damage On Collision | None | Props impacted by the doors will not take damage. |
+
 3. Place a **Timed Objective** device anywhere on the island. Customize it to the following settings:
 
    [![Door Timed Objective Settings](https://dev.epicgames.com/community/api/documentation/image/335cf03a-d9cf-4485-ac07-9b78a51d1336?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/335cf03a-d9cf-4485-ac07-9b78a51d1336?resizing_type=fit)
@@ -149,6 +150,7 @@ One of the most useful functions of the Timed Objective is using it to send sign
    | --- | --- | --- |
    | Timer Label Text | Doors Open In... | This HUD message is shown during the timer countdown. |
    | Urgency Mode Start Time | 3 | The countdown sounds become more noticeable with 3 seconds left. |
+
 4. Set the direct event bindings of the Timed Objective to the following:
 
    [![Door Timed Objective Events](https://dev.epicgames.com/community/api/documentation/image/a974185f-864b-4845-9b69-44666ee9b5f8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a974185f-864b-4845-9b69-44666ee9b5f8?resizing_type=fit)
@@ -191,6 +193,7 @@ Another form of gameplay you can explore is creating switches that will start an
    | Turn Off Text | Deactivated Counter! | This text is shown when the device is in the off state. |
    | Device Model | Antique Lever | The Switch will appear as an Antique Lever in game. |
    | Interact Time | 3 Seconds | It will take 3 seconds of interaction to change the state of the Switch. |
+
 3. Place a **Timed Objective** device anywhere on the map and customize it to the following settings:
 
    [![Switch Delay Timed Objective Settings](https://dev.epicgames.com/community/api/documentation/image/1633772e-bc2e-4575-aa82-ec8dbae1600c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1633772e-bc2e-4575-aa82-ec8dbae1600c?resizing_type=fit)
@@ -200,6 +203,7 @@ Another form of gameplay you can explore is creating switches that will start an
    | Time | 15 Seconds | The timer will take 15 seconds to complete. |
    | Timer Label Text | Team A wins in... | The HUD will display this text during the timer countdown. |
    | Timer Sound Distance | Whole Map | The timer can be heard throughout the entire map regardless of player proximity. |
+
 4. Place an **End Game Device** anywhere on the island. Customize it to the following settings:
 
    [![Switch Delay End Game Device](https://dev.epicgames.com/community/api/documentation/image/2ab7ea34-71da-4ce2-9386-d78841b97194?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2ab7ea34-71da-4ce2-9386-d78841b97194?resizing_type=fit)
@@ -207,6 +211,7 @@ Another form of gameplay you can explore is creating switches that will start an
    | Option | Value | Description |
    | --- | --- | --- |
    | Custom Victory Callout | Team A wins via timeout! | If the timer concludes, then Team A is the victor and this message will be shown. |
+
 5. Set the direct event bindings of the Switch to the following:
 
    [![Switch Delay Switch Events](https://dev.epicgames.com/community/api/documentation/image/aee79acb-e86a-4ed9-a069-db9ee58ed2ba?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/aee79acb-e86a-4ed9-a069-db9ee58ed2ba?resizing_type=fit)
@@ -215,6 +220,7 @@ Another form of gameplay you can explore is creating switches that will start an
    | --- | --- | --- | --- |
    | On Turned On Send Event To | TimedObjective | Start | When the Switch is turned on, the Timed Objective will start. |
    | On Turned Off Send Event To | TimedObjective | Stop | When the Switch is turned off, the Timed Objective will stop. |
+
 6. Set the direct event bindings of the Timed Objective to the following:
 
    [![Switch Delay Timed Objective Events](https://dev.epicgames.com/community/api/documentation/image/c47dc329-2b0a-4f7e-ba85-89a553278442?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c47dc329-2b0a-4f7e-ba85-89a553278442?resizing_type=fit)

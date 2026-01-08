@@ -1,6 +1,6 @@
 # item_jelly_bean class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_jelly_bean
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_jelly_bean>
 > **爬取时间**: 2025-12-27T04:04:36.898360
 
 ---

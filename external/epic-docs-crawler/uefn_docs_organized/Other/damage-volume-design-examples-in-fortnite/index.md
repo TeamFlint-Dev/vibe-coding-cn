@@ -1,6 +1,6 @@
 # Damage Volume Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/damage-volume-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/damage-volume-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:05:53.552223
 
 ---
@@ -30,6 +30,7 @@ This simple parkour gameplay uses a Damage Volume device to eliminate any player
    | Distance | 10.0 Meters | The platform will not move very far and the jumps will be reasonable for the player. |
    | On Player Collision Behavior | Continue | If the player collides with the edge of a platform, it will continue moving instead of stopping. |
    | Path Complete Action | Ping Pong | After the platform finishes its path, it will go in the opposite direction back to the starting position. |
+
 3. Place a **Damage Volume** device under the play area and customize it:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/13ee16d0-0917-4143-b10a-d085a8a2a64d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/13ee16d0-0917-4143-b10a-d085a8a2a64d?resizing_type=fit)
@@ -116,6 +117,7 @@ This simple **floor-is-lava** game mode uses a Damage Volume device that players
    | Damage | 5 | Every time the Damage Volume ticks, it will deal any players inside 5 damage. |
    | Damage Tick Rate | 1 Second | The Damage Volume will deal damage every second. |
    | Invert Team Selection | On | The Damage Volume will damage all players except for players on the team that is currently registered to the device |
+
 3. Place two **Player Spawners,** one for each team oneither side of the play area, and customize each to a specific team:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/43a82aa3-84de-4089-a36b-14703c6de2e1?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/43a82aa3-84de-4089-a36b-14703c6de2e1?resizing_type=fit)
@@ -123,6 +125,7 @@ This simple **floor-is-lava** game mode uses a Damage Volume device that players
    | Setting | Value | Explanation |
    | --- | --- | --- |
    | Player Team | Team 1/2 | Players from only this team will spawn in this building. |
+
 4. Place a **Timer** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/49614b6d-b466-4ef0-a818-9b4cc475b599?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/49614b6d-b466-4ef0-a818-9b4cc475b599?resizing_type=fit)
@@ -134,6 +137,7 @@ This simple **floor-is-lava** game mode uses a Damage Volume device that players
    | Completion Behavior | Reset | After the Timer completes, it will reset to its initial state, allowing it to be started again. |
    | Timer Color | White | The Timer will appear white in game. |
    | Display Time In | Seconds Only | The Timer will only show the number of seconds until it is completed. |
+
 5. Bind the following event:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/a8a8f96e-92e2-4ae5-b5c8-f1791813b8a7?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a8a8f96e-92e2-4ae5-b5c8-f1791813b8a7?resizing_type=fit)
@@ -141,6 +145,7 @@ This simple **floor-is-lava** game mode uses a Damage Volume device that players
    | Event | Device | Function | Explanation |
    | --- | --- | --- | --- |
    | On Success | Damage Volume | Disable | When the Timer completes, it will disable the Damage Volume. |
+
 6. Place a **Button** device in a neutral place in the play area and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/21b00343-8ecc-4beb-85a3-ac5da45e6214?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/21b00343-8ecc-4beb-85a3-ac5da45e6214?resizing_type=fit)
@@ -149,6 +154,7 @@ This simple **floor-is-lava** game mode uses a Damage Volume device that players
    | --- | --- | --- |
    | Reset Delay | 15.0 Seconds | The Button cannot be pressed for 15 seconds after it has been pressed. |
    | Interaction Text | Enable Damage | The Button will display text saying “Enable Damage” when the player hovers over it. |
+
 7. Bind the following events:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/65419d44-b91e-47c9-af57-deed71288904?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/65419d44-b91e-47c9-af57-deed71288904?resizing_type=fit)

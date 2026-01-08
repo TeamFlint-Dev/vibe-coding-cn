@@ -1,6 +1,6 @@
 # Item Spawner
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/item-spawner
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/item-spawner>
 > **爬取时间**: 2025-12-27T02:06:45.553185
 
 ---

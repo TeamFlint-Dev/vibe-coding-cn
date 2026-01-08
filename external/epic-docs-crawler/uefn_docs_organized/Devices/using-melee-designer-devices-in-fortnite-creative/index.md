@@ -1,6 +1,6 @@
 # Melee Designer Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-melee-designer-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-melee-designer-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:38:26.652009
 
 ---
@@ -232,6 +232,7 @@ There are a few variables that you can change to create a unique melee experienc
    | Charge Attack: Knockback | 1,500 | A player or an AI will be knocked back 1,500 units when hit with a charge attack. |
    | Jump Attack: Knockback | 1,500 | A player or an AI will be knocked back 1,500 units when hit with a jump attack. |
    | Sprint Attack: Knockback | 1,500 | A player or an AI will be knocked back 1,500 units when hit with a sprint attack. |
+
 3. Place an **Item Granter** beside the Melee Designer. Interact with the Melee Designer, click **Spawn Weapon**, and pick up the hammer. Press **Tab** to open your inventory, then drag and drop the spawned hammer onto the Item Granter to register it. Customize the Item Granter to the following settings:
 
    [![Knockback Item Granter Settings](https://dev.epicgames.com/community/api/documentation/image/2d76f7fb-6528-4e57-aa0b-8afa11a83d63?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2d76f7fb-6528-4e57-aa0b-8afa11a83d63?resizing_type=fit)
@@ -239,6 +240,7 @@ There are a few variables that you can change to create a unique melee experienc
    | Option | Value | Description |
    | --- | --- | --- |
    | Equip Granted Item | First Item | The hammer will be automatically equipped when it is granted. |
+
 4. Surround your arena with **Damage Volumes**. Use a length, height, and width that will create a cage around the arena, so being knocked out of it will cause contact with the volumes. Customize them to the following settings:
 
    [![Knockback Damage Volume Settings](https://dev.epicgames.com/community/api/documentation/image/d225b97c-355f-488f-9f09-c391488eb817?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d225b97c-355f-488f-9f09-c391488eb817?resizing_type=fit)
@@ -246,6 +248,7 @@ There are a few variables that you can change to create a unique melee experienc
    | Option | Value | Description |
    | --- | --- | --- |
    | Damage Type | Elimination | Touching the Damage Volume device will cause instant elimination of both players and AI characters. |
+
 5. Place a **Player Spawner** on the raised arena. Keep the default settings and set its direct event bindings to the following:
 
    [![Knockback Player Spawner Events](https://dev.epicgames.com/community/api/documentation/image/d149a950-2177-4421-951b-94dad21f5f22?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d149a950-2177-4421-951b-94dad21f5f22?resizing_type=fit)
@@ -253,6 +256,7 @@ There are a few variables that you can change to create a unique melee experienc
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Player Spawned Send Event To | ItemGranter | Grant Item | When the player spawns, they will be granted the hammer. |
+
 6. Beside the Melee Designer and Item Granter, place a **Creature Manager**. Customize it to the following settings:
 
    [![Knockback Creature Manager Settings](https://dev.epicgames.com/community/api/documentation/image/b29429f3-7da4-470c-925a-06cf477e3499?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b29429f3-7da4-470c-925a-06cf477e3499?resizing_type=fit)
@@ -261,6 +265,7 @@ There are a few variables that you can change to create a unique melee experienc
    | --- | --- | --- |
    | Health | 10,000 | Sets the creature health to 10,000 to make the creatures spawned functionally invincible unless knocked into the Damage Volume. |
    | Allow Weapon Knockback | Yes | Creatures are affected by the knockback of melee weapons. |
+
 7. On the raised arena with the Player Spawner, place 3 **Creature Placers**. Keep the default settings.
 
 Here’s an overview of how devices communicate in this Design Example:
@@ -295,6 +300,7 @@ Another method of mixing up the style of fighting is creating weapons that can o
    | Basic Attack: Damage - Players | 0 | M1 attacks will not deal any damage to players. |
    | Basic Attack: Damage - AI | 0 | M1 attacks will not deal any damage to AI. |
    | Sprint Attack | Disabled | Disables the ability to use the sprint attack. |
+
 3. Place an **Item Granter** beside the Melee Designer. Interact with the Melee Designer, click **Spawn Weapon**, and pick up the hammer. Press **Tab** to open your inventory, then drag and drop the spawned hammer on the Item Granter to register it. Customize the Item Granter to the following settings:
 
    [![Special Item Granter Settings](https://dev.epicgames.com/community/api/documentation/image/bbeb2e9a-6fa7-45a4-a479-1c10e4aaa6b2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/bbeb2e9a-6fa7-45a4-a479-1c10e4aaa6b2?resizing_type=fit)
@@ -302,6 +308,7 @@ Another method of mixing up the style of fighting is creating weapons that can o
    | Option | Value | Description |
    | --- | --- | --- |
    | Equip Granted Item | First Item | The hammer will be automatically equipped when it is granted. |
+
 4. Place a **Player Spawner** on the raised arena. Keep the default settings and set its direct event bindings to the following:
 
    [![Special Player Spawner Events](https://dev.epicgames.com/community/api/documentation/image/a73e885d-2069-471f-80b6-4b46229a012b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a73e885d-2069-471f-80b6-4b46229a012b?resizing_type=fit)
@@ -309,6 +316,7 @@ Another method of mixing up the style of fighting is creating weapons that can o
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Player Spawned Send Event To | ItemGranter | Grant Item | When the player spawns, they will be granted the hammer. |
+
 5. On the raised arena with the Player Spawner, place 3 **Creature Placers**. Keep the default settings.
 
 Here’s an overview of how devices communicate in this Design Example:
@@ -347,6 +355,7 @@ Another method of varying fighting involves chaining M1 attacks with escalating 
    | Attack 3: Damage Multiplier | 5x | The third attack in a combo will deal 5x damage. |
    | Attack 4: Damage Multiplier | 10x | The fourth attack in a combo will deal 10x damage. |
    | Attack 5: Damage Multiplier | 15x | The fifth attack in a combo will deal 15x damage. |
+
 3. Place an **Item Granter** beside the Melee Designer. Interact with the Melee Designer, click **Spawn Weapon**, and pick up the sword. Press **Tab** to open your inventory, then drag and drop the spawned sword on the Item Granter to register it. Customize the Item Granter to the following settings:
 
    [![Combo Item Granter Settings](https://dev.epicgames.com/community/api/documentation/image/e6bb5beb-cbca-42ef-8612-34ae8e1d6121?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e6bb5beb-cbca-42ef-8612-34ae8e1d6121?resizing_type=fit)
@@ -354,6 +363,7 @@ Another method of varying fighting involves chaining M1 attacks with escalating 
    | Option | Value | Description |
    | --- | --- | --- |
    | Equip Granted Item | First Item | The sword will be automatically equipped when it is granted. |
+
 4. Place a **Player Spawner** on the raised arena. Keep the default settings and set its direct event bindings to the following:
 
    [![Combo Player Spawner Events](https://dev.epicgames.com/community/api/documentation/image/5a8d6408-dfdb-4a2a-816b-23a7fe2c7a28?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/5a8d6408-dfdb-4a2a-816b-23a7fe2c7a28?resizing_type=fit)
@@ -361,6 +371,7 @@ Another method of varying fighting involves chaining M1 attacks with escalating 
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Player Spawned Send Event To | ItemGranter | Grant Item | When the player spawns, they will be granted the sword. |
+
 5. Beside the Melee Designer and Item Granter, place a **Creature Manager**. Customize it to the following settings:
 
    [![Combo Creature Manager Settings](https://dev.epicgames.com/community/api/documentation/image/c23489cc-102e-4832-b272-e62eb192262b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c23489cc-102e-4832-b272-e62eb192262b?resizing_type=fit)
@@ -369,6 +380,7 @@ Another method of varying fighting involves chaining M1 attacks with escalating 
    | --- | --- | --- |
    | Health | 200 | Sets the creature health to 200 to make the creatures spawned require multiple chained hits to be easily defeated. |
    | Allow Weapon Knockback | Yes | Creatures are affected by the knockback of melee weapons. |
+
 6. On the raised arena with the Player Spawner, place 3 **Creature Placers**. Keep the default settings.
 
 Here’s an overview of how devices communicate in this Design Example:

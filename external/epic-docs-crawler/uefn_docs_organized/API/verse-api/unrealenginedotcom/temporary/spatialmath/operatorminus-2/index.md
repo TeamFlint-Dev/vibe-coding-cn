@@ -1,6 +1,6 @@
 # operator'-' function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/operatorminus-2
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/operatorminus-2>
 > **爬取时间**: 2025-12-27T02:30:40.674637
 
 ---

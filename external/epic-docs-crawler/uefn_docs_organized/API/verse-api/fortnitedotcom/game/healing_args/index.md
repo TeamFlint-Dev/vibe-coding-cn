@@ -1,6 +1,6 @@
 # healing_args struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healing_args
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healing_args>
 > **爬取时间**: 2025-12-27T01:01:17.180098
 
 ---

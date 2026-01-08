@@ -1,6 +1,6 @@
 # item_shadow_flopper class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_shadow_flopper
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_shadow_flopper>
 > **爬取时间**: 2025-12-27T03:14:40.987734
 
 ---

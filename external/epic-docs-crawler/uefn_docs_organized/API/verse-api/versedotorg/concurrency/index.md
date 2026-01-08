@@ -1,6 +1,6 @@
 # Concurrency module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/concurrency
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/concurrency>
 > **爬取时间**: 2025-12-26T23:26:27.141858
 
 ---

@@ -1,6 +1,6 @@
 # ActivateMix function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/audio_mixer_device/activatemix
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/audio_mixer_device/activatemix>
 > **爬取时间**: 2025-12-27T05:34:39.953277
 
 ---

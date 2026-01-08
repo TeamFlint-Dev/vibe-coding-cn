@@ -1,6 +1,6 @@
 # SetState function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/setstate-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/setstate-1>
 > **爬取时间**: 2025-12-27T05:49:15.132472
 
 ---

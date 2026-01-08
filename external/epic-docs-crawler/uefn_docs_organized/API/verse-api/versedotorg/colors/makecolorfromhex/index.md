@@ -1,6 +1,6 @@
 # MakeColorFromHex function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/colors/makecolorfromhex
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/colors/makecolorfromhex>
 > **爬取时间**: 2025-12-27T01:18:36.398498
 
 ---
@@ -10,8 +10,11 @@ Makes an ACES 2065-1 `color` from a CSS-style sRGB `hexString`. Supported format
 - RGB
 - RRGGBB
 - RRGGBBAA
+
 - # RGB
+
 - # RRGGBB
+
 - # RRGGBBAA
 
   An invalid hex string will return `Black`.

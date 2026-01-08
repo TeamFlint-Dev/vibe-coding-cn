@@ -1,6 +1,6 @@
 # 9. Configuring the Informative Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-09-configuring-the-informative-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-09-configuring-the-informative-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:23:06.902839
 
 ---
@@ -205,6 +205,6 @@ This timer will give a time limit for the hunters to find props when the game st
 
 [![10. Customize the Gameplay](https://dev.epicgames.com/community/api/documentation/image/1eafebcc-0a6a-4e5b-b4b6-a1ce64a705c5?resizing_type=fit&width=640&height=640)
 
-10. Customize the Gameplay
+1. Customize the Gameplay
 
-Use these devices to customize the gameplay experience.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-10-customizing-the-gameplay-in-unreal-editor-for-fortnite)
+Use these devices to customize the gameplay experience.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-10-customizing-the-gameplay-in-unreal-editor-for-fortnite>)

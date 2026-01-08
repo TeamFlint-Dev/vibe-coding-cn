@@ -1,6 +1,6 @@
 # Teleporter Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-teleporter-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-teleporter-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:48:09.703599
 
 ---
@@ -128,6 +128,7 @@ A common use of the Teleporter is to move all players to a new area when changin
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Player Spawned Send Event To | PlayerReference | Register Player | When the player spawns, they will be registered to the Player Reference, allowing them to be teleported easily later on. |
+
 3. In another area, place a **Teleporter** and customize it to the following settings:
 
    [![Teleporter](https://dev.epicgames.com/community/api/documentation/image/355eacfa-7ebd-4e4d-99a0-b9abb7b1eb1b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/355eacfa-7ebd-4e4d-99a0-b9abb7b1eb1b?resizing_type=fit)
@@ -140,6 +141,7 @@ A common use of the Teleporter is to move all players to a new area when changin
    | Play Visual Effects | No | The Teleporter will not play any effects when a player teleports to it. |
    | Play Sound Effects | No | The Teleporter will not play any sounds when a player teleports to it. |
    | Conserve Momentum | No | The player loses all inertia and will drop straight down upon teleporting. |
+
 4. Set the direct event bindings of the Player Reference to the following:
 
    [![Player Reference](https://dev.epicgames.com/community/api/documentation/image/6d94d473-fab1-4094-b139-6e4197add55b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6d94d473-fab1-4094-b139-6e4197add55b?resizing_type=fit)
@@ -147,6 +149,7 @@ A common use of the Teleporter is to move all players to a new area when changin
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Activated Send Event To | Teleporter | Teleport | When the Player Reference is activated, it will teleport the referenced instigator to the Teleporter. |
+
 5. Select all three devices (Player Spawner, Player Reference, and Teleporter). Copy and paste them three additional times.
 
    Make sure to select all three devices at once to ensure that all direct event bindings will be correct in the copies.
@@ -159,6 +162,7 @@ A common use of the Teleporter is to move all players to a new area when changin
    | Start When Round Starts | Yes | The Timed Objective will begin counting down when the round starts. |
    | Timer Label Text | Players teleported in... | The players' HUDs will show this message during the countdown. |
    | Urgency Mode | Disabled | The Timed Objective will not have additional effects when the countdown is about to end. |
+
 7. Set the direct event bindings of the Timed Objective to the following:
 
    [![Timed Objective Events](https://dev.epicgames.com/community/api/documentation/image/5ff750e8-6f49-462d-b9a0-b09d12b38bf8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/5ff750e8-6f49-462d-b9a0-b09d12b38bf8?resizing_type=fit)
@@ -202,6 +206,7 @@ You can use a Teleporter to create a Fish in a Barrel minigame.
    | Option | Value | Description |
    | --- | --- | --- |
    | Visible in Game | Off | The Player Spawner will be invisible during gameplay. |
+
 3. Place a **Teleporter** on the rim of the barrel and customize it to the following settings:
 
    [![Teleporter](https://dev.epicgames.com/community/api/documentation/image/2fa6772f-081c-4605-847d-e61539590028?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2fa6772f-081c-4605-847d-e61539590028?resizing_type=fit)
@@ -212,6 +217,7 @@ You can use a Teleporter to create a Fish in a Barrel minigame.
    | Teleporter Target Group | None | The Teleporter will not be able to send players anywhere else. |
    | Conserve Momentum | No | The player loses all inertia and will drop straight down upon teleporting. |
    | Face Player In Teleporter Direction | Yes | The player will face in the same direction as this Teleporter upon arriving. |
+
 4. Place a **Random Number Generator** in an out-of-the-way location and customize it to the following settings:
 
    [![Random Number Generator](https://dev.epicgames.com/community/api/documentation/image/f5d0b470-f221-4531-b09b-93df472dbf31?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f5d0b470-f221-4531-b09b-93df472dbf31?resizing_type=fit)
@@ -222,6 +228,7 @@ You can use a Teleporter to create a Fish in a Barrel minigame.
    | Roll Time | Instant | The Random Number Generator will choose a number instantly when activated. |
    | Zone | Forward | The Random Number Generator's volume will extend out in front of the device. |
    | Length | 4 | The Random Number Generator's volume will be 4 tiles long. |
+
 5. Place a **Timed Objective** in an out-of-the-way location and customize it to the following settings:
 
    [![Timed Objective Settings](https://dev.epicgames.com/community/api/documentation/image/6bf0c60f-07b5-4b1e-8d20-40e8f84aab33?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6bf0c60f-07b5-4b1e-8d20-40e8f84aab33?resizing_type=fit)
@@ -232,6 +239,7 @@ You can use a Teleporter to create a Fish in a Barrel minigame.
    | Time | 5 Seconds | The countdown will start at 5 seconds. |
    | Timer Label Text | The attacker will be chosen in... | Everyone’s HUD will show this message during the countdown. |
    | Urgency Mode | Disabled | The Timed Objective will not have additional effects when the countdown is about to end. |
+
 6. Set the direct event bindings of the Timed Objective to the following:
 
    [![Timed Objective Events](https://dev.epicgames.com/community/api/documentation/image/244019fe-0c06-4256-a9ee-d718fb3cc22e?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/244019fe-0c06-4256-a9ee-d718fb3cc22e?resizing_type=fit)
@@ -239,6 +247,7 @@ You can use a Teleporter to create a Fish in a Barrel minigame.
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Completed Send Event To | RandomNumberGenerator | Activate | When the Timed Objective completes its countdown, it will activate the Random Number Generator, which will select a random number between 1 and 4. |
+
 7. Place an **Item Granter** in an out-of-the-way location. Drop a Legendary Red-Eye Assault Rifle while standing next to the Item Granter to register the weapon. Customize it to the following settings:
 
    [![Item Granter](https://dev.epicgames.com/community/api/documentation/image/82082e99-8f6f-435d-949f-164fba7f7d21?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/82082e99-8f6f-435d-949f-164fba7f7d21?resizing_type=fit)
@@ -246,6 +255,7 @@ You can use a Teleporter to create a Fish in a Barrel minigame.
    | Option | Value | Description |
    | --- | --- | --- |
    | Equip Granted Item | First Item | When the item is granted, it will be automatically equipped. |
+
 8. Place a **Player Reference** in the first sequencer area of the Random Number Generator. Keep the default settings. Set its direct event bindings to the following:
 
    [![Player Reference Events](https://dev.epicgames.com/community/api/documentation/image/3d480211-7f2e-4224-90d3-0349b34c8218?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/3d480211-7f2e-4224-90d3-0349b34c8218?resizing_type=fit)
@@ -254,6 +264,7 @@ You can use a Teleporter to create a Fish in a Barrel minigame.
    | --- | --- | --- | --- |
    | On Activated Send Event To | ItemGranter | Grant Item | When the Player Reference is activated, it will grant the registered player the weapon registered to the Item Granter. |
    | On Activated Send Event To | Teleporter | Teleport | When the Player Reference is activated, it will teleport the registered player to the Teleporter on the barrel's rim. |
+
 9. Copy and paste this Player Reference three times and place one in each of the remaining sequencer areas of the Random Number Generator as shown below.
 
    [![Player Reference Placement](https://dev.epicgames.com/community/api/documentation/image/ef65d0d3-cd0e-4f02-b695-b83416181792?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/ef65d0d3-cd0e-4f02-b695-b83416181792?resizing_type=fit)
@@ -299,6 +310,7 @@ You can use Teleporters to create an efficient class selection system.
    | Option | Value | Description |
    | --- | --- | --- |
    | Visible in Game | Off | The Player Spawner will be invisible during gameplay. |
+
 3. Place a **Class Designer** in an out-of-the-way location. Drop a Legendary Combat Pistol while standing next to the Class Designer to register the weapon. Customize it to the following settings:
 
    [![Class Designer](https://dev.epicgames.com/community/api/documentation/image/be1a9752-6427-4e26-88e7-5f00480f00f8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/be1a9752-6427-4e26-88e7-5f00480f00f8?resizing_type=fit)
@@ -308,6 +320,7 @@ You can use Teleporters to create an efficient class selection system.
    | Class Name | Turret | The first class will be the "Turret" class. |
    | Class Identifier | 1 | The Turret class uses Class Identifier 1. |
    | Equip Granted Item | First Item | When the loadout for the class is granted, the first item will be automatically equipped. |
+
 4. Copy and paste this Class Designer two times. Set one of the new Class Designers to Class Name "Front Line" and Class Identifier 2, and set the other to Class Name "Sharpshooter" and Class Identifier 3. Register a Legendary Red-Eye Assault Rifle for the Front Line class and a Mythic Heavy Sniper Rifle for the Sharpshooter class.
 5. Place a **Class Selector** and customize it to the following settings:
 
@@ -320,6 +333,7 @@ You can use Teleporters to create an efficient class selection system.
    | Clear Items on Switch | All Items | The player loses all items when changing classes in case they already had a weapon from another class. |
    | Volume Visible in Game | Off | The glowing area above the Class Selector will be invisible during gameplay. |
    | Visible in Game | Off | The base of the Class Selector will be invisible during gameplay. |
+
 6. Copy and paste this Class Selector two times, and set the new Class Selectors to a **Class to Switch to** of 2 and 3. Make sure all three Class Selectors are clearly named based on the class they correspond to.
 7. Place a **Teleporter** in the spawn area and customize it to the following settings:
 
@@ -330,6 +344,7 @@ You can use Teleporters to create an efficient class selection system.
    | Teleporter Group | None | The Teleporter will not be accessible from any other Teleporters. |
    | Teleporter Target Group | Group A | The Teleporter will teleport players to a Teleporter in Group A. |
    | Conserve Momentum | No | The player loses all inertia and will drop straight down upon teleporting. |
+
 8. Set the direct event bindings of the Teleporter to the following:
 
    [![Entry Teleporter Event](https://dev.epicgames.com/community/api/documentation/image/494e9d9b-316d-4bc4-8fcc-ef270df002ae?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/494e9d9b-316d-4bc4-8fcc-ef270df002ae?resizing_type=fit)
@@ -337,6 +352,7 @@ You can use Teleporters to create an efficient class selection system.
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Enter Send Event To | TurretClassSelector | Change Player to Class | When the player enters this Teleporter, they will be changed to the Turret class. |
+
 9. Place a **Teleporter** near the Mounted Turret in the turret area and customize it to the following settings:
 
    [![Exit Teleporter Settings](https://dev.epicgames.com/community/api/documentation/image/8bca583b-9744-4b86-805e-7be4a56696f3?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/8bca583b-9744-4b86-805e-7be4a56696f3?resizing_type=fit)
@@ -347,6 +363,7 @@ You can use Teleporters to create an efficient class selection system.
    | Teleporter Target Group | None | The Teleporter will not be able to send players anywhere else. |
    | Teleporter Rift Visible | No | The Teleporter will be invisible during gameplay. |
    | Face Player In Teleporter Direction | Yes | The player will face in the same direction as this Teleporter upon arriving. |
+
 10. Repeat steps 7-9 for the Front Line and Sharpshooter classes. For the Front Line class, teleport the player to the front line. For the Sharpshooter class, teleport the player to the top of the sniper tower.
 
     For additional clarity during gameplay, use billboards to label the different teleporters in the spawn area.

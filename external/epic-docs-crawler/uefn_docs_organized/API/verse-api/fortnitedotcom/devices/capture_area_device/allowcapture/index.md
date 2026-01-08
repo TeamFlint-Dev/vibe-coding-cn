@@ -1,6 +1,6 @@
 # AllowCapture function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/capture_area_device/allowcapture
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/capture_area_device/allowcapture>
 > **爬取时间**: 2025-12-27T06:59:13.753468
 
 ---

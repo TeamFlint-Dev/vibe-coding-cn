@@ -1,6 +1,6 @@
 # Shove Item for Pushing Players
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-shove-item-for-pushing-players-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-shove-item-for-pushing-players-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:13:22.256740
 
 ---
@@ -92,4 +92,4 @@ Hop into the next room to learn about Squid Game-themed throwable items.
 
 Ddakji and Flying Stone Target Practice
 
-Learn to use Squid Game throwable items to create versatile gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-ddakji-and-flying-stone-target-practice-in-unreal-editor-for-fortnite)
+Learn to use Squid Game throwable items to create versatile gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-ddakji-and-flying-stone-target-practice-in-unreal-editor-for-fortnite>)

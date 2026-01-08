@@ -31,12 +31,6 @@
 └── verse/                      # Verse 可复用代码库
 ```
 
-## 基础命令
-
-```bash
-make lint          # Markdown 校验（提交前必须运行）
-```
-
 ---
 
 ## Verse 远程编译
@@ -80,6 +74,7 @@ make lint          # Markdown 校验（提交前必须运行）
 - ❌ `uefn研究`（避免中文目录名）
 
 **原因**：
+
 1. UEFN 编译器对特殊字符（如 `-`）敏感
 2. 避免跨平台路径问题
 3. 符合 JavaScript/TypeScript 变量命名习惯
@@ -117,10 +112,12 @@ make lint          # Markdown 校验（提交前必须运行）
 ### 使用指南
 
 **在文档和 Issue 中**：优先使用显示名称以提高可读性
+
 - ✅ 推荐：**uefn基础模块研究** 项目专注于...
 - ⭕ 可以：`uefnResearch` 项目专注于...
 
 **在代码和技术场景中**：使用目录名（`id`）
+
 - ✅ `cd projects/uefnResearch`
 - ✅ `find projects/uefnResearch -name "*.md"`
 
@@ -202,9 +199,8 @@ make lint          # Markdown 校验（提交前必须运行）
 
 提交前：
 
-1. 运行 `make lint`
-2. Verse 代码运行远程编译验证
-3. 新 Skill 包含完整的 `SKILL.md`
+1. Verse 代码运行远程编译验证
+2. 新 Skill 包含完整的 `SKILL.md`
 
 ---
 
@@ -233,8 +229,7 @@ reports/task-completion/YYYY-MM/YYYYMMDD-HHMMSS-{任务简述}.md
 
 1. 为未完成工作创建 Issue
 2. **为遇到的困难/错误创建 Issue**——它们值得研究
-3. 运行质量检查（`make lint`）
-4. **必须推送到远程**：
+3. **必须推送到远程**：
 
 ```bash
 git pull --rebase

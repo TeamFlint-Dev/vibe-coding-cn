@@ -1,6 +1,6 @@
 # GetFuelRemaining function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/vehicles/fort_vehicle/getfuelremaining
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/vehicles/fort_vehicle/getfuelremaining>
 > **爬取时间**: 2025-12-27T05:04:33.281914
 
 ---

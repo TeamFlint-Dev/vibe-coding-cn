@@ -1,6 +1,6 @@
 # Sqrt function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/sqrt
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/sqrt>
 > **爬取时间**: 2025-12-27T01:24:05.145003
 
 ---

@@ -1,6 +1,6 @@
 # 3. Add Verse Script to Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-03-add-verse-script-to-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-03-add-verse-script-to-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:14:45.111549
 
 ---

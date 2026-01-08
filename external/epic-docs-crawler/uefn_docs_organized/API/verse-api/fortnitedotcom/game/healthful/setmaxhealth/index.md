@@ -1,6 +1,6 @@
 # SetMaxHealth function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healthful/setmaxhealth
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healthful/setmaxhealth>
 > **爬取时间**: 2025-12-27T02:51:56.820815
 
 ---

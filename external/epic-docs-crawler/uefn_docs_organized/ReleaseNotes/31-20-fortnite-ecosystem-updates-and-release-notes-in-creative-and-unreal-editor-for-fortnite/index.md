@@ -1,17 +1,17 @@
 # 31.20 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/31-20-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/31-20-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:36:51.766928
 
 ---
 
 The v31.20 update brings the **Village Template** in UEFN for creating cozy village experiences and adds **Control: Side Scroller** support to Fall Guys islands.
 
-## Village Template Is Now Available in UEFN!
+## Village Template Is Now Available in UEFN
 
 The Village island is now available as a template in the UEFN Project Browser. Use this template to make your own cozy village experience!
 
-## Fall Guys Islands Now Support the Control: Side Scroller Device!
+## Fall Guys Islands Now Support the Control: Side Scroller Device
 
 The **Control: Sides Scroller (Side Scroller Controls)** device is now available for Fall Guys islands. See a whole new side to the Bean as you create the side scroller Fall Guys adventure of your dreams!
 

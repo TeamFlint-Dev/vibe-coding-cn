@@ -1,6 +1,6 @@
 # (V:vector2).MakeUnitVector extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/makeunitvector
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/makeunitvector>
 > **爬取时间**: 2025-12-27T02:36:37.268995
 
 ---

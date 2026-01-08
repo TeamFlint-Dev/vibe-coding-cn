@@ -1,6 +1,6 @@
 # RemoveTemporaryMembersFromTeam function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/team_settings_and_inventory_device/removetemporarymembersfromteam
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/team_settings_and_inventory_device/removetemporarymembersfromteam>
 > **爬取时间**: 2025-12-27T05:31:05.307748
 
 ---

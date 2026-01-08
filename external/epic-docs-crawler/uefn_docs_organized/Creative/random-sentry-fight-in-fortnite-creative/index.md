@@ -1,6 +1,6 @@
 # Random Sentry Fight
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/random-sentry-fight-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/random-sentry-fight-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:27:14.442730
 
 ---
@@ -127,6 +127,7 @@ Only modify the options described below, leave the rest of the default settings 
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **When Triggered Transmit On** | **Channel 1** | The Trigger device sends a signal to the Sentry device it’s associated with after being triggered by the Random Number Generator. |
+
 4. Copy the first Trigger device and paste it into the next volume box.
 5. Edit the **When Triggered Transmit On** option to Channel 2.
 6. Repeat the last two steps three more times so there are 5 Trigger devices in 5 volume boxes, setting the new devices to **Channel 3**, **Channel 4**, and **Channel 5**.
@@ -157,6 +158,7 @@ Only modify the options described below, leave the rest of the default settings 
    | **Destroy Sentry When Receiving From** | **Channel 11** | This will destroy the sentry if they eliminate a player and a new one will spawn when the player respawns. |
    | **When Eliminated Transmit On** | **Channel 7** | Sends a signal to the Timer device after the sentry has been eliminated. |
    | **When Eliminating Player Transmit On** | **Channel 11** | If the sentry is successful in eliminating the player the sentry will send a signal. |
+
 4. Copy the easy sentry and paste two more next to the first sentry.
 5. Add higher Health and Accuracy levels and better Weapon Types to the third sentry.
 6. Assign larger points to **Score on Elimination**.
@@ -182,6 +184,7 @@ Only modify the options described below, leave the rest of the default settings 
    | **Clear Items on Switch** | **All Items** | Swaps items between the two different classes when the RNG rolls either a winning number or a losing number. |
    | **Time to Switch** | **Instant** | Make sure that the player changes class at the same time the Sentry spawns. |
    | **Change Player to Class When Receiving From** | **Channel 8** | Receives a signal from the RNG to grant the player a pistol. This is the losing class. |
+
 2. Copy and paste the Class Selector.
 3. Edit the following options on the copied Class Selector:
 
@@ -214,6 +217,7 @@ Only modify the options described below, leave the rest of the default settings 
    | **Class Identifier** | **1** | Identifies the first class as the losing class that receives the rare sidearm pistol and no shields. |
    | **Grant Items on Respawn** | **Yes** | Equips the player with a weapon on respawn. |
    | **Equip Granted Item** | **First Item** | Automatically equips the weapon granted to the player. |
+
 7. Select the Class Designer device from the Quick Bar again.
 8. Place the second Class Designer device away from the first device so the weapon you select for the second Class Designer doesn’t get added to the first device by accident.
 9. Follow the instructions above to add a **Legendary Assault Rifle** to the second Class Designer.

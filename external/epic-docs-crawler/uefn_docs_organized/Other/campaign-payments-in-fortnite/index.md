@@ -1,6 +1,6 @@
 # Campaign Payments
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/campaign-payments-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/campaign-payments-in-fortnite>
 > **爬取时间**: 2025-12-27T00:01:21.309789
 
 ---
@@ -19,7 +19,7 @@ Campaigns are billed daily. Credit cards and PayPal are supported payment method
 
 For additional information about making campaign payments see the **[Epic Games Store](https://store.epicgames.com/)** and the **[Epic Games Store End User License Agreemen](https://store.epicgames.com/eula/?lang=en-US)**t.
 
-Unless you have a [payment issue](https://dev.epicgames.com/documentation/en-us/fortnite/campaign-payments-in-fortnite#payment-issues), you will not make direct payments for your campaign. 
+Unless you have a [payment issue](https://dev.epicgames.com/documentation/en-us/fortnite/campaign-payments-in-fortnite#payment-issues), you will not make direct payments for your campaign.
 Your approved payment method will be billed automatically.
 
 [![An example of Sponsored Row receipt.](https://dev.epicgames.com/community/api/documentation/image/fcaad565-7043-429a-88b0-7f1b07aa1c7f?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fcaad565-7043-429a-88b0-7f1b07aa1c7f?resizing_type=fit)

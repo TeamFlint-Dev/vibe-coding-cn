@@ -1,6 +1,6 @@
 # item_chainsaw class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/absolutedoomitems/item_chainsaw
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/absolutedoomitems/item_chainsaw>
 > **爬取时间**: 2025-12-27T03:26:07.232957
 
 ---

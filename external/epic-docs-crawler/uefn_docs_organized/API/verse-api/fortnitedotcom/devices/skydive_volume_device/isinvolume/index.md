@@ -1,6 +1,6 @@
 # IsInVolume function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/skydive_volume_device/isinvolume
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/skydive_volume_device/isinvolume>
 > **爬取时间**: 2025-12-27T06:26:03.193301
 
 ---

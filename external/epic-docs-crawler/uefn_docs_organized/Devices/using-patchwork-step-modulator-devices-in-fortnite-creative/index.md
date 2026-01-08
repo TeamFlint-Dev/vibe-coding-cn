@@ -1,6 +1,6 @@
 # Step Modulator
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-step-modulator-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-step-modulator-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:05:42.296848
 
 ---
@@ -145,11 +145,11 @@ Patch the Step Modulator to the Page Knobs to play pages in any order you like.
 
 Drum Sequencer
 
-Use the Drum Sequencer device to make your own drum pattern, or choose from a number of presets.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-sequencer-devices-in-fortnite-creative)[![Note Sequencer](https://dev.epicgames.com/community/api/documentation/image/152a0539-36fb-4215-9631-6736999bcbe6?resizing_type=fit&width=640&height=640)
+Use the Drum Sequencer device to make your own drum pattern, or choose from a number of presets.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-sequencer-devices-in-fortnite-creative)[![Note> Sequencer](<https://dev.epicgames.com/community/api/documentation/image/152a0539-36fb-4215-9631-6736999bcbe6?resizing_type=fit&width=640&height=640>)
 
 Note Sequencer
 
-The Note Sequencer device allows you to choose the notes you want to use in your compositions.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative)
+The Note Sequencer device allows you to choose the notes you want to use in your compositions.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative>)
 
 Patch the Step Modulator to the Key Carousel to create a progression in the global mix.
 
@@ -157,7 +157,7 @@ Patch the Step Modulator to the Key Carousel to create a progression in the glob
 
 Music Manager
 
-Use this device to change the key, mode and tempo for all Patchwork devices on your island.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-music-manager-devices-in-fortnite-creative)
+Use this device to change the key, mode and tempo for all Patchwork devices on your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-music-manager-devices-in-fortnite-creative>)
 
 Patch the Step Modulator to different controls on these devices to create regular variations in their sound.
 
@@ -165,8 +165,8 @@ Patch the Step Modulator to different controls on these devices to create regula
 
 Omega Synthesizer
 
-The Omega Synthesizer device allows you to turn note inputs into audio data.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)[![Echo Effect](https://dev.epicgames.com/community/api/documentation/image/9fe53df2-535a-4aed-b983-b8b9299565f8?resizing_type=fit&width=640&height=640)
+The Omega Synthesizer device allows you to turn note inputs into audio data.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)[![Echo> Effect](<https://dev.epicgames.com/community/api/documentation/image/9fe53df2-535a-4aed-b983-b8b9299565f8?resizing_type=fit&width=640&height=640>)
 
 Echo Effect
 
-This device takes in an audio signal and sends it out again, but with a time delay, like your voice echoing in a canyon.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative)
+This device takes in an audio signal and sends it out again, but with a time delay, like your voice echoing in a canyon.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative>)

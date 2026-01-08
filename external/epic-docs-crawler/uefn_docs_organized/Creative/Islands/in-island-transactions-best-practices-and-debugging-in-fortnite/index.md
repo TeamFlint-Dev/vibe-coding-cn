@@ -1,6 +1,6 @@
 # Transaction Best Practices and Debugging
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-best-practices-and-debugging-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-best-practices-and-debugging-in-fortnite>
 > **爬取时间**: 2025-12-26T23:59:58.538119
 
 ---
@@ -123,7 +123,7 @@ Texture streaming helps with:
 
 For more information about the power of two rule and resizing textures see [Resizing Textures](https://dev.epicgames.com/documentation/en-us/fortnite/resizing-textures-in-unreal-editor-for-fortnite).
 
-For information about importing custom assets into UEFN, see [Importing Assets](https://dev.epicgames.com/documentation/en-us/fortnite/importing-assets-in-unreal-editor-for-fortnite). 
+For information about importing custom assets into UEFN, see [Importing Assets](https://dev.epicgames.com/documentation/en-us/fortnite/importing-assets-in-unreal-editor-for-fortnite).
 For information on how to expose assets such as textures in Verse, see [Exposing Assets](https://dev.epicgames.com/documentation/en-us/fortnite/exposing-assets-with-asset-reflection-to-verse-in-unreal-editor-for-fortnite).
 
 ## Testing and Debugging Your Entitlements

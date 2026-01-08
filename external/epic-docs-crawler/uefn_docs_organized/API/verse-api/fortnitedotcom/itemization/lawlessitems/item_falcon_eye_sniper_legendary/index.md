@@ -1,6 +1,6 @@
 # item_falcon_eye_sniper_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_falcon_eye_sniper_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_falcon_eye_sniper_legendary>
 > **爬取时间**: 2025-12-27T04:59:34.029973
 
 ---

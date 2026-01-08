@@ -1,6 +1,6 @@
 # ArCosh function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/arcosh
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/arcosh>
 > **爬取时间**: 2025-12-27T01:27:42.447766
 
 ---

@@ -1,6 +1,6 @@
 # Seek function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/video_player_device/seek
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/video_player_device/seek>
 > **爬取时间**: 2025-12-27T06:56:59.542759
 
 ---

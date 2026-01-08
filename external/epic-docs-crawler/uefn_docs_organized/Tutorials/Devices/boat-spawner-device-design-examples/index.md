@@ -1,6 +1,6 @@
 # Boat Spawner Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/boat-spawner-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/boat-spawner-device-design-examples>
 > **爬取时间**: 2025-12-26T23:07:27.525414
 
 ---

@@ -1,6 +1,6 @@
 # 37.40 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/37-40-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/37-40-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-26T23:15:04.451205
 
 ---
@@ -9,7 +9,7 @@ Fortnite v37.40 adds General Physics in Beta, Reckless Railways Prefabs and Gall
 
 KPop Demon Hunters has also landed in UEFN and Fortnite Creative! You can now build, publish, and share your KPop Demon Hunters islands. No publishing hold this time!
 
-## General Physics in Beta — Publish Your Islands Today!
+## General Physics in Beta — Publish Your Islands Today
 
 With the Beta release of General Physics, you can now publish your physics-enabled islands. Physics lets your players push, topple, hit, and move objects — unlocking emergent, physics-driven gameplay that feels realistic, engaging, and predictably unpredictable.
 
@@ -17,7 +17,7 @@ Publish your islands now and tag us on [@fncreate](https://x.com/FNCreate)!
 
 To learn more about using Physics in your islands, see [Getting Started with Physics](https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-physics).
 
-## KPop Demon Hunters Comes to UEFN and Fortnite Creative!
+## KPop Demon Hunters Comes to UEFN and Fortnite Creative
 
 KPop Demon Hunters has landed in UEFN and Fortnite Creative! Developers can now build, publish, and share their KPop Demon Hunters islands. No publishing hold this time!
 

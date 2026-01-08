@@ -1,6 +1,6 @@
 # item_slurp_mushroom class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_slurp_mushroom
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_slurp_mushroom>
 > **爬取时间**: 2025-12-27T05:03:07.682174
 
 ---

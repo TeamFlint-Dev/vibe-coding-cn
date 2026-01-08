@@ -1,6 +1,6 @@
 # Start function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/start-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/start-1>
 > **爬取时间**: 2025-12-27T07:01:27.685268
 
 ---

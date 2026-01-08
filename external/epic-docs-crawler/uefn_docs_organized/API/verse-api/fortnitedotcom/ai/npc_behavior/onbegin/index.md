@@ -1,6 +1,6 @@
 # OnBegin function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_behavior/onbegin
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_behavior/onbegin>
 > **爬取时间**: 2025-12-27T02:48:30.387514
 
 ---

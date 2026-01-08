@@ -1,6 +1,6 @@
 # 3. Designing the Title Screen
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-3-designing-the-title-screen-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-3-designing-the-title-screen-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:17:13.855465
 
 ---
@@ -21,6 +21,7 @@ Follow these steps to create a custom title screen:
    | **Horizontal Alignment** | Center Align Horizontally | This aligns the widget in the middle of the screen. |
    | **Vertical Alignment** | Bottom Align Vertically | This aligns the widget to the bottom of the screen. |
    | **Orientation** | Vertical | This stacks the widget's contents vertically. |
+
 6. In the Details panel of the Overlay widget, apply the following settings:
    Option
    Value
@@ -83,6 +84,6 @@ You'll add this custom widget to a HUD Message device later in [step 5](https://
 
 [![4. Creating the Game Menu](https://dev.epicgames.com/community/api/documentation/image/33f2e06c-308f-44b0-a547-3557bd6536ee?resizing_type=fit&width=640&height=640)
 
-4. Creating the Game Menu
+1. Creating the Game Menu
 
-Create a custom menu to show on the Popup Dialog device.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-4-creating-the-game-menu-in-unreal-editor-for-fortnite)
+Create a custom menu to show on the Popup Dialog device.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-4-creating-the-game-menu-in-unreal-editor-for-fortnite>)

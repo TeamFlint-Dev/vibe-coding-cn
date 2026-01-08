@@ -1,6 +1,6 @@
 # keyframed_movement_delta class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/keyframedmovement/keyframed_movement_delta
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/keyframedmovement/keyframed_movement_delta>
 > **爬取时间**: 2025-12-27T02:45:14.233022
 
 ---

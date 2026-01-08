@@ -1,6 +1,6 @@
 # item_ammo_rockets class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/preseasonitems/item_ammo_rockets
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/preseasonitems/item_ammo_rockets>
 > **爬取时间**: 2025-12-27T03:11:52.226144
 
 ---

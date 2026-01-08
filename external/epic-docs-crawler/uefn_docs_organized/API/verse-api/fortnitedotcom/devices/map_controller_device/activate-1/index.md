@@ -1,6 +1,6 @@
 # Activate function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/map_controller_device/activate-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/map_controller_device/activate-1>
 > **爬取时间**: 2025-12-27T06:21:31.501144
 
 ---

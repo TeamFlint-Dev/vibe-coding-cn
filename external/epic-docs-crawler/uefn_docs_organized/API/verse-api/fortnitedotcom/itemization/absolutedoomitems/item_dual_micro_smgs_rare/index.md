@@ -1,6 +1,6 @@
 # item_dual_micro_smgs_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/absolutedoomitems/item_dual_micro_smgs_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/absolutedoomitems/item_dual_micro_smgs_rare>
 > **爬取时间**: 2025-12-27T03:26:52.068371
 
 ---

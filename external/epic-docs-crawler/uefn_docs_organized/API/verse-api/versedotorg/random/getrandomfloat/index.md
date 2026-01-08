@@ -1,6 +1,6 @@
 # GetRandomFloat function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/random/getrandomfloat
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/random/getrandomfloat>
 > **爬取时间**: 2025-12-27T02:01:13.425525
 
 ---

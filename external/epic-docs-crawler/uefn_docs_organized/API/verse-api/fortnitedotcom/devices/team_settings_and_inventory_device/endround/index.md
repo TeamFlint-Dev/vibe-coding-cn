@@ -1,6 +1,6 @@
 # EndRound function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/team_settings_and_inventory_device/endround
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/team_settings_and_inventory_device/endround>
 > **爬取时间**: 2025-12-27T05:30:59.910150
 
 ---

@@ -1,6 +1,6 @@
 # WildsItems module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems>
 > **爬取时间**: 2025-12-27T01:12:22.458738
 
 ---

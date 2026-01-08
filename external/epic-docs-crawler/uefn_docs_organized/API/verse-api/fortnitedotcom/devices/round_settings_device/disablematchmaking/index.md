@@ -1,6 +1,6 @@
 # DisableMatchmaking function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/round_settings_device/disablematchmaking
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/round_settings_device/disablematchmaking>
 > **爬取时间**: 2025-12-27T06:23:13.622180
 
 ---

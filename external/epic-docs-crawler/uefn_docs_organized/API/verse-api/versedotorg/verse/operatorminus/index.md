@@ -1,6 +1,6 @@
 # operator'-' function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/operatorminus
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/operatorminus>
 > **爬取时间**: 2025-12-27T01:31:11.613697
 
 ---

@@ -1,6 +1,6 @@
 # Despawn function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_device/despawn
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_device/despawn>
 > **爬取时间**: 2025-12-27T06:05:05.885115
 
 ---

@@ -1,6 +1,6 @@
 # Creating Gameplay with Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creating-gameplay-with-devices-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creating-gameplay-with-devices-in-fortnite>
 > **爬取时间**: 2025-12-26T23:29:47.694490
 
 ---
@@ -13,7 +13,7 @@ A device is a set of pre-programmed game mechanics in a single package that you 
 
 The device on the left is the Down But Not Out device, and is represented by an icon. The one on the right is the Character device and has a mesh.
 
-## Out of the Box, and Then Some!
+## Out of the Box, and Then Some
 
 Devices add interactivity by detecting player actions, triggering events, managing game states, and creating simple-to-complex interactions within the island.
 
@@ -53,7 +53,7 @@ For more on how to find and modify devices in UEFN or Creative, and how to set u
 
 Getting Started with Devices
 
-Learn how to add and modify devices in Fortnite, and how to use Verse to expand device functionality!](https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-devices-in-fortnite)
+Learn how to add and modify devices in Fortnite, and how to use Verse to expand device functionality!](<https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-devices-in-fortnite>)
 
 , see **[Getting Started with Devices](https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-devices-in-fortnite)**.
 

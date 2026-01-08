@@ -1,6 +1,6 @@
 # item_sideways_rifle_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_sideways_rifle_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_sideways_rifle_mythic>
 > **爬取时间**: 2025-12-27T03:13:40.116777
 
 ---

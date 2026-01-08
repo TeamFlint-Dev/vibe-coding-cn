@@ -1,13 +1,13 @@
 # 32.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/32-00-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/32-00-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:35:19.637287
 
 ---
 
 With v32.00, the Skilled Interaction device and the Conversation device are now available! Use these devices to bring your island to life with narrative and role-playing gameplay. The new auto-localization feature for text lets you take your UEFN islands worldwide by providing a way for you to make them available in every Fortnite language. Want to learn more about using Verse to create a complex procedural building system like the one recently shown off by [Re:Imagine London](https://create.fortnite.com/news/fortnite-s-re-imagine-london-bringing-london-to-life-in-uefn?team=personal)? Check out the new **Verse - Procedural Building** feature example project to learn more!
 
-## New Skilled Interaction Device!
+## New Skilled Interaction Device
 
 Expand the ways players can interact with an environment by providing a new, skill-based interaction mechanic in Fortnite Creative and UEFN! Make your own fishing or lockpicking mini-games by using the hold and release interaction (Charge and Release) or by making a selection at the right time. To learn more, see [**Skilled Interaction Devices**](https://dev.epicgames.com/documentation/fortnite-creative/using-skilled-interaction-devices-in-fortnite-creative).
 
@@ -27,7 +27,7 @@ The device includes many customization options in Fortnite Creative for function
 
 Add these to your interactions in UEFN with View Models to create custom widgets. (Verse API support will be available in a future release.)
 
-## New Conversation Device for UEFN!
+## New Conversation Device for UEFN
 
 The [Conversation Device](https://dev.epicgames.com/documentation/en-us/uefn/conversations-in-unreal-editor-for-fortnite) lets you create dialogue trees for players to engage with NPCs in your islands, making their encounters more interactive. You can build custom conversation graphs using player choices and outcomes to enhance and drive gameplay.
 
@@ -181,7 +181,7 @@ The Infinite Reserve Ammo setting has been split into multiple settings to give 
 
 The value of Infinite Reserve Ammo prior to this update will be migrated to all of these settings except No Cooldowns. These settings are also added to the Team Settings and Inventory and Class Designer devices, and retain any of the previously set options.
 
-## Two New Device Design Examples!
+## Two New Device Design Examples
 
 Two new documentation pages have been added to the growing inventory of [Device Design Examples](https://dev.epicgames.com/documentation/fortnite-creative/device-design-examples-in-fortnite-creative) to change up you gameplay:
 

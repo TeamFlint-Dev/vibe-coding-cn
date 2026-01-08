@@ -1,6 +1,6 @@
 # Big Rig Device Design Example
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/big-rig-device-design-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/big-rig-device-design-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:05:28.137636
 
 ---
@@ -56,6 +56,7 @@ Add a goal area at the end of your path where the target button will be located.
    | **Random Starting Fuel** | Off | Player will start with half a tank of gas, as set below. |
    | **Starting Fuel** | 50 | This gives the Big Rig half a tank.. |
    | **Tire Selection** | Off-Road Tires | The most important setting for this mini-game, these tires give the Big Rig the capability of climbing over all kinds of crazy stuff! |
+
 4. Place a **Button** device at the end of the route. You'll use the default settings.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/7e6cf423-bae6-4365-9b16-41cc6bc3b66b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7e6cf423-bae6-4365-9b16-41cc6bc3b66b?resizing_type=fit)
@@ -72,6 +73,7 @@ Add a goal area at the end of your path where the target button will be located.
    | **Enable Urgency Mode** | On | Timer will enter urgency mode at the time set below. |
    | **Urgency Mode Time** | 10.0 Seconds | This sets the timers to go into urgency mode 10 seconds before time runs out. |
    | **Urgency Text** | Hurry Up! | The text message that prompts the player when urgency mode starts up! |
+
 6. Place the End Game device. Default settings are fine.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/de0ad747-661d-408e-baff-acfef3fdfd6c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/de0ad747-661d-408e-baff-acfef3fdfd6c?resizing_type=fit)

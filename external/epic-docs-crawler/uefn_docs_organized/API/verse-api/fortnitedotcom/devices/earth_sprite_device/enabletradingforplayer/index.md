@@ -1,6 +1,6 @@
 # EnableTradingForPlayer function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/earth_sprite_device/enabletradingforplayer
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/earth_sprite_device/enabletradingforplayer>
 > **爬取时间**: 2025-12-27T05:33:45.387146
 
 ---

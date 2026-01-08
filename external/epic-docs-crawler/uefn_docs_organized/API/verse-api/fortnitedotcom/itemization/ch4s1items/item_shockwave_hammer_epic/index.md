@@ -1,6 +1,6 @@
 # item_shockwave_hammer_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_shockwave_hammer_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_shockwave_hammer_epic>
 > **爬取时间**: 2025-12-27T04:35:52.114610
 
 ---

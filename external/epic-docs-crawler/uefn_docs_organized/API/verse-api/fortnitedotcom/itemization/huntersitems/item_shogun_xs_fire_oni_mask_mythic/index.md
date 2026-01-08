@@ -1,6 +1,6 @@
 # item_shogun_xs_fire_oni_mask_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_shogun_xs_fire_oni_mask_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_shogun_xs_fire_oni_mask_mythic>
 > **爬取时间**: 2025-12-27T04:09:26.728655
 
 ---

@@ -1,6 +1,6 @@
 # StopVerticalMovement function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/water_device/stopverticalmovement
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/water_device/stopverticalmovement>
 > **爬取时间**: 2025-12-27T05:40:10.789949
 
 ---

@@ -1,6 +1,6 @@
 # operator'>' function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/operatorgreater
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/operatorgreater>
 > **爬取时间**: 2025-12-27T01:23:29.709173
 
 ---

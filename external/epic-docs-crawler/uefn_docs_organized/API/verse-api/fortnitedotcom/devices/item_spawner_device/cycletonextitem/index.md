@@ -1,6 +1,6 @@
 # CycleToNextItem function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_spawner_device/cycletonextitem
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_spawner_device/cycletonextitem>
 > **爬取时间**: 2025-12-27T06:15:15.652932
 
 ---

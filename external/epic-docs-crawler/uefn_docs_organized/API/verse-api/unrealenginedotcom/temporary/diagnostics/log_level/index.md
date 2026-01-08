@@ -1,6 +1,6 @@
 # log_level enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/diagnostics/log_level
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/diagnostics/log_level>
 > **爬取时间**: 2025-12-27T07:10:11.140054
 
 ---

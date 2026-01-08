@@ -1,6 +1,6 @@
 # GetPurchasedEntitlements function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/getpurchasedentitlements
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/getpurchasedentitlements>
 > **爬取时间**: 2025-12-27T01:15:04.891069
 
 ---

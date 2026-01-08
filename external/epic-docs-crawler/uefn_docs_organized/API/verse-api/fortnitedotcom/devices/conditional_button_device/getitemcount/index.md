@@ -1,6 +1,6 @@
 # GetItemCount function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conditional_button_device/getitemcount
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conditional_button_device/getitemcount>
 > **爬取时间**: 2025-12-27T06:01:59.178501
 
 ---

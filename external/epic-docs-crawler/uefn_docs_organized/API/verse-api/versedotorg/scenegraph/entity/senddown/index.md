@@ -1,6 +1,6 @@
 # SendDown function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/entity/senddown
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/entity/senddown>
 > **爬取时间**: 2025-12-27T02:46:19.878112
 
 ---

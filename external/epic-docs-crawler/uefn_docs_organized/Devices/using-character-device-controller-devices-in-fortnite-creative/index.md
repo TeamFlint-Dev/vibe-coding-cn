@@ -1,6 +1,6 @@
 # Character Device Controller Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-character-device-controller-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-character-device-controller-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:46:32.075747
 
 ---

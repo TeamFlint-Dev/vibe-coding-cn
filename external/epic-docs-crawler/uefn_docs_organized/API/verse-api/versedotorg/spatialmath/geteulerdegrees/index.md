@@ -1,6 +1,6 @@
 # (Rotation:rotation).GetEulerDegrees extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/geteulerdegrees
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/geteulerdegrees>
 > **爬取时间**: 2025-12-27T00:44:43.261682
 
 ---

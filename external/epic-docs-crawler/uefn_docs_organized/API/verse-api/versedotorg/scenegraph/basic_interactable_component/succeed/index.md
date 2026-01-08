@@ -1,6 +1,6 @@
 # Succeed function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/basic_interactable_component/succeed
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/basic_interactable_component/succeed>
 > **爬取时间**: 2025-12-27T02:47:17.954685
 
 ---

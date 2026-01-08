@@ -1,6 +1,6 @@
 # Skilled Interaction Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/skilled-interaction-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/skilled-interaction-device-design-examples>
 > **爬取时间**: 2025-12-26T23:04:23.673758
 
 ---
@@ -30,6 +30,7 @@ Use the **Skilled Interaction** device to quickly make a more engaging interacti
    | Can Be Lit | No |
    | Can Be Extinguished | No |
    | Campfire Zone Size | 2.5 Meters |
+
 4. Place a **Skilled Interaction** device.
 5. Customize the device:
 
@@ -57,6 +58,7 @@ Use the **Skilled Interaction** device to quickly make a more engaging interacti
    | Event | Select Device | Select Function |  |
    | --- | --- | --- | --- |
    | On Success | Campfire | Light |  |
+
 2. Configure the following events on the campfire so that entering the zone will trigger the Skilled Interaction device and leaving the zone will extinguish the fire.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b33da682-be55-4b0f-85a1-0fc35127e0bb?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b33da682-be55-4b0f-85a1-0fc35127e0bb?resizing_type=fit)
@@ -104,6 +106,7 @@ You can configure the Skilled Interaction device to require multiple player succ
    | Default Vertical Water Percentage | 0.0 |
    | Vertical Filling Speed (T PM) | 8.0 |
    | Water Type | Red River Styx |
+
 6. Configure the following event on the **Player Spawner** device so that the water begins rising right when the game begins.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/48bf02f3-7ada-4f54-8e3a-5ab8d5cc332a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/48bf02f3-7ada-4f54-8e3a-5ab8d5cc332a?resizing_type=fit)
@@ -122,6 +125,7 @@ You can configure the Skilled Interaction device to require multiple player succ
    | --- | --- |
    | Enabled During Phase | None |
    | Visible in Game | Off |
+
 2. Place a **Skilled Interaction** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/80b25c8c-5b0b-460a-ac0f-18ddfe35fe13?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/80b25c8c-5b0b-460a-ac0f-18ddfe35fe13?resizing_type=fit)
@@ -140,6 +144,7 @@ You can configure the Skilled Interaction device to require multiple player succ
    | Show Failures | On |
    | Fail Counter Color | White |
    | Scrubber Color | White |
+
 3. Configure the following event on the **Skilled Interaction** device so that it will spawn a baller when the interaction is completed successfully. If the interaction fails, the **Button** will be disabled and the player will not be able to complete the challenge!
 
    [![](https://dev.epicgames.com/community/api/documentation/image/789a6cb6-73f6-460d-9220-241d1c63c7f5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/789a6cb6-73f6-460d-9220-241d1c63c7f5?resizing_type=fit)
@@ -147,6 +152,7 @@ You can configure the Skilled Interaction device to require multiple player succ
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Fail | Button | Disable |
+
 4. Place a **Button** device on the wall and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/442dc805-d394-4a70-acdb-d9d7e032c5e5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/442dc805-d394-4a70-acdb-d9d7e032c5e5?resizing_type=fit)
@@ -154,6 +160,7 @@ You can configure the Skilled Interaction device to require multiple player succ
    | Option | Value |
    | --- | --- |
    | Interaction Text | Create a Baller to Escape! |
+
 5. Configure the following event on the **Button** device so that it will start the **Skilled Interaction** when pressed.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/55219166-3792-4739-8fc4-1c2233cbb692?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/55219166-3792-4739-8fc4-1c2233cbb692?resizing_type=fit)
@@ -199,6 +206,7 @@ The Skilled Interaction device can be combined with a **Fishing Zone** and some 
    | Option | Value |
    | --- | --- |
    | Drop Items at Player Location | Alway |
+
 7. Duplicate the Item Granter and rename the duplicate to **Perfect Item Granter**. Unregister the **Flopper** and register a **Slurpfish**.
 8. Place a **Fishing Zone** device in the water and customize:
 
@@ -207,6 +215,7 @@ The Skilled Interaction device can be combined with a **Fishing Zone** and some 
    | Option | Value |
    | --- | --- |
    | Pool Type | Trigger Only |
+
 9. Place a **Skilled Interaction** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b011b8b8-d3b4-483e-be62-16c63207a2ff?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b011b8b8-d3b4-483e-be62-16c63207a2ff?resizing_type=fit)
@@ -240,6 +249,7 @@ The Skilled Interaction device can be combined with a **Fishing Zone** and some 
    | Use Animated Idle | On |
    | Interact Type | Send Event Only |
    | Interaction Text | Talk |
+
 4. Place a **HUD Message** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/819ef1ad-1a3f-4dd1-9e2a-ec3249df8a3c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/819ef1ad-1a3f-4dd1-9e2a-ec3249df8a3c?resizing_type=fit)
@@ -249,6 +259,7 @@ The Skilled Interaction device can be combined with a **Fishing Zone** and some 
    | Message Recipient | All |
    | Placement | Top Center |
    | Text Color | White |
+
 5. Place a Tracker device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/617a9f48-784d-43a7-b0ad-d171f0225c24?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/617a9f48-784d-43a7-b0ad-d171f0225c24?resizing_type=fit)
@@ -269,6 +280,7 @@ The Skilled Interaction device can be combined with a **Fishing Zone** and some 
 
    | Event | Select Device | Select Function |
    | --- | --- | --- |
+
 2. Configure the following events on the **Skilled Interaction** device so that when a fish is caught, it increments the value on the **Tracker** device and grant different fish, depending on whether the input was **Good** or **Perfect**.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/54c93d0f-2cb6-4abd-acf7-e78fe50b8051?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/54c93d0f-2cb6-4abd-acf7-e78fe50b8051?resizing_type=fit)
@@ -279,6 +291,7 @@ The Skilled Interaction device can be combined with a **Fishing Zone** and some 
    | --- | --- | --- |
    | On Good Input | Good Item Granter | Grant Item |
    | On Perfect Input | Perfect Item Granter | Grant Item |
+
 3. Configure the following events on the **Character** device so that when the player interacts with it, it will trigger both the quest and the **HUD message** that delivers the accompanying line of dialogue:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/3b7458f6-faed-44aa-8fda-07710d1a0c10?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/3b7458f6-faed-44aa-8fda-07710d1a0c10?resizing_type=fit)
@@ -286,6 +299,7 @@ The Skilled Interaction device can be combined with a **Fishing Zone** and some 
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Interacted With | Fishstick Dialogue Device | Show |
+
 4. Configure the following event on the tracker so that when the quest is completed, the lighthouse will open.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/6a6446a3-1eb9-473b-b8e8-c4c916cb1af7?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6a6446a3-1eb9-473b-b8e8-c4c916cb1af7?resizing_type=fit)

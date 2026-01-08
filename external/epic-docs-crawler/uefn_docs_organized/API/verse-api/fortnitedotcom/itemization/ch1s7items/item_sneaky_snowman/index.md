@@ -1,6 +1,6 @@
 # item_sneaky_snowman class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_sneaky_snowman
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_sneaky_snowman>
 > **爬取时间**: 2025-12-27T03:22:47.707327
 
 ---

@@ -1,6 +1,6 @@
 # Inventory Component
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/inventory-component-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/inventory-component-in-fortnite>
 > **爬取时间**: 2025-12-27T00:34:14.204605
 
 ---
@@ -32,7 +32,7 @@ Inventories can control which items are added or removed in different ways. One 
 
 The Experimental release of Custom Items and Inventories also includes another method of controlling adding, removing, and merging items. By subclassing the `inventory_rule_interface` type, new overrides can be written  for `CanAdd()` ,  `CanRemove()` , and `CanMerge()`. These rules can be added to `InventoryRuleList` using `AddRule()`. Please note, this feature is not expected to persist beyond the Experimental release.
 
-The component is listed as `inventory_component` in the component dropdown list. For more information, check out 
+The component is listed as `inventory_component` in the component dropdown list. For more information, check out
 the `inventory_component` API reference from the [Verse API](https://dev.epicgames.com/documentation/en-us/fortnite/verse-api).
 
 ## Inventories and Scene Graph
@@ -58,7 +58,7 @@ The Root Inventory is attached to the Player, and all the sub-inventories are at
 
 ## Example
 
-Adding an `inventory_component` to an entity in the Prefab Editor allows it to store items as an Inventory. 
+Adding an `inventory_component` to an entity in the Prefab Editor allows it to store items as an Inventory.
 The chest below has an `inventory_component`. It can now leverage all the functionality inside the component.
 
 [![The chest has an inventory_component on the entity.](https://dev.epicgames.com/community/api/documentation/image/e9e3d881-8fd9-4fb1-b7a3-a35f711c7a2d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e9e3d881-8fd9-4fb1-b7a3-a35f711c7a2d?resizing_type=fit)
@@ -118,7 +118,7 @@ inventory_giver_device := class(creative_device) :
                     Print("Successfully added an item to the inventory.")
 ```
 
-A common requirement of inventories is to apply rules to what items may exist inside. Below is a script for a custom `inventory_component` which overrides the component 
+A common requirement of inventories is to apply rules to what items may exist inside. Below is a script for a custom `inventory_component` which overrides the component
 method `OnReceive()`. Here it has been used to make a maximum Inventory size rule:
 
 ```verse

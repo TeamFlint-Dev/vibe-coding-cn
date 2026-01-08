@@ -1,6 +1,6 @@
 # GetItemIndex function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_granter_device/getitemindex
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_granter_device/getitemindex>
 > **爬取时间**: 2025-12-27T05:28:54.018947
 
 ---

@@ -1,6 +1,6 @@
 # Elimination Manager Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/elimination-manager-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/elimination-manager-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:04:59.188853
 
 ---
@@ -35,6 +35,7 @@ Use the Elimination Manager to control item drops when enemies are eliminated. D
    | Option | Value | Description |
    | --- | --- | --- |
    | **Creature Type** | Fiend | The Creature Spawner will only spawn fiends. |
+
 2. Place an **Elimination Manager** and drop a **Pumpkin** while standing near it to register the item.
 3. Customize it as follows:
 
@@ -43,6 +44,7 @@ Use the Elimination Manager to control item drops when enemies are eliminated. D
    | Option | Value | Description |
    | --- | --- | --- |
    | **Target Type** | All Creatures | All creatures will drop the registered item when eliminated. |
+
 4. Place an **Item Granter** and drop a **Tactical Assault Rifle** while standing near it to register the weapon. Customize it as follows:
 
    [![Basic Drops Item Granter Settings](https://dev.epicgames.com/community/api/documentation/image/60faa6a2-1221-48da-adad-c44cd9269beb?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/60faa6a2-1221-48da-adad-c44cd9269beb?resizing_type=fit)
@@ -50,6 +52,7 @@ Use the Elimination Manager to control item drops when enemies are eliminated. D
    | Option | Value | Description |
    | --- | --- | --- |
    | **Equip Granted Item** | First Item | When the Tactical Assault Rifle is granted, it will automatically become equipped. |
+
 5. Place a **Conditional Button** and drop a **Pumpkin** while standing near it to register the item. Customize it as follows:
 
    [![Basic Drops Conditional Button Settings](https://dev.epicgames.com/community/api/documentation/image/2dac157a-4bda-45a2-8a7b-7f1e83510e0e?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2dac157a-4bda-45a2-8a7b-7f1e83510e0e?resizing_type=fit)
@@ -57,6 +60,7 @@ Use the Elimination Manager to control item drops when enemies are eliminated. D
    | Option | Value | Description |
    | --- | --- | --- |
    | **Key Items Required** | 50 | The Conditional Button will require 50 Pumpkins to be activated (Pumpkins are dropped in stacks of 10). |
+
 6. Set the direct event bindings of the Conditional Button to the following:
 
    [![Basic Drops Conditional Button Events](https://dev.epicgames.com/community/api/documentation/image/bfc42aef-c659-48dd-9936-634c130e4917?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/bfc42aef-c659-48dd-9936-634c130e4917?resizing_type=fit)
@@ -98,6 +102,7 @@ Use the Elimination Manager drop chance functionality to hide key items in a swa
    | --- | --- | --- |
    | **Creature Type** | Fiend | The Creature Spawner will only spawn fiends. |
    | **Spawner Visibility** | Off | The Creature Spawner itself will not be visible during gameplay. |
+
 3. Place an **Elimination Manager** and drop a **Key** while standing near it to register the item. Customize it to the following settings:
 
    [![Drop Chance Elimination Manager Settings](https://dev.epicgames.com/community/api/documentation/image/7f5f9ab1-9908-440e-a11e-a4c03ffe9a0d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7f5f9ab1-9908-440e-a11e-a4c03ffe9a0d?resizing_type=fit)
@@ -106,6 +111,7 @@ Use the Elimination Manager drop chance functionality to hide key items in a swa
    | --- | --- | --- |
    | **Target Type** | All Creatures | All creatures will have a possibility of dropping the registered item when eliminated. |
    | **Drop Chance** | 10% | There will be a 10% chance for any given eliminated enemy to drop the registered item. |
+
 4. Place a **Lock Device** next to the door and keep the default settings.
 5. Place a **Conditional Button** next to the door and drop a **Key** while standing near it to register the item. Keep the default settings and set the direct event bindings to the following:
 
@@ -149,6 +155,7 @@ The Elimination Manager can also control how players are penalized when eliminat
    | --- | --- | --- |
    | **Player Team** | Team 1, Team 2 | This team will spawn in the Player Spawner (use one team for each Player Spawner). |
    | **Visible in Game** | Off | The Player Spawners will be invisible during gameplay. |
+
 2. Place an **Item Spawner** and drop Gold while standing near it to register the item. Customize it to the following settings:
 
    [![Elimination Penalty Item Spawner Settings](https://dev.epicgames.com/community/api/documentation/image/c28dcaf6-e6aa-4c2e-8b85-6110ef8fce27?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c28dcaf6-e6aa-4c2e-8b85-6110ef8fce27?resizing_type=fit)
@@ -159,6 +166,7 @@ The Elimination Manager can also control how players are penalized when eliminat
    | **Time Before First Spawn** | Instant | The item will be spawned instantly when the game begins. |
    | **Time Between Spawns** | 5.0 Seconds | The item will respawn every 5 seconds. |
    | **Run Over Pickup** | On | The player will be able to pick up the item just by running over it. |
+
 3. Duplicate this Item Spawner and place 4 more around the play area.
 4. Place an **Elimination Manager** outside of the play area and customize it to the following settings:
 
@@ -171,6 +179,7 @@ The Elimination Manager can also control how players are penalized when eliminat
    | **Penalty Item** | Gold | When players are eliminated, they will lose Gold. |
    | **Penalty Amount** | 50.0% | Players will lose half of their Gold when they are eliminated. |
    | **Penalty Effect** | Grant | The Gold that players lose will be granted to the player who eliminated them. |
+
 5. Place an **Item Granter** outside of the play area and drop a Tactical Assault Rifle while standing near it to register the weapon. Customize it as follows:
 
    [![Elimination Penalty Item Granter Settings](https://dev.epicgames.com/community/api/documentation/image/62ba0a61-3a22-4181-80bc-32f0d3b37292?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/62ba0a61-3a22-4181-80bc-32f0d3b37292?resizing_type=fit)
@@ -178,6 +187,7 @@ The Elimination Manager can also control how players are penalized when eliminat
    | Option | Value | Description |
    | --- | --- | --- |
    | **Equip Granted Item** | Yes | When players are granted an item, it will be automatically equipped. |
+
 6. Place a **Conditional Button** on one of the walls of the play area and drop Gold while standing near it to register the item. Customize it as follows:
 
    [![Elimination Penalty Conditional Button Settings](https://dev.epicgames.com/community/api/documentation/image/fd113629-151a-4049-80b1-c4198bf27395?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fd113629-151a-4049-80b1-c4198bf27395?resizing_type=fit)
@@ -185,6 +195,7 @@ The Elimination Manager can also control how players are penalized when eliminat
    | Option | Value | Description |
    | --- | --- | --- |
    | **Key Items Required** | 2,500 | The player will need 2,500 Gold to activate the Conditional Button (Gold is spawned in stacks of 500). |
+
 7. Set the direct event bindings of the Conditional Button to the following:
 
    [![Elimination Penalty Conditional Button Events](https://dev.epicgames.com/community/api/documentation/image/6399e475-a639-4469-a6a5-53dc0a6b5d04?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6399e475-a639-4469-a6a5-53dc0a6b5d04?resizing_type=fit)
@@ -192,6 +203,7 @@ The Elimination Manager can also control how players are penalized when eliminat
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | **On Activated Send Event To** | WeaponItemGranter | Grant Item | When the player successfully activates the Conditional Button, they will be granted the Tactical Assault Rifle. |
+
 8. Finally, modify the following [**Island Settings**](understanding-island-settings-in-fortnite-creative):
 
    | Category | Setting | Value | Explanation |

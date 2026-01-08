@@ -1,6 +1,6 @@
 # TryApplyModByAgent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_mod_box_spawner_device/tryapplymodbyagent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_mod_box_spawner_device/tryapplymodbyagent>
 > **爬取时间**: 2025-12-27T05:39:17.628379
 
 ---

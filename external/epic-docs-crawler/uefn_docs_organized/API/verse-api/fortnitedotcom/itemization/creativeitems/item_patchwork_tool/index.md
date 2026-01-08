@@ -1,6 +1,6 @@
 # item_patchwork_tool class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_patchwork_tool
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_patchwork_tool>
 > **爬取时间**: 2025-12-27T03:47:28.071790
 
 ---

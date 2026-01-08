@@ -1,6 +1,6 @@
 # Lock Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lock-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lock-device-design-examples>
 > **爬取时间**: 2025-12-26T23:03:41.829635
 
 ---
@@ -34,6 +34,7 @@ Connect the lock to a **Button** device for easy toggling between locked and unl
    | Option | Value |
    | --- | --- |
    | Interaction Text | Toggle Lock |
+
 6. Configure the following event on the button so that it toggles the lock when pressed.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/e8e4e4e3-f1df-45bf-9e74-3bae67d1f100?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e8e4e4e3-f1df-45bf-9e74-3bae67d1f100?resizing_type=fit)
@@ -79,6 +80,7 @@ Locks are a core part of any escape room or puzzle game where players must solve
    | Show on Round Start | On |
    | Time from Round Start | Instant |
    | Text Color | White |
+
 7. Place an **Audio Player** device. (In later steps, you will configure this to play a sound effect when the puzzle is completed.)
 8. Customize the audio player:
 
@@ -103,6 +105,7 @@ Next, you’ll set up a basic logic system that will be able to tell whether all
    | Visible During Game | No |
    | Sound | Disabled |
    | Allow Interaction | No |
+
 3. Place another switch. This will be the first of the **puzzle switches**. Customize the puzzle switch as follows:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/e90751e2-e9dc-4743-aef4-5222e3e95a91?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e90751e2-e9dc-4743-aef4-5222e3e95a91?resizing_type=fit)
@@ -110,6 +113,7 @@ Next, you’ll set up a basic logic system that will be able to tell whether all
    | Option | Value |
    | --- | --- |
    | Device Model | Ancient Lever |
+
 4. Configure the following event on the puzzle switch so that the switch forces the master switch to match its value. (You will configure the master switch to check each puzzle switch in a future step. For now, the puzzle switch will turn the master switch **Off** when checked.)
 
    [![](https://dev.epicgames.com/community/api/documentation/image/57e70806-2afa-408f-afc2-ce4fd0888929?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/57e70806-2afa-408f-afc2-ce4fd0888929?resizing_type=fit)
@@ -120,6 +124,7 @@ Next, you’ll set up a basic logic system that will be able to tell whether all
    | --- | --- | --- |
    | On Turned Off | Master Switch | Turn Off |
    | On Check Result Off | Master Switch | Turn Off |
+
 5. Configure the following event on the master switch so that when turned on, it checks the puzzle switch, unlocks the doors, and plays the audio player. When turned off, it will relock the doors and stop the audio player, which will keep everything working when the master switch is quickly turned on and off by the puzzle switches.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/8517465d-1077-48ef-886e-b950e1fc1baf?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/8517465d-1077-48ef-886e-b950e1fc1baf?resizing_type=fit)
@@ -132,6 +137,7 @@ Next, you’ll set up a basic logic system that will be able to tell whether all
    | On Turned On | Audio Player | Play |
    | On Turned Off | Lock Device 1-2 | Lock |
    | On Turned Off | Audio Player | Stop |
+
 6. Duplicate the puzzle switch two more times and place them strategically around the building. Duplicating the device will ensure that they retain the correct direct event bindings.
 
 You now have the basic functionality for an escape room using locks!
@@ -140,7 +146,7 @@ You now have the basic functionality for an escape room using locks!
 
 To add some more tension to a puzzle like this, try giving the player some type of time limit. That could be as simple as a Timer that locks them inside permanently if they don’t complete the puzzle in a certain amount of time. Or, think of more creative ways to limit the player, like slowly doing damage to them while inside or filling the room up with water!
 
-### Build a Door Parkour Game!
+### Build a Door Parkour Game
 
 When combined with other devices like the Timer, the Lock device can produce very interesting results. In this example, you’ll create a parkour map using opening and closing doors as a primary mechanic!
 
@@ -177,6 +183,7 @@ Begin by setting up your parkour island using floors from the **Colossal Coliseu
    | On Player Collision Behavior | Continue |
    | Player Damage on Collision | 0.0 |
    | Path Complete Action | Ping Pong |
+
 8. In front and below this platform, place a bouncer from the Bouncer Gallery device.
 9. Customize the Bouncer:
 10. Way above the Bouncer, place another platform with a door in front.
@@ -213,6 +220,7 @@ Begin by setting up your parkour island using floors from the **Colossal Coliseu
    | Visible During Game | Hidden |
    | Timer Color | White |
    | Show on HUD | No |
+
 4. Configure the following event on the timer so that each time it completes, it will switch the state of the door from open to closed or vice versa.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/9ff471a9-9206-48b2-8d2f-ca7be6e8d3ac?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9ff471a9-9206-48b2-8d2f-ca7be6e8d3ac?resizing_type=fit)
@@ -220,6 +228,7 @@ Begin by setting up your parkour island using floors from the **Colossal Coliseu
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Success | Lock Device 1 | Toggle Opened |
+
 5. Duplicate the lock and place duplicates on each door throughout the course. Duplicating the devices ensures that they retain the correct direct event bindings.
 
 ### Set Up the Game End

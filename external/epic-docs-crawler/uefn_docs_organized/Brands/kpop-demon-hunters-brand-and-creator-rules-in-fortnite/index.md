@@ -1,6 +1,6 @@
 # KPop Demon Hunters Brand and Creator Rules
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/kpop-demon-hunters-brand-and-creator-rules-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/kpop-demon-hunters-brand-and-creator-rules-in-fortnite>
 > **爬取时间**: 2025-12-26T23:59:22.916687
 
 ---
@@ -79,7 +79,7 @@ You cannot:
 - Claim or imply that your island is affiliated with or endorsed by Netflix or the KPop Demon Hunters brand.
 - Use any KPop Demon Hunters logo or similarly styled logos in your island thumbnail.
 - Use any Netflix logos or trademarks belonging to Netflix in your island's name, description, or promotional imagery. For example, you cannot add the Netflix "N" logo, or anything that reflects usage of Netflix logos or trademarks.
-- Use any KPop Demon Hunters actor name, images or likenesses, and any other images designed to evoke them. 
+- Use any KPop Demon Hunters actor name, images or likenesses, and any other images designed to evoke them.
   This does not prohibit use of in-game cosmetics.
 
 ### Your Island in Discover

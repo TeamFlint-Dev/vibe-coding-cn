@@ -1,6 +1,6 @@
 # Disable function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/disable-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/disable-1>
 > **爬取时间**: 2025-12-27T07:02:18.730737
 
 ---

@@ -1,6 +1,6 @@
 # SetRailColor function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/grind_rail_device/setrailcolor
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/grind_rail_device/setrailcolor>
 > **爬取时间**: 2025-12-27T06:07:48.009585
 
 ---

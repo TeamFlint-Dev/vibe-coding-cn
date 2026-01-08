@@ -1,6 +1,6 @@
 # Top Scorer In Class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/top-scorer-in-class-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/top-scorer-in-class-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:28:24.796601
 
 ---

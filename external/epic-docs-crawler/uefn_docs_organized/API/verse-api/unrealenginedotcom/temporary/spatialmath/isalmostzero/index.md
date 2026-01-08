@@ -1,6 +1,6 @@
 # (V:vector2).IsAlmostZero extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/isalmostzero
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/isalmostzero>
 > **爬取时间**: 2025-12-27T02:33:47.404225
 
 ---

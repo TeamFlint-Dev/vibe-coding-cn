@@ -1,6 +1,6 @@
 # Revive function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/down_but_not_out_device/revive
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/down_but_not_out_device/revive>
 > **爬取时间**: 2025-12-27T06:36:56.183798
 
 ---

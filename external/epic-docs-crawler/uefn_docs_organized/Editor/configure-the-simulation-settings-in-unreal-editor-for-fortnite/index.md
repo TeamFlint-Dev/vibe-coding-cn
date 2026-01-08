@@ -1,6 +1,6 @@
 # Configure the Simulation Settings
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-simulation-settings-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-simulation-settings-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:18:11.645957
 
 ---
@@ -32,6 +32,7 @@ In this section, you will set up the **Proxy Deformer**. This deformer uses the 
    | 5. **Selection Filter:** | Toggles between selecting mesh vertices or polygons. |
    | 6. **Additional Selection Options, Ortho Viewport Behavior, Advanced:** | Contains additional selection options, such as Ignore Occlusion and Hit Back Faces. |
    | 7. **Accept** or **Cancel** | Accepts or cancels your selection. |
+
 4. **Click and drag** to select the **holsters** in the cloth collection. Click **Accept**.
 
    [![Click and drag to select the holsters in the cloth Collection](https://dev.epicgames.com/community/api/documentation/image/d0256f27-0799-43bc-9629-1be6bc9fe484?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d0256f27-0799-43bc-9629-1be6bc9fe484?resizing_type=fit)
@@ -153,4 +154,4 @@ In this section, you will set up the **Simulation Solver**, which controls the q
 
 Import your Clothing Asset into UEFN
 
-A guide on migrating the clothing asset from Unreal Engine to Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/import-your-clothing-asset-into-unreal-editor-for-fortnite)
+A guide on migrating the clothing asset from Unreal Engine to Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/import-your-clothing-asset-into-unreal-editor-for-fortnite>)

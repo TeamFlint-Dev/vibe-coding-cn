@@ -1,6 +1,6 @@
 # Spawn function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/has_spire_functionality/spawn
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/has_spire_functionality/spawn>
 > **爬取时间**: 2025-12-27T05:42:15.579891
 
 ---

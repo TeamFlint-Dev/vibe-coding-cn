@@ -1,6 +1,6 @@
 # Restart function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timed_objective_device/restart
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timed_objective_device/restart>
 > **爬取时间**: 2025-12-27T06:22:22.724027
 
 ---

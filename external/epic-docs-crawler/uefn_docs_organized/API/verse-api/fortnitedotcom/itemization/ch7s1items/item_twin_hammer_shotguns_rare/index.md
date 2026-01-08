@@ -1,6 +1,6 @@
 # item_twin_hammer_shotguns_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_twin_hammer_shotguns_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_twin_hammer_shotguns_rare>
 > **爬取时间**: 2025-12-27T04:19:49.296001
 
 ---

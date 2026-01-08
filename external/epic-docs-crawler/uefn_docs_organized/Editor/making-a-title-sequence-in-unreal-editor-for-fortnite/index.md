@@ -1,6 +1,6 @@
 # Making a Title Sequence
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-a-title-sequence-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-a-title-sequence-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:07:23.243020
 
 ---
@@ -22,20 +22,20 @@ Follow the steps below to create a title sequence.
 
 1. Coding the Verse Device
 
-Create the Verse device to manage timing and transitions for the camera views and UI elements.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-1-coding-the-verse-device-in-unreal-editor-for-fortnite)[![2. Customizing the Splash Screens](https://dev.epicgames.com/community/api/documentation/image/44a027b3-aefa-44d3-b10b-e1f1fe8dc807?resizing_type=fit&width=640&height=640)
+Create the Verse device to manage timing and transitions for the camera views and UI elements.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-1-coding-the-verse-device-in-unreal-editor-for-fortnite)[![2>. Customizing the Splash Screens](<https://dev.epicgames.com/community/api/documentation/image/44a027b3-aefa-44d3-b10b-e1f1fe8dc807?resizing_type=fit&width=640&height=640>)
 
-2. Customizing the Splash Screens
+1. Customizing the Splash Screens
 
-Create custom images to show on the HUD Message devices for the splash screens.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-2-customizing-the-splash-screens-in-unreal-editor-for-fortnite)[![3. Designing the Title Screen](https://dev.epicgames.com/community/api/documentation/image/e5592e22-2c93-4db5-ae17-ac725401dc70?resizing_type=fit&width=640&height=640)
+Create custom images to show on the HUD Message devices for the splash screens.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-2-customizing-the-splash-screens-in-unreal-editor-for-fortnite)[![3>. Designing the Title Screen](<https://dev.epicgames.com/community/api/documentation/image/e5592e22-2c93-4db5-ae17-ac725401dc70?resizing_type=fit&width=640&height=640>)
 
-3. Designing the Title Screen
+1. Designing the Title Screen
 
-Create a custom title screen to show on the HUD Message device.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-3-designing-the-title-screen-in-unreal-editor-for-fortnite)[![4. Creating the Game Menu](https://dev.epicgames.com/community/api/documentation/image/33f2e06c-308f-44b0-a547-3557bd6536ee?resizing_type=fit&width=640&height=640)
+Create a custom title screen to show on the HUD Message device.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-3-designing-the-title-screen-in-unreal-editor-for-fortnite)[![4>. Creating the Game Menu](<https://dev.epicgames.com/community/api/documentation/image/33f2e06c-308f-44b0-a547-3557bd6536ee?resizing_type=fit&width=640&height=640>)
 
-4. Creating the Game Menu
+1. Creating the Game Menu
 
-Create a custom menu to show on the Popup Dialog device.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-4-creating-the-game-menu-in-unreal-editor-for-fortnite)[![5. Setting Up the Devices](https://dev.epicgames.com/community/api/documentation/image/de6a98c8-4bb5-4816-9fe4-43002f0c3569?resizing_type=fit&width=640&height=640)
+Create a custom menu to show on the Popup Dialog device.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-4-creating-the-game-menu-in-unreal-editor-for-fortnite)[![5>. Setting Up the Devices](<https://dev.epicgames.com/community/api/documentation/image/de6a98c8-4bb5-4816-9fe4-43002f0c3569?resizing_type=fit&width=640&height=640>)
 
-5. Setting Up the Devices
+1. Setting Up the Devices
 
-Set up the Creative devices for making a title sequence.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-5-setting-up-the-devices-in-unreal-editor-for-fortnite)
+Set up the Creative devices for making a title sequence.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-5-setting-up-the-devices-in-unreal-editor-for-fortnite>)

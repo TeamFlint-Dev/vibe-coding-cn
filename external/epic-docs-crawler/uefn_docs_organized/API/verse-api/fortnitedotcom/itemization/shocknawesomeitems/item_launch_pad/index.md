@@ -1,6 +1,6 @@
 # item_launch_pad class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_launch_pad
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_launch_pad>
 > **爬取时间**: 2025-12-27T04:24:46.580971
 
 ---

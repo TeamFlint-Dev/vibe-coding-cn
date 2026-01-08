@@ -1,6 +1,6 @@
 # item_recon_scanner_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/invasionitems/item_recon_scanner_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/invasionitems/item_recon_scanner_rare>
 > **爬取时间**: 2025-12-27T04:23:14.239289
 
 ---

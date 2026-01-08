@@ -1,6 +1,6 @@
 # SetMaxValue function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/slider_regular/setmaxvalue
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/slider_regular/setmaxvalue>
 > **爬取时间**: 2025-12-27T02:56:56.349036
 
 ---

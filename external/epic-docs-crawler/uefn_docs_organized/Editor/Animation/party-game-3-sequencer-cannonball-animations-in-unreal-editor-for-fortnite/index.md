@@ -1,6 +1,6 @@
 # Sequencer Cannonball Animations
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/party-game-3-sequencer-cannonball-animations-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/party-game-3-sequencer-cannonball-animations-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:21:40.935461
 
 ---
@@ -136,4 +136,4 @@ Create and copy the first Cinematic Sequence. Rename five of the cinematic seque
 
 Reusable Game Manager
 
-Create a reusable game manager to control vital gameplay elements for your mini-game island.](https://dev.epicgames.com/documentation/en-us/fortnite/party-game-4-reusable-game-manager-in-unreal-editor-for-fortnite)
+Create a reusable game manager to control vital gameplay elements for your mini-game island.](<https://dev.epicgames.com/documentation/en-us/fortnite/party-game-4-reusable-game-manager-in-unreal-editor-for-fortnite>)

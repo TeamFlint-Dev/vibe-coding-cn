@@ -1,6 +1,6 @@
 # 5. Define the Miniboard
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/5-define-the-miniboard
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/5-define-the-miniboard>
 > **爬取时间**: 2025-12-27T00:24:04.604560
 
 ---
@@ -104,18 +104,18 @@ using { DataTypes }
 
 miniboard<public> := class(creative_device):
 
-	...
+ ...
 
-	Position<public>():void =
-		CameraTransform := CameraDevice.GetTransform()
-		StaticMeshRotationCorrection := MakeRotation(vector3{Y := 1.0}, -PiFloat/2.0)
-		MiniboardTransform:transform = transform:
-			Translation := CameraTransform.Translation + CameraTransform.Rotation.RotateVector(BoardOffsetFromCameraDevice)
-			Rotation := CameraTransform.Rotation.RotateBy(StaticMeshRotationCorrection)
-		MiniboardSpawnResult := SpawnProp(DefaultCreativePropAsset, MiniboardTransform)
-		if (MiniboardPropTemp := MiniboardSpawnResult(0)?, MiniboardStaticMesh := StaticMesh?):
-			MiniboardPropTemp.SetMesh(MiniboardStaticMesh)
-			set MiniboardProp = MiniboardPropTemp
+ Position<public>():void =
+  CameraTransform := CameraDevice.GetTransform()
+  StaticMeshRotationCorrection := MakeRotation(vector3{Y := 1.0}, -PiFloat/2.0)
+  MiniboardTransform:transform = transform:
+   Translation := CameraTransform.Translation + CameraTransform.Rotation.RotateVector(BoardOffsetFromCameraDevice)
+   Rotation := CameraTransform.Rotation.RotateBy(StaticMeshRotationCorrection)
+  MiniboardSpawnResult := SpawnProp(DefaultCreativePropAsset, MiniboardTransform)
+  if (MiniboardPropTemp := MiniboardSpawnResult(0)?, MiniboardStaticMesh := StaticMesh?):
+   MiniboardPropTemp.SetMesh(MiniboardStaticMesh)
+   set MiniboardProp = MiniboardPropTemp
 ```
 
 To place the miniboard once play begins, override the miniboard `OnBegin` function:
@@ -129,11 +129,11 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 using { DataTypes }
 
 miniboard<public> := class(creative_device):
-		
-	...
+  
+ ...
 
-	OnBegin<override>()<suspends>:void =
-		Position()
+ OnBegin<override>()<suspends>:void =
+  Position()
 ```
 
 ## Summary
@@ -156,40 +156,40 @@ using { DataTypes }
 
 miniboard<public> := class(creative_device):
 
-    	@editable
-    	CameraDevice:gameplay_camera_fixed_point_device = gameplay_camera_fixed_point_device{}
+     @editable
+     CameraDevice:gameplay_camera_fixed_point_device = gameplay_camera_fixed_point_device{}
 
-    	@editable
-    	StaticMesh:mesh = Meshes.SM_Miniboard
+     @editable
+     StaticMesh:mesh = Meshes.SM_Miniboard
 
-    	@editable
-    	Dimensions:vector3 = vector3{}
+     @editable
+     Dimensions:vector3 = vector3{}
 
-    	@editable
-    	HitMarkerStaticMesh:mesh = Meshes.SM_Hit
+     @editable
+     HitMarkerStaticMesh:mesh = Meshes.SM_Hit
 
-    	@editable
-   	MissMarkerStaticMesh:mesh = Meshes.SM_Miss
+     @editable
+    MissMarkerStaticMesh:mesh = Meshes.SM_Miss
 
-    	@editable
-   	 BoardOffsetFromCameraDevice:vector3 = vector3{}
+     @editable
+     BoardOffsetFromCameraDevice:vector3 = vector3{}
 
-    	@editable
-    	GameBoard:board = board{}
+     @editable
+     GameBoard:board = board{}
 
-    	var<private> MiniboardProp:?creative_prop = false
+     var<private> MiniboardProp:?creative_prop = false
 
-	Position<public>():void =
-		CameraTransform := CameraDevice.GetTransform()
-		StaticMeshRotationCorrection := MakeRotation(vector3{Y := 1.0}, -PiFloat/2.0)
-		MiniboardTransform:transform = transform:
-			Translation := CameraTransform.Translation + CameraTransform.Rotation.RotateVector(BoardOffsetFromCameraDevice)
-			Rotation := CameraTransform.Rotation.RotateBy(StaticMeshRotationCorrection)
-		MiniboardSpawnResult := SpawnProp(DefaultCreativePropAsset, MiniboardTransform)
-		if (MiniboardPropTemp := MiniboardSpawnResult(0)?, MiniboardStaticMesh := StaticMesh?):
-			MiniboardPropTemp.SetMesh(MiniboardStaticMesh)
-			set MiniboardProp = MiniboardPropTemp
+ Position<public>():void =
+  CameraTransform := CameraDevice.GetTransform()
+  StaticMeshRotationCorrection := MakeRotation(vector3{Y := 1.0}, -PiFloat/2.0)
+  MiniboardTransform:transform = transform:
+   Translation := CameraTransform.Translation + CameraTransform.Rotation.RotateVector(BoardOffsetFromCameraDevice)
+   Rotation := CameraTransform.Rotation.RotateBy(StaticMeshRotationCorrection)
+  MiniboardSpawnResult := SpawnProp(DefaultCreativePropAsset, MiniboardTransform)
+  if (MiniboardPropTemp := MiniboardSpawnResult(0)?, MiniboardStaticMesh := StaticMesh?):
+   MiniboardPropTemp.SetMesh(MiniboardStaticMesh)
+   set MiniboardProp = MiniboardPropTemp
 
-	OnBegin<override>()<suspends>:void =
-		Position()
+ OnBegin<override>()<suspends>:void =
+  Position()
 ```

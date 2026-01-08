@@ -1,6 +1,6 @@
 # Rocket Racing Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:15:53.838377
 
 ---
@@ -33,36 +33,36 @@ The Rocket Racing devices only show up in Creative inventory if you access it fr
 
 RR Active Track Volume Devices
 
-Change which track a player is racing on, or force a player onto a specific track.](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-active-track-volume-devices-in-unreal-editor-for-fortnite)[![RR Boost Pad Devices](https://dev.epicgames.com/community/api/documentation/image/bc87160e-be39-4d7c-87e3-ca8830942088?resizing_type=fit&width=640&height=640)
+Change which track a player is racing on, or force a player onto a specific track.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-active-track-volume-devices-in-unreal-editor-for-fortnite)[![RR> Boost Pad Devices](<https://dev.epicgames.com/community/api/documentation/image/bc87160e-be39-4d7c-87e3-ca8830942088?resizing_type=fit&width=640&height=640>)
 
 RR Boost Pad Devices
 
-Give all players a uniform speed boost during the race!](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-boost-pad-devices-in-unreal-editor-for-fortnite)[![RR Checkpoint Devices](https://dev.epicgames.com/community/api/documentation/image/9f213faa-3f49-4a22-bc1e-3ac6281e5335?resizing_type=fit&width=640&height=640)
+Give all players a uniform speed boost during the race!](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-boost-pad-devices-in-unreal-editor-for-fortnite)[![RR> Checkpoint Devices](<https://dev.epicgames.com/community/api/documentation/image/9f213faa-3f49-4a22-bc1e-3ac6281e5335?resizing_type=fit&width=640&height=640>)
 
 RR Checkpoint Devices
 
-Set checkpoints to track player progress in a race.](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-checkpoint-devices-in-unreal-editor-for-fortnite)[![RR Competitive Race Manager Devices](https://dev.epicgames.com/community/api/documentation/image/c2013db8-7ee1-408f-af34-3bcafac512c6?resizing_type=fit&width=640&height=640)
+Set checkpoints to track player progress in a race.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-checkpoint-devices-in-unreal-editor-for-fortnite)[![RR> Competitive Race Manager Devices](<https://dev.epicgames.com/community/api/documentation/image/c2013db8-7ee1-408f-af34-3bcafac512c6?resizing_type=fit&width=640&height=640>)
 
 RR Competitive Race Manager Devices
 
-Create multiplayer races with players charging the finish line!](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-competitive-race-manager-devices-in-unreal-editor-for-fortnite)[![RR Elimination Volume Devices](https://dev.epicgames.com/community/api/documentation/image/4141d4d8-2952-4c72-ae5a-c612966ccc17?resizing_type=fit&width=640&height=640)
+Create multiplayer races with players charging the finish line!](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-competitive-race-manager-devices-in-unreal-editor-for-fortnite)[![RR> Elimination Volume Devices](<https://dev.epicgames.com/community/api/documentation/image/4141d4d8-2952-4c72-ae5a-c612966ccc17?resizing_type=fit&width=640&height=640>)
 
 RR Elimination Volume Devices
 
-Create hazardous zones on your track with an elimination volume!](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-elimination-volume-devices-in-unreal-editor-for-fortnite)[![RR EMP Volume Devices](https://dev.epicgames.com/community/api/documentation/image/bdd3a0a9-b333-4a3d-8d4b-6221e7cbc770?resizing_type=fit&width=640&height=640)
+Create hazardous zones on your track with an elimination volume!](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-elimination-volume-devices-in-unreal-editor-for-fortnite)[![RR> EMP Volume Devices](<https://dev.epicgames.com/community/api/documentation/image/bdd3a0a9-b333-4a3d-8d4b-6221e7cbc770?resizing_type=fit&width=640&height=640>)
 
 RR EMP Volume Devices
 
-Slow players down in your races with this device.](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-emp-volume-devices-in-unreal-editor-for-fortnite)[![RR Player Start Position Devices](https://dev.epicgames.com/community/api/documentation/image/9a609808-6c05-47c4-af13-ac83489f64d0?resizing_type=fit&width=640&height=640)
+Slow players down in your races with this device.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-emp-volume-devices-in-unreal-editor-for-fortnite)[![RR> Player Start Position Devices](<https://dev.epicgames.com/community/api/documentation/image/9a609808-6c05-47c4-af13-ac83489f64d0?resizing_type=fit&width=640&height=640>)
 
 RR Player Start Position Devices
 
-Place spawn positions for the start of the race.](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-player-start-position-devices-in-unreal-editor-for-fortnite)[![RR Speed Run Manager Devices](https://dev.epicgames.com/community/api/documentation/image/87a6b044-9928-40ee-a2aa-2dbcc7330e15?resizing_type=fit&width=640&height=640)
+Place spawn positions for the start of the race.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-player-start-position-devices-in-unreal-editor-for-fortnite)[![RR> Speed Run Manager Devices](<https://dev.epicgames.com/community/api/documentation/image/87a6b044-9928-40ee-a2aa-2dbcc7330e15?resizing_type=fit&width=640&height=640>)
 
 RR Speed Run Manager Devices
 
-Create time trial races for players to race for best time!](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-speed-run-manager-devices-in-unreal-editor-for-fortnite)[![RR Track Devices](https://dev.epicgames.com/community/api/documentation/image/681e46d4-cc6f-4093-b213-1e3c6e9a8527?resizing_type=fit&width=640&height=640)
+Create time trial races for players to race for best time!](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-speed-run-manager-devices-in-unreal-editor-for-fortnite)[![RR> Track Devices](<https://dev.epicgames.com/community/api/documentation/image/681e46d4-cc6f-4093-b213-1e3c6e9a8527?resizing_type=fit&width=640&height=640>)
 
 RR Track Devices
 
-Add and manipulate tracks for your RR racing game.](https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-track-devices-in-unreal-editor-for-fortnite)
+Add and manipulate tracks for your RR racing game.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-track-devices-in-unreal-editor-for-fortnite>)

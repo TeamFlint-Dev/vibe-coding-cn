@@ -1,6 +1,6 @@
 # ResetLinkToTarget function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/teleporter_device/resetlinktotarget
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/teleporter_device/resetlinktotarget>
 > **爬取时间**: 2025-12-27T06:11:26.221775
 
 ---

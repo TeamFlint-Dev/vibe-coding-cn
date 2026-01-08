@@ -1,6 +1,6 @@
 # Making an Animated Timer
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-an-animated-timer-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-an-animated-timer-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:07:57.789969
 
 ---

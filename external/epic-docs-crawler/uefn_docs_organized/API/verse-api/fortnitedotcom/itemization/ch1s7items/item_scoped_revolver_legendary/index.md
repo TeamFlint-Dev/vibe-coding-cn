@@ -1,6 +1,6 @@
 # item_scoped_revolver_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_scoped_revolver_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_scoped_revolver_legendary>
 > **爬取时间**: 2025-12-27T03:22:05.434084
 
 ---

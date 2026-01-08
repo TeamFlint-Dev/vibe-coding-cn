@@ -1,6 +1,6 @@
 # item_thermal_fish class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_thermal_fish
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_thermal_fish>
 > **爬取时间**: 2025-12-27T04:04:42.078962
 
 ---

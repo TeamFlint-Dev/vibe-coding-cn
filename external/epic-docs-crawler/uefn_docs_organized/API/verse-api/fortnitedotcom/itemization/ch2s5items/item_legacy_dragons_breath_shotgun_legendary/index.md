@@ -1,6 +1,6 @@
 # item_legacy_dragons_breath_shotgun_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_legacy_dragons_breath_shotgun_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_legacy_dragons_breath_shotgun_legendary>
 > **爬取时间**: 2025-12-27T03:59:19.773874
 
 ---

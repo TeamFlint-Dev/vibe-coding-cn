@@ -1,6 +1,6 @@
 # Create a Platformer with Scene Graph
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-a-platformer-with-scene-graph-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-a-platformer-with-scene-graph-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:43:09.911826
 
 ---
@@ -31,12 +31,12 @@ After creating your project, follow these steps to create your platformer:
 
 1. Disappearing Platform on Loop
 
-Use Scene Graph to create a disappearing platform component.](https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-01-disappearing-platform-on-loop-in-unreal-editor-for-fortnite)[![2. Moving Entities Using Animations](https://dev.epicgames.com/community/api/documentation/image/c603a1f7-a913-46bf-a344-55e13e506d1d?resizing_type=fit&width=640&height=640)
+Use Scene Graph to create a disappearing platform component.](<https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-01-disappearing-platform-on-loop-in-unreal-editor-for-fortnite)[![2>. Moving Entities Using Animations](<https://dev.epicgames.com/community/api/documentation/image/c603a1f7-a913-46bf-a344-55e13e506d1d?resizing_type=fit&width=640&height=640>)
 
-2. Moving Entities Using Animations
+1. Moving Entities Using Animations
 
-Use Scene Graph to create a component that animates an entity to different targets.](https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-02-moving-entities-using-animations-in-scene-graph-in-unreal-editor-for-fortnite)[![3. Building Your Platformer with Prefabs](https://dev.epicgames.com/community/api/documentation/image/518a9a4d-4f9a-4700-bd1d-46962afef72c?resizing_type=fit&width=640&height=640)
+Use Scene Graph to create a component that animates an entity to different targets.](<https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-02-moving-entities-using-animations-in-scene-graph-in-unreal-editor-for-fortnite)[![3>. Building Your Platformer with Prefabs](<https://dev.epicgames.com/community/api/documentation/image/518a9a4d-4f9a-4700-bd1d-46962afef72c?resizing_type=fit&width=640&height=640>)
 
-3. Building Your Platformer with Prefabs
+1. Building Your Platformer with Prefabs
 
-Use Scene Graph and Verse to build your own platformer.](https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-03-building-your-platformer-with-prefabs-in-unreal-editor-for-fortnite)
+Use Scene Graph and Verse to build your own platformer.](<https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-03-building-your-platformer-with-prefabs-in-unreal-editor-for-fortnite>)

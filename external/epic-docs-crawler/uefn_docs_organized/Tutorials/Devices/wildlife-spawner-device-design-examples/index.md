@@ -1,6 +1,6 @@
 # Wildlife Spawner Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/wildlife-spawner-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/wildlife-spawner-device-design-examples>
 > **爬取时间**: 2025-12-26T23:07:09.609242
 
 ---
@@ -29,6 +29,7 @@ In this example, you'll see how to use a **Wildlife Spawner** device to configur
    | --- | --- |
    | Receiving Players | All |
    | Grant on Game Start | On |
+
 4. Place a **Wildlife Spawner** device.
 5. Customize the Wildlife Spawner:
 
@@ -138,6 +139,7 @@ In this example, you'll see how to give the player a Raptor that the player can 
    | Receiving Players | All |
    | Spare Weapon Ammo | 30 |
    | Grant on Game Start | On |
+
 6. Place a **Wildlife Spawner** device in front of the Player Spawner.
 7. Customize the Wildlife Spawner:
 
@@ -150,6 +152,7 @@ In this example, you'll see how to give the player a Raptor that the player can 
    | Spawn Radius | 1.0M |
    | Invincible | Yes |
    | Riding | Enabled |
+
 8. Place a **Creature Spawner** part of the way up the mountain.
 9. Customize the Creature Spawner:
 
@@ -163,6 +166,7 @@ In this example, you'll see how to give the player a Raptor that the player can 
    | Spawner Visibility | Off |
    | Spawn Effects Visibility | Off |
    | Max Spawn Distance | 1.0 Tiles |
+
 10. Duplicate this Creature Spawner and place the copy further up the mountain.
 
 ### Configure the Quests
@@ -179,6 +183,7 @@ In this example, you'll see how to give the player a Raptor that the player can 
    | Description Text | Tame the Raptor! |
    | Show Progress | Off |
    | Quest Icon | Raptor |
+
 3. Place another **Tracker** device, and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/c9396960-aab7-421c-939b-5933f307465c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c9396960-aab7-421c-939b-5933f307465c?resizing_type=fit)
@@ -203,6 +208,7 @@ In this example, you'll see how to give the player a Raptor that the player can 
    | Beacon Particle Style | Flare |
    | Custom Beacon Color | White |
    | Enabled on Phase | None |
+
 2. Place a **Trigger** device at the top of the mountain and customize it so that it is not visible in-game:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b221b8ca-fbe9-4307-99f8-f812ee95caa5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b221b8ca-fbe9-4307-99f8-f812ee95caa5?resizing_type=fit)
@@ -220,6 +226,7 @@ In this example, you'll see how to give the player a Raptor that the player can 
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Tamed | Raptor Tracker | Complete |
+
 2. Configure the following event on the **Raptor Tracker** so that it triggers the mountain climb quest and enables the Beacon when the player completes the first quest.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/a3669224-888f-4075-8c9a-3b36495a0a01?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a3669224-888f-4075-8c9a-3b36495a0a01?resizing_type=fit)
@@ -228,6 +235,7 @@ In this example, you'll see how to give the player a Raptor that the player can 
    | --- | --- | --- |
    | When Complete | Mountain Tracker | Assign |
    | When Complete | Beacon | Enable |
+
 3. Configure the following event on the **Trigger** to complete the final quest and end the game when the player reaches the top of the mountain.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/a5f56fe1-20b3-4388-857f-a182905356f1?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a5f56fe1-20b3-4388-857f-a182905356f1?resizing_type=fit)

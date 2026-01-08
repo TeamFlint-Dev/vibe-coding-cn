@@ -293,7 +293,7 @@
 
 ## 🔗 相关链接
 
-- [Fortnite Creator Communities](https://www.fortnite.com/news/developers-can-now-set-up-fortnite-communities? lang=en-US)
+- [Fortnite Creator Communities](<https://www.fortnite.com/news/developers-can-now-set-up-fortnite-communities>? lang=en-US)
 - [In-Island Transactions](https://www.fortnite.com/news/tools-for-in-island-transactions-now-available-to-fortnite-developers)
 - [Engagement Payout Updates](https://www.fortnite.com/news/fortnite-developers-will-soon-be-able-to-sell-in-game-items)
 - [Twitter/X:  @FNCreate](https://x.com/FNCreate)

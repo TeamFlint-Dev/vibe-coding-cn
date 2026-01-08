@@ -1,6 +1,6 @@
 # item_rusty_can class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_rusty_can
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_rusty_can>
 > **爬取时间**: 2025-12-27T05:03:23.970375
 
 ---

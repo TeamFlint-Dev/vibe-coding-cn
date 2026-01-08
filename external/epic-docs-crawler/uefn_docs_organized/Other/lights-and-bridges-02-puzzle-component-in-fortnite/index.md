@@ -1,6 +1,6 @@
 # Puzzle Component
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-02-puzzle-component-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-02-puzzle-component-in-fortnite>
 > **爬取时间**: 2025-12-27T02:38:34.458775
 
 ---
@@ -63,6 +63,7 @@ Next, define the `puzzle_component` with fields and functions to manage the puzz
        @editable
        DisablePuzzleTriggerablesWhenSolved<private>:logic = false
    ```
+
 2. Add a function named `InitializeTriggerableDescendantEntities` to initialize the list of all puzzle pieces that are part of this puzzle. This function traverses down the Scene Graph hierarchy to find all triggerable entities marked as being a puzzle piece and adds them to the `TriggerableEntities` array.
 
    ```verse
@@ -76,6 +77,7 @@ Next, define the `puzzle_component` with fields and functions to manage the puzz
            do:
                set TriggerableEntities += array{DescendantEntity}
    ```
+
 3. Add a function named `DisableTriggerableComponents` to disable any triggerable components on descendant entities.
 
    ```verse
@@ -90,6 +92,7 @@ Next, define the `puzzle_component` with fields and functions to manage the puzz
            do:
                CastToEnableable.Disable()
    ```
+
 4. Add a function named `IsPuzzleSolved` that decides whether the puzzle is in a solved state. This is done by iterating through all previously found descendant entities with a component that implements the `triggerable` interface, checking whether the associated entity is marked as a puzzle piece, and whether the entity's component that implements `triggerable` is in a solved state.
 
    ```verse
@@ -103,6 +106,7 @@ Next, define the `puzzle_component` with fields and functions to manage the puzz
            do:
                CastToTriggerable.InSolvedState[]
    ```
+
 5. Add a function named `HandlePuzzleSolved` to perform all necessary actions once it is determined that the puzzle is solved. This includes setting the `Solved` field on this class, disabling puzzle triggerables based on the class field `DisablePuzzleTriggerablesWhenSolved`, and sending the `puzzle_solved_event` down the Scene Graph hierarchy.
 
    ```verse
@@ -113,6 +117,7 @@ Next, define the `puzzle_component` with fields and functions to manage the puzz
                DisableTriggerableComponents()
            Entity.SendDown(puzzle_solved_event{})
    ```
+
 6. Next, add a function named `CheckPuzzleSolution`. This is an asynchronous wrapper function for determining if the puzzle is solved with `IsPuzzleSolved` and, if it is, also calls `HandlePuzzleSolved` to perform the necessary actions when the puzzle is solved.
 
    ```verse
@@ -122,6 +127,7 @@ Next, define the `puzzle_component` with fields and functions to manage the puzz
            if (not Solved?, IsPuzzleSolved[]):
                HandlePuzzleSolved()
    ```
+
 7. Add an override for the Scene Graph component class `OnReceive` function.
 
    ```verse
@@ -132,6 +138,7 @@ Next, define the `puzzle_component` with fields and functions to manage the puzz
                true
            false
    ```
+
 8. Add a call to `InitializeTriggerableDescendantEntities` to the component `OnBeginSimulation` function.
 
    ```verse
@@ -236,4 +243,4 @@ puzzle_component := class<final_super>(component):
 
 Trigger Component and Triggerable Child Classes
 
-Create a component that triggers triggerable Scene Graph entities.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-03-trigger-component-and-triggerable-child-classes-in-fortnite)
+Create a component that triggers triggerable Scene Graph entities.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-03-trigger-component-and-triggerable-child-classes-in-fortnite>)

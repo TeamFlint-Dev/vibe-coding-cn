@@ -1,6 +1,6 @@
 # 3. South Biome
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-3-south-biome-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-3-south-biome-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:42:30.877357
 
 ---
@@ -61,6 +61,6 @@ Clouds play a big role in the jungle biome, along with Sun and Sky. First decide
 
 [![4. East and West Biomes](https://dev.epicgames.com/community/api/documentation/image/0dea01d3-a1d4-42e6-bb0a-0b4b2549d52f?resizing_type=fit&width=640&height=640)
 
-4. East and West Biomes
+1. East and West Biomes
 
-Learn how to use the Day Sequence device to create custom outdoor lighting for a hot desert or beach environment.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-4-east-and-west-biomes-in-unreal-editor-for-fortnite)
+Learn how to use the Day Sequence device to create custom outdoor lighting for a hot desert or beach environment.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-4-east-and-west-biomes-in-unreal-editor-for-fortnite>)

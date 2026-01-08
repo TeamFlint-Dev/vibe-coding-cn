@@ -1,6 +1,6 @@
 # item_dual_micro_smgs_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/absolutedoomitems/item_dual_micro_smgs_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/absolutedoomitems/item_dual_micro_smgs_legendary>
 > **爬取时间**: 2025-12-27T03:26:17.999236
 
 ---

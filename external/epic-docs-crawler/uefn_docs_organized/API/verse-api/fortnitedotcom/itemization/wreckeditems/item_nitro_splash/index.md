@@ -1,6 +1,6 @@
 # item_nitro_splash class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wreckeditems/item_nitro_splash
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wreckeditems/item_nitro_splash>
 > **爬取时间**: 2025-12-27T03:20:16.584821
 
 ---

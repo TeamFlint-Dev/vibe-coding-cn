@@ -1,6 +1,6 @@
 # 34.30 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/34-30-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/34-30-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:33:55.510210
 
 ---
@@ -35,7 +35,7 @@ Since parties form their own match lobby, and launch the session themselves, the
 
 ## The Walking Dead Universe
 
-### Fight Walkers with Negan at your side!
+### Fight Walkers with Negan at your side
 
 Negan is now available as a character in the NPC Spawner. Fight side by side to take down Walkers with his best girl, Lucille, or with the Shiva Shotgun - which now has a flashlight, making it extra useful in those dark spaces.
 
@@ -51,14 +51,14 @@ Remember! You’ll be able to publish your The Walking Dead Universe islands sta
 
 Play a special animation, or a sound cue when players enter and exit the volume, or create custom events that can only be created with the use of the new Verse functions.
 
-- **Entered****and **E******xit Events** - 
+- **Entered****and **E******xit Events** -
   An event that happens when a player enters or exits the rift.
 
 **New Verse Functions:**
 
-- **GetAgentsInVolume** - 
+- **GetAgentsInVolume** -
   A function that searches for Players in the volume.
-- **IsAgentInVolume** - 
+- **IsAgentInVolume** -
    A function that checks whether Players have entered the volume.
 
 ## Item Spawner Device Updates

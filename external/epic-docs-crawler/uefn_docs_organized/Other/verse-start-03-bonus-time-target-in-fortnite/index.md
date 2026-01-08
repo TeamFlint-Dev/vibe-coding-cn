@@ -1,6 +1,6 @@
 # 3. Bonus Time Target
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-03-bonus-time-target-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-03-bonus-time-target-in-fortnite>
 > **爬取时间**: 2025-12-27T00:29:32.261531
 
 ---
@@ -23,6 +23,7 @@ This page guides you step by step through the code changes, but if you want to c
    ```verse
    using { /Verse.org/Random }
    ```
+
 3. Add the following variables to store the target device reference and related properties. The time duration and reward variables are in seconds.
 
    ```verse
@@ -43,6 +44,7 @@ This page guides you step by step through the code changes, but if you want to c
 
        var GoodHitsSinceLastBonus:int = 0
    ```
+
 4. Add the `OnBonusTimeTargetHit` callback method that increases the timer.
 
    ```verse
@@ -54,6 +56,7 @@ This page guides you step by step through the code changes, but if you want to c
            BonusTimeTarget.PopDown()
            BonusTimeTarget.Disable()
    ```
+
 5. Modify the `OnBegin` method to set up the bonus time target event subscription and disable it.
 
    ```verse
@@ -85,6 +88,7 @@ This page guides you step by step through the code changes, but if you want to c
 
    <# --- New Code End --- #>
    ```
+
 6. Modify the `StartTimer` method to set the timer's maximum and active durations.
 
    ```verse
@@ -107,6 +111,7 @@ This page guides you step by step through the code changes, but if you want to c
            # Track that the timer has started.
            set IsTimerStarted = true
    ```
+
 7. Modify the `AdjustScore` method to randomly make the bonus time target appear based on how many Good Targets you hit.
 
    ```verse
@@ -147,6 +152,7 @@ This page guides you step by step through the code changes, but if you want to c
 
    <# --- New Code End --- #>
    ```
+
 8. Save and build your Verse code.
 
 ## Complete Code
@@ -388,6 +394,6 @@ shooting_range_manager_device := class(creative_device):
 
 [![4. Weapon Leveling System](https://dev.epicgames.com/community/api/documentation/image/45eb2231-80c0-4ac9-a490-51ff1d17225c?resizing_type=fit&width=640&height=640)
 
-4. Weapon Leveling System
+1. Weapon Leveling System
 
-Switch weapons while stringing combos.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-04-weapon-leveling-system-in-fortnite)
+Switch weapons while stringing combos.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-04-weapon-leveling-system-in-fortnite>)

@@ -1,6 +1,6 @@
 # 38.10 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/38-10-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/38-10-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-26T23:14:31.825453
 
 ---
@@ -11,10 +11,10 @@ We’ve also added device fixes, new Shogun’s Solitude Prefabs and Galleries, 
 
 ## Tools for In-Island Transactions Now Available
 
-Developer tools for in-island transactions are now available in preview within UEFN. 
+Developer tools for in-island transactions are now available in preview within UEFN.
 Use these to test [in-island item sales](https://www.fortnite.com/news/fortnite-developers-will-soon-be-able-to-sell-in-game-items?lang=en-US#:~:text=In%20December%2C,more%20details%20soon) in your unpublished projects – unlocking new monetization opportunities for Fortnite developers on top of [engagement payouts](https://dev.epicgames.com/documentation/en-us/fortnite/engagement-payout-in-fortnite-creative).
 
-Soon you’ll be able to [publish games](https://dev.epicgames.com/documentation/en-us/fortnite/publishing-islands-in-fortnite-creative) with in-island transactions that players can use to purchase items in your islands using [V-Bucks](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#v-bucks). 
+Soon you’ll be able to [publish games](https://dev.epicgames.com/documentation/en-us/fortnite/publishing-islands-in-fortnite-creative) with in-island transactions that players can use to purchase items in your islands using [V-Bucks](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#v-bucks).
 We’ll share more on publishing timelines in the coming weeks.  Once published, you’ll be able to monitor the performance of in-island transactions directly in the Creator Portal.
 
 Check out the [blog](https://www.fortnite.com/news/tools-for-in-island-transactions-now-available-to-fortnite-developers) and [documentation](https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-in-fortnite) for a full breakdown, including what you can (and can’t) sell, how in-island transactions work, an in-island transactions feature example, and more.

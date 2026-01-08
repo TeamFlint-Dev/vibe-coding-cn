@@ -1,6 +1,6 @@
 # item_med_mist_smoke_grenade class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_med_mist_smoke_grenade
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_med_mist_smoke_grenade>
 > **爬取时间**: 2025-12-27T04:58:18.272269
 
 ---

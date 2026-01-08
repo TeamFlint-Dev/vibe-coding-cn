@@ -1,6 +1,6 @@
 # Transitioning Player Point of View with Cameras
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/change-a-players-point-of-view-with-cameras-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/change-a-players-point-of-view-with-cameras-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:18:48.370788
 
 ---
@@ -49,6 +49,7 @@ To grant the player the weapon they need to open the door, you'll use an item gr
    | --- | --- | --- |
    | **Item Definition** | Sword | This is the weapon the player opens the door with. |
    | **Equip Granted Item** | True | In this example, the player picks up and immediately equips the weapon. |
+
 3. Add one **Button** device to your level.
 4. Select the button in the **Outliner**. In the **Details** panel, under **User Options**, set the values to the following:
 
@@ -136,6 +137,7 @@ To simulate a first-person view, you can use an orbit camera to change the playe
    | **Offset Y** | 0.0 cm | Parameters needed for the first-person view |
    | **Offset Z** | 76.0 cm | Parameters needed for the first-person view |
    | **Horizontal Speed** | 0.0 cm/s | Parameters needed for the first-person view |
+
 3. In the **Details** panel, under **Transition**, set the values to the following:
 
    [![Orbit Camera Options](https://dev.epicgames.com/community/api/documentation/image/839208f1-577e-4b0d-8fbd-66ec6d947039?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/839208f1-577e-4b0d-8fbd-66ec6d947039?resizing_type=fit)
@@ -171,11 +173,12 @@ To create your Verse device:
 
    ```verse
    door_open_channel := class(log_channel){}
-   		
+     
         # A Verse-authored creative device that can be placed in a level
         door_open_cinematic_manager := class(creative_device):
             Logger:log = log{Channel := door_open_channel}
    ```
+
 3. Add the following fields to the `door_open_cinematic_manager` class definition:
 
    - An editable Volume device named `DoorVolume`. This is the volume the player needs to be inside to open the door.
@@ -185,6 +188,7 @@ To create your Verse device:
        @editable
        DoorVolume:volume_device = volume_device{}
      ```
+
    - An editable Input Trigger device named `FireTrigger`. This listens for the player using their weapon while inside the `DoorVolume`.
 
      ```verse
@@ -193,6 +197,7 @@ To create your Verse device:
        @editable
        FireTrigger:input_trigger_device = input_trigger_device{}
      ```
+
    - An editable Conditional Button device named `ConditionalButton`. This checks that the player has the correct weapon equipped when inside the volume device.
 
      ```verse
@@ -200,6 +205,7 @@ To create your Verse device:
        @editable
        ConditionalButton:conditional_button_device = conditional_button_device{}
      ```
+
    - An editable Lock Device named `DoorLock`. This keeps the door locked if the player doesn't have the correct weapon.
 
      ```verse
@@ -207,6 +213,7 @@ To create your Verse device:
        @editable
        Door:lock_device = lock_device{}
      ```
+
    - An editable Cinematic Sequence device named `CinematicSequence`. This plays the cinematic leading into the camera transition when opening the door.
 
      ```verse
@@ -214,6 +221,7 @@ To create your Verse device:
        @editable
        CinematicSequence:cinematic_sequence_device = cinematic_sequence_device{}
      ```
+
    - An editable Map Indicator device named `ObjectiveMarker`. This shows the location of the door on the minimap after picking up the weapon.
 
      ```verse
@@ -221,6 +229,7 @@ To create your Verse device:
        @editable
        ObjectiveMarker:map_indicator_device = map_indicator_device{}
      ```
+
    - An editable Item Granter device named `ItemGranter`. This grants the player the weapon they need to progress.
 
      ```verse
@@ -228,6 +237,7 @@ To create your Verse device:
        @editable
        ItemGranter:item_granter_device = item_granter_device{}
      ```
+
    - An editable Button device named `ItemGrantButton`. This activates the `ItemGranter` to grant the player the weapon they need.
 
      ```verse
@@ -235,6 +245,7 @@ To create your Verse device:
        @editable
        ItemGrantButton:button_device = button_device{}
      ```
+
    - An editable Orbit Camera device named `FPSCamera`. This simulates a first-person view and is added to the player after the cinematic ends.
 
      ```verse
@@ -242,12 +253,14 @@ To create your Verse device:
        @editable
        FPSCamera:gameplay_camera_orbit_device = gameplay_camera_orbit_device{}
      ```
+
    - A [`logic`](logic-in-verse) variable named `IsDoorOpen`. This field tracks whether the door is already open, so the sequence doesn't play if it is.
 
      ```verse
      # A variable that tracks whether the door is already open.
        var IsDoorOpen:logic = false
      ```
+
    - An [`option`](option-in-verse) `cancelable` variable named `FireSubscription`. This stores the subscription to the `FireTrigger` `PressedEvent`. The cinematic sequence should only trigger when the player is right next to the door. This cancelable subscription makes sure to `Unregister` the player from the `FireTrigger`, if they get too far away.
 
      ```verse
@@ -265,49 +278,53 @@ When the door opens, a cinematic occurs that shows the door opening and transiti
    # Plays a cinematic and unlocks the door.
         PlayCinematic(Agent:agent):void=
    ```
+
 2. In `PlayCinematic()`, first play the cinematic sequence from the `CinematicSequence`, then unlock the door and open it using `Unlock()` and `Open()` respectively.
 
    ```verse
    # Plays a cinematic and unlocks the door.
         PlayCinematic(Agent:agent)<suspends>:void=
-   		
+     
             Logger.Print("Player is holding item, playing cinematic...")  
             CinematicSequence.Play()
-   		
-   		
+     
+     
             # Unlock the door, then open it.
             Door.Unlock(Agent)
             Door.Open(Agent)
             set IsDoorOpen = true
    ```
+
 3. Finally, change the player’s view from third to first-person by adding the orbit camera to them using `AddTo()`, then disable the Objective Marker. Your complete `PlayCinematic()` function should look like this:
 
    ```verse
    # Plays a cinematic and unlocks the door.
         PlayCinematic(Agent:agent)<suspends>:void=
-   		
+     
             Logger.Print("Player is holding item, playing cinematic...")  
             CinematicSequence.Play()
-   		
+     
             # Unlock the door, then open it.
             Door.Unlock(Agent)
             Door.Open(Agent)
             set IsDoorOpen = true
-   		
+     
             # Add the first person camera to the agent. When the cinematic ends, the 
             # agent will be in first-person view.
             FPSCamera.AddTo(Agent)
             Logger.Print("Camera changed")
-   		
+     
             # Disable the Objective Marker
             ObjectiveMarker.Disable()
    ```
+
 4. The cinematic should only play when the player is holding the required item, and it shouldn’t play again after the door is already open. To handle this logic, add a new method `CheckCinematic()` to the `door_open_cinematic_manager` class definition. This function takes the player inside the `DoorVolume` and checks if they have the required items.
 
    ```verse
    # Check if the player has the required item and the door isn't already open.
         CheckCinematic(Agent:agent):void=
    ```
+
 5. In `CheckCinematic()`, check if the player is holding the item registered on the `ConditionalButton` using `IsHoldingItem[]`, and check if `IsDoorOpen` is false to make sure the door isn’t already unlocked. If so, `spawn{}` the `PlayCinematic()` function passing the player opening the door. Your complete `CheckCinematic()` function should look like this:
 
    ```verse
@@ -330,39 +347,43 @@ Since the player needs to swing their weapon while inside the `DoorVolume` to op
         OnPlayerEntersVolume(Agent:agent):void=
             Logger.Print("Agent entered DoorVolume")
    ```
+
 2. In `OnPlayerEntersVolume()`, register the agent with the `FireTrigger` by calling `Register()`. Then set the `FireSubscription` to the result of subscribing the `FireTrigger.PressedEvent` to `PlayCinematic()`. Your complete `OnPlayerEntersVolume()` function should look like the following:
 
    ```verse
    # Registers the Agent with the FireTrigger when they enter the DoorVolume.
         OnPlayerEntersVolume(Agent:agent):void=
-   		
+     
             Logger.Print("Agent entered DoorVolume")
-   		
+     
             FireTrigger.Register(Agent)
-   		
+     
             # Subscribe the PressedEvent to PlayCinematic, and store that subscription in FireSubscrition.
             set FireSubscription = option{(FireTrigger.PressedEvent.Subscribe(PlayCinematic))}
    ```
+
 3. When a player exits the `DoorVolume`, you need to stop tracking the subscription for the `FireTrigger.PressedEvent` since the player should only be able to activate the cinematic if they're not inside the volume. To handle this, add a new method `OnPlayerExitsVolume()` to the `door_open_cinematic_manager` class definition.
 
    ```verse
    # Unregister the Agent with the FireTrigger when they leave the DoorVolume.
         OnPlayerExitsVolume(Agent:agent):void=
    ```
+
 4. In `OnPlayerExitsVolume()`, first `Unregister()` the agent with the `FireTrigger`. Then retrieve the subscription inside `FireSubscription`, and cancel it. Your complete `OnPlayerExitsVolume()` method should look like this:
 
    ```verse
    # Unregister the Agent with the FireTrigger when they leave the DoorVolume.
         OnPlayerExitsVolume(Agent:agent):void=
-   		
+     
             Logger.Print("Agent exited DoorVolume")
-   		
+     
             FireTrigger.Unregister(Agent)
-   		
+     
             # Cancel the subscription to the FireSubscription.
             if (SubscriptionToCancel := FireSubscription?):
                 SubscriptionToCancel.Cancel()
    ```
+
 5. When the player interacts with the `ItemButton`, they are granted the weapon they need to progress. An objective marker also appears on their minimap, which shows them the way to the door in case they haven't found it yet. To handle this, add a new method `GrantItem()` which takes an `agent` to the `door_open_cinematic_manager`class definition. Inside `GrantItem()`, call `GrantItem` on the agent that was passed, and enable the objective marker. Your complete `GrantItem()` method should look like the following:
 
    ```verse
@@ -382,12 +403,13 @@ You can now subscribe each event to its associated function and test out your co
    ```verse
    # Runs when the device is started in a running game
         OnBegin<override>()<suspends>:void=
-   		
+     
             # Subscribe each event to its associated function.
             ItemGrantButton.InteractedWithEvent.Subscribe(GrantItem)
             DoorVolume.AgentEntersEvent.Subscribe(OnPlayerEntersVolume)
             DoorVolume.AgentExitsEvent.Subscribe(OnPlayerExitsVolume)
    ```
+
 2. Save your code and compile it.
 3. In UEFN, select the **DoorOpenCinematicManager** device in your level. In the **O**utliner, assign each editable reference to the device in the level.
 

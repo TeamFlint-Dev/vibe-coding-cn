@@ -1,6 +1,6 @@
 # Button Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-button-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-button-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:32:07.694627
 
 ---

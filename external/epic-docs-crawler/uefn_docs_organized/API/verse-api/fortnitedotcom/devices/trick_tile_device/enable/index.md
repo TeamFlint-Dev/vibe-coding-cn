@@ -1,6 +1,6 @@
 # Enable function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trick_tile_device/enable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trick_tile_device/enable>
 > **爬取时间**: 2025-12-27T05:29:52.958000
 
 ---

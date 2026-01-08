@@ -1,6 +1,6 @@
 # entitlement_offer class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/entitlement_offer
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/entitlement_offer>
 > **爬取时间**: 2025-12-27T01:15:59.099546
 
 ---

@@ -1,6 +1,6 @@
 # SetRespawnTimer function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_mod_box_spawner_device/setrespawntimer
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_mod_box_spawner_device/setrespawntimer>
 > **爬取时间**: 2025-12-27T05:39:47.073965
 
 ---

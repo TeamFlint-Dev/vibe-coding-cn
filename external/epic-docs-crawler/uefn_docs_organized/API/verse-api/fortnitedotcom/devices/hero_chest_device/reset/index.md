@@ -1,6 +1,6 @@
 # Reset function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hero_chest_device/reset
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hero_chest_device/reset>
 > **爬取时间**: 2025-12-27T05:22:43.021678
 
 ---

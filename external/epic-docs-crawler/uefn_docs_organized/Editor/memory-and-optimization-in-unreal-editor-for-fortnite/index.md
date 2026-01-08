@@ -1,6 +1,6 @@
 # Memory and Optimization
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/memory-and-optimization-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/memory-and-optimization-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T22:53:53.974628
 
 ---
@@ -11,7 +11,7 @@ Whether you’re trying to optimize your island to improve memory usage, enhance
 
 Check out [Import Content and Islands](/documentation/en-us/fortnite/import-content-and-islands-in-unreal-editor-for-fortnite) section for more information on configuration and memory considerations when getting an asset ready for import.
 
-## In This Section:
+## In This Section
 
 [![Creating Fortnite-Ready Assets in UEFN](https://d1iv7db44yhgxn.cloudfront.net/documentation/images/07299bf9-c3ff-41b7-8f0a-0e6f9de6444d/creating-fortnite-ready-assets-topic.png)
 

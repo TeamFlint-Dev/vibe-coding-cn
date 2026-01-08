@@ -1,6 +1,6 @@
 # Create Voting Opportunities
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-create-voting-opportunities-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-create-voting-opportunities-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:12:37.596377
 
 ---
@@ -359,4 +359,4 @@ Hop into the next room to learn about the **Giftbox** device.
 
 Giftbox Device for Hiding and Teleportation
 
-Learn to use the Giftbox Device for hiding and teleporting players in your Squid Game island.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-giftbox-device-for-hiding-and-teleportation-in-unreal-editor-for-fortnite)
+Learn to use the Giftbox Device for hiding and teleporting players in your Squid Game island.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-giftbox-device-for-hiding-and-teleportation-in-unreal-editor-for-fortnite>)

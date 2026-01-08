@@ -1,6 +1,6 @@
 # 10. Verse Switch State Puzzle
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-10-verse-switch-state-puzzle-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-10-verse-switch-state-puzzle-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:18:01.957414
 
 ---
@@ -142,30 +142,31 @@ Think about the steps required to execute the puzzle. First you’ll want to che
    2. A variable array of type `cancelable` named `SwitchSubscriptions`. This holds a reference to each switch\_device subscription that you can use to reset the switches.
 
       ```verse
-      		
+        
            switch_state_puzzle := class(creative_device):
-      		    
+            
            @editable
            Switches : []switch_device = array{} #References the switches players can interact with
-      		
+        
            var SwitchSubscriptions : []cancelable = array{}
-      		
+        
       ```
+
 2. In the same file, create a new class called `switch_event_handler`.In this class you’ll identify the Verse device and the switches.
 3. Add a new method `OnSwitchPressed()` to the `switch_event_handler` class. This method checks the Verse device against player interaction by calling `CheckSequence()` in the `item_switch_puzzle` class. It also prints **Clicked** everytime a switch is interacted with.
 
    ```verse
-   		
+     
         ## An event handler class to handle switch interactions
         ## This event handler is attached to events in the loop above
         switch_event_handler := class():
             PuzzleDevice : item_switch_puzzle
             Switch : switch_device
-   		
+     
             OnSwitchPressed(InPlayer : agent) : void =
                 Print("Clicked")
                 PuzzleDevice.CheckSequence(InPlayer)
-   		
+     
    ```
 
 ## Add a Print Logger
@@ -195,6 +196,7 @@ Now you need a way to reference your switch devices in the puzzle. Referencing t
                     Switch.TurnedOnEvent.Subscribe(switch_event_handler{PuzzleDevice := Self, Switch := Switch}.OnSwitchPressed)
                     Switch.TurnedOffEvent.Subscribe(switch_event_handler{PuzzleDevice := Self, Switch := Switch}.OnSwitchPressed)
    ```
+
 4. Save the script in Visual Studio Code, and in UEFN, click **Verse -> Build Verse Code**.
 
 When testing your level, everytime you turn a switch on or off, you should see printed both the index of the switch you interacted with and word **Clicked**.
@@ -209,14 +211,15 @@ To solve the puzzle, the player needs to toggle the switches on in a certain ord
 2. In `ValidState()`, print out the `State` string that was passed and call `Play()` on the `ValidAudioPlayer` you set up ealier.
 
    ```verse
-   		
+     
             # Actions to perform when the state is valid
             ValidState(State : string) : void =
                 # Play a validation sound
                 Print("Valid {State}")
                 ValidAudioPlayer.Play()
-   		
+     
    ```
+
 3. Add a new method `InvalidState()` to the `switch_state_puzzle` class. This method resets all the switches after playing a sound when the player triggers an invalid state.
 
 ```verse
@@ -230,7 +233,7 @@ To solve the puzzle, the player needs to toggle the switches on in a certain ord
 1. In `InvalidState()`, let the player know they triggered an invalid state by printing **Invalid** and playing and audio clip by calling `Play()` on the `InvalidAudioPlayer` you set up earlier. You also need to call `Trigger()` on your `InvalidTrigger`, and `Show()` your `InvalidHUDMessage`.
 
 ```verse
-	# Actions to perform when the state is invalid
+ # Actions to perform when the state is invalid
     InvalidState(InPlayer : agent) : void =
         # Play a buzz sound 
         # Clear all switches
@@ -269,12 +272,12 @@ Checking the validity of a switch flip is accomplished by creating a **CheckSequ
 1. Add a new method `CheckSequence()`. This method takes the player as instigating the switch state changes and an array of logic values corresponding to switch states. In `CheckSequence()`, create a `for` loop to iterate through each switch in the `Switches` array. Get the index of each switch in the array and save it in a variable `SwitchIndex`. In the for loop, check each switch state by calling `GetCurrentState[]`. Then print the state of the switch to the log.
 
    ```verse
-   		
+     
             # Function to validate the sequence of the switches
             CheckSequence(InPlayer : agent) : void =
                 for (SwitchIndex -&gt; Switch : Switches):
                     if(Switch.GetCurrentState[]) then Print("{SwitchIndex} On") else Print("{SwitchIndex} Off")
-   		
+     
    ```
 
 Now you need to create a sequence of states to check against using `CheckSequence()`. To do this, you’re going to add new functionality to the `switch_event_handler`’s `OnSwitchPressed()` method.
@@ -286,16 +289,17 @@ Create the sequence for the switch states using arrays. Each array checks the va
 1. In `OnSwitchPressed()`, inside an `if` statement, call `CheckSequence()` passing both the player and a new array of logic values. This new array should correspond to your series of switches, with `false` values representing off switches, and `true` values representing on switches. Set the switch you want players to press first to `true`, and all other values to false. If the call to `CheckSequence[]` succeeds, call `ValidState()` passing in "One" to represent the first switch pressed.
 
    ```verse
-   		
+     
             OnSwitchPressed(InPlayer : agent) : void =
                 Print("Clicked")
                 PuzzleDevice.CheckSequence(InPlayer)
-   		
+     
    ```
+
 2. Hardcode the answer key for the switch flips for each of the switches in your puzzle, in the order you want them to be pressed.
 
    ```verse
-   		
+     
             if:
                     # check for valid states and hardcodes the validation of the states
                     # [off],[off],[on],[off] State One
@@ -305,7 +309,7 @@ Create the sequence for the switch states using arrays. Each array checks the va
                     not Switches[3].GetCurrentState[]
                 then:
                     ValidState("One")
-   		
+     
                 else if:
                     # check for valid states
                     #[On], [Off], [On], [Off] State Two
@@ -315,7 +319,7 @@ Create the sequence for the switch states using arrays. Each array checks the va
                     not Switches[3].GetCurrentState[]
                 then:
                     ValidState("Two")
-   		
+     
                 else if:
                     # check for valid states
                     #[On], [On], [On], [Off] State Three
@@ -325,7 +329,7 @@ Create the sequence for the switch states using arrays. Each array checks the va
                     not Switches[3].GetCurrentState[]
                 then:
                     ValidState("Three")
-   		            
+                 
                 else if:
                     # check for valid states
                     #[On], [On], [On], [On] State Four, puzzle is completed
@@ -335,26 +339,28 @@ Create the sequence for the switch states using arrays. Each array checks the va
                     Switches[3].GetCurrentState[]
                 then:
                     CompletedState()
-   		
+     
    ```
+
 3. Finally, add an `else` expression at the end that calls `InvalidState()`. This will happen if any of the calls to `CheckSequence[]` fail.
 
    ```verse
-   		    
+         
             else:
                     # It isn't a valid state, so it's invalid
                     InvalidState(InPlayer)
-   		
+     
    ```
+
 4. Your `switch_event_handler` code should now look like the following.
 
    ```verse
-   		
+     
             # Function to validate the sequence of the switches
             CheckSequence(InPlayer : agent) : void =
                 for (SwitchIndex -> Switch : Switches):
                     if(Switch.GetCurrentState[]) then Print("{SwitchIndex} On") else Print("{SwitchIndex} Off")
-   		        
+             
                 if:
                     # check for valid states and hardcodes the validation of the states
                     # [off],[off],[on],[off] State One
@@ -364,7 +370,7 @@ Create the sequence for the switch states using arrays. Each array checks the va
                     not Switches[3].GetCurrentState[]
                 then:
                     ValidState("One")
-   		
+     
                 else if:
                     # check for valid states
                     #[On], [Off], [On], [Off] State Two
@@ -374,7 +380,7 @@ Create the sequence for the switch states using arrays. Each array checks the va
                     not Switches[3].GetCurrentState[]
                 then:
                     ValidState("Two")
-   		
+     
                 else if:
                     # check for valid states
                     #[On], [On], [On], [Off] State Three
@@ -384,7 +390,7 @@ Create the sequence for the switch states using arrays. Each array checks the va
                     not Switches[3].GetCurrentState[]
                 then:
                     ValidState("Three")
-   		            
+                 
                 else if:
                     # check for valid states
                     #[On], [On], [On], [On] State Four, puzzle is completed
@@ -394,12 +400,13 @@ Create the sequence for the switch states using arrays. Each array checks the va
                     Switches[3].GetCurrentState[]
                 then:
                     CompletedState()
-   		
+     
                 else:
                     # It isn't a valid state, so it's invalid
                     InvalidState(InPlayer)
-   		
+     
    ```
+
 5. **Save** your code and go back to UEFN and select **Verse** > **Build Verse Code**.
 
 Now as you turn on switches in the game, the log will print:
@@ -423,79 +430,82 @@ By adding editable devices to your script, the devices show up in the Verse Devi
 1. Add the following @editable devices under the item\_switch\_puzzle:
 
    ```verse
-   		
+     
             @editable 
             InvalidTrigger : trigger_device = trigger_device{}
-   		
+     
             @editable 
             InvalidHUDMessage : hud_message_device = hud_message_device{}
-   		
+     
             @editable 
             InvalidAudioPlayer : audio_player_device = audio_player_device{}
-   		
+     
             @editable 
             ValidAudioPlayer : audio_player_device = audio_player_device{}
-   		
+     
             @editable 
             FindItemsHUDMessage : hud_message_device = hud_message_device{}
-   		
+     
             @editable 
             CompletedAudioPlayer : audio_player_device = audio_player_device{}
-   		
+     
             @editable 
             ItemSpawners : item_spawner_device = item_spawner_device{} #This grabs all the item spawners associated with this puzzle
-   		
+     
    ```
+
 2. Add a new method `CompletedState()` to the `item_switch_puzzle` class. This method handles the actions performed when the puzzle is completed.
 
    ```verse
-   		
+     
             ## Actions to perform when the puzzle is completed
             CompletedState() : void =
                 # Play a success sound
                 # Set all switches to disabled
                 # Spawn items on the attached item spawners
                 Print("Completed")
-   		
+     
    ```
 
    1. Add a for expression to the `CompletedState()` method that iterates through each item spawner in `ItemSpawners`. Enable each item spawner with `Enable()`, then call `SpawnItem()` to grant the player the reward for solving the puzzle.
 
       ```verse
-      		
+        
            ## Looping through the Item Spawners allowing you to call each Item Spawner to enable and spawn its item
                for (ItemSpawnerIndex -&gt; ItemSpawner : ItemSpawners):
                    ItemSpawner.Enable()
                    ItemSpawner.SpawnItem()
-      		
+        
       ```
+
 3. Once the puzzle has been completed successfully, you need to call `Play()` on `CompletedAudioPlayer` you set up earlier, spawn the metal pieces on the Item Spawners using the `ItemSpawnerIndex` and the call `Enable1` and `SpawnItem`. Inform the player they need to search for the newly spawned items by calling `Show()` on the `FindItemsHUDMessage`. Additionally, you don’t want the player to continue interacting with your switches. Add a second for expression to loop through each switch in `Switches` and disable them by calling `Disable()`.
 
    ```verse
-   		
+     
             # Actions to perform when the puzzle is completed
             CompletedState() : void =
                 # Play a success sound
                 # Set all switches to disabled
                 # Spawn items on the attached item spawners
                 Print("Completed")
-   		        
+             
                 # Looping through the Item Spawners allowing you to call each Item Spawner to enable and spawn its item
                 for (ItemSpawnerIndex -> ItemSpawner : ItemSpawners):
                     ItemSpawner.Enable()
                     ItemSpawner.SpawnItem()
-   		
+     
                 # Plays the special audio cue for completing the puzzle sequence
                 CompletedAudioPlayer.Play()
-   		
+     
                 # Plays a HUD message to tell players to search for newly spawned items
                 FindItemsHUDMessage.Show()
-   		
+     
                 # Disable all switches upon puzzle completed sucessfully
                 for (SwitchIndex -> Switch : Switches):
                     Switch.Disable()
-   		
+     
    ```
+
 4. **Save** your code and go back to UEFN and select **Verse** > **Build Verse Code**.
 
 Now these devices have been added to the Item Switch Puzzle device in UEFN.
@@ -532,6 +542,6 @@ With the Switch State Puzzle working, you're ready to create the automatic telep
 
 [![11. Teleporting Players After a Cutscene](https://dev.epicgames.com/community/api/documentation/image/dcb4d422-8c7b-4a6e-8497-e468bb134efc?resizing_type=fit&width=640&height=640)
 
-11. Teleporting Players After a Cutscene
+1. Teleporting Players After a Cutscene
 
-Use a simple Verse script to teleport players instantly between places.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-11-teleporting-players-after-a-cutscene-in-unreal-editor-for-fortnite)
+Use a simple Verse script to teleport players instantly between places.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-11-teleporting-players-after-a-cutscene-in-unreal-editor-for-fortnite>)

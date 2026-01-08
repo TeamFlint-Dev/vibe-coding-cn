@@ -1,6 +1,6 @@
 # cone class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/basicshapes/cone
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/basicshapes/cone>
 > **爬取时间**: 2025-12-27T02:01:47.844966
 
 ---

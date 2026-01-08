@@ -1,6 +1,6 @@
 # 3. Playing Effects on Idle Players
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-03-playing-effects-on-idle-players-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-03-playing-effects-on-idle-players-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:22:50.914420
 
 ---
@@ -19,6 +19,7 @@ Follow these steps to determine if a player is idle.
         (PropAgent:agent).AwaitStopMoving(MinimumDistance:float)<suspends>:void=
              Logger.Print("Checking if the agent has moved less than the minimum distance.")
    ```
+
 2. Get the initial position of the player.
 
    ```verse
@@ -28,6 +29,7 @@ Follow these steps to determine if a player is idle.
             if (Tracked := PropAgent.GetFortCharacter[]):
                 var StartPosition:vector3 = Tracked.GetTransform().Translation
    ```
+
 3. Get the next position of the player in the next simulation update.
 
    ```verse
@@ -39,18 +41,25 @@ Follow these steps to determine if a player is idle.
                 Sleep(0.0) # Get the position of the agent in the next game tick.
                 NewPosition := Tracked.GetTransform().Translation
    ```
+
 4. Check if the distance between the initial position and the latest position is within an acceptable threshold, passed to the function as the `MinimumDistance` parameter.
     `(PropAgent:agent).AwaitStopMoving(MinimumDistance:float)<suspends>:void=
    Logger.Print("Checking if the agent has moved less than the minimum distance.")
-   # Get the initial position of the agent from the agent's character in the scene.
+
+   # Get the initial position of the agent from the agent's character in the scene
+
    if (Tracked := PropAgent.GetFortCharacter[]):
    var StartPosition:vector3 = Tracked.GetTransform().Translation
    Sleep(0.0) # Get the position of the agent in the next game tick.
    NewPosition := Tracked.GetTransform().Translation
-   # If the distance of the new position from the starting position is less than MinimumDistance, the agent has not moved and we break the loop.
+
+   # If the distance of the new position from the starting position is less than MinimumDistance, the agent has not moved and we break the loop
+
    if (Distance(StartPosition, NewPosition) < MinimumDistance):
    Logger.Print("Agent has moved less than the minimum distance.")
-   # Otherwise, we reset StartPosition to make sure the player moves from the new position.
+
+   # Otherwise, we reset StartPosition to make sure the player moves from the new position
+
    else:
    set StartPosition = NewPosition`
 5. Now we want to loop the check between the initial and latest positions and break out of the loop when the distance between the positions is above the `MinimumDistance` threshold.
@@ -85,6 +94,7 @@ Follow these steps to wait for an amount of time equal to `HeartBeat.MoveTime - 
    CountdownTimer(PropAgent:agent):void =
    Logger.Print("Starting heartbeat countdown.")
    ~~~
+
 2. You first need to try to get the `heartbeat_warning_ui` for the associated player from the map you set up in **heartbeat.verse**. If that succeeds, you then need to start the delay between the player stopping and the countdown timer displaying.
 
    ~~~(verse)
@@ -97,6 +107,7 @@ Follow these steps to wait for an amount of time equal to `HeartBeat.MoveTime - 
    else:
    Logger.Print("UIData not found.")
    ~~~
+
 3. Now create the variable that will appear on the screen and will be decreased by one every second. Name it `WarningTimeRemaining`. Set it to `WarningTime` from **heartbeat.verse**. Since `WarningTimeRemaining` is an `int` and `WarningTime` is a `float`, you’ll need to use the [`Ceil[]`](https://dev.epicgames.com/documentation/en-us/uefn/verse-api/versedotorg/verse/ceil-1) function to create an `int`.
 
    ```verse
@@ -111,6 +122,7 @@ Follow these steps to wait for an amount of time equal to `HeartBeat.MoveTime - 
             else:
                 Logger.Print("UIData not found.")
    ```
+
 4. Before starting the countdown loop, use the `defer` expression to clear the countdown timer from the player’s UI whenever the `CountdownTimer()` function completes. It will only complete when the timer runs out or when the player starts moving again. See [Defer](https://dev.epicgames.com/documentation/en-us/uefn/defer-in-verse) to learn more.
 
    ```verse
@@ -131,6 +143,7 @@ Follow these steps to wait for an amount of time equal to `HeartBeat.MoveTime - 
             else:
                 Logger.Print("UIData not found.")
    ```
+
 5. Finally, create the loop that decreases the countdown timer. Use the `SetText()` function to display `HeartBeatWarningMessage` with the `WarningTimeRemaining`. Then wait one second with `Sleep()`, before decrementing the time remaining. If `WarningTimeRemaining` is 0 or less, then the countdown is complete and you can break the loop.
 
    ```verse
@@ -199,6 +212,7 @@ Follow these steps to play effects when the player hasn’t moved for too long.
         RunPropGameLoop(PropAgent:agent)<suspends>:void =
             Logger.Print("Starting prop agent game loop.")
    ```
+
 2. Wait until the prop agent moves less than the minimum distance, then advance.
 
    ```verse
@@ -211,6 +225,7 @@ Follow these steps to play effects when the player hasn’t moved for too long.
                     PropAgent.AwaitStopMoving(MinimumMoveDistance)
                     Sleep(0.0)
    ```
+
 3. Add the `race` expression to race between `AwaitStartMoving()` completing, meaning the player has started moving, and a `block` expression with `CountdownTimer()` and then `StartHeartbeat()` running.
 
    ```verse
@@ -234,6 +249,6 @@ Follow these steps to play effects when the player hasn’t moved for too long.
 
 [![4. Setting up Teams and Classes](https://dev.epicgames.com/community/api/documentation/image/32759977-2ded-4ccf-a776-8dc86355d7df?resizing_type=fit&width=640&height=640)
 
-4. Setting up Teams and Classes
+1. Setting up Teams and Classes
 
-Use a combination of devices to designate teams and classes for players.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-04-setting-up-teams-and-classes-in-unreal-editor-for-fortnite)
+Use a combination of devices to designate teams and classes for players.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-04-setting-up-teams-and-classes-in-unreal-editor-for-fortnite>)

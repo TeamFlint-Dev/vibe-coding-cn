@@ -1,6 +1,6 @@
 # Barrier Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/barrier-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/barrier-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:06:27.467157
 
 ---
@@ -99,6 +99,7 @@ To spruce up the gameplay, you’ll now give players the ability to “infiltrat
    | Interact Time | 2.0 Seconds | The interact time is very long to make it difficult to infiltrate the enemy's spawn area. |
    | Activating Team | Team 1 |  |
    | Interaction Text | Infiltrate |  |
+
 3. Place a Timer device above the button.
 4. Customize the timer.
 
@@ -112,6 +113,7 @@ To spruce up the gameplay, you’ll now give players the ability to “infiltrat
    | Completion Behavior | Reset |  |
    | Timer Color | White |  |
    | Timer Running Text | Blue is Infiltrating the Red Spawn Area! |  |
+
 5. Configure the following events on the button to allow the player pressing the button to pass through the barrier and start the timer.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/cef0c284-944a-4980-8709-e01417207f24?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/cef0c284-944a-4980-8709-e01417207f24?resizing_type=fit)
@@ -121,6 +123,7 @@ To spruce up the gameplay, you’ll now give players the ability to “infiltrat
    | Event | Select Device | Select Function |
    | On Interact | Team 2 Barrier Device | Add Player to Ignore List |
    | On Interact | Team 1 Infiltrate Timer Device | Start |
+
 6. Configure the following event on the timer to turn the barrier back on for the infiltrating player.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/797c291a-2f12-4d89-85d7-08fa5752c1f4?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/797c291a-2f12-4d89-85d7-08fa5752c1f4?resizing_type=fit)
@@ -129,6 +132,7 @@ To spruce up the gameplay, you’ll now give players the ability to “infiltrat
    | --- | --- | --- |
    | Event | Select Device | Select Function |
    | On Success | Team 2 Barrier Device | Remove All Players from Ignore List |
+
 7. Copy these two components and paste them in the same place next to the Blue spawn area.
 8. On the button, update the **Activating Team** setting to **Team 2**.
 9. On the timer, update the **Timer Running Text** to **Red is Infiltrating the Blue Spawn Area!**
@@ -149,7 +153,7 @@ You now have the basic functionality for protected spawn zones with the ability 
 
 Even though a team can freely walk through the barrier in the door of their own spawn zone, note that they still cannot fire weapons through it. This is a good thing; it means that players can’t just sit in their spawn area and freely shoot out into the play area.
 
-## Build a Melee Time Trial!
+## Build a Melee Time Trial
 
 The Barrier device is useful for blocking off areas of the map until a player completes an objective.
 
@@ -185,15 +189,18 @@ In this example, you’ll use a barrier to prevent entry into a volcano lair unt
    | Option | Value |
    | Receiving Players | All |
    | Grant on Game Start | On |
+
 8. Place a Creature Placer device on the path leading up the volcano.
 9. Customize the device.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/a3d1ff8e-2c6b-4827-975e-dbf5089229c8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a3d1ff8e-2c6b-4827-975e-dbf5089229c8?resizing_type=fit)
+
 10. |  |  |
     | --- | --- |
     | Option | Value |
     | Activation Range | 1.0 Tiles |
     | Enable on Game Phase | Never |
+
 11. Duplicate the Creature Placer device five times, placing each one along the path. Adjust the **Creature Type setting** to spawn different creatures from each device.
 
     [![](https://dev.epicgames.com/community/api/documentation/image/fb4d7853-79ce-4218-8006-6424ea45392b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fb4d7853-79ce-4218-8006-6424ea45392b?resizing_type=fit)
@@ -236,6 +243,7 @@ Configured correctly, the barrier should look like this:
    | Visible During Game | Hidden |
    | Timer Color | White |
    | Timer Running Text | Reach the top of the volcano before time runs out! |
+
 5. Place a Trigger device at the top of the path. Make the trigger large enough to cover up the entire area that the player will walk across to ensure that they don’t accidentally walk around it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b6c16426-d9e4-4015-bbc3-a2d37d5b3afc?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b6c16426-d9e4-4015-bbc3-a2d37d5b3afc?resizing_type=fit)
@@ -250,6 +258,7 @@ Configured correctly, the barrier should look like this:
    | Enabled on Game Start | Off |
    | Trigger VFX | Off |
    | Trigger SFX | Off |
+
 7. Place a button next to the trigger at the top of the path.
 8. Customize the button by setting the **Interaction Text** to **Try again?**
 
@@ -281,6 +290,7 @@ Configured correctly, the barrier should look like this:
    | On Interact | Creature Placers (1-6) | Enable |
    | On Interact | Finish Trigger | Enable |
    | On Interact | Timer Device | Start |
+
 2. Configure the following events on the Timer to disable the Creature Placers and the finish line Trigger if the player runs out of time.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/29b3431b-2db8-40dd-92b9-d3cefc71771b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/29b3431b-2db8-40dd-92b9-d3cefc71771b?resizing_type=fit)
@@ -290,6 +300,7 @@ Configured correctly, the barrier should look like this:
    | Event | Select Device | Select Function |
    | On Failure | Creature Placer 1-6 | Disable |
    | On Failure | Finish Trigger | Disable |
+
 3. Configure the following events on the button at the top of the path to teleport the player back to the beginning if they fail and want to try again.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/d70d7763-6e19-4cd2-825c-6d33713a7ecb?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d70d7763-6e19-4cd2-825c-6d33713a7ecb?resizing_type=fit)

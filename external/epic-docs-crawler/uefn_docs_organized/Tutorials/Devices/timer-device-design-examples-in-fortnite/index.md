@@ -1,6 +1,6 @@
 # Timer Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/timer-device-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/timer-device-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:06:08.557061
 
 ---
@@ -34,6 +34,7 @@ The Timer device is great for quickly setting up a timed goal. In this example, 
    | Timer Color | White |
    | Display Time In | Seconds Only |
    | Timer Running Text | Stop the Timer before it runs out! |
+
 5. Place an **End Game** device in a location where the player won't easily find it.
 6. Configure the following event on the Timer so that it ends the game when it **succeeds** (when the player stops the Timer before it finishes).
 
@@ -82,6 +83,7 @@ The Timer device can be started and stopped by any event from another device. In
    | Show on Round Start | On |
    | Time from Round Start | Instant |
    | Text Color | White |
+
 6. Place a **Beacon** device on top of a building in Tilted Towers.
 
 ### Configure the Timed Vehicle
@@ -103,6 +105,7 @@ The Timer device can be started and stopped by any event from another device. In
    | Display Time In | Seconds Only |
    | Timer Running Text | Plane will Destroy at 10 Seconds… |
    | Paused Text | Plane Destroy Stopped… |
+
 3. At the top of the hill near the player’s spawn location, place a **Biplane Spawner** device.
 4. Configure the following event on the Biplane Spawner so that when the player enters it, it either starts or resumes the Timer (depending on whether it has been started before), and so that when the player exits it, it pauses the Timer.
 
@@ -113,6 +116,7 @@ The Timer device can be started and stopped by any event from another device. In
    | On Player Enters Vehicle Send Event To | Timer Device | Start |
    | On Player Enters Vehicle Send Event To | Timer Device | Resume |
    | On Player Exits Vehicle | Timer Device | Pause |
+
 5. Configure the following event on the Timer so that when the Timer hits 10 Seconds, it will destroy the plane.
 
 You now have the basic functionality for a time-limited vehicle game mechanic!
@@ -123,7 +127,7 @@ The Timer device can listen to and trigger a lot of different events. This examp
 
 Timers can also send many unique events, such as different events for succeeding and failing, and an event for when urgency mode begins!
 
-## Build a Timed Wave Survival Game!
+## Build a Timed Wave Survival Game
 
 Using multiple Timers in combination with other common devices, you can create a wavesurvival game. In this example, you’ll connect Timers to Buttons and Creature Managers, and even implement a basic economy.
 
@@ -157,6 +161,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Receiving Players | All |
    | Spare Weapon Ammo | 100 |
    | Grant on Game Start | On |
+
 7. In a place that the player won’t see, place an **End Game** device.
 8. Customize the End Game device by adding a custom victory callout that reads **You Survived!**
 
@@ -177,6 +182,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Spawner Visibility | Off |
    | Preferred Spawn Location | Random |
    | Enabled At Game Start | Off |
+
 3. Duplicate the Creature Spawner two more times for **Wave 2** and **Wave 3**.
 4. For the **Wave 2 Creature Spawner**, change the **Creature Type** to **Brute** and the **Number of Creatures** to **4**.
 5. For the **Wave 3 Creature Spawner**, change the **Creature Type** to **Cube Random** and the **Number of Creatures** to **5**.
@@ -203,6 +209,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Urgency Text | Almost there! |
    | Display Score Update on HUD | On |
    | HUD Score Update Message | Wave 1 Complete |
+
 8. Duplicate this Timer for Wave 2, rename it to **Wave 2 Timer**, and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/e1824f95-94d8-4206-af9e-49736b6fb422?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e1824f95-94d8-4206-af9e-49736b6fb422?resizing_type=fit)
@@ -223,6 +230,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Urgency Text | Almost there! |
    | Display Score Update on HUD | On |
    | HUD Score Update Message | Wave 1 Complete |
+
 9. Repeat for the **Wave 3 Timer:**
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b36bde27-c10d-46c1-be64-5de7b7fda828?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b36bde27-c10d-46c1-be64-5de7b7fda828?resizing_type=fit)
@@ -243,6 +251,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Urgency Text | Almost there! |
    | Display Score Update on HUD | On |
    | HUD Score Update Message | Wave 3 Complete |
+
 10. Behind the player’s spawn location, move the **fish plaque** to the center of the wall, then  place a **BIllboard** device above it.
 11. Customize the Billboard:
 
@@ -256,6 +265,7 @@ Using multiple Timers in combination with other common devices, you can create a
     | Text Color | Aqua |
     | Outline | Light |
     | Shadow | Upperright |
+
 12. Place a **Button** device on the fish plaque. This button will start Wave 1.
 13. Customize the Wave 1 Button:
 
@@ -267,6 +277,7 @@ Using multiple Timers in combination with other common devices, you can create a
     | Interaction Text | Start Wave 1 |
     | Visible During Game | No |
     | Interaction Radius | 0.5 Meters |
+
 14. Duplicate this button, name it **Wave 2 Button**, and customize:
 
     [![](https://dev.epicgames.com/community/api/documentation/image/54530b12-f6dc-4333-a8f7-37a6a4a58229?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/54530b12-f6dc-4333-a8f7-37a6a4a58229?resizing_type=fit)
@@ -278,6 +289,7 @@ Using multiple Timers in combination with other common devices, you can create a
     | Interaction Text | Start Wave 2 |
     | Visible During Game | No |
     | Interaction Radius | 0.5 Meters |
+
 15. Repeat for the Wave 3 Button:
 
     [![](https://dev.epicgames.com/community/api/documentation/image/3cf9291c-df92-48e0-9e75-d7939548ea67?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/3cf9291c-df92-48e0-9e75-d7939548ea67?resizing_type=fit)
@@ -313,6 +325,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | On Success Send Event To | Wave 2 Button | Enable |
    | On Success Send Event To | Wave 1 Creature Spawner | Destroy Spawner |
    | On Success Send Event To | Next Wave Billboard | Set Text Visible |
+
 4. Configure the same events on the **Wave 2 Timer**. Update the Button to the **Wave 3 Button** and the **Creature Spawner** to the **Wave 2 Creature Spawner**.
 5. Configure the following event on the **Wave 3 Timer** so it destroys the current Creature Spawner and ends the game.
 
@@ -328,6 +341,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Number Of Items Dropped | 1 |
    | Target Type | All Creatures |
    | Run Over Pickup | On |
+
 3. In the lobby, place a **Conditional Button** device on the wall. Drop **Gold** on the device to register it.
 4. Customize the Conditional Button:
 
@@ -338,6 +352,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Interact Text | Buy Ammo |
    | Missing Items Text | Not Enough Gold |
    | Key Items Required | 5 |
+
 5. Above the Conditional Button, place a **Billboard** device.
 6. Customize the BIllboard:
 
@@ -351,6 +366,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Text Color | Red |
    | Outline | Thick |
    | Shadow | Upperright |
+
 7. Place an **Item Granter** device and drop **Ammo: Small Bullets** on the device to register it.
 8. Customize the Item Granter:
 
@@ -364,6 +380,7 @@ Using multiple Timers in combination with other common devices, you can create a
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Activated Send Event To | Ammo Item Granter | Grant Item |
+
 9. Configure the following event on the Conditional Button so that when the player pays 5 Gold, they receive 100 bullets.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/7d89c90b-2a36-44c8-89f9-0ada037a61ab?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7d89c90b-2a36-44c8-89f9-0ada037a61ab?resizing_type=fit)

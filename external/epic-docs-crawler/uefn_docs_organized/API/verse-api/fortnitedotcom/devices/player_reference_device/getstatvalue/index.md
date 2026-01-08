@@ -1,6 +1,6 @@
 # GetStatValue function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/player_reference_device/getstatvalue
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/player_reference_device/getstatvalue>
 > **爬取时间**: 2025-12-27T06:19:39.372882
 
 ---

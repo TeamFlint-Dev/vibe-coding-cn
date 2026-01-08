@@ -1,6 +1,6 @@
 # search and destroy
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/search-and-destroy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/search-and-destroy>
 > **爬取时间**: 2025-12-27T02:06:51.402356
 
 ---

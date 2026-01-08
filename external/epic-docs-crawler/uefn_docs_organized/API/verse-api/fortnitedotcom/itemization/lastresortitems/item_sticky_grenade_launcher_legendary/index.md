@@ -1,6 +1,6 @@
 # item_sticky_grenade_launcher_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_sticky_grenade_launcher_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_sticky_grenade_launcher_legendary>
 > **爬取时间**: 2025-12-27T04:29:31.090521
 
 ---

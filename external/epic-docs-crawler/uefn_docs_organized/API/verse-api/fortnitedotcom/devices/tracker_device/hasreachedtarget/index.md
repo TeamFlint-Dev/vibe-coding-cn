@@ -1,6 +1,6 @@
 # HasReachedTarget function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/tracker_device/hasreachedtarget
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/tracker_device/hasreachedtarget>
 > **爬取时间**: 2025-12-27T05:42:39.477229
 
 ---

@@ -1,6 +1,6 @@
 # SubscribeRoundStarted function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/fort_round_manager/subscriberoundstarted
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/fort_round_manager/subscriberoundstarted>
 > **爬取时间**: 2025-12-27T02:52:17.194636
 
 ---

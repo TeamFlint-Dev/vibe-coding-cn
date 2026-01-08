@@ -1,6 +1,6 @@
 # item_bandage_bazooka class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_bandage_bazooka
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_bandage_bazooka>
 > **爬取时间**: 2025-12-27T05:02:46.345600
 
 ---

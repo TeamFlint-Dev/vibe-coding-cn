@@ -1,6 +1,6 @@
 # sidekick_reaction enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/sidekick_reaction
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/sidekick_reaction>
 > **爬取时间**: 2025-12-27T00:59:16.122390
 
 ---

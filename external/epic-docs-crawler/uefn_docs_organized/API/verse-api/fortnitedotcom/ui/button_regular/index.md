@@ -1,6 +1,6 @@
 # button_regular class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/button_regular
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/button_regular>
 > **爬取时间**: 2025-12-27T01:05:36.820057
 
 ---

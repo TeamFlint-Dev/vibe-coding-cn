@@ -1,6 +1,6 @@
 # Boulder Trap
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/boulder-trap-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/boulder-trap-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:06:18.016016
 
 ---
@@ -80,6 +80,7 @@ Most devices use the settings available from the **Basic Options menu**, some of
    | **Zone Depth** | **2** | Stretches the space of the Mutator Zone lengthwise towards the top of the staircase and the wall at the bottom of the stairs. |
    | **Enable VFX** | **No** | Stops the Mutator Zone device from shining a color when the player approaches the trap. |
    | **On Player Entering Zone Transmit On** | **Channel 1** | Allows the zone to transmit to other devices linked to channel one when a player enters the zone. |
+
 5. Select the **Ball Spawner device** from the **Quick Bar**.
 6. [Rotate](https://www.youtube.com/watch?v=0wceTxlUAJ4) the Ball Spawner by pressing **Tab** until the rotation axis displayed on the left side of the screen is on [roll](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#roll). Press **E** or **R** to rotate the Ball Spawner until it’s completely upside down.
 7. Place the Ball Spawner on the Ceiling.
@@ -96,6 +97,7 @@ Most devices use the settings available from the **Basic Options menu**, some of
    | **Respawn Delay** | **None** | Prevents the spawner from spawning a new ball after the previous one has been destroyed. |
    | **Eliminate Player When Touched** | **Yes** | Eliminates the player when the ball touches them. |
    | **Ball Material** | **Greyscale** | Adds a nice, simple, visual look to your ball. |
+
 8. Select the **Pinball Flipper device** from the **Quick Bar**.
 9. Place the **Pinball Flipper device** slightly under the back of the ball to make sure that it comes into contact with the ball.
 

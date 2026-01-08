@@ -1,6 +1,6 @@
 # item_chiller class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_chiller
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_chiller>
 > **爬取时间**: 2025-12-27T03:52:34.532268
 
 ---

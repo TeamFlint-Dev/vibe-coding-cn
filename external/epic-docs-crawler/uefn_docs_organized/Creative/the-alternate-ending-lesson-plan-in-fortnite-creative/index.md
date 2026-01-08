@@ -1,6 +1,6 @@
 # The Alternate Ending
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/the-alternate-ending-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/the-alternate-ending-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:11:32.927146
 
 ---
@@ -22,11 +22,11 @@ Author: Steven Isaacs
 
 Organization: Bernards Township Schools; Role: Teacher, Game Design and Development
 
-Email: sisaacs@bernardsboe.com
+Email: <sisaacs@bernardsboe.com>
 
 Twitter: @mr\_isaacs
 
-LinkedIn: https://www.linkedin.com/in/steve-isaacs/
+LinkedIn: <https://www.linkedin.com/in/steve-isaacs/>
 
 ## Lesson Overview
 
@@ -133,7 +133,7 @@ What is Machinima? Students construct knowledge of Machinima by reporting back a
 
 Experiment with Fortnite Creative to get a sense of the different devices and how they work in order to automate functions in the game.
 
-### Introduce Project Guidelines: How the Novel SHOULD Have Ended...
+### Introduce Project Guidelines: How the Novel SHOULD Have Ended
 
 - Students can work in groups or individually.
 - Students will reflect on a novel read in class or assigned as an outside reading.

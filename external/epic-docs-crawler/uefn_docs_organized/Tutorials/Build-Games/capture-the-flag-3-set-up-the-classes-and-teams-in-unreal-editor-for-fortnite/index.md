@@ -1,6 +1,6 @@
 # 3. Set Up Classes and Teams
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-3-set-up-the-classes-and-teams-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-3-set-up-the-classes-and-teams-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:16:28.603140
 
 ---
@@ -113,6 +113,6 @@ To finish setting up the classes, you need to place and customize a **Team Setti
 
 [![4. Set Up Spawn Rooms](https://dev.epicgames.com/community/api/documentation/image/6a51095a-aab5-4bb4-ac97-18e7e23790f8?resizing_type=fit&width=640&height=640)
 
-4. Set Up Spawn Rooms
+1. Set Up Spawn Rooms
 
-Make spawn rooms with locking doors where players can safely choose a class.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-4-set-up-spawn-rooms-in-unreal-editor-for-fortnite)
+Make spawn rooms with locking doors where players can safely choose a class.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-4-set-up-spawn-rooms-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # PlayReaction function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_sidekick_component/playreaction
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_sidekick_component/playreaction>
 > **爬取时间**: 2025-12-27T02:48:40.635614
 
 ---

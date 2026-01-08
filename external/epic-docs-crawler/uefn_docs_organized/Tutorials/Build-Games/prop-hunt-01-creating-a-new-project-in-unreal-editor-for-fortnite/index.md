@@ -1,6 +1,6 @@
 # 1. Creating a New Project
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-01-creating-a-new-project-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-01-creating-a-new-project-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:23:00.928432
 
 ---
@@ -57,6 +57,6 @@ Use the **Search** bar to locate each setting faster.
 
 [![2. Playing Visual Effects on Players](https://dev.epicgames.com/community/api/documentation/image/b63d76ff-7532-4e95-88b0-3c20447574e7?resizing_type=fit&width=640&height=640)
 
-2. Playing Visual Effects on Players
+1. Playing Visual Effects on Players
 
-Learn how to add custom visual effects to the VFX Spawner device.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-02-playing-visual-effects-on-players-in-unreal-editor-for-fortnite)
+Learn how to add custom visual effects to the VFX Spawner device.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-02-playing-visual-effects-on-players-in-unreal-editor-for-fortnite>)

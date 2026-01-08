@@ -1,6 +1,6 @@
 # Lighting Starter Island Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lighting-starter-island-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lighting-starter-island-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:20:13.264974
 
 ---

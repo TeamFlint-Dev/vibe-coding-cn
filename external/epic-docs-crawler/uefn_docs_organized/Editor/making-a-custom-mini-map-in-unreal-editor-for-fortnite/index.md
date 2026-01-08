@@ -1,6 +1,6 @@
 # Making a Mini Map with the Map Controller Device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-mini-map-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-mini-map-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:07:52.674476
 
 ---

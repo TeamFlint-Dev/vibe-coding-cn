@@ -1,13 +1,13 @@
 # 37.20 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/37-20-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/37-20-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-26T23:14:48.804335
 
 ---
 
 Fortnite v37.20 introduces the Roly Poly Spawner device, the Hive Stash Chest, and new prefabs and galleries from the O.X.R. Base and The Hive. This update also adds three new Debug Command menu options, new tutorials, and the ability to subscribe to input action events and mapping contexts directly through Verse.
 
-## New Experimental Character Inputs!
+## New Experimental Character Inputs
 
 You can now subscribe to input action events and mapping contexts directly through Verse. The following character input actions are supported:
 
@@ -19,7 +19,7 @@ You can now subscribe to input action events and mapping contexts directly throu
 
 The inputs are currently Experimental, but over time, more functionality will be added to this list of input actions. We want to provide a clean and clear way to use the various controls available in UEFN.
 
-## My First Island Feature Example!
+## My First Island Feature Example
 
 Get started in My First Island with this new feature example! See how the carnival shooting gallery was set up, including the custom Verse device code to earn points for shooting the good targets, and detracting points for shooting the bad targets — –who wants to hit a cute bear?
 
@@ -41,7 +41,7 @@ This change will currently only affect:
 - Jump
 - Sprint
 
-## Advanced Learning: New Coordinate Battle Island and Tutorial!
+## Advanced Learning: New Coordinate Battle Island and Tutorial
 
 Deep dive into mathematics to level up your gameplay and get deeper insights into modern game design practices!
 
@@ -49,7 +49,7 @@ With the [Coordinate Battle Tutorial](https://dev.epicgames.com/documentation/en
 
 The island code for the Coordinate Battle game will be coming soon! Stay tuned!
 
-## Get Started with Verse: New Combo System Tutorial!
+## Get Started with Verse: New Combo System Tutorial
 
 This beginner Verse tutorial uses the Your First Island template to show off how Verse can really level up your island! In this tutorial you will:
 
@@ -155,7 +155,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
   - Fixed a material issue causing bad shadows on cornfield wall props.
 
-### Player Input Known Issue:
+### Player Input Known Issue
 
 Input consumption is broken if you are using:
 

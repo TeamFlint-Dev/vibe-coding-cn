@@ -1,6 +1,6 @@
 # item_suppressed_submachine_gun_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_suppressed_submachine_gun_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_suppressed_submachine_gun_legendary>
 > **爬取时间**: 2025-12-27T04:45:35.902071
 
 ---

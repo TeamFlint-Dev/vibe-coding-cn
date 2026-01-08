@@ -1,6 +1,6 @@
 # DotProduct function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/dotproduct-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/dotproduct-1>
 > **爬取时间**: 2025-12-27T02:36:20.734531
 
 ---

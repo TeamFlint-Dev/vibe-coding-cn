@@ -1,6 +1,6 @@
 # Prefabs and Prefab Instances
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prefabs-and-prefab-instances-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prefabs-and-prefab-instances-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:23:58.063990
 
 ---
@@ -40,7 +40,7 @@ To create a prefab:
 
 ## Propagating Changes to All Prefab Instances
 
-A prefab instance is more than a visual copy of an original. Making changes with the [Prefab Editor](https://dev.epicgames.com/documentation/en-us/fortnite/prefab-editor-user-interface-in-unreal-editor-for-fortnite) causes all instances to automatically adopt all saved changes. 
+A prefab instance is more than a visual copy of an original. Making changes with the [Prefab Editor](https://dev.epicgames.com/documentation/en-us/fortnite/prefab-editor-user-interface-in-unreal-editor-for-fortnite) causes all instances to automatically adopt all saved changes.
 It’s useful to use hierarchies in Scene Graph to determine how child prefabs and entities interact with the parent. Especially when you’re working with assets whose pivot points may be off-center, or don’t use Unreal Units to align with objects in the world.
 
 This saves you time because you don’t have to find every prefab instance and recreate the same changes over and over.

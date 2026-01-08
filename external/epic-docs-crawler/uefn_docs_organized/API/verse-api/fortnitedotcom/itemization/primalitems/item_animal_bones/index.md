@@ -1,6 +1,6 @@
 # item_animal_bones class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_animal_bones
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_animal_bones>
 > **爬取时间**: 2025-12-27T03:43:28.697277
 
 ---

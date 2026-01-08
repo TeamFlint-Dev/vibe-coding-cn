@@ -1,6 +1,6 @@
 # Minigame Mastery Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-minigame-mastery-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-minigame-mastery-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:00:54.429706
 
 ---
@@ -69,20 +69,20 @@ Learn more by incorporating the feature set with tailored devices to create mini
 
 Tracking Game Progression
 
-Learn to use the Progress Based Mesh device to create a visual representation of progress in your Squid Game islands.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-tracking-game-progression-in-unreal-editor-for-fortnite)[![Shove Item for Pushing Players](https://dev.epicgames.com/community/api/documentation/image/aea3cada-03c2-42e8-a5ad-30fa1afc45bf?resizing_type=fit&width=640&height=640)
+Learn to use the Progress Based Mesh device to create a visual representation of progress in your Squid Game islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-tracking-game-progression-in-unreal-editor-for-fortnite)[![Shove> Item for Pushing Players](<https://dev.epicgames.com/community/api/documentation/image/aea3cada-03c2-42e8-a5ad-30fa1afc45bf?resizing_type=fit&width=640&height=640>)
 
 Shove Item for Pushing Players
 
-Learn to use the Shove Item for your Squid Game island.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-shove-item-for-pushing-players-in-unreal-editor-for-fortnite)[![Ddakji and Flying Stone Target Practice](https://dev.epicgames.com/community/api/documentation/image/42324281-e95c-40ce-be56-df4817ae2ee8?resizing_type=fit&width=640&height=640)
+Learn to use the Shove Item for your Squid Game island.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-shove-item-for-pushing-players-in-unreal-editor-for-fortnite)[![Ddakji> and Flying Stone Target Practice](<https://dev.epicgames.com/community/api/documentation/image/42324281-e95c-40ce-be56-df4817ae2ee8?resizing_type=fit&width=640&height=640>)
 
 Ddakji and Flying Stone Target Practice
 
-Learn to use Squid Game throwable items to create versatile gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-ddakji-and-flying-stone-target-practice-in-unreal-editor-for-fortnite)[![Carry Items Through Obstacles](https://dev.epicgames.com/community/api/documentation/image/cd07d3c2-e228-4b32-9d9f-cb0b2a510eaa?resizing_type=fit&width=640&height=640)
+Learn to use Squid Game throwable items to create versatile gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-ddakji-and-flying-stone-target-practice-in-unreal-editor-for-fortnite)[![Carry> Items Through Obstacles](<https://dev.epicgames.com/community/api/documentation/image/cd07d3c2-e228-4b32-9d9f-cb0b2a510eaa?resizing_type=fit&width=640&height=640>)
 
 Carry Items Through Obstacles
 
-Learn to create Squid Game minigames with the Carryable Spawner device.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-carry-items-through-obstacles-in-unreal-editor-for-fortnite)[![Multiplayer Skill Checks](https://dev.epicgames.com/community/api/documentation/image/203b9519-deb1-4bda-a3c2-96869d676083?resizing_type=fit&width=640&height=640)
+Learn to create Squid Game minigames with the Carryable Spawner device.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-carry-items-through-obstacles-in-unreal-editor-for-fortnite)[![Multiplayer> Skill Checks](<https://dev.epicgames.com/community/api/documentation/image/203b9519-deb1-4bda-a3c2-96869d676083?resizing_type=fit&width=640&height=640>)
 
 Multiplayer Skill Checks
 
-Learn to add multiplayer skill checks to your Squid Game islands.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-multiplayer-skill-checks-in-unreal-editor-for-fortnite)
+Learn to add multiplayer skill checks to your Squid Game islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-multiplayer-skill-checks-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # 1. Set Up the Box Fight Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-1-set-up-the-game-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-1-set-up-the-game-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:19:24.918571
 
 ---
@@ -54,6 +54,6 @@ Use the **Search** bar to locate each setting faster.
 
 [![2. Build the Level](https://dev.epicgames.com/community/api/documentation/image/e0166bde-040d-4c52-988b-dec743b26ca3?resizing_type=fit&width=640&height=640)
 
-2. Build the Level
+1. Build the Level
 
-Build the area for your box fight, including a basement underneath the main playing area.](https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-2-build-the-level-in-unreal-editor-for-fortnite)
+Build the area for your box fight, including a basement underneath the main playing area.](<https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-2-build-the-level-in-unreal-editor-for-fortnite>)

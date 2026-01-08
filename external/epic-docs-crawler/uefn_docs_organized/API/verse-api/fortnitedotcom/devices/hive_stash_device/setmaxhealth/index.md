@@ -1,6 +1,6 @@
 # SetMaxHealth function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hive_stash_device/setmaxhealth
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hive_stash_device/setmaxhealth>
 > **爬取时间**: 2025-12-27T02:22:54.345001
 
 ---

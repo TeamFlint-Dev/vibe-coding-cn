@@ -1,6 +1,6 @@
 # Sentry Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-sentry-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-sentry-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:43:09.604209
 
 ---
@@ -122,6 +122,7 @@ You will need the following devices.
    | **Spawn On Game Start** | No | The sentry will not spawn until the device receives a signal from a channel. |
    | **Spawn When Receiving From** | Channel 1 | When the device receives a signal on Channel 1 from the Trigger, the sentries spawn to attack the player. |
    | **Pacify When Receiving From** | Channel 2 | When the device receives a signal on Channel 2 from the player flipping the switch, the sentries stop attacking. |
+
 2. Place a switch somewhere nearby that will pacify the sentries, and customize it to the following settings. This is an aesthetic choice, and a button will work just as well.
 
    [![Ambush Button](https://dev.epicgames.com/community/api/documentation/image/1f601caf-5207-49a8-b3c3-1efb3e01755b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1f601caf-5207-49a8-b3c3-1efb3e01755b?resizing_type=fit)
@@ -132,6 +133,7 @@ You will need the following devices.
    | **Device Model** | Antique Lever (Unlit) | The physical representation of the device. This can be anything preferred. |
    | **Interact Time** | 3 Seconds | The time it takes to finish interacting with the switch and activate it. |
    | **When Turned On Transmit On** | Channel 2 | After 3 seconds, transmits a signal to pacify all the sentries and make them stop attacking. |
+
 3. Place a trigger somewhere that the player is forced to pass through in order to activate the sentries. Customize it to the following settings.
 
    [![Ambush Trigger](https://dev.epicgames.com/community/api/documentation/image/beed35a9-b88a-4a83-958f-7003b3318b46?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/beed35a9-b88a-4a83-958f-7003b3318b46?resizing_type=fit)
@@ -168,6 +170,7 @@ You will need the following devices.
    | **Total Spawn Limit** | 2 | The maximum number of wolves spawned. This ensures only two will be created. |
    | **Spawn Timer** | None | There is no delay between spawning wolves at the start of gameplay. |
    | **Spawn Radius** | 2.5M | The maximum distance from the spawner a wolf can appear. |
+
 2. Place a Sentry device on the elevated platform, customize it to the following settings, then copy and place a second one.
 
    | Option | Value | Description |
@@ -181,6 +184,7 @@ You will need the following devices.
    | **Spawn On Game Start** | No | The sentries are not spawned at the start of gameplay. |
    | **Spawn When Receiving From** | Channel 1 | When a player activates the button, the sentries appear and begin engaging any valid targets in range. |
    | **Destroy Sentry When Receiving From** | Channel 2 | After a brief duration, the sentries will vanish based on the Timed Objective device. |
+
 3. Place a Button device near the platform which a player can use to activate the sentries. Customize it to the following settings.
 
    [![Guard Button](https://dev.epicgames.com/community/api/documentation/image/b81ccfc2-e4b8-4439-ac7a-693a12cc75dc?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b81ccfc2-e4b8-4439-ac7a-693a12cc75dc?resizing_type=fit)
@@ -191,6 +195,7 @@ You will need the following devices.
    | **Reset Delay** | 10 Seconds | The time needed for the Timed Objective device to despawn the sentries. |
    | **Interaction Text** | Activating Sentry Defense | The text displayed while interacting with the button. |
    | **When Interacted With Transmit On** | Channel 1 | Sends out a signal to activate the sentries and start the Timed Objective device countdown. |
+
 4. Anywhere on the map out of sight, place a Timed Objective device and customize it to the following settings.
 
    [![Guard Timed Objective](https://dev.epicgames.com/community/api/documentation/image/c0bf4aed-565d-4060-99a2-661a05922448?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c0bf4aed-565d-4060-99a2-661a05922448?resizing_type=fit)
@@ -229,6 +234,7 @@ You will need the following devices.
    | **Spawn Timer** | None | Wildlife is only spawned when the device receives a signal on a channel. |
    | **Spawn Radius** | 2.5M | The max distance new wildlife are spawned. |
    | **Spawn When Receiving From** | Channel 1 | Spawns a single chicken when receiving a signal on channel 1. |
+
 2. Place a button near the wildlife spawner which you can use to spawn chickens for testing. Customize it to the following settings.
 
    [![Upgrade Button](https://dev.epicgames.com/community/api/documentation/image/7129bde5-3812-44a9-838e-662a8a9af6e4?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7129bde5-3812-44a9-838e-662a8a9af6e4?resizing_type=fit)
@@ -238,6 +244,7 @@ You will need the following devices.
    | **Interact Time** | 1 Second | Time needed to interact to spawn a chicken. Helps prevent accidentally summoning multiples. |
    | **Trigger Sound** | Disabled | No SFX are made when the button is activated. |
    | **When Interacted With Transmit On** | Channel 1 | Sends a signal to spawn a chicken when the Button is activated. |
+
 3. Place a Sentry device opposite the wildlife spawner, and customize it to the following settings.
 
    [![Upgrade Button](https://dev.epicgames.com/community/api/documentation/image/f5050d61-1a3b-4261-b7e3-00253ae0fb6f?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f5050d61-1a3b-4261-b7e3-00253ae0fb6f?resizing_type=fit)
@@ -249,6 +256,7 @@ You will need the following devices.
    | **Can Target Creatures** | Yes | The sentry will fire on wildlife and creatures. |
    | **Friendly Team** | Team 1 | Set to the same team as the player so they are not attacked. |
    | **Destroy Sentry When Receiving From** | Channel 2 | When the sentry is upgraded, the old one is despawned. |
+
 4. Directly adjacent, overlapping as much as possible, place a second Sentry device. Customize it to the following settings.
 
    [![Upgrade Button](https://dev.epicgames.com/community/api/documentation/image/9cab90f7-73d3-40fa-aedb-c30037cb6840?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9cab90f7-73d3-40fa-aedb-c30037cb6840?resizing_type=fit)
@@ -262,6 +270,7 @@ You will need the following devices.
    | **Friendly Team** | Team 1 | Set to the same team as the player so they are not attacked. |
    | **Spawn On Game Start** | No | The sentry is not automatically spawned when gameplay begins. |
    | **Spawn When Receiving From** | Channel 2 | The same channel that despawns the old sentry will also spawn the upgraded one. |
+
 5. Near the two sentries, place a Conditional Button device. Register any amount of gold or other resource desired, then customize it to the following settings.
 
    [![Upgrade Button](https://dev.epicgames.com/community/api/documentation/image/f10a4844-84dc-438b-adac-8506a8597c91?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f10a4844-84dc-438b-adac-8506a8597c91?resizing_type=fit)

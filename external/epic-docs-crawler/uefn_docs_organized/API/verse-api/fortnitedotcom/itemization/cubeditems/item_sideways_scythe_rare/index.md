@@ -1,6 +1,6 @@
 # item_sideways_scythe_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_sideways_scythe_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_sideways_scythe_rare>
 > **爬取时间**: 2025-12-27T03:13:51.372173
 
 ---

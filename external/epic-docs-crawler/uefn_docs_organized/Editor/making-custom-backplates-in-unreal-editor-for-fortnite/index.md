@@ -1,6 +1,6 @@
 # Making Custom Backplates
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-backplates-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-backplates-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:17:08.656528
 
 ---
@@ -295,4 +295,4 @@ Playtest the look of the custom avatar nameplate. It should look something like 
 
 Making Custom Health and Shield Bars
 
-Create custom Health and Shield Bars for your custom HUD.](https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-health-and-shield-bars-in-unreal-editor-for-fortnite)
+Create custom Health and Shield Bars for your custom HUD.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-health-and-shield-bars-in-unreal-editor-for-fortnite>)

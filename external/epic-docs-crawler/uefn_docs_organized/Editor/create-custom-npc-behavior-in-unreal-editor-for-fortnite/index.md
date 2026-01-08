@@ -1,6 +1,6 @@
 # Create Custom NPC Behavior
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-custom-npc-behavior-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-custom-npc-behavior-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:03:08.159021
 
 ---
@@ -146,6 +146,7 @@ The `new_npc_behavior` template class defines several values used for visualizat
             MaxValue:=option{10.0}
         MoveToWaitDuration:float = 5.0
   ```
+
 - The `DistanceFromSpawnPtToMove` defines the range of the random offset from the spawnpoint for your character to move.
 
   ```verse
@@ -155,6 +156,7 @@ The `new_npc_behavior` template class defines several values used for visualizat
             MinValue:=option{0.0}
         DistanceFromSpawnPtToMove:float = 1500.0
   ```
+
 - The `ShowAIDebug` logic value lets you toggle drawing debug shapes from the editor.
 
   ```verse
@@ -163,6 +165,7 @@ The `new_npc_behavior` template class defines several values used for visualizat
             Categories:=array{my_first_npc_behavior_message_module.SettingsCategory}
         ShowAIDebug:logic = true
   ```
+
 - The `AIDebugDrawTime` float lets you specify the amount of time to render the debug draw location.
 
   ```verse
@@ -172,12 +175,14 @@ The `new_npc_behavior` template class defines several values used for visualizat
       MinValue:=option{0.5} 
   AIDebugDrawTime:float = 5.0
   ```
+
 - The `LookAtDebugDrawDuration` float lets you specify how long to render the look arrow debug draw.
 
   ```verse
         # How long in seconds to render the look at arrow's debug draw.
         LookAtDebugDrawDuration:float = 0.5
   ```
+
 - The `DebugDrawNPC` channel defines the debug draw instance, and uses the channel defined at the top of the file.
 
   ```verse
@@ -187,6 +192,7 @@ The `new_npc_behavior` template class defines several values used for visualizat
             MinValue:=option{0.5}
         LookAtDebugDrawDuration:float = 0.5
   ```
+
 - Finally the `VerticalOffsetToNPCHead` defines this offset from the NPC’s pelvis to the head to draw the debug look arrow from. Without this offset, the debug look arrow would be drawn from the center of the NPC.
 
   ```verse
@@ -260,4 +266,4 @@ By completing this guide, you’ve learned how to create an NPC Behavior Script 
 
 Create your own NPC Medic
 
-Use Verse Code to create a custom NPC medic.](https://dev.epicgames.com/documentation/en-us/fortnite/create-your-own-npc-medic-in-unreal-editor-for-fortnite)
+Use Verse Code to create a custom NPC medic.](<https://dev.epicgames.com/documentation/en-us/fortnite/create-your-own-npc-medic-in-unreal-editor-for-fortnite>)

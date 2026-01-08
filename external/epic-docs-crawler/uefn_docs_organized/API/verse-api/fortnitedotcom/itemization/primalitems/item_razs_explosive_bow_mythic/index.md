@@ -1,6 +1,6 @@
 # item_razs_explosive_bow_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_razs_explosive_bow_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_razs_explosive_bow_mythic>
 > **爬取时间**: 2025-12-27T03:44:53.805209
 
 ---

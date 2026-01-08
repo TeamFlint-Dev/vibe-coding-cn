@@ -1,6 +1,6 @@
 # LEGO® Islands
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/building-lego-islands-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/building-lego-islands-in-fortnite>
 > **爬取时间**: 2025-12-26T22:54:50.480291
 
 ---
@@ -26,11 +26,11 @@ The LEGO culture has its own way of talking and this culture has found its way i
 - **LEGO Island**: A LEGO Island uses LEGO assets and Minifigures. Templates for these islands can be found when you interact with the console on the Creative hub, click **Create New**, and select the **LEGO® Template** tab, or in the **Project Browser** when launching UEFN. Dream big, build small!
 - **Minifigure-compatible**: This can apply to props, items, tools, devices, and any other assets. It means that the asset has been scaled down to match the Minifigures used on a LEGO Island.
 - **Primitives**: For a LEGO Island, primitives refers to a collection of basic geometrical shapes that look like real-life LEGO Elements. These props can be used with other elements to build just about anything you can imagine. Start simple, then build an empire!
-- **Studs**: 
+- **Studs**:
   The protruding cylinders on top of LEGO bricks that feature the LEGO logo.
-- **Tubes**: 
+- **Tubes**:
   The cylindrical connectors found underneath LEGO bricks that fit between the studs to create a snap and secure fit.
-- **Kragle**: 
+- **Kragle**:
   The sticky semi-permanent glue that binds bricks together into a static mesh you can reuse and edit. You can only use the Kragle tool when in [LEGO Brick Editor mode](https://dev.epicgames.com/documentation/en-us/fortnite/working-with-the-lego-brick-editor-in-fortnite).
 
 ## Create Your Own LEGO Island
@@ -67,34 +67,34 @@ Open UEFN and select **Create a New Project** from the Project menu on the Level
    [![Name your project.](https://dev.epicgames.com/community/api/documentation/image/e5dddf49-9a88-4c9f-9088-a310a4e5361b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e5dddf49-9a88-4c9f-9088-a310a4e5361b?resizing_type=fit)
 3. Click **Create** and your project opens in the viewport.
 
-## Ready, Set, Build!
+## Ready, Set, Build
 
 [![LEGO® Brand and Creator Rules](https://dev.epicgames.com/community/api/documentation/image/781446a5-36d9-4283-a1c3-c6063f3d4403?resizing_type=fit&width=640&height=640)
 
 LEGO® Brand and Creator Rules
 
-Work with LEGO® assets and templates to create and publish custom LEGO® Islands.](https://dev.epicgames.com/documentation/en-us/fortnite/lego-brand-and-creator-rules-in-fortnite-creative)[![Working with LEGO® Islands](https://dev.epicgames.com/community/api/documentation/image/d0ccb627-0768-4773-ae21-c624999c3d1e?resizing_type=fit&width=640&height=640)
+Work with LEGO® assets and templates to create and publish custom LEGO® Islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-brand-and-creator-rules-in-fortnite-creative)[![Working> with LEGO® Islands](<https://dev.epicgames.com/community/api/documentation/image/d0ccb627-0768-4773-ae21-c624999c3d1e?resizing_type=fit&width=640&height=640>)
 
 Working with LEGO® Islands
 
-Learn about building a custom LEGO® Island with exclusive content.](https://dev.epicgames.com/documentation/en-us/fortnite/working-with-lego-islands-in-fortnite-creative)[![LEGO® Brick Editor](https://dev.epicgames.com/community/api/documentation/image/aba0f36c-2e41-4ae7-a14f-52f2b96a903e?resizing_type=fit&width=640&height=640)
+Learn about building a custom LEGO® Island with exclusive content.](<https://dev.epicgames.com/documentation/en-us/fortnite/working-with-lego-islands-in-fortnite-creative)[![LEGO®> Brick Editor](<https://dev.epicgames.com/community/api/documentation/image/aba0f36c-2e41-4ae7-a14f-52f2b96a903e?resizing_type=fit&width=640&height=640>)
 
 LEGO® Brick Editor
 
-Use the LEGO® Brick Editor to build your own custom LEGO assets for your project.](https://dev.epicgames.com/documentation/en-us/fortnite/lego-brick-editor-in-fortnite)[![LEGO® Templates](https://dev.epicgames.com/community/api/documentation/image/d6970853-47c2-4129-b6a8-2bd8351d7495?resizing_type=fit&width=640&height=640)
+Use the LEGO® Brick Editor to build your own custom LEGO assets for your project.](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-brick-editor-in-fortnite)[![LEGO®> Templates](<https://dev.epicgames.com/community/api/documentation/image/d6970853-47c2-4129-b6a8-2bd8351d7495?resizing_type=fit&width=640&height=640>)
 
 LEGO® Templates
 
-Learn about the available LEGO® templates, and how to use them to design and build your own LEGO Island.](https://dev.epicgames.com/documentation/en-us/fortnite/lego-templates-in-fortnite)[![LEGO® Asset Inventory](https://dev.epicgames.com/community/api/documentation/image/e5de8954-9a80-4aff-899b-0863db6d2a45?resizing_type=fit&width=640&height=640)
+Learn about the available LEGO® templates, and how to use them to design and build your own LEGO Island.](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-templates-in-fortnite)[![LEGO®> Asset Inventory](<https://dev.epicgames.com/community/api/documentation/image/e5de8954-9a80-4aff-899b-0863db6d2a45?resizing_type=fit&width=640&height=640>)
 
 LEGO® Asset Inventory
 
-Check out the inventory of LEGO® assets available through the LEGO template islands.](https://dev.epicgames.com/documentation/en-us/fortnite/lego-asset-inventory-in-fortnite-creative)[![Collectible Devices](https://dev.epicgames.com/community/api/documentation/image/d5cb452b-49d8-412e-ad1f-8294ba308ed9?resizing_type=fit&width=640&height=640)
+Check out the inventory of LEGO® assets available through the LEGO template islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-asset-inventory-in-fortnite-creative)[![Collectible> Devices](<https://dev.epicgames.com/community/api/documentation/image/d5cb452b-49d8-412e-ad1f-8294ba308ed9?resizing_type=fit&width=640&height=640>)
 
 Collectible Devices
 
-Award players collectible studs throughout their LEGO adventures to fulfill device and score requirements.](https://dev.epicgames.com/documentation/en-us/fortnite/using-lego-collectible-devices-in-fortnite-creative)[![Assembly Devices](https://dev.epicgames.com/community/api/documentation/image/179e93d7-d468-4c06-9991-a04294085b9f?resizing_type=fit&width=640&height=640)
+Award players collectible studs throughout their LEGO adventures to fulfill device and score requirements.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-lego-collectible-devices-in-fortnite-creative)[![Assembly> Devices](<https://dev.epicgames.com/community/api/documentation/image/179e93d7-d468-4c06-9991-a04294085b9f?resizing_type=fit&width=640&height=640>)
 
 Assembly Devices
 
-Set up prop environments for players to build with the LEGO® Assembly device.](https://dev.epicgames.com/documentation/en-us/fortnite/using-lego-assembly-devices-in-fortnite-creative)
+Set up prop environments for players to build with the LEGO® Assembly device.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-lego-assembly-devices-in-fortnite-creative>)

@@ -1,6 +1,6 @@
 # (Rotation:rotation).GetForwardAxis extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/getforwardaxis
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/getforwardaxis>
 > **爬取时间**: 2025-12-27T00:48:30.241228
 
 ---

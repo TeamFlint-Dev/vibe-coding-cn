@@ -1,6 +1,6 @@
 # Building a Treasure Hunt Race in Fortnite Creative
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/treasure-hunt-race-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/treasure-hunt-race-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:09:56.637684
 
 ---
@@ -18,7 +18,7 @@
 
 Authors: Steven Isaacs and Brian Dickman
 
-Email: steven.isaacs@epicgames.com | brian@cleverlike.com
+Email: <steven.isaacs@epicgames.com> | <brian@cleverlike.com>
 
 Twitter: @mr\_isaacs | @cleverlike
 

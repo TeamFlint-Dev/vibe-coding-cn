@@ -1,6 +1,6 @@
 # 6. Hidden Room
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-06-hidden-room-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-06-hidden-room-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:17:31.616727
 
 ---
@@ -90,6 +90,6 @@ Rename the Item Spawners so you can find them easier when searching for them in 
 
 [![7. Second Puzzle Room](https://dev.epicgames.com/community/api/documentation/image/067abc9d-eb88-4d47-99e9-b606946ef090?resizing_type=fit&width=640&height=640)
 
-7. Second Puzzle Room
+1. Second Puzzle Room
 
-Create an upper basement area for players to find the second puzzle.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-07-second-puzzle-room-in-unreal-editor-for-fortnite)
+Create an upper basement area for players to find the second puzzle.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-07-second-puzzle-room-in-unreal-editor-for-fortnite>)

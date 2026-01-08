@@ -1,6 +1,6 @@
 # HopUp function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/shooting_range_target_track_device/hopup
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/shooting_range_target_track_device/hopup>
 > **爬取时间**: 2025-12-27T06:27:23.076233
 
 ---

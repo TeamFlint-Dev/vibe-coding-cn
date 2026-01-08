@@ -1,6 +1,6 @@
 # item_burst_assault_rifle_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_burst_assault_rifle_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_burst_assault_rifle_rare>
 > **爬取时间**: 2025-12-27T04:41:14.068246
 
 ---

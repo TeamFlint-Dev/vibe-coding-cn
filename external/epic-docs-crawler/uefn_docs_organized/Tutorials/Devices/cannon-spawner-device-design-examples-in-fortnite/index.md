@@ -1,6 +1,6 @@
 # Cannon Spawner Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/cannon-spawner-device-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/cannon-spawner-device-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:03:53.564228
 
 ---

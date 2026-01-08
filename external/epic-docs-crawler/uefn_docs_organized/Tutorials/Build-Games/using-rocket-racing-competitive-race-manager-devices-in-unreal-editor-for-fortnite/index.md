@@ -1,6 +1,6 @@
 # RR Competitive Race Manager Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-competitive-race-manager-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-rocket-racing-competitive-race-manager-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:20:32.730546
 
 ---

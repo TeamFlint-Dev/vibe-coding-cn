@@ -1,6 +1,6 @@
 # Damage function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/roly_poly/damage-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/roly_poly/damage-1>
 > **爬取时间**: 2025-12-27T06:44:22.714521
 
 ---

@@ -1,6 +1,6 @@
 # item_diamond class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_diamond
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_diamond>
 > **爬取时间**: 2025-12-27T03:51:07.932936
 
 ---

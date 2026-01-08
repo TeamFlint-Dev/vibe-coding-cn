@@ -1,6 +1,6 @@
 # EnableVolumeLocking function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/skydive_volume_device/enablevolumelocking
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/skydive_volume_device/enablevolumelocking>
 > **爬取时间**: 2025-12-27T06:26:08.596772
 
 ---

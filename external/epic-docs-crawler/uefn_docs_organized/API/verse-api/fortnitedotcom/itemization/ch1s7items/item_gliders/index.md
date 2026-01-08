@@ -1,6 +1,6 @@
 # item_gliders class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_gliders
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_gliders>
 > **爬取时间**: 2025-12-27T03:22:16.611911
 
 ---

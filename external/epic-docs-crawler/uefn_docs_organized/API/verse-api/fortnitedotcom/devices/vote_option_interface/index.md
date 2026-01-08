@@ -1,6 +1,6 @@
 # vote_option_interface interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vote_option_interface
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vote_option_interface>
 > **爬取时间**: 2025-12-27T01:46:50.885000
 
 ---

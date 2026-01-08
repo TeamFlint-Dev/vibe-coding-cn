@@ -1,6 +1,6 @@
 # Making Music in Fortnite Creative
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-music-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-music-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:09:34.773097
 
 ---
@@ -18,11 +18,11 @@
 
 Authors: Steven Isaacs and Brian Dickman
 
-Email: stevei2071@gmail.com | brian@cleverlike.com
+Email: <stevei2071@gmail.com> | <brian@cleverlike.com>
 
 Twitter: @mr\_isaacs | @cleverlike
 
-LinkedIn: https://www.linkedin.com/in/steve-isaacs/ | https://www.linkedin.com/in/cleverlike
+LinkedIn: <https://www.linkedin.com/in/steve-isaacs/> | <https://www.linkedin.com/in/cleverlike>
 
 ## DESCRIPTION OF CLASS/LEARNING ENVIRONMENT
 

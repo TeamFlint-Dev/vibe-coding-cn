@@ -1,6 +1,6 @@
 # down_but_not_out_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/down_but_not_out_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/down_but_not_out_device>
 > **爬取时间**: 2025-12-27T01:54:14.871651
 
 ---

@@ -1,6 +1,6 @@
 # SetTarget function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/automated_turret_device/settarget
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/automated_turret_device/settarget>
 > **爬取时间**: 2025-12-27T06:10:56.983760
 
 ---

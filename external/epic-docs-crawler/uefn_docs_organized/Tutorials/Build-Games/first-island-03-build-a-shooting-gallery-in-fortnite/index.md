@@ -1,6 +1,6 @@
 # 3. Build a Shooting Gallery
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/first-island-03-build-a-shooting-gallery-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/first-island-03-build-a-shooting-gallery-in-fortnite>
 > **爬取时间**: 2025-12-26T23:53:20.392854
 
 ---
@@ -112,6 +112,6 @@ When players spawn into the game, they can wander around the area behind the bar
 
 [![4. Playtest Your Island](https://dev.epicgames.com/community/api/documentation/image/07ce08f1-02b8-40b5-9f91-e1d881c4d0cc?resizing_type=fit&width=640&height=640)
 
-4. Playtest Your Island
+1. Playtest Your Island
 
-See why playtesting is a crucial element of game design and development.](https://dev.epicgames.com/documentation/en-us/fortnite/first-island-04-playtest-your-island-in-fortnite)
+See why playtesting is a crucial element of game design and development.](<https://dev.epicgames.com/documentation/en-us/fortnite/first-island-04-playtest-your-island-in-fortnite>)

@@ -1,6 +1,6 @@
 # (V:vector3).IsAlmostZero extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/isalmostzero
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/isalmostzero>
 > **爬取时间**: 2025-12-27T00:47:06.409049
 
 ---

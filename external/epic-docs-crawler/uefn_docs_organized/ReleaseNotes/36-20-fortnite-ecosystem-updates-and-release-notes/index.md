@@ -1,6 +1,6 @@
 # 36.20 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/36-20-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/36-20-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:36:05.041393
 
 ---

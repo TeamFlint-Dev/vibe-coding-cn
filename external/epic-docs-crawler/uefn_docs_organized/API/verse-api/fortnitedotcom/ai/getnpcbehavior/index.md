@@ -1,6 +1,6 @@
 # (InAgent:agent).GetNPCBehavior extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/getnpcbehavior
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/getnpcbehavior>
 > **爬取时间**: 2025-12-27T00:58:18.593807
 
 ---

@@ -1,6 +1,6 @@
 # Furniture Props
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/equip-furniture-props-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/equip-furniture-props-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:58:21.523789
 
 ---

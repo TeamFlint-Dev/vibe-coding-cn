@@ -1,6 +1,6 @@
 # LEGO® Santa's Toy Factory
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lego-santas-toy-factory-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lego-santas-toy-factory-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:36:58.554258
 
 ---
@@ -95,16 +95,16 @@ Again, you will see how much you can change the pace and feeling of the game jus
         # This file contains the data used to configure the factory in the game.
         # This includes upgrade prices, max levels, production speeds, storage capacities and more.
         # It also contains functions for getting all this data.
-   		
-   		
+     
+     
         using { /Verse.org/Simulation }
         using { Persistence }
-   		
-   		
+     
+     
         # Blubberchops: "Looks like this is the place to modify the upgrade prices for belts."
         #               "Let's make them cheaper!"
-   		
-   		
+     
+     
         # Defines the upgrade price per level for each factory belt.
         FactoryBeltPrices: [][]int =
             # Each column is a belt.       0             1               2               3
@@ -125,6 +125,7 @@ Again, you will see how much you can change the pace and feeling of the game jus
                     array{              4000,        20000,         400000,       4000000},
                     array{              5000,        25000,         500000,       5000000}}
    ```
+
 3. Follow Blubberchops's advice and make the price for upgrading the belts less expensive. You can also experiment with increasing the price to make the pace of the game slower.
 4. When you are ready, build the Verse code and push Verse changes to try out your changes.
 
@@ -202,6 +203,7 @@ If you need a little help on this challenge, take a peek at the **Daily Gift De
         # Professor Flopkins: "We need to make sure to copy over the latest gift opening time"
         #                     "It should look completely similar to the other lines in this constructor."
    ```
+
 3. Fix the functions for getting and setting the newly added field. This time, look for Professor Flopkins’s comments near the bottom of the file.
 
    Fill out the missing lines to make the functions behave correctly. You can look at some of the other functions in the file for inspiration.
@@ -256,6 +258,7 @@ If you need a little help on this challenge, take a peek at the **Daily Gift De
         # Professor Flopkins: "We need to make sure to copy over the latest gift opening time"
         #                     "It should look completely similar to the other lines in this constructor."
    ```
+
 4. With the the new functionality for the persistable data ready, open the **daily\_gift.verse** file to change the logic that makes the gift appear only once a day.
 
    [![Open the daily_gift.verse Verse file.](https://dev.epicgames.com/community/api/documentation/image/443dd058-e4ad-4d4f-bd79-8f28b19d2c51?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/443dd058-e4ad-4d4f-bd79-8f28b19d2c51?resizing_type=fit)
@@ -316,6 +319,7 @@ If you need a little help on this challenge, take a peek at the **Daily Gift De
         #       "We want the year, month or date to be different as that means the date"
         #       "has rolled over."
    ```
+
 6. You are now ready to test your solution! Build the Verse code and push the Verse changes to try it in your session.
 
 You can use **Sub Zero's debug button** as a shortcut for skipping ahead in time to test if the gift respawns when the date changes.
@@ -419,6 +423,7 @@ Here's a solution to the **expert challenge** to help you make full use of the D
             OrderInfo := Src.OrderInfo
             GiftOpeningTime := Src.GiftOpeningTime
    ```
+
 2. Fill in the `SetGiftOpeningTime` and `GetGiftOpeningTime` functions:
 
    ```verse
@@ -436,6 +441,7 @@ Here's a solution to the **expert challenge** to help you make full use of the D
             CheckPlayerInfoForPlayer[Player]
             PlayerInfoMap[Player].GiftOpeningTime
    ```
+
 3. Turn your attention to the `daily_gift` class in the **daily\_gift.verse** file. First, fill in the storing of the current time when opening the gift:
 
    ```verse
@@ -444,27 +450,28 @@ Here's a solution to the **expert challenge** to help you make full use of the D
             # Hide gift.
             set Opened = true
             PropManipulator.HideProps()
-   		
+     
             # Show effect.
             spawn:
                 ShowGiftEffect()
-   		
+     
             # Play audio.
             GiftOpenAudioPlayer.Play()
-   		
+     
             # Give player some gold and store opening time.
             if:
                 SelectedPlayer := MaybeSelectedPlayer?
                 GrantGold[SelectedPlayer, Gold]
-   		
+     
                 Now := RealTime.GetDateAndTime()
                 SetGiftOpeningTime[SelectedPlayer, Now]
-   		        
+             
             then:
                 # Update all players' UI.
                 UIManager.UpdateAllPriceUIs()
                 UIManager.UpdateAllResourceUIs()
    ```
+
 4. Implement the `IsDateRolledOver` function:
 
    ```verse

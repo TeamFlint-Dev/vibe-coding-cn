@@ -1,6 +1,6 @@
 # item_estate_vault_keycard class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_estate_vault_keycard
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_estate_vault_keycard>
 > **爬取时间**: 2025-12-27T04:30:46.363684
 
 ---

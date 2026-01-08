@@ -1,6 +1,6 @@
 # 1v1 Box Fight
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/design-a-1v1-box-fight-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/design-a-1v1-box-fight-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:57:56.980946
 
 ---
@@ -93,6 +93,7 @@ Any options that are not listed in the device sections below are meant to stay a
    | **Priority Group** | Primary | You want these Player Spawn Pads to be the highest priority. |
    | **Use as Island Start** | Yes | There isn't a pre-game lobby in this game, so you want the players to spawn directly in the play area. |
    | **Visible during games** | No | You don't need the spawn pad visible during gameplay, so set this to **No**. |
+
 4. Click **OK** to save your options.
 
    Click **OK** after changing your settings. Otherwise, your customized options will not be saved.
@@ -123,6 +124,7 @@ Two of the Barrier devices will keep the players on their own sides of the room 
    | **Barrier Height** | 3 tiles | Since the Barrier device is placed in the lower level, setting the Barrier to 3 tiles high means it extends from the lower level all the way to the ceiling of the play area. |
    | **Barrier Width** | 1 tiles | The Barrier should take up only one tile in front of the player. |
    | **Disable When Receiving From** | Channel 1 | The Barrier drops when the device receives a signal on Channel 1. |
+
 6. Click **OK** to save your options.
 7. Once you have the first Barrier customized, point at it with your phone and click to copy it. Place the copied Barrier in the row of tiles in front of the second spawn pad.
 
@@ -150,6 +152,7 @@ The third Barrier will be placed on the lower level, in the exact middle of the 
    | **Barrier Height** | 3 tiles | Since the Barrier device is placed in the lower level, setting the Barrier to 3 tiles high means it extends from the lower level all the way to the ceiling of the play area. |
    | **Barrier Width** | .5 tile | This Barrier doesn’t need to be very wide, because its only purpose is to keep players from seeing each other. |
    | **Disable When Receiving From** | Channel 1 | This Barrier drops when the device receives a signal on Channel 1, just like the Barriers in front of the players. |
+
 5. Click **OK** to save your options.
 
 ## Add and Set Up the Timed Objective Device
@@ -171,6 +174,7 @@ You will use this device to create a timer that counts down at the beginning of 
    | **Visible During Game** | No | This device is invisible to players. You can put it in the lower level for convenience, just to have all your invisible devices together. |
    | **Urgency Mode** | Disabled | You can enable Urgency Mode on a timer if there is something the player needs to do before the timer ends. But it isn’t needed here, so disable it. |
    | **When Completed, Transmit On** | Channel 1 | When the timer finishes counting down (completes), it sends a signal on the selected channel. You want to select Channel 1 here, because all three Barrier devices are listening for a signal on that channel. When they receive the signal, the Barriers all drop. |
+
 4. Click **OK** to save your options.
 
 ## Add and Set Up the Class Designer Device
@@ -238,6 +242,7 @@ Find and place the Class Designer device. As with the other devices, this will b
     | **Infinite Ammo** | Off | You defined how much ammo each player has when you set up the Class Designer, so this is set to **Off**. |
     | **Infinite Items** | Off | You defined how many items each player has when you set up the Class Designer, so this is set to **Off**. |
     | **Infinite Resources** | Off | You defined how much wood each player has when you set up the Class Designer, so this is set to **Off**. |
+
 18. Click **OK** to save your options.
 
 When you've set up the first Class Designer and customized its options, you can point your phone at it and click to create a copy. This copy will have the same items and customized options as the first device. Click to paste the second device for Player 2. Since you are making one for each player, you can put each player's device on that player's side of the lower level, to make it easier for you to remember which device is for which player.

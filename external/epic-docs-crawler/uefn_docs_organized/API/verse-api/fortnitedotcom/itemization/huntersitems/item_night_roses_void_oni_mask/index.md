@@ -1,6 +1,6 @@
 # item_night_roses_void_oni_mask class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_night_roses_void_oni_mask
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_night_roses_void_oni_mask>
 > **爬取时间**: 2025-12-27T04:05:51.384988
 
 ---

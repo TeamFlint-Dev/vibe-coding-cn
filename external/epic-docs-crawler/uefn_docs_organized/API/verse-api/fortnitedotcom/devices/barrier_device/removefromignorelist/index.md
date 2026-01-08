@@ -1,6 +1,6 @@
 # RemoveFromIgnoreList function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/barrier_device/removefromignorelist
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/barrier_device/removefromignorelist>
 > **爬取时间**: 2025-12-27T06:40:57.586694
 
 ---

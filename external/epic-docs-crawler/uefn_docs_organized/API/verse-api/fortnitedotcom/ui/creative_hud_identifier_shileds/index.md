@@ -1,6 +1,6 @@
 # creative_hud_identifier_shileds class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_shileds
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_shileds>
 > **爬取时间**: 2025-12-27T01:08:51.566449
 
 ---

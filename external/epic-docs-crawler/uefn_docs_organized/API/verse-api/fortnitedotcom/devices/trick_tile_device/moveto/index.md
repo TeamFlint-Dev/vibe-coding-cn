@@ -1,6 +1,6 @@
 # MoveTo function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trick_tile_device/moveto
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trick_tile_device/moveto>
 > **爬取时间**: 2025-12-27T05:30:11.753008
 
 ---

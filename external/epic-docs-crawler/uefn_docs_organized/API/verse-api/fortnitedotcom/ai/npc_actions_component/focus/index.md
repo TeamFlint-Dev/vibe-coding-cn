@@ -1,6 +1,6 @@
 # Focus function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_actions_component/focus
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_actions_component/focus>
 > **爬取时间**: 2025-12-27T02:49:37.721167
 
 ---

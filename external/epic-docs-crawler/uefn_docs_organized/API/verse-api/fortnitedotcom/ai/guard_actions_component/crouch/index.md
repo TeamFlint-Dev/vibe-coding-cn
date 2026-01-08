@@ -1,6 +1,6 @@
 # Crouch function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/guard_actions_component/crouch
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/guard_actions_component/crouch>
 > **爬取时间**: 2025-12-27T02:51:10.812663
 
 ---

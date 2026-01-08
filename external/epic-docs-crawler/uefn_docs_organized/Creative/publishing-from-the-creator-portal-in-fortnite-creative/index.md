@@ -1,11 +1,11 @@
 # Publishing from the Creator Portal
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/publishing-from-the-creator-portal-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/publishing-from-the-creator-portal-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:00:09.615810
 
 ---
 
-You’ve tinkered with the tools, devices, and assets to build the game of your dreams. You’ve created at least one island and [signed up for the Fortnite Island Creator Program](https://dev.epicgames.com/documentation/en-us/fortnite/island-creator-and-engagement-program-in-fortnite-creative). 
+You’ve tinkered with the tools, devices, and assets to build the game of your dreams. You’ve created at least one island and [signed up for the Fortnite Island Creator Program](https://dev.epicgames.com/documentation/en-us/fortnite/island-creator-and-engagement-program-in-fortnite-creative).
 Now you’re ready to take that next step and publish your island.
 
 Keep in mind that your island must comply with the [Island Creator Rules](https://www.fortnite.com/news/fortnite-creative-creator-content-rules-and-guidelines) before it can be considered for publishing.
@@ -97,24 +97,24 @@ For more detailed information on any of the publishing workflow screens, see the
 
 Game Details Screen
 
-Learn everything you need to know to fill out the Game Details tab in Creator Portal.](https://dev.epicgames.com/documentation/en-us/fortnite/game-details-screen-in-fortnite)[![Rating Screen](https://dev.epicgames.com/community/api/documentation/image/0362b06e-43f0-40df-ad5f-89e6adb18b46?resizing_type=fit&width=640&height=640)
+Learn everything you need to know to fill out the Game Details tab in Creator Portal.](<https://dev.epicgames.com/documentation/en-us/fortnite/game-details-screen-in-fortnite)[![Rating> Screen](<https://dev.epicgames.com/community/api/documentation/image/0362b06e-43f0-40df-ad5f-89e6adb18b46?resizing_type=fit&width=640&height=640>)
 
 Rating Screen
 
-Learn more about filling out the IARC questionnaire and how age ratings are assigned to islands.](https://dev.epicgames.com/documentation/en-us/fortnite/rating-screen-in-fortnite)[![Promotional Media Screen](https://dev.epicgames.com/community/api/documentation/image/2c0e3bd8-83be-4e62-8199-a8a19dd41383?resizing_type=fit&width=640&height=640)
+Learn more about filling out the IARC questionnaire and how age ratings are assigned to islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/rating-screen-in-fortnite)[![Promotional> Media Screen](<https://dev.epicgames.com/community/api/documentation/image/2c0e3bd8-83be-4e62-8199-a8a19dd41383?resizing_type=fit&width=640&height=640>)
 
 Promotional Media Screen
 
-Learn more about how you can use promotional media to support your island.](https://dev.epicgames.com/documentation/en-us/fortnite/promotional-media-screen-in-fortnite)[![Attribution Screen](https://dev.epicgames.com/community/api/documentation/image/eb16fad0-97e3-44e6-821d-2ed57021e573?resizing_type=fit&width=640&height=640)
+Learn more about how you can use promotional media to support your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/promotional-media-screen-in-fortnite)[![Attribution> Screen](<https://dev.epicgames.com/community/api/documentation/image/eb16fad0-97e3-44e6-821d-2ed57021e573?resizing_type=fit&width=640&height=640>)
 
 Attribution Screen
 
-Give another creator their due! Let the world know whose assets you used on your island.](https://dev.epicgames.com/documentation/en-us/fortnite/attribution-screen-in-fortnite-creative)[![Visibility Screen](https://dev.epicgames.com/community/api/documentation/image/f5c90dff-ffce-48ce-a663-1b0aadfe9359?resizing_type=fit&width=640&height=640)
+Give another creator their due! Let the world know whose assets you used on your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/attribution-screen-in-fortnite-creative)[![Visibility> Screen](<https://dev.epicgames.com/community/api/documentation/image/f5c90dff-ffce-48ce-a663-1b0aadfe9359?resizing_type=fit&width=640&height=640>)
 
 Visibility Screen
 
-Learn about the different publishing states to choose the right one for your island.](https://dev.epicgames.com/documentation/en-us/fortnite/visibility-screen-in-fortnite)[![Project Publishing Page](https://dev.epicgames.com/community/api/documentation/image/0b16905d-d3d1-4e09-9a1e-67d74554c53a?resizing_type=fit&width=640&height=640)
+Learn about the different publishing states to choose the right one for your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/visibility-screen-in-fortnite)[![Project> Publishing Page](<https://dev.epicgames.com/community/api/documentation/image/0b16905d-d3d1-4e09-9a1e-67d74554c53a?resizing_type=fit&width=640&height=640>)
 
 Project Publishing Page
 
-Learn about the different publishing page features available in the Creator Portal.](https://dev.epicgames.com/documentation/en-us/fortnite/publishing-page-features-in-fortnite-creative)
+Learn about the different publishing page features available in the Creator Portal.](<https://dev.epicgames.com/documentation/en-us/fortnite/publishing-page-features-in-fortnite-creative>)

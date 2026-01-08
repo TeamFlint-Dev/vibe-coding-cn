@@ -1,6 +1,6 @@
 # D-Launcher Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/dlauncher-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/dlauncher-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:05:40.134469
 
 ---
@@ -43,6 +43,7 @@ For more on galleries, see [Using Prefabs and Galleries](https://dev.epicgames.c
    | **On Player Collision Behavior** | Continue | This setting keeps player interaction from affecting the prop behavior. |
    | **Player Damage on Collision** | 0.0 | No damage is received by the player. |
    | **Path Complete Action** | Ping Pong | This sets the prop to move back and forth. |
+
 5. Place a **D-Launcher (Primal)** device on the middle platform (the one that will not be moving).
 
    [![](https://dev.epicgames.com/community/api/documentation/image/8f390644-3d1d-4ade-abc8-12a621126af6?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/8f390644-3d1d-4ade-abc8-12a621126af6?resizing_type=fit)
@@ -74,7 +75,7 @@ For more on galleries, see [Using Prefabs and Galleries](https://dev.epicgames.c
 
 This functionality is useful for many different game modes, not just parkour. For example, you can use the D-Launcher device to give players access to higher vantage points or hard-to-reach areas in a player vs. player (PvP) game. With this device, the traversal possibilities are endless!
 
-## Example 2 — Hazard Ahead!
+## Example 2 — Hazard Ahead
 
 Because the D-Launcher device can launch a player in any direction, it also works as a hazard for players to avoid. In this example, players must avoid touching launchers that are set to launch them away from the parkour area.
 
@@ -104,6 +105,7 @@ Because the D-Launcher device can launch a player in any direction, it also work
    | **Player Damage on Collision** | 0.0 | No damage is received by the player. |
    | **On Prop Collision Behavior** | Continue | Keeps movement in place if a platform makes contact with another prop. For example, if a platform collides with a launcher, you want the movement to continue! |
    | **Prop Damage on Collision** | 0.0 | No damage is received by the launcher. |
+
 5. Copy and place this device on the other two platforms, adjusting the **Speed** setting on each one to create interesting movement patterns.
 6. Place a **D-Launcher (Invasion)** device on the end of the path for the second and third platforms, orienting them to face the direction that the platform is coming from, and angle them up slightly.
 
@@ -173,6 +175,7 @@ This example uses creature-launching, along with a low-gravity function, to crea
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | **On Eliminated Send Event To** | Creature Placer | Enable |
+
 7. You can also use event binding to make the launch even more intense! Place a VFX Spawner device just above the launcher.
 8. Customize the VFX to make a single large explosion when activated:
 
@@ -182,6 +185,7 @@ This example uses creature-launching, along with a low-gravity function, to crea
    | --- | --- | --- |
    | **Effect Type** | Burst | Sets the effect for a single burst instead of continuous. |
    | **Burst Visual Effect** | Explosion Large | Provides a large explosion! |
+
 9. Go back to the launcher and bind the following events.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/5ff50d36-dee9-4cc9-96f4-05cba26ac01e?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/5ff50d36-dee9-4cc9-96f4-05cba26ac01e?resizing_type=fit)

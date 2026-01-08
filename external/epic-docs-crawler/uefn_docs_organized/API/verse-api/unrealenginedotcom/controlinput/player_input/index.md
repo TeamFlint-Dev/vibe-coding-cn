@@ -1,6 +1,6 @@
 # player_input class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/controlinput/player_input
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/controlinput/player_input>
 > **爬取时间**: 2025-12-27T01:18:05.420729
 
 ---

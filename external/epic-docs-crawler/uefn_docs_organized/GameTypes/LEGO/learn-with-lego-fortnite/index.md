@@ -1,6 +1,6 @@
 # Learn with LEGO® Fortnite
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/learn-with-lego-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/learn-with-lego-fortnite>
 > **爬取时间**: 2025-12-26T23:56:54.493379
 
 ---

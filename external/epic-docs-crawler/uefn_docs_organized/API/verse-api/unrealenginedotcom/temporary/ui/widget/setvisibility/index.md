@@ -1,6 +1,6 @@
 # SetVisibility function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget/setvisibility
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget/setvisibility>
 > **爬取时间**: 2025-12-27T02:55:46.071325
 
 ---

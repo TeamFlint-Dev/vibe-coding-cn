@@ -1,6 +1,6 @@
 # SetCarryableMesh function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/carryable_spawner_device/setcarryablemesh
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/carryable_spawner_device/setcarryablemesh>
 > **爬取时间**: 2025-12-27T06:27:42.272499
 
 ---

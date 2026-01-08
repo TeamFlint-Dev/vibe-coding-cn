@@ -1,6 +1,6 @@
 # Creating Your Own Component using Verse
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creating-your-own-component-using-verse-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creating-your-own-component-using-verse-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:23:47.484594
 
 ---

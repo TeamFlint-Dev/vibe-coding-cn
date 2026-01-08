@@ -1,6 +1,6 @@
 # item_dragons_breath_sniper_exotic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_dragons_breath_sniper_exotic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_dragons_breath_sniper_exotic>
 > **爬取时间**: 2025-12-27T03:59:09.271710
 
 ---

@@ -1,6 +1,6 @@
 # (InitialRotation:rotation).UnrotateBy extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/unrotateby
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/unrotateby>
 > **爬取时间**: 2025-12-27T02:35:02.970308
 
 ---

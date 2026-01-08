@@ -1,6 +1,6 @@
 # vote_option_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vote_option_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vote_option_device>
 > **爬取时间**: 2025-12-27T01:59:21.655064
 
 ---

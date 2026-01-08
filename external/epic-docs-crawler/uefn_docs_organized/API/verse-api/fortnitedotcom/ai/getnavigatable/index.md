@@ -1,6 +1,6 @@
 # (InCharacter:fort_character).GetNavigatable extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/getnavigatable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/getnavigatable>
 > **爬取时间**: 2025-12-27T00:58:39.686544
 
 ---

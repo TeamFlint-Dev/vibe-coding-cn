@@ -1,6 +1,6 @@
 # team_attitude enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/teams/team_attitude
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/teams/team_attitude>
 > **爬取时间**: 2025-12-27T01:00:16.962911
 
 ---

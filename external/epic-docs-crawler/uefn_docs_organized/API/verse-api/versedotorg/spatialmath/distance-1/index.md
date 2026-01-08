@@ -1,6 +1,6 @@
 # Distance function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/distance-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/distance-1>
 > **爬取时间**: 2025-12-27T00:47:22.159394
 
 ---

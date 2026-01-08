@@ -1,6 +1,6 @@
 # UpdateSelectedTeam function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/mutator_zone_device/updateselectedteam
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/mutator_zone_device/updateselectedteam>
 > **爬取时间**: 2025-12-27T05:46:19.894143
 
 ---

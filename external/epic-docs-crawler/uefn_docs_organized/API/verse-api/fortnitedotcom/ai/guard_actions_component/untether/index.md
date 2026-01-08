@@ -1,6 +1,6 @@
 # Untether function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/guard_actions_component/untether
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/guard_actions_component/untether>
 > **爬取时间**: 2025-12-27T02:50:45.102584
 
 ---

@@ -1,6 +1,6 @@
 # item_modular_ranger_pistol_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_modular_ranger_pistol_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_modular_ranger_pistol_epic>
 > **爬取时间**: 2025-12-27T04:50:17.212495
 
 ---

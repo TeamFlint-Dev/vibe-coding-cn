@@ -1,6 +1,6 @@
 # item_jellyfish class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_jellyfish
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_jellyfish>
 > **爬取时间**: 2025-12-27T04:03:43.457639
 
 ---

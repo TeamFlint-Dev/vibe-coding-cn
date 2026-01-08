@@ -1,6 +1,6 @@
 # item_ammo_arrows class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_ammo_arrows
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_ammo_arrows>
 > **爬取时间**: 2025-12-27T03:42:15.212064
 
 ---

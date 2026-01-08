@@ -1,6 +1,6 @@
 # 25.00 Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/25-00-release-notes-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/25-00-release-notes-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:32:00.264046
 
 ---
@@ -396,7 +396,7 @@
 
 - Added **On Begin Entering Disguise**, **On Finish Entering Disguise**, and **On Exiting Disguise** events to the Prop-O-Matic Manager device, along with Verse support for these events.
 
-### Fixes:
+### Fixes
 
 - Fixed an issue in the Visual Effect Powerup device where the custom color can't be changed when editing an island.
 

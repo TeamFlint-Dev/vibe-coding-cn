@@ -1,6 +1,6 @@
 # Disappearing Platform on Loop
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/disappearing-platform-on-loop-using-verse-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/disappearing-platform-on-loop-using-verse-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:18:32.916236
 
 ---
@@ -69,6 +69,7 @@ Follow these steps to expose these properties to the editor from the **looping\_
        @editable
        ToggleDelay:float = 2.0
      ```
+
    - An editable `creative_prop` named `DisappearingPlatform`. This is the in-level platform that will disappear and appear periodically. Because your code doesn't yet have a reference to this object in the level, you'll instantiate this with an empty [archetype](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#archetype) `creative_prop{}`. You'll assign this reference to your floating platform later.
 
      ```verse
@@ -76,22 +77,23 @@ Follow these steps to expose these properties to the editor from the **looping\_
        @editable
        DisappearingPlatform:creative_prop = creative_prop{}
      ```
+
 3. Your `looping_disappearing_platform` class fields should now look like this:
 
    ```verse
         using { /Fortnite.com/Devices }
         using { /Verse.org/Simulation }
         using { /UnrealEngine.com/Temporary/Diagnostics }
-   		
+     
         # See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
-   		
+     
         # A Verse-authored creative device that can be placed in a level
         looping_disappearing_platform := class(creative_device):
-   		
+     
             # The amount of time to wait before toggling visiblity of the platform.
             @editable
             ToggleDelay:float = 2.0
-   		
+     
             # Reference to the platform in the level.
             @editable
             DisappearingPlatform:creative_prop = creative_prop{}
@@ -167,6 +169,7 @@ Now that you've set up the level and devices, you can add logic to show and hide
                 # Make the platform visible.
                 DisappearingPlatform.Show()
    ```
+
 4. Save the script and click **Verse**, and then **Build Verse Code** to compile the code.
 5. Click **Launch Session** in the UEFN toolbar to playtest the level.
 

@@ -1,6 +1,6 @@
 # NavigateTo function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_actions_component/navigateto
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_actions_component/navigateto>
 > **爬取时间**: 2025-12-27T02:49:58.671201
 
 ---

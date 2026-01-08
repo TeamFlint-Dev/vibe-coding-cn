@@ -1,6 +1,6 @@
 # GetText function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/text_base/gettext
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/text_base/gettext>
 > **爬取时间**: 2025-12-27T02:59:13.548090
 
 ---

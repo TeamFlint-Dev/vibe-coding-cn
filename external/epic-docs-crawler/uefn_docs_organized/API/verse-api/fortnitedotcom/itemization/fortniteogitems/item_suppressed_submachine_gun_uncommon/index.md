@@ -1,6 +1,6 @@
 # item_suppressed_submachine_gun_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_suppressed_submachine_gun_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_suppressed_submachine_gun_uncommon>
 > **爬取时间**: 2025-12-27T04:47:45.854338
 
 ---

@@ -1,6 +1,6 @@
 # Patchwork x Yacht Heist
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/build-patchwork-x-yacht-heist-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/build-patchwork-x-yacht-heist-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:04:21.938104
 
 ---
@@ -29,19 +29,19 @@ The following is an overview of the steps you'll need to recreate this island, i
 
 1. The Patchwork Adaptive Soundtrack
 
-Make the adaptive soundtrack your game using Patchwork devices.](https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-1-the-patchwork-adaptive-soundtrack-in-fortnite-creative)[![2. The Guard Alert System](https://dev.epicgames.com/community/api/documentation/image/7d6cd150-d8d1-4166-870e-1532f5a737e1?resizing_type=fit&width=640&height=640)
+Make the adaptive soundtrack your game using Patchwork devices.](<https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-1-the-patchwork-adaptive-soundtrack-in-fortnite-creative)[![2>. The Guard Alert System](<https://dev.epicgames.com/community/api/documentation/image/7d6cd150-d8d1-4166-870e-1532f5a737e1?resizing_type=fit&width=640&height=640>)
 
-2. The Guard Alert System
+1. The Guard Alert System
 
-Find out how guards are alerted and how their state changes the Patchwork adaptive soundtrack.](https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-2-the-guard-alert-system-in-fortnite-creative)[![3. The Sneak Phase](https://dev.epicgames.com/community/api/documentation/image/22ae824a-022a-4a5f-8430-fe21088b0aeb?resizing_type=fit&width=640&height=640)
+Find out how guards are alerted and how their state changes the Patchwork adaptive soundtrack.](<https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-2-the-guard-alert-system-in-fortnite-creative)[![3>. The Sneak Phase](<https://dev.epicgames.com/community/api/documentation/image/22ae824a-022a-4a5f-8430-fe21088b0aeb?resizing_type=fit&width=640&height=640>)
 
-3. The Sneak Phase
+1. The Sneak Phase
 
-See how to set up the sneak phase of the Yacht Heist.](https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-3-the-sneak-phase-in-fortnite-creative)[![4. The Escape Phase](https://dev.epicgames.com/community/api/documentation/image/be4ca3a8-7390-48a9-a22b-5e3bd4247caf?resizing_type=fit&width=640&height=640)
+See how to set up the sneak phase of the Yacht Heist.](<https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-3-the-sneak-phase-in-fortnite-creative)[![4>. The Escape Phase](<https://dev.epicgames.com/community/api/documentation/image/be4ca3a8-7390-48a9-a22b-5e3bd4247caf?resizing_type=fit&width=640&height=640>)
 
-4. The Escape Phase
+1. The Escape Phase
 
-This section shows you how to set up the escape phase of the Yacht Heist.](https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-4-the-escape-phase-in-fortnite-creative)
+This section shows you how to set up the escape phase of the Yacht Heist.](<https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-4-the-escape-phase-in-fortnite-creative>)
 
 ## What You Will Learn
 

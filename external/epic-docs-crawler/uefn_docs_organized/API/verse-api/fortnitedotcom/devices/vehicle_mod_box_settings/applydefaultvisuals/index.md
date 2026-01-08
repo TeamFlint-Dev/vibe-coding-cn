@@ -1,6 +1,6 @@
 # ApplyDefaultVisuals function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_mod_box_settings/applydefaultvisuals
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_mod_box_settings/applydefaultvisuals>
 > **爬取时间**: 2025-12-27T06:06:22.071495
 
 ---

@@ -1,6 +1,6 @@
 # has_item_merge_rules interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/has_item_merge_rules
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/has_item_merge_rules>
 > **爬取时间**: 2025-12-27T01:03:13.713229
 
 ---

@@ -1,6 +1,6 @@
 # Lives After Death: The Pyramids of Giza
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lesson-plan-lives-after-death-pyramids-of-giza-made-with-uefn
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lesson-plan-lives-after-death-pyramids-of-giza-made-with-uefn>
 > **爬取时间**: 2025-12-26T23:56:44.159002
 
 ---

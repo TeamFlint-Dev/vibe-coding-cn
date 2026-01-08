@@ -1,6 +1,6 @@
 # Perception Trigger Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-perception-trigger-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-perception-trigger-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:47:13.509648
 
 ---
@@ -104,6 +104,7 @@ Create a [hide-and-seek](https://dev.epicgames.com/documentation/en-us/fortnite/
    | Zone Depth | 3 | The Damage Volume will be 3 tiles deep. Adjust this setting so that the Damage Volume encompasses the entire area of the Hide and Seek game. |
    | Damage Type | Elimination | If a player is inside of the Damage Volume, they will be immediately eliminated. |
    | Enabled During Phase | None | The Damage Volume will begin disabled. |
+
 3. Place a **HUD Message** outside of the play area and customize it to the following settings:
 
    [![Hide and Seek HUD Message Settings](https://dev.epicgames.com/community/api/documentation/image/76cce9b4-c6e7-4516-9cc3-4d22f0596b53?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/76cce9b4-c6e7-4516-9cc3-4d22f0596b53?resizing_type=fit)
@@ -112,6 +113,7 @@ Create a [hide-and-seek](https://dev.epicgames.com/documentation/en-us/fortnite/
    | --- | --- | --- |
    | Message | You’ve Been Spotted! | This message will show when the player is spotted by the Perception Trigger. |
    | Time From Round Start | Off | The message will not be shown automatically after the round starts. |
+
 4. Place a large **Perception Trigger** toward one end of the play area and customize it to the following settings:
 
    [![Hide and Seek Perception Trigger Settings](https://dev.epicgames.com/community/api/documentation/image/a70dcc19-1261-47df-8037-11d2d98e8427?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a70dcc19-1261-47df-8037-11d2d98e8427?resizing_type=fit)
@@ -119,6 +121,7 @@ Create a [hide-and-seek](https://dev.epicgames.com/documentation/en-us/fortnite/
    | Option | Value | Description |
    | --- | --- | --- |
    | Enabled on Game Start | Disabled | The Perception Trigger will be disabled when the game starts. |
+
 5. Set the direct event bindings of the Perception Trigger to the following:
 
    [![Hide and Seek Perception Trigger Events](https://dev.epicgames.com/community/api/documentation/image/d9f476cd-b4db-449b-9371-a274816b42a0?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d9f476cd-b4db-449b-9371-a274816b42a0?resizing_type=fit)
@@ -127,6 +130,7 @@ Create a [hide-and-seek](https://dev.epicgames.com/documentation/en-us/fortnite/
    | --- | --- | --- | --- |
    | On Device Sees A Player Send Event To | DamageVolume | Enable | When the player is spotted, the Damage Volume will turn on, eliminating them. |
    | On Device Sees A Player Send Event To | SeenHUDMessage | Show | When the player is spotted, they will be shown a HUD Message telling them that they were spotted. |
+
 6. To create the effect of the eye turning on and off every 5 seconds, you will use two Timed Objectives. Place a **Timed Objective** outside of the play area. This will be the device that **enables** the Perception Trigger, so give it a clear name. Customize it to the following settings:
 
    [![Hide and Seek Start Timed Objective Settings](https://dev.epicgames.com/community/api/documentation/image/12db77fa-f6ea-42e3-a751-4f923a0a8c09?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/12db77fa-f6ea-42e3-a751-4f923a0a8c09?resizing_type=fit)
@@ -139,6 +143,7 @@ Create a [hide-and-seek](https://dev.epicgames.com/documentation/en-us/fortnite/
    | Visible During Game | No | The Timed Objective itself will not be visible during gameplay. |
    | Completion Behavior | Reset | After completing the countdown, the Timed Objective will reset and will be ready to be started again. |
    | Audio Effects | Off | The Timed Objective will not play any audio effects. |
+
 7. Place another **Timed Objective** outside of the play area. This will be the device that **disables** the Perception Trigger, so give it a clear name that differentiates it from the other Timed Objective. Customize it to the following settings:
 
    [![Hide and Seek Stop Timed Objective Settings](https://dev.epicgames.com/community/api/documentation/image/fcf10064-3fe5-457b-9558-b0474a9fabf2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fcf10064-3fe5-457b-9558-b0474a9fabf2?resizing_type=fit)
@@ -150,6 +155,7 @@ Create a [hide-and-seek](https://dev.epicgames.com/documentation/en-us/fortnite/
    | Visible During Game | No | The Timed Objective itself will not be visible during gameplay. |
    | Completion Behavior | Reset | After completing the countdown, the Timed Objective will reset and will be ready to be started again. |
    | Audio Effects | Off | The Timed Objective will not play any audio effects. |
+
 8. Set the direct event bindings of the **first** Timed Objective to the following:
 
    [![Hide and Seek Start Timed Objective Events](https://dev.epicgames.com/community/api/documentation/image/ca96e720-7c0c-4bb5-a3d3-84c128b3bfe8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/ca96e720-7c0c-4bb5-a3d3-84c128b3bfe8?resizing_type=fit)
@@ -158,6 +164,7 @@ Create a [hide-and-seek](https://dev.epicgames.com/documentation/en-us/fortnite/
    | --- | --- | --- | --- |
    | On Completed Send Event To | PerceptionTrigger | Enable when Receiving From | When this Timed Objective completes, it enables the Perception Trigger. |
    | On Completed Send Event To | StopLookingTimedObjective | Start | When this Timed Objective completes, it starts the countdown on the other Timed Objective. |
+
 9. Set the direct event bindings of the **second** Timed Objective to the following:
 
    [![Hide and Seek Stop Timed Objective Events](https://dev.epicgames.com/community/api/documentation/image/c4da49ee-e068-45df-80fc-c7dec9fb4edd?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c4da49ee-e068-45df-80fc-c7dec9fb4edd?resizing_type=fit)
@@ -203,6 +210,7 @@ Use the Perception Trigger’s player sightline functionality to change the game
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Player Spawned Send Event To | ItemGranter | Grant Item | When the player spawns, they will be granted the Tactical Assault Rifle. |
+
 3. Place a target prop and attach a **Prop Manipulator** to it. Customize the Prop Manipulator to the following settings:
 
    [![Moving Target Prop Manipulator Settings](https://dev.epicgames.com/community/api/documentation/image/86f16f06-9675-4409-9257-be1f1f9c3604?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/86f16f06-9675-4409-9257-be1f1f9c3604?resizing_type=fit)
@@ -211,6 +219,7 @@ Use the Perception Trigger’s player sightline functionality to change the game
    | --- | --- | --- |
    | Start Hidden | Yes | At the beginning of the game, the target will be invisible. |
    | Prop Health | Invulnerable | The target will not be destructible. |
+
 4. In front of the target prop, place a **Perception Trigger** and customize it to the following settings:
 
    [![Moving Target Perception Trigger Settings](https://dev.epicgames.com/community/api/documentation/image/25bf9d53-9d7a-4eee-ba46-8d1f4c64faa5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/25bf9d53-9d7a-4eee-ba46-8d1f4c64faa5?resizing_type=fit)
@@ -220,6 +229,7 @@ Use the Perception Trigger’s player sightline functionality to change the game
    | Delay | 1 Second | The Perception Trigger will send an event 1 second after it is triggered. |
    | Visible in Game | No | The Perception Trigger will not be visible during gameplay. |
    | Enabled on Game Start | Disabled | The Perception Trigger will start the game disabled. |
+
 5. Place a **Trigger** and customize it to the following settings:
 
    [![Moving Target Trigger Settings](https://dev.epicgames.com/community/api/documentation/image/6b85e2e0-a9a6-4ccd-ad9f-478509126ea7?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6b85e2e0-a9a6-4ccd-ad9f-478509126ea7?resizing_type=fit)
@@ -227,6 +237,7 @@ Use the Perception Trigger’s player sightline functionality to change the game
    | Option | Value | Description |
    | --- | --- | --- |
    | Trigger Sound | Disabled | The Trigger will not make a sound when it is triggered. |
+
 6. Set the direct event bindings of the Trigger to the following:
 
    [![Moving Target Trigger Events](https://dev.epicgames.com/community/api/documentation/image/f85c9344-7e19-4e42-874f-42683b07ca36?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f85c9344-7e19-4e42-874f-42683b07ca36?resizing_type=fit)
@@ -235,6 +246,7 @@ Use the Perception Trigger’s player sightline functionality to change the game
    | --- | --- | --- | --- |
    | On Triggered Send Event To | PropManipulator1 | Show Props | When this Trigger is triggered, the Prop Manipulator will show the target prop. |
    | On Triggered Send Event To | PerceptionTrigger1 | Enable when Receiving From | When this Trigger is triggered, the corresponding Perception Trigger will be enabled. |
+
 7. Place a **Random Number Generator** away from the play area and customize it to the following settings:
 
    | Option | Value | Description |
@@ -246,6 +258,7 @@ Use the Perception Trigger’s player sightline functionality to change the game
    | Length | 3 | The trigger zone will be 3 tiles long. |
    | Play Audio | No | The Random Number Generator will not play any audio. |
    | Activate on Game Phase | Game Start | The Random Number Generator will automatically activate when the game begins. |
+
 8. Set the direct event bindings of the Perception Trigger to the following:
 
    [![Moving Target Perception Trigger Events](https://dev.epicgames.com/community/api/documentation/image/22a0f66e-2e68-44c6-93b8-1bf9df7da235?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/22a0f66e-2e68-44c6-93b8-1bf9df7da235?resizing_type=fit)
@@ -255,6 +268,7 @@ Use the Perception Trigger’s player sightline functionality to change the game
    | On A Player Looks At Device Send Event To | PropManipulator1 | Hide Props | 1 second after the player looks at the Perception Trigger, the target prop will be hidden. |
    | On A Player Looks At Device Send Event To | PerceptionTrigger1 | Disable when Receiving From | 1 second after the player looks at the Perception Trigger, the Perception Trigger itself will be disabled. |
    | On A Player Looks At Device Send Event To | RandomNumberGenerator | Activate | 1 second after the player looks at the Perception Trigger, the Random Number Generator will be activated to choose a new target to enable. |
+
 9. Select the target prop, Prop Manipulator, Perception Trigger, and Trigger, then duplicate them two more times in different areas around the player.
 10. Move each of the three Triggers that correspond with the different targets into the three different trigger zone areas of the Random Number Generator.
 

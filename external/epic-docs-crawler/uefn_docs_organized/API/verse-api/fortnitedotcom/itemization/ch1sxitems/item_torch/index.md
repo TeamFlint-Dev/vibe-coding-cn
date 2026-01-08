@@ -1,6 +1,6 @@
 # item_torch class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1sxitems/item_torch
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1sxitems/item_torch>
 > **爬取时间**: 2025-12-27T04:13:59.660571
 
 ---

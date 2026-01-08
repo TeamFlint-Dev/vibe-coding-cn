@@ -1,6 +1,6 @@
 # Team Settings & Inventory
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/team-settings-inventory
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/team-settings-inventory>
 > **爬取时间**: 2025-12-27T02:11:58.243654
 
 ---

@@ -1,6 +1,6 @@
 # Deserted: Domination Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/deserted-domination-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/deserted-domination-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:02:44.408833
 
 ---
@@ -235,6 +235,7 @@ From the Content Drawer, select and place a Player Spawn Pad device.
    | **Visible in Game** | False | This device will not be visible during gameplay. |
    | **Priority Group** | 10 | Check the box for Priority Group. This is the priority used for spawning, with a lower number having higher priority. |
    | **Display Enemy Range** | Off | This is a visualizer to see the Enemy Range Check in the editor. All were set to off by default, even if they did not use Enemy Range Check. |
+
 2. Follow the instructions below to add the [Verse Tags](https://dev.epicgames.com/documentation/en-us/fortnite/gameplay-tags-in-verse). Verse gameplay tags let you find devices marked with a specific tag while the game is running.
 
 To do so, follow the steps below.
@@ -317,6 +318,7 @@ To set up groups of spawners:
    | **Priority Group** | 20 | Check the box for Priority Group. This is used for spawning, with the lower number having higher priority. |
    | **Enemy Range Check** | 60 | This is the distance used to check enemies to determine if this is a valid spawn point. The size can be adjusted depending on the map size. Use a bigger area if your map is larger and smaller if your map is not as sizable. |
    | **Display Enemy Range** | Off | This is a visualizer to see the Enemy Range Check in the editor. All are set to off by default, even if they did not use Enemy Range Check. |
+
 6. Copy and paste this device evenly across the map. You can also place them in the same spots as the spawners linked to capture points.
 
 Place a total of 16 of these, which are not restricted by a team. This means capturing all 3 points will make the defeated enemy appear randomly throughout the map instead of in a predictable area.
@@ -339,6 +341,7 @@ To set up these devices:
    | **Enabled During Phase** | Pre-Game Only | Determines the game phases during which the device will be enabled. |
    | **Priority Group** | 80 | Check the box for Priority Group. These pads will always be used during the pre-game. |
    | **Display Enemy Range** | Off | This is a visualizer to see the Enemy Range Check in the editor. All are set to off by default, even if they did not use Enemy Range Check. |
+
 4. Copy and paste this device 15 times.
 
 ### Capture Area Devices
@@ -374,6 +377,7 @@ Next, customize the Capture Area devices with the following steps:
    | **HUD Message** | Captured A - Captured C | Sets the message to display on the HUD with the score. Set each device to have a unique message ranging from "Captured A" - "Captured C". |
    | **Show Map Marker** | True | Determimnes if the objective icon will be shown on the minimap. |
    | **Sort Order** | 1 - 3 | Determines the objective orders in the UI. Set each device to have a unique order ranging from 1 - 3. |
+
 3. Repeat this step for every Capture Area.
 
 As explained before, you should have two Capture Area devices on opposite sides of the map and one Capture Area device in the middle. You should spread the devices across the map, with each team having proximity to one Capture Area device, and a third in the middle for the teams to compete over.
@@ -428,6 +432,7 @@ To customize the Verse device:
    | --- | --- | --- |
    | **Visible In Game** | False | This device will not be visible in the game. |
    | **Enabled At Game Start** | True | This device will be enabled at the start of the game. |
+
 3. Under **DominationSpawnManager** use the following settings:
 
    | Option | Value | Explanation |
@@ -461,6 +466,7 @@ Use the following steps to customize locks one through four.
    | --- | --- | --- |
    | **Visible During Game** | False | This device will not be visible during gameplay. |
    | **Hide Interaction When Locked** | True | The player will not see the interaction when locked during gameplay. |
+
 4. Set up Direct Event Binding to pair the Lock device with the Trigger device.
 
 | Device A | Function | Device B | Event | Explanation |
@@ -485,6 +491,7 @@ To customize these devices:
    | **Visible In Game** | False | The trigger will not be visible during gameplay. |
    | **Trigger VFX** | False | This device will not have visual effects. |
    | **Trigger SFX** | False | This device will not have sound effects. |
+
 2. Use the following table to customize TriggerDoorClosed1 through 4.
 
    | Option | Value | Explanation |
@@ -494,6 +501,7 @@ To customize these devices:
    | **Trigger Delay** | 2 | After two seconds, this device will send a signal. |
    | **Trigger VFX** | False | This device will not have visual effects. |
    | **Trigger SFX** | False | This device will not have sound effects |
+
 3. Next, set up Direct Event Binding.
 
    | Device A | Function | Device B | Event | Explanation |
@@ -560,6 +568,7 @@ To customize the Barrier device:
    | **Barrier Depth** | Variable | Adjusted as needed to fully enclose the area. |
    | **Width** | Variable | Adjusted as needed to fully enclose the area. |
    | **Barrier Height** | 3 | Determines how many tiles high the invisible barrier will be. |
+
 3. Copy and paste this device to create a seamless barrier around your arena.
 
 ### Mutator Zone Device

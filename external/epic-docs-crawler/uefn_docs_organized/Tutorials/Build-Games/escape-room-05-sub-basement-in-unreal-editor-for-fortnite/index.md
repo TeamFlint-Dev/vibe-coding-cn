@@ -1,6 +1,6 @@
 # 5. Sub-Basement
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-05-sub-basement-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-05-sub-basement-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:18:07.491457
 
 ---
@@ -162,6 +162,6 @@ Add to the ambience of the game with creepy music that should play throughout th
 
 [![6. Hidden Room](https://dev.epicgames.com/community/api/documentation/image/78ae00c7-c013-4f73-b22b-5cbd922595bc?resizing_type=fit&width=640&height=640)
 
-6. Hidden Room
+1. Hidden Room
 
-Create a hidden room to hide the first puzzle from view of the player.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-06-hidden-room-in-unreal-editor-for-fortnite)
+Create a hidden room to hide the first puzzle from view of the player.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-06-hidden-room-in-unreal-editor-for-fortnite>)

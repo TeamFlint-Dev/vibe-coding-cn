@@ -1,6 +1,6 @@
 # OnBegin function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creative_device/onbegin
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creative_device/onbegin>
 > **爬取时间**: 2025-12-27T05:27:42.765512
 
 ---

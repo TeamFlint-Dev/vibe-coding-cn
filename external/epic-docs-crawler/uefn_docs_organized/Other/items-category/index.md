@@ -1,6 +1,6 @@
 # Items category
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/items-category
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/items-category>
 > **爬取时间**: 2025-12-27T00:09:30.616516
 
 ---

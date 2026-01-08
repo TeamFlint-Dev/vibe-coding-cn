@@ -1,6 +1,6 @@
 # Social Deduction Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-social-deduction-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-social-deduction-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:00:49.601383
 
 ---
@@ -72,20 +72,20 @@ Learn more by incorporating the feature set with tailored devices to add social 
 
 Deception Through Disguises
 
-Learn to use the Disguise device and kit to add deception to your Squid Game islands.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-deception-through-disguises-in-unreal-editor-for-fortnite)[![Create Voting Opportunities](https://dev.epicgames.com/community/api/documentation/image/05e6f703-825d-4914-b90f-09692b57c5e7?resizing_type=fit&width=640&height=640)
+Learn to use the Disguise device and kit to add deception to your Squid Game islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-deception-through-disguises-in-unreal-editor-for-fortnite)[![Create> Voting Opportunities](<https://dev.epicgames.com/community/api/documentation/image/05e6f703-825d-4914-b90f-09692b57c5e7?resizing_type=fit&width=640&height=640>)
 
 Create Voting Opportunities
 
-Learn to use the voting devices for your Squid Game islands.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-create-voting-opportunities-in-unreal-editor-for-fortnite)[![Giftbox Device for Hiding and Teleportation](https://dev.epicgames.com/community/api/documentation/image/76ea203d-c1ff-4ce0-a314-fa6e6afdb41f?resizing_type=fit&width=640&height=640)
+Learn to use the voting devices for your Squid Game islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-create-voting-opportunities-in-unreal-editor-for-fortnite)[![Giftbox> Device for Hiding and Teleportation](<https://dev.epicgames.com/community/api/documentation/image/76ea203d-c1ff-4ce0-a314-fa6e6afdb41f?resizing_type=fit&width=640&height=640>)
 
 Giftbox Device for Hiding and Teleportation
 
-Learn to use the Giftbox Device for hiding and teleporting players in your Squid Game island.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-giftbox-device-for-hiding-and-teleportation-in-unreal-editor-for-fortnite)[![Create Temporary Teams Through Emotes](https://dev.epicgames.com/community/api/documentation/image/4e6c8e2d-da48-4c0a-9f67-7bff00c55577?resizing_type=fit&width=640&height=640)
+Learn to use the Giftbox Device for hiding and teleporting players in your Squid Game island.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-giftbox-device-for-hiding-and-teleportation-in-unreal-editor-for-fortnite)[![Create> Temporary Teams Through Emotes](<https://dev.epicgames.com/community/api/documentation/image/4e6c8e2d-da48-4c0a-9f67-7bff00c55577?resizing_type=fit&width=640&height=640>)
 
 Create Temporary Teams Through Emotes
 
-Learn to add emotes to your Squid Game island for temporary team creation by players.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-create-temporary-teams-through-emotes-in-unreal-editor-for-fortnite)[![Squid Game Custom UI](https://dev.epicgames.com/community/api/documentation/image/18de718c-5135-4d4c-bf8a-cea12201f813?resizing_type=fit&width=640&height=640)
+Learn to add emotes to your Squid Game island for temporary team creation by players.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-create-temporary-teams-through-emotes-in-unreal-editor-for-fortnite)[![Squid> Game Custom UI](<https://dev.epicgames.com/community/api/documentation/image/18de718c-5135-4d4c-bf8a-cea12201f813?resizing_type=fit&width=640&height=640>)
 
 Squid Game Custom UI
 
-Lean to add the Squid Game custom UI to your island.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-custom-ui-in-unreal-editor-for-fortnite)
+Lean to add the Squid Game custom UI to your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-custom-ui-in-unreal-editor-for-fortnite>)

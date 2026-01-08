@@ -1,6 +1,6 @@
 # Spawn function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/overlord_spire_device/spawn
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/overlord_spire_device/spawn>
 > **爬取时间**: 2025-12-27T06:35:36.596789
 
 ---

@@ -1,6 +1,6 @@
 # Making Choices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-choices-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-choices-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:11:04.254066
 
 ---
@@ -22,7 +22,7 @@ This lesson is designed to be used with or without access to Fortnite Creative m
 
 Author: Katie Wright
 
-Email: teachkatiewright@gmail.com
+Email: <teachkatiewright@gmail.com>
 
 Twitter: @mrs\_katiewright
 
@@ -180,7 +180,7 @@ Use the downloadable [rubric](https://d1iv7db44yhgxn.cloudfront.net/documentatio
 
 [NGSS Standards](https://www.nextgenscience.org/)
 
-**NCSS Theme Strand VII: Production, Distribution, & Consumption** 
+**NCSS Theme Strand VII: Production, Distribution, & Consumption**
 Students will gather and analyze data, as well as use critical thinking skills to determine how best to deal with scarcity of resources.
 
 **NCSS Theme Strand III: People, Places and Environments**

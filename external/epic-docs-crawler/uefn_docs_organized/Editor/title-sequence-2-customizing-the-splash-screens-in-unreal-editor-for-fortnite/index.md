@@ -1,6 +1,6 @@
 # 2. Customizing the Splash Screens
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-2-customizing-the-splash-screens-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-2-customizing-the-splash-screens-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:17:26.077971
 
 ---
@@ -20,6 +20,7 @@ Follow these steps to create a custom [splash screen](unreal-editor-for-fortnite
    | **Image** | T\_UI\_IconLibrary\_Bicycle\_128 | The image that will show in the UI. |
    | **Image Size X** | 128.0 | Set the width of the image. |
    | **Image Size Y** | 128.0 | Set the height of the image. |
+
 4. Save and click **Compile** for the **Widget Blueprint**.
 
 [![Logo Widget Blueprint in the UI Widget Editor](https://dev.epicgames.com/community/api/documentation/image/b7822f94-6fd5-4e54-a14b-3782b43c8087?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b7822f94-6fd5-4e54-a14b-3782b43c8087?resizing_type=fit)
@@ -32,6 +33,6 @@ You'll add these custom widgets to the **HUD Message** devices later in [step 5]
 
 [![3. Designing the Title Screen](https://dev.epicgames.com/community/api/documentation/image/e5592e22-2c93-4db5-ae17-ac725401dc70?resizing_type=fit&width=640&height=640)
 
-3. Designing the Title Screen
+1. Designing the Title Screen
 
-Create a custom title screen to show on the HUD Message device.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-3-designing-the-title-screen-in-unreal-editor-for-fortnite)
+Create a custom title screen to show on the HUD Message device.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-3-designing-the-title-screen-in-unreal-editor-for-fortnite>)

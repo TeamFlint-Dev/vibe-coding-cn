@@ -1,6 +1,6 @@
 # SetColor function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/color_block/setcolor
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/color_block/setcolor>
 > **爬取时间**: 2025-12-27T07:14:38.400874
 
 ---

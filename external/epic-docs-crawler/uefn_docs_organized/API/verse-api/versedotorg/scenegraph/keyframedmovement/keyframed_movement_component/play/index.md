@@ -1,6 +1,6 @@
 # Play function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/keyframedmovement/keyframed_movement_component/play
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/keyframedmovement/keyframed_movement_component/play>
 > **爬取时间**: 2025-12-27T07:12:05.862947
 
 ---

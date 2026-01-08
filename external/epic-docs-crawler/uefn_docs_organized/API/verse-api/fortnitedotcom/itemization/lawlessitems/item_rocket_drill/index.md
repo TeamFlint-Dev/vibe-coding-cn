@@ -1,6 +1,6 @@
 # item_rocket_drill class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_rocket_drill
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_rocket_drill>
 > **爬取时间**: 2025-12-27T04:58:40.893676
 
 ---

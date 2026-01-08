@@ -1,6 +1,6 @@
 # 35.20 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/35-20-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/35-20-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:34:00.510918
 
 ---
@@ -73,7 +73,7 @@ Summon the might of the Olympians with the Ancient Greek Temple prefabs now avai
 
 Create a physics puzzle room that uses the new experimental physics feature! Build a dungeon room with moving platforms and add some custom props with physics properties. Soon you'll have a terrific puzzle that you can expand into a larger puzzle dungeon. Check out [Make a Physics Puzzle Dungeon](https://dev.epicgames.com/documentation/en-us/fortnite/make-a-physics-puzzle-dungeon-in-unreal-editor-for-fortnite) for more details.
 
-## Coming Soon: Fortnite Creative and UEFN Docs are Merging!
+## Coming Soon: Fortnite Creative and UEFN Docs are Merging
 
 Great news, creators! We're excited to announce the merging of the Fortnite Creative and UEFN documentation sets. Soon, all the resources you need will be in one unified hub. Get ready for a smoother, more efficient learning experience. Say goodbye to switching between separate documentation sets and hello to a streamlined path for all your Fortnite creation needs.
 

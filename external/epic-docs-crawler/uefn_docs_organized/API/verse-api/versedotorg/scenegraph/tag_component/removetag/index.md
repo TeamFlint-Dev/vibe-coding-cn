@@ -1,6 +1,6 @@
 # RemoveTag function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/tag_component/removetag
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/tag_component/removetag>
 > **爬取时间**: 2025-12-27T02:43:18.499342
 
 ---

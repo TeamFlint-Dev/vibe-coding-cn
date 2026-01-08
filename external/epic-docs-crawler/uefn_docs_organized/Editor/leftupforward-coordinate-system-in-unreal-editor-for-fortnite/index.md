@@ -1,6 +1,6 @@
 # Left-Up-Forward Coordinate System
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/leftupforward-coordinate-system-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/leftupforward-coordinate-system-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:21:22.503303
 
 ---
@@ -76,9 +76,10 @@ Since both of these modules contain transform types, keep the following in mind:
   using { /Verse.org/SpatialMath }
    
   my_class := class:
-  	MyUnrealEngineVector:(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = (/UnrealEngine.com/Temporary/SpatialMath:)vector3{}
-  	MyVerseVector:(/Verse.org/SpatialMath:)vector3 = (/Verse.org/SpatialMath:)vector3{}
+   MyUnrealEngineVector:(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = (/UnrealEngine.com/Temporary/SpatialMath:)vector3{}
+   MyVerseVector:(/Verse.org/SpatialMath:)vector3 = (/Verse.org/SpatialMath:)vector3{}
   ```
+
 - Scene Graph uses `/Verse.org` module transforms. This means that Scene Graph now only uses the LUF coordinate system.
 - The Verse Digest uses fully-qualified Verse identifiers to disambiguate between transform types defined in the [UnrealEngine.com/Temporary/SpatialMath](http://unrealengine.com/Temporary/SpatialMath) and [Verse.org/SpatialMath](http://verse.org/SpatialMath) modules.
 
@@ -101,9 +102,9 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Verse.org/SpatialMath }
  
 my_class := class:
-	MyVectorOne:vector3 = vector3{}	
+ MyVectorOne:vector3 = vector3{} 
         #Compile Error: Identifier vector3 could be one of many types: UnrealEngine.com.Temporary.SpatialMath.vector3 or Verse.org.SpatialMath.vector3
-	MyVectorTwo:vector3 = vector3{}	
+ MyVectorTwo:vector3 = vector3{} 
         #Compile Error: Identifier vector3 could be one of many types: UnrealEngine.com.Temporary.SpatialMath.vector3 or Verse.org.SpatialMath.vector3
 ```
 
@@ -118,8 +119,8 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Verse.org/SpatialMath }
  
 my_class := class:
-	MyVectorOne:(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = (/UnrealEngine.com/Temporary/SpatialMath:)vector3{}
-	MyVectorTwo:(/Verse.org/SpatialMath:)vector3 = (/Verse.org/SpatialMath:)vector3{}
+ MyVectorOne:(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = (/UnrealEngine.com/Temporary/SpatialMath:)vector3{}
+ MyVectorTwo:(/Verse.org/SpatialMath:)vector3 = (/Verse.org/SpatialMath:)vector3{}
 ```
 
 You can qualify a constant or variable from the `/Verse.org` module, as shown in the code snippet below:
@@ -129,8 +130,8 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Verse.org } # Change the module path to avoid import ambiguity
  
 my_class := class:
-	MyVectorOne:vector3 = vector3{}
-	MyVectorTwo:SpatialMath.vector3 = SpatialMath.vector3{} # Specify the submodule
+ MyVectorOne:vector3 = vector3{}
+ MyVectorTwo:SpatialMath.vector3 = SpatialMath.vector3{} # Specify the submodule
 ```
 
 You can qualify a constant or variable from the `/UnrealEngine.com` module, as shown in the code snippet below:
@@ -140,8 +141,8 @@ using { /UnrealEngine.com/Temporary } # Change the module path to avoid import a
 using { /Verse.org/SpatialMath }
  
 my_class := class:
-	MyVectorOne:SpatialMath.vector3 = SpatialMath.vector3{} # Specify the submodule
-	MyVectorTwo:vector3 = vector3{}
+ MyVectorOne:SpatialMath.vector3 = SpatialMath.vector3{} # Specify the submodule
+ MyVectorTwo:vector3 = vector3{}
 ```
 
 ### Scene Graph Type Change
@@ -152,9 +153,9 @@ If you are using the Scene Graph APIs in your Verse files and aren't using other
 using { /UnrealEngine.com/Temporary/SpatialMath }
  
 my_component := class<final_super>(component):
-	@editable # This change will work regardless of this field being editable or not
-	MyVector3:vector3 = vector3{}
-	MyVector2:vector2 = vector2{}
+ @editable # This change will work regardless of this field being editable or not
+ MyVector3:vector3 = vector3{}
+ MyVector2:vector2 = vector2{}
 ```
 
 You can change it to:
@@ -163,9 +164,9 @@ You can change it to:
 using { /Verse.org/SpatialMath } # Changed the module path
  
 my_component := class<final_super>(component):
-	@editable # This change will work regardless of this field being editable or not
-	MyVector:vector3 = vector3{} # All transform types now use /Verse.org/SpatialMath
-	# MyVector2:vector2 = vector2{} Removed since /Verse.org/SpatialMath does not define a vector2
+ @editable # This change will work regardless of this field being editable or not
+ MyVector:vector3 = vector3{} # All transform types now use /Verse.org/SpatialMath
+ # MyVector2:vector2 = vector2{} Removed since /Verse.org/SpatialMath does not define a vector2
 ```
 
 The only exception is that any `vector2` types must be removed or converted to use `vector3`, since the `/Verse.org` module does not currently define the type `vector2`.
@@ -185,17 +186,17 @@ The following two verse files exist in the same project. `FileOne.verse` defines
 using { /UnrealEngine.com/Temporary/SpatialMath }
  
 PrintTransform(T:transform):void=
-	Print("T: {T}")
+ Print("T: {T}")
 ```
 
 ```verse
 using { /Verse.org/SpatialMath }
  
 my_class := class:
-	T:transform = transform{}
+ T:transform = transform{}
  
-	DoPrint():void=
-		PrintTransform(T)	# Compile error: This function parameter expects a value of type (/UnrealEngine.com/Temporary/SpatialMath:)transform, but this argument is an incompatible value of type (/Verse.org/SpatialMath:)transform.
+ DoPrint():void=
+  PrintTransform(T) # Compile error: This function parameter expects a value of type (/UnrealEngine.com/Temporary/SpatialMath:)transform, but this argument is an incompatible value of type (/Verse.org/SpatialMath:)transform.
 ```
 
 This results in a compile error due to the transform types referring to two different transform types, defined in different modules.
@@ -210,10 +211,10 @@ using { /UnrealEngine.com }
 using { /Verse.org/SpatialMath }
  
 my_class := class:
-	T:transform = transform{}
+ T:transform = transform{}
  
-	DoPrint():void=
-		PrintTransform(Temporary.SpatialMath.FromTransform(T))  # Compile error fixed after converting transform to the correct type from the proper module
+ DoPrint():void=
+  PrintTransform(Temporary.SpatialMath.FromTransform(T))  # Compile error fixed after converting transform to the correct type from the proper module
 ```
 
 ### Vector, Rotation, and Transform Type Conversion
@@ -266,7 +267,7 @@ For example, the following code illustrates that constructing a rotation of posi
 ForwardToLeft:rotation = MakeRotationFromEulerDegrees(0.0, 90.0, 0.0)
 ForwardVector:vector3 = vector3{Forward := 1.0}
 
-ResultantVector:vector3 = ForwardVector * ForwardToLeft 	# Apply rotation on the right of the multiplication operator
+ResultantVector:vector3 = ForwardVector * ForwardToLeft  # Apply rotation on the right of the multiplication operator
 Print("{ResultantVector}") # {Forward = 0.000000, Left = 1.000000, Up = 0.000000} = {Forward = 1.000000, Left = 0.000000, Up = 0.000000} * {Axis = {Forward = 0.000000, Left = 0.000000, Up = 1.000000}, Angle = 90.000000}
 ```
 
@@ -291,25 +292,25 @@ ForwardToLeftUpOne:transform = transform:
     Rotation := MakeRotationFromEulerDegrees(0.0, 90.0, 0.0)
 UpToForward:rotation = MakeRotationFromEulerDegrees(90.0, 0.0, 0.0)
 
-ResultantVector:vector3 = ForwardVector * ForwardToLeftUpOne * UpToForward 	# compiles
+ResultantVector:vector3 = ForwardVector * ForwardToLeftUpOne * UpToForward  # compiles
 ```
 
 This compiles fine since it is implicitly associating operations as:
 
 ```verse
-ResultantVector:vector3 = (ForwardVector * ForwardToLeftUpOne) * UpToForward 	# compiles
+ResultantVector:vector3 = (ForwardVector * ForwardToLeftUpOne) * UpToForward  # compiles
 ```
 
 But if you explicitly try to associate differently as:
 
 ```verse
-ResultantVector:vector3 = ForwardVector * (ForwardToLeftUpOne * UpToForward) 	# error, no operator'*'(:transform,:rotation)
+ResultantVector:vector3 = ForwardVector * (ForwardToLeftUpOne * UpToForward)  # error, no operator'*'(:transform,:rotation)
 ```
 
 This results in an error. To avoid these errors, explicitly associate your first operation between a vector and a transformation or a vector and a rotation.
 
 ```verse
-ResultantVector:vector3 = (ForwardVector * ForwardToLeftUpOne) * UpToForward 	# explicitly associated
+ResultantVector:vector3 = (ForwardVector * ForwardToLeftUpOne) * UpToForward  # explicitly associated
 ```
 
 ### Spatial Math Operation Changes
@@ -322,7 +323,7 @@ ResultantVector:vector3 = (ForwardVector * ForwardToLeftUpOne) * UpToForward 	# 
 ForwardToLeft:rotation = MakeRotationFromEulerDegrees(0.0, 90.0, 0.0)
 UpToForward:rotation = MakeRotationFromEulerDegrees(90.0, 0.0, 0.0)
 
-UpToLeft:rotation = UpToForward * ForwardToLeft			# RotateBy, correcting for handedness
+UpToLeft:rotation = UpToForward * ForwardToLeft   # RotateBy, correcting for handedness
 ```
 
 To reverse a rotation ("unrotate"), first invert the rotation, then multiply the rotations. To get back the `UpToForward` rotation from `UpToLeft`, invert the `ForwardToLeft` rotation and apply it on the right to the `UpToLeft` rotation. The following shows how this is accomplished step by step.
@@ -332,12 +333,12 @@ To reverse a rotation ("unrotate"), first invert the rotation, then multiply the
 # This involves multiplication on the right by the inverse, associativity, existence and definition of inverse rotation, and existence and definition of identity rotation
 
 # Pseudocode Steps:
-# UpToLeft * ForwardToLeft.Invert() = (UpToForward * ForwardToLeft) * ForwardToLeft.Invert()		# multiply on the right by the same expression on both sides of the equality operator
-# UpToLeft * ForwardToLeft.Invert() = UpToForward * (ForwardToLeft * ForwardToLeft.Invert())		# reassociate
-# UpToLeft * ForwardToLeft.Invert() = UpToForward * IdentityRotation()					# rotation * inverse = identity
-# UpToLeft * ForwardToLeft.Invert() = UpToForward								# rotation * identity = rotation
+# UpToLeft * ForwardToLeft.Invert() = (UpToForward * ForwardToLeft) * ForwardToLeft.Invert()  # multiply on the right by the same expression on both sides of the equality operator
+# UpToLeft * ForwardToLeft.Invert() = UpToForward * (ForwardToLeft * ForwardToLeft.Invert())  # reassociate
+# UpToLeft * ForwardToLeft.Invert() = UpToForward * IdentityRotation()     # rotation * inverse = identity
+# UpToLeft * ForwardToLeft.Invert() = UpToForward        # rotation * identity = rotation
 
-UpToForwardAgain:rotation = UpToLeft * ForwardToLeft.Invert()	# UnrotateBy, correcting for handedness
+UpToForwardAgain:rotation = UpToLeft * ForwardToLeft.Invert() # UnrotateBy, correcting for handedness
 ```
 
 #### Vector3 and Rotation Multiplication
@@ -348,7 +349,7 @@ Similarly, `Rotate` and `Unrotate` are removed and replaced with a multiplicatio
 ForwardVector:vector3 = vector3{Forward:=1.0}
 ForwardToLeft:rotation = MakeRotationFromEulerDegrees(0.0, 90.0, 0.0)
 
-LeftVector:vector3 = ForwardVector * ForwardToLeft			# Rotate, correcting for handedness
+LeftVector:vector3 = ForwardVector * ForwardToLeft   # Rotate, correcting for handedness
 ```
 
 To reverse a rotation (unrotate), first invert the rotation, then multiply the rotation by the vector. To get back the `ForwardVector` from `LeftVector`, invert the `ForwardToLeft` rotation and apply it on the right to the `LeftVector`
@@ -356,7 +357,7 @@ To reverse a rotation (unrotate), first invert the rotation, then multiply the r
 ```verse
 # The steps involved in achieving this calculation are very similar to the steps shown above for obtaining the correct expression for unrotating by a rotation
 
-ForwardVectorAgain:vector3 = LeftVector * ForwardToLeft.Invert()	# Unrotate, correcting for handedness
+ForwardVectorAgain:vector3 = LeftVector * ForwardToLeft.Invert() # Unrotate, correcting for handedness
 ```
 
 #### Vector3 and Transform Multiplication
@@ -371,7 +372,7 @@ DoubleLengthForwardToLeftTranslateUp := transform:
 
 ForwardVector:vector3 = vector3{Forward:=1.0}
 
-ResultantVector:vector3 = ForwardVector * DoubleLengthForwardToLeftTranslateUp		# TransformVector
+ResultantVector:vector3 = ForwardVector * DoubleLengthForwardToLeftTranslateUp  # TransformVector
 ```
 
 To perform a transform with no scaling, `TransformVectorNoScale`, leave the default scale value on the `transform` you construct.
@@ -383,5 +384,5 @@ ForwardToLeftTranslateUpNoScale := transform:
 
 ForwardVector:vector3 = vector3{Forward:=1.0}
 
-ResultantVector:vector3 = ForwardVector * ForwardToLeftTranslateUpNoScale			# TransformVectorNoScale
+ResultantVector:vector3 = ForwardVector * ForwardToLeftTranslateUpNoScale   # TransformVectorNoScale
 ```

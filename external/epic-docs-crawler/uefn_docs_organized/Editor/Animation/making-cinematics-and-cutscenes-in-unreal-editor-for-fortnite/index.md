@@ -1,6 +1,6 @@
 # Making Cinematics and Cutscenes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-and-cutscenes-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-and-cutscenes-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:05:04.858006
 
 ---
@@ -31,16 +31,16 @@ To create cutscenes you need to think about:
 
 Composition Techniques
 
-Use composition to capture artful cinematics for your gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-1-composition-techniques-in-unreal-editor-for-fortnite)[![Lighting and Color](https://dev.epicgames.com/community/api/documentation/image/762eee9b-f756-457e-9082-ccb1d2ee760f?resizing_type=fit&width=640&height=640)
+Use composition to capture artful cinematics for your gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-1-composition-techniques-in-unreal-editor-for-fortnite)[![Lighting> and Color](<https://dev.epicgames.com/community/api/documentation/image/762eee9b-f756-457e-9082-ccb1d2ee760f?resizing_type=fit&width=640&height=640>)
 
 Lighting and Color
 
-Use lighting and color effectively in a cinematic to create emotion and set the scene.](https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-2-lighting-and-color-in-unreal-editor-for-fortnite)[![Camera Movement and Framing](https://dev.epicgames.com/community/api/documentation/image/a2fcf6b0-cf89-4383-8a91-6437d751f768?resizing_type=fit&width=640&height=640)
+Use lighting and color effectively in a cinematic to create emotion and set the scene.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-2-lighting-and-color-in-unreal-editor-for-fortnite)[![Camera> Movement and Framing](<https://dev.epicgames.com/community/api/documentation/image/a2fcf6b0-cf89-4383-8a91-6437d751f768?resizing_type=fit&width=640&height=640>)
 
 Camera Movement and Framing
 
-Discover how camera movement and framing creates satisfying and thoughtful cinematics for your game.](https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-3-camera-movement-and-framing-in-unreal-editor-for-fortnite)[![Integrating Cinematics](https://dev.epicgames.com/community/api/documentation/image/496064bc-9b66-4940-bfdf-84ac6154089a?resizing_type=fit&width=640&height=640)
+Discover how camera movement and framing creates satisfying and thoughtful cinematics for your game.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-3-camera-movement-and-framing-in-unreal-editor-for-fortnite)[![Integrating> Cinematics](<https://dev.epicgames.com/community/api/documentation/image/496064bc-9b66-4940-bfdf-84ac6154089a?resizing_type=fit&width=640&height=640>)
 
 Integrating Cinematics
 
-Discover all the elements you need to create satisfying and thoughtful cinematics for your game.](https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-4-integrating-cinematics-in-unreal-editor-for-fortnite)
+Discover all the elements you need to create satisfying and thoughtful cinematics for your game.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-4-integrating-cinematics-in-unreal-editor-for-fortnite>)

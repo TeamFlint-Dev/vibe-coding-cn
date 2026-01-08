@@ -1,6 +1,6 @@
 # Material Block
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/material-block-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/material-block-in-fortnite>
 > **爬取时间**: 2025-12-27T00:33:03.976091
 
 ---

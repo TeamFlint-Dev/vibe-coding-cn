@@ -1,6 +1,6 @@
 # text_justification enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/text_justification
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/text_justification>
 > **爬取时间**: 2025-12-27T07:09:49.518024
 
 ---

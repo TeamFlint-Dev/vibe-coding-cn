@@ -1,6 +1,6 @@
 # item_witch_broom class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_witch_broom
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_witch_broom>
 > **爬取时间**: 2025-12-27T04:28:38.844248
 
 ---

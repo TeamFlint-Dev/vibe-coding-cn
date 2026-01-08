@@ -1,6 +1,6 @@
 # Post Process Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/post-process-device-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/post-process-device-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:07:22.243301
 
 ---
@@ -35,6 +35,7 @@ The Post Process device is great for giving your game a unique visual feel. In t
    | Post Process Effect | Spooky |
    | Starting Strength | 0.0 |
    | Blend in Duration | 0.5 |
+
 5. Place a **Trigger** device in the doorway of the house.
 6. Customize the Trigger as follows:
 
@@ -45,6 +46,7 @@ The Post Process device is great for giving your game a unique visual feel. In t
    | Visible in Game | Off |
    | Trigger VFX | Off |
    | Trigger SFX | Off |
+
 7. Configure the following event on the Trigger so that the Post Processing will blend in when the player enters the house.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/7611821f-7dd6-4597-b13e-d7b2a82e271b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7611821f-7dd6-4597-b13e-d7b2a82e271b?resizing_type=fit)
@@ -97,6 +99,7 @@ You can set post processing effects to be temporary, and to blend in and out ove
    | Starting Strength | 0.0 |
    | Blend in Duration | 0.25 |
    | Blend Out Duration | 0.25 |
+
 6. Place a **Movement Modulator** device in front of the Player Spawner.
 7. Customize the modulator **Speed** to **3.0**:
 
@@ -108,6 +111,7 @@ You can set post processing effects to be temporary, and to blend in and out ove
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Activation Send Event To | Post Process Device | Blend in for All |
+
 9. Duplicate this Movement Modulator and place it in another location.
 
 ### Configure the Timer
@@ -124,6 +128,7 @@ You can set post processing effects to be temporary, and to blend in and out ove
    | Timer Color | #F94847 |
    | Display Time In | Seconds Only |
    | Timer Running Text | Stop the Timer in… |
+
 3. Place a **Beacon** device behind the Timer.
 4. Customize the Beacon to set the color to red (
    #F94847):
@@ -138,7 +143,7 @@ You can also use other Post Process effects to create immersion in specific game
 
 As you’ll see in the next example, the Post Process device is also great for stealth games!
 
-## Build a Nighttime Heist Game!
+## Build a Nighttime Heist Game
 
 The Post Process device has great settings for gameplay moments like sneaking around at night with night vision goggles, or looking through CCTV cameras!
 
@@ -169,6 +174,7 @@ In this example, you’ll combine the Post Process device with a Fixed Point Cam
    | Receiving Players | All |
    | Equip Granted Item | Yes |
    | Grant on Game Start | On |
+
 6. Place a **Post Process** device.
 7. Set the **Post Process Effect** to **Nightvision.**This will be the default effect that shows during normal gameplay:
 
@@ -184,6 +190,7 @@ In this example, you’ll combine the Post Process device with a Fixed Point Cam
    | Total Spawn Limit | 4 |
    | Guard Team Option | Team Wildlife & Creatures |
    | Spawn Timer | Instant |
+
 10. Place another Guard Spawner inside the vault.
 11. Customize the second Guard Spawner:
 
@@ -213,6 +220,7 @@ In this example, you’ll combine the Post Process device with a Fixed Point Cam
    | Priority | 1 |
    | Add to Players on Start | Off |
    | Field of View | 100 degrees |
+
 3. Place a second **Post Process** device.
 4. Customize the second Post Process device:
 
@@ -225,6 +233,7 @@ In this example, you’ll combine the Post Process device with a Fixed Point Cam
    | Priority | 1 |
    | Blend in Duration | 0.2 |
    | Blend Out Duration | 0.2 |
+
 5. Place a **Button** devicein front of the computer in the office upstairs.
 6. Customize the Button:
 
@@ -237,6 +246,7 @@ In this example, you’ll combine the Post Process device with a Fixed Point Cam
    | Interaction Text | Hack CCTV Cameras |
    | Visible During Game | No |
    | Interaction Radius | 0.5 Meters |
+
 7. Place a **Timer** device.
 8. Customize the Timer:
 
@@ -264,6 +274,7 @@ In this example, you’ll combine the Post Process device with a Fixed Point Cam
    | On Interact Send Event To | Timer Device | Start |
    | On Interact Send Event To | CCTV Post Process Device | Enable for All |
    | On Interact Send Event To | Camera: Fixed Point | Add to All |
+
 2. Configure the following event on the **Timer** so that after the 5 second delay, the game goes back to the normal camera and default night vision post processing.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b87395c3-f5d6-43df-8519-42d6c7f91382?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b87395c3-f5d6-43df-8519-42d6c7f91382?resizing_type=fit)

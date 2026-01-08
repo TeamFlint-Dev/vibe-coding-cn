@@ -1,6 +1,6 @@
 # has_spire_functionality interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/has_spire_functionality
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/has_spire_functionality>
 > **爬取时间**: 2025-12-27T01:41:36.966780
 
 ---

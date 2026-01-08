@@ -1,6 +1,6 @@
 # Triggerable Interface and Scene Events
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-01-triggerable-interface-and-scene-events-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-01-triggerable-interface-and-scene-events-in-fortnite>
 > **爬取时间**: 2025-12-27T02:38:20.340548
 
 ---
@@ -29,11 +29,13 @@ You'll begin by creating a new empty Verse file and naming it `Triggerable.verse
    ```verse
    using { /Verse.org/Simulation }
    ```
+
 2. Interfaces in Verse are adjectives since they describe an action that child classes implement. Create a new interface named `triggerable`:
 
    ```verse
    triggerable<public> := interface:
    ```
+
 3. You might want to keep track of whether or not a triggerable object has been triggered — for example, whether a light is on or off or whether a mesh is visible or invisible. It is possible that you might only want to trigger an action once. Add the following logic fields to `triggerable` to keep track of these:
 
    ```verse
@@ -44,18 +46,21 @@ You'll begin by creating a new empty Verse file and naming it `Triggerable.verse
 
        var<protected> HasBeenTriggered<protected>:logic = false
    ```
+
 4. Triggerable objects are used as pieces in the puzzles built later in this tutorial. Additionally, you might want to use triggerable objects as **decoy** pieces in a puzzle that are triggered by an action and the pieces act like they are part of the puzzle, but their triggered state does not contribute to or take away from a puzzle being solved. Add a `PuzzlePiece` logic field to keep track of whether or not this triggerable object is a puzzle piece.
 
    ```verse
        @editable
        PuzzlePiece:logic = false
    ```
+
 5. For even more flexibility, you might also want a puzzle where some lights must be on and some must be off for the puzzle to be considered solved. Add a `SolvedStateTriggered` logic field to indicate whether this triggerable object puzzle piece is considered solved if it is triggered or not triggered.
 
    ```verse
        @editable
        SolvedStateTriggered:logic = true
    ```
+
 6. Declare three functions: `PerformAction`, `PerformReverseAction`, and `PostTrigger`. Since `triggerable` is an interface and the interface does not provide a base implementation for these functions, any child class of `triggerable` must provide its own implementation of each of these functions.
 
    ```verse
@@ -68,6 +73,7 @@ You'll begin by creating a new empty Verse file and naming it `Triggerable.verse
        # Action performed after PerformAction or PerformReverseAction is called
        PostTrigger():void
    ```
+
 7. Define three additional functions: `Trigger`, `InSolvedState`, and `SetInitialTriggeredState`. These three functions all have a base implementation provided in the `triggerable` interface. `Trigger` triggers the action for the component that implements this interface, `InSolvedState` decides whether the component is in a solved triggered state, and `SetInitialTriggeredState` determines what the initial triggered state of a component is upon beginning of play.
 
    ```verse
@@ -101,11 +107,13 @@ This puzzle project also uses Scene events to send events up or down the Scene G
    ```verse
    using { /Verse.org/SceneGraph }
    ```
+
 2. Add a Scene event named triggered\_event:
 
    ```verse
    triggered_event<public> := class(scene_event):
    ```
+
 3. Add two fields to this event, the first, an optional indicating the entity that is triggered, and the second, a logic indicating whether or not this entity has been triggered:
 
    ```verse
@@ -197,4 +205,4 @@ triggered_event<public> := class(scene_event):
 
 Puzzle Component
 
-Create a puzzle manager component to determine whether a puzzle is solved.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-02-puzzle-component-in-fortnite)
+Create a puzzle manager component to determine whether a puzzle is solved.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-02-puzzle-component-in-fortnite>)

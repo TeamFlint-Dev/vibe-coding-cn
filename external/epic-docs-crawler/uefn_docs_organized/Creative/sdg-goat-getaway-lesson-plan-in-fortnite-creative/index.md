@@ -1,6 +1,6 @@
 # GOAT Getaway SDG Lesson Plan
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/sdg-goat-getaway-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/sdg-goat-getaway-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:53.358697
 
 ---
@@ -83,7 +83,7 @@ Students who are unfamiliar with Fortnite Creative can review Getting Started, [
 2. They can use any and all of the building tools — prefabs, galleries, devices, and more, found in the Creative inventory.
 3. Every few class periods, ask students to reflect on their work and compare it to their initial brainstorming and planning ideas. Introduce the idea of [iterative design](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#iterate) to help think about the new ideas and changes they are making to their islands.
 
-### 4. Show off your work!
+### 4. Show off your work
 
 It's time for students to share their work with the class, and online, if they choose.
 

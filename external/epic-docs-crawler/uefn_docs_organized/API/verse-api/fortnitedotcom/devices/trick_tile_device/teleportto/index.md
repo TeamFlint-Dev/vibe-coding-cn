@@ -1,6 +1,6 @@
 # TeleportTo function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trick_tile_device/teleportto
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trick_tile_device/teleportto>
 > **爬取时间**: 2025-12-27T05:30:41.131784
 
 ---

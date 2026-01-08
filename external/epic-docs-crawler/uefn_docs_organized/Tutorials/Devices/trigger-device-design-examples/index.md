@@ -1,6 +1,6 @@
 # Trigger Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/trigger-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/trigger-device-design-examples>
 > **爬取时间**: 2025-12-26T23:04:17.700459
 
 ---
@@ -39,6 +39,7 @@ When you combine a **Trigger** device with a **Lock** device, you have an easy w
    | Trigger Delay | 2.0 Seconds |
    | Trigger VFX | Off |
    | Trigger SFX | Off |
+
 8. Configure the following **event** on the first trigger so that it opens the door and triggers the closing trigger when the player steps on it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/9e814725-f4d7-4196-a25d-46c881f3f780?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9e814725-f4d7-4196-a25d-46c881f3f780?resizing_type=fit)
@@ -48,6 +49,7 @@ When you combine a **Trigger** device with a **Lock** device, you have an easy w
    | Event | Select Device | Select Function |
    | On Triggered | Lock Device | Open |
    | On Triggered | Close Trigger | Trigger |
+
 9. Configure the following event on the closing trigger so that it closes the door after a delay.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/82960535-18c0-4bbc-97be-78b6bd8c1b36?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/82960535-18c0-4bbc-97be-78b6bd8c1b36?resizing_type=fit)
@@ -93,6 +95,7 @@ Triggers can be activated by sequencers like the **Random Number Generator** dev
    | Zone Direction | Forward |
    | Visible During Game | No |
    | Play Audio | Off |
+
 4. Place a **Trigger** device inside the first tile that extends out from the Random Number Generator device.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b2a1674c-9c31-4e63-945a-7f3fa0529176?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b2a1674c-9c31-4e63-945a-7f3fa0529176?resizing_type=fit)
@@ -107,6 +110,7 @@ Triggers can be activated by sequencers like the **Random Number Generator** dev
    | Triggered by Player | Off |
    | Trigger VFX | Off |
    | Trigger SFX | Off |
+
 6. Place an **Item Granter** device next to the random number generator. Register a **Combat Shotgun** to the device
 7. Configure the following event on the trigger so that it triggers the item granter to grant the player the Combat Shotgun when triggered.
 
@@ -116,6 +120,7 @@ Triggers can be activated by sequencers like the **Random Number Generator** dev
    | --- | --- | --- |
    | Event | Select Device | Select Function |
    | On Triggered | Item Granter 1 | Grant Item |
+
 8. Duplicate the **Trigger** and **Item Granter** devices three more times, placing each in each of the sequencer zones of the random number generator. **Copy both devices at the same time to preserve the events bound between them.**
 9. Update the three new item granters to have a **Combat Assault Rifle**, **Combat SMG**, and **Bolt Action Sniper Rifle** registered respectively.
 10. Place a **Button** device and customize.
@@ -126,6 +131,7 @@ Triggers can be activated by sequencers like the **Random Number Generator** dev
     | --- | --- |
     | Option | Value |
     | Interaction Text | Grant New Loadout |
+
 11. Configure the following event on the **Button** device so that it starts the **Random Number Generator** device and gives the player a new loadout when activated.
 
     [![](https://dev.epicgames.com/community/api/documentation/image/ff65712e-af71-45eb-b26b-90fcd6ae76c2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/ff65712e-af71-45eb-b26b-90fcd6ae76c2?resizing_type=fit)
@@ -191,6 +197,7 @@ The Trigger device can be activated by objects other than players, such as proje
    | Times Can Trigger | 1 |
    | Trigger VFX | Off |
    | Trigger SFX | Off |
+
 4. Place a **Prop Manipulator** device and connect to the frame.
 5. Place a **VFX Spawner** device in the center of the frame.
 6. Customize the VFX spawner.
@@ -202,6 +209,7 @@ The Trigger device can be activated by objects other than players, such as proje
    | Option | Value |
    | Effect Type | Burst |
    | Burst Visual Effect | Explosion Electrical |
+
 7. Configure the following event on the trigger so that it hides the frame and triggers the visual effects when the player goes through it on the surfboard.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/6fd4f992-e988-4a18-96f1-a54582910e1c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6fd4f992-e988-4a18-96f1-a54582910e1c?resizing_type=fit)
@@ -228,6 +236,7 @@ The Trigger device can be activated by objects other than players, such as proje
    | Visible During Game | Hidden |
    | Timer Color | White |
    | Timer Running Text | Ride through all zones in… |
+
 3. Place an **End Game** device in an area that the player can’t see.
 4. Place another trigger and customize it.
 
@@ -240,6 +249,7 @@ The Trigger device can be activated by objects other than players, such as proje
    | Triggered by Player | Off |
    | Triggered by Vehicles | Off |
    | Transmit Every X Triggers | 5 |
+
 5. Configure the following functions on the **Game End Trigger** device so that each trigger triggers it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/571cbbd8-6fdd-46a7-85a3-b4446cbda335?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/571cbbd8-6fdd-46a7-85a3-b4446cbda335?resizing_type=fit)
@@ -248,6 +258,7 @@ The Trigger device can be activated by objects other than players, such as proje
    | --- | --- | --- |
    | Function | Select Device | Select Event |
    | Trigger When Receiving From | Trigger1-5 | On Triggered |
+
 6. Configure the following events on the **Game End Trigger** device to stop the timer and end the game when the player completes the challenge.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/9e187dd8-e4d6-4e78-9751-88adc5d0b56f?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9e187dd8-e4d6-4e78-9751-88adc5d0b56f?resizing_type=fit)

@@ -1,6 +1,6 @@
 # Keyboard Shortcuts
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/keyboard-shortcuts-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/keyboard-shortcuts-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:21:17.334313
 
 ---

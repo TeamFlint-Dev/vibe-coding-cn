@@ -1,6 +1,6 @@
 # Dungeon Crawler
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-a-dungeon-crawler-game-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-a-dungeon-crawler-game-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:58:43.508659
 
 ---
@@ -63,11 +63,13 @@ To set up this device:
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **Visible In Game** | Off | The spawn pads will not be visible in the game. |
+
 4. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | On Player Spawned Send Event To | Player Spawner | Disable |
+
 5. Select OK to save.
 6. Copy and place another **Player Spawn Pad**.
 
@@ -103,6 +105,7 @@ To set up this device:
    | **Priority Group** | 1 | This spawn pad will have higher priority over the spawn pads in the pre-game lobby. |
    | **Use as Island Start** | Off | This spawn pad will not be used for the pre-game lobby. |
    | **Visible in Game** | Off | The spawn pads will not be visible during gameplay. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
@@ -110,6 +113,7 @@ To set up this device:
    | On Player Send Event To | Item Spawner | Enable |
    | **On Player Send Event To** | HUD Message Device | Show |
    | On Player Send Event To | Class Selector | Change Player to Class |
+
 4. Select OK to save.
 5. Copy and place another **Player Spawn Pad** in the other spawn room.
 
@@ -135,6 +139,7 @@ To set up this device:
    | **Interaction Text** | Search the Coffin | This text indicates the required action from players. |
    | **Visible During Game** | No | The button will not be visible during the gameplay. |
    | **Interaction Radius** | .75M | This is the distance from the button players can be when interacting with it. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
@@ -142,6 +147,7 @@ To set up this device:
    | On Interact Send Event To | Item Granter | Grant Item |
    | On Interact Send Event To | Player Spawner | Disable |
    | On Interact Send Event To | HUD Message Device | Show |
+
 4. Select OK to save.
 5. Copy and place this device into player 2’s spawn room.
 
@@ -164,6 +170,7 @@ To set up this device:
    | **Grant on Cycle** | No | All three items registered are granted to the player at once. |
    | **Spare Weapon Ammo** | No | This weapon will not have spare ammo. |
    | **Cycle Behavior** | Wrap | The current item will loop around at the end of available items. |
+
 5. Select **OK** to save.
 
 ## Designer Tips
@@ -197,6 +204,7 @@ To set up this device:
    | **Visible During Game** | Hologram Only | Only the holographic display of the needed key is shown in gameplay. |
    | **Interaction Radius** | .25 | This is the distance required to interact with the device. |
    | **Show Keycard Direction** | No | After picking a keycard, there will be no HUD directing them to the door. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
@@ -206,6 +214,7 @@ To set up this device:
    | **On Activated Send Event To** | Lock | Open |
    | **On Activated Send Event To** | Creature Spawner | Enable |
    | **On Activated Send Event To** | Audio Player | Play |
+
 4. Select OK to save.
 5. Copy and place the device in player 2’s spawn room.
 
@@ -224,6 +233,7 @@ To set up this device:
    | --- | --- | --- |
    | **Visible During Game** | Off | This device will not be visible during gameplay. |
    | **Open When Receiving From** | Channel 75 | Unlocking the Conditional Button with the keycard will send a signal to this channel. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
@@ -231,6 +241,7 @@ To set up this device:
    | Unlock When Receiving From | Conditional Button | On Activated |
    | Open When Receiving From | Conditional Button | On Activated |
    | Close When Receiving From | Trigger | On Triggered |
+
 4. Select OK to save.
 5. Copy and place a **Lock** on the door to player 2’s spawn room door.
 
@@ -247,6 +258,7 @@ Place an **Audio Player** over the spawn room’s door to play a sound once the
    | **Volume** | **1.0**, Pick or enter a number | Sets how loud the audio will be when played. |
    | **Play Location** | Device | The location from which the sound occurs is the device' location, so only players near it will hear the sound. |
    | **Play on Hit** | No | The speaker will not make a noise if hit with a pickaxe or shot. |
+
 3. Select **OK** to save.
 4. Copy and place this device in player 2’s spawn room.
 
@@ -271,11 +283,13 @@ To set up this device:
    | **Message Recipient** | Triggering Player | The instigating player will be the target of this message. |
    | **Play Sound** | None | There will be no audio from this device. |
    | **Placement** | Top Center | The HUD message will be placed in the top center of the screen. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **On Triggered** | Trigger | Show |
+
 4. Select OK to save.
 
 ## Designer Tips
@@ -315,11 +329,13 @@ To set up this device:
    | **Clear Items on Switch** | All Items | The player’s inventory will clear when switching classes. |
    | **Accent Color** | Golden | This color will help distinguish the class selector. |
    | **Enabled During Phase** | All | This device will be used during all game phases. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | On Player Spawned | Player Spawner | Change Player to Class |
+
 4. Select OK to save.
 5. Copy and place a second **Class Selector**.
 
@@ -342,6 +358,7 @@ To set up this device:
    | **Max Health** | 100 Health | 100 is the maximum health players will have. |
    | **Starting Shields** | 50% Shields | Players will have half of their shields starting out. |
    | **Max Shields** | 100 Shields | Players will have a maximum of 100 shields available. |
+
 3. Select **OK** to save.
 
 ## Setting up the Powerup Devices
@@ -377,11 +394,13 @@ To set up this device:
    | **Effect Duration** | 10 Seconds | Combined with the above settings, over 10 seconds will regenerate 50% health and shields. |
    | **Time To Respawn** | Instant | This device will instantly be available to pick up again. |
    | **Apply To** | All Players | This device will heal both players. |
+
 3. Customize the following functions.
 
    | Function | Select Event | Select Function |
    | --- | --- | --- |
    | On Item Picked Up | VFX Powerup Device | Pickup |
+
 4. Select OK to save.
 5. Copy and place another **Health Powerup**.
 
@@ -401,11 +420,13 @@ To set up this device:
    | **Color** | Apple Green | The powerup will be this color. |
    | **Time To Respawn** | Never | The powerups will never respawn. |
    | **When Item Picked Up Transmit On** | Channel 239 | This will send a message to the HUD Message tutorial text. Other Visual Effect Powerups will be on Channel 238. |
+
 3. Customize the following functions.
 
    | Function | Select Event | Select Function |
    | --- | --- | --- |
    | Pickup | Health Powerup | On Item Picked Up |
+
 4. Select OK to save.
 
 ### HUD Message #2
@@ -424,11 +445,13 @@ To set up this device:
    | **Text Style** | Small | The HUD text will have a small font. |
    | **Play Sound** | None | There will be no audio from this device. |
    | **Placement** | Top Center | The HUD placement will be at the top center of the screen. |
+
 3. Customize the following functions.
 
    | Function | Select Event | Select Device |
    | --- | --- | --- |
    | On Triggered | Trigger | Show |
+
 4. Select **OK** to save.
 
 ## Setting up the Creature Manager Devices
@@ -461,6 +484,7 @@ To set up this device:
    | **Score** | 1 | Eliminating a creature of this type will award a score of 1. |
    | **Score Distribution** | All to Killer | Only the person who gets the last hit is awarded the score. |
    | **Damage to Player** | 25 | The registered creature will damage the player for 25 points. |
+
 3. Place a Creature Manager for each **Creature Type;**there will be 13 in total.a.
 4. Scale the difficulty by slowly increasing Health, Score, Damage to Player, and Movement Speed for each creature.
 
@@ -480,6 +504,7 @@ Use the **Elimination Manager** to determine what happens when a creature is eli
    | **Target Type** | Fiend | This device is managing the Fiend creature type. |
    | **Random Drop** | Random | Of the registered items, only one will be dropped. |
    | **Drop Chance** | 15% | There is a 15% chance that eliminating the **Target Type’s** creature will drop an item. |
+
 4. Copy and place this device for each **Target Type** except for Megabrute and Red Brute. This totals 11 Elimination Manager devices. You can place the Elimination Manager in front of the matching Creature Manager for each type.
 
    The Megabrute and Red Brute will not have Elimination Managers.
@@ -492,6 +517,7 @@ Use the **Elimination Manager** to determine what happens when a creature is eli
    | **Target Type** | All Creatures | Any creature can drop items from this device. |
    | **Random Drop** | No Repeats | This device cycles through all items before shuffling and repeating. |
    | **Drop Chance** | 90% | The ammo elimination manager drops 90% of the time. For the item elimination manager, set this to 15%. |
+
 7. Select **OK** to save.
 
 ## Spawn Creatures in the Arena
@@ -531,12 +557,14 @@ To set up each Creature Spawner device:
    | **Spawn Through Walls** | Off | Creatures will not spawn through walls, but near the player. |
    | **Preferred Spawn Location** | Random | Creatures will appear anywhere within the ½ tile. |
    | **Enabled At Game Start** | Disabled | This device must be turned on by a trigger or channel to activate. |
+
 3. Customize the following functions.
 
    | Function | Select Event | Select Device |
    | --- | --- | --- |
    | **On Triggered** | Trigger | Enable |
    | **On Activated** | Conditional Button | Disable |
+
 4. Select OK to save.
 5. Copy and place **Creature Spawners** along your arena, changing the **Creature Type** each time. Make sure to place your devices a good distance apart from each other.
 
@@ -572,11 +600,13 @@ To set up each Trigger device:
    | **Trigger Sound** | Disabled | This device will have no audio. |
    | **Trigger VFX** | Disabled | This device will have no VFX. |
    | **Visible in Game** | **No** | This device will not be visible in the game. |
+
 4. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | Enable | Creature Spawner | On Triggered |
+
 5. Select OK to save.
 6. Copy and place **Triggers** either before or after your **Creature Spawners** along your arena.
 
@@ -618,11 +648,13 @@ To set up this device:
    | **Enabled On Game Start** | No | This device is not automatically enabled and will need to be triggered by a channel. |
    | **Icon** | Custom | Choose an icon for your map. |
    | **Text** | Insert text | This field should briefly describe the area they are in. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **On Eliminated** | Creature Spawner | Enable |
+
 4. Select **OK** to save.
 5. Copy and spread this device along areas where you would like to show the player’s location. Change the text as needed.
 
@@ -668,11 +700,13 @@ To set up this device:
    | **Visible During Game** | No | This device will not be seen during the gameplay. |
    | **Collision During Game** | Off | There will be no collision during gameplay. |
    | **Show Health Bar** | No | The device’s health bar will not be visible in-game. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **On Triggered** | Trigger | Explode |
+
 4. Select OK to save.
 
 ### Trigger #2-3
@@ -694,11 +728,13 @@ To set up this device:
    | **Trigger VFX** | Disabled | This device will not have visual effects. |
    | **Visible In Game** | No | This device will not be visible in the game. |
    | **Receive Damage While Invisible** | Take Damage | This device will still take damage even though it is invisible. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Grant Item** | Item Granter | On Triggered |
+
 4. Select **OK** to save.
 
 Place another Trigger adjacent to the first one. This Trigger will keep track of the activations before sending a signal to blow up the anvil with the Explosive device.
@@ -716,11 +752,13 @@ To set up this device:
    | **Trigger Sound** | Disabled | This device will not have audio. |
    | **Tigger VFX** | Disabled | This device will not have visual effects. |
    | **Visible In Game** | No | This device will not be visible in-game. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Explode** | Explosive Device | On Triggered |
+
 4. Select **OK** to save.
 
 ### Item Granter #2
@@ -739,12 +777,14 @@ To set up this device:
    | **Grant On Cycle** | No | Cycling the inventory will not grant items. |
    | **Give Extra Ammo** | No | Extra ammo will not be granted. |
    | **Cycle Behavior** | Wrap | Grantable items will loop if the end of valid items to grant is reached. |
+
 4. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Grant Item When Receiving From** | Trigger | On Triggered |
    | **Cycle to Random Item When Receiving From** | Trigger | On Triggered |
+
 5. Select OK to save.
 
 ### Item Spawner
@@ -765,6 +805,7 @@ To set up this device:
    | **Base Visible During Game** | No | The device will not be visible during gameplay. |
    | **Time Between Respawns** | Never | Items can only be picked up once. |
    | **Run Over Pickup** | On | The spawned item is automatically picked up when ran over. |
+
 4. Select **OK** to save.
 
 ## Setting Up the Final Boss Area
@@ -799,11 +840,13 @@ To set up this device:
    | **Visible During Game** | Off | The checkpoint will not be visible during gameplay. |
    | **Play Activate FX** | Off | Activation FX is not played during gameplay. |
    | **Activate When Receiving From** | Channel 3 | Pair this channel with the Trigger you placed before it. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **On Triggered** | Trigger | Register |
+
 4. Select **OK** to save.
 
 ## Button #3
@@ -822,11 +865,13 @@ To set up this device:
    | **Trigger Sound** | Disabled | There will be no audio from this device. |
    | **Interaction Text** | Search the throne? | Alter this text for whichever prop is used in place of a throne. |
    | **Interaction Radius** | 1.5M | The device can be interacted with at this distance. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Start** | Timed Objective | On Interact |
+
 4. Select OK to save.
 
 ## Timed Objective #1-2
@@ -846,6 +891,7 @@ To set up this device:
    | **Visible During Gameplay** | No | This device will not be visible during gameplay. |
    | **Countdown Visible On HUD** | No | The five-second countdown will not be shown on the HUD. |
    | **Urgency Mode** | Disabled | There will be no sound effects for the last seconds of the countdown. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
@@ -853,6 +899,7 @@ To set up this device:
    | **Start When Receiving From** | Button | On Interact |
    | **Enable When Receiving From** | Button | On Interact |
    | **On Completed Send Event To** | Creature Spawner | Enable |
+
 4. Select **Ok** to save.
 
 Place another Timed Objective device to disable the Creature Spawners and end the final battle. To set up this device:
@@ -866,6 +913,7 @@ Place another Timed Objective device to disable the Creature Spawners and end th
    | **Timer Label Text** | Stay alive for… | Add a text that matches the theme of your gameplay. |
    | **Hologram Until Activated** | No | The device will have no hologram during gameplay. |
    | **Visible During Gameplay** | No | This device will not be visible during gameplay. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
@@ -877,6 +925,7 @@ Place another Timed Objective device to disable the Creature Spawners and end th
    | **Enable When Receiving From** | Trigger | On Triggered |
    | **Start When Receiving From** | Timed Objective | On Completed |
    | Start When Receiving From | Trigger | On Triggered |
+
 4. Select **OK** to save.
 
 ## Creature Spawner #2
@@ -906,12 +955,14 @@ To set up this device:
    | **Enabled at Game Start** | Disabled | This device must be activated to function. |
    | **Enable When Receiving From** | Channel 5 | This device will activate after the first timer goes off. |
    | **Disable When Receiving From** | Channel 6 | This device is disabled after the exit is generated at the end of the creature rush. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **On Triggered** | Trigger | Enable |
    | **On Activated** | Conditional Button | Disable |
+
 4. Select **OK** to save.
 
 ## Designer Tips
@@ -933,11 +984,13 @@ To set up this device:
    | --- | --- | --- |
    | **What to End** | End Round | Ends the round and finished the game when activated. |
    | **Custom Victory Callout** | You won! | Insert a custom message that fits with your game’s theme. |
+
 3. Customize the following functions.
 
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Activate When Receiving From** | Trigger | On Triggered |
+
 4. Select OK to save.
 
 ## Customize the Island Settings

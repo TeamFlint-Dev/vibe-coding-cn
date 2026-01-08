@@ -1,6 +1,6 @@
 # Install and Launch Fortnite
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/install-and-launch-fortnite-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/install-and-launch-fortnite-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:08:38.975693
 
 ---
@@ -120,7 +120,7 @@ Once you've launched it the first time, you will be able to launch it from the *
 
 ## Access Fortnite Creative
 
-When you launch Fortnite, it 
+When you launch Fortnite, it
 opens on the Discover page.
 
 1. Click the Creative tile to access Fortnite Creative.

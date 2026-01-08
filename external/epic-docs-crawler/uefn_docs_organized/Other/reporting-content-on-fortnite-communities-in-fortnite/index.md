@@ -1,6 +1,6 @@
 # Reporting Content on Fortnite Communities
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/reporting-content-on-fortnite-communities-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/reporting-content-on-fortnite-communities-in-fortnite>
 > **爬取时间**: 2025-12-26T23:56:15.440161
 
 ---

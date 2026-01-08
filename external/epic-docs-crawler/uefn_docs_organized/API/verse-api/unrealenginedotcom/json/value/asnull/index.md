@@ -1,6 +1,6 @@
 # AsNull function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/json/value/asnull
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/json/value/asnull>
 > **爬取时间**: 2025-12-27T05:05:19.236017
 
 ---

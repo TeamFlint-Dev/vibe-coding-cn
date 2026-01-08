@@ -1,6 +1,6 @@
 # (InCharacter:fort_character).GetFocusInterface extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/getfocusinterface
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/getfocusinterface>
 > **爬取时间**: 2025-12-27T00:59:26.873314
 
 ---

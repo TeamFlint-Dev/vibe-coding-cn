@@ -1,6 +1,6 @@
 # Navigation Mesh
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/navigation-mesh-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/navigation-mesh-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:12:56.532132
 
 ---

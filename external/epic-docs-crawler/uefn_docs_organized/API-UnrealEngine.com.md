@@ -2,113 +2,147 @@
 
 **Total: 306 pages**
 
-##  (1)
+## (1)
+
 - [UnrealEngine.com module](./API/UnrealEngine.com/unrealenginedotcom/index.md)
 
 ## assets (1)
+
 - [Assets module](./API/UnrealEngine.com/assets/index.md)
 
 ## assets/spawnparticlesystem (1)
+
 - [SpawnParticleSystem function](./API/UnrealEngine.com/spawnparticlesystem/index.md)
 
 ## assets/spawnparticlesystem-1 (1)
+
 - [SpawnParticleSystem function](./API/UnrealEngine.com/spawnparticlesystem-1/index.md)
 
 ## basicshapes (1)
+
 - [BasicShapes module](./API/UnrealEngine.com/basicshapes/index.md)
 
 ## basicshapes/cone (1)
+
 - [cone class](./API/UnrealEngine.com/cone/index.md)
 
 ## basicshapes/cube (1)
+
 - [cube class](./API/UnrealEngine.com/cube/index.md)
 
 ## basicshapes/cylinder (1)
+
 - [cylinder class](./API/UnrealEngine.com/cylinder/index.md)
 
 ## basicshapes/plane (1)
+
 - [plane class](./API/UnrealEngine.com/plane/index.md)
 
 ## basicshapes/sphere (1)
+
 - [sphere class](./API/UnrealEngine.com/sphere/index.md)
 
 ## controlinput (1)
+
 - [ControlInput module](./API/UnrealEngine.com/controlinput/index.md)
 
 ## controlinput/getplayerinput (1)
+
 - [GetPlayerInput function](./API/UnrealEngine.com/getplayerinput/index.md)
 
 ## controlinput/input_events (1)
+
 - [input_events function](./API/UnrealEngine.com/input_events/index.md)
 
 ## controlinput/player_input (4)
+
 - [AddInputMapping function](./API/UnrealEngine.com/addinputmapping/index.md)
 - [GetInputEvents function](./API/UnrealEngine.com/getinputevents/index.md)
 - [RemoveInputMapping function](./API/UnrealEngine.com/removeinputmapping/index.md)
 - [player_input class](./API/UnrealEngine.com/player_input/index.md)
 
 ## itemization (1)
+
 - [Itemization module](./API/UnrealEngine.com/itemization/index.md)
 
 ## itemization/add_item_error (1)
+
 - [add_item_error class](./API/UnrealEngine.com/add_item_error/index.md)
 
 ## itemization/add_item_query_event (2)
+
 - [AddError function](./API/UnrealEngine.com/adderror/index.md)
 - [add_item_query_event class](./API/UnrealEngine.com/add_item_query_event/index.md)
 
 ## itemization/add_item_result (1)
+
 - [add_item_result class](./API/UnrealEngine.com/add_item_result/index.md)
 
 ## itemization/canadditem (1)
+
 - [(Inventory:inventory_component).CanAddItem extension](./API/UnrealEngine.com/canadditem/index.md)
 
 ## itemization/canequip (1)
+
 - [(Item:item_component).CanEquip extension](./API/UnrealEngine.com/canequip/index.md)
 
 ## itemization/canremoveitem (1)
+
 - [(Inventory:inventory_component).CanRemoveItem extension](./API/UnrealEngine.com/canremoveitem/index.md)
 
 ## itemization/canunequip (1)
+
 - [(Item:item_component).CanUnequip extension](./API/UnrealEngine.com/canunequip/index.md)
 
 ## itemization/change_equipped_result (1)
+
 - [change_equipped_result class](./API/UnrealEngine.com/change_equipped_result/index.md)
 
 ## itemization/change_inventory_result (1)
+
 - [change_inventory_result class](./API/UnrealEngine.com/change_inventory_result/index.md)
 
 ## itemization/change_max_stack_size_result (1)
+
 - [change_max_stack_size_result class](./API/UnrealEngine.com/change_max_stack_size_result/index.md)
 
 ## itemization/change_stack_size_result (1)
+
 - [change_stack_size_result class](./API/UnrealEngine.com/change_stack_size_result/index.md)
 
 ## itemization/equip_item_error (1)
+
 - [equip_item_error class](./API/UnrealEngine.com/equip_item_error/index.md)
 
 ## itemization/equip_item_query_event (2)
+
 - [AddError function](./API/UnrealEngine.com/adderror/index.md)
 - [equip_item_query_event class](./API/UnrealEngine.com/equip_item_query_event/index.md)
 
 ## itemization/equip_item_result (1)
+
 - [equip_item_result class](./API/UnrealEngine.com/equip_item_result/index.md)
 
 ## itemization/find_inventory_event (1)
+
 - [find_inventory_event class](./API/UnrealEngine.com/find_inventory_event/index.md)
 
 ## itemization/has_item_merge_rules (3)
+
 - [CanMergeInto function](./API/UnrealEngine.com/canmergeinto/index.md)
 - [OnMergeInto function](./API/UnrealEngine.com/onmergeinto/index.md)
 - [has_item_merge_rules interface](./API/UnrealEngine.com/has_item_merge_rules/index.md)
 
 ## itemization/inventory_component (1)
+
 - [Fortnite Documentation](./API/UnrealEngine.com/inventory_component/index.md)
 
 ## itemization/item_category (1)
+
 - [item_category class](./API/UnrealEngine.com/item_category/index.md)
 
 ## itemization/item_component (14)
+
 - [CanMergeInto function](./API/UnrealEngine.com/canmergeinto/index.md)
 - [Drop function](./API/UnrealEngine.com/drop/index.md)
 - [Equip function](./API/UnrealEngine.com/equip/index.md)
@@ -125,42 +159,53 @@
 - [item_component class](./API/UnrealEngine.com/item_component/index.md)
 
 ## itemization/item_details_component (3)
+
 - [OnBeginSimulation function](./API/UnrealEngine.com/onbeginsimulation/index.md)
 - [OnEndSimulation function](./API/UnrealEngine.com/onendsimulation/index.md)
 - [item_details_component class](./API/UnrealEngine.com/item_details_component/index.md)
 
 ## itemization/item_icon_component (3)
+
 - [OnBeginSimulation function](./API/UnrealEngine.com/onbeginsimulation/index.md)
 - [OnEndSimulation function](./API/UnrealEngine.com/onendsimulation/index.md)
 - [item_icon_component class](./API/UnrealEngine.com/item_icon_component/index.md)
 
 ## itemization/remove_item_error (1)
+
 - [remove_item_error class](./API/UnrealEngine.com/remove_item_error/index.md)
 
 ## itemization/remove_item_query_event (2)
+
 - [AddError function](./API/UnrealEngine.com/adderror/index.md)
 - [remove_item_query_event class](./API/UnrealEngine.com/remove_item_query_event/index.md)
 
 ## itemization/remove_item_result (1)
+
 - [remove_item_result class](./API/UnrealEngine.com/remove_item_result/index.md)
 
 ## itemization/unequip_item_error (1)
+
 - [unequip_item_error class](./API/UnrealEngine.com/unequip_item_error/index.md)
 
 ## itemization/unequip_item_query_event (2)
+
 - [AddError function](./API/UnrealEngine.com/adderror/index.md)
 - [unequip_item_query_event class](./API/UnrealEngine.com/unequip_item_query_event/index.md)
 
 ## itemization/unequip_item_result (1)
+
 - [unequip_item_result class](./API/UnrealEngine.com/unequip_item_result/index.md)
 
 ## json (1)
+
 - [JSON module](./API/UnrealEngine.com/json/index.md)
 
 ## json/parse (1)
+
 - [Parse function](./API/UnrealEngine.com/parse/index.md)
 
 ## json/value (7)
+
 - [AsArray function](./API/UnrealEngine.com/asarray/index.md)
 - [AsFloat function](./API/UnrealEngine.com/asfloat/index.md)
 - [AsInt function](./API/UnrealEngine.com/asint/index.md)
@@ -170,17 +215,21 @@
 - [value class](./API/UnrealEngine.com/value/index.md)
 
 ## scenegraph (1)
+
 - [SceneGraph module](./API/UnrealEngine.com/scenegraph/index.md)
 
 ## temporary (1)
+
 - [Temporary module](./API/UnrealEngine.com/temporary/index.md)
 
 ## temporary/curves (3)
+
 - [Curves module](./API/UnrealEngine.com/curves/index.md)
 - [Evaluate function](./API/UnrealEngine.com/evaluate/index.md)
 - [editable_curve class](./API/UnrealEngine.com/editable_curve/index.md)
 
 ## temporary/diagnostics (32)
+
 - [Clear function](./API/UnrealEngine.com/clear/index.md)
 - [ClearChannel function](./API/UnrealEngine.com/clearchannel/index.md)
 - [Diagnostics module](./API/UnrealEngine.com/diagnostics/index.md)
@@ -215,9 +264,11 @@
 - [log_level enumeration](./API/UnrealEngine.com/log_level/index.md)
 
 ## temporary/sortby (1)
+
 - [SortBy function](./API/UnrealEngine.com/sortby/index.md)
 
 ## temporary/spatialmath (102)
+
 - [(InitialRotation:rotation).ApplyLocalRotationY extension](./API/UnrealEngine.com/applylocalrotationy/index.md)
 - [(InitialRotation:rotation).ApplyLocalRotationZ extension](./API/UnrealEngine.com/applylocalrotationz/index.md)
 - [(InitialRotation:rotation).ApplyPitch extension](./API/UnrealEngine.com/applypitch/index.md)
@@ -322,6 +373,7 @@
 - [vector3 struct](./API/UnrealEngine.com/vector3/index.md)
 
 ## temporary/ui (81)
+
 - [AddWidget function](./API/UnrealEngine.com/addwidget/index.md)
 - [AddWidget function](./API/UnrealEngine.com/addwidget/index.md)
 - [AddWidget function](./API/UnrealEngine.com/addwidget-1/index.md)
@@ -405,22 +457,27 @@
 - [widget_visibility enumeration](./API/UnrealEngine.com/widget_visibility/index.md)
 
 ## webapi (1)
+
 - [WebAPI module](./API/UnrealEngine.com/webapi/index.md)
 
 ## webapi/body_response (2)
+
 - [GetBody function](./API/UnrealEngine.com/getbody/index.md)
 - [body_response class](./API/UnrealEngine.com/body_response/index.md)
 
 ## webapi/client (2)
+
 - [Get function](./API/UnrealEngine.com/get/index.md)
 - [client class](./API/UnrealEngine.com/client/index.md)
 
 ## webapi/client_id (1)
+
 - [client_id class](./API/UnrealEngine.com/client_id/index.md)
 
 ## webapi/makeclient (1)
+
 - [MakeClient function](./API/UnrealEngine.com/makeclient/index.md)
 
 ## webapi/response (1)
-- [response class](./API/UnrealEngine.com/response/index.md)
 
+- [response class](./API/UnrealEngine.com/response/index.md)

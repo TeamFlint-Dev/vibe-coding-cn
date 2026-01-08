@@ -1,6 +1,6 @@
 # ClearSaveData function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_granter_device/clearsavedata
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_granter_device/clearsavedata>
 > **爬取时间**: 2025-12-27T05:28:36.051080
 
 ---

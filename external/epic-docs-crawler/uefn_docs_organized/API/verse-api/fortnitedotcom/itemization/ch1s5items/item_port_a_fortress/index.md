@@ -1,6 +1,6 @@
 # item_port_a_fortress class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s5items/item_port_a_fortress
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s5items/item_port_a_fortress>
 > **爬取时间**: 2025-12-27T04:32:59.928725
 
 ---

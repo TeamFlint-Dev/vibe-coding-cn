@@ -1,6 +1,6 @@
 # 8. Outside Cabin
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-08-outside-cabin-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-08-outside-cabin-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:17:49.033416
 
 ---
@@ -337,6 +337,6 @@ Locking the front door to the cabin and causing the player to double back and lo
 
 [![9. Inside Cabin](https://dev.epicgames.com/community/api/documentation/image/54b47813-ab9a-4b1f-9f7a-9055ea2010a4?resizing_type=fit&width=640&height=640)
 
-9. Inside Cabin
+1. Inside Cabin
 
-Create an explosive ending to the island inside the cabin.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-09-inside-cabin-in-unreal-editor-for-fortnite)
+Create an explosive ending to the island inside the cabin.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-09-inside-cabin-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # item_bacon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_bacon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_bacon>
 > **爬取时间**: 2025-12-27T03:45:48.570066
 
 ---

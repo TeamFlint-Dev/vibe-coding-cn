@@ -1,6 +1,6 @@
 # item_grappler class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s5items/item_grappler
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s5items/item_grappler>
 > **爬取时间**: 2025-12-27T04:32:43.870306
 
 ---

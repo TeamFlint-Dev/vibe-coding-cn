@@ -1,6 +1,6 @@
 # Campaign FAQs
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/campaign-faqs-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/campaign-faqs-in-fortnite>
 > **爬取时间**: 2025-12-27T00:01:00.338798
 
 ---
@@ -163,7 +163,7 @@ Should you be found by our team to have broken one of the rules during a live ca
 
 ### Can sponsored row campaigns link outside of Fortnite?
 
-No. 
+No.
 All tiles will link to the associated islands Island Detail page.
 
 ### What if my island has a low click-through-rate (CRT) in Discover or low island performance?

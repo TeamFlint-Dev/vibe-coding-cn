@@ -1,6 +1,6 @@
 # GetTeamAttitude function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/teams/fort_team_collection/getteamattitude-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/teams/fort_team_collection/getteamattitude-1>
 > **爬取时间**: 2025-12-27T02:51:46.586998
 
 ---

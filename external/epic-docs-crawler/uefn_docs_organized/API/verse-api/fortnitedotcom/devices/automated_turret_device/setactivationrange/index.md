@@ -1,6 +1,6 @@
 # SetActivationRange function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/automated_turret_device/setactivationrange
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/automated_turret_device/setactivationrange>
 > **爬取时间**: 2025-12-27T06:10:19.673276
 
 ---

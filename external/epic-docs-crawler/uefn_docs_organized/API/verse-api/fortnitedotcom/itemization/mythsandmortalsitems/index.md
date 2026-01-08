@@ -1,6 +1,6 @@
 # MythsAndMortalsItems module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/mythsandmortalsitems
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/mythsandmortalsitems>
 > **爬取时间**: 2025-12-27T01:09:26.414397
 
 ---

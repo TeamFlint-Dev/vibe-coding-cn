@@ -1,6 +1,6 @@
 # guard_spawner_accuracy enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_accuracy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_accuracy>
 > **爬取时间**: 2025-12-27T01:37:01.216394
 
 ---

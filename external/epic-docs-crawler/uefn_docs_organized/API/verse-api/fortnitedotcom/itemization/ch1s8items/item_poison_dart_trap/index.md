@@ -1,6 +1,6 @@
 # item_poison_dart_trap class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s8items/item_poison_dart_trap
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s8items/item_poison_dart_trap>
 > **爬取时间**: 2025-12-27T04:16:05.905493
 
 ---

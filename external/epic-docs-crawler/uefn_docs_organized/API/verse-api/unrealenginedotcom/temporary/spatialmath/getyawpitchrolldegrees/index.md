@@ -1,6 +1,6 @@
 # (Rotation:rotation).GetYawPitchRollDegrees extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/getyawpitchrolldegrees
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/getyawpitchrolldegrees>
 > **爬取时间**: 2025-12-27T02:29:27.267729
 
 ---

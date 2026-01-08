@@ -1,6 +1,6 @@
 # DamagedEvent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/service_station_device/damagedevent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/service_station_device/damagedevent>
 > **爬取时间**: 2025-12-27T05:53:58.352907
 
 ---

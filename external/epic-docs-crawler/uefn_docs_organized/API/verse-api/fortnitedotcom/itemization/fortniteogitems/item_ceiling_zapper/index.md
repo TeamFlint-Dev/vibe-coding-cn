@@ -1,6 +1,6 @@
 # item_ceiling_zapper class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_ceiling_zapper
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_ceiling_zapper>
 > **爬取时间**: 2025-12-27T04:47:56.495296
 
 ---

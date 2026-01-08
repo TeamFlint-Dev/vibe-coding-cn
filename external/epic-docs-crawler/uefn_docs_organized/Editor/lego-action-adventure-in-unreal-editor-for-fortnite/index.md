@@ -1,6 +1,6 @@
 # LEGO® Action Adventure Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lego-action-adventure-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lego-action-adventure-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:37:22.026296
 
 ---
@@ -254,6 +254,7 @@ To create a quest system, follow the steps below.
    Category_Settings<public><localizes>:message = "Settings"
    Category_FinishedGuidance<public><localizes>:message = "Quest finished guidance"
    ```
+
 4. From the **Content Browser**, navigate to **Fortnite** > **Devices**> **Logic**, and drag two **Tracker**devices into your project.
 
    1. Name one as **tracker\_main\_quest**and the other as **tracker\_quest\_giver**.
@@ -327,6 +328,7 @@ To use a custom Verse NPC character definition with the NPC Spawner device, foll
    | **Modifiers - Index [0]** | Team Modifier | Sets the modifier to apply. |
    | **Team Option** | Index | Sets the team type. |
    | **Team Index** | 1 | Sets the team type's number. |
+
 3. In the **Outliner** panel, select the NPC Spawner device.
 4. In the **Details** panel, set the NPC Character Definition to **NPCDef\_QuestGiver**.
 
@@ -460,6 +462,7 @@ To create an object pool to spawn studs, follow the steps below.
          if {ItemSpawner?.TeleportTo[vector3{}, IdentityRotation()]}
          set IsAvailable = true
    ```
+
 3. In the **Details**panel, click **+Add**, and select **Verse Tag Markup**.
 4. In the **Tags**dropdown, expand the array, and select **LEGO\_stud\_pool\_tag**.
 

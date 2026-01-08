@@ -1,6 +1,6 @@
 # item_harpoon_gun class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_harpoon_gun
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_harpoon_gun>
 > **爬取时间**: 2025-12-27T05:03:18.630526
 
 ---

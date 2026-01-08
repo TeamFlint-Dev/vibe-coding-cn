@@ -1,6 +1,6 @@
 # hud_identifier_visual_sound_effect_healing class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/hud_identifier_visual_sound_effect_healing
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/hud_identifier_visual_sound_effect_healing>
 > **爬取时间**: 2025-12-27T01:04:54.841663
 
 ---

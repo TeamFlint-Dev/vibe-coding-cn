@@ -1,6 +1,6 @@
 # creative_hud_identifier_equipped_item class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_equipped_item
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_equipped_item>
 > **爬取时间**: 2025-12-27T01:05:26.122378
 
 ---

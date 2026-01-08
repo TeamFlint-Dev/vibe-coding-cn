@@ -1,6 +1,6 @@
 # npc_target_info class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_target_info
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_target_info>
 > **爬取时间**: 2025-12-27T00:58:55.011260
 
 ---

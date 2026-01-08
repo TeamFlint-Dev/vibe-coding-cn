@@ -1,6 +1,6 @@
 # animation_controller_state enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/animation_controller_state
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/animation_controller_state>
 > **爬取时间**: 2025-12-27T01:49:10.114234
 
 ---

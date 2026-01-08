@@ -1,6 +1,6 @@
 # item_machine_smg_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_machine_smg_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_machine_smg_epic>
 > **爬取时间**: 2025-12-27T03:28:18.909529
 
 ---

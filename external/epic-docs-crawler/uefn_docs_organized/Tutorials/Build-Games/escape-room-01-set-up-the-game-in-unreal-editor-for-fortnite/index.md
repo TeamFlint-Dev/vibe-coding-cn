@@ -1,6 +1,6 @@
 # 1. Set Up the Escape Room Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-01-set-up-the-game-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-01-set-up-the-game-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:17:42.828749
 
 ---
@@ -71,6 +71,6 @@ With the game play mechanics set up, you're ready to build a custom map for your
 
 [![2. Landscaping](https://dev.epicgames.com/community/api/documentation/image/e50d05c4-c223-453e-9c2b-e9bebb68eca5?resizing_type=fit&width=640&height=640)
 
-2. Landscaping
+1. Landscaping
 
-Create a custom landscape as the base for your escape room.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-02-landscaping-in-unreal-editor-for-fortnite)
+Create a custom landscape as the base for your escape room.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-02-landscaping-in-unreal-editor-for-fortnite>)

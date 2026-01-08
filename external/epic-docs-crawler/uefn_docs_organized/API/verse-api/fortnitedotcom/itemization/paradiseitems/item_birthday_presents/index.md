@@ -1,6 +1,6 @@
 # item_birthday_presents class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/paradiseitems/item_birthday_presents
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/paradiseitems/item_birthday_presents>
 > **爬取时间**: 2025-12-27T03:17:31.617214
 
 ---

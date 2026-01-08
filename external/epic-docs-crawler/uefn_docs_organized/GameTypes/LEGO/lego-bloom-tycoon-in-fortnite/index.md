@@ -1,6 +1,6 @@
 # LEGO® Bloom Tycoon
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lego-bloom-tycoon-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lego-bloom-tycoon-in-fortnite>
 > **爬取时间**: 2025-12-27T00:37:27.021317
 
 ---
@@ -61,16 +61,16 @@ Use the following pages to learn more about the feature set and how to bring the
 
 LEGO® Bloom Tycoon Levels and Devices
 
-Overview of the levels and devices in the LEGO Bloom Tycoon template.](https://dev.epicgames.com/documentation/en-us/fortnite/lego-bloom-tycoon-levels-and-devices-in-unreal-editor-for-fortnite)[![Creating a LEGO® Grid Placement System](https://dev.epicgames.com/community/api/documentation/image/a3b9d8cf-5c11-4fbe-8341-80b3290c09a4?resizing_type=fit&width=640&height=640)
+Overview of the levels and devices in the LEGO Bloom Tycoon template.](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-bloom-tycoon-levels-and-devices-in-unreal-editor-for-fortnite)[![Creating> a LEGO® Grid Placement System](<https://dev.epicgames.com/community/api/documentation/image/a3b9d8cf-5c11-4fbe-8341-80b3290c09a4?resizing_type=fit&width=640&height=640>)
 
 Creating a LEGO® Grid Placement System
 
-Learn to create a grid system for placing props in your LEGO Island as shown in Bloom Tycoon.](https://dev.epicgames.com/documentation/en-us/fortnite/creating-a-lego-grid-placement-system-in-unreal-editor-for-fortnite)[![Setting Up the LEGO® Grid Entity Manager](https://dev.epicgames.com/community/api/documentation/image/9d4d0910-1909-47d0-8a4f-6a41107d8845?resizing_type=fit&width=640&height=640)
+Learn to create a grid system for placing props in your LEGO Island as shown in Bloom Tycoon.](<https://dev.epicgames.com/documentation/en-us/fortnite/creating-a-lego-grid-placement-system-in-unreal-editor-for-fortnite)[![Setting> Up the LEGO® Grid Entity Manager](<https://dev.epicgames.com/community/api/documentation/image/9d4d0910-1909-47d0-8a4f-6a41107d8845?resizing_type=fit&width=640&height=640>)
 
 Setting Up the LEGO® Grid Entity Manager
 
-Learn to adjust the grid entity manager props for your LEGO grid placement system.](https://dev.epicgames.com/documentation/en-us/fortnite/setting-up-the-lego-grid-entity-manager-in-unreal-editor-for-fortnite)[![Configuring LEGO® Prop Placement](https://dev.epicgames.com/community/api/documentation/image/2c357870-8f72-4830-a13e-47a0654baeb5?resizing_type=fit&width=640&height=640)
+Learn to adjust the grid entity manager props for your LEGO grid placement system.](<https://dev.epicgames.com/documentation/en-us/fortnite/setting-up-the-lego-grid-entity-manager-in-unreal-editor-for-fortnite)[![Configuring> LEGO® Prop Placement](<https://dev.epicgames.com/community/api/documentation/image/2c357870-8f72-4830-a13e-47a0654baeb5?resizing_type=fit&width=640&height=640>)
 
 Configuring LEGO® Prop Placement
 
-Learn to create plot definitions in your grid placement system for LEGO Islands.](https://dev.epicgames.com/documentation/en-us/fortnite/configuring-lego-prop-placement-in-unreal-editor-for-fortnite)
+Learn to create plot definitions in your grid placement system for LEGO Islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/configuring-lego-prop-placement-in-unreal-editor-for-fortnite>)

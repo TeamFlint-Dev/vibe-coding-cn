@@ -1,6 +1,6 @@
 # player_hud_identifier_all class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/player_hud_identifier_all
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/player_hud_identifier_all>
 > **爬取时间**: 2025-12-27T01:08:35.086704
 
 ---

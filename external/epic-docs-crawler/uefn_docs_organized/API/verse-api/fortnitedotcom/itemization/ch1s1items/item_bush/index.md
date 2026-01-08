@@ -1,6 +1,6 @@
 # item_bush class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s1items/item_bush
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s1items/item_bush>
 > **爬取时间**: 2025-12-27T03:38:30.020713
 
 ---

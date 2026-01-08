@@ -1,6 +1,6 @@
 # item_legacy_chug_jug class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s2items/item_legacy_chug_jug
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s2items/item_legacy_chug_jug>
 > **爬取时间**: 2025-12-27T03:58:42.137123
 
 ---

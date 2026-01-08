@@ -1,6 +1,6 @@
 # item_shield_breaker_emp class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_shield_breaker_emp
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_shield_breaker_emp>
 > **爬取时间**: 2025-12-27T04:28:44.372523
 
 ---

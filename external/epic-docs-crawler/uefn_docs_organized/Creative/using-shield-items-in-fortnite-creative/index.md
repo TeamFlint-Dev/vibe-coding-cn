@@ -1,6 +1,6 @@
 # Shield Items
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-shield-items-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-shield-items-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:10:14.667660
 
 ---

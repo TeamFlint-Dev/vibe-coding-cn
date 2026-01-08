@@ -1,6 +1,6 @@
 # (V:vector3).LengthXY extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/lengthxy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/lengthxy>
 > **爬取时间**: 2025-12-27T02:30:29.656473
 
 ---

@@ -1,6 +1,6 @@
 # Orbit Camera Device Design Example
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/orbit-camera-device-design-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/orbit-camera-device-design-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:08:04.922087
 
 ---
@@ -89,6 +89,7 @@ For the **Portapotty** device, configure the following **events**:
    | --- | --- | --- |
    | **Add to Player When Receiving Fro**m | Timer Device | On Success |
    | **Remove from Player When Receiving From** | Portapotty | On Stop Hiding |
+
 2. Set the **timer** to use the following **function**:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/6b453c3f-4c87-43bb-80af-7375a30e6198?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6b453c3f-4c87-43bb-80af-7375a30e6198?resizing_type=fit)
@@ -96,6 +97,7 @@ For the **Portapotty** device, configure the following **events**:
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Start When Receiving From** | Portapotty | On Hide |
+
 3. Set the **timer** for this **event**:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/62d8fe84-f8b9-4c7d-b391-c3e8a97387dd?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/62d8fe84-f8b9-4c7d-b391-c3e8a97387dd?resizing_type=fit)

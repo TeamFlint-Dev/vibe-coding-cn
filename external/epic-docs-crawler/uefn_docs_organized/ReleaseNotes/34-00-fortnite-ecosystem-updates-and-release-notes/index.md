@@ -1,6 +1,6 @@
 # 34.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/34-00-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/34-00-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:33:50.258572
 
 ---
@@ -45,8 +45,8 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Verse.org/SpatialMath }
 
 my_class := class:
-	MyUnrealEngineVector:(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = (/UnrealEngine.com/Temporary/SpatialMath:)vector3{}
-	MyVerseVector:(/Verse.org/SpatialMath:)vector3 = (/Verse.org/SpatialMath:)vector3{}
+ MyUnrealEngineVector:(/UnrealEngine.com/Temporary/SpatialMath:)vector3 = (/UnrealEngine.com/Temporary/SpatialMath:)vector3{}
+ MyVerseVector:(/Verse.org/SpatialMath:)vector3 = (/Verse.org/SpatialMath:)vector3{}
 ```
 
 To learn more about the FRU coordinate change, see Forward-Right-Up Coordinates System documentation. To learn more about the coordinate system in general, see [Coordinate System and Spaces in Unreal Engine](https://dev.epicgames.com/documentation/en-us/unreal-engine/coordinate-system-and-spaces-in-unreal-engine).

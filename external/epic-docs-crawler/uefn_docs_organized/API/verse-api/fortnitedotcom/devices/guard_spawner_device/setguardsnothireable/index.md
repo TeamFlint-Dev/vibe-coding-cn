@@ -1,6 +1,6 @@
 # SetGuardsNotHireable function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_device/setguardsnothireable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_device/setguardsnothireable>
 > **爬取时间**: 2025-12-27T06:04:21.784980
 
 ---

@@ -1,6 +1,6 @@
 # GetLevelForMatch function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/stat_creator_device/getlevelformatch
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/stat_creator_device/getlevelformatch>
 > **爬取时间**: 2025-12-27T06:52:40.621705
 
 ---

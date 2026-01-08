@@ -1,6 +1,6 @@
 # Working with KPop Demon Hunters Islands
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/working-with-kpdh-islands-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/working-with-kpdh-islands-in-fortnite>
 > **爬取时间**: 2025-12-26T23:59:29.503436
 
 ---
@@ -257,8 +257,8 @@ Immerse players in your islands with (VFX) auras in UEFN. The auras are created 
 |  |  |
 | **Gold Aura** | **Demon Aura** |
 
-The auras are in the **All > KPop Demon Hunters > PlayerAuras** folder. There are two VFX assets for each aura type, one to apply to players and the other to add to objects. You can drag the aura VFX assets labeled static mesh in the viewport and onto an object.   
-    
+The auras are in the **All > KPop Demon Hunters > PlayerAuras** folder. There are two VFX assets for each aura type, one to apply to players and the other to add to objects. You can drag the aura VFX assets labeled static mesh in the viewport and onto an object.
+
 To add the aura for players:
 
 1. Add the [VFX Powerup](https://dev.epicgames.com/documentation/en-us/fortnite/using-visual-effect-powerup-devices-in-fortnite-creative) device to your island.

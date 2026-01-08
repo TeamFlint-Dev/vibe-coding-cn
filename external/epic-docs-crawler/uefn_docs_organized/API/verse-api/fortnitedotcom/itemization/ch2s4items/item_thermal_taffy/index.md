@@ -1,6 +1,6 @@
 # item_thermal_taffy class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_thermal_taffy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_thermal_taffy>
 > **爬取时间**: 2025-12-27T04:03:53.845255
 
 ---

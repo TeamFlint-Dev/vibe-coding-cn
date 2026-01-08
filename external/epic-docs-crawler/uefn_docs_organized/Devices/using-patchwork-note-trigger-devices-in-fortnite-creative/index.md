@@ -1,6 +1,6 @@
 # Note Trigger
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-trigger-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-trigger-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:04:26.793493
 
 ---
@@ -132,7 +132,7 @@ Try patching the Note Sequencer to the Note Trigger to control when the triggers
 
 Note Sequencer
 
-The Note Sequencer device allows you to choose the notes you want to use in your compositions.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative)
+The Note Sequencer device allows you to choose the notes you want to use in your compositions.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative>)
 
 Try patching the Note Trigger device to these audio generators!
 
@@ -140,8 +140,8 @@ Try patching the Note Trigger device to these audio generators!
 
 Drum Player
 
-Use the Drum Player device to play different drum sounds for your music setup.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-player-devices-in-fortnite-creative)[![Instrument Player](https://dev.epicgames.com/community/api/documentation/image/400c75be-0d90-4616-8f07-6bab3c33a705?resizing_type=fit&width=640&height=640)
+Use the Drum Player device to play different drum sounds for your music setup.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-player-devices-in-fortnite-creative)[![Instrument> Player](<https://dev.epicgames.com/community/api/documentation/image/400c75be-0d90-4616-8f07-6bab3c33a705?resizing_type=fit&width=640&height=640>)
 
 Instrument Player
 
-The Instrument Player device gives you a selection of instruments for playing melodic content.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative)
+The Instrument Player device gives you a selection of instruments for playing melodic content.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative>)

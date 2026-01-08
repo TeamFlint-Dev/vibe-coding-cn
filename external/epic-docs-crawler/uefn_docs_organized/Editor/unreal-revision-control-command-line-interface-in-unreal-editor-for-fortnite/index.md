@@ -1,6 +1,6 @@
 # Unreal Revision Control Command Line Interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/unreal-revision-control-command-line-interface-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/unreal-revision-control-command-line-interface-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:01:18.591246
 
 ---
@@ -59,7 +59,7 @@ Before setting the environment variable, make sure to set your folder where the 
    *Click to enlarge image.*
 
    Your name appears after C:\Users\
-4. Select **Browse** and choose the file path that leads to your **urc.exe** files. 
+4. Select **Browse** and choose the file path that leads to your **urc.exe** files.
    This can usually be found at `C:\Program Files\Epic Games\Fortnite\FortniteGame\Binaries\Win64`
 
    [![Browse for the file path where your urc.exe files are located.](https://dev.epicgames.com/community/api/documentation/image/f20d6ee6-af59-45b4-a614-e4a76d395efb?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f20d6ee6-af59-45b4-a614-e4a76d395efb?resizing_type=fit)
@@ -88,7 +88,7 @@ This depends on whether you have recently logged into UEFN. You won’t need to 
 
 ## Common CLI Use Cases
 
-#### Listing all the projects that you have access to with your account logged in.
+#### Listing all the projects that you have access to with your account logged in
 
 | CLI Commands |
 | --- |
@@ -99,7 +99,7 @@ This depends on whether you have recently logged into UEFN. You won’t need to 
 
 *Click to enlarge image.*
 
-#### Seeing all the snapshots of your project.
+#### Seeing all the snapshots of your project
 
 | CLI Commands |
 | --- |
@@ -108,7 +108,7 @@ This depends on whether you have recently logged into UEFN. You won’t need to 
 
 [![List your project snapshots.](https://dev.epicgames.com/community/api/documentation/image/9fc807d5-2705-4a7f-ad36-6668c70544ca?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9fc807d5-2705-4a7f-ad36-6668c70544ca?resizing_type=fit)
 
-#### Syncing to a previous snapshot to go back in project history.
+#### Syncing to a previous snapshot to go back in project history
 
 Close the project or editor before syncing to a specific snapshot to avoid failing to sync project files.
 
@@ -121,7 +121,7 @@ Close the project or editor before syncing to a specific snapshot to avoid faili
 
 *Click to enlarge image.*
 
-#### Syncing to latest so you can retrieve everyone’s updates to the island.
+#### Syncing to latest so you can retrieve everyone’s updates to the island
 
 | CLI COmmands |
 | --- |
@@ -132,7 +132,7 @@ Close the project or editor before syncing to a specific snapshot to avoid faili
 
 *Click to enlarge image.*
 
-#### Getting an overview of all assets and their status within the current snapshot before submitting.
+#### Getting an overview of all assets and their status within the current snapshot before submitting
 
 | CLI Commands |
 | --- |
@@ -143,7 +143,7 @@ Close the project or editor before syncing to a specific snapshot to avoid faili
 
 *Click to enlarge image.*
 
-#### Rollback to a specific snapshot to continue working from a previous backup.
+#### Rollback to a specific snapshot to continue working from a previous backup
 
 Sync your project to a previous snapshot
 
@@ -178,7 +178,7 @@ Once you've successfully synched the project to the latest snapshot, do the foll
 3. Open your project in UEFN and confirm the state of the project looks as you intend it.
 4. Click **Check In Changes** if you project looks as you expect to create a new snapshot reflecting the new state of your project.
 
-#### Reverting an asset to the current snapshot to undo your changes.
+#### Reverting an asset to the current snapshot to undo your changes
 
 | CLI Commands |
 | --- |
@@ -189,7 +189,7 @@ Once you've successfully synched the project to the latest snapshot, do the foll
 
 *Click to enlarge image.*
 
-#### Releasing assets that are checked out by a specific team member, so you can continue working without someone blocking your work.
+#### Releasing assets that are checked out by a specific team member, so you can continue working without someone blocking your work
 
 Get the projectID, opening in the project in the Creator Portal. You can see the project id in the url.
 

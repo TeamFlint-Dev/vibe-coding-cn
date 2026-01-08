@@ -1,6 +1,6 @@
 # Reusable Game Manager
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/party-game-4-reusable-game-manager-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/party-game-4-reusable-game-manager-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:21:35.088464
 
 ---
@@ -32,6 +32,7 @@ Follow these steps to set up your Verse device and [editable](https://dev.epicga
         using { /Verse.org/Random }
         using { /Verse.org/Simulation }
    ```
+
 3. Add the following fields to the `tiltnboom` class definition:
 
    1. Two editable `trigger` devices; **ActivateGameTrigger** and **EndGameTrigger**. `ActivateGameTrigger` is used to activate this game. The trigger can be triggered by anything such as a Teleporter to the game, or after an intro cinematic.
@@ -58,57 +59,62 @@ Follow these steps to set up your Verse device and [editable](https://dev.epicga
       ```verse
                                    @editable
                                    GameTimer:timer_device = timer_device{}
-      								        
+                      
                                    @editable
                                    CannonballSequences:[]cinematic_sequence_device = array{}
-      								        
+                      
                                    @editable
                                    DamageVolumes:[]damage_volume_device = array{}
-      								
+              
                                    @editable
                                    ItemSpawners:[]item_spawner_device = array{}
-      								        
+                      
                                    @editable
                                    CaptureArea:capture_area_device = capture_area_device{}
-      								
+              
                                    @editable
                                    ScoreManager:score_manager_device = score_manager_device{}
-      								
+              
                                    @editable
                                    HUBTeleporter:teleporter_device = teleporter_device{}
-      								
+              
                                    @editable
                                    PlayerReference:player_reference_device = player_reference_device{}
       ```
+
 4. Two editable [arrays](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) of Player Spawn Pads named `PlayerSpawners` and `HUBSpawners`. These disable spawning when the mini-game is over, and return players to the HUB after the mini-game.
 
    ```verse
             @editable
             PlayerSpawners:[]player_spawner_device = array{}
-   		
+     
             @editable
             HUBSpawners:[]player_spawner_device = array{}
    ```
+
 5. Two editable `floats` named `MinimumItemSpawnTime` and `MaximumItemSpawnTime`. These are the minimum and maximum times to wait between spawning items on the raft.
 
    ```verse
             @editable
             MinimumItemSpawnTime:float = 5.0
-   		
+     
             @editable
             MaximumItemSpawnTime:float = 10.0
    ```
+
 6. An editable `float` named `DelayAfterGame`. This is the delay for teleporting players back to the HUB once the game is over.
 
    ```verse
             @editable
             DelayAfterGame:float = 5.0
    ```
+
 7. A `float` named `DelayBetweenCannonballSequences`. This is the delay for spawning cannonballs between sequences throughout the duration of the mini-game.
 
    ```verse
         DelayBetweenCannonballSequences:float = 8.0
    ```
+
 8. A [logic](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) [variable](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#variable) called `GameActive` to determine whether the game is active or not.
 
    ```verse
@@ -123,21 +129,23 @@ When the mini-game starts, several devices are enabled, and the player score res
 
    ```verse
         tiltnboom_log_channel := class(log_channel){}
-   		
+     
         # A Verse-authored creative device that can be placed in a level
         tiltnboom := class(creative_device):
-   		
+     
             Logger:log = log{Channel := tiltnboom_log_channel}
    ```
+
 2. Add a new [method](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#method) `OnTriggered` to the `titnboom` class definition that takes an `InitiatingAgent` and starts the game. Add an [if](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) expression to the method that returns if the game is already active, since you don’t want to start the game while one is already running.
 
    ```verse
             OnTriggered(InitiatingAgent:?agent):void=
                 if (GameActive?):
                     return
-   		
+     
                 spawn{StartGame()}
    ```
+
 3. In `OnBegin()`, subscribe the **ActivateGameTrigger’s** `TriggeredEvent` to the `OnTriggered` function to start the game. Any device that needs to be enabled at the beginning of the mini-game will subscribe to this [event](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) and enable when the **OnTrigger** event is triggered.
 
    ```verse
@@ -145,6 +153,7 @@ When the mini-game starts, several devices are enabled, and the player score res
 
                 ActivateGameTrigger.TriggeredEvent.Subscribe(OnTriggered)
    ```
+
 4. Add a new method `StartGame()` that handles the logic to start the game. Add the `<suspends>` modifier to this function so it can run asynchronously.
 
    First, set the `GameActive` to `true` to signal that the game is active Then enable the `CaptureArea` and each `DamageVolume` in the `DamageVolumes` array.
@@ -250,12 +259,14 @@ At the end of the mini-game, you’ll need to send the winner’s score to the H
    for (DamageVolume : DamageVolumes):
    DamageVolume.Disable()
    ~~~
+
 2. Add `variable int` `HighestScore` to track the player with the highest score, and an option variable reference to that player `WinningPlayer`.
 
    ```verse
                 var HighestScore:int = -1
                 var WinningPlayer:?agent = false
    ```
+
 3. In a [for](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary)/[do](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary) expression, get all the players in the playspace, then get the `FortCharacter` for each of them. Freeze the character in place using `PutInStasis()`, passing a new set of `stasis_args` to allow emoting and turning so the players can celebrate the game.
 
    ```verse
@@ -265,20 +276,22 @@ At the end of the mini-game, you’ll need to send the winner’s score to the H
                 do:
                     FortCharacter.PutInStasis(stasis_args{AllowTurning := true, AllowEmotes := true})
    ```
+
 4. In an `if` statement, check each player’s score to find and store the winning score in the Player Reference device in the HUB.
 
    ```verse
                     if (ScoreManager.GetCurrentScore(Player) &gt; HighestScore):
-   		                
+                     
                         set HighestScore = ScoreManager.GetCurrentScore(Player)
                         set WinningPlayer = option{Player}
    ```
+
 5. Lastly, in another if statement, call `TeleportPlayersToHUB()` to teleport everyone back to the HUB when a winning score is found.
 
    ```verse
                 if(Winner := WinningPlayer?):
                     PlayerReference.Register(Winner)
-   		
+     
                 TeleportPlayersToHUB()
    ```
 
@@ -298,6 +311,7 @@ When the scores have been calculated and a winner is declared, all players shoul
 
                 EndGameTrigger.Trigger()
    ```
+
 2. In a `for` expression, teleport each player back to the `HUBTeleporter` and release them from stasis.
 
    ```verse
@@ -306,9 +320,9 @@ When the scores have been calculated and a winner is declared, all players shoul
                     FortCharacter := Player.GetFortCharacter[]
                 do:
                     HUBTeleporter.Teleport(Player)
-   		
+     
                     Sleep(1.0)
-   		
+     
                     FortCharacter.ReleaseFromStasis()
    ```
 

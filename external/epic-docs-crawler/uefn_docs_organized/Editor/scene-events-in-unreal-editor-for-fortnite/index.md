@@ -1,6 +1,6 @@
 # Scene Events
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/scene-events-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/scene-events-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:22:52.082725
 
 ---
@@ -261,8 +261,9 @@ Use a method to check for the lightning VFX and use its start and end beam prope
 1. Create an `OnSimulate` conditional `method`.
 
    ```verse
-   	    OnSimulate<override>()<suspends>:void=
+        OnSimulate<override>()<suspends>:void=
    ```
+
 2. Create and add a `loop` that randomly plays and rests the lightning component using a constant that uses minimum and maximum delay values for the play time.
 
    ```verse
@@ -271,6 +272,7 @@ Use a method to check for the lightning VFX and use its start and end beam prope
                RandomDelay := GetRandomFloat(MinRandomLightningDelaySeconds, MaxRandomLightningDelaySeconds)
                Sleep(MaxRandomLightningDelaySeconds
    ```
+
 3. Add an `if` expression that uses the Simulation Entity to find other entities in the simulation since all other entities are children of the Simulation Entity. This way a random entity can be selected to be struck by lightning, rather than using collision to find entities in the scene.
 
    ```verse
@@ -290,9 +292,10 @@ Use a method to check for the lightning VFX and use its start and end beam prope
                        RandomIndex := GetRandomInt(0, LightningTargets.Length - 1)
                        RandomEntity := LightningTargets[RandomIndex]
    ```
+
 5. Call the `LightningVFXComponent` to the random location using an if statement. Then add a then expression that plays the beam particle effect in the location set for the source and target locations.
 
-   The `lightning_entity` uses the **Beam Emitter Setup** > **Beam Start** to play the lightning event at random points in the sky. `LightningVFXComponent` then uses 
+   The `lightning_entity` uses the **Beam Emitter Setup** > **Beam Start** to play the lightning event at random points in the sky. `LightningVFXComponent` then uses
    the Beam particle option Beam Emitter Setup > Beam End to determine where the end of the Beam particle appears in the scene. The setting is set to Simulation Position which uses the end coordinates of the particle effect for the `lightning_entity`.
 
    Afterward, create and define the damage done by the `struck_by_lightning_event` using the source and target data to locate where the damage occurs on the mesh component target using `DamageRadius` to describe the area affected by the lightning damage. This event will be sent down to the simulation entity to add random lightning duration, so end the chain of events with `SimulationEntity.SendDown(Event)`.
@@ -329,6 +332,7 @@ Create event classes that define the damage amount the fire causes and whether t
    fire_propagation_event<public> := class(fire_damage_event):
        FireRadiusCentimeters:float = 100.0
    ```
+
 2. Create a `flammable_component` class that determines that a mesh is flammable and the editable properties that can be set to cause meshes in the scene to catch fire.
 
    ```verse
@@ -343,12 +347,14 @@ Create event classes that define the damage amount the fire causes and whether t
        @editable
        FirePropagationIntervalSeconds:float = 10.0
    ```
+
 3. A conditional variable is added to the `flammable_event` that decides whether the fire VFX are playing or should be playing.
 
    ```verse
        # Is it on fire?
        var IsOnFire:logic = false
    ```
+
 4. An `IsCloseEnoughToBurningEntityToIgnite` function determines if the fire is close enough to to trigger further Fire VFX events.
 
    ```verse
@@ -359,6 +365,7 @@ Create event classes that define the damage amount the fire causes and whether t
            DistanceToFire := Distance(EntityLocation, FirePropogationLocation)
            DistanceToFire <= FirePropagationEvent.FireRadiusCentimeters
    ```
+
 5. A `IsCloseEnoughToLightningToIgnite` function determines whether the lightning strike was close enough to the mesh to cause it to burst into flames.
 
    ```verse
@@ -370,6 +377,7 @@ Create event classes that define the damage amount the fire causes and whether t
            DistanceToFire := Distance(EntityLocation, LightningStrikeLocation)
            DistanceToFire <= LightningEvent.DamageRadiusCentimeters
    ```
+
 6. The OnRecieve function determines which meshes catch fire once the IsCloseEnoughToBurningEntityToIgnite function determines the proximity of the fire propagation, and the IsCloseEnoughToLightningToIgnite variable determines the proximity of the lightning strike to the mesh.
 
    ```verse
@@ -383,6 +391,7 @@ Create event classes that define the damage amount the fire causes and whether t
                Ignite()
            false
    ```
+
 7. An `Ignite method` is used to play the effect automatically through a conditional if statement that searches for the fire particle system. A `then` statement defines whether it’s true that the component is playing the fire VFX.
 
    Add asynchronous tasks to the method to check for the fire particle system **Fire\_NS** so the fire spawns and spreads when called.
@@ -418,6 +427,7 @@ Next you’ll create a series of methods that determine when Mesh components bur
                if (FireVFX := Entity.GetComponent[particle_system_component]):
                    FireVFX.RemoveFromEntity()
    ```
+
 2. Create an `OnFire method` that uses a loop that monitors the `FireDamage` and sends the event down the chain of entities toward the end of the event and causes the event to stop playing.
 
    ```verse
@@ -438,6 +448,7 @@ Next you’ll create a series of methods that determine when Mesh components bur
                then:
                    break
    ```
+
 3. Lastly, create a `FirePropagation method` that uses a `loop` to spread the fire down the chain of entities and causes them to extinguish when it reaches the simulation entity.
 
    ```verse

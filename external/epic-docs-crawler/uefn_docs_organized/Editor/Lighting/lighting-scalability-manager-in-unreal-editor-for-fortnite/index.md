@@ -1,6 +1,6 @@
 # Lighting Scalability Manager
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lighting-scalability-manager-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lighting-scalability-manager-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:20:07.151945
 
 ---

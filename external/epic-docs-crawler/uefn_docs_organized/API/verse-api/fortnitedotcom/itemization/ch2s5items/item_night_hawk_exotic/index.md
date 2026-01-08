@@ -1,6 +1,6 @@
 # item_night_hawk_exotic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_night_hawk_exotic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_night_hawk_exotic>
 > **爬取时间**: 2025-12-27T03:59:25.118301
 
 ---

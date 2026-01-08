@@ -1,6 +1,6 @@
 # GrantItemIndex function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_granter_device/grantitemindex-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_granter_device/grantitemindex-1>
 > **爬取时间**: 2025-12-27T05:29:05.763965
 
 ---

@@ -1,6 +1,6 @@
 # keyframed_movement_playback_mode class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/keyframedmovement/keyframed_movement_playback_mode
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/keyframedmovement/keyframed_movement_playback_mode>
 > **爬取时间**: 2025-12-27T02:45:02.103835
 
 ---

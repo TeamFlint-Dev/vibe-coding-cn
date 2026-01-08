@@ -1,6 +1,6 @@
 # MakePIPFullScreen function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/video_player_device/makepipfullscreen
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/video_player_device/makepipfullscreen>
 > **爬取时间**: 2025-12-27T06:57:04.923990
 
 ---

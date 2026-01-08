@@ -1,6 +1,6 @@
 # item_slurpfish class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_slurpfish
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_slurpfish>
 > **爬取时间**: 2025-12-27T05:02:51.509656
 
 ---

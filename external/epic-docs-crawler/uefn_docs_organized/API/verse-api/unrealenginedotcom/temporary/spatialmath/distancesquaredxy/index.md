@@ -1,6 +1,6 @@
 # DistanceSquaredXY function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/distancesquaredxy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/distancesquaredxy>
 > **爬取时间**: 2025-12-27T02:32:46.014421
 
 ---

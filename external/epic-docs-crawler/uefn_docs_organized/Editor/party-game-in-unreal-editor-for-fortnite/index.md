@@ -1,6 +1,6 @@
 # Party Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/party-game-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/party-game-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:02:35.352030
 
 ---
@@ -43,16 +43,16 @@ This tutorial demonstrates some basic features:
 
 Voting HUB
 
-Turn a pre-game lobby into the voting HUB for your Party Game!](https://dev.epicgames.com/documentation/en-us/fortnite/party-game-1-voting-hub-in-unreal-editor-for-fortnite)[![Targeted Camera Gameplay](https://dev.epicgames.com/community/api/documentation/image/6ab8ff27-d78c-4f0b-94b1-600b4ce6a307?resizing_type=fit&width=640&height=640)
+Turn a pre-game lobby into the voting HUB for your Party Game!](<https://dev.epicgames.com/documentation/en-us/fortnite/party-game-1-voting-hub-in-unreal-editor-for-fortnite)[![Targeted> Camera Gameplay](<https://dev.epicgames.com/community/api/documentation/image/6ab8ff27-d78c-4f0b-94b1-600b4ce6a307?resizing_type=fit&width=640&height=640>)
 
 Targeted Camera Gameplay
 
-Add item spawners to the raft that spawn different weapons at different times.](https://dev.epicgames.com/documentation/en-us/fortnite/party-game-2-targeted-camera-gameplay-in-unreal-editor-for-fortnite)[![Sequencer Cannonball Animations](https://dev.epicgames.com/community/api/documentation/image/b3c91506-4f2d-4694-8f7e-ba661162518f?resizing_type=fit&width=640&height=640)
+Add item spawners to the raft that spawn different weapons at different times.](<https://dev.epicgames.com/documentation/en-us/fortnite/party-game-2-targeted-camera-gameplay-in-unreal-editor-for-fortnite)[![Sequencer> Cannonball Animations](<https://dev.epicgames.com/community/api/documentation/image/b3c91506-4f2d-4694-8f7e-ba661162518f?resizing_type=fit&width=640&height=640>)
 
 Sequencer Cannonball Animations
 
-Animate exploding cannonballs in Sequencer.](https://dev.epicgames.com/documentation/en-us/fortnite/party-game-3-sequencer-cannonball-animations-in-unreal-editor-for-fortnite)[![Reusable Game Manager](https://dev.epicgames.com/community/api/documentation/image/e1910925-deab-48bf-af7e-f1ec24aff97a?resizing_type=fit&width=640&height=640)
+Animate exploding cannonballs in Sequencer.](<https://dev.epicgames.com/documentation/en-us/fortnite/party-game-3-sequencer-cannonball-animations-in-unreal-editor-for-fortnite)[![Reusable> Game Manager](<https://dev.epicgames.com/community/api/documentation/image/e1910925-deab-48bf-af7e-f1ec24aff97a?resizing_type=fit&width=640&height=640>)
 
 Reusable Game Manager
 
-Create a reusable game manager to control vital gameplay elements for your mini-game island.](https://dev.epicgames.com/documentation/en-us/fortnite/party-game-4-reusable-game-manager-in-unreal-editor-for-fortnite)
+Create a reusable game manager to control vital gameplay elements for your mini-game island.](<https://dev.epicgames.com/documentation/en-us/fortnite/party-game-4-reusable-game-manager-in-unreal-editor-for-fortnite>)

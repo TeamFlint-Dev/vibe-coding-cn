@@ -1,6 +1,6 @@
 # InteractMessage function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/interactable_component/interactmessage
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/interactable_component/interactmessage>
 > **爬取时间**: 2025-12-27T02:44:07.153405
 
 ---

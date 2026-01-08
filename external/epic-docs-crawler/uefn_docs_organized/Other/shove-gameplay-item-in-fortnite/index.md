@@ -1,6 +1,6 @@
 # Shove Gameplay Item
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/shove-gameplay-item-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/shove-gameplay-item-in-fortnite>
 > **爬取时间**: 2025-12-27T00:09:46.719354
 
 ---

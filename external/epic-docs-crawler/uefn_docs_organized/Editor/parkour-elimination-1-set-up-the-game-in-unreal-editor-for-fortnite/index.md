@@ -1,6 +1,6 @@
 # 1. Set Up the Parkour Elimination Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-1-set-up-the-game-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-1-set-up-the-game-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:21:17.525935
 
 ---
@@ -71,6 +71,6 @@ Use the **Search** bar to locate each setting faster.
 
 [![2. Pre-Game Area](https://dev.epicgames.com/community/api/documentation/image/12213ce2-653b-42da-aa99-68c83859798d?resizing_type=fit&width=640&height=640)
 
-2. Pre-Game Area
+1. Pre-Game Area
 
-Build the pre-game area.](https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-2-pregame-area-in-unreal-editor-for-fortnite)
+Build the pre-game area.](<https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-2-pregame-area-in-unreal-editor-for-fortnite>)

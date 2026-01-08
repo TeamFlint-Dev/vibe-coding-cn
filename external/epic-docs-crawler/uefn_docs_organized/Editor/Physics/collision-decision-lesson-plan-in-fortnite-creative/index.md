@@ -1,6 +1,6 @@
 # Collision Decision
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/collision-decision-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/collision-decision-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:19.376092
 
 ---
@@ -22,7 +22,7 @@ Fortnite Creative. Other than that requirement, any classroom would work, partic
 
 **Author, Organization/Role:** Scott Beiter, Rensselaer Junior Senior High School, Science Teacher
 
-**Email:** sbeiter@rcsd.k12.ny.us
+**Email:** <sbeiter@rcsd.k12.ny.us>
 
 **Twitter:** @pentaclethra
 

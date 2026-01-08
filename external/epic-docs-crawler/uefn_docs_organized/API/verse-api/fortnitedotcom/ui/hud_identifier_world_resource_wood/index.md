@@ -1,6 +1,6 @@
 # hud_identifier_world_resource_wood class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/hud_identifier_world_resource_wood
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/hud_identifier_world_resource_wood>
 > **爬取时间**: 2025-12-27T01:07:20.038004
 
 ---

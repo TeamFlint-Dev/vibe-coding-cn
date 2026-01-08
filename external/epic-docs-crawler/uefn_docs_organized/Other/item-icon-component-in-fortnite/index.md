@@ -1,6 +1,6 @@
 # Item Icon Component
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/item-icon-component-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/item-icon-component-in-fortnite>
 > **爬取时间**: 2025-12-27T00:34:21.156386
 
 ---
@@ -9,7 +9,7 @@ This feature is in an Experimental state so you can try it out, provide feedback
 
 Please keep in mind that we do not guarantee backward compatibility for assets created at the experimental stage, the APIs for these features are subject to change, and we may remove entire Experimental features or specific functionality at our discretion. Check out the list of known issues before you start working with the feature.
 
-The `item_icon_component` 
+The `item_icon_component`
 is a Scene Graph [component](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#component) used to assign an icon to an [entity](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#entity). For how to add a component to your entity, see **[Working with Entities and Components](https://dev.epicgames.com/documentation/en-us/fortnite/working-with-entities-and-components-in-unreal-editor-for-fortnite)**.
 
 Entities are only considered items if they have an `item_component`. Without one, entities will not be added to inventories properly as well as Custom Item and Inventories functionality may be broken.
@@ -27,7 +27,7 @@ The component property is `<protected>` and can only be modified at instantiatio
 
 Click to enlarge image.
 
-Once the Custom Items and Inventories system is enabled the `item_icon_component` is listed in the component dropdown list. For more information check out 
+Once the Custom Items and Inventories system is enabled the `item_icon_component` is listed in the component dropdown list. For more information check out
 the `item_icon_component` API reference from the [Verse API](https://dev.epicgames.com/documentation/en-us/fortnite/verse-api).
 
 ## Example

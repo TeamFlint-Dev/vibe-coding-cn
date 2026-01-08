@@ -1,6 +1,6 @@
 # guard_spawner_visibility_range_restriction enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_visibility_range_restriction
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_visibility_range_restriction>
 > **爬取时间**: 2025-12-27T01:36:01.657551
 
 ---

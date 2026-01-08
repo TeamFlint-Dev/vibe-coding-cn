@@ -1,6 +1,6 @@
 # GetTriggerCountRemaining function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trigger_base_device/gettriggercountremaining
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trigger_base_device/gettriggercountremaining>
 > **爬取时间**: 2025-12-27T05:19:19.799630
 
 ---

@@ -1,6 +1,6 @@
 # item_pulse_scanner class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_pulse_scanner
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_pulse_scanner>
 > **爬取时间**: 2025-12-27T04:59:05.072727
 
 ---

@@ -1,6 +1,6 @@
 # item_spire_jumpboots class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_spire_jumpboots
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_spire_jumpboots>
 > **爬取时间**: 2025-12-27T03:39:18.345560
 
 ---

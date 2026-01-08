@@ -1,6 +1,6 @@
 # Advance function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/prop_mover_device/advance
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/prop_mover_device/advance>
 > **爬取时间**: 2025-12-27T06:25:34.344697
 
 ---

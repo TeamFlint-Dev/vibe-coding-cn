@@ -1,6 +1,6 @@
 # Thumbnail Image Guidelines for Discover
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/thumbnail-image-guidelines-for-discover
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/thumbnail-image-guidelines-for-discover>
 > **爬取时间**: 2025-12-26T22:59:57.394339
 
 ---

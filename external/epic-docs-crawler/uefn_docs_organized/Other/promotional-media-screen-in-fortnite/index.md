@@ -1,6 +1,6 @@
 # Promotional Media Screen
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/promotional-media-screen-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/promotional-media-screen-in-fortnite>
 > **爬取时间**: 2025-12-27T00:14:41.680592
 
 ---

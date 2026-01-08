@@ -1,6 +1,6 @@
 # 34.40 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/34-40-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/34-40-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:34:05.828813
 
 ---
@@ -19,7 +19,7 @@ After the Chapter 5 TODM goes into effect, you will no longer be able to publish
 
 Converting your island to the new TODM is a **one-way conversion**, so back up your island before upgrading your islands.
 
-## Teenage Mutant Ninja Turtles Refresh!
+## Teenage Mutant Ninja Turtles Refresh
 
 With this release, there are some rad updates to TMNT islands! First, four new characters have joined the TMNT pizza party: Casey Jones, Bebop, Rocksteady, and Krang. Check them out in the Character, Guard, and NPC Spawner devices!
 
@@ -35,7 +35,7 @@ Check out [Working with TMNT Islands](https://dev.epicgames.com/documentation/en
 
 [![](https://dev.epicgames.com/community/api/documentation/image/f4c00d80-c031-44fe-a553-2b33404f2993?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f4c00d80-c031-44fe-a553-2b33404f2993?resizing_type=fit)
 
-## Guard NPCs Can Now Wield Lucille!
+## Guard NPCs Can Now Wield Lucille
 
 You can now assign the hero weapon Lucille to Guards in the NPC Spawner and Guard Spawner devices on The Walking Dead Universe islands! To get your guards fending off Walkers, you can:
 

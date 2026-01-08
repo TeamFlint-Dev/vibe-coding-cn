@@ -1,6 +1,6 @@
 # CreativeItems module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems>
 > **爬取时间**: 2025-12-27T01:11:35.036312
 
 ---

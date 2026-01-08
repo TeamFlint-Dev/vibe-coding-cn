@@ -1,6 +1,6 @@
 # Time Jumping Platformer and Survival Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/time-jumping-platformer-and-survival-game-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/time-jumping-platformer-and-survival-game-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:18:03.738641
 
 ---
@@ -28,20 +28,20 @@ The following is an overview of the steps you'll need to recreate this island in
 
 Set Up the Game
 
-Get started by creating your project and modifying the Island Settings.](https://dev.epicgames.com/documentation/en-us/fortnite/set-up-the-game-in-unreal-editor-for-fortnite)[![Time Jump Game Mechanics](https://dev.epicgames.com/community/api/documentation/image/4208a85d-669d-45cf-a758-e989be396605?resizing_type=fit&width=640&height=640)
+Get started by creating your project and modifying the Island Settings.](<https://dev.epicgames.com/documentation/en-us/fortnite/set-up-the-game-in-unreal-editor-for-fortnite)[![Time> Jump Game Mechanics](<https://dev.epicgames.com/community/api/documentation/image/4208a85d-669d-45cf-a758-e989be396605?resizing_type=fit&width=640&height=640>)
 
 Time Jump Game Mechanics
 
-Create the game mechanics that change day into night and trigger the survival game.](https://dev.epicgames.com/documentation/en-us/fortnite/time-jump-game-mechanics-in-unreal-editor-for-fortnite)[![Leveling Up Class and Danger](https://dev.epicgames.com/community/api/documentation/image/76cfbbc0-d0c3-45b9-a4cb-7c304f71dd33?resizing_type=fit&width=640&height=640)
+Create the game mechanics that change day into night and trigger the survival game.](<https://dev.epicgames.com/documentation/en-us/fortnite/time-jump-game-mechanics-in-unreal-editor-for-fortnite)[![Leveling> Up Class and Danger](<https://dev.epicgames.com/community/api/documentation/image/76cfbbc0-d0c3-45b9-a4cb-7c304f71dd33?resizing_type=fit&width=640&height=640>)
 
 Leveling Up Class and Danger
 
-Increase the game’s difficulty and challenge the player’s ability to succeed.](https://dev.epicgames.com/documentation/en-us/fortnite/leveling-up-class-and-danger-in-unreal-editor-for-fortnite)[![Platformer Environments](https://dev.epicgames.com/community/api/documentation/image/941da6e6-a388-4b41-9dc2-9369a72839dc?resizing_type=fit&width=640&height=640)
+Increase the game’s difficulty and challenge the player’s ability to succeed.](<https://dev.epicgames.com/documentation/en-us/fortnite/leveling-up-class-and-danger-in-unreal-editor-for-fortnite)[![Platformer> Environments](<https://dev.epicgames.com/community/api/documentation/image/941da6e6-a388-4b41-9dc2-9369a72839dc?resizing_type=fit&width=640&height=640>)
 
 Platformer Environments
 
-Learn about the style choices made for the platformer environment and art design.](https://dev.epicgames.com/documentation/en-us/fortnite/platformer-environments-in-unreal-editor-for-fortnite)[![Custom UI and Music](https://dev.epicgames.com/community/api/documentation/image/805bec74-d11b-4ff9-9ec6-81482b611bb3?resizing_type=fit&width=640&height=640)
+Learn about the style choices made for the platformer environment and art design.](<https://dev.epicgames.com/documentation/en-us/fortnite/platformer-environments-in-unreal-editor-for-fortnite)[![Custom> UI and Music](<https://dev.epicgames.com/community/api/documentation/image/805bec74-d11b-4ff9-9ec6-81482b611bb3?resizing_type=fit&width=640&height=640>)
 
 Custom UI and Music
 
-Learn how to create custom UI and music for your platformer.](https://dev.epicgames.com/documentation/en-us/fortnite/custom-ui-and-music-in-unreal-editor-for-fortnite)
+Learn how to create custom UI and music for your platformer.](<https://dev.epicgames.com/documentation/en-us/fortnite/custom-ui-and-music-in-unreal-editor-for-fortnite>)

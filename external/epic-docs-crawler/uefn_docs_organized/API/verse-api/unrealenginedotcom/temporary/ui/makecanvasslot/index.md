@@ -1,6 +1,6 @@
 # MakeCanvasSlot function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/makecanvasslot
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/makecanvasslot>
 > **爬取时间**: 2025-12-27T07:07:35.083598
 
 ---

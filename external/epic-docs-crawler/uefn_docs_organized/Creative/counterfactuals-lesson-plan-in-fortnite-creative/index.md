@@ -1,6 +1,6 @@
 # Counterfactuals Lesson Plan
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/counterfactuals-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/counterfactuals-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:11:09.970843
 
 ---
@@ -20,11 +20,11 @@ This activity can be done as either an individual assignment or a group assignme
 
 Author: Mike Washburn
 
-Email: mwashburn@mikewashburn.net
+Email: <mwashburn@mikewashburn.net>
 
 Twitter: @misterwashburn
 
-LinkedIn: https://www.linkedin.com/in/mwashburn1979
+LinkedIn: <https://www.linkedin.com/in/mwashburn1979>
 
 ## Lesson Overview
 

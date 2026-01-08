@@ -1,6 +1,6 @@
 # PauseSequence function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/bank_vault_interface/pausesequence
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/bank_vault_interface/pausesequence>
 > **爬取时间**: 2025-12-27T05:16:03.026912
 
 ---

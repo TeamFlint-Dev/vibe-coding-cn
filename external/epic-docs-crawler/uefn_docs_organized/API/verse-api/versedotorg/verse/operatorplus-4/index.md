@@ -1,6 +1,6 @@
 # operator'+' function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/operatorplus-4
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/operatorplus-4>
 > **爬取时间**: 2025-12-27T01:31:57.057953
 
 ---

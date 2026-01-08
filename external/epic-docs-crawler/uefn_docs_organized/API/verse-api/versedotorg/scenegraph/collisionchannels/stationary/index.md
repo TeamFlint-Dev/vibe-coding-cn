@@ -1,6 +1,6 @@
 # stationary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/collisionchannels/stationary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/collisionchannels/stationary>
 > **爬取时间**: 2025-12-27T02:40:03.130864
 
 ---

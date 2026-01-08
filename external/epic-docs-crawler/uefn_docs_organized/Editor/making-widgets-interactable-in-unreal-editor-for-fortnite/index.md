@@ -1,6 +1,6 @@
 # Making Widgets Interactable
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-widgets-interactable-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-widgets-interactable-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:16:39.259602
 
 ---
@@ -52,6 +52,7 @@ Follow these steps to create a UI with a button, and add behavior that prints th
                     PlayerUI.AddWidget(NewUI)
                     if (set MaybeMyUIPerPlayer[InPlayer] = option{NewUI}) {}
    ```
+
 5. Add the argument `player_ui_slot{InputMode := ui_input_mode.All}` when you add a new widget so the player can use their cursor on the canvas when it’s created.
 
    ```verse
@@ -66,6 +67,7 @@ Follow these steps to create a UI with a button, and add behavior that prints th
                     PlayerUI.AddWidget(NewUI, player_ui_slot{InputMode := ui_input_mode.All})
                     if (set MaybeMyUIPerPlayer[InPlayer] = option{NewUI}) {}
    ```
+
 6. All UI buttons have an `OnClick()` `listenable` event that you can subscribe to. The event handler is expected to have a `void` return type and one parameter with the type `widget_message`.
     `CreateMyUI() : canvas =
    MyUIButton : button_loud = button_loud{DefaultText := TextForMyUI}
@@ -80,7 +82,9 @@ Follow these steps to create a UI with a button, and add behavior that prints th
    Widget := MyUIButton
    return MyInteractableButtons
    HandleSelectedUIButton(Message : widget_message) : void =
+
    # Define what happens when the player presses the button`
+
 7. In `HandleSelectedUIButton`, print the button’s text to the screen and remove the widget from the screen. A `widget_message` knows what player and UI element selected it, so you can use that information to get the text of the button and find the widget that’s displayed to the player to remove it from the screen.
 
    ```verse
@@ -90,6 +94,7 @@ Follow these steps to create a UI with a button, and add behavior that prints th
                 PlayerUI.RemoveWidget(MyUI)
                 if (set MaybeMyUIPerPlayer[Message.Player] = false) {}
    ```
+
 8. The following is the complete code for this example.
 
    ```verse
@@ -204,7 +209,9 @@ Follow these steps to create a UI with a slider, and add behavior that prints th
    Widget := MyUIButton
    return MyInteractableWidgets
    HandleValueChangedUISlider(Message : widget_message) : void =
+
    # Define what happens when the player changes the value of the slider`
+
 4. In `HandleValueChangedUISlider`, print the slider’s value to the screen. A `widget_message` knows which player interacted and what UI element they selected, so you can use that information to get the value of the slider and find the widget that’s displayed to the player.
 
    ```verse
@@ -216,6 +223,7 @@ Follow these steps to create a UI with a slider, and add behavior that prints th
             then:
                 Print("Player changed slider value to {ChangedSlider.GetValue()}")
    ```
+
 5. The following is the complete code for this example.
 
    ```verse

@@ -1,6 +1,6 @@
 # enableable interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/enableable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/enableable>
 > **爬取时间**: 2025-12-27T01:31:35.027279
 
 ---

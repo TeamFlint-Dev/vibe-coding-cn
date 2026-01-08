@@ -1,6 +1,6 @@
 # GetMaxShield function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/shieldable/getmaxshield
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/shieldable/getmaxshield>
 > **爬取时间**: 2025-12-27T02:53:02.841327
 
 ---

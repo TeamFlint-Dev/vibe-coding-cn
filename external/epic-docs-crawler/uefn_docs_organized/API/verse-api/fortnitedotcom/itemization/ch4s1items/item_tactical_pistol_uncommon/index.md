@@ -1,6 +1,6 @@
 # item_tactical_pistol_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_tactical_pistol_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_tactical_pistol_uncommon>
 > **爬取时间**: 2025-12-27T04:36:02.779320
 
 ---

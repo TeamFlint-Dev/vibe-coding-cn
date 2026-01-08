@@ -1,6 +1,6 @@
 # Shooting Academy
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/shooting-academy-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/shooting-academy-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:26:36.712602
 
 ---
@@ -67,6 +67,7 @@ To learn more about placing [devices](https://dev.epicgames.com/documentation/en
    | **Zone Shape** | **Hollow** | Allows the player to move around inside the barrier. |
    | **Barrier Width** | **2** | Gives enough room for the player to walk around, but not get up close to the dummy targets. |
    | **Barrier Depth** | **2** | Gives enough room for the player to walk around, but not get up close to the dummy targets. |
+
 4. Place the **Player Spawn pad** on the **Team Settings & Inventory device**.
 
    [![Placing the Player Spawn pad](https://dev.epicgames.com/community/api/documentation/image/2852fa45-8482-462f-9d55-6564685d8c91?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2852fa45-8482-462f-9d55-6564685d8c91?resizing_type=fit)

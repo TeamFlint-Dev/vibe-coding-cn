@@ -1,6 +1,6 @@
 # (Rotation:rotation).IsFinite extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/isfinite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/isfinite>
 > **爬取时间**: 2025-12-27T02:36:04.994262
 
 ---

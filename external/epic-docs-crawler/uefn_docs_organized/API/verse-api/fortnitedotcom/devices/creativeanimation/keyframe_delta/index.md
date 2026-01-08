@@ -1,6 +1,6 @@
 # keyframe_delta struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/keyframe_delta
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/keyframe_delta>
 > **爬取时间**: 2025-12-27T01:57:29.704946
 
 ---

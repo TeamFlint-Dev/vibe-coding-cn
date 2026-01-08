@@ -1,6 +1,6 @@
 # Sequencer and Control Rig
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/sequencer-and-control-rig-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/sequencer-and-control-rig-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:05:09.841648
 
 ---

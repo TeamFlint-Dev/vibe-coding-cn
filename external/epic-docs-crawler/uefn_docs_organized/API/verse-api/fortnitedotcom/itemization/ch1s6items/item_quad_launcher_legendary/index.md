@@ -1,6 +1,6 @@
 # item_quad_launcher_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s6items/item_quad_launcher_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s6items/item_quad_launcher_legendary>
 > **爬取时间**: 2025-12-27T03:09:15.011206
 
 ---

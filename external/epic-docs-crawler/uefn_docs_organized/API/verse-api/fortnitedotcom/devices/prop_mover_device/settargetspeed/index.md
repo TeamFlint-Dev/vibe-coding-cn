@@ -1,6 +1,6 @@
 # SetTargetSpeed function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/prop_mover_device/settargetspeed
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/prop_mover_device/settargetspeed>
 > **爬取时间**: 2025-12-27T06:25:46.213755
 
 ---

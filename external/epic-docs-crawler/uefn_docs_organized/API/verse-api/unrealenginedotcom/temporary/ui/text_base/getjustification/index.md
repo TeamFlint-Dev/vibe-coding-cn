@@ -1,6 +1,6 @@
 # GetJustification function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/text_base/getjustification
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/text_base/getjustification>
 > **爬取时间**: 2025-12-27T02:59:39.821475
 
 ---

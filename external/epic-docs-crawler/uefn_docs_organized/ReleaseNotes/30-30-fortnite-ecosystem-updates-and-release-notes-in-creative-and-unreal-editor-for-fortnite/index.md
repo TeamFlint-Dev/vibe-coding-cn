@@ -1,6 +1,6 @@
 # 30.30 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/30-30-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/30-30-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:32:51.448817
 
 ---
@@ -9,11 +9,11 @@ We’ve combined Patch Notes and Release Notes into one document! Now you can re
 
 In the Fortnite Ecosystem v30.30 update, check out the Fall Guys island templates available in Creative and UEFN and make your own Fall Guys obstacle courses in Fortnite! These templates feature unique and colorful Fall Guys assets to use in your islands. Also included in this update are some of your most wanted weapons and items; the Creator Profile Link and Side Scroller Controls devices; and new Orthographic options for the Fixed Angle and Fixed Point Cameras.
 
-## Don’t Forget to Claim Your Marvelous Designer License!
+## Don’t Forget to Claim Your Marvelous Designer License
 
 You have one month left to claim your **free** one-year license of **Marvelous Designer**. Make sure to [apply for your unique coupon code](https://create.fortnite.com/welcome?lang=en-US) before **August 25**, 2024, at 5 PM ET. Then, keep an eye on your inbox — we’ll send you an email containing your code along with details on how to activate your license. If you’ve received the email already, head over to the [Marvelous Designer site to redeem](https://www.marvelousdesigner.com/mypage).
 
-## Create Fall Guys Islands in Fortnite with UEFN and Creative!
+## Create Fall Guys Islands in Fortnite with UEFN and Creative
 
 [![Fortnite character as a Fall Guys bean](https://dev.epicgames.com/community/api/documentation/image/88d011b7-ffe8-443d-9d28-ae31379b98fd?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/88d011b7-ffe8-443d-9d28-ae31379b98fd?resizing_type=fit)
 

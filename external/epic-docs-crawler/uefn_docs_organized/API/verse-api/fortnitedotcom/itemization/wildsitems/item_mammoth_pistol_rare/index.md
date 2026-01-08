@@ -1,6 +1,6 @@
 # item_mammoth_pistol_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_mammoth_pistol_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_mammoth_pistol_rare>
 > **爬取时间**: 2025-12-27T04:10:40.378996
 
 ---

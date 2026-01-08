@@ -1,6 +1,6 @@
 # item_heal_egg class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/megaitems/item_heal_egg
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/megaitems/item_heal_egg>
 > **爬取时间**: 2025-12-27T04:39:08.113028
 
 ---

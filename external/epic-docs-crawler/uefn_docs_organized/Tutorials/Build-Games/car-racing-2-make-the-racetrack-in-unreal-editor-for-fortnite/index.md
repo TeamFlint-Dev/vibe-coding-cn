@@ -1,6 +1,6 @@
 # 2. Make the Racetrack
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-2-make-the-racetrack-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-2-make-the-racetrack-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:25:00.952096
 
 ---
@@ -45,6 +45,7 @@ Add barriers to keep players from going off course. It's a good idea to place ba
    | **Barrier Depth** | 0.1 | A thinner barrier will fit more easily around the track. |
    | **Barrier Width** | Pick a number | The width will vary depending on where you place the barrier. |
    | **Barrier Height** | 5 | The height can be changed depending on the likelihood that the players would end up out of bounds. |
+
 3. Duplicate the configured barrier device by holding the **Alt** key and [translating](unreal-editor-for-fortnite-glossary#translate) the copy to the other locations along the track. Adjust the width as required until you cover the length of your track!
 
 ## Add Player Spawners
@@ -60,6 +61,7 @@ Add barriers to keep players from going off course. It's a good idea to place ba
    | **Team** | Team Index: 1 | You will need to assign a team number for each spawner. Each team has only one player, so each spawner needs a unique number. Any player that spawns on this pad automatically belongs to the team that you set for this spawner. Since this is a two-player game, you will need two spawners, with each pad having its own team number. |
    | **Use as Island Start** | True | You will be using these spawners as the game's starting point. |
    | **Visible During Games** | False | You don't need the spawner visible during gameplay. |
+
 4. Make a copy of the spawner by holding the **Alt** key and using the translate function.
 
 [Playtest your island](playtesting-your-island-unreal-editor-for-fortnite) at any time by clicking the "Launch Session" button.
@@ -70,6 +72,6 @@ Add barriers to keep players from going off course. It's a good idea to place ba
 
 [![3. Add Vehicles](https://dev.epicgames.com/community/api/documentation/image/ab297383-af49-42d6-b200-98c947c14380?resizing_type=fit&width=640&height=640)
 
-3. Add Vehicles
+1. Add Vehicles
 
-Add vehicles and customize how they work in game.](https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-3-add-vehicles-in-unreal-editor-for-fortnite)
+Add vehicles and customize how they work in game.](<https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-3-add-vehicles-in-unreal-editor-for-fortnite>)

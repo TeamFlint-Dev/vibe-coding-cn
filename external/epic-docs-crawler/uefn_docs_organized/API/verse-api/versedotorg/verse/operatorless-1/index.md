@@ -1,6 +1,6 @@
 # operator'<' function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/operatorless-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/operatorless-1>
 > **爬取时间**: 2025-12-27T01:22:25.617222
 
 ---

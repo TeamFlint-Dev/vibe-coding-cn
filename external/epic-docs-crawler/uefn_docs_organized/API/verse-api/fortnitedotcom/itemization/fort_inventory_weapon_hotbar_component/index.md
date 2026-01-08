@@ -1,6 +1,6 @@
 # Fortnite Documentation
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fort_inventory_weapon_hotbar_component
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fort_inventory_weapon_hotbar_component>
 > **爬取时间**: 2025-12-27T01:10:51.785936
 
 ---
@@ -21,19 +21,19 @@ Our content is adapted to all skill levels, made to help you create with confide
 
 39.10 Fortnite Ecosystem Updates and Release Notes
 
-Find out what's new with the 39.10 release of Fortnite on December 11, 2025!](https://dev.epicgames.com/documentation/en-us/fortnite/39-10-fortnite-ecosystem-updates-and-release-notes)[![39.00 Fortnite Ecosystem Updates and Release Notes](https://dev.epicgames.com/community/api/documentation/image/2ca36b7d-ea0e-47d9-9513-556aced42304?resizing_type=fit&width=640&height=640)
+Find out what's new with the 39.10 release of Fortnite on December 11, 2025!](<https://dev.epicgames.com/documentation/en-us/fortnite/39-10-fortnite-ecosystem-updates-and-release-notes)[![39.00> Fortnite Ecosystem Updates and Release Notes](<https://dev.epicgames.com/community/api/documentation/image/2ca36b7d-ea0e-47d9-9513-556aced42304?resizing_type=fit&width=640&height=640>)
 
 39.00 Fortnite Ecosystem Updates and Release Notes
 
-Find out what's new with the 39.00 release of Fortnite on November 29, 2025!](https://dev.epicgames.com/documentation/en-us/fortnite/39-00-fortnite-ecosystem-updates-and-release-notes)[![Mobile Development](https://dev.epicgames.com/community/api/documentation/image/b899f160-815d-405b-9c51-4b7a93ead13b?resizing_type=fit&width=640&height=640)
+Find out what's new with the 39.00 release of Fortnite on November 29, 2025!](<https://dev.epicgames.com/documentation/en-us/fortnite/39-00-fortnite-ecosystem-updates-and-release-notes)[![Mobile> Development](<https://dev.epicgames.com/community/api/documentation/image/b899f160-815d-405b-9c51-4b7a93ead13b?resizing_type=fit&width=640&height=640>)
 
 Mobile Development
 
-Reach mobile gamers with islands designed and optimized for handheld devices.](https://dev.epicgames.com/documentation/en-us/fortnite/mobile-development-in-fortnite)[![In-Island Transactions](https://dev.epicgames.com/community/api/documentation/image/6f3ad3bb-44d6-444c-ad63-a38bd3a0fa41?resizing_type=fit&width=640&height=640)
+Reach mobile gamers with islands designed and optimized for handheld devices.](<https://dev.epicgames.com/documentation/en-us/fortnite/mobile-development-in-fortnite)[![In-Island> Transactions](<https://dev.epicgames.com/community/api/documentation/image/6f3ad3bb-44d6-444c-ad63-a38bd3a0fa41?resizing_type=fit&width=640&height=640>)
 
 In-Island Transactions
 
-Generate a revenue stream with your own items by using In-Island Transactions](https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-in-fortnite)
+Generate a revenue stream with your own items by using In-Island Transactions](<https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-in-fortnite>)
 
 ##### Top New Pages
 
@@ -41,19 +41,19 @@ Generate a revenue stream with your own items by using In-Island Transactions](h
 
 Physics
 
-Learn more about creating physics-based gameplay in Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/physics)[![How Discover Works](https://dev.epicgames.com/community/api/documentation/image/f8a604c2-de8c-45aa-b0b6-5c135da8b856?resizing_type=fit&width=640&height=640)
+Learn more about creating physics-based gameplay in Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/physics)[![How> Discover Works](<https://dev.epicgames.com/community/api/documentation/image/f8a604c2-de8c-45aa-b0b6-5c135da8b856?resizing_type=fit&width=640&height=640>)
 
 How Discover Works
 
-Learn how you can improve visibility and engagement for your islands by understanding how player metrics impact Fortnite Discover.](https://dev.epicgames.com/documentation/en-us/fortnite/how-discover-works-in-fortnite)
+Learn how you can improve visibility and engagement for your islands by understanding how player metrics impact Fortnite Discover.](<https://dev.epicgames.com/documentation/en-us/fortnite/how-discover-works-in-fortnite>)
 
-##### Scene Graph is in Beta!
+##### Scene Graph is in Beta
 
 [![Scene Graph](https://dev.epicgames.com/community/api/documentation/image/d4d6d40f-7feb-4a95-912f-b5d48a23d768?resizing_type=fit&width=640&height=640)
 
 Scene Graph
 
-Learn how Scene Graph can be used to quickly scale your game environment.](https://dev.epicgames.com/documentation/en-us/fortnite/scene-graph-in-unreal-editor-for-fortnite)
+Learn how Scene Graph can be used to quickly scale your game environment.](<https://dev.epicgames.com/documentation/en-us/fortnite/scene-graph-in-unreal-editor-for-fortnite>)
 
 ## 🧭Get Started
 
@@ -65,7 +65,7 @@ Learn how Scene Graph can be used to quickly scale your game environment.](https
 
 Build Your First Island in Fortnite
 
-Build a mini-game in Unreal Editor for Fortnite with this step-by-step tutorial!](https://dev.epicgames.com/documentation/en-us/fortnite/build-your-first-island-in-fortnite)
+Build a mini-game in Unreal Editor for Fortnite with this step-by-step tutorial!](<https://dev.epicgames.com/documentation/en-us/fortnite/build-your-first-island-in-fortnite>)
 
 ##### Learn About the Verse Programming Language
 
@@ -73,7 +73,7 @@ Build a mini-game in Unreal Editor for Fortnite with this step-by-step tutorial!
 
 Verse Programming Onboarding Guide
 
-Use this checklist to get started if you're new to programming or new to using Verse in Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/onboarding-guide-to-programming-with-verse-in-unreal-editor-for-fortnite)
+Use this checklist to get started if you're new to programming or new to using Verse in Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/onboarding-guide-to-programming-with-verse-in-unreal-editor-for-fortnite>)
 
 ##### Best Practices for First-Time Creators
 
@@ -81,7 +81,7 @@ Use this checklist to get started if you're new to programming or new to using V
 
 Building Basics
 
-Explore basic activities for Creative, the concepts behind them that help you build better island experiences, and how to build them faster!](https://dev.epicgames.com/documentation/en-us/fortnite/building-basics-in-fortnite-creative)
+Explore basic activities for Creative, the concepts behind them that help you build better island experiences, and how to build them faster!](<https://dev.epicgames.com/documentation/en-us/fortnite/building-basics-in-fortnite-creative>)
 
 ## ✨Brand Game Collections
 
@@ -91,23 +91,23 @@ Explore basic activities for Creative, the concepts behind them that help you bu
 
 KPop Demon Hunters Islands
 
-Learn about creating KPop Demon Hunters islands.](https://dev.epicgames.com/documentation/en-us/fortnite/kpop-demon-hunters-islands-in-fortnite)[![LEGO® Islands](https://dev.epicgames.com/community/api/documentation/image/60e6dab7-1e5f-4a2a-8595-810ea0356390?resizing_type=fit&width=640&height=640)
+Learn about creating KPop Demon Hunters islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/kpop-demon-hunters-islands-in-fortnite)[![LEGO®> Islands](<https://dev.epicgames.com/community/api/documentation/image/60e6dab7-1e5f-4a2a-8595-810ea0356390?resizing_type=fit&width=640&height=640>)
 
 LEGO® Islands
 
-What you should know about building your own LEGO® Island!](https://dev.epicgames.com/documentation/en-us/fortnite/building-lego-islands-in-fortnite)[![The Walking Dead Universe Islands](https://dev.epicgames.com/community/api/documentation/image/24e1040d-ea36-4f93-86f3-6b2265cf074f?resizing_type=fit&width=640&height=640)
+What you should know about building your own LEGO® Island!](<https://dev.epicgames.com/documentation/en-us/fortnite/building-lego-islands-in-fortnite)[![The> Walking Dead Universe Islands](<https://dev.epicgames.com/community/api/documentation/image/24e1040d-ea36-4f93-86f3-6b2265cf074f?resizing_type=fit&width=640&height=640>)
 
 The Walking Dead Universe Islands
 
-Unpack everything you need to build a project within The Walking Dead Universe.](https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-islands-in-unreal-editor-for-fortnite)[![Teenage Mutant Ninja Turtle Islands](https://dev.epicgames.com/community/api/documentation/image/9661defc-e5ed-4f5b-b83a-8951f90c7bcc?resizing_type=fit&width=640&height=640)
+Unpack everything you need to build a project within The Walking Dead Universe.](<https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-islands-in-unreal-editor-for-fortnite)[![Teenage> Mutant Ninja Turtle Islands](<https://dev.epicgames.com/community/api/documentation/image/9661defc-e5ed-4f5b-b83a-8951f90c7bcc?resizing_type=fit&width=640&height=640>)
 
 Teenage Mutant Ninja Turtle Islands
 
-All you need to know about building TMNT islands!](https://dev.epicgames.com/documentation/en-us/fortnite/teenage-mutant-ninja-turtle-islands-in-unreal-editor-for-fortnite)[![Squid Game Islands](https://dev.epicgames.com/community/api/documentation/image/61a82501-548f-493a-a459-22ee3b35134a?resizing_type=fit&width=640&height=640)
+All you need to know about building TMNT islands!](<https://dev.epicgames.com/documentation/en-us/fortnite/teenage-mutant-ninja-turtle-islands-in-unreal-editor-for-fortnite)[![Squid> Game Islands](<https://dev.epicgames.com/community/api/documentation/image/61a82501-548f-493a-a459-22ee3b35134a?resizing_type=fit&width=640&height=640>)
 
 Squid Game Islands
 
-Get started creating Squid Game brand islands.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-islands-in-fortnite)
+Get started creating Squid Game brand islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-islands-in-fortnite>)
 
 ## 🏆Creator Success
 
@@ -119,7 +119,7 @@ Get started creating Squid Game brand islands.](https://dev.epicgames.com/docume
 
 Using Creator Portal
 
-Discover the tools you need as a creator to publish and manage your islands, improve and develop engagement with your island, and potentially monetize your efforts.](https://dev.epicgames.com/documentation/en-us/fortnite/using-creator-portal-in-fortnite-creative)
+Discover the tools you need as a creator to publish and manage your islands, improve and develop engagement with your island, and potentially monetize your efforts.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-creator-portal-in-fortnite-creative>)
 
 ##### Proper Publishing Workflows
 
@@ -127,7 +127,7 @@ Discover the tools you need as a creator to publish and manage your islands, imp
 
 Island Moderation and Guidelines
 
-Review the guidelines, policies, and procedures on island moderation for uploading and managing your islands.](https://dev.epicgames.com/documentation/en-us/fortnite/island-moderation-and-guidelines-in-fortnite-creative)
+Review the guidelines, policies, and procedures on island moderation for uploading and managing your islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/island-moderation-and-guidelines-in-fortnite-creative>)
 
 ## 🤝Collaborate
 
@@ -139,11 +139,11 @@ Review the guidelines, policies, and procedures on island moderation for uploadi
 
 Creating Teams in Creator Portal
 
-Make a team of creators to track island edits, QA tasks, and more with the Creator Portal.](https://dev.epicgames.com/documentation/en-us/fortnite/creating-teams-in-creator-portal-in-unreal-editor-for-fortnite)[![Adding Playtesters](https://dev.epicgames.com/community/api/documentation/image/5d335878-712a-4393-b3cc-82aa5eb37290?resizing_type=fit&width=640&height=640)
+Make a team of creators to track island edits, QA tasks, and more with the Creator Portal.](<https://dev.epicgames.com/documentation/en-us/fortnite/creating-teams-in-creator-portal-in-unreal-editor-for-fortnite)[![Adding> Playtesters](<https://dev.epicgames.com/community/api/documentation/image/5d335878-712a-4393-b3cc-82aa5eb37290?resizing_type=fit&width=640&height=640>)
 
 Adding Playtesters
 
-Set up playtesters to ensure the quality of your island gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/adding-playtesters-in-fortnite-creative)
+Set up playtesters to ensure the quality of your island gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/adding-playtesters-in-fortnite-creative>)
 
 ##### Playtest Your Game
 
@@ -151,11 +151,11 @@ Set up playtesters to ensure the quality of your island gameplay.](https://dev.e
 
 Playtesting Your Island
 
-Preview your Unreal Editor for Fortnite creation to ensure that it behaves as expected.](https://dev.epicgames.com/documentation/en-us/fortnite/playtesting-your-island-in-unreal-editor-for-fortnite)[![Collaborating in Unreal Editor for Fortnite](https://dev.epicgames.com/community/api/documentation/image/20783e6b-2928-4dc3-b51f-e2cd934c1a28?resizing_type=fit&width=640&height=640)
+Preview your Unreal Editor for Fortnite creation to ensure that it behaves as expected.](<https://dev.epicgames.com/documentation/en-us/fortnite/playtesting-your-island-in-unreal-editor-for-fortnite)[![Collaborating> in Unreal Editor for Fortnite](<https://dev.epicgames.com/community/api/documentation/image/20783e6b-2928-4dc3-b51f-e2cd934c1a28?resizing_type=fit&width=640&height=640>)
 
 Collaborating in Unreal Editor for Fortnite
 
-Work with friends or colleagues in real time on your Unreal Editor for Fortnite projects.](https://dev.epicgames.com/documentation/en-us/fortnite/collaborating-in-unreal-editor-for-fortnite)
+Work with friends or colleagues in real time on your Unreal Editor for Fortnite projects.](<https://dev.epicgames.com/documentation/en-us/fortnite/collaborating-in-unreal-editor-for-fortnite>)
 
 ##### Use Revision Control Tools
 
@@ -163,15 +163,15 @@ Work with friends or colleagues in real time on your Unreal Editor for Fortnite 
 
 Unreal Revision Control
 
-Revision control keeps you from overwriting someone else's work or losing your own edits when working as part of a team.](https://dev.epicgames.com/documentation/en-us/fortnite/unreal-revision-control-in-unreal-editor-for-fortnite)[![Conflicts in Unreal Revision Control](https://dev.epicgames.com/community/api/documentation/image/fa530b11-d753-451d-b86c-7a6bf4852c14?resizing_type=fit&width=640&height=640)
+Revision control keeps you from overwriting someone else's work or losing your own edits when working as part of a team.](<https://dev.epicgames.com/documentation/en-us/fortnite/unreal-revision-control-in-unreal-editor-for-fortnite)[![Conflicts> in Unreal Revision Control](<https://dev.epicgames.com/community/api/documentation/image/fa530b11-d753-451d-b86c-7a6bf4852c14?resizing_type=fit&width=640&height=640>)
 
 Conflicts in Unreal Revision Control
 
-Learn more about what conflicts are and how to avoid them.](https://dev.epicgames.com/documentation/en-us/fortnite/conflicts-in-unreal-revision-control-in-unreal-editor-for-fortnite)[![Snapshot History and Conflict Resolution](https://dev.epicgames.com/community/api/documentation/image/d70a320d-a33d-4967-bc4a-fdab6b9b52cd?resizing_type=fit&width=640&height=640)
+Learn more about what conflicts are and how to avoid them.](<https://dev.epicgames.com/documentation/en-us/fortnite/conflicts-in-unreal-revision-control-in-unreal-editor-for-fortnite)[![Snapshot> History and Conflict Resolution](<https://dev.epicgames.com/community/api/documentation/image/d70a320d-a33d-4967-bc4a-fdab6b9b52cd?resizing_type=fit&width=640&height=640>)
 
 Snapshot History and Conflict Resolution
 
-Review your project's Snapshot history to learn more about changes made and resolve conflicts on project edits from the Conflict Resolution tab.](https://dev.epicgames.com/documentation/en-us/fortnite/snapshot-history-and-conflict-resolution-in-unreal-editor-for-fortnite)
+Review your project's Snapshot history to learn more about changes made and resolve conflicts on project edits from the Conflict Resolution tab.](<https://dev.epicgames.com/documentation/en-us/fortnite/snapshot-history-and-conflict-resolution-in-unreal-editor-for-fortnite>)
 
 ## 🚀Game Examples
 
@@ -183,7 +183,7 @@ Review your project's Snapshot history to learn more about changes made and reso
 
 Build a Game
 
-Follow these hands-on tutorials to learn how to combine and modify assets and create different games and experiences!](https://dev.epicgames.com/documentation/en-us/fortnite/build-a-game-in-unreal-editor-for-fortnite)
+Follow these hands-on tutorials to learn how to combine and modify assets and create different games and experiences!](<https://dev.epicgames.com/documentation/en-us/fortnite/build-a-game-in-unreal-editor-for-fortnite>)
 
 ##### Start From a Solid Template
 
@@ -191,7 +191,7 @@ Follow these hands-on tutorials to learn how to combine and modify assets and cr
 
 UEFN Starter Templates
 
-Check out feature examples that can help you get more familiar with everything UEFN has to offer.](https://dev.epicgames.com/documentation/en-us/fortnite/unreal-editor-for-fortnite-starter-templates)
+Check out feature examples that can help you get more familiar with everything UEFN has to offer.](<https://dev.epicgames.com/documentation/en-us/fortnite/unreal-editor-for-fortnite-starter-templates>)
 
 ## 🛠️Verse
 
@@ -203,7 +203,7 @@ Check out feature examples that can help you get more familiar with everything U
 
 Learn the Basics of Writing Code in Verse
 
-A short course to introduce Verse to people with no programming experience whatsoever. No. Programming. Experience. Whatsoever. Seriously.](https://dev.epicgames.com/documentation/en-us/fortnite/learn-the-basics-of-writing-code-in-verse)
+A short course to introduce Verse to people with no programming experience whatsoever. No. Programming. Experience. Whatsoever. Seriously.](<https://dev.epicgames.com/documentation/en-us/fortnite/learn-the-basics-of-writing-code-in-verse>)
 
 ##### Quick Reference
 
@@ -211,7 +211,7 @@ A short course to introduce Verse to people with no programming experience whats
 
 Verse Language Quick Reference
 
-Need to refresh on a Verse feature? This quick reference can help!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-quick-reference)
+Need to refresh on a Verse feature? This quick reference can help!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-quick-reference>)
 
 ## 🎧 Focus Disciplines
 
@@ -221,28 +221,28 @@ Need to refresh on a Verse feature? This quick reference can help!](https://dev.
 
 Lighting
 
-Learn the tips and tricks to using lighting effects on your island.](https://dev.epicgames.com/documentation/en-us/fortnite/lighting-in-unreal-editor-for-fortnite)[![Animation and Cinematics](https://dev.epicgames.com/community/api/documentation/image/059fe7b9-f1f2-41ed-a6c2-0bd290da01a6?resizing_type=fit&width=640&height=640)
+Learn the tips and tricks to using lighting effects on your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/lighting-in-unreal-editor-for-fortnite)[![Animation> and Cinematics](<https://dev.epicgames.com/community/api/documentation/image/059fe7b9-f1f2-41ed-a6c2-0bd290da01a6?resizing_type=fit&width=640&height=640>)
 
 Animation and Cinematics
 
-Animate skeletal meshs or create your own cinematics in UEFN!](https://dev.epicgames.com/documentation/en-us/fortnite/animation-and-cinematics-in-unreal-editor-for-fortnite)[![Modeling](https://dev.epicgames.com/community/api/documentation/image/94cd9f29-204b-465b-a891-41389e0091da?resizing_type=fit&width=640&height=640)
+Animate skeletal meshs or create your own cinematics in UEFN!](<https://dev.epicgames.com/documentation/en-us/fortnite/animation-and-cinematics-in-unreal-editor-for-fortnite)[![Modeling>](<https://dev.epicgames.com/community/api/documentation/image/94cd9f29-204b-465b-a891-41389e0091da?resizing_type=fit&width=640&height=640>)
 
 Modeling
 
-Learn how to create and edit 3D models using Modeling Mode in UEFN.](https://dev.epicgames.com/documentation/en-us/fortnite/modeling-in-unreal-editor-for-fortnite)[![Materials](https://dev.epicgames.com/community/api/documentation/image/fc87666a-81f9-4d53-99f0-7b547a4e6e09?resizing_type=fit&width=640&height=640)
+Learn how to create and edit 3D models using Modeling Mode in UEFN.](<https://dev.epicgames.com/documentation/en-us/fortnite/modeling-in-unreal-editor-for-fortnite)[![Materials>](<https://dev.epicgames.com/community/api/documentation/image/fc87666a-81f9-4d53-99f0-7b547a4e6e09?resizing_type=fit&width=640&height=640>)
 
 Materials
 
-Learn how to create materials and textures to make your island more visually engaging.](https://dev.epicgames.com/documentation/en-us/fortnite/materials-in-unreal-editor-for-fortnite)[![Environments and Landscapes](https://dev.epicgames.com/community/api/documentation/image/7b6bad74-ab05-4116-beaf-adb873552226?resizing_type=fit&width=640&height=640)
+Learn how to create materials and textures to make your island more visually engaging.](<https://dev.epicgames.com/documentation/en-us/fortnite/materials-in-unreal-editor-for-fortnite)[![Environments> and Landscapes](<https://dev.epicgames.com/community/api/documentation/image/7b6bad74-ab05-4116-beaf-adb873552226?resizing_type=fit&width=640&height=640>)
 
 Environments and Landscapes
 
-Learn about creating environments and landscapes in UEFN and Verse!](https://dev.epicgames.com/documentation/en-us/fortnite/environments-and-landscapes-in-unreal-editor-for-fortnite)[![Audio](https://dev.epicgames.com/community/api/documentation/image/215fe4ca-8a88-45ce-a94f-b38ae8ec237e?resizing_type=fit&width=640&height=640)
+Learn about creating environments and landscapes in UEFN and Verse!](<https://dev.epicgames.com/documentation/en-us/fortnite/environments-and-landscapes-in-unreal-editor-for-fortnite)[![Audio>](<https://dev.epicgames.com/community/api/documentation/image/215fe4ca-8a88-45ce-a94f-b38ae8ec237e?resizing_type=fit&width=640&height=640>)
 
 Audio
 
-Learn how to create and use audio in your UEFN projects.](https://dev.epicgames.com/documentation/en-us/fortnite/audio-in-unreal-editor-for-fortnite)[![Visual Effects](https://dev.epicgames.com/community/api/documentation/image/b2fb82b0-8bb7-48ed-b9a3-02238b49ae59?resizing_type=fit&width=640&height=640)
+Learn how to create and use audio in your UEFN projects.](<https://dev.epicgames.com/documentation/en-us/fortnite/audio-in-unreal-editor-for-fortnite)[![Visual> Effects](<https://dev.epicgames.com/community/api/documentation/image/b2fb82b0-8bb7-48ed-b9a3-02238b49ae59?resizing_type=fit&width=640&height=640>)
 
 Visual Effects
 
-Add VFX such as fog or sparks to your project in UEFN.](https://dev.epicgames.com/documentation/en-us/fortnite/visual-effects-in-unreal-editor-for-fortnite)
+Add VFX such as fog or sparks to your project in UEFN.](<https://dev.epicgames.com/documentation/en-us/fortnite/visual-effects-in-unreal-editor-for-fortnite>)

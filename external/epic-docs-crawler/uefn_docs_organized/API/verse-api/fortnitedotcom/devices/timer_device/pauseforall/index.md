@@ -1,6 +1,6 @@
 # PauseForAll function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/pauseforall
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/pauseforall>
 > **爬取时间**: 2025-12-27T07:01:09.696644
 
 ---

@@ -1,6 +1,6 @@
 # 7. Designing Your Island
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-07-designing-your-island-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-07-designing-your-island-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:23:25.651699
 
 ---
@@ -33,6 +33,6 @@ To turn a static mesh into a prop, follow these steps.
 
 [![8. Customizing Player Spawns](https://dev.epicgames.com/community/api/documentation/image/2c0ff358-b601-4962-984e-cae3fdb0d519?resizing_type=fit&width=640&height=640)
 
-8. Customizing Player Spawns
+1. Customizing Player Spawns
 
-Learn how to spawn and teleport players with VFX.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-08-customizing-player-spawns-in-unreal-editor-for-fortnite)
+Learn how to spawn and teleport players with VFX.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-08-customizing-player-spawns-in-unreal-editor-for-fortnite>)

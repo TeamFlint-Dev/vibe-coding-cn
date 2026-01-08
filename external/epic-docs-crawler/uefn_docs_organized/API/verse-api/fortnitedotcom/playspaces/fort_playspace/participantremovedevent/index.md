@@ -1,6 +1,6 @@
 # ParticipantRemovedEvent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/fort_playspace/participantremovedevent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/fort_playspace/participantremovedevent>
 > **爬取时间**: 2025-12-27T02:39:40.720951
 
 ---

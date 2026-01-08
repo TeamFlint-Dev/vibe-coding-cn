@@ -1,6 +1,6 @@
 # item_rapid_fire_smg_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_rapid_fire_smg_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_rapid_fire_smg_legendary>
 > **爬取时间**: 2025-12-27T03:01:48.081580
 
 ---

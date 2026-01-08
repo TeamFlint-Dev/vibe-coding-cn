@@ -1,6 +1,6 @@
 # Parkour Elimination Race
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-a-parkour-elimination-race-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-a-parkour-elimination-race-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:58:52.174790
 
 ---
@@ -87,6 +87,7 @@ To set up this device:
    | **Visible During Games** | No | This setting hides the device during gameplay. |
    | **Disable When Receiving From** | Channel 30 | After the 30-second countdown to start the free-for-all portion of the game, these devices will be disabled. |
    | **When Player Spawned Transmit On** | Channel 1 | This signal will register players in the **Player Register Device**. This setting will increase incrementally for each device, from Channel 1 to Channel 4. |
+
 4. Select **OK** to save and exit.
 5. Place a **Player Spawn Pad** in each spawn room.
 
@@ -112,6 +113,7 @@ To set up this device:
    | **Time Before First Spawn** | Instant | The registered Gold will instantly spawn when the round begins. |
    | **Run Over Pickup** | On | Players will automatically pick up the registered Gold when they get near it. |
    | **Item Scale** | 2X | The registered Gold will have a larger display. |
+
 3. Select **OK** to save and exit.
 4. Copy the customized device and place it in each spawn room.
 
@@ -132,6 +134,7 @@ To set up this device:
    | --- | --- | --- |
    | **Teleporter Group** | None | This device does not need a teleporter group since it sends to one other target group. |
    | **Teleport Target Group** | Group D | Entering this teleporter will send players to the starting room teleporter, set to Group D. |
+
 3. Select **OK** to save and exit
 4. Copy the customized device and place it in each spawn room behind the Item Spawner.
 
@@ -154,6 +157,7 @@ To set up this device:
    | **Message Recipient** | Triggering Player | Only the triggering player can see the message. |
    | **Time From Round Start** | Off | This device will not activate until receiving a signal from the Player Spawn Pad. |
    | **Show When Receiving From** | Channel 1 | The Player Spawn Pad will send a signal to this device on Channel 1. This setting will increase incrementally for each device, matching the Player Spawn Pad’s setting **When Player Spawned Transmit On**, from Channel 1 to Channel 4. |
+
 3. Select **OK** to save and exit.
 4. Copy the customized device and place them beside each other.
 
@@ -192,6 +196,7 @@ To set up this device:
    | **Play Sound Effects** | No | There will be no audio from this device. |
    | **Conserve Momentum** | No | Teleporting players will not be affected by running or jumping. |
    | **Face Player In Teleporter Direction** | Yes | Players will be faced towards the tunnel leading to the race. |
+
 3. Select **OK** to save and exit.
 
 ### Player Checkpoint Pad #1
@@ -214,6 +219,7 @@ To set up this device:
    | --- | --- | --- |
    | **Visible During Game** | Off | This device will not be visible during gameplay. |
    | **Disable When Receiving From** | Channel 30 | After the 30-second timer to start the free-for-all round, Player Checkpoints and the original Player Spawn Pads will be disabled. |
+
 4. Select **OK** to save and exit.
 
 ## Setting Up the Race Area
@@ -251,6 +257,7 @@ To set up this device:
    | **Barrier Depth** | 100 | The device will be long enough to cover the map. |
    | **Barrier Height** | 0.05 | This device will be thin enough to eliminate players as they touch the ground. |
    | **Damage Type** | Elimination | Players will be instantly eliminated when making contact with this device. |
+
 3. Select **OK** to save and exit.
 
 ## Designer Tips
@@ -282,6 +289,7 @@ To set up this device:
    | **Player Damage On Collision** | None | There will be no damage if players touch the prop. |
    | **On Prop Collision Behavior** | Reverse | If the prop touches another prop or wall, it will reverse direction. |
    | **Path Complete Action** | Ping Pong | At the end of the prop’s distance, it will reverse in the opposite direction. |
+
 3. Select **OK** to save and exit.
 4. Copy and place the customized device on other props of your choice.
 
@@ -313,6 +321,7 @@ To set up this device:
    | **Teleporter Group** | None | This teleporter does not belong to any groups. |
    | **Conserve Momentum** | No | When jumped into, the player will be teleported from a full stop, avoiding any fall damage. |
    | **When Entered Transmit On** | Channel 60 | When entered, a signal will be sent to a Trigger, which will show a HUD Message as discussed in the next section. This signal also triggers the 30-second countdown that forces players to teleport into the free-for-all arena. |
+
 3. Select **OK** to save and exit.
 
 [![Teleporter Example](https://dev.epicgames.com/community/api/documentation/image/0b3dea45-a035-4848-b8f1-ea1c60ebbebf?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/0b3dea45-a035-4848-b8f1-ea1c60ebbebf?resizing_type=fit)
@@ -377,6 +386,7 @@ To set up this device:
    | **On-Grant Action** | Keep All | There will be no change to the player’s inventory once granted. |
    | **Equip Granted Item** | First Item | The shotgun will automatically equip once granted. |
    | **Grant Item When Receiving From** | Channel 20 | When players use their Gold, a signal will be sent to this channel, which will then grant the corresponding weapon. This setting will increase incrementally for each device, from Channel 20 to Channel 23. |
+
 3. Select **OK** to save and exit.
 4. Copy the customized device and place 3 more **Item Granters** adjacent to the first Item Granter.
 
@@ -404,6 +414,7 @@ To set up this device:
    | **Visible in Game** | No | This device will be invisible during gameplay. |
    | **Trigger When Receiving From** | Channel 60 | When players jump in Teleporter #6, it will trigger this device. |
    | **When Triggered Transmit On** | Channel 52 | HUD Message #5 will trigger to show the in-game instructions. |
+
 3. Select **OK** to save and exit.
 
 ### Trigger #2
@@ -425,6 +436,7 @@ To set up this device:
    | **Visible in Game** | No | This device will not be visible during gameplay. |
    | **Trigger when Receiving From** | Channel 60 | When Teleporter #6 starts the arena countdown, it will also trigger this device. |
    | **When Triggered Transmit On** | Channel 55 | This signal goes to a Timed Objective to begin the free-for-all’s countdown. It is then disabled to avoid further triggering. |
+
 3. Select **OK** to save and exit.
 
 ### Trigger #3
@@ -446,6 +458,7 @@ To set up this device:
    | **Visible in Game** | No | This device will not be visible during gameplay. |
    | **Trigger When Receiving From** | Channel 30 | This device will receive a signal from the Timer when it ends. |
    | **When Triggered Transmit On** | Channel 35 | After a 10-second delay from when this device is triggered, it will send a signal to the Class Selector to deactivate. |
+
 3. Select **OK** to save and exit.
 
 ### HUD Message #5
@@ -465,6 +478,7 @@ Use a HUD Message device to display the free-for-all instructions.
    | **Message Priority** | Priority | This message will have priority over other messages. |
    | **Show When Receiving From** | Channel 52 | Trigger #1 will send a signal to activate this device’s message. |
    | **Hide When Receiving From** | Channel 30 | When the countdown is finished, this device’s message is hidden. |
+
 3. Select **OK** to save and exit.
 
 ### Timed Objective
@@ -487,6 +501,7 @@ To set up this device:
    | **Visible During Game** | No | This device is not visible during gameplay. |
    | **Start When Receiving From** | Channel 55 | Trigger #5 will activate this timer when the first player goes through the Teleporter at the end of the parkour race. |
    | **When Completed Transmit On** | Channel 30 | This is the signal that transmits to the Mutator Zone that will teleport players to the free-for-all arena. This signal will also disable multiple devices. |
+
 3. Select **OK** to save and exit.
 
 ### Player Reference #1-4
@@ -509,6 +524,7 @@ To set up this device:
    | **Register Player When Receiving From** | Channel 1 | The Player Spawn Pads placed in the beginning will send signals from Channel 1 to Channel 4. This channel will be incrementally increased for all four devices. This will also store the Player ID as an instigator to reference devices like the Teleporter. |
    | **Activate When Receiving From** | Channel 5 | Players who have not completed the race in time will be moved into the free-for-all arena after receiving a signal from this channel. |
    | **When Activated Transmit On** | Channel 6 | In the free-for-all arena, each player will have a teleporter that will move them to the arena from this channel if they have not completed the race. This setting will increase incrementally for each device, from Channel 6 to Channel 9. |
+
 3. Select **OK** to save and exit.
 4. Copy this device and place three more **Player Reference** devices adjacent to the first device.
 
@@ -548,6 +564,7 @@ To set up this device:
    | --- | --- | --- |
    | **Disable After Use** | Yes | The device will disable immediately after being used. |
    | **When Activated Transmit On** | Channel 20 | When this device is successfully activated, it will send a signal to one of the four Item Granters set up in the previous section. Each Conditional Button will have a unique channel from 20 to 23 that pairs with an Item Granter’s **Grant When Receiving From** channel. |
+
 3. Select **OK** to save and exit.
 4. Copy this device and place three more **Conditional Buttons** near the first device.
 
@@ -577,6 +594,7 @@ To set up this device:
    | **Zone Height** | 13 | This device’s zone will be tall enough to fill the free-for-all arena. |
    | **Enable During Phase** | All | This device is active during any game phase. |
    | **Disable When Receiving From** | Channel 30 | This device will be disabled by the Timed Objective device in the previous section once the 30-second timer ends. |
+
 3. Select **OK** to save and exit.
 
 ### Class Selector
@@ -603,6 +621,7 @@ To set up this device:
    | **Zone Audio** | Off | There will be no SFX made from this device. |
    | **Display VFX On Activation** | No | There will be no visual element for players when Class IDs are swapped. |
    | **Disable When Receiving From** | Channel 35 | When players are teleported, teams will only be assigned once. There is a 10-second timer that teleports everyone who failed the race, changing them to Class ID 2. |
+
 3. Select **OK** to save and exit.
 
 ### Teleporter #7
@@ -623,6 +642,7 @@ To set up this device:
    | **Play Visual Effects** | No | There will be no visual effects from this device. |
    | **Play Sound Effects** | No | This device will play no audio. |
    | **Conserve Momentum** | No | As players fall into the linked teleporter, their momentum will restart when exiting this teleporter. |
+
 3. Select **OK** to save and exit.
 
 ### Teleporter #8-11
@@ -647,6 +667,7 @@ To set up these devices:
    | **Affects Class** | Only Selected | Only the intended players assigned can use this teleporter. |
    | **Selected Class** | 1 | The assigned player can only teleport when their Class ID is set to 1. Entering the Class Selector in the free-for-all arena will switch players to Class ID 2. |
    | **Teleport to When Receiving From** | Channel 6 | Pair the Player Reference device’s **When Activated Transmit On** to this channel. This setting will increase incrementally for each device, from Channel 6 to Channel 9. |
+
 3. Select **OK** to save and exit.
 4. Copy and paste this device three more times inside the Class Selector's volume.
 
@@ -685,6 +706,7 @@ To set up this device:
    | --- | --- | --- |
    | **Priority Group** | 2 | These pads will not be used when one of a higher priority is enabled. When the countdown timer deactivates the first, Priority 1 pads, these will activate. |
    | **Visible in Game** | Off | This device’s base will not be visible in the game. |
+
 3. Select **OK** to save and exit.
 4. Copy this device and paste it three more times behind each door to the respawn room.
 
@@ -706,6 +728,7 @@ To set up this device:
    | **Trigger VFX** | Disabled | There will be no VFX from this device. |
    | **Visible in Game** | No | This device will not be visible during gameplay. |
    | **When Triggered Transmit On** | Channel 40 | This channel sends a signal to open and unlock the door when stepped on. This setting will increase incrementally for each device, from Channel 40 to Channel 43. |
+
 3. Select **OK** to save and exit.
 4. Copy this device and paste it three more times behind each door to the respawn room.
 
@@ -732,6 +755,7 @@ To set up this device:
    | **Visible in Game** | No | This device will not be visible during gameplay. |
    | **Trigger when Receiving From** | Channel 40 | After a delay, the Triggers to open the door will send a signal to also close and lock the door. This setting will increase incrementally for each device, from Channel 40 to Channel 43. |
    | **When Triggered Transmit On** | Channel 44 | After a two-second delay, this sends a signal to close and activate the **Lock** device. This setting will increase incrementally for each device, from Channel 44 to Channel 47. |
+
 3. Select **OK** to save and exit.
 4. Copy this device and paste it three more times anywhere in the respawn room.
 5. Each pair of Trigger devices assigned to a door will use two channels, one to open the door and one to close it. For each door, increment the settings for the pair of channels. For example, the next respawn room will use Channel 42 and Channel 45.
@@ -762,6 +786,7 @@ To set up this device:
    | **Lock when Receiving From** | Channel 41 | The delayed trigger will close and lock the door again. |
    | **Open When Receiving From** | Channel 40 | The door will open when stepping on the trigger. This setting will increase incrementally for each device, from Channel 40 to Channel 43. |
    | **Close When Receiving From** | Channel 41 | The delayed trigger will close the door. This setting will increase incrementally for each device, from Channel 44 to Channel 47. |
+
 3. Select **OK** to save and exit.
 4. Copy this device and paste it three more times directly beside the other doors in the respawn room.
 

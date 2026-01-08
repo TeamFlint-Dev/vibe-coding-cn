@@ -1,6 +1,6 @@
 # EnableReboot function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/reboot_van_device/enablereboot
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/reboot_van_device/enablereboot>
 > **爬取时间**: 2025-12-27T05:53:21.083336
 
 ---

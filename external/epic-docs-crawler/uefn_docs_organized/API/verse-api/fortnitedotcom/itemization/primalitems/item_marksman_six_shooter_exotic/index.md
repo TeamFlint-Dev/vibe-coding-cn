@@ -1,6 +1,6 @@
 # item_marksman_six_shooter_exotic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_marksman_six_shooter_exotic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_marksman_six_shooter_exotic>
 > **爬取时间**: 2025-12-27T03:42:04.419083
 
 ---

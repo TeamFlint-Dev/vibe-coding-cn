@@ -1,6 +1,6 @@
 # Mobile Design and Optimization
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/mobile-design-and-optimization-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/mobile-design-and-optimization-in-fortnite>
 > **爬取时间**: 2025-12-26T23:57:35.632300
 
 ---

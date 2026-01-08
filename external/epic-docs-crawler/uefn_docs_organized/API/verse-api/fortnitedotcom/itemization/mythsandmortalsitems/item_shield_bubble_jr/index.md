@@ -1,6 +1,6 @@
 # item_shield_bubble_jr class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/mythsandmortalsitems/item_shield_bubble_jr
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/mythsandmortalsitems/item_shield_bubble_jr>
 > **爬取时间**: 2025-12-27T03:05:51.182734
 
 ---

@@ -1,6 +1,6 @@
 # for expression
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/for-expression
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/for-expression>
 > **爬取时间**: 2025-12-27T00:05:43.406603
 
 ---

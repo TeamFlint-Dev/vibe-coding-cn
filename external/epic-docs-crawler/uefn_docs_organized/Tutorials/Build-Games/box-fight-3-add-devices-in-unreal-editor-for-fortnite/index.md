@@ -1,6 +1,6 @@
 # 3. Add Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-3-add-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-3-add-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:19:30.230141
 
 ---
@@ -143,6 +143,6 @@ Select the **HUD Controller** device and drag the device to the basement of the 
 
 [![4. Link Devices](https://dev.epicgames.com/community/api/documentation/image/1997e8ec-6bde-4085-8494-ca4a777b6703?resizing_type=fit&width=640&height=640)
 
-4. Link Devices
+1. Link Devices
 
-Set up direct event binding or set up a Verse script to link the devices.](https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-4-link-devices-in-unreal-editor-for-fortnite)
+Set up direct event binding or set up a Verse script to link the devices.](<https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-4-link-devices-in-unreal-editor-for-fortnite>)

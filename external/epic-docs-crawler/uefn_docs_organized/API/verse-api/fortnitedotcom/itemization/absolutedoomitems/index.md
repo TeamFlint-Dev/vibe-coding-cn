@@ -1,6 +1,6 @@
 # AbsoluteDoomItems module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/absolutedoomitems
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/absolutedoomitems>
 > **爬取时间**: 2025-12-27T01:10:38.284445
 
 ---

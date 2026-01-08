@@ -1,6 +1,6 @@
 # item_fire_trap class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_fire_trap
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_fire_trap>
 > **爬取时间**: 2025-12-27T04:04:27.272465
 
 ---

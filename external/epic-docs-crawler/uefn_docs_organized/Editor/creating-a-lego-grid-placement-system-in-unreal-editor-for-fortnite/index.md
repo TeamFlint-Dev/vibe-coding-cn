@@ -1,6 +1,6 @@
 # Creating a LEGO® Grid Placement System
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creating-a-lego-grid-placement-system-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creating-a-lego-grid-placement-system-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:25:27.797786
 
 ---
@@ -646,4 +646,4 @@ With your input mapping and UI created, it's time to configure the Grid Entity M
 
 Setting Up the LEGO® Grid Entity Manager
 
-Learn to adjust the grid entity manager props for your LEGO grid placement system.](https://dev.epicgames.com/documentation/en-us/fortnite/setting-up-the-lego-grid-entity-manager-in-unreal-editor-for-fortnite)
+Learn to adjust the grid entity manager props for your LEGO grid placement system.](<https://dev.epicgames.com/documentation/en-us/fortnite/setting-up-the-lego-grid-entity-manager-in-unreal-editor-for-fortnite>)

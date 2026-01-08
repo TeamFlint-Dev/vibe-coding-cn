@@ -1,6 +1,6 @@
 # HasAny function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/tag_component/hasany
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/tag_component/hasany>
 > **爬取时间**: 2025-12-27T02:42:56.424173
 
 ---

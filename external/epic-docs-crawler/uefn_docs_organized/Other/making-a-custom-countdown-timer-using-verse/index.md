@@ -1,6 +1,6 @@
 # Making a Custom Countdown Timer
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-countdown-timer-using-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-countdown-timer-using-verse>
 > **爬取时间**: 2025-12-27T00:06:32.368003
 
 ---
@@ -45,21 +45,23 @@ Follow these steps to set up your level:
 
    ```verse
         countdown_timer_example := class(creative_device):
-   		
+     
             @editable
             AddMoreTimeButton : button_device = button_device{}
    ```
+
 4. Add an editable reference to the End Game device in `countdown_timer_example` and name it `EndGame`.
 
    ```verse
         countdown_timer_example := class(creative_device):
-   		
+     
             @editable
             AddMoreTimeButton : button_device = button_device{}
-   		        
+             
             @editable
             EndGame : end_game_device = end_game_device{}
    ```
+
 5. Save your Verse file, and in the UEFN main menu choose **Verse > Build Verse Code** to update your device in the level to see your changes in the device's **Details** panel.
 
 [![Settings of countdown_timer_example device](https://dev.epicgames.com/community/api/documentation/image/859cecfb-b80b-4c25-8b67-6e547d8c924a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/859cecfb-b80b-4c25-8b67-6e547d8c924a?resizing_type=fit)
@@ -80,6 +82,7 @@ Follow these steps to make your custom countdown timer:
         using { /Verse.org/Colors }
         using { /Verse.org/Simulation }
    ```
+
 3. Create a class and name it `countdown_timer`, then add the following variables:
 
    - A float variable named `RemainingTime` and initialized to `0.0`.
@@ -87,27 +90,32 @@ Follow these steps to make your custom countdown timer:
      ```verse
                                var RemainingTime : float = 0.0
      ```
+
    - A canvas widget variable named `Canvas`.
 
      ```verse
        var Canvas : canvas = canvas{}
      ```
+
    - A text widget named `RemainingTimeWidget` with a white default text color.
 
      ```verse
        RemainingTimeWidget : text_block = text_block{DefaultTextColor := NamedColors.White}
      ```
+
    - A function returning a message named `RemainingTimeText` that takes an integer [parameter](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#parameter) to display the value represented by `RemainingTime`.
 
      ```verse
        RemainingTimeText<localizes>(CurrentRemainingTime : int) : message = "{CurrentRemainingTime}"
      ```
+
    - An optional player UI named `MaybePlayerUI` and initialized to `false`.
 
      ```verse
        MaybePlayerUI : ?player_ui = false
-     		
+       
      ```
+
 4. Your class should look like:
 
    ```verse
@@ -118,6 +126,7 @@ Follow these steps to make your custom countdown timer:
                RemainingTimeWidget : text_block = text_block{DefaultTextColor := NamedColors.White}
                RemainingTimeText<localizes>(CurrentRemainingTime : int) : message = "{CurrentRemainingTime}"
    ```
+
 5. Add a `block` expression to create the UI where the time appears in the upper middle of the screen. A [block](https://dev.epicgames.com/documentation/en-us/fortnite/block-in-verse) expression in a class definition runs only when the class is instantiated, so we can create the UI once in this `block` expression.
 
    ```verse
@@ -140,15 +149,17 @@ Follow these steps to make your custom countdown timer:
             RemainingTimeWidget : text_block = text_block{DefaultTextColor := NamedColors.White}
             RemainingTimeText<localizes>(CurrentRemainingTime : int) : message = "{CurrentRemainingTime}"
    ```
+
 6. Add the function `StartCountdown()` to display the UI.
 
    ```verse
         StartCountdown() : void =
             Print("Starting countdown")
-   		
+     
             if (PlayerUI := MaybePlayerUI?):
                 PlayerUI.AddWidget(Canvas)
    ```
+
 7. In **countdown\_timer\_example.verse**, create a `countdown_timer` instance with a reference to the player UI and the initial countdown time. Call `StartCountdown()` in `OnBegin()` so the countdown appears as soon as the game starts.
 
    ```verse
@@ -176,22 +187,24 @@ Follow these steps to make your custom countdown timer:
                 else:
                     Print("Can't find player")
    ```
+
 8. If you playtest now, the UI doesn’t display the remaining time when the countdown starts, so in **countdown\_timer.verse**, create a function and name it `UpdateUI()` that updates the current countdown value in the UI. Call `UpdateUI()` in `StartCountdown()`.
 
    ```verse
         StartCountdown() : void =
             Print("Starting countdown")
-   		
+     
             if (PlayerUI := MaybePlayerUI?):
                 PlayerUI.AddWidget(Canvas)
-   		            
+                 
                 # Update the UI when we start the timer to see the initial RemainingTime on screen
                 UpdateUI()
-   		
+     
         UpdateUI() : void =
             if (IntTime := Int[RemainingTime]):
                 RemainingTimeWidget.SetText(RemainingTimeText(IntTime))
    ```
+
 9. Now, the initial countdown appears in the UI but the value doesn’t update every second. To do this:
 
    - Add the float variable `TimerTickPeriod` to represent how often in seconds to update the UI. This example uses one second.
@@ -199,6 +212,7 @@ Follow these steps to make your custom countdown timer:
      ```verse
                                TimerTickPeriod : float = 1.0 # The timer "precision": how often, in seconds, it ticks.
      ```
+
    - Create a function and name it `RunCountdown()` that has the [suspends specifier](https://dev.epicgames.com/documentation/en-us/fortnite/specifiers-and-attributes-in-verse), and call it from `StartCountdown()`. Have `RunCountdown()` wait for the `TimerTickPeriod` before updating the UI and repeat this on [loop](https://dev.epicgames.com/documentation/en-us/fortnite/loop-and-break-in-verse). Set the loop to end, and have the countdown disappear from the UI, when the countdown reaches `0.0`.
 
      ```verse
@@ -227,6 +241,7 @@ Follow these steps to make your custom countdown timer:
                        PlayerUI.RemoveWidget(Canvas)
                    break
      ```
+
 10. When you playtest, you should see the countdown start at 30 and update every second until the timer reaches 0 and the countdown disappears from the UI.
 
 [![Countdown timer starts at 30 when the game starts](https://dev.epicgames.com/community/api/documentation/image/cd5448d1-5a12-421b-a894-8ff0b98daa96?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/cd5448d1-5a12-421b-a894-8ff0b98daa96?resizing_type=fit)
@@ -242,10 +257,11 @@ Follow these steps to add more time to the countdown timer when the player inter
    ```verse
         AddRemainingTime(Time : float) : void =
             set RemainingTime += Time
-   		
+     
             # Immediately update the UI for better player feedback when time is added.
             UpdateUI()
    ```
+
 2. In countdown\_timer\_example.verse, subscribe to the `InteractedWithEvent` of the Button device and call `AddRemainingTime()` when the player interacts with the Button device.
 
    ```verse
@@ -279,12 +295,14 @@ Follow these steps to add more time to the countdown timer when the player inter
                 TimeToAdd : float = 20.0
                 CountdownTimer.AddRemainingTime(TimeToAdd)
    ```
+
 3. Add a widget to the `countdown_timer` class to call out how much time is added to the countdown when the player interacts with the button.
 
    ```verse
         AddedTimeWidget : text_block = text_block{DefaultTextColor := NamedColors.White} 
         AddedTimeText<localizes>(AddedTime : int) : message = " +{AddedTime}!"
    ```
+
 4. Use the same positioning values as the RemainingTime widget for the new AddedTimeWidget, but change the following values so the callout time displays to the upper right of the countdown timer:
 
    - For the AddedTimeWidget, set the Left margin in Offsets to `50.0`.
@@ -314,19 +332,20 @@ Follow these steps to add more time to the countdown timer when the player inter
                                                    SizeToContent := true
                                                    Widget := RemainingTimeWidget
      ```
+
 5. Create a new function named `AddedTimeCallout()` that updates the value in the AddedTimeWidget and displays the callout for two seconds before hiding the widget again. Call `AddedTimeCallout()` in `AddRemainingTime()`.
 
    ```verse
         AddRemainingTime(Time : float) : void =
             set RemainingTime += Time
-   		
+     
             # Immediately update the UI for better player feedback when time is added.
             UpdateUI()
-   		
+     
             # Fire a simple callout to show the time being added.
             spawn:
                 AddedTimeCallout(Time)
-   		
+     
         AddedTimeCallout(Time : float)<suspends> : void =
             if:
                 PlayerUI := MaybePlayerUI?
@@ -337,6 +356,7 @@ Follow these steps to add more time to the countdown timer when the player inter
                 Sleep(2.0)
                 AddedTimeWidget.SetVisibility(widget_visibility.Hidden)
    ```
+
 6. When you playtest, you should see the countdown start at 30 and update every second until the timer reaches 0 and the countdown then disappears from the UI. When the player interacts with the button, twenty seconds are added to the countdown and a callout appears for two seconds showing the additional time added.
 
 ### Signaling Countdown Timer Ending
@@ -377,6 +397,7 @@ Follow these steps to add an event for the countdown ending.
                     CountdownEndedEvent.Signal()
                     break
    ```
+
 3. In **countdown\_timer\_example.verse**, await on the `CountdownEndedEvent` associated with the `CountdownTimer`, then activate the End Game device because we know the countdown ended when the event happens.
 
    ```verse
@@ -387,14 +408,15 @@ Follow these steps to add an event for the countdown ending.
                 PlayerUI := GetPlayerUI[player[FirstPlayer]]
             then:
                 set CountdownTimer = countdown_timer{MaybePlayerUI := option{PlayerUI}, RemainingTime := InitialCountdownTime}
-   		        
+             
                 CountdownTimer.StartCountdown()
                 CountdownTimer.CountdownEndedEvent.Await()
-   		            
+                 
                 EndGame.Activate(FirstPlayer)
             else:
                 Print("Can't find player")
    ```
+
 4. When you playtest, you should see the countdown start at 30 and update every second until the timer reaches 0. As soon as the countdown ends, the countdown disappears from the UI and the game ends. When the player interacts with the button, twenty seconds are added to the countdown and a callout appears for two seconds showing the time added.
 
 ### Preparing Your Class to Be Used by Other Code

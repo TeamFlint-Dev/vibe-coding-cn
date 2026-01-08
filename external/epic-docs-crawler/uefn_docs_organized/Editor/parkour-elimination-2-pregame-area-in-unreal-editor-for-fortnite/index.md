@@ -1,6 +1,6 @@
 # 2. Pre-Game Area
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-2-pregame-area-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-2-pregame-area-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:21:12.150172
 
 ---
@@ -105,6 +105,6 @@ Remember to save your progress!
 
 [![3. Race Area](https://dev.epicgames.com/community/api/documentation/image/44a56e91-485a-4098-bb38-bb085c76297b?resizing_type=fit&width=640&height=640)
 
-3. Race Area
+1. Race Area
 
-Build the parkour race section of the game.](https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-3-race-area-in-unreal-editor-for-fortnite)
+Build the parkour race section of the game.](<https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-3-race-area-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # item_hammer_assault_rifle_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/vibinitems/item_hammer_assault_rifle_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/vibinitems/item_hammer_assault_rifle_mythic>
 > **爬取时间**: 2025-12-27T03:34:46.062313
 
 ---

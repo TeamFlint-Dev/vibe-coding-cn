@@ -1,6 +1,6 @@
 # item_hop_drop class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_hop_drop
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_hop_drop>
 > **爬取时间**: 2025-12-27T04:04:06.452187
 
 ---

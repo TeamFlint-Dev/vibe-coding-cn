@@ -1,6 +1,6 @@
 # In-Island Transactions Restrictions
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-restrictions-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-restrictions-in-fortnite>
 > **爬取时间**: 2025-12-27T00:33:21.879331
 
 ---
@@ -31,7 +31,7 @@ As required by local law, Paid Random Items are restricted in the following area
 - Netherlands
 - Belgium
 - United Kingdom (U18)
-- [Brazil](https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/L15211.htm) 
+- [Brazil](https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/L15211.htm)
   (U18, effective March  2026)
 
 Beginning March 2026, you will also be restricted from offering paid random items to players in Brazil in islands that are aimed at players under 18 or likely to be accessible by them.

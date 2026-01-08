@@ -1,6 +1,6 @@
 # Exposing Assets with Asset Reflection to Verse
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/exposing-assets-with-asset-reflection-to-verse-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/exposing-assets-with-asset-reflection-to-verse-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:03:01.543923
 
 ---

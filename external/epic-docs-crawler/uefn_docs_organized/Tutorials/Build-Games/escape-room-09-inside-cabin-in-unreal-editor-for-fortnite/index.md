@@ -1,6 +1,6 @@
 # 9. Inside Cabin
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-09-inside-cabin-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-09-inside-cabin-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:17:26.189246
 
 ---
@@ -356,6 +356,6 @@ To make the ending of the game more exciting, design a custom boss fight with th
 
 [![10. Verse Switch State Puzzle](https://dev.epicgames.com/community/api/documentation/image/5d6dc66d-2feb-40d8-aa29-9c95da0ceb0a?resizing_type=fit&width=640&height=640)
 
-10. Verse Switch State Puzzle
+1. Verse Switch State Puzzle
 
-Create a simple switch state puzzle you can copy or make your own.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-10-verse-switch-state-puzzle-in-unreal-editor-for-fortnite)
+Create a simple switch state puzzle you can copy or make your own.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-10-verse-switch-state-puzzle-in-unreal-editor-for-fortnite>)

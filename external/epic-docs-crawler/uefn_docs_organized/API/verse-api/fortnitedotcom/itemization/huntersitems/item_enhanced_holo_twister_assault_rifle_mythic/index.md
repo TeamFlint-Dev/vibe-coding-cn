@@ -1,6 +1,6 @@
 # item_enhanced_holo_twister_assault_rifle_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_enhanced_holo_twister_assault_rifle_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_enhanced_holo_twister_assault_rifle_mythic>
 > **爬取时间**: 2025-12-27T04:07:04.335256
 
 ---

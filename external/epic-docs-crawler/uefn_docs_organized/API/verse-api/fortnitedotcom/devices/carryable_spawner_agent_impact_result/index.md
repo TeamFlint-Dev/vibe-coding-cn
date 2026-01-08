@@ -1,6 +1,6 @@
 # carryable_spawner_agent_impact_result struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/carryable_spawner_agent_impact_result
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/carryable_spawner_agent_impact_result>
 > **爬取时间**: 2025-12-27T01:39:39.603662
 
 ---

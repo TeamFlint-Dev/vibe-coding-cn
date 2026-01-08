@@ -1,6 +1,6 @@
 # Drop function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/item_component/drop
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/item_component/drop>
 > **爬取时间**: 2025-12-27T02:54:44.233739
 
 ---

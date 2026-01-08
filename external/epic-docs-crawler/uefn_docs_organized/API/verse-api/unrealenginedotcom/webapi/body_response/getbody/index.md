@@ -1,6 +1,6 @@
 # GetBody function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/webapi/body_response/getbody
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/webapi/body_response/getbody>
 > **爬取时间**: 2025-12-27T05:04:21.393103
 
 ---

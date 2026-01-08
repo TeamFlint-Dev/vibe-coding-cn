@@ -1,6 +1,6 @@
 # Procedural Building Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/procedural-building-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/procedural-building-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:06:13.330840
 
 ---
@@ -161,7 +161,7 @@ Each rule is defined as a separate Verse class, deriving from the `vo_base` (vol
 
 This approach simplifies the creation of new rules, allows experimentation with different ideas, assigns distinct styles to each type of building, and enables assignments of distinct styles to each type of building. Applying different rules to the same set of voxels yields varied results.
 
-Below is a simple example of a ` vo\_sizecheck` volume operator.
+Below is a simple example of a `vo\_sizecheck` volume operator.
 
 ```verse
 # Check all dimensions of a box are >= a certain size
@@ -290,6 +290,7 @@ The Verse code in this example project ensures that the code is fast enough to p
             * set OptionalArray := for(I := 0 .. ArraySize-1):
                 false
   ```
+
 - Don't pass big arrays by value, instead put them in an object and call methods or pass the object.
 - Multi-dimensional arrays are slow because the first `[]` operator passes a copy to the next `[]` operator.
 - Calling `.Length` on an array actually makes a copy of the array at the moment, so it can be faster to keep track of the size of large arrays yourself.

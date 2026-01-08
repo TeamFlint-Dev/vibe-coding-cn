@@ -1,13 +1,13 @@
 # Item Granter Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/item-granter-device-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/item-granter-device-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:06:52.313583
 
 ---
 
 You can use the **Item Granter** device to place items into player inventories at any point in a game. This page walks you through three different examples of ways to use this device.
 
-## Armed from the Start!
+## Armed from the Start
 
 The Item Granter is great for giving players a weapon at the beginning of a game.
 
@@ -33,6 +33,7 @@ The Item Granter is great for giving players a weapon at the beginning of a game
    | Equip Granted Item | Yes |
    | Spare Weapon Ammo | 999 |
    | Grant on Game Start | On |
+
 4. Place a **Creature Spawner** in front of the Player Spawner.
 
 You now have the basic functionality for a starting weapon.
@@ -74,6 +75,7 @@ You can register multiple items to the Item Granter and decide how the device sh
    | Equip Granted Items | Yes |
    | Remove Item on Grant | Yes |
    | Grant on Game Start | On |
+
 6. Place a **Creature Spawner** in front of the Player Spawner.
 7. Customize the Creature Spawner to select **Creature Type** as **Fiend**:
 
@@ -91,6 +93,7 @@ You can register multiple items to the Item Granter and decide how the device sh
    | Trigger VFX | Off |
    | Trigger SFX | Off |
    | Transmit Every X Triggers | 2 |
+
 10. Place a **HUD Message** device.
 11. Customize the HUD Message:
 
@@ -114,6 +117,7 @@ You can register multiple items to the Item Granter and decide how the device sh
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On a Creature Is Eliminated Send Event To | Weapon Upgrade Trigger | Trigger |
+
 2. Configure the following event on the Trigger so that every time it sends a triggered event (every 2 eliminations from the Creature Spawner), the Item Granter will grant a weapon upgrade.|
 
    [![](https://dev.epicgames.com/community/api/documentation/image/e0dd27b0-ad51-46bf-9b87-acd4a6c9d6b1?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e0dd27b0-ad51-46bf-9b87-acd4a6c9d6b1?resizing_type=fit)
@@ -128,7 +132,7 @@ You now have the basic functionality for an elimination-based weapon upgrade sys
 
 Item Granters can cycle through items in a few different ways. In this example, each item can only be granted once, but the device can be configured to continue granting items in a repeating pattern! Also, the **Cycle to Random Item** event can be used to trigger random item grants!
 
-## Build an Automation Game!
+## Build an Automation Game
 
 Item Granters can also be configured to grant items repeatedly at a regular interval. In this example, you’ll use Item Granters to set up a basic automation game in which players can build “factories” that produce resources for them!
 
@@ -167,6 +171,7 @@ Item Granters can also be configured to grant items repeatedly at a regular inte
    | On Grant Action | Keep All |
    | Item Count | 2 |
    | Grant on Timer | On |
+
 3. Place a **Prop Manipulator** device that's connected to the upright computer console.
 
    The Prop Manipulator will be green when it is successfully connected to a prop.
@@ -179,6 +184,7 @@ Item Granters can also be configured to grant items repeatedly at a regular inte
    | Start Hidden | On |
    | Modify Prop Health | Yes |
    | Is Prop Invulnerable | Yes |
+
 5. Place a VFX Spawner device in the middle of the upright computer console.
 6. Customize the VFX Spawner:
 
@@ -190,6 +196,7 @@ Item Granters can also be configured to grant items repeatedly at a regular inte
    | Burst Visual Effect | Explosion Electrical |
    | Colorize VFX | On |
    | Custom Color | #FFF000 |
+
 7. Place a **Conditional Button** device at the front of the upright computer console and register **Gold** to the device.
 8. Customize the Conditional Button:
 
@@ -206,6 +213,7 @@ Item Granters can also be configured to grant items repeatedly at a regular inte
    | Disable After Use | On |
    | Key Items Required | 3 |
    | Visible During Game | Hologram Only |
+
 9. Configure the following event on the Conditional Button so that when the player builds an Automated Wood Producer, the Item Granter begins granting wood, the computer console is made visible, and the VFX burst triggers.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/60806e31-7bbf-4bf4-b8fb-2c12d9078228?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/60806e31-7bbf-4bf4-b8fb-2c12d9078228?resizing_type=fit)
@@ -215,6 +223,7 @@ Item Granters can also be configured to grant items repeatedly at a regular inte
    | On Activated Send Event To | Wood Producer Item Granter 1 | Grant Item |
    | On Activated Send Event To | Wood Producer VFX Spawner 1 | Restart |
    | On Activated Send Event To | Wood Producer Prop Manipulator 1 | Show Props |
+
 10. Select all of these devices and props together (Conditional Button, Prop Manipulator, VFX Spawner, Item Granter, and upright computer console) and duplicate them four more times along the edge of the platform.
 
 ### Set Up the Shop and Quest
@@ -228,6 +237,7 @@ Item Granters can also be configured to grant items repeatedly at a regular inte
    | --- | --- |
    | On Grant Action | Keep All |
    | Item Count | 5 |
+
 3. Place a **Conditional Button** in front of the desk-sized computer console and register **Wood** to the device.
 4. Customize the Conditional Button:
 
@@ -244,6 +254,7 @@ Item Granters can also be configured to grant items repeatedly at a regular inte
    | Missing Items Text | Not Enough Wood to Complete Sale! |
    | Key Items Required | 100 |
    | Visible During Game | Hologram Only |
+
 5. Configure the following event on the Conditional Button so that when the player completes the sale, they are granted 5 Gold from the Item Granter.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/32e55220-0e13-4b12-b243-2b3858745657?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/32e55220-0e13-4b12-b243-2b3858745657?resizing_type=fit)
@@ -264,6 +275,7 @@ Item Granters can also be configured to grant items repeatedly at a regular inte
    | Target Value | 5 |
    | Description Text | Build 5 Automated Wood Producers! |
    | Quest Icon | Wood |
+
 8. Configure the following functions on the Tracker so that every time the player builds an Automated Wood Producer, the Tracker’s progress increments.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/c9697f7b-a284-4906-b9e6-298070264b7b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c9697f7b-a284-4906-b9e6-298070264b7b?resizing_type=fit)

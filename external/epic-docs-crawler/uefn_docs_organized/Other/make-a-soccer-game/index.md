@@ -1,6 +1,6 @@
 # Make a Soccer Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/make-a-soccer-game
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/make-a-soccer-game>
 > **爬取时间**: 2025-12-26T23:59:36.299168
 
 ---
@@ -50,6 +50,7 @@ Follow the steps below to create your very own physics-enabled soccer game, wher
    | Radius - **102.0** |
    | Collision Preset - **Block All** |
    | Center - **0 on all axes** |
+
 8. The collision should now be visible. Save your static mesh.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/87af1bcd-d5b2-42e9-99df-80ad8360381a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/87af1bcd-d5b2-42e9-99df-80ad8360381a?resizing_type=fit)
@@ -87,6 +88,7 @@ Follow the steps below to create your very own physics-enabled soccer game, wher
    | Invincibility - **True** |
    | Allow Building - **None** |
    | Start With Pickaxe - **True** |
+
 2. Place six **Player Spawner** devices:
 
    |  |
@@ -104,6 +106,7 @@ Follow the steps below to create your very own physics-enabled soccer game, wher
    | --- |
    | Use **Colossal Coliseum** in Fortnite > **Prefabs** |
    | Use **Recreation Soccer Field** as your pitch |
+
 4. Find the **FortniteRecreation SoccerGoal** in the Content Browser and place two instances for your goal areas. Scale them up **1.5x** to accommodate the size of the ball.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/26d66b8c-5512-4b7d-86cd-3e5291b454f4?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/26d66b8c-5512-4b7d-86cd-3e5291b454f4?resizing_type=fit)
@@ -132,6 +135,7 @@ Currently, the devices that work with **Physics** are all located in the **Fortn
    | Width - **0.6** |
    | Depth - **2.2** |
    | Height - **1.0** |
+
 2. Add a **Tracker** device:
 
    |  |
@@ -140,6 +144,7 @@ Currently, the devices that work with **Physics** are all located in the **Fortn
    | Stat to Track - **Score** |
    | Tracker Title - **Team A Score** |
    | Sharing - **Team** |
+
 3. Duplicate the Tracker device and rename the copy to **Tracker Score Team B**. Change the Tracker Title to **Team B Score**.
 4. Add a **HUD Message** device:
 
@@ -151,6 +156,7 @@ Currently, the devices that work with **Physics** are all located in the **Fortn
    | Placement - **Custom** |
    | Screen Anchor - **Center** |
    | Message - **“Team A Goal!!!”** |
+
 5. Duplicate the HUD Message device.
 
    |  |
@@ -158,6 +164,7 @@ Currently, the devices that work with **Physics** are all located in the **Fortn
    | Name - **HUD Message Device Score B** |
    | Message - **“Team B Goal!!!”** |
    | Background - **Pick a second color** |
+
 6. Add two **Air Vent** devices at an angle next to the goal. When the ball hits either of these air vents, it will launch the ball away from the goal area.  Set **Knockup Force Multiplier** to **0.1**.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/8935770e-55f2-44d7-ae77-9f49f7a26bf8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/8935770e-55f2-44d7-ae77-9f49f7a26bf8?resizing_type=fit)

@@ -1,6 +1,6 @@
 # 1. Set Up the Capture the Flag Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-1-set-up-the-game-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-1-set-up-the-game-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:16:58.249260
 
 ---
@@ -67,6 +67,6 @@ Use the **Search** bar to locate each setting faster.
 
 [![2. Create the Island](https://dev.epicgames.com/community/api/documentation/image/dff07ede-ffa6-4d85-908c-84c1ef939345?resizing_type=fit&width=640&height=640)
 
-2. Create the Island
+1. Create the Island
 
-Build the bases, add colored elements to each base, and build the boundaries of your island.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-2-create-the-island-in-unreal-editor-for-fortnite)
+Build the bases, add colored elements to each base, and build the boundaries of your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-2-create-the-island-in-unreal-editor-for-fortnite>)

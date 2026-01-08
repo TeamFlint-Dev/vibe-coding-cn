@@ -1,6 +1,6 @@
 # SetInvulnerable function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/objective_device/setinvulnerable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/objective_device/setinvulnerable>
 > **爬取时间**: 2025-12-27T06:46:52.165718
 
 ---

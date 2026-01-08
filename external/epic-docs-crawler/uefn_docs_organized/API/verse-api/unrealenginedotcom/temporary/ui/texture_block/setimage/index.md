@@ -1,6 +1,6 @@
 # SetImage function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/texture_block/setimage
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/texture_block/setimage>
 > **爬取时间**: 2025-12-27T07:15:57.339839
 
 ---

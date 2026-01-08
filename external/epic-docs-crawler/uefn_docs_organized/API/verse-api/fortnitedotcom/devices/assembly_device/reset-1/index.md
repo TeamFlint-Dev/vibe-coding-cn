@@ -1,6 +1,6 @@
 # Reset function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/assembly_device/reset-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/assembly_device/reset-1>
 > **爬取时间**: 2025-12-27T05:20:52.723507
 
 ---

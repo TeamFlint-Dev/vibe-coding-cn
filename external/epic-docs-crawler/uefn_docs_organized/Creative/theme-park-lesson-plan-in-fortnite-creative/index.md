@@ -1,6 +1,6 @@
 # Theme Park of the Future
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/theme-park-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/theme-park-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:24.705146
 
 ---
@@ -20,7 +20,7 @@ This activity can be done as an individual assignment or as a group assignment. 
 
 **Author:** Mike Washburn
 
-**Email:** mwashburn@mikewashburn.net
+**Email:** <mwashburn@mikewashburn.net>
 
 **Twitter:** @misterwashburn
 

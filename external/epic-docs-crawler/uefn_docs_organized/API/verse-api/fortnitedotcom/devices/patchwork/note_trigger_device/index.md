@@ -1,6 +1,6 @@
 # note_trigger_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/patchwork/note_trigger_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/patchwork/note_trigger_device>
 > **爬取时间**: 2025-12-27T05:58:57.824242
 
 ---

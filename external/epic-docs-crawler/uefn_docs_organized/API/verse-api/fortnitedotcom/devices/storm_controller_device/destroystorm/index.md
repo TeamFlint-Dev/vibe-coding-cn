@@ -1,6 +1,6 @@
 # DestroyStorm function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/storm_controller_device/destroystorm
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/storm_controller_device/destroystorm>
 > **爬取时间**: 2025-12-27T05:18:15.261734
 
 ---

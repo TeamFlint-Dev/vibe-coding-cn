@@ -1,6 +1,6 @@
 # (InitialRotation:rotation).ApplyRoll extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/applyroll
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/applyroll>
 > **爬取时间**: 2025-12-27T02:32:35.409632
 
 ---

@@ -1,6 +1,6 @@
 # item_crash_pad_jr class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_crash_pad_jr
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_crash_pad_jr>
 > **爬取时间**: 2025-12-27T04:28:10.318461
 
 ---

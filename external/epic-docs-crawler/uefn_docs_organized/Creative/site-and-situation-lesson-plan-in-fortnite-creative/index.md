@@ -1,6 +1,6 @@
 # Site and Situation
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/site-and-situation-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/site-and-situation-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:11:27.445512
 
 ---
@@ -22,7 +22,7 @@ This lesson is designed to be used with or without access to Fortnite Creative m
 
 Author: Katie Wright
 
-Email: teachkatiewright@gmail.com
+Email: <teachkatiewright@gmail.com>
 
 Twitter:@mrs\_katiewright
 
@@ -122,7 +122,7 @@ Once they complete their sheet, they will exchange sheets with another group. Th
 
 ## LEARNING PLAN
 
-### Warm-Up/Hook:
+### Warm-Up/Hook
 
 The instructor will show the student a map of where major cities are located. The instructor will ask students to rank the top three reasons why people settle in those locations. Students could also use Google Earth or Google Maps.
 

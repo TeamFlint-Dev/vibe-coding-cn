@@ -1,6 +1,6 @@
 # item_montagues_modular_nemesis_ar_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_montagues_modular_nemesis_ar_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_montagues_modular_nemesis_ar_mythic>
 > **爬取时间**: 2025-12-27T04:49:59.167808
 
 ---

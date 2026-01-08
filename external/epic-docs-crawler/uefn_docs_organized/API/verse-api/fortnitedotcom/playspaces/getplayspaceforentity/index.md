@@ -1,6 +1,6 @@
 # (InEntity:entity).GetPlayspaceForEntity extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/getplayspaceforentity
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/getplayspaceforentity>
 > **爬取时间**: 2025-12-27T00:44:06.421389
 
 ---

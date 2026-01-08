@@ -1,6 +1,6 @@
 # Disappearing Platform on Touch
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/disappearing-platform-on-touch-using-verse-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/disappearing-platform-on-touch-using-verse-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:18:55.281985
 
 ---
@@ -73,6 +73,7 @@ Follow these steps to expose these properties from the **disappear\_on\_touch\_p
        @editable
        DisappearDelay:float = 1.0
      ```
+
    - An editable `float` named `DelayMin`. This is the minimum amount of time to wait before making the platform reappear. Initialize this to `3.0`, or three seconds.
 
      ```verse
@@ -80,6 +81,7 @@ Follow these steps to expose these properties from the **disappear\_on\_touch\_p
        @editable
        DelayMin:float = 3.0
      ```
+
    - An editable `float` named `DelayMax`. This is the maximum amount of time to wait before making the platform reappear. Initialize this to `4.0`, or four seconds.
 
      ```verse
@@ -87,6 +89,7 @@ Follow these steps to expose these properties from the **disappear\_on\_touch\_p
        @editable
        DelayMax:float = 4.0
      ```
+
    - An editable `creative_prop` named `DisappearingPlatform`. This is the in-level platform that will disappear and appear periodically. Because your code doesn't yet have a reference to this object in the level, you'll instantiate this with an empty [archetype](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#archetype) `creative_prop{}`. You'll assign this reference to your floating platform later.
 
      ```verse
@@ -94,6 +97,7 @@ Follow these steps to expose these properties from the **disappear\_on\_touch\_p
        @editable
        DisappearingPlatform:creative_prop = creative_prop{}
      ```
+
    - An editable `trigger_device` named `PlatformTrigger`. You'll need the `TriggeredEvent` event from this device to know when a player lands on the platform.
 
      ```verse
@@ -101,28 +105,29 @@ Follow these steps to expose these properties from the **disappear\_on\_touch\_p
        @editable
        PlatformTrigger:trigger_device = trigger_device{}
      ```
+
 3. Your `disappear_on_touch_platform` class fields should look like this:
 
    ```verse
         # A Verse-authored creative device that can be placed in a level
         disappear_on_touch_platform := class(creative_device):
-   		
+     
             # How long to wait after the player touches the platform before hiding it.
             @editable
             DisappearDelay:float = 1.0
-   		
+     
             # The minimum amount of time to wait before making the platform reappear.
             @editable
             DelayMin:float = 3.0
-   		
+     
             # The maximum amount of time to wait before making the platform reappear.
             @editable
             DelayMax:float = 4.0
-   		
+     
             # Reference to the platform in the level.
             @editable
             DisappearingPlatform:creative_prop = creative_prop{}
-   		
+     
             # The zone a player enters when landing on the platform.
             @editable
             PlatformTrigger:trigger_device = trigger_device{}
@@ -193,6 +198,7 @@ Now that you've set up the level and devices, you can add the functionality to s
 
        disappear_on_touch_platform := class(creative_device):
      ```
+
    - Use the `GetRandomFloat()` function as an argument for `Sleep()` when deciding how long to wait before making the platform reappear, and set the allowed range of seconds with `DelayMin` and `DelayMax`.
 
      ```verse
@@ -225,6 +231,7 @@ Follow these steps to detect when the player touches the platform, and use the c
    ```verse
         OnPlayerTouch(ActivatingPlayer:?agent):void=
    ```
+
 2. In `OnPlayerTouch()`, in an `if` expression, try to get the player from the `ActivatingPlayer` option. If this call succeeds, you know that a player activated the trigger, rather than code.
 
    ```verse
@@ -234,6 +241,7 @@ Follow these steps to detect when the player touches the platform, and use the c
             then:
                 Print("A player touched a platform!")
    ```
+
 3. In `OnBegin()`, subscribe to the `PlatformTrigger.TriggeredEvent` using `OnPlayerTouch` as the event handler. Now whenever a player lands on a platform, the `TriggeredEvent` will be activated, and `OnPlayerTouch()` will run.
 
    ```verse
@@ -243,6 +251,7 @@ Follow these steps to detect when the player touches the platform, and use the c
             # when a player lands on the platform.
             PlatformTrigger.TriggeredEvent.Subscribe(OnPlayerTouch)
    ```
+
 4. When the platform is hidden, players shouldn't be able to activate the trigger, since they should pass right through the platform. To handle this, in `OnBegin()`, add calls to `PlatformTrigger.Disable()` and `Enable()` after `Hide()` and `Show()` respectively. Now your trigger won't be interactable while your platform is hidden.
 
    ```verse
@@ -289,6 +298,7 @@ Although you need to hide the platform when a player lands on it, you can't add 
             DisappearingPlatform.Show()
             PlatformTrigger.Enable()
    ```
+
 2. In `OnPlayerTouch()`, call `spawn{}` on `RecyclePlatform()` to run the code asynchronously. Your complete `RecyclePlatform()` function should look like this:
 
    ```verse
@@ -329,6 +339,7 @@ Although you need to hide the platform when a player lands on it, you can't add 
             # Reset the number of times the PlatformTrigger can trigger.
             PlatformTrigger.Reset()
    ```
+
 4. Save the script and click **Verse**, and then **Build Verse Code** to compile the code.
 5. Click **Launch Session** in the UEFN toolbar to playtest the level.
 6. When you playtest your level now, each platform should disappear when you land on it and reappears a random number of seconds later.

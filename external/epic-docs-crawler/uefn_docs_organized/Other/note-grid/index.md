@@ -1,6 +1,6 @@
 # note grid
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/note-grid
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/note-grid>
 > **爬取时间**: 2025-12-27T07:10:15.920908
 
 ---

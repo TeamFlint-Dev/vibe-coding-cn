@@ -1,6 +1,6 @@
 # value class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/json/value
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/json/value>
 > **爬取时间**: 2025-12-27T01:17:03.313397
 
 ---

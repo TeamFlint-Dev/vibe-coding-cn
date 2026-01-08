@@ -1,6 +1,6 @@
 # (InPlayer:player).SendToLobby extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/fortplayerutilities/sendtolobby
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/fortplayerutilities/sendtolobby>
 > **爬取时间**: 2025-12-27T00:59:47.875957
 
 ---

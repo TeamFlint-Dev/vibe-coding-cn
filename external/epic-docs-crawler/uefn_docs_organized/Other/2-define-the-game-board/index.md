@@ -1,6 +1,6 @@
 # 2. Define the Game Board
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/2-define-the-game-board
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/2-define-the-game-board>
 > **爬取时间**: 2025-12-27T00:24:25.747979
 
 ---
@@ -29,11 +29,11 @@ using { /Verse.org/Simulation }
 
 DataTypes<public> := module:
 
-	tile_coordinate<public> := class<concrete>:
-		@editable
-		Left<public>:int = 0
-		@editable
-		Forward<public>:int = 0
+ tile_coordinate<public> := class<concrete>:
+  @editable
+  Left<public>:int = 0
+  @editable
+  Forward<public>:int = 0
 ```
 
 In Coordinate Battle, you are building a 5 x 5 board grid. This means that you need to define the bounds of the game board. To do this, create a new class `bounds` that defines a low and high bound on how small or large a `tile_coordinate``Left` or `Forward` value can be.
@@ -43,17 +43,17 @@ using { /Verse.org/Simulation }
 
 DataTypes<public> := module:
 
-	tile_coordinate<public> := class<concrete>:
-		@editable
-		Left<public>:int = 0
-		@editable
-		Forward<public>:int = 0
+ tile_coordinate<public> := class<concrete>:
+  @editable
+  Left<public>:int = 0
+  @editable
+  Forward<public>:int = 0
 
-	bounds<public> := class<concrete>:
-		@editable
-		Low<public>:int = 0
-		@editable
-		High<public>:int = 0
+ bounds<public> := class<concrete>:
+  @editable
+  Low<public>:int = 0
+  @editable
+  High<public>:int = 0
 ```
 
 You want a structure that will hold the bounds for a single game board in one data structure. To do this, create a new class`board_bounds` that defines a low and high bound for each of the components of a `tile_coordinate`.
@@ -63,23 +63,23 @@ using { /Verse.org/Simulation }
 
 DataTypes<public> := module:
 
-	tile_coordinate<public> := class<concrete>:
-		@editable
-		Left<public>:int = 0
-		@editable
-		Forward<public>:int = 0
+ tile_coordinate<public> := class<concrete>:
+  @editable
+  Left<public>:int = 0
+  @editable
+  Forward<public>:int = 0
 
-	bounds<public> := class<concrete>:
-		@editable
-		Low<public>:int = 0
-		@editable
-		High<public>:int = 0
+ bounds<public> := class<concrete>:
+  @editable
+  Low<public>:int = 0
+  @editable
+  High<public>:int = 0
 
-	board_bounds<public> := class<concrete>:
-		@editable
-		LeftBounds<public>:bounds = bounds{}
-		@editable
-		ForwardBounds<public>:bounds = bounds{}
+ board_bounds<public> := class<concrete>:
+  @editable
+  LeftBounds<public>:bounds = bounds{}
+  @editable
+  ForwardBounds<public>:bounds = bounds{}
 ```
 
 ### Define Game Board
@@ -152,18 +152,18 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	<#
-		...
-	#>
+ <#
+  ...
+ #>
 
 ToVector3<public>(TileLocation:tile_coordinate)<transacts>:vector3 =
-		BoardTransform:transform = GetTransform()
-		CenterOfBoard:vector3 = BoardTransform.Translation
-		TileOffsetFromCenter:vector3 = vector3:
-			X := (TileLocation.Forward * TileSize.X)
-			Y := (-TileLocation.Left * TileSize.Y)
-			Z := 0.0
-		CenterOfBoard + TileOffsetFromCenter
+  BoardTransform:transform = GetTransform()
+  CenterOfBoard:vector3 = BoardTransform.Translation
+  TileOffsetFromCenter:vector3 = vector3:
+   X := (TileLocation.Forward * TileSize.X)
+   Y := (-TileLocation.Left * TileSize.Y)
+   Z := 0.0
+  CenterOfBoard + TileOffsetFromCenter
 ```
 
 This function performs the following:
@@ -196,23 +196,23 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	<#
-		...
-	#>
+ <#
+  ...
+ #>
 
-	IsTileCoordinateOnBoard<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
-		Bounds.LeftBounds.Low <= TileCoordinate.Left <= Bounds.LeftBounds.High
-		Bounds.ForwardBounds.Low <= TileCoordinate.Forward <= Bounds.ForwardBounds.High
+ IsTileCoordinateOnBoard<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
+  Bounds.LeftBounds.Low <= TileCoordinate.Left <= Bounds.LeftBounds.High
+  Bounds.ForwardBounds.Low <= TileCoordinate.Forward <= Bounds.ForwardBounds.High
 
-	ToTileCoordinate<public>(WorldLocation:vector3)<decides><transacts>:tile_coordinate =
-		BoardTransform:transform = GetTransform()
-		CenterOfBoard:vector3 = BoardTransform.Translation
-		ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
-		LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
-			Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
-			Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
-		IsTileCoordinateOnBoard[LocationAsTileCoordinate]
-		LocationAsTileCoordinate
+ ToTileCoordinate<public>(WorldLocation:vector3)<decides><transacts>:tile_coordinate =
+  BoardTransform:transform = GetTransform()
+  CenterOfBoard:vector3 = BoardTransform.Translation
+  ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
+  LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
+   Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
+   Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
+  IsTileCoordinateOnBoard[LocationAsTileCoordinate]
+  LocationAsTileCoordinate
 ```
 
 The function `IsTileCoordinateOnBoard` performs the following:
@@ -256,16 +256,16 @@ BoardTransform:transform = GetTransform()
 CenterOfBoard:vector3 = BoardTransform.Translation
 # CenterOfBoard := vector3{X := 5000.0, Y := 0.0, Z := 1000.0}
 
-	TileOffsetFromCenter:vector3 = vector3:
-		X := (TileLocation.Forward * TileSize.X)
-		Y := (-TileLocation.Left * TileSize.Y)
-		Z := 0.0
+ TileOffsetFromCenter:vector3 = vector3:
+  X := (TileLocation.Forward * TileSize.X)
+  Y := (-TileLocation.Left * TileSize.Y)
+  Z := 0.0
 
 <# 
 TileOffsetFromCenter := vector3:
-	X := (2.0 * 512.0) 		= 1024.0
-	Y := (- (-1.0) * 512.0)	= 512.0
-	Z := 0.0			= 0.0
+ X := (2.0 * 512.0)   = 1024.0
+ Y := (- (-1.0) * 512.0) = 512.0
+ Z := 0.0   = 0.0
 #>
 
 CenterOfBoard + TileOffsetFromCenter
@@ -281,7 +281,7 @@ Next are the steps to convert back using the function `ToTileCoordinate`.
 ```verse
 ToTileCoordinate(vector3{X := 6024.0, Y := 512.0, Z := 1000.0}):
 
-	BoardTransform:transform = GetTransform()
+ BoardTransform:transform = GetTransform()
 # BoardTransform := transform{Translation := vector3{X := 5000.0, Y := 0.0, Z := 1000.0}, ...}
 
 CenterOfBoard:vector3 = BoardTransform.Translation
@@ -291,21 +291,21 @@ ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
 # ShiftedWorldLocation := vector3{X := 6024.0, Y := 512.0, Z := 1000.0} - vector3{X := 5000.0, Y := 0.0, Z := 1000.0}
 # ShiftedWorldLocation := vector3{X := 1024.0, Y := 512.0, Z := 0.0}
 
-	LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
-		Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
-		Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
+ LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
+  Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
+  Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
 
-	<#
-	LocationAsTileCoordinate := tile_coordinate:
-		Left := Floor[-512.0 / 512.0]		= Floor[-1.0] 	= -1
-		Forward := Floor[1024.0 / 512.0]		= Floor[2.0]		= 2
-	#>
+ <#
+ LocationAsTileCoordinate := tile_coordinate:
+  Left := Floor[-512.0 / 512.0]  = Floor[-1.0]  = -1
+  Forward := Floor[1024.0 / 512.0]  = Floor[2.0]  = 2
+ #>
 
-	IsTileCoordinateOnBoard[tile_coordinate{Left := -1, Forward := 2}] 
-	# Succeeds
+ IsTileCoordinateOnBoard[tile_coordinate{Left := -1, Forward := 2}] 
+ # Succeeds
 
-	LocationAsTileCoordinate
-	# tile_coordinate{Left := -1, Forward := 2}
+ LocationAsTileCoordinate
+ # tile_coordinate{Left := -1, Forward := 2}
 ```
 
 This last `tile_coordinate` is exactly the same as the initial value, meaning that everything worked as expected.
@@ -326,21 +326,21 @@ using { /Verse.org/Simulation }
 
 DataTypes<public> := module:
 
-	tile_coordinate<public> := class<concrete>:
-		Left<public>:int = 0
-		Forward<public>:int = 0
+ tile_coordinate<public> := class<concrete>:
+  Left<public>:int = 0
+  Forward<public>:int = 0
 
-	bounds<public> := class<concrete>:
-		@editable
-		Low<public>:int = 0
-		@editable
-		High<public>:int = 0
+ bounds<public> := class<concrete>:
+  @editable
+  Low<public>:int = 0
+  @editable
+  High<public>:int = 0
 
-	board_bounds<public> := class<concrete>:
-		@editable
-		LeftBounds<public>:bounds = bounds{}
-		@editable
-		ForwardBounds<public>:bounds = bounds{}
+ board_bounds<public> := class<concrete>:
+  @editable
+  LeftBounds<public>:bounds = bounds{}
+  @editable
+  ForwardBounds<public>:bounds = bounds{}
 ```
 
 ```verse
@@ -354,38 +354,38 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	@editable
-	Bounds<public>:board_bounds = board_bounds{}
+ @editable
+ Bounds<public>:board_bounds = board_bounds{}
 
-	@editable
-	TileSize<public>:vector2 = vector2{}
+ @editable
+ TileSize<public>:vector2 = vector2{}
 
-	# tile_coordinate within board_bounds
-	IsTileCoordinateOnBoard<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
-		Bounds.LeftBounds.Low <= TileCoordinate.Left <= Bounds.LeftBounds.High
-		Bounds.ForwardBounds.Low <= TileCoordinate.Forward <= Bounds.ForwardBounds.High
+ # tile_coordinate within board_bounds
+ IsTileCoordinateOnBoard<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
+  Bounds.LeftBounds.Low <= TileCoordinate.Left <= Bounds.LeftBounds.High
+  Bounds.ForwardBounds.Low <= TileCoordinate.Forward <= Bounds.ForwardBounds.High
 
-	# tile_coordinate -> vector3
+ # tile_coordinate -> vector3
 ToVector3<public>(TileLocation:tile_coordinate)<decides><transacts>:vector3 =
 IsTileCoordinateOnBoard[TileLocation]
-		BoardTransform:transform = GetTransform()
-		CenterOfBoard:vector3 = BoardTransform.Translation
-		TileOffsetFromCenter:vector3 = vector3:
-			X := (TileLocation.Forward * TileSize.X)
-			Y := (-TileLocation.Left * TileSize.Y)
-			Z := 0.0
-		CenterOfBoard + TileOffsetFromCenter
+  BoardTransform:transform = GetTransform()
+  CenterOfBoard:vector3 = BoardTransform.Translation
+  TileOffsetFromCenter:vector3 = vector3:
+   X := (TileLocation.Forward * TileSize.X)
+   Y := (-TileLocation.Left * TileSize.Y)
+   Z := 0.0
+  CenterOfBoard + TileOffsetFromCenter
 
-	# vector3 -> tile_coordinate
-	ToTileCoordinate<public>(WorldLocation:vector3)<decides><transacts>:tile_coordinate =
-		BoardTransform:transform = GetTransform()
-		CenterOfBoard:vector3 = BoardTransform.Translation
-		ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
-		LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
-			Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
-			Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
-		IsTileCoordinateOnBoard[LocationAsTileCoordinate]
-		LocationAsTileCoordinate
+ # vector3 -> tile_coordinate
+ ToTileCoordinate<public>(WorldLocation:vector3)<decides><transacts>:tile_coordinate =
+  BoardTransform:transform = GetTransform()
+  CenterOfBoard:vector3 = BoardTransform.Translation
+  ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
+  LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
+   Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
+   Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
+  IsTileCoordinateOnBoard[LocationAsTileCoordinate]
+  LocationAsTileCoordinate
 ```
 
 type

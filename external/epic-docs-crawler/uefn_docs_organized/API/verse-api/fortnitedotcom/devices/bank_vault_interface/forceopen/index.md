@@ -1,6 +1,6 @@
 # ForceOpen function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/bank_vault_interface/forceopen
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/bank_vault_interface/forceopen>
 > **爬取时间**: 2025-12-27T05:16:18.472757
 
 ---

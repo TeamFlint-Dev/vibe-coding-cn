@@ -1,6 +1,6 @@
 # Walker NPC Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/twdu-walker-npc-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/twdu-walker-npc-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:00:14.768893
 
 ---
@@ -78,20 +78,20 @@ The series of guides highlights specific techniques with the Walkers in mind.
 
 The Walking Dead Universe Weapons
 
-Learn to incorporate the Lucille and Shiva Shotgun hero weapons into your gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-weapons-in-unreal-editor-for-fortnite)[![The Walking Dead Universe Level Design](https://dev.epicgames.com/community/api/documentation/image/01e15228-92e3-4426-ba8d-7d71836ad313?resizing_type=fit&width=640&height=640)
+Learn to incorporate the Lucille and Shiva Shotgun hero weapons into your gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-weapons-in-unreal-editor-for-fortnite)[![The> Walking Dead Universe Level Design](<https://dev.epicgames.com/community/api/documentation/image/01e15228-92e3-4426-ba8d-7d71836ad313?resizing_type=fit&width=640&height=640>)
 
 The Walking Dead Universe Level Design
 
-Explore the attributes of Walkers, and learn best practices for placing the NPCs in your islands through level design scenarios.](https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-level-design-in-unreal-editor-for-fortnite)[![The Walking Dead Universe Cameras](https://dev.epicgames.com/community/api/documentation/image/8de9b9e7-c7c5-4bfd-b7ce-a1679bc13ffe?resizing_type=fit&width=640&height=640)
+Explore the attributes of Walkers, and learn best practices for placing the NPCs in your islands through level design scenarios.](<https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-level-design-in-unreal-editor-for-fortnite)[![The> Walking Dead Universe Cameras](<https://dev.epicgames.com/community/api/documentation/image/8de9b9e7-c7c5-4bfd-b7ce-a1679bc13ffe?resizing_type=fit&width=640&height=640>)
 
 The Walking Dead Universe Cameras
 
-Set up cameras to bring the horror and action to your The Walking Dead Universe islands.](https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-cameras-in-unreal-editor-for-fortnite)[![TWDU Custom HUD: Vitals and Selected Item](https://dev.epicgames.com/community/api/documentation/image/f8aeb333-78e4-4e96-951a-52208863a1ad?resizing_type=fit&width=640&height=640)
+Set up cameras to bring the horror and action to your The Walking Dead Universe islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-cameras-in-unreal-editor-for-fortnite)[![TWDU> Custom HUD: Vitals and Selected Item](<https://dev.epicgames.com/community/api/documentation/image/f8aeb333-78e4-4e96-951a-52208863a1ad?resizing_type=fit&width=640&height=640>)
 
 TWDU Custom HUD: Vitals and Selected Item
 
-Learn how to add custom UI showing a player's vitals and selected item to your TWDU island using a plug-and-play setup used in the Walker NPC template.](https://dev.epicgames.com/documentation/en-us/fortnite/twdu-custom-hud-vitals-and-selected-item-in-unreal-editor-for-fortnite)[![Heavy Linework Post-Process Effect](https://dev.epicgames.com/community/api/documentation/image/d657d067-52bf-445c-a413-bb8851e768ad?resizing_type=fit&width=640&height=640)
+Learn how to add custom UI showing a player's vitals and selected item to your TWDU island using a plug-and-play setup used in the Walker NPC template.](<https://dev.epicgames.com/documentation/en-us/fortnite/twdu-custom-hud-vitals-and-selected-item-in-unreal-editor-for-fortnite)[![Heavy> Linework Post-Process Effect](<https://dev.epicgames.com/community/api/documentation/image/d657d067-52bf-445c-a413-bb8851e768ad?resizing_type=fit&width=640&height=640>)
 
 Heavy Linework Post-Process Effect
 
-Add a comic book look to your The Walking Dead Universe island with the Heavy Linework post-process effect.](https://dev.epicgames.com/documentation/en-us/fortnite/twdu-heavy-linework-post-process-effect-in-unreal-editor-for-fortnite)
+Add a comic book look to your The Walking Dead Universe island with the Heavy Linework post-process effect.](<https://dev.epicgames.com/documentation/en-us/fortnite/twdu-heavy-linework-post-process-effect-in-unreal-editor-for-fortnite>)

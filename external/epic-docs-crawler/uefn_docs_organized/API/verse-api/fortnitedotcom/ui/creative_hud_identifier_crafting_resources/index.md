@@ -1,6 +1,6 @@
 # creative_hud_identifier_crafting_resources class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_crafting_resources
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_crafting_resources>
 > **爬取时间**: 2025-12-27T01:06:37.082648
 
 ---

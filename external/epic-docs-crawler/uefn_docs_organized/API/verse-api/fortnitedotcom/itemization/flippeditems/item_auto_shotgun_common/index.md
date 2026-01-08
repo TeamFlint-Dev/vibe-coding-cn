@@ -1,6 +1,6 @@
 # item_auto_shotgun_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_auto_shotgun_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_auto_shotgun_common>
 > **爬取时间**: 2025-12-27T03:30:16.980148
 
 ---

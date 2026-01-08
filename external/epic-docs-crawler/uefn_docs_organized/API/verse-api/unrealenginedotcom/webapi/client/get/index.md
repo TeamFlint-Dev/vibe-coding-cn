@@ -1,6 +1,6 @@
 # Get function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/webapi/client/get
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/webapi/client/get>
 > **爬取时间**: 2025-12-27T05:04:15.672315
 
 ---

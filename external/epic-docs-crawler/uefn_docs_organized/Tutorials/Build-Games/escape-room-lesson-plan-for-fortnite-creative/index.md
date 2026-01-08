@@ -1,6 +1,6 @@
 # Create an Escape Room
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-lesson-plan-for-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-lesson-plan-for-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:13.972450
 
 ---
@@ -21,11 +21,11 @@ This class is designed as a quest — or choice-based learning environment — t
 **Author, Organization/Role:** Steven Isaacs, Bernards Township Public Schools, Teacher,
 Game Design and Development
 
-**Email:** stevei2071@gmail.com
+**Email:** <stevei2071@gmail.com>
 
-**Twitter:** http://www.twitter.com/mr\_isaacs | @mr\_isaacs
+**Twitter:** <http://www.twitter.com/mr\_isaacs> | @mr\_isaacs
 
-**LinkedIn:** https://www.linkedin.com/in/steve-isaacs/
+**LinkedIn:** <https://www.linkedin.com/in/steve-isaacs/>
 
 ## Lesson Overview
 

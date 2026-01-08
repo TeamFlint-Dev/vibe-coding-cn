@@ -1,6 +1,6 @@
 # item_oceans_bottomless_chug_jug class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s3items/item_oceans_bottomless_chug_jug
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s3items/item_oceans_bottomless_chug_jug>
 > **爬取时间**: 2025-12-27T03:24:17.625210
 
 ---

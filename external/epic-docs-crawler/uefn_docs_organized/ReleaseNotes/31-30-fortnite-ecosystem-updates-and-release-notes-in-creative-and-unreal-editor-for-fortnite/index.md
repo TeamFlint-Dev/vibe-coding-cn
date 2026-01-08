@@ -1,6 +1,6 @@
 # 31.30 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/31-30-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/31-30-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:36:46.764552
 
 ---
@@ -151,7 +151,7 @@ This is a new LEGO project template in UEFN! Use the Scary Space project templat
 
 [![Scary Space template in UEFN.](https://dev.epicgames.com/community/api/documentation/image/bdc6fc46-d9cc-45d8-9af8-f20e96ee1be2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/bdc6fc46-d9cc-45d8-9af8-f20e96ee1be2?resizing_type=fit)
 
-## LEGO Assets and More!
+## LEGO Assets and More
 
 ### New Galleries
 
@@ -208,7 +208,7 @@ The device also uses the Enable and Disable functions for unique gameplay!
 
 - New 7th anniversary cake available from Residential Prop Gallery.
 
-## Introducing the New Creator Pages on Fortnite.com!
+## Introducing the New Creator Pages on Fortnite.com
 
 Creator pages are designed to showcase your Fortnite islands and make it easier for players to find and favorite you on Fortnite.com. Complete your profile by uploading a 192x192 avatar, adding a header and custom bio, and linking your social media.
 

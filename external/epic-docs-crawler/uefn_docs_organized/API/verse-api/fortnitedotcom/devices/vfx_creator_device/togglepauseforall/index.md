@@ -1,6 +1,6 @@
 # TogglePauseForAll function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vfx_creator_device/togglepauseforall
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vfx_creator_device/togglepauseforall>
 > **爬取时间**: 2025-12-27T06:52:11.397279
 
 ---

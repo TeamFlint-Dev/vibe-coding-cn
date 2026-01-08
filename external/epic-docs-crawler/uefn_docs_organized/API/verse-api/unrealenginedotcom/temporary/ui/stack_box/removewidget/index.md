@@ -1,6 +1,6 @@
 # RemoveWidget function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/stack_box/removewidget
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/stack_box/removewidget>
 > **爬取时间**: 2025-12-27T07:15:30.217651
 
 ---

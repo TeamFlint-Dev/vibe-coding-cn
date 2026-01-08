@@ -1,6 +1,6 @@
 # item_tactical_assault_rifle_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_tactical_assault_rifle_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_tactical_assault_rifle_common>
 > **爬取时间**: 2025-12-27T04:34:37.135475
 
 ---

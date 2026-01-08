@@ -1,6 +1,6 @@
 # TMNT Custom UI: Player Info
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tmnt-custom-ui-player-info-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tmnt-custom-ui-player-info-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:08:48.196632
 
 ---
@@ -277,4 +277,4 @@ Next, you will learn about setting up the cameras and controls devices for your 
 
 TMNT Cameras and Controls
 
-Set up the cameras and controls for a side scroller game using the TMNT Arcade template.](https://dev.epicgames.com/documentation/en-us/fortnite/tmnt-cameras-and-controls-in-unreal-editor-for-fortnite)
+Set up the cameras and controls for a side scroller game using the TMNT Arcade template.](<https://dev.epicgames.com/documentation/en-us/fortnite/tmnt-cameras-and-controls-in-unreal-editor-for-fortnite>)

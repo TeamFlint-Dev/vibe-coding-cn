@@ -1,6 +1,6 @@
 # item_blast_powder class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_blast_powder
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_blast_powder>
 > **爬取时间**: 2025-12-27T03:45:10.974091
 
 ---

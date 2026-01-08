@@ -1,6 +1,6 @@
 # item_med_mist class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_med_mist
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_med_mist>
 > **爬取时间**: 2025-12-27T03:31:56.869651
 
 ---

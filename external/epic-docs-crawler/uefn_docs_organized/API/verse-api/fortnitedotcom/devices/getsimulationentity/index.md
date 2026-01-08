@@ -1,6 +1,6 @@
 # (CreativeDevice:creative_device).GetSimulationEntity extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/getsimulationentity
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/getsimulationentity>
 > **爬取时间**: 2025-12-27T01:55:16.003249
 
 ---

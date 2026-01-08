@@ -1,6 +1,6 @@
 # OnMergeInto function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/has_item_merge_rules/onmergeinto
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/has_item_merge_rules/onmergeinto>
 > **爬取时间**: 2025-12-27T02:54:18.314145
 
 ---

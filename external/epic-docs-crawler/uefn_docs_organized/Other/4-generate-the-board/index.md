@@ -1,6 +1,6 @@
 # 4. Generate the Board
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/4-generate-the-board
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/4-generate-the-board>
 > **爬取时间**: 2025-12-27T00:24:40.112224
 
 ---
@@ -25,12 +25,12 @@ using { /Verse.org/Random }
 
 UtilityFunctions<public> := module:
 
-	...
+ ...
 
-	GenerateUniformRandomTileCoordinate<public>(BoardBounds:board_bounds)<transacts>:tile_coordinate =
-		tile_coordinate:
-			Left := GetRandomInt(BoardBounds.LeftBounds.Low, BoardBounds.LeftBounds.High)
-			Forward := GetRandomInt(BoardBounds.ForwardBounds.Low, BoardBounds.ForwardBounds.High)
+ GenerateUniformRandomTileCoordinate<public>(BoardBounds:board_bounds)<transacts>:tile_coordinate =
+  tile_coordinate:
+   Left := GetRandomInt(BoardBounds.LeftBounds.Low, BoardBounds.LeftBounds.High)
+   Forward := GetRandomInt(BoardBounds.ForwardBounds.Low, BoardBounds.ForwardBounds.High)
 ```
 
 This function performs the following steps:
@@ -51,10 +51,10 @@ using { /Verse.org/Random }
 
 UtilityFunctions<public> := module:
 
-	...
+ ...
 
-	NumberOfTileCoordinates<public>(BoardBounds:board_bounds)<transacts>:int =
-		(BoardBounds.LeftBounds.High - BoardBounds.LeftBounds.Low) * (BoardBounds.ForwardBounds.High - BoardBounds.ForwardBounds.Low)
+ NumberOfTileCoordinates<public>(BoardBounds:board_bounds)<transacts>:int =
+  (BoardBounds.LeftBounds.High - BoardBounds.LeftBounds.Low) * (BoardBounds.ForwardBounds.High - BoardBounds.ForwardBounds.Low)
 ```
 
 ### Randomly Place a Pawn
@@ -85,22 +85,22 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	...
-	
-	@editable
-	NumberOfPawns:int = 5
+ ...
+ 
+ @editable
+ NumberOfPawns:int = 5
 
-	...
+ ...
 
-	PlacePawns<public>()<decides><transacts>:void =
-		NumberOfPawns < NumberOfTileCoordinates(Bounds)
-		for (PawnIndex := 0..NumberOfPawns):
-			var RandomTileCoordinate:tile_coordinate = tile_coordinate{}
-			loop:
-				set RandomTileCoordinate = GenerateUniformRandomTileCoordinate(Bounds)
-				if (not GetPawn[RandomTileCoordinate]):
-					break
-			SetPawn[RandomTileCoordinate]
+ PlacePawns<public>()<decides><transacts>:void =
+  NumberOfPawns < NumberOfTileCoordinates(Bounds)
+  for (PawnIndex := 0..NumberOfPawns):
+   var RandomTileCoordinate:tile_coordinate = tile_coordinate{}
+   loop:
+    set RandomTileCoordinate = GenerateUniformRandomTileCoordinate(Bounds)
+    if (not GetPawn[RandomTileCoordinate]):
+     break
+   SetPawn[RandomTileCoordinate]
 ```
 
 This function succeeds if and only if:
@@ -123,13 +123,13 @@ using { UtilityFunctions }
 
 board<public> := class(creative_device):
 
-	...
+ ...
 
-	OnBegin<override>()<suspends>:void =
-		if (PlacePawns[]):
-			# Pawns successfully placed
-		else:
-			# Error!
+ OnBegin<override>()<suspends>:void =
+  if (PlacePawns[]):
+   # Pawns successfully placed
+  else:
+   # Error!
 ```
 
 ## Summary
@@ -146,37 +146,37 @@ using { /Verse.org/Random }
 
 DataTypes<public> := module:
 
-	tile_coordinate<public> := class<concrete>:
-		@editable
-		Left<public>:int = 0
-		@editable
-		Forward<public>:int = 0
+ tile_coordinate<public> := class<concrete>:
+  @editable
+  Left<public>:int = 0
+  @editable
+  Forward<public>:int = 0
 
-	bounds<public> := class<concrete>:
-		@editable
-		Low<public>:int = 0
-		@editable
-		High<public>:int = 0
+ bounds<public> := class<concrete>:
+  @editable
+  Low<public>:int = 0
+  @editable
+  High<public>:int = 0
 
-	board_bounds<public> := class<concrete>:
-		@editable
-		LeftBounds<public>:bounds = bounds{}
-		@editable
-		ForwardBounds<public>:bounds = bounds{}
+ board_bounds<public> := class<concrete>:
+  @editable
+  LeftBounds<public>:bounds = bounds{}
+  @editable
+  ForwardBounds<public>:bounds = bounds{}
 
 UtilityFunctions<public> := module:
 
-	AreTileCoordinatesEqual<public>(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<decides><transacts>:void =
-		LeftTileCoordinate.Left = RightTileCoordinate.Left
-		LeftTileCoordinate.Right = RightTileCoordinate.Right
+ AreTileCoordinatesEqual<public>(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<decides><transacts>:void =
+  LeftTileCoordinate.Left = RightTileCoordinate.Left
+  LeftTileCoordinate.Right = RightTileCoordinate.Right
 
-	GenerateUniformRandomTileCoordinate<public>(BoardBounds:board_bounds)<transacts>:tile_coordinate =
-		tile_coordinate:
-			Left := GetRandomInt(BoardBounds.LeftBounds.Low, BoardBounds.LeftBounds.High)
-			Forward := GetRandomInt(BoardBounds.ForwardBounds.Low, BoardBounds.ForwardBounds.High)
+ GenerateUniformRandomTileCoordinate<public>(BoardBounds:board_bounds)<transacts>:tile_coordinate =
+  tile_coordinate:
+   Left := GetRandomInt(BoardBounds.LeftBounds.Low, BoardBounds.LeftBounds.High)
+   Forward := GetRandomInt(BoardBounds.ForwardBounds.Low, BoardBounds.ForwardBounds.High)
 
-	NumberOfTileCoordinates<public>(BoardBounds:board_bounds)<transacts>:int =
-		(BoardBounds.LeftBounds.High - BoardBounds.LeftBounds.Low) * (BoardBounds.ForwardBounds.High - BoardBounds.ForwardBounds.Low)
+ NumberOfTileCoordinates<public>(BoardBounds:board_bounds)<transacts>:int =
+  (BoardBounds.LeftBounds.High - BoardBounds.LeftBounds.Low) * (BoardBounds.ForwardBounds.High - BoardBounds.ForwardBounds.Low)
 ```
 
 ```verse
@@ -192,123 +192,123 @@ board<public> := class(creative_device):
 
 <# Fields #>
 
-	@editable
-	Bounds<public>:board_bounds = board_bounds{}
+ @editable
+ Bounds<public>:board_bounds = board_bounds{}
 
-	@editable
-	TileSize<public>:vector2 = vector2{}
+ @editable
+ TileSize<public>:vector2 = vector2{}
 
-	@editable
-	PawnStaticMesh:?mesh = false
+ @editable
+ PawnStaticMesh:?mesh = false
 
-	@editable
-	NumberOfPawns:int = 5
+ @editable
+ NumberOfPawns:int = 5
 
-	var<private> Pawns:[]creative_prop = array{}
+ var<private> Pawns:[]creative_prop = array{}
 
 <# Tile <--> World #>
 
-	# tile_coordinate within board_bounds
-	IsTileCoordinateOnBoard<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
-		Bounds.LeftBounds.Low <= TileCoordinate.Left <= Bounds.LeftBounds.High
-		Bounds.ForwardBounds.Low <= TileCoordinate.Forward <= Bounds.ForwardBounds.High
+ # tile_coordinate within board_bounds
+ IsTileCoordinateOnBoard<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
+  Bounds.LeftBounds.Low <= TileCoordinate.Left <= Bounds.LeftBounds.High
+  Bounds.ForwardBounds.Low <= TileCoordinate.Forward <= Bounds.ForwardBounds.High
 
-	# tile_coordinate -> vector3
+ # tile_coordinate -> vector3
 ToVector3<public>(TileLocation:tile_coordinate)<decides><transacts>:vector3 =
 IsTileCoordinateOnBoard[TileLocation]
-		BoardTransform:transform = GetTransform()
-		CenterOfBoard:vector3 = BoardTransform.Translation
-		TileOffsetFromCenter:vector3 = vector3:
-			X := (TileLocation.Forward * TileSize.X)
-			Y := (-TileLocation.Left * TileSize.Y)
-			Z := 0.0
-		CenterOfBoard + TileOffsetFromCenter
+  BoardTransform:transform = GetTransform()
+  CenterOfBoard:vector3 = BoardTransform.Translation
+  TileOffsetFromCenter:vector3 = vector3:
+   X := (TileLocation.Forward * TileSize.X)
+   Y := (-TileLocation.Left * TileSize.Y)
+   Z := 0.0
+  CenterOfBoard + TileOffsetFromCenter
 
-	# vector3 -> tile_coordinate
-	ToTileCoordinate<public>(WorldLocation:vector3)<decides><transacts>:tile_coordinate =
-		BoardTransform:transform = GetTransform()
-		CenterOfBoard:vector3 = BoardTransform.Translation
-		ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
-		LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
-			Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
-			Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
-		IsTileCoordinateOnBoard[LocationAsTileCoordinate]
-		LocationAsTileCoordinate
+ # vector3 -> tile_coordinate
+ ToTileCoordinate<public>(WorldLocation:vector3)<decides><transacts>:tile_coordinate =
+  BoardTransform:transform = GetTransform()
+  CenterOfBoard:vector3 = BoardTransform.Translation
+  ShiftedWorldLocation:vector3 = WorldLocation - CenterOfBoard
+  LocationAsTileCoordinate:tile_coordinate = tile_coordinate:
+   Left := Floor[-ShiftedWorldLocation.Y / TileSize.Y]
+   Forward := Floor[ShiftedWorldLocation.X / TileSize.X]
+  IsTileCoordinateOnBoard[LocationAsTileCoordinate]
+  LocationAsTileCoordinate
 
 <# Pawns #>
 
-	GetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:creative_prop =
-		# Find all pawns at the input location
-		FoundPawns := for:
-			Pawn : Pawns
-			PawnWorldTransform := Pawn.GetTransform()
-			PawnWorldLocation := PawnWorldTransform.Translation
-			PawnTileCoordinate := ToTileCoordinate[PawnWorldLocation]
-			AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
-		do:
-			Pawn
+ GetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:creative_prop =
+  # Find all pawns at the input location
+  FoundPawns := for:
+   Pawn : Pawns
+   PawnWorldTransform := Pawn.GetTransform()
+   PawnWorldLocation := PawnWorldTransform.Translation
+   PawnTileCoordinate := ToTileCoordinate[PawnWorldLocation]
+   AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
+  do:
+   Pawn
 
-		# Ensure there is only one there
-		FoundPawns.Length = 1
-		
-		# Return the only pawn at the input location
-		FoundPawns[0]
+  # Ensure there is only one there
+  FoundPawns.Length = 1
+  
+  # Return the only pawn at the input location
+  FoundPawns[0]
 
-	SetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
-		# Are there any pawns at the input location?
-		FoundPawns := for:
-			Pawn : Pawns
-			PawnWorldTransform := Pawn.GetTransform()
-			PawnWorldLocation := PawnWorldTransform.Translation
-			PawnTileCoordinate := ToTileCoordinate[PawnWorldLocation]
-			AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
-		do:
-			Pawn
+ SetPawn<public>(TileCoordinate:tile_coordinate)<decides><transacts>:void =
+  # Are there any pawns at the input location?
+  FoundPawns := for:
+   Pawn : Pawns
+   PawnWorldTransform := Pawn.GetTransform()
+   PawnWorldLocation := PawnWorldTransform.Translation
+   PawnTileCoordinate := ToTileCoordinate[PawnWorldLocation]
+   AreCoordinatesEqual[PawnTileCoordinate, TileCoordinate]
+  do:
+   Pawn
 
-		# Ensure there are no pawns there already
-		FoundPawns.Length = 0
-		
-		# Construct the pawn
-		PawnMesh := PawnStaticMesh?
-		PawnWorldLocation := ToVector3[TileCoordinate]
-		PawnSpawnResult := SpawnProp(DefaultCreativePropAsset, PawnWorldLocation, IdentityRotation())
-		PawnPropTemp := PawnSpawnResult(0)?
+  # Ensure there are no pawns there already
+  FoundPawns.Length = 0
+  
+  # Construct the pawn
+  PawnMesh := PawnStaticMesh?
+  PawnWorldLocation := ToVector3[TileCoordinate]
+  PawnSpawnResult := SpawnProp(DefaultCreativePropAsset, PawnWorldLocation, IdentityRotation())
+  PawnPropTemp := PawnSpawnResult(0)?
 PawnMesh := PawnStaticMesh?
-		PawnPropTemp.SetMesh(PawnMesh)
-		
-		# Add pawn to pawns array
-		set Pawns += array{PawnPropTemp}
+  PawnPropTemp.SetMesh(PawnMesh)
+  
+  # Add pawn to pawns array
+  set Pawns += array{PawnPropTemp}
 
-	RemovePawn<public>(PawnToRemove:creative_prop)<decides><transacts>:void =
-		# Props are not comparable, get all props but the one to remove
-		RemainingPawns := for:
-			Pawn : Pawns
-			PawnTileCoordinate := GetTileCoordinate[Pawn]
-			PawnToRemoveTileCoordinate := GetTileCoordinate[PawnToRemove]
-			not AreTileCoordinatesEqual[PawnTileCoordinate, PawnToRemoveTileCoordinate]
-		do:
-			Pawn
-	
-		# Ensure remaining pawns is 1 less than before
-		RemainingPawns.Length = Pawns.Length - 1
-	
-		# Update Pawns array and dispose of pawn
-		set Pawns = RemainingPawns
-		PawnToRemove.Dispose()
+ RemovePawn<public>(PawnToRemove:creative_prop)<decides><transacts>:void =
+  # Props are not comparable, get all props but the one to remove
+  RemainingPawns := for:
+   Pawn : Pawns
+   PawnTileCoordinate := GetTileCoordinate[Pawn]
+   PawnToRemoveTileCoordinate := GetTileCoordinate[PawnToRemove]
+   not AreTileCoordinatesEqual[PawnTileCoordinate, PawnToRemoveTileCoordinate]
+  do:
+   Pawn
+ 
+  # Ensure remaining pawns is 1 less than before
+  RemainingPawns.Length = Pawns.Length - 1
+ 
+  # Update Pawns array and dispose of pawn
+  set Pawns = RemainingPawns
+  PawnToRemove.Dispose()
 
-	PlacePawns<public>()<decides><transacts>:void =
-		NumberOfPawns < NumberOfTileCoordinates(Bounds)
-		for (PawnIndex := 0..NumberOfPawns):
-			var RandomTileCoordinate:tile_coordinate = tile_coordinate{}
-			loop:
-				set RandomTileCoordinate = GenerateUniformRandomTileCoordinate(Bounds)
-				if (not GetPawn[RandomTileCoordinate]):
-					break
-			SetPawn[RandomTileCoordinate]
+ PlacePawns<public>()<decides><transacts>:void =
+  NumberOfPawns < NumberOfTileCoordinates(Bounds)
+  for (PawnIndex := 0..NumberOfPawns):
+   var RandomTileCoordinate:tile_coordinate = tile_coordinate{}
+   loop:
+    set RandomTileCoordinate = GenerateUniformRandomTileCoordinate(Bounds)
+    if (not GetPawn[RandomTileCoordinate]):
+     break
+   SetPawn[RandomTileCoordinate]
 
 <# Events #>
 
-	OnBegin<override>()<suspends>:void =
-		if (PlacePawns[]):
-			# Pawns successfully placed
+ OnBegin<override>()<suspends>:void =
+  if (PlacePawns[]):
+   # Pawns successfully placed
 ```

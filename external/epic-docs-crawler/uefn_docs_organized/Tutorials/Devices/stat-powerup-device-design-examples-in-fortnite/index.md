@@ -1,6 +1,6 @@
 # Stat Powerup Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stat-powerup-device-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stat-powerup-device-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:05:10.708293
 
 ---
@@ -67,6 +67,7 @@ In this example, you’ll use the **infinite effect** functionality to keep trac
    | Option | Value | Description |
    | --- | --- | --- |
    | Target Intensity | 5,000.0 | This will give the grind rail a natural curve as you place more Control Points. |
+
 5. Duplicate this control point a number of times to create a grind rail that snakes between the buildings in the city.
 
 ### Configure the Custom Stat
@@ -80,6 +81,7 @@ In this example, you’ll use the **infinite effect** functionality to keep trac
    | Stat Name | Grid Score |
    | Max Value | 100 |
    | Stat Icon | Sprint |
+
 2. Place a **Stat Powerup** device in a place where the player cannot reach it, and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b988f1da-157a-4a9d-98bc-221e37de7476?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b988f1da-157a-4a9d-98bc-221e37de7476?resizing_type=fit)
@@ -91,6 +93,7 @@ In this example, you’ll use the **infinite effect** functionality to keep trac
    | Infinite Effect Duration | Yes |
    | Time To Respawn | Instant |
    | Who Can See This Powerup | None |
+
 3. Configure the following functions on the Stat Powerup device so that it starts to increase the player’s **Grind Score** when they begin grinding and stops when they leave the grind rail:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/96d4c0b4-c154-4887-9484-71066761c2cb?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/96d4c0b4-c154-4887-9484-71066761c2cb?resizing_type=fit)
@@ -99,6 +102,7 @@ In this example, you’ll use the **infinite effect** functionality to keep trac
    | --- | --- | --- |
    | Pickup | Grind Rail | On Started Grinding |
    | Clear | Grind Rail | On Ended Grinding |
+
 4. Place an **Item Granter** device and register a **Jules Glider Gun** to it.
 5. Configure the following event on the Stat Creator device to grant the Jules Glider Gun when the player reaches the maximum Grind Score value.
 
@@ -154,6 +158,7 @@ The Stat Powerup device can also be configured to **decrease** a player’s stat
    | Max Value | 100 |
    | Stat Color | #0000FF |
    | Stat Icon | Hack |
+
 2. Place a **Stat Powerup** device in a place that the player cannot reach.
 3. Customize the **Stat Powerup** device:
 
@@ -167,12 +172,14 @@ The Stat Powerup device can also be configured to **decrease** a player’s stat
    | Ambient Audio | Off |
    | Pick Up Audio | Off |
    | Who Can See This Powerup | None |
+
 4. Configure the following event on the **Player Spawner** device so that the **Stat Powerup** device is active from the beginning of the game:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/1ba840b4-28f3-4e45-9e97-b015c029f217?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1ba840b4-28f3-4e45-9e97-b015c029f217?resizing_type=fit)
 
    | Event | Select Device | Select Function |
    | --- | --- | --- |
+
 5. Place a **Stat Counter** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/11b5c10a-47ab-4f20-8b21-8e2c6ea29ab3?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/11b5c10a-47ab-4f20-8b21-8e2c6ea29ab3?resizing_type=fit)
@@ -185,6 +192,7 @@ The Stat Powerup device can also be configured to **decrease** a player’s stat
    | Value Override Type | Add |
    | Value Override | 10 |
    | Visible in Game | No |
+
 6. Configure the following event on the **Stat Counter** device so that when the player reaches a **Hacking Completion** value of **100**, the stat stops going down and the door leading outside opens:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/e3d90974-e415-4b5f-9fd0-ef55f6aa0eb8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e3d90974-e415-4b5f-9fd0-ef55f6aa0eb8?resizing_type=fit)
@@ -204,6 +212,7 @@ The Stat Powerup device can also be configured to **decrease** a player’s stat
    | --- | --- |
    | Header Text | Hack |
    | Scrubber Color | White |
+
 2. Configure the following event on the Skilled Interaction device to add to the **Hacking Completion** stat if the player successfully completes the skilled interaction. If their input was perfect, it will trigger again, doubling the effect!
 
    [![](https://dev.epicgames.com/community/api/documentation/image/de5c195f-f501-41b8-85bf-5d59930bf09d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/de5c195f-f501-41b8-85bf-5d59930bf09d?resizing_type=fit)
@@ -214,6 +223,7 @@ The Stat Powerup device can also be configured to **decrease** a player’s stat
    | --- | --- | --- |
    | On Success | Stat Counter | Override Value |
    | On Perfect Input | Stat Counter | Override Value |
+
 3. Place a **Button** device inside the orange monitor in the starting room and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/04bc908c-8eae-4617-a9dc-9873633ec72a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/04bc908c-8eae-4617-a9dc-9873633ec72a?resizing_type=fit)
@@ -224,6 +234,7 @@ The Stat Powerup device can also be configured to **decrease** a player’s stat
    | Interaction Text | Hack |
    | Visible During Game | No |
    | Interaction Radius | 1.0 Meters |
+
 4. Configure the following event on the **Button** device to trigger the **Skilled Interaction** device when it is interacted with.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/5959297c-323b-4814-bb8b-2cb37e887197?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/5959297c-323b-4814-bb8b-2cb37e887197?resizing_type=fit)
@@ -231,6 +242,7 @@ The Stat Powerup device can also be configured to **decrease** a player’s stat
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Interact | Skilled Interaction Device | Begin Interaction for Instigator |
+
 5. Duplicate the button three more times, placing each one inside a different orange monitor around the area.
 
 You now have a working hacking minigame with the Stat Powerup device!

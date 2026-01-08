@@ -1,6 +1,6 @@
 # item_signal_remote_b class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_signal_remote_b
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_signal_remote_b>
 > **爬取时间**: 2025-12-27T03:53:59.148990
 
 ---

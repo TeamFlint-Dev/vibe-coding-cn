@@ -1,6 +1,6 @@
 # GetOptionDescription function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vote_option_device/getoptiondescription
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vote_option_device/getoptiondescription>
 > **爬取时间**: 2025-12-27T06:55:30.820802
 
 ---

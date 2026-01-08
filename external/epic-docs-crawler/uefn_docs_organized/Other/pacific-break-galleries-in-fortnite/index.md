@@ -1,6 +1,6 @@
 # Pacific Break Galleries
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/pacific-break-galleries-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/pacific-break-galleries-in-fortnite>
 > **爬取时间**: 2025-12-26T23:13:38.265458
 
 ---
@@ -16,7 +16,7 @@ The assets are available in the following locations:
 
 In UEFN, you can access specific foliage, decals, and landscape textures that are used throughout the Pacific Break theme map in Chapter Seven. Create a beautiful landscape with textures and foliage, and leave a mark on the map with unique graffiti decals.
 
-This page is a visual guide to help you find the theme assets you need to design your island. 
+This page is a visual guide to help you find the theme assets you need to design your island.
 
 **Known Issue:**In UEFN, you can see glass on some gallery assets, like windows, in the editor. However, the glass does not render in-game; that is, players will not see it.
 

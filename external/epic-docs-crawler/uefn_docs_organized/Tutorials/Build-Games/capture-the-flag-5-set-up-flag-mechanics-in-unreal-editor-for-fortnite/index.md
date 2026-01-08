@@ -1,6 +1,6 @@
 # 5. Set Up Flag Mechanics
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-5-set-up-flag-mechanics-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-5-set-up-flag-mechanics-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:16:51.398127
 
 ---
@@ -95,6 +95,6 @@ The HUD Controller device turns the HUD UI elements on or off. You can place thi
 
 [![6. Make the Pre-Game Lobby](https://dev.epicgames.com/community/api/documentation/image/2a79b24e-41c1-4d6b-9799-0b6550acf325?resizing_type=fit&width=640&height=640)
 
-6. Make the Pre-Game Lobby
+1. Make the Pre-Game Lobby
 
-Create a pre-game lobby where players will spawn before the start of the match.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-6-make-the-pregame-lobby-in-unreal-editor-for-fortnite)
+Create a pre-game lobby where players will spawn before the start of the match.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-6-make-the-pregame-lobby-in-unreal-editor-for-fortnite>)

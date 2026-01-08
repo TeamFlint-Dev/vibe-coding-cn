@@ -4,3 +4,15 @@ Core/skills/_templates/
 # Backup and temporary files
 *.bak
 *.tmp
+
+# Third-party / vendored content
+**/node_modules/**
+
+# Tooling references and snapshots (not maintained as first-party docs)
+tools/reference/**
+
+# Raw upstream workflow/library snapshots
+skills/github/ghAgenticWorkflows/shared/gh-aw-raw/**
+
+# Prompt assets (often contain JSON/long lines and non-doc formatting)
+resources/prompts/**

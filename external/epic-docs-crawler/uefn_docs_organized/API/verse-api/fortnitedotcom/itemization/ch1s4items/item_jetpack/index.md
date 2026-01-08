@@ -1,6 +1,6 @@
 # item_jetpack class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s4items/item_jetpack
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s4items/item_jetpack>
 > **爬取时间**: 2025-12-27T03:56:52.557149
 
 ---

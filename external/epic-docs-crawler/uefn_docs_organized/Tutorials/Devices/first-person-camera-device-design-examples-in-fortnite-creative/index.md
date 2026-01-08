@@ -1,6 +1,6 @@
 # First Person Camera Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/first-person-camera-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/first-person-camera-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:06:44.888794
 
 ---
@@ -126,7 +126,7 @@ Experiment with this setting until you find what works for you.
 
 You've barely scratched the surface of what is possible with this exciting new device. Try using it in your own islands to create exciting new experiences for your players!
 
-## Example 3: Build A Co-op Haunted House!
+## Example 3: Build A Co-op Haunted House
 
 In this example, you will use the First Person Camera device to build a spooky haunted house for two players to explore in co-op gameplay.
 
@@ -179,6 +179,7 @@ Let's get started!
    | **Class Name** | Treasure Hunter | The name used throughout, including the modified name of the device itself. |
    | **Grant Items on Respawn** | Yes | If a player is eliminated, they will respawn with the same item granted. |
    | **Equip Granted Item** | First Item | Player is equipped with the first item registered to the device. |
+
 4. Register the starting items for the class by dropping them onto the Class Designer device. This example uses the **Flashlight** found on the **Items** category under the **Content browser**, and the rare (blue) **Lever Action Shotgun**, found under **Weapons**.
 
    Drop these assets in the order above (Flashlight, then Lever Action Shotgun). If they aren't in that sequence, you can change the **Equip Granted Item** setting on the class identifier to select the Flashlight instead.
@@ -264,6 +265,7 @@ Building the haunted house is easy, thanks to **[Prefabs and Galleries](https://
    | **Toggle Icon on Use** | On | Allows the device to toggle between main and alt icons based on user interaction. |
    | **Disable After Use** | On | Once activated, the device disables until triggered. |
    | **Show Key Item** | Key and Icon | This displays both the icon and the item that is registered as the key. |
+
 5. Register a **Jewel** object by dropping it on the Conditional Button device. (You can find this llama-shaped Jewel under the **Items** category on the **Contents** tab.)
 
    [![](https://dev.epicgames.com/community/api/documentation/image/1058dc1e-750a-4ec4-9994-305759b8ecaa?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1058dc1e-750a-4ec4-9994-305759b8ecaa?resizing_type=fit)
@@ -287,6 +289,7 @@ You can also use **Audio Player** devices and **Trigger** devices to add a spook
    | **Audio** | Threat | This is an ominous sound. |
    | **Volume** | 2.0 | Loud enough to impinge without overwhelming. |
    | **Play Location** | Registered Players | This plays the sound near the players. |
+
 3. Name the second audio player **Audio Halloween Secret** then customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/0884d17c-e6e2-4b0e-a894-9bc80a5e20f4?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/0884d17c-e6e2-4b0e-a894-9bc80a5e20f4?resizing_type=fit)
@@ -297,6 +300,7 @@ You can also use **Audio Player** devices and **Trigger** devices to add a spook
    | **Volume** | 3.0 | This is slightly louder than the previous sound. |
    | **Can Be Heard By** | Instigator Only | Only the triggering player (the instigator) will hear the sound. |
    | **Play Location** | Instigating Player | Plays near the instigator. |
+
 4. Name the third audio device **Halloween Ghosts** and customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/eb69082d-1818-453a-be80-852171065957?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/eb69082d-1818-453a-be80-852171065957?resizing_type=fit)
@@ -306,6 +310,7 @@ You can also use **Audio Player** devices and **Trigger** devices to add a spook
    | **Audio** | Halloween Ghosts | A different sound. |
    | **Can Be Heard By** | Instigator Only | Only the triggering player (the instigator) will hear the sound. |
    | **Play Location** | Instigating Player | Plays near the instigator. |
+
 5. Add some **Trigger** devices in strategic places throughout the haunted house to play scary sound effects when the players walk over them.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/2dc0a3b9-6ed6-47b8-b4a0-cd832cfd9895?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2dc0a3b9-6ed6-47b8-b4a0-cd832cfd9895?resizing_type=fit)
@@ -323,6 +328,7 @@ You can also use **Audio Player** devices and **Trigger** devices to add a spook
    | **Triggered by Water** | Off | Only players can trigger the device. |
    | **Trigger VFX** | Off | Visual effects won't be triggered. |
    | **Trigger SFX** | Off | Sound effects won't be triggered. |
+
 7. Bind the trigger to play Audio Halloween Ghosts when the trigger is activated.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/0ef1fe72-4b6c-45d1-aa39-188b0c167112?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/0ef1fe72-4b6c-45d1-aa39-188b0c167112?resizing_type=fit)
@@ -352,6 +358,7 @@ You will also use the **Conditional Button** devices to add monsters in your tre
    | **Despawn Type** | Distance to Spawner | The spawning is based on the player's proximity. |
    | **Despawn Range** | 4.0 Tiles | How great of a distance triggers the despawn. |
    | **Restore Player Shield on Elimination** | Off | The player's shield does not restore if the creature eliminates the player. |
+
 3. Configure the creature placer to activate when the conditional button opens the treasure room door.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/87b055e0-8fd5-4d32-916d-11379e295eab?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/87b055e0-8fd5-4d32-916d-11379e295eab?resizing_type=fit)
@@ -359,6 +366,7 @@ You will also use the **Conditional Button** devices to add monsters in your tre
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Enable When Receiving From** | Conditional Button F | On Activated |
+
 4. Repeat the binding for all Creature Placer devices with the associated Conditional Button devices for each room.
 
 ### Add Chests
@@ -371,7 +379,7 @@ You might also want to add chests in other hidden places in the haunted house.
 
 You can add items to a chest then place the chest from the Creative Menu.
 
-### Make Things Look Spooky!
+### Make Things Look Spooky
 
 With a few final tweaks, you can transform the look of your island into a setting right out of your favorite scary movie!
 
@@ -390,6 +398,7 @@ Do this by adjusting some of the settings in the Island Settings menu.
    | **Character Rimlight Intensity** | 0 | Rimlights (backlighting that creates a halo around an illuminated object) have no intensity. |
    | **Fog Thickness** | 50 percent | Covers the island in a fog. |
    | **Fog Color** | Black | Makes the fog even more ominous. |
+
 2. To add even more spooky ambiance, place a **Customizable Light** device inside each treasure room, then customize.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/d57dd0fc-b952-41eb-8b52-d1b8ab99ac91?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d57dd0fc-b952-41eb-8b52-d1b8ab99ac91?resizing_type=fit)

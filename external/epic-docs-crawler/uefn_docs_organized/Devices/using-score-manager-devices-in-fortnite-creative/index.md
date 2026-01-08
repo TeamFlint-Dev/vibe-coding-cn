@@ -1,6 +1,6 @@
 # Score Manager Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-score-manager-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-score-manager-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:47:43.943781
 
 ---
@@ -88,10 +88,10 @@ An [event](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creat
 
 Dungeon Crawler Example
 
-Use Capture Areas to create zones that teams must capture and hold to gain points.](https://dev.epicgames.com/documentation/en-us/fortnite/dungeon-crawler-gameplay-example-in-fortnite-creative)[![Top Scorer In Class](https://dev.epicgames.com/community/api/documentation/image/782e9cbf-5056-400c-8660-03a565fdd808?resizing_type=fit&width=640&height=640)
+Use Capture Areas to create zones that teams must capture and hold to gain points.](<https://dev.epicgames.com/documentation/en-us/fortnite/dungeon-crawler-gameplay-example-in-fortnite-creative)[![Top> Scorer In Class](<https://dev.epicgames.com/community/api/documentation/image/782e9cbf-5056-400c-8660-03a565fdd808?resizing_type=fit&width=640&height=640>)
 
 Top Scorer In Class
 
-Use the Class Designer and other devices to create player classes with different abilities.](https://dev.epicgames.com/documentation/en-us/fortnite/top-scorer-in-class-in-fortnite-creative)
+Use the Class Designer and other devices to create player classes with different abilities.](<https://dev.epicgames.com/documentation/en-us/fortnite/top-scorer-in-class-in-fortnite-creative>)
 
 [**Event Browser**](https://dev.epicgames.com/edc/manage/assets/event-browser-in-fortnite-creative)

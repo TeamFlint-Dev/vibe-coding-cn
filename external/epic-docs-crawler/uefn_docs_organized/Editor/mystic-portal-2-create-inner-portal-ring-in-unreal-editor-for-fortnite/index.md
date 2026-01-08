@@ -1,6 +1,6 @@
 # 2. Create Inner Portal Ring
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-2-create-inner-portal-ring-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-2-create-inner-portal-ring-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:41:03.717477
 
 ---
@@ -104,6 +104,6 @@ The next step of the effect is to create the portal inside the ring. This requir
 
 [![3. Create a Portal Material](https://dev.epicgames.com/community/api/documentation/image/ebe466b1-2039-44dc-9026-0b2838308e09?resizing_type=fit&width=640&height=640)
 
-3. Create a Portal Material
+1. Create a Portal Material
 
-Create and edit the refraction material for your mystical portal.](https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-3-create-portal-material-in-unreal-editor-for-fortnite)
+Create and edit the refraction material for your mystical portal.](<https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-3-create-portal-material-in-unreal-editor-for-fortnite>)

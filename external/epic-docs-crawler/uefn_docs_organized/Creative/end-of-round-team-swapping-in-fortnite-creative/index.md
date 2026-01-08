@@ -1,6 +1,6 @@
 # End of Round Team Swapping
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/end-of-round-team-swapping-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/end-of-round-team-swapping-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:26:13.314270
 
 ---
@@ -47,6 +47,7 @@ For this example, you will need:
    | **Equip Granted Item** | **First Item** | Grants the first item available to the player. |
    | **Infinite Ammo** | **On** | Gives unlimited ammo to the player. |
    | **End Round When Receiving From** | **Channel 3** | When the creature is eliminated, it sends a signal to the Teams Settings & Inventory device and the signal ends the round. |
+
 6. Edit the **Team Number** for each additional trap device to **Team 2**, **Team 3** and **Team 4**.
 7. Edit **End Round When Receiving From** options for each additional trap devices to **Channel 6**, **Channel 9**, and **Channel 12**.
 8. Add a weapon to the first device by standing on the trap device then clicking **Tab** to enter the Creative Inventory again.
@@ -86,6 +87,7 @@ Any options not mentioned in the instructions below should be left at their defa
    | **Team** | **Team 1** | Sets the Player Spawn pad for Team 1. |
    | **Visible During Games** | **No** | Makes the Player Spawn pad invisible during the game. |
    | **When Player Spawns Transmit On** | **Channel 1** | When the player spawns into the game, a signal is sent to the Round Settings device. |
+
 6. Copy and paste four more Player Spawn Pads beside the first and edit their transmission options to **Channel 4**, **Channel 7**, and **Channel 10**.
 
 ### Placing the Round Settings Device
@@ -105,6 +107,7 @@ Any options not mentioned in the instructions below should be left at their defa
    | **Keep Items Between Rounds** | **No** | Does not allow the player to keep items from round one after round one is over. |
    | **End Round When Receiving From** | **Channel 3** | When the creature is eliminated it sends a signal to the device to end the round. |
    | **On Round Start Transmit On** | **Channel 3** | Sends a signal to the Creature Placer device to spawn a creature. |
+
 3. Copy and place three more Round Settings devices and edit their Round options to **2**, **3**, and **4**. Next, edit the following options for the devices:
 
    1. Edit their **Enable When Receiving From** options to **Channel 4**, **Channel 7**, and **Channel 10**.
@@ -129,6 +132,7 @@ Any options not mentioned in the instructions below should be left at their defa
    | **Activate on Game Phase** | **Never** | The creatures won’t spawn unless a signal tells the Creature Placer to spawn a creature. |
    | **Spawn When Receiving From** | **Channel 2** | The Round Settings device sends a signal to the Creature Placer device to spawn a creature. |
    | **When Eliminated Transmit On** | **Channel 3** | Sends a signal to the **Round Settings device** and the **Team Settings & Inventory trap device** that the creature is eliminated and the round is over. |
+
 3. Copy and place three more Creature Placer devices and edit their **Creature Type** options to a different creature type. Continue to edit the following options:
 
    1. Edit their **Spawn When Receiving From** options to **Channel 5**, **Channel 8**, and **Channel 11**.

@@ -1,6 +1,6 @@
 # 2. The Guard Alert System
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-2-the-guard-alert-system-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-2-the-guard-alert-system-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:15:10.739938
 
 ---
@@ -109,6 +109,6 @@ There is a separate trigger to check all of the states of the switches so that w
 
 [![3. The Sneak Phase](https://dev.epicgames.com/community/api/documentation/image/22ae824a-022a-4a5f-8430-fe21088b0aeb?resizing_type=fit&width=640&height=640)
 
-3. The Sneak Phase
+1. The Sneak Phase
 
-See how to set up the sneak phase of the Yacht Heist.](https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-3-the-sneak-phase-in-fortnite-creative)
+See how to set up the sneak phase of the Yacht Heist.](<https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-3-the-sneak-phase-in-fortnite-creative>)

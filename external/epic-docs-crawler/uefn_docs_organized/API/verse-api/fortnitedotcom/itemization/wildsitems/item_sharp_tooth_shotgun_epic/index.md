@@ -1,6 +1,6 @@
 # item_sharp_tooth_shotgun_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_sharp_tooth_shotgun_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_sharp_tooth_shotgun_epic>
 > **爬取时间**: 2025-12-27T04:12:07.331840
 
 ---

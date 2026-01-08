@@ -1,6 +1,6 @@
 # GetDesiredSize function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/color_block/getdesiredsize
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/color_block/getdesiredsize>
 > **爬取时间**: 2025-12-27T07:14:51.034122
 
 ---

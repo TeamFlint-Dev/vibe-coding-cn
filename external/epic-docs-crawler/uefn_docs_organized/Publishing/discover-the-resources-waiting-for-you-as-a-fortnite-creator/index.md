@@ -1,6 +1,6 @@
-# Discover the Resources Waiting for You as a Fortnite Creator!
+# Discover the Resources Waiting for You as a Fortnite Creator
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/discover-the-resources-waiting-for-you-as-a-fortnite-creator
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/discover-the-resources-waiting-for-you-as-a-fortnite-creator>
 > **爬取时间**: 2025-12-26T22:57:23.313979
 
 ---
@@ -19,7 +19,7 @@ This page gives you a quick view of each layer of game development, and how to b
 
 Ready to get your game on? This Epic adventure is powered by your imagination!
 
-## First Stop: Fortnite Creative!
+## First Stop: Fortnite Creative
 
 **Your island, your game, your rules!**
 
@@ -59,7 +59,7 @@ Educators around the world are finding ways to bring Fortnite into the classroom
 
 Got an idea for an interactive 3D lesson? [Look here for inspiration](https://www.fortnite.com/en-US/creative/docs/education-in-fortnite-creative)!
 
-### Be an Island Creator!
+### Be an Island Creator
 
 To get started, [download Fortnite](https://store.epicgames.com/en-US/p/fortnite) if you don't have it already.
 
@@ -81,7 +81,7 @@ The [Fortnite Creative documentation](https://www.fortnite.com/en-US/creative/do
 
 Follow step-by-step tutorials on building games, or look over the device pages for inspiration. Watch a video, explore a sample game mechanic — find tons of info for mastering Fortnite Creative!
 
-## Next Up: Unreal Editor for Fortnite!
+## Next Up: Unreal Editor for Fortnite
 
 **Unreal Editor for Fortnite (UEFN)** is a PC application for designing, developing and publishing games directly into Fortnite.
 
@@ -138,7 +138,7 @@ You’ll find familiar Unreal Engine features, such as:
 
 You’ll need to get familiar with **devices** (the primary building blocks for authoring game mechanics) as well as the **Verse programming language**, which you can use to customize those devices. But no worries, there's an array of [learning resources](https://dev.epicgames.com/documentation/en-us/fortnite/build-your-first-island-in-fortnite) to get you up to speed quickly.
 
-### UEFN Is for Everyone!
+### UEFN Is for Everyone
 
 If you’re new to both UE and UEFN, again, no worries! From novice to sage, there's a level of learning to help you climb from where you are to where you want to be.
 
@@ -176,7 +176,7 @@ There are also links to glossary definitions throughout the user instructions an
 
 Follow the onboarding paths for UEFN, then jump right in to a tutorial or two to see how the pieces fit together.
 
-## Adding Verse to the Fortnite Mix!
+## Adding Verse to the Fortnite Mix
 
 As you familiarize yourself with the UEFN pages available, you’ll discover something interesting — which is all the places where the **Verse programming language** fits right in with customizing your gameplay.
 

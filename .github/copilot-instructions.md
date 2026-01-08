@@ -25,12 +25,6 @@ tools/verseCompiler/           # Verse 远程编译服务
 
 ## 核心命令
 
-### 文档质量检查
-```bash
-make lint          # 使用 markdownlint-cli 验证所有 Markdown
-                   # 提交任何 .md 文件前必须运行
-```
-
 ### Verse 远程编译（关键）
 **编写或修改任何 Verse 代码后，必须验证编译。**
 
@@ -152,7 +146,6 @@ fix: Core – correct skill index references
 ## 提交前检查清单
 
 ```bash
-make lint                          # 通过 Markdown 验证
 # 确保目录使用驼峰命名
 # 新 Skill 包含完整的 SKILL.md
 # 确认没有临时文件或密钥
@@ -241,8 +234,7 @@ reports/task-completion/YYYY-MM/YYYYMMDD-HHMMSS-{任务简述}.md
 
 1. 为未完成工作创建 Issue
 2. **为遇到的困难/错误创建 Issue**——它们值得研究
-3. 运行质量检查（`make lint`）
-4. **必须推送到远程**：
+3. **必须推送到远程**：
 
 ```bash
 git pull --rebase

@@ -1,6 +1,6 @@
 # (Rotation:rotation).GetLocalUp extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/getlocalup
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/getlocalup>
 > **爬取时间**: 2025-12-27T02:34:02.954346
 
 ---

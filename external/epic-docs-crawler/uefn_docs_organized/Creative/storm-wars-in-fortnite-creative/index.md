@@ -1,6 +1,6 @@
 # Storm Wars
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/storm-wars-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/storm-wars-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:28:05.976095
 
 ---
@@ -43,6 +43,7 @@ Each of the devices you need for this gameplay example is described below.
    | --- | --- | --- |
    | **Generate Storm on Game Start** | No | Each Basic Storm Controller device should be enabled on a signal rather than on Game Start. |
    | **Generate Storm When receiving From** | Channel 1 / 2 / 3 / 4 | This sets what channel will trigger the Basic Storm Controller device. |
+
 6. Copy the first Basic Storm Controller then place 3 more in separate locations around the island. This will [spawn](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#spawning) a new storm in a new location at the start of each round.
 7. Edit the second Basic Storm Controller’s **Generate Storm When Receiving From** option to **Channel 2**. Similarly, for the next 2 Basic Storm Controller devices, set one to **Channel 3**, the other to **Channel 4**.
 
@@ -85,6 +86,7 @@ Each of the devices you need for this gameplay example is described below.
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **\*When Triggered Transmit On** | Channel 1 | The RNG randomly triggers one of the Trigger devices to transmit a signal to the Basic Storm Controller on the selected frequency. |
+
 4. Edit the **When Triggered Transmit On** option setting for the remaining 3 Trigger devices, making sure to set one to **Channel 2**, one to **Channel 3**, and one to **Channel 4**.
 
 ## My Island Options

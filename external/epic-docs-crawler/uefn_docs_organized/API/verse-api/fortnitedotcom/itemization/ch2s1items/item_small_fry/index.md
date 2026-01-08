@@ -1,6 +1,6 @@
 # item_small_fry class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_small_fry
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_small_fry>
 > **爬取时间**: 2025-12-27T05:02:56.745159
 
 ---

@@ -1,6 +1,6 @@
 # GetPassengers function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/vehicles/fort_vehicle/getpassengers
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/vehicles/fort_vehicle/getpassengers>
 > **爬取时间**: 2025-12-27T05:04:53.340033
 
 ---

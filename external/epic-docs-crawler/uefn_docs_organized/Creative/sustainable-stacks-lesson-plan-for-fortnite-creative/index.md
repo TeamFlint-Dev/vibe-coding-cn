@@ -1,6 +1,6 @@
 # Sustainable Stacks SDG Lesson Plan
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/sustainable-stacks-lesson-plan-for-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/sustainable-stacks-lesson-plan-for-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:42.648887
 
 ---
@@ -157,7 +157,7 @@ Here is a series of resources that can help students take advantage of this oppo
 - [**Project Organization**](https://dev.epicgames.com/documentation/en-us/uefn/project-organization-in-unreal-editor-for-fortnite)
 - [**Island Settings**](https://dev.epicgames.com/documentation/en-us/uefn/island-settings-in-unreal-editor-for-fortnite)
 
-### Show Off Your Work!
+### Show Off Your Work
 
 It’s time for students to share their work with the class and online, if they choose.
 
@@ -225,4 +225,4 @@ Find Ben at:
 
 - Email [Ben@BBTNB.com](mailto:Ben@BBTNB.com)
 - Twitter [@BBTNB](https://twitter.com/BBTNB)
-- LinkedIn (https://www.linkedin.com/in/benjamin-kelly-a2366154/ )
+- LinkedIn (<https://www.linkedin.com/in/benjamin-kelly-a2366154/> )

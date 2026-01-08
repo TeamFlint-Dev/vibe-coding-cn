@@ -1,6 +1,6 @@
 # Cinematic Sequence Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/cinematic-sequenceples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/cinematic-sequenceples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:04:48.239747
 
 ---
@@ -32,6 +32,7 @@ The **Cinematic Sequence** device has settings that you can use to create a basi
    | Item List - Index [1] - Item Definition | Tactical Pistol L1 |
    | Item List - Index [2] - Item Definition | Grenade |
    | Receiving Players | All |
+
 4. Create a [level sequence](https://dev.epicgames.com/community/learning/tutorials/r4jn/fortnite-uefn-using-level-sequencer) called **StartingWeaponsSequence**.
 5. Place a **Cinematic Sequence** device.
 6. Customize the Cinematic Sequence device as follows:
@@ -42,6 +43,7 @@ The **Cinematic Sequence** device has settings that you can use to create a basi
    | --- | --- |
    | Sequence | StartingWeaponSequence |
    | Auto Play | Yes |
+
 7. Open the **StartingWeaponSequence** and add the Item Granter to the timeline. Create three [keyframes](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#keyframe) for gameplay events. The first will **Grant Item** and the next two will call **Cycle to Next Item**.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/1ddee787-279e-4f88-9643-834083278619?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1ddee787-279e-4f88-9643-834083278619?resizing_type=fit)
@@ -102,6 +104,7 @@ In this example, you’ll create a simple platforming mechanic with beacons to i
    | --- | --- |
    | Beacon Particle Style | Flare |
    | Enabled on Phase | None |
+
 7. Duplicate this Beacon and place one on each of the 16 floor pieces.
 8. Go through each Prop **Manipulator/Beacon** pair and rename the devices in number order.
 9. Create a level sequence and name it **PlatformSequence**.
@@ -115,6 +118,7 @@ In this example, you’ll create a simple platforming mechanic with beacons to i
     | Sequence | PlatformSequence |
     | Loop Playback | True |
     | Auto Play | True |
+
 12. Follow the pattern of **Gameplay Event** **keyframes** below, with each of the Beacons in order.
 
     For the first beacon, **Disable** it on the first frame and Enable again at 60 frames before the sequence loops. For all of the other Beacons, Enable on the first keyframe, then Disable 60 frames later.
@@ -130,7 +134,7 @@ You now have the basic functionality for a survival platforming minigame!
 
 The Cinematic Sequence device is great for this kind of timed gameplay. Keyframes can be copy/pasted easily on the timeline, so you can quickly get sequential repeating behavior on different devices like this!
 
-## Build a Rhythm Game!
+## Build a Rhythm Game
 
 With the ability to time different gameplay events with the Cinematic Sequence device, you can create the core functionality of a rhythm game.
 
@@ -159,6 +163,7 @@ With the ability to time different gameplay events with the Cinematic Sequence d
    | Equip Granted Item | True |
    | Spare Weapon Ammo | 999 |
    | Grant on Game Start | True |
+
 5. From the **Fortnite > Galleries > Props > Egg Gallery**, place **three large eggs** in the sky over the water. These will be the targets.
 6. Place a **Prop Manipulator** on one of the eggs.
 7. Customize the Prop Manipulator as follows:
@@ -170,6 +175,7 @@ With the ability to time different gameplay events with the Cinematic Sequence d
    | Start Hidden | True |
    | Modify Prop Health | True |
    | Is Prop Invulnerable | True |
+
 8. Duplicate this Prop Manipulator and place it on the two other eggs.
 9. Place a **Score Manager**.
 10. Customize the Score Manager as follows:
@@ -180,6 +186,7 @@ With the ability to time different gameplay events with the Cinematic Sequence d
     | --- | --- |
     | Display Score Update on HUD | True |
     | HUD Message | Hit! |
+
 11. Configure the following function on the Score Manager so that when one of the eggs is hit, the Score Manager increases the player’s score.
 
     [![](https://dev.epicgames.com/community/api/documentation/image/3ae768b1-dce4-4390-b3a6-a9fece9f871c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/3ae768b1-dce4-4390-b3a6-a9fece9f871c?resizing_type=fit)
@@ -203,6 +210,7 @@ With the ability to time different gameplay events with the Cinematic Sequence d
    | Sequence | MusicSequence |
    | Loop Playback | True |
    | Auto Play | Tru |
+
 6. The player should be shooting the eggs on **frames 0**, **30**, and **60**. As such, you’ll make it so that the Prop Manipulators **show the eggs 10 frames before** these moments and **hide them again 5 frames** after to give the player a fair window.
 
    Set up the level sequence as follows. The first keyframe for Prop Manipulator 0 **Hides** the prop and the second one **Shows** it. For prop Manipulators 1 and 2, the first keyframe **Shows** the prop and the second **Hides** it again.

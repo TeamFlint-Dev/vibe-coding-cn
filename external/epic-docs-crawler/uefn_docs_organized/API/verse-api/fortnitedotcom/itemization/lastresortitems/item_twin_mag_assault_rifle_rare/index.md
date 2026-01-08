@@ -1,6 +1,6 @@
 # item_twin_mag_assault_rifle_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_twin_mag_assault_rifle_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_twin_mag_assault_rifle_rare>
 > **爬取时间**: 2025-12-27T04:29:09.256256
 
 ---

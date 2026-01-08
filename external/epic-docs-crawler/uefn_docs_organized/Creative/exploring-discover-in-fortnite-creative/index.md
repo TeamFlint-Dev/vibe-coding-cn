@@ -1,6 +1,6 @@
 # Exploring Discover
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/exploring-discover-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/exploring-discover-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:00:25.664602
 
 ---

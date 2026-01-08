@@ -1,6 +1,6 @@
 # In-Island Transactions Overview
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-overview-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-overview-in-fortnite>
 > **爬取时间**: 2025-12-27T00:00:03.813655
 
 ---
@@ -13,7 +13,7 @@ This feature is currently experimental. This means that you can use the feature 
 
 ## Entitlements in Verse (Items) and Offers
 
-When creating items or assets to sell on your island, you define them as entitlements in Verse. 
+When creating items or assets to sell on your island, you define them as entitlements in Verse.
 **Entitlement** refers specifically to the functions and tools (Verse and UEFN) used to create items or assets that can be offered to players.
 
 |  |  |  |
@@ -46,7 +46,7 @@ When creating a paid random item:
 - You must indicate which items are paid random items.
 - You must list the percentage chance for items.
 
-To learn more about setting up paid random items, see **[Creating Items and Offers](https://dev.epicgames.com/documentation/en-us/fortnite/creating-items-and-offers-in-fortnite)**. 
+To learn more about setting up paid random items, see **[Creating Items and Offers](https://dev.epicgames.com/documentation/en-us/fortnite/creating-items-and-offers-in-fortnite)**.
 To learn more about restrictions and rules using paid random items, see **[In-Island Transactions Requirements](https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-restrictions-in-fortnite)**.
 
 Paid random items are blocked for players in certain regions. For more information, see [In-Island Transactions Restrictions](https://dev.epicgames.com/documentation/en-us/fortnite/in-island-transactions-restrictions-in-fortnite).

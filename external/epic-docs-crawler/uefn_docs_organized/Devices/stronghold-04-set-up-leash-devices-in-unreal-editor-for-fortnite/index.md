@@ -1,6 +1,6 @@
 # 4. Set Up Leash Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-04-set-up-leash-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-04-set-up-leash-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:14:51.593469
 
 ---
@@ -129,6 +129,6 @@ You can turn on the navmesh debug view from the Island Settings and enable both 
 
 [![5. Set Up Audio and Visual Effects](https://dev.epicgames.com/community/api/documentation/image/0a5eaa22-1301-4499-bacd-15c9c7cb4326?resizing_type=fit&width=640&height=640)
 
-5. Set Up Audio and Visual Effects
+1. Set Up Audio and Visual Effects
 
-Learn how to set up audio and visual effects to enhance gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-05-set-up-audio-and-visual-effects-in-unreal-editor-for-fortnite)
+Learn how to set up audio and visual effects to enhance gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-05-set-up-audio-and-visual-effects-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # ToggleState function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/togglestate
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/togglestate>
 > **爬取时间**: 2025-12-27T05:49:56.823523
 
 ---

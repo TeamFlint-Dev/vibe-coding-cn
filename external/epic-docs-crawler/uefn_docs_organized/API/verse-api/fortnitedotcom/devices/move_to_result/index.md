@@ -1,6 +1,6 @@
 # move_to_result enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/move_to_result
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/move_to_result>
 > **爬取时间**: 2025-12-27T01:49:33.568498
 
 ---

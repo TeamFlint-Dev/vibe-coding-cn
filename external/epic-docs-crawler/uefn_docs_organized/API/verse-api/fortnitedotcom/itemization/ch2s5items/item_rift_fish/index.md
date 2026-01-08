@@ -1,6 +1,6 @@
 # item_rift_fish class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_rift_fish
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_rift_fish>
 > **爬取时间**: 2025-12-27T04:00:24.955364
 
 ---

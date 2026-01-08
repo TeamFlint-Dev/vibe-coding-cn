@@ -1,6 +1,6 @@
 # Value Setter
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-value-setter-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-value-setter-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:04:05.281294
 
 ---
@@ -139,11 +139,11 @@ Connect Value Setters to the Page Knob, then trigger them when you want to jump 
 
 Note Sequencer
 
-The Note Sequencer device allows you to choose the notes you want to use in your compositions.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative)[![Drum Sequencer](https://dev.epicgames.com/community/api/documentation/image/c9b73c30-c206-4b39-8909-c05e6d761374?resizing_type=fit&width=640&height=640)
+The Note Sequencer device allows you to choose the notes you want to use in your compositions.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative)[![Drum> Sequencer](<https://dev.epicgames.com/community/api/documentation/image/c9b73c30-c206-4b39-8909-c05e6d761374?resizing_type=fit&width=640&height=640>)
 
 Drum Sequencer
 
-Use the Drum Sequencer device to make your own drum pattern, or choose from a number of presets.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-sequencer-devices-in-fortnite-creative)
+Use the Drum Sequencer device to make your own drum pattern, or choose from a number of presets.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-sequencer-devices-in-fortnite-creative>)
 
 Connect Value Setters to the Volume Knob, then trigger them based on gameplay. For example, you could have an intense drum pattern that’s always playing, but only audible when players are in combat.
 
@@ -151,7 +151,7 @@ Connect Value Setters to the Volume Knob, then trigger them based on gameplay. F
 
 Speaker
 
-Use the Patchwork Speaker device to play the Patchwork audio you create, either at a specific location or across the entire island.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-speaker-devices-in-fortnite-creative)
+Use the Patchwork Speaker device to play the Patchwork audio you create, either at a specific location or across the entire island.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-speaker-devices-in-fortnite-creative>)
 
 Connect Value Setters to the Mix Knob to adjust the impact of the effect at different points in a song.
 
@@ -159,4 +159,4 @@ Connect Value Setters to the Mix Knob to adjust the impact of the effect at diff
 
 Echo Effect
 
-This device takes in an audio signal and sends it out again, but with a time delay, like your voice echoing in a canyon.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative)
+This device takes in an audio signal and sends it out again, but with a time delay, like your voice echoing in a canyon.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative>)

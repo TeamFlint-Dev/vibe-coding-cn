@@ -1,6 +1,6 @@
 # PlayerAddedEvent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/fort_playspace/playeraddedevent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/fort_playspace/playeraddedevent>
 > **爬取时间**: 2025-12-27T02:39:30.268048
 
 ---

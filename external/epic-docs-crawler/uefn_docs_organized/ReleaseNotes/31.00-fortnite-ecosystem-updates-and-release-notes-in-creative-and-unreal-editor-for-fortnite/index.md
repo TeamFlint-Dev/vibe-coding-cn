@@ -1,6 +1,6 @@
 # 31.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/31.00-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/31.00-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:36:36.286650
 
 ---
@@ -45,7 +45,7 @@ In v31.00, this track will be added automatically when an NPC Spawner device is 
 
 This backward compatibility will be removed in the v32.00 update. Any sequences using the NPC Spawner without the binding lifetime track could break your island experience. We strongly recommend that you re-publish your island after adding the binding lifetime track to sequences that use the NPC Spawner device during the v31.00 release cycle.
 
-## New Content for LEGO® Islands!
+## New Content for LEGO® Islands
 
 ### New Tools
 
@@ -64,7 +64,7 @@ This backward compatibility will be removed in the v32.00 update. Any sequences 
 
   - Developer note: The VFX Powerup is an incredibly powerful device in the hands of creators, and can be used to accomplish some unique effects and behaviors. This is why we have decided to release this powerup despite some issues that we were unable to resolve for its release.
 
-### Known Issues for VFX Powerup:
+### Known Issues for VFX Powerup
 
 - **Level Up VFX** option does not appear when triggered. This occurs for both Fortnite and Minifigure characters.
 - **Spark Aura VFX** option color changes are not being respected. This occurs for both Fortnite and Minifigure characters.
@@ -419,7 +419,7 @@ Copy full snippet
 
   ```verse
         C := class<concrete>:
-  		
+    
            False: false = X:false 
   Copy full snippet
   ```
@@ -439,7 +439,7 @@ If a user program fails due to this, then add a default value to members that do
 - Deprecated the use of the unique specifier on classes that lack the allocates effect, e.g.:
 
   ```verse
-  		
+    
         my_class := class<unique><computes>{...}
   Copy full snippet
   ```

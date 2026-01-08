@@ -1,6 +1,6 @@
 # Enable function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_device/enable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_device/enable>
 > **爬取时间**: 2025-12-27T06:04:53.313568
 
 ---

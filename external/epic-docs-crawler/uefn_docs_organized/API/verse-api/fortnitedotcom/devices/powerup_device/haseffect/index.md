@@ -1,6 +1,6 @@
 # HasEffect function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/powerup_device/haseffect
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/powerup_device/haseffect>
 > **爬取时间**: 2025-12-27T05:56:29.480856
 
 ---

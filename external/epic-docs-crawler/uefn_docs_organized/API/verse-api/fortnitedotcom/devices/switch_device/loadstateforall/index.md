@@ -1,6 +1,6 @@
 # LoadStateForAll function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/loadstateforall
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/loadstateforall>
 > **爬取时间**: 2025-12-27T05:48:57.557768
 
 ---

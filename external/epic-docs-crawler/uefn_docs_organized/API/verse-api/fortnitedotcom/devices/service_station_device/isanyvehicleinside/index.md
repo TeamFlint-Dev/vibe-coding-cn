@@ -1,6 +1,6 @@
 # IsAnyVehicleInside function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/service_station_device/isanyvehicleinside
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/service_station_device/isanyvehicleinside>
 > **爬取时间**: 2025-12-27T05:54:17.038177
 
 ---

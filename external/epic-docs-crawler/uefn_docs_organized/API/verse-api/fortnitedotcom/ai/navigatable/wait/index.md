@@ -1,6 +1,6 @@
 # Wait function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/navigatable/wait
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/navigatable/wait>
 > **爬取时间**: 2025-12-27T02:49:06.764856
 
 ---

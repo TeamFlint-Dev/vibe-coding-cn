@@ -1,6 +1,6 @@
 # Domination Game Tutorial
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/domination-gameplay-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/domination-gameplay-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:27:34.061965
 
 ---
@@ -120,6 +120,7 @@ Device settings for each device can be found in Basic Options, All Options, and 
    | **Team** | **Team 1** | Sets the Player Spawn Pad to spawn a Team 1 player here. |
    | **Visible During Games** | **No** | Conceals the location of spawning players and keeps them hidden from enemy fire while spawning onto the island. Hinders the opposing team camping the respawn point. |
    | **When Player Spawned Transmit on** | **Channel 1** | Transmits a signal to the score manager that a team member has entered the game. |
+
 3. Edit the options for the first device, then copy/paste three more Player Spawn Pads.
 4. Copy the Player Spawn pad one more time.
 5. Move to another area and place another copy of the Player Spawn Pad.

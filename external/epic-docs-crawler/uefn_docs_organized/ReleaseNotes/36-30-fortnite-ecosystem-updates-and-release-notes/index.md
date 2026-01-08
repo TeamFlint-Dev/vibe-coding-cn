@@ -1,13 +1,13 @@
 # 36.30 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/36-30-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/36-30-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:36:11.040365
 
 ---
 
 Fortnite v36.30 adds hundreds of new LEGO® Styles for NPCs, dynamic team making through emotes, an expanded Squid Game feature set, and exciting new weapons and galleries!
 
-## Squid Game Toolset and Templates Are Updated!
+## Squid Game Toolset and Templates Are Updated
 
 The Squid Game feature set has expanded with new assets for creating voiceovers, Verse gameplay examples, and Squid Game emotes for dynamic team making.
 
@@ -109,7 +109,7 @@ The feature includes two settings: **Dynamic Team Emotes** and **Dynamic Team Le
 
 There are known issues with this feature. To learn more, see the [Known Issues with Dynamic Team Emotes](https://dev.epicgames.com/documentation/en-us/fortnite/36-30-fortnite-ecosystem-updates-and-release-notes#known-issues-with-dynamic-team-emotes) section below.
 
-## Epic’s Picks Updates!
+## Epic’s Picks Updates
 
 This release, we made several updates to the **Epic’s Picks**:
 

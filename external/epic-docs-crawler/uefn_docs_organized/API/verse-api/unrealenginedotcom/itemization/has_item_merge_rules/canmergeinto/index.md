@@ -1,6 +1,6 @@
 # CanMergeInto function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/has_item_merge_rules/canmergeinto
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/has_item_merge_rules/canmergeinto>
 > **爬取时间**: 2025-12-27T02:54:23.627767
 
 ---

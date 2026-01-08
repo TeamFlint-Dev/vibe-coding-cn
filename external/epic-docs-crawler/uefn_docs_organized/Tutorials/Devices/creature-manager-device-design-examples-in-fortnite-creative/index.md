@@ -1,6 +1,6 @@
 # Creature Manager Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creature-manager-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creature-manager-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:07:59.715811
 
 ---
@@ -36,6 +36,7 @@ For more general info on devices, see [Using Devices](https://dev.epicgames.com/
    | --- | --- | --- |
    | **Receiving Players** | All | All players will receive the registered weapon. |
    | **grant on Game Start** | On | Players will get the weapon registered to this device at the start of the game. |
+
 4. Place a **Creature Manager** device.
 5. Customize the device as follows:
 
@@ -44,6 +45,7 @@ For more general info on devices, see [Using Devices](https://dev.epicgames.com/
    | Option | Value | Description |
    | --- | --- | --- |
    | **Movement Speed** | Very Fast | The creature's speed will give your players a challenge! |
+
 6. Place a Creature Spawner device.
 7. Customize the device as follows:
 
@@ -88,6 +90,7 @@ The Creature Manager device is also very useful for tweaking a creature's health
    | Option | Value | Description |
    | --- | --- | --- |
    | **Visible in Game** | Off | This hides the player spawner once the game starts. |
+
 5. Place an Item Granter device, then register a Tactical Assault Rifle to the device.
 6. Customize the item granter as follows:
 
@@ -98,6 +101,7 @@ The Creature Manager device is also very useful for tweaking a creature's health
    | **Receiving Players** | All | All players can receive the registered weapon. |
    | **Spare Weapon Ammo** | 999 | This setting provides enough ammo that it's unlikely the player will run out. |
    | **Grant on Game Start** | On | Players will receive the weapon at the start of the game. |
+
 7. Place a **Creature Manager** device.
 8. Customize the device as follows:
 
@@ -107,6 +111,7 @@ The Creature Manager device is also very useful for tweaking a creature's health
    | --- | --- | --- |
    | **Creature Type** | Major Ice Brute | This will give you a good boss creature. |
    | **Health** | 3,000 | This much health takes a lot of work to eliminate this formidable boss. |
+
 9. Place a Creature Placer device away from the structure,
 10. Customize the device as follows:
 
@@ -115,6 +120,7 @@ The Creature Manager device is also very useful for tweaking a creature's health
     | Option | Value | Description |
     | --- | --- | --- |
     | **Creature Type** | Major Ice Brute | This matches the Creature Manager device setting. |
+
 11. Place an **Automated Turret** device on top of the structure to help the player fight the boss.
 12. Customize the turret as follows:
 
@@ -123,6 +129,7 @@ The Creature Manager device is also very useful for tweaking a creature's health
     | Option | Value | Description |
     | --- | --- | --- |
     | **Can Target Players** | False | This prevents the turrent from being used on other players. |
+
 13. Place a Heavy Turret device on top of the structure to give the player even more firepower.
 
 You now have the basic functionality for a Heavy Boss!
@@ -131,7 +138,7 @@ You now have the basic functionality for a Heavy Boss!
 
 The Creature Manager can help when you want a specific enemy to match your environment but need more control over their balancing. There is a different high-health creature (the Megabrute), but using the Creature Manager, you can use a creature that feels more authentic to the arctic environment!
 
-## Build a Brute Rush Game!
+## Build a Brute Rush Game
 
 You can use multiple creature managers for the same creature type to create the effect of creatures getting stronger in different phases of the game.
 
@@ -160,6 +167,7 @@ In this example, you'll use this functionality to create a wave survival game wh
    | --- | --- | --- | --- | --- | --- | --- |
    | Option | Value | Description |  | --- | --- | --- |
    | **Visible in Game** | Off | The player spawner will not be visible once the game starts. |  |  |  |  |
+
 4. Place an **Item Granter** device and register a **Tactical Assault Rifle** to the device.
 5. Customize the device as follows:
 
@@ -192,6 +200,7 @@ In this example, you'll use this functionality to create a wave survival game wh
    | **Spawn Effects Visibility** | Off | Players will see visual effects when a creature spawns. |
    | **Max Spawn Distance** | 4.0 Tiles | Sets the maximum distance a creature can span from the spawner. |
    | **Preferred Spawn Location** | Random | Creatures will spawn in random locations, adding tension to the play. |
+
 3. Duplicate the Creature Spawner device two more times for **Waves 2** and **3**, and name them accordingly so you can keep track of how you're using them.
 
    Using consistent naming conventions makes the rest of this setup much easier!
@@ -209,6 +218,7 @@ In this example, you'll use this functionality to create a wave survival game wh
    | **Score** | 10 | This determines the amount of score a player earns when eliminating a creature. |
    | **Damage to Player** | 10.0 | This is the amount of damage the creature can inflict on a player. |
    | **Movement Speed** | Slow | Slow down the speed this creature moves at. |
+
 8. Place another Creature Manager device to set the Brute stats during Wave 2.
 9. Customize it as follows:
 
@@ -249,6 +259,7 @@ In this example, you'll use this functionality to create a wave survival game wh
     | **Trigger VFX** | Off | No visual effects needed. |
     | **Trigger SFX** | Off | No sound effects needed either. |
     | **Transmit Every X Triggers** | 3 | Sets how many times the trigger needs to be activated before it does something. |
+
 13. Duplicate the trigger two more times for Waves 2 and 3. For the **Wave 2 Trigger**, set **Transmit Every X Triggers** to **4**. For the **Wave 3 Trigger**, set the **Transmit Every X Triggers** to **5**.
 14. Place a **HUD Message** device to tell the player that Wave 1 has begun.
 15. Customize the HUD Message device as follows:
@@ -261,6 +272,7 @@ In this example, you'll use this functionality to create a wave survival game wh
     | **Show on Round Start** | On | Show at the start of the round. |
     | **Time from Round Start** | Instant | Starts with no delay. |
     | **Text Color** | White | You can use white or another if you prefer. |
+
 16. Add another HUD Message device to alert the player for Wave 2.
 17. Customize it:
 
@@ -270,6 +282,7 @@ In this example, you'll use this functionality to create a wave survival game wh
     | --- | --- | --- |
     | **Message** | Wave 2 | Alerts the player when the second wave starts. |
     | **Text Color** | White | You can use white or another if you prefer. |
+
 18. Repeat placing a HUD Message device for Wave 3 and customize accordingly.
 
 ### Set Up the Game End and Polish
@@ -284,6 +297,7 @@ In this example, you'll use this functionality to create a wave survival game wh
    | Option | Value | Description |
    | --- | --- | --- |
    | **Custom Victory Callout** | You Survived! | Will show at the end of the game. |
+
 3. Place a Post Process device.
 4. Customize the device:
 
@@ -304,6 +318,7 @@ In this example, you'll use this functionality to create a wave survival game wh
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | **On a Matching Creature Type Is Eliminated Send Event To** | Wave 1 Elimination Trigger | Trigger |
+
 2. Repeat for Waves 2 and 3, binding them to the appropriate devices (now you see why it's important to use good naming practices!)
 3. Configure the following event on the **Wave 1 Elimination Trigger** so that when it triggers enough times, it:
 
@@ -332,6 +347,7 @@ In this example, you'll use this functionality to create a wave survival game wh
    | **On Triggered Send Event To** | Wave 2 Creature Manager | Disable |
    | **On Triggered Send Event To** | Wave 3 HUD Message | Show |
    | **On Triggered Send Event To** | Wave 3 Creature Manager | Enable |
+
 5. Configure the following event on the Wave 3 Elimination Trigger so that when the player completes the final wave, the game ends.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/ae178046-7049-4d63-97de-660f87c1697b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/ae178046-7049-4d63-97de-660f87c1697b?resizing_type=fit)

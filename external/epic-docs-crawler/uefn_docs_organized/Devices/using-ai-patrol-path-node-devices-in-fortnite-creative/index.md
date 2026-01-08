@@ -1,6 +1,6 @@
 # AI Patrol Path Node Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-ai-patrol-path-node-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-ai-patrol-path-node-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:41:27.626968
 
 ---
@@ -100,6 +100,7 @@ You will need the following devices.
    | Option | Value | Description |
    | --- | --- | --- |
    | Patrol Path Group | Group 1 | The name of the AI patrol path you created. |
+
 3. Copy and paste the initial AI Patrol Path Node. Set up two more that traverse around the corner and to the end of the L-shaped hallway.
 4. Set a Guard Spawner in a convenient location on the map where you can group global devices. Customize it to the following settings.
 
@@ -113,6 +114,7 @@ You will need the following devices.
    | Spawn On Patrol Path | Group 1 | The AI Patrol Path that the guards will spawn on and follow. |
    | When Alerted To Player Transmit On | Channel 2 | When a guard identifies a player, they will send a signal to this channel. |
    | When Eliminated Transmit On | Channel 3 | When the guard is eliminated, a signal is sent to this channel. |
+
 5. In front of the open door, set a Lock device and customize it to the following settings.
 
    [![Door Lock](https://dev.epicgames.com/community/api/documentation/image/fe82ccf0-650a-42a0-92e7-5c654f44d5a3?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fe82ccf0-650a-42a0-92e7-5c654f44d5a3?resizing_type=fit)
@@ -122,6 +124,7 @@ You will need the following devices.
    | Initial Door Position | Open | When the match starts, the door will automatically be open. |
    | Open When Receiving From | Channel 3 | Upon receiving the signal from eliminating the guard, the door will be opened. |
    | Close When Receiving From | Channel 2 | Upon being sighted by the guard, the door will automatically close and lock. |
+
 6. Within a protected alcove that has cover to block a guard's line of sight if the player crouches, place a Player Spawner. Customize it to the following settings.
 
    [![Door Spawner](https://dev.epicgames.com/community/api/documentation/image/da7011ce-bbb1-4026-a410-63b01bec2946?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/da7011ce-bbb1-4026-a410-63b01bec2946?resizing_type=fit)
@@ -129,6 +132,7 @@ You will need the following devices.
    | Option | Value | Description |
    | --- | --- | --- |
    | When Player Spawned Transmit On | Channel 1 | When the player spawns, a signal is sent to an Item Granter to award a weapon. |
+
 7. Place an Item Granter next to the Guard Spawner. Register an assault rifle to it, then customize it to the following settings.
 
    [![Door Path](https://dev.epicgames.com/community/api/documentation/image/af8579f8-4994-4616-9723-8e2fe1f0adf2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/af8579f8-4994-4616-9723-8e2fe1f0adf2?resizing_type=fit)
@@ -167,6 +171,7 @@ You will need the following devices.
    | Spawn Radius | 2.5M | The maximum distance a guard can spawn from its spawner. |
    | Patrol Option | Disable Patrol | Guards will stand in their initial spawn location instead of patrolling around. |
    | Can Be Hired | Yes | By interacting with the guards, you can have them follow you. |
+
 4. Copy two more of this Spawn Manager and place them all within the alcove.
 5. Place an AI Patrol Path Node on one end of the T juncture hallway. Customize it to the following settings.
 
@@ -175,6 +180,7 @@ You will need the following devices.
    | Option | Value | Description |
    | --- | --- | --- |
    | Patrol Path Group | Group 1 | The name of the AI patrol path for Guards to use. |
+
 6. Copy and place a second AI Patrol Path Node on the other end of the hallway.
 7. Place a fourth Guard Spawner anywhere on the level, and customize it to the following settings.
 

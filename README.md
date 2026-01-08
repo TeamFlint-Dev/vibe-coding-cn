@@ -100,6 +100,7 @@
 ### 1. 了解技能体系
 
 **Verse 开发核心技能** (`skills/verseDev/`):
+
 - `verseOrchestrator` - 开发流程总控
 - `verseArchitectureSelector` - 架构选型
 - `verseComponent` - 组件开发
@@ -109,6 +110,7 @@
 - ... 共 17 个子技能
 
 **游戏设计流程技能** (`skills/design/gameDev/`)：
+
 - `gameConceptDesigner` - 概念设计
 - `gameMechanicsDesigner` - 机制设计
 - `gameSystemDesigner` - 系统设计
@@ -155,11 +157,13 @@
 ## 🔧 命名规范
 
 本项目采用**驼峰式命名**规范（目录名），原因：
+
 - UEFN 编译器对 `-` 等特殊字符敏感
 - 避免控制台和构建过程中的潜在问题
 - `.md` 文件名可保持原有命名方式
 
 示例：
+
 - ✅ `verseDev/verseComponent/`
 - ✅ `gameDev/gameConceptDesigner/`
 - ❌ `verse-dev/verse-component/`
@@ -173,9 +177,9 @@
 3. 提交 Pull Request
 
 请确保：
+
 - 目录使用驼峰命名
 - 新 Skill 包含完整的 `SKILL.md`
-- 运行 `make lint` 验证 Markdown 格式
 
 ## 📞 联系方式
 

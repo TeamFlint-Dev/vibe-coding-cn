@@ -1,6 +1,6 @@
 # item_eradicator_hop_rock_fury_assault_rifle_exotic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_eradicator_hop_rock_fury_assault_rifle_exotic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_eradicator_hop_rock_fury_assault_rifle_exotic>
 > **爬取时间**: 2025-12-27T04:24:05.315090
 
 ---

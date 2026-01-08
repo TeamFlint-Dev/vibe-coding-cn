@@ -1,6 +1,6 @@
 # item_lever_action_shotgun_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_lever_action_shotgun_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_lever_action_shotgun_rare>
 > **爬取时间**: 2025-12-27T04:01:09.222820
 
 ---

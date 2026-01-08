@@ -1,6 +1,6 @@
 # item_modular_tactical_assault_rifle_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/mythsandmortalsitems/item_modular_tactical_assault_rifle_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/mythsandmortalsitems/item_modular_tactical_assault_rifle_epic>
 > **爬取时间**: 2025-12-27T03:03:30.508405
 
 ---

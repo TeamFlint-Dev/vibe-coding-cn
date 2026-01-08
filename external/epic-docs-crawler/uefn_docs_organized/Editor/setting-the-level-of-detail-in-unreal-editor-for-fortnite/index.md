@@ -1,6 +1,6 @@
 # Setting the Level of Detail
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/setting-the-level-of-detail-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/setting-the-level-of-detail-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:17:25.842184
 
 ---

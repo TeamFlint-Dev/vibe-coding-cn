@@ -1,6 +1,6 @@
 # Shooting Gallery
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/shooting-gallery-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/shooting-gallery-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:53:44.535987
 
 ---
@@ -65,6 +65,7 @@ Follow the steps below to locate and place the device.
    | --- | --- | --- |
    | **Visible during games** | No | Make the spawn pad invisible for distraction-free spawn area. |
    | **When Player Spawned Transmit On** | Channel 4 | Assign [Channel](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary) 4 to this spawn pad. When the player spawns to this pad, the channel you selected is [triggered](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary). |
+
 4. Click **OK** to save your options.
 
 Click **OK** after changing your settings. Otherwise, your customized options will not be saved.
@@ -85,6 +86,7 @@ Follow the steps below to locate and place the devices.
    | --- | --- | --- |
    | **Time Before First Spawn** | 1 second | The weapon dropped in this spawner spawns 1 second after the game starts. |
    | **Time Between Spawns** | 1 second | The weapon dropped in this spawner respawns 1 second after the player picks it up. |
+
 4. Click **OK** to save your options.
 5. Drop weapons Into the spawners. To register weapons for this device, follow these steps.
 
@@ -113,6 +115,7 @@ Follow the steps below to locate and place the device.
    | **On-Grant Action** | Keep All | All items in your inventory remain when granted items from this device. |
    | **Grant** | All Items | Grants all items in the device |
    | **Grant Item When Receiving From** | Channel 2 | When the player presses the button programmed to transmit on this channel, they receive the items in the granter. |
+
 4. Click **OK** to save your options.
 5. Drop ammo into the granter
 
@@ -136,6 +139,7 @@ Follow the steps below to locate and place the button.
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **When Interacted With Transmit On** | Channel 2 | When the player presses the button, it transmits on the selected channel and causes the Timed Objective device to start as well as the Item Granter to grant them everything in its inventory. |
+
 4. Click **OK** to save your options.
 
 ## Add and Set Up the Timed Objective
@@ -156,6 +160,7 @@ Follow the steps below to locate and place the Timed Objective.
    | **Timer Label Text** | shoot the target dummies! | Displays the chosen message on the player's screen for the duration of the timer. |
    | **Start When Receiving From** | Channel 2 | When the device receives the signal from the selected channel, in this case the button being pressed, it starts the countdown. |
    | **When Completed Transmit On** | Channel 3 | When the timer runs out, it transmits on the selected channel to signal the end of the game. |
+
 4. Click **OK** to save your options.
 
 ## Add and Set Up the End Game Device
@@ -171,6 +176,7 @@ The **[End Game](using-end-game-devices-in-fortnite-creative)** device determine
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **Activate When Receiving From** | Channel 3 | When the timer runs out, the device receives from this channel to trigger the end of the game. |
+
 4. Click **OK** to save your options.
 
 ## Add and Set Up the Barrier Device
@@ -200,6 +206,7 @@ Follow the steps below to locate and place the Barrier.
    | **Barrier Width** | 5 | Width used in the tutorial island. |
    | **Barrier Depth** | 5 | Depth used in the tutorial island. |
    | **Barrier Height** | 5 | Height used in the tutorial island. |
+
 4. Click **OK** to save your options.
 
 ## Add and Set Up Target Dummies
@@ -222,6 +229,7 @@ Follow the steps below to locate and place the Shooting Range Gallery devices.
    | **Start Position** | Down | The target dummy lays dormant until the player presses the button to start the game, then they will pop up. |
    | **Enable When Receiving From** | Channel 2 | The target dummy becomes enabled once the player presses the button to start the game. |
    | **Pop-Up When Receiving From** | Channel 2 | The target dummy pops up once the player presses the button to start the game. |
+
 4. Click **OK** to save your options.
 
 ## Change My Island Settings

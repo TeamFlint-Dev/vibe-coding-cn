@@ -1,6 +1,6 @@
 # Stronghold Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:04:04.442630
 
 ---
@@ -30,20 +30,20 @@ Follow these steps to learn how to use Verse with devices to create a multiplaye
 
 1. Create a New Project
 
-Learn how to create a new project and modify the island settings.](https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-01-create-a-new-project-in-unreal-editor-for-fortnite)[![2. Add Devices](https://dev.epicgames.com/community/api/documentation/image/b78cffb3-ced4-4a17-bf5f-814c3102bdb8?resizing_type=fit&width=640&height=640)
+Learn how to create a new project and modify the island settings.](<https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-01-create-a-new-project-in-unreal-editor-for-fortnite)[![2>. Add Devices](<https://dev.epicgames.com/community/api/documentation/image/b78cffb3-ced4-4a17-bf5f-814c3102bdb8?resizing_type=fit&width=640&height=640>)
 
-2. Add Devices
+1. Add Devices
 
-Add and configure the devices that drive Stronghold.](https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-02-add-devices-in-unreal-editor-for-fortnite)[![3. Add Verse Script to Devices](https://dev.epicgames.com/community/api/documentation/image/c2575809-3842-453f-80ab-c3824fbdf82c?resizing_type=fit&width=640&height=640)
+Add and configure the devices that drive Stronghold.](<https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-02-add-devices-in-unreal-editor-for-fortnite)[![3>. Add Verse Script to Devices](<https://dev.epicgames.com/community/api/documentation/image/c2575809-3842-453f-80ab-c3824fbdf82c?resizing_type=fit&width=640&height=640>)
 
-3. Add Verse Script to Devices
+1. Add Verse Script to Devices
 
-Learn how to set up the Verse device to customize gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-03-add-verse-script-to-devices-in-unreal-editor-for-fortnite)[![4. Set Up Leash Devices](https://dev.epicgames.com/community/api/documentation/image/d1da61c7-5c08-40f4-8bfe-c72a261fe834?resizing_type=fit&width=640&height=640)
+Learn how to set up the Verse device to customize gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-03-add-verse-script-to-devices-in-unreal-editor-for-fortnite)[![4>. Set Up Leash Devices](<https://dev.epicgames.com/community/api/documentation/image/d1da61c7-5c08-40f4-8bfe-c72a261fe834?resizing_type=fit&width=640&height=640>)
 
-4. Set Up Leash Devices
+1. Set Up Leash Devices
 
-Learn how to set up leash devices for AI to patrol.](https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-04-set-up-leash-devices-in-unreal-editor-for-fortnite)[![5. Set Up Audio and Visual Effects](https://dev.epicgames.com/community/api/documentation/image/0a5eaa22-1301-4499-bacd-15c9c7cb4326?resizing_type=fit&width=640&height=640)
+Learn how to set up leash devices for AI to patrol.](<https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-04-set-up-leash-devices-in-unreal-editor-for-fortnite)[![5>. Set Up Audio and Visual Effects](<https://dev.epicgames.com/community/api/documentation/image/0a5eaa22-1301-4499-bacd-15c9c7cb4326?resizing_type=fit&width=640&height=640>)
 
-5. Set Up Audio and Visual Effects
+1. Set Up Audio and Visual Effects
 
-Learn how to set up audio and visual effects to enhance gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-05-set-up-audio-and-visual-effects-in-unreal-editor-for-fortnite)
+Learn how to set up audio and visual effects to enhance gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-05-set-up-audio-and-visual-effects-in-unreal-editor-for-fortnite>)

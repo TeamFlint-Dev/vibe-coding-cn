@@ -1,6 +1,6 @@
 # (V:vector2).IsFinite extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/isfinite-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/isfinite-1>
 > **爬取时间**: 2025-12-27T02:32:51.393637
 
 ---

@@ -1,6 +1,6 @@
 # MakeShortestRotationBetween function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/makeshortestrotationbetween
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/makeshortestrotationbetween>
 > **爬取时间**: 2025-12-27T02:29:11.275436
 
 ---

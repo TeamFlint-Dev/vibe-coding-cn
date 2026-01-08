@@ -1,6 +1,6 @@
 # Creating Clothing Assets for UEFN using Unreal Engine
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creating-clothing-assets-for-unreal-editor-for-fortnite-using-unreal-engine
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creating-clothing-assets-for-unreal-editor-for-fortnite-using-unreal-engine>
 > **爬取时间**: 2025-12-27T00:08:03.196650
 
 ---
@@ -49,20 +49,20 @@ Below you can see the documentation that will guide you through the entire cloth
 
 Create your Clothing Asset in Unreal Engine
 
-Create a new Unreal Engine project and generate a new cloth asset.](https://dev.epicgames.com/documentation/en-us/fortnite/create-your-clothing-asset-in-unreal-engine-in-unreal-editor-for-fortnite)[![Configure the Clothing Asset Parameters](https://dev.epicgames.com/community/api/documentation/image/580b2e0e-f4cd-4de9-891f-bb1646f13ae4?resizing_type=fit&width=640&height=640)
+Create a new Unreal Engine project and generate a new cloth asset.](<https://dev.epicgames.com/documentation/en-us/fortnite/create-your-clothing-asset-in-unreal-engine-in-unreal-editor-for-fortnite)[![Configure> the Clothing Asset Parameters](<https://dev.epicgames.com/community/api/documentation/image/580b2e0e-f4cd-4de9-891f-bb1646f13ae4?resizing_type=fit&width=640&height=640>)
 
 Configure the Clothing Asset Parameters
 
-Configure the parameters of the cloth asset to ensure proper functionality.](https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-clothing-asset-parameters-in-unreal-editor-for-fortnite)[![Configure the Simulation Settings](https://dev.epicgames.com/community/api/documentation/image/7f4f8e3b-e04e-4f84-89ec-9ccbcd1e5ab3?resizing_type=fit&width=640&height=640)
+Configure the parameters of the cloth asset to ensure proper functionality.](<https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-clothing-asset-parameters-in-unreal-editor-for-fortnite)[![Configure> the Simulation Settings](<https://dev.epicgames.com/community/api/documentation/image/7f4f8e3b-e04e-4f84-89ec-9ccbcd1e5ab3?resizing_type=fit&width=640&height=640>)
 
 Configure the Simulation Settings
 
-Configure the simulation settings of the cloth asset to ensure expected behavior.](https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-simulation-settings-in-unreal-editor-for-fortnite)[![Import your Clothing Asset into UEFN](https://dev.epicgames.com/community/api/documentation/image/bf4e04b8-ace3-4f62-871c-45b43af044ca?resizing_type=fit&width=640&height=640)
+Configure the simulation settings of the cloth asset to ensure expected behavior.](<https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-simulation-settings-in-unreal-editor-for-fortnite)[![Import> your Clothing Asset into UEFN](<https://dev.epicgames.com/community/api/documentation/image/bf4e04b8-ace3-4f62-871c-45b43af044ca?resizing_type=fit&width=640&height=640>)
 
 Import your Clothing Asset into UEFN
 
-A guide on migrating the clothing asset from Unreal Engine to Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/import-your-clothing-asset-into-unreal-editor-for-fortnite)[![Modify a Clothing Asset in UEFN](https://dev.epicgames.com/community/api/documentation/image/c4cff677-6749-4278-b577-7e7c77db0cde?resizing_type=fit&width=640&height=640)
+A guide on migrating the clothing asset from Unreal Engine to Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/import-your-clothing-asset-into-unreal-editor-for-fortnite)[![Modify> a Clothing Asset in UEFN](<https://dev.epicgames.com/community/api/documentation/image/c4cff677-6749-4278-b577-7e7c77db0cde?resizing_type=fit&width=640&height=640>)
 
 Modify a Clothing Asset in UEFN
 
-A guide on modifying a clothing asset inside Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/modify-a-clothing-asset-in-unreal-editor-for-fortnite)
+A guide on modifying a clothing asset inside Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/modify-a-clothing-asset-in-unreal-editor-for-fortnite>)

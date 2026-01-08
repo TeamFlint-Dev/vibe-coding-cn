@@ -1,6 +1,6 @@
 # TMNT Enemy Encounters and Obstacles
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tmnt-enemy-encounters-and-obstacles-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tmnt-enemy-encounters-and-obstacles-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:08:42.632877
 
 ---
@@ -116,4 +116,4 @@ Next, you will learn about how to move players to and from different areas of yo
 
 TMNT Travel Between Areas
 
-Set up travel between different areas in the TMNT Arcade template.](https://dev.epicgames.com/documentation/en-us/fortnite/tmnt-setting-up-travel-between-areas-in-unreal-editor-for-fortnite)
+Set up travel between different areas in the TMNT Arcade template.](<https://dev.epicgames.com/documentation/en-us/fortnite/tmnt-setting-up-travel-between-areas-in-unreal-editor-for-fortnite>)

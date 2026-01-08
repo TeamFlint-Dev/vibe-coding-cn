@@ -1,6 +1,6 @@
 # item_maven_auto_shotgun_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_maven_auto_shotgun_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_maven_auto_shotgun_uncommon>
 > **爬取时间**: 2025-12-27T04:37:31.226337
 
 ---

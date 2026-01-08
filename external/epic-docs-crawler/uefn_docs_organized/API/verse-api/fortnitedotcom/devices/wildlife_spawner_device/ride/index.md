@@ -1,6 +1,6 @@
 # Ride function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/wildlife_spawner_device/ride
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/wildlife_spawner_device/ride>
 > **爬取时间**: 2025-12-27T06:31:03.253299
 
 ---

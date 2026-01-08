@@ -1,6 +1,6 @@
 # Fortnite Data API Overview
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-fortnite-data-api-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-fortnite-data-api-in-fortnite>
 > **爬取时间**: 2025-12-27T02:24:45.994316
 
 ---
@@ -41,7 +41,7 @@ Data is only available for islands that are public and discoverable in Fortnite.
 
 ### What time period does the data cover?
 
-The Data API initially provides data covering the last ten minutes, the last hour, and the last twenty-four-hour period. 
+The Data API initially provides data covering the last ten minutes, the last hour, and the last twenty-four-hour period.
 You can query for data that goes back seven days from the present date. We plan to expand the API to include more granular data in the future.
 
 ### How do I access the data?

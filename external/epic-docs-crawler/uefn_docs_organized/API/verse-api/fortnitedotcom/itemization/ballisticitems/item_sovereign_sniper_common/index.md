@@ -1,6 +1,6 @@
 # item_sovereign_sniper_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ballisticitems/item_sovereign_sniper_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ballisticitems/item_sovereign_sniper_common>
 > **爬取时间**: 2025-12-27T03:56:42.007530
 
 ---

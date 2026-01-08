@@ -1,6 +1,6 @@
 # reboot_van_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/reboot_van_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/reboot_van_device>
 > **爬取时间**: 2025-12-27T01:44:39.750495
 
 ---

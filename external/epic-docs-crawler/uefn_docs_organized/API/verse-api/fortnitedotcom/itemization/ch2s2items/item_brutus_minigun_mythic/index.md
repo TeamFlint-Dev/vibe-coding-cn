@@ -1,6 +1,6 @@
 # item_brutus_minigun_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_brutus_minigun_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_brutus_minigun_mythic>
 > **爬取时间**: 2025-12-27T03:01:42.616379
 
 ---

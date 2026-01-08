@@ -1,6 +1,6 @@
 # Play function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/radio_device/play
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/radio_device/play>
 > **爬取时间**: 2025-12-27T06:34:18.700579
 
 ---

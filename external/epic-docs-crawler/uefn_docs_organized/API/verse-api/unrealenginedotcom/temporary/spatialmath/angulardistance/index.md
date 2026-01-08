@@ -1,6 +1,6 @@
 # AngularDistance function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/angulardistance
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/angulardistance>
 > **爬取时间**: 2025-12-27T02:29:57.314104
 
 ---

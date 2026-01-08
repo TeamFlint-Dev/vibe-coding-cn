@@ -1,6 +1,6 @@
 # Tracking Game Progression
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-tracking-game-progression-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-tracking-game-progression-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:13:10.661496
 
 ---
@@ -25,7 +25,7 @@ The Progress Based Mesh device is available for all Fortnite islands in Creative
 
 To learn more about the device and settings, see [Progress Based Mesh Devices](https://dev.epicgames.com/documentation/en-us/fortnite/using-progress-based-mesh-devices-in-fortnite).
 
-Use the [Button](https://dev.epicgames.com/documentation/en-us/fortnite/using-button-devices-in-fortnite-creative) device at the end of the learning corridor to grow the tree. The meshes switch out until the tree is grown. 
+Use the [Button](https://dev.epicgames.com/documentation/en-us/fortnite/using-button-devices-in-fortnite-creative) device at the end of the learning corridor to grow the tree. The meshes switch out until the tree is grown.
 The list of meshes are known as the threshold meshes. The tree starts out as a pile of dirt and completes as a full tree with climbable ledges.
 
 [![Squid Game in UEFN](https://dev.epicgames.com/community/api/documentation/image/c9acafec-4fa5-406b-adae-eca7a74b9070?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c9acafec-4fa5-406b-adae-eca7a74b9070?resizing_type=fit)
@@ -70,4 +70,4 @@ Start to dive into mini-game examples.
 
 Shove Item for Pushing Players
 
-Learn to use the Shove Item for your Squid Game island.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-shove-item-for-pushing-players-in-unreal-editor-for-fortnite)
+Learn to use the Shove Item for your Squid Game island.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-shove-item-for-pushing-players-in-unreal-editor-for-fortnite>)

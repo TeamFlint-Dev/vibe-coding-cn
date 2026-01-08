@@ -1,6 +1,6 @@
 # Explosive Device Design Example
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/explosive-device-design-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/explosive-device-design-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:07:04.094116
 
 ---
@@ -33,6 +33,7 @@ You will set up an **explosive barrel** and create a **visual effect** to go wit
    | --- | --- | --- |
    | **Display Damage Numbers** | On | Shows any damage dealt to the device by players. |
    | **Collision During Games** | Only When Visible | Device only has collision on during gameplay. |
+
 3. Make sure the **Device Mesh** is set to **Barrel** (the default setting).
 
 ### Place a VFX Creator Device
@@ -110,6 +111,7 @@ The final device to place is the trigger. The player will interact with the trig
    | --- | --- | --- |
    | **On Triggered Send Event To** | Timer Device | Start |
    | **On Triggered Send Event To** | VFX Creator | Enable |
+
 2. Set this event for the **timer**:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/6bc0dd87-e2c0-41c3-85ba-6505f8bc6b5b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6bc0dd87-e2c0-41c3-85ba-6505f8bc6b5b?resizing_type=fit)
@@ -117,6 +119,7 @@ The final device to place is the trigger. The player will interact with the trig
    | Event | Device | Function |
    | --- | --- | --- |
    | **On Success Send Event To** | Explosive Device | Explode |
+
 3. Set the following function for the VFX Creator device. (Note that the Trigger binding is already there from the previous step.)
 
    [![](https://dev.epicgames.com/community/api/documentation/image/81c879e6-3ce3-4296-942a-f6281f044e90?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/81c879e6-3ce3-4296-942a-f6281f044e90?resizing_type=fit)
@@ -127,7 +130,7 @@ The final device to place is the trigger. The player will interact with the trig
 
    This will disable the explosive after it explodes.
 
-## Bonus Points!
+## Bonus Points
 
 Want to add some cool sound effects to go with the visual effects? Use the **Audio Player** device!
 

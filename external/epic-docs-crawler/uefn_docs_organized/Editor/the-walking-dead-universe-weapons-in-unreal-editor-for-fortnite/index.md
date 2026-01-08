@@ -1,6 +1,6 @@
 # The Walking Dead Universe Weapons
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-weapons-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-weapons-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:15:14.330509
 
 ---
@@ -82,4 +82,4 @@ Continue to learn about Walkers and making weapon choices for your game based on
 
 The Walking Dead Universe Level Design
 
-Explore the attributes of Walkers, and learn best practices for placing the NPCs in your islands through level design scenarios.](https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-level-design-in-unreal-editor-for-fortnite)
+Explore the attributes of Walkers, and learn best practices for placing the NPCs in your islands through level design scenarios.](<https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-level-design-in-unreal-editor-for-fortnite>)

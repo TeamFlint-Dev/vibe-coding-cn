@@ -1,6 +1,6 @@
 # item_honey class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_honey
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_honey>
 > **爬取时间**: 2025-12-27T03:51:47.901539
 
 ---

@@ -1,6 +1,6 @@
 # IsStatePerAgent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/isstateperagent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/isstateperagent>
 > **爬取时间**: 2025-12-27T07:03:56.246084
 
 ---

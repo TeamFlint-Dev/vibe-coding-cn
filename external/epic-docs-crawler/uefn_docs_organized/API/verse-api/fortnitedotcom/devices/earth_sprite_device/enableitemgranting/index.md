@@ -1,6 +1,6 @@
 # EnableItemGranting function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/earth_sprite_device/enableitemgranting
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/earth_sprite_device/enableitemgranting>
 > **爬取时间**: 2025-12-27T05:34:13.590956
 
 ---

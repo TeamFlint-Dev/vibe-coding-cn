@@ -1,6 +1,6 @@
 # reboot_card_purchase_options class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/reboot_card_purchase_options
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/reboot_card_purchase_options>
 > **爬取时间**: 2025-12-27T01:53:30.671227
 
 ---

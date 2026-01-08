@@ -1,6 +1,6 @@
 # speaker_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/patchwork/speaker_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/patchwork/speaker_device>
 > **爬取时间**: 2025-12-27T05:59:20.542524
 
 ---

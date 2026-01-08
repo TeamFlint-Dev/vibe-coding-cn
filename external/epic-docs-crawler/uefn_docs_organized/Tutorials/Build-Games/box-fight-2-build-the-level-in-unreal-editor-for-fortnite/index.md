@@ -1,6 +1,6 @@
 # 2. Build the Level
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-2-build-the-level-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-2-build-the-level-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:19:18.990639
 
 ---
@@ -43,6 +43,6 @@ To make the game setup simpler, divide the box fight arena into two floors: a ma
 
 [![3. Add Devices](https://dev.epicgames.com/community/api/documentation/image/25334b81-f62c-4349-93f3-4c3428578ed6?resizing_type=fit&width=640&height=640)
 
-3. Add Devices
+1. Add Devices
 
-Add and configure the devices that make up the box fight.](https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-3-add-devices-in-unreal-editor-for-fortnite)
+Add and configure the devices that make up the box fight.](<https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-3-add-devices-in-unreal-editor-for-fortnite>)

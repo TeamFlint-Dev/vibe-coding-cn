@@ -1,6 +1,6 @@
 # (InEntity:entity).GetGlobalTransform extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/getglobaltransform
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/getglobaltransform>
 > **爬取时间**: 2025-12-27T00:51:21.347447
 
 ---

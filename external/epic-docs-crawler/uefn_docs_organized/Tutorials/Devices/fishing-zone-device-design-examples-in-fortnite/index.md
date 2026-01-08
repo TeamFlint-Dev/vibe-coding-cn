@@ -1,6 +1,6 @@
 # Fishing Zone Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/fishing-zone-device-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/fishing-zone-device-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:05:16.690722
 
 ---
@@ -63,6 +63,7 @@ Using the Fishing Zone device, you can give players an engaging way to discover 
    | Zone Height | 0.5 |
    | Vertical Emptying Speed (T PM) | 10.0 |
    | Water Type | Red River Styx |
+
 4. Place a **Fishing Zone** device above the Water device, ensuring that the devices overlap. Register a **Legendary Primal Pistol** to the device.
 5. Customize the Fishing Zone:
 
@@ -73,6 +74,7 @@ Using the Fishing Zone device, you can give players an engaging way to discover 
    | Usage Type | Limited | The device can only be used once. |
    | Pool Type | Device Inventory |  |
    | Disable when Empty | On |  |
+
 6. Place a Fishing Rod Barrel device near the pool.
 7. Place a Player Spawner device away from the pool.
 
@@ -124,6 +126,7 @@ Using the Fishing Zone device, you’ll now create a fully functioning fishing g
    | --- | --- |
    | Receiving Players | All |
    | Grant on Game Start | On |
+
 6. Place a **Fishing Zone** device in the lake. Register a **Small Fry**, **Flopper**, **Stink Fish**, **Cuddle Fish**, and **Thermal Fish**.
 7. Customize the Fishing Zone **Pool Type** for **Device Inventory**:
 
@@ -160,6 +163,7 @@ Using the Fishing Zone device, you’ll now create a fully functioning fishing g
    | --- | --- |
    | Effect Type | Burst |
    | Burst Visual Effect | Splash Small |
+
 7. Configure the following events on the Conditional Button to trigger the VFX and give the player Gold when they sell a fish.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/21a71d0d-e243-4445-b9e6-29dc662132bb?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/21a71d0d-e243-4445-b9e6-29dc662132bb?resizing_type=fit)
@@ -168,6 +172,7 @@ Using the Fishing Zone device, you’ll now create a fully functioning fishing g
    | --- | --- | --- |
    | On Activated | VFX Spawner 1 | Restart |
    | On Activated | Small Fry Item Granter | Grant Item |
+
 8. **Duplicate** this trio of devices **four times**. Configure them to sell **Floppers** for **3 Gold**, **Stink Fish** for **8 Gold**, **Cuddle Fish** for **15 Gold**, and **Thermal Fish** for **50 Gold** by changing the registered fish in the Conditional Buttons and the number of Gold registered in the Item Granters.
 9. Next to the tree, place a **Vending Machine** device and register a **Creative Pro Fishing Rod**.
 10. Customize the Vending Machine:

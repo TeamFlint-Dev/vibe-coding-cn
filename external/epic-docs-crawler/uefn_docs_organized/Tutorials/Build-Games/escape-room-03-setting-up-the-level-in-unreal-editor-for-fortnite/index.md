@@ -1,6 +1,6 @@
 # 3. Setting Up the Level
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-03-setting-up-the-level-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-03-setting-up-the-level-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:17:20.068259
 
 ---
@@ -114,6 +114,6 @@ Once you've got the basic game structure and cabin designed, you'll need to star
 
 [![4. Holding Area](https://dev.epicgames.com/community/api/documentation/image/da766a5a-071a-4bf6-996a-469de13faa2b?resizing_type=fit&width=640&height=640)
 
-4. Holding Area
+1. Holding Area
 
-Create the first room where players spawn and escape.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-04-holding-area-in-unreal-editor-for-fortnite)
+Create the first room where players spawn and escape.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-04-holding-area-in-unreal-editor-for-fortnite>)

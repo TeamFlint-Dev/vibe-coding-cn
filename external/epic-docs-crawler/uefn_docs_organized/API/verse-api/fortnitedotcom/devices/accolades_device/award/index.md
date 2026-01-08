@@ -1,6 +1,6 @@
 # Award function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/accolades_device/award
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/accolades_device/award>
 > **爬取时间**: 2025-12-27T06:15:47.721628
 
 ---

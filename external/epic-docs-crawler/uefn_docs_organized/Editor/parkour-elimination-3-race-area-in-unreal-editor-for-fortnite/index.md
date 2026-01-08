@@ -1,6 +1,6 @@
 # 3. Race Area
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-3-race-area-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-3-race-area-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:21:06.811025
 
 ---
@@ -118,6 +118,6 @@ Configure the **User Options** as follows:
 
 [![4. Elimination Arena](https://dev.epicgames.com/community/api/documentation/image/04effe90-7a1c-4cb7-9399-6013ff3c27f0?resizing_type=fit&width=640&height=640)
 
-4. Elimination Arena
+1. Elimination Arena
 
-Build the arena where players will race to get to 10 eliminations.](https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-4-elimination-arena-in-unreal-editor-for-fortnite)
+Build the arena where players will race to get to 10 eliminations.](<https://dev.epicgames.com/documentation/en-us/fortnite/parkour-elimination-4-elimination-arena-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # Music Experience
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-a-music-experience-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-a-music-experience-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:58:16.041511
 
 ---
@@ -174,6 +174,7 @@ When players spawn in, all active media elements are reset to off until a player
    | **Rewind When This Stream Is Loaded** | Yes | Each time the video link is played, it is rewinded back to the start. |
    | **Turn On When Receiving From** | Channel 1 | When the switch is activated in the center of the music stage, all the video players will begin playing. |
    | **Turn Off When Receiving From** | Channel 2 | Either when first spawning in or flipping the switch a second time, it will turn off and rewind all of the video players. |
+
 3. Copy the Video Player device and place the copy on the lower portion of the stage. Using the **Resize** option in the [Create mode hotkeys](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#create-mode-hotkeys), customize it to its maximum dimensions to create the main screen in the center wall of the music hall.
 
    [![Video Player 2](https://dev.epicgames.com/community/api/documentation/image/f1bf15ac-aeb4-4ab6-8713-f8fd37e95370?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f1bf15ac-aeb4-4ab6-8713-f8fd37e95370?resizing_type=fit)
@@ -225,6 +226,7 @@ When initially flipped, the switch will turn on the media experience. When switc
    | **Turn On Team Filter** | None | No team can interact with the spotlights to turn them on. |
    | **Turn Off Team Filter** | None | No team can interact with the spotlights to turn them off. |
    | **Toggle When Received From** | Channel 3 | Upon receiving a signal from Channel 3, will [toggle](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#toggle) the light on and off. |
+
 4. Copy the spotlight and place a second one adjacent to the first. Modify only the following additional settings.
 
    [![Spotlight Settings 2](https://dev.epicgames.com/community/api/documentation/image/e2188d54-8334-410b-8620-0f97839777b2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e2188d54-8334-410b-8620-0f97839777b2?resizing_type=fit)
@@ -233,6 +235,7 @@ When initially flipped, the switch will turn on the media experience. When switc
    | --- | --- | --- |
    | **Initial State** | Off | This light will default to off. Toggling will cause it to turn on, creating an alternating effect with the paired spotlight. |
    | **Color** | Purple | The color of the light beam from the spotlight. |
+
 5. Place another spotlight beneath the central video player screen, facing away from the screen and toward the main floor.
 
    [![Customizeable Spotlight Placement 2](https://dev.epicgames.com/community/api/documentation/image/9df93913-7eb9-4f32-879a-828635bb772c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9df93913-7eb9-4f32-879a-828635bb772c?resizing_type=fit)
@@ -263,6 +266,7 @@ When set up in this way, spotlights will alternate colors and turn them on and o
    | **Starting Enabled State** | Disabled | This device starts disabled, and needs to receive a signal to become enabled. |
    | **Enable When Received From** | Channel 1 | When the switch is flipped, the Equalizer Landscape is enabled and begins animating. |
    | **Disable When Receiving From** | Channel 2 | Upon player spawn in or pressing the switch a second time, sets the equalizer back to disabled. |
+
 3. Copy the completed Equalizer device, then paste a copy on the rightmost wall.
 
 You will have large screens of shimmering colors on either side of the stage, adding a splash of shifting colors to the visual appeal.
@@ -292,6 +296,7 @@ You will have large screens of shimmering colors on either side of the stage, ad
    | **Activate Preset 2 When Receiving From** | Channel 3 | Upon receiving a signal from Channel 3, swaps the state of the mannequin into the second preset. This will change the colors of the hologram. |
    | **Enable When Receiving From** | Channel 1 | Enables the mannequin hologram when the switch is hit, activating the dance hall. |
    | **Disable When Receiving From** | Channel 2 | When a player spawns in or the switch is hit a second time, disables the dance mannequin. |
+
 3. Copy and place a second Dance Mannequin device at the top of the opposite set of stairs.
 
 [![Dance Mannequin Placement 2](https://dev.epicgames.com/community/api/documentation/image/3564fea5-e61c-4916-97be-86e2a8fc4553?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/3564fea5-e61c-4916-97be-86e2a8fc4553?resizing_type=fit)
@@ -327,6 +332,7 @@ This sets a pair of large dancing holograms that change color to the beat of a s
    | **Custom Color** | Red | The color of the fog on the stage. |
    | **Disable When Receiving From** | Channel 2 | When the switch is flipped a second time or a player spawns, all active VFX spawners are disabled. |
    | **Enable When Receiving From** | Channel 1 | When the switch is initially flipped, enables the VFX spawners. |
+
 3. Copy this VFX Spawner device with fog and place an identical copy behind the second dance mannequin.
 
    [![VFX Spawner Placement 2](https://dev.epicgames.com/community/api/documentation/image/f155c0b7-d20e-43ba-a983-e043babe161a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f155c0b7-d20e-43ba-a983-e043babe161a?resizing_type=fit)
@@ -388,6 +394,7 @@ This addition, combined with a Sequencer device later on, will cause bolts of li
    | **Despawn When Receiving From** | Channel 2 | Any active guards are despawned when the switch is flipped a second time or another player spawns in. |
    | **Reset Total Spawn Count When Receiving From** | Channel 1 | If a guard has already been spawned, refreshes it to allow a new one for additional activations. |
    | **When Eliminated Transmit On** | Channel 15 | Sends a signal to a Trigger device to spawn two more Guards after a delay if you eliminate the first one. |
+
 6. Copy the initial Guard Spawner device and place an additional guard to the left of of the first one. Modify the additional settings below.
 
    [![Guard Spawner Settings 3](https://dev.epicgames.com/community/api/documentation/image/114019d5-58bd-4a9f-81a6-a2f7e125397a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/114019d5-58bd-4a9f-81a6-a2f7e125397a?resizing_type=fit)
@@ -399,6 +406,7 @@ This addition, combined with a Sequencer device later on, will cause bolts of li
    | **Spawn When Receiving From** | Channel 16 | Forcefully spawns a guard when receiving the signal to enable the device. |
    | **Despawn When Receiving From** | Channel 2 | Any active guards are despawned when the switch is flipped a second time or another player spawns in. |
    | **Reset Total Spawn Count When Receiving From** | Channel 1 | If a guard has already been spawned, refreshes it to allow a new one for additional activations. |
+
 7. Copy the guard spawner you just customized, and place it on the other side of the originally placed guard spawner. This will cause two more guards to spawn when the first one is eliminated, and they'll all be throwing Boogie Bombs that force players to dance! If the players decide that can't take it anymore, the Class Designer will eventually supply them with grenades to fight back!
 
 ## Music Stage Background Devices
@@ -510,6 +518,7 @@ This repeating sequence pulse will activate the triggers once set up to toggle m
    | **Trigger VFX** | Disabled | The visual effect from the trigger activating in gameplay is disabled. |
    | **Trigger When Receiving From** | Channel 15 | When the first of the guards is eliminated, it transmits a signal to this trigger to spawn two new guards after the delay. |
    | **When Triggered Transmit On** | Channel 16 | After a 10 second delay, transmits to the other two Guard Spawners devices to enable and spawn additional guards. |
+
 3. Place a new Trigger device at the very start of the sequencer volume. You can tilt it up if you prefer to see them that way, but the functionality will work fine if they lay flat on the ground.
 
    [![Multi-Trigger Placement](https://dev.epicgames.com/community/api/documentation/image/12a7ac26-7ca0-4eef-922e-1566381a7df0?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/12a7ac26-7ca0-4eef-922e-1566381a7df0?resizing_type=fit)
@@ -522,6 +531,7 @@ This repeating sequence pulse will activate the triggers once set up to toggle m
    | **Trigger Sound** | Disabled | The sound effect from the trigger activating in gameplay is disabled. |
    | **Trigger VFX** | Disabled | The visual effect from the trigger activating in gameplay is disabled. |
    | **When Triggered Transmit On** | Channel 3 | The channel that the trigger will transmit on when activated by the sequencer device. |
+
 5. Using the above image, set up a number of Trigger devices. Each one will need the **When Triggered Transmit On** to match the device shown in the image, from 3 to 5. Feel free to adjust, expand, or tinker this setup to meet your own personal style of effects for the main stage.
 
    - **Channel 3**: Used to toggle on and off for some SFX Spawner devices and the customizeable spotlights.

@@ -1,6 +1,6 @@
 # item_dmr_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/vibinitems/item_dmr_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/vibinitems/item_dmr_legendary>
 > **爬取时间**: 2025-12-27T03:37:19.109616
 
 ---

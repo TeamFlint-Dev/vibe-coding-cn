@@ -1,6 +1,6 @@
 # Verse Glossary
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary>
 > **爬取时间**: 2025-12-26T22:58:00.494472
 
 ---

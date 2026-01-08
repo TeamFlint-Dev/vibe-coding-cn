@@ -1,6 +1,6 @@
 # item_pump_shotgun_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_pump_shotgun_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_pump_shotgun_uncommon>
 > **爬取时间**: 2025-12-27T04:40:45.678717
 
 ---

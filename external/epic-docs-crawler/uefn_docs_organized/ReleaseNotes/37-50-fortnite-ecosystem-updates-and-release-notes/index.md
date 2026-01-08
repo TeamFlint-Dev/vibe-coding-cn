@@ -1,6 +1,6 @@
 # 37.50 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/37-50-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/37-50-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-26T23:14:06.492683
 
 ---
@@ -11,7 +11,7 @@ The Butter Barn Prefab and Galleries have also landed in Creative and UEFN for u
 
 Wanting to attract more fans to your KPop Demon Hunters islands? Say no more! You can now add gold and demon auras to your KPop Demon Hunters islands to really make them pop!
 
-## LEGO® Island New Content and Updates!
+## LEGO® Island New Content and Updates
 
 This release has several exciting new templates, devices, assets, and more!
 

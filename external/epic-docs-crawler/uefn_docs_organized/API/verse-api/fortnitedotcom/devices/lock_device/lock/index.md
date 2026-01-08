@@ -1,6 +1,6 @@
 # Lock function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/lock_device/lock
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/lock_device/lock>
 > **爬取时间**: 2025-12-27T06:00:00.827419
 
 ---

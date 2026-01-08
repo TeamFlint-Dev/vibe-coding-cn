@@ -1,6 +1,6 @@
 # item_presents class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_presents
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_presents>
 > **爬取时间**: 2025-12-27T03:22:28.370664
 
 ---

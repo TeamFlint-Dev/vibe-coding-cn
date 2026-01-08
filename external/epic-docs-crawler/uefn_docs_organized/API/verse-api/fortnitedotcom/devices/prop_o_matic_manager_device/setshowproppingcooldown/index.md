@@ -1,6 +1,6 @@
 # SetShowPropPingCooldown function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/prop_o_matic_manager_device/setshowproppingcooldown
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/prop_o_matic_manager_device/setshowproppingcooldown>
 > **爬取时间**: 2025-12-27T06:41:40.608247
 
 ---

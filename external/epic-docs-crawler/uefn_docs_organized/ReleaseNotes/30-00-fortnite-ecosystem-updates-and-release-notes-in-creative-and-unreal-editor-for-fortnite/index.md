@@ -1,6 +1,6 @@
 # 30.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/30-00-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/30-00-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:32:41.372461
 
 ---
@@ -25,13 +25,13 @@ The “Items” category has been renamed to “Items” in the Creative invento
 
 It should be noted that “Weapons” are also considered items, but they are distinct enough to have their own category. Items that have a body, do damage, use ammo/charges/energy, or do melee damage will be found under **Weapons**. Some items were moved from Weapons to Items with this release, such as the Coal and Signal Remote items.
 
-## Over 800+ Fortnite Characters are available!
+## Over 800+ Fortnite Characters are available
 
 Devices where you can select a Fortnite character have been updated with hundreds of new outfits and characters to choose from. This includes the Character device, Character Device Controller, Dance Mannequin device, Guard Spawner, and NPC Spawner (UEFN only).
 
 Additionally, the **Character Icon Picker** is a new option in all of these devices that allows you to quickly preview and choose a character. You can browse the picker or search by character name.
 
-## Take Recorder is now available in UEFN!
+## Take Recorder is now available in UEFN
 
 You can now record with **Take Recorder** into Sequencer and use those takes directly in a sequence directly for playback. Take Recorder can be used in several different ways, including but not limited to:
 

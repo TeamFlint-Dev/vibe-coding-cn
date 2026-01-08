@@ -1,6 +1,6 @@
 # FromRotation function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/fromrotation
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/fromrotation>
 > **爬取时间**: 2025-12-27T02:28:28.780288
 
 ---

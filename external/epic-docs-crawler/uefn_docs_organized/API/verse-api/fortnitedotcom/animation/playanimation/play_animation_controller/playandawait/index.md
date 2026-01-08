@@ -1,6 +1,6 @@
 # PlayAndAwait function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/animation/playanimation/play_animation_controller/playandawait
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/animation/playanimation/play_animation_controller/playandawait>
 > **爬取时间**: 2025-12-27T07:13:10.528569
 
 ---

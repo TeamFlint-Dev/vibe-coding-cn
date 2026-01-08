@@ -1,6 +1,6 @@
 # item_lever_action_rifle_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_lever_action_rifle_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_lever_action_rifle_epic>
 > **爬取时间**: 2025-12-27T03:59:41.560085
 
 ---

@@ -1,6 +1,6 @@
 # Custom Inventory and Items Overview
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/custom-inventory-and-items-overview-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/custom-inventory-and-items-overview-in-fortnite>
 > **爬取时间**: 2025-12-27T00:35:48.668380
 
 ---
@@ -55,7 +55,7 @@ With Custom Inventory and Items, we can introduce proper modularity. This means 
 
 ## Inventories
 
-An inventory is an entity that has an `inventory_component`. 
+An inventory is an entity that has an `inventory_component`.
  Inventories are containers for item entities and the inventory controls what happens to those items.
 
 The Custom Inventory and Items system uses inventories and sub-inventories to compartmentalize items. This makes it easier to sort, add and retrieve items within an inventory. Since an item may only exist inside one inventory at a time, inventories also determine the ownership of item entities.

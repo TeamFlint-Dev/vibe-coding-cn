@@ -1,6 +1,6 @@
 # item_veiled_precision_smg_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_veiled_precision_smg_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_veiled_precision_smg_epic>
 > **爬取时间**: 2025-12-27T04:07:37.866408
 
 ---

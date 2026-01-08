@@ -1,6 +1,6 @@
 # ReleaseFromStasis function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/characters/fort_character/releasefromstasis
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/characters/fort_character/releasefromstasis>
 > **爬取时间**: 2025-12-27T05:06:07.278228
 
 ---

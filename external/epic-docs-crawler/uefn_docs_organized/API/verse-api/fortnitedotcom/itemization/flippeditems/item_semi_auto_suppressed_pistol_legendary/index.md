@@ -1,6 +1,6 @@
 # item_semi_auto_suppressed_pistol_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_semi_auto_suppressed_pistol_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_semi_auto_suppressed_pistol_legendary>
 > **爬取时间**: 2025-12-27T03:32:57.970022
 
 ---

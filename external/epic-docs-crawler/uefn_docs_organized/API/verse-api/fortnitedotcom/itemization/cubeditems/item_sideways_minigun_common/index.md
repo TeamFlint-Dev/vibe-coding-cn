@@ -1,6 +1,6 @@
 # item_sideways_minigun_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_sideways_minigun_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_sideways_minigun_common>
 > **爬取时间**: 2025-12-27T03:12:18.605767
 
 ---

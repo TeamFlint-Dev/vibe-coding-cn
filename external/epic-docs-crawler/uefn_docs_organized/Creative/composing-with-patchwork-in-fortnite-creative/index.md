@@ -1,6 +1,6 @@
 # Composing with Fortnite Patchwork
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/composing-with-patchwork-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/composing-with-patchwork-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T22:57:47.316730
 
 ---
@@ -31,12 +31,12 @@ Please be reminded that use of a Patchwork audio device is limited to the creati
 
 Getting Started with Patchwork
 
-Learn how the Patchwork devices work and get jamming in minutes!](https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-patchwork-in-fortnite-creative)[![Patchwork x Yacht Heist](https://dev.epicgames.com/community/api/documentation/image/2b4eab23-ad04-4e2d-beb9-10cd812b87b2?resizing_type=fit&width=640&height=640)
+Learn how the Patchwork devices work and get jamming in minutes!](<https://dev.epicgames.com/documentation/en-us/fortnite/getting-started-with-patchwork-in-fortnite-creative)[![Patchwork> x Yacht Heist](<https://dev.epicgames.com/community/api/documentation/image/2b4eab23-ad04-4e2d-beb9-10cd812b87b2?resizing_type=fit&width=640&height=640>)
 
 Patchwork x Yacht Heist
 
-Steal the keycard, blow open the vault and escape with the loot while a custom music track syncs with the gameplay!](https://dev.epicgames.com/documentation/en-us/fortnite/build-patchwork-x-yacht-heist-in-fortnite-creative)[![Patchwork Devices](https://dev.epicgames.com/community/api/documentation/image/927f7ab1-4411-419e-aea9-e9262dd16ecb?resizing_type=fit&width=640&height=640)
+Steal the keycard, blow open the vault and escape with the loot while a custom music track syncs with the gameplay!](<https://dev.epicgames.com/documentation/en-us/fortnite/build-patchwork-x-yacht-heist-in-fortnite-creative)[![Patchwork> Devices](<https://dev.epicgames.com/community/api/documentation/image/927f7ab1-4411-419e-aea9-e9262dd16ecb?resizing_type=fit&width=640&height=640>)
 
 Patchwork Devices
 
-Everything you need to know about Patchwork devices!](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-devices-in-fortnite-creative)
+Everything you need to know about Patchwork devices!](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-devices-in-fortnite-creative>)

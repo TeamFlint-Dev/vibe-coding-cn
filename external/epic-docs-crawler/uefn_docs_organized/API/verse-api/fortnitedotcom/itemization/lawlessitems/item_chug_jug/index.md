@@ -1,6 +1,6 @@
 # item_chug_jug class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_chug_jug
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_chug_jug>
 > **爬取时间**: 2025-12-27T05:00:40.370100
 
 ---

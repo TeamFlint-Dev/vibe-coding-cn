@@ -1,6 +1,6 @@
 # HideConversation function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conversation_device/hideconversation
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conversation_device/hideconversation>
 > **爬取时间**: 2025-12-27T05:32:19.053138
 
 ---

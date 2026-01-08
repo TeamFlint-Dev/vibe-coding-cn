@@ -1,6 +1,6 @@
 # Visual Effect Powerup Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/visual-effect-powerup-device-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/visual-effect-powerup-device-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:05:59.802410
 
 ---
@@ -55,6 +55,7 @@ Think of the [Visual Effect Powerup](https://dev.epicgames.com/documentation/en-
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | Pickup When Receiving From | Health Powerup | On Item Picked Up |
+
 2. Configure the function settings for the Health powerup as well:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/8ca40e81-7a92-46da-ab94-2e44706cd3b4?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/8ca40e81-7a92-46da-ab94-2e44706cd3b4?resizing_type=fit)
@@ -106,6 +107,7 @@ Devices Used
    | Visual Effect | GLOW |
    | Color Type | DIRECT COLOR |
    | Custom Color | #FF00E2 |
+
 4. Configure the functions:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/d4174db1-3ac1-44f8-b13f-fde4267984e5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d4174db1-3ac1-44f8-b13f-fde4267984e5?resizing_type=fit)
@@ -113,6 +115,7 @@ Devices Used
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | Pickup When Receiving From | Damage Amplifier Pickup | On Item Picked Up |
+
 5. Configure the **Visual Effect Powerup** device that you will connect to the **Stat Powerup**:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/8f734a3c-421a-40bb-b8e7-09a9e23aa52f?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/8f734a3c-421a-40bb-b8e7-09a9e23aa52f?resizing_type=fit)
@@ -123,6 +126,7 @@ Devices Used
    | Visual Effect | OUTLINE |
    | Color Type | DIRECT COLOR |
    | Custom Color | #FFF000 |
+
 6. Configure the functions:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/66951003-4686-42b9-9ff9-1c7052e594a9?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/66951003-4686-42b9-9ff9-1c7052e594a9?resizing_type=fit)
@@ -130,6 +134,7 @@ Devices Used
    | Function | Select Event |  |
    | --- | --- | --- |
    | Pickup When Receiving From | Stat Powerup | On Item Picked Up |
+
 7. Configure the **Grind Powerup** device:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/41515619-445c-4318-93ff-d1f5d00ae7f4?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/41515619-445c-4318-93ff-d1f5d00ae7f4?resizing_type=fit)
@@ -138,6 +143,7 @@ Devices Used
    | --- | --- |
    | Respawn | YES |
    | Effect Duration | 20 SECONDS |
+
 8. Configure the **Visual Effect Powerup** device:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/0a123bf7-ba6c-499a-9ace-84369e0fcfc0?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/0a123bf7-ba6c-499a-9ace-84369e0fcfc0?resizing_type=fit)
@@ -148,6 +154,7 @@ Devices Used
    | Visual Effect | SPARK AURA |
    | Color Type | DIRECT COLOR |
    | Custom Color | #3500FF |
+
 9. Configure the **Visual Effect Powerup** device functions:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/c3405c26-9241-4a82-9799-7cd8609576fc?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c3405c26-9241-4a82-9799-7cd8609576fc?resizing_type=fit)
@@ -215,7 +222,7 @@ Oasis Island features a tiny island with a handy beached boat. That island makes
 
 ### Customize the Visual Effect Powerup Devices for All Four Powerups
 
-This step is the same as [Basic Setup](https://dev.epicgames.com/documentation/en-us/fortnite/visual-effect-powerup-device-design-examples-in-fortnite#basic-setup) and [Combine Powerups for Visual Effects](https://dev.epicgames.com/documentation/en-us/fortnite/visual-effect-powerup-device-design-examples-in-fortnite#combine-powerups-for-visual-effects), so repeat those steps here. 
+This step is the same as [Basic Setup](https://dev.epicgames.com/documentation/en-us/fortnite/visual-effect-powerup-device-design-examples-in-fortnite#basic-setup) and [Combine Powerups for Visual Effects](https://dev.epicgames.com/documentation/en-us/fortnite/visual-effect-powerup-device-design-examples-in-fortnite#combine-powerups-for-visual-effects), so repeat those steps here.
 
 [![](https://dev.epicgames.com/community/api/documentation/image/90e351a9-dc13-4f07-827e-6ab7529609f2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/90e351a9-dc13-4f07-827e-6ab7529609f2?resizing_type=fit)
 
@@ -265,6 +272,7 @@ This play space is so big that it’s perfect for using vehicles to add to the f
    | --- | --- |
    | Random Spawns | RANDOM |
    | Item Scale | 1.5 |
+
 3. Place copies of your Item Spawner device all over your island in interesting and fun locations. This example has 10 spawners, with some on both ships and one in the middle of Oasis Island itself.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/744918fc-93db-4b95-9556-a1fdb94a94c5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/744918fc-93db-4b95-9556-a1fdb94a94c5?resizing_type=fit)
@@ -301,6 +309,7 @@ Copy and place the various powerup spawners where you think players would have t
    | Island Matchmaking Privacy | Party Choice |
    | Minimum Players | 2 |
    | Overtiime Player Target | 2 |
+
 3. Go to **Scoring > Elimination Scoring** and select **2**:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/afbe2bda-7426-4d55-9d35-19735ad4470d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/afbe2bda-7426-4d55-9d35-19735ad4470d?resizing_type=fit)

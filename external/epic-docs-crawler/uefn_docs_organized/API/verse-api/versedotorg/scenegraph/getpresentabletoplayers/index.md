@@ -1,6 +1,6 @@
 # (Entity:entity).GetPresentableToPlayers extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/getpresentabletoplayers
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/getpresentabletoplayers>
 > **爬取时间**: 2025-12-27T00:52:57.569681
 
 ---

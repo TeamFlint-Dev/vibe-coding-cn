@@ -1,6 +1,6 @@
 # IsAnyDisguiseApplied function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/disguise_device/isanydisguiseapplied
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/disguise_device/isanydisguiseapplied>
 > **爬取时间**: 2025-12-27T06:47:48.406120
 
 ---

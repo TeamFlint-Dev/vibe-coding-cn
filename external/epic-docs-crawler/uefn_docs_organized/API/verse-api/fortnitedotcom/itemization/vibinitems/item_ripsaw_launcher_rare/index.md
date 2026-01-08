@@ -1,6 +1,6 @@
 # item_ripsaw_launcher_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/vibinitems/item_ripsaw_launcher_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/vibinitems/item_ripsaw_launcher_rare>
 > **爬取时间**: 2025-12-27T03:35:27.972857
 
 ---

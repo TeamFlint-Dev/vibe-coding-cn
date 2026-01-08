@@ -1,6 +1,6 @@
 # LoadForAll function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/tracker_device/loadforall
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/tracker_device/loadforall>
 > **爬取时间**: 2025-12-27T05:43:54.032064
 
 ---

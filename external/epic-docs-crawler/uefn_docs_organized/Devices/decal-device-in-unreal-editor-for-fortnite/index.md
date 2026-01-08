@@ -1,6 +1,6 @@
 # Decal Device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/decal-device-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/decal-device-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:30:15.116919
 
 ---

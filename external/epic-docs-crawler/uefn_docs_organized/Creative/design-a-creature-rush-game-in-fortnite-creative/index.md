@@ -1,6 +1,6 @@
 # Creature Rush
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/design-a-creature-rush-game-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/design-a-creature-rush-game-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:57:41.379317
 
 ---
@@ -150,6 +150,7 @@ To set up this device:
    | --- | --- | --- |
    | **Visible During Games** | No | This device is not visible during games. |
    | **When Players Spawned Transmit On** | Channel 1 | When players spawn, a signal will be sent to the **Pop Up Dialogue** and **Class Designer** devices to activate. |
+
 4. Click **OK** to save your options.
 
 ### Pop-Up Dialog
@@ -172,6 +173,7 @@ To set up this device:
    | **Timeout Duration** | 5 Seconds | This is how long players will have to interact with the dialog options. |
    | **Response Type** | 1 Button | The player will only have one interaction button, which says "Ok". |
    | **Show When Receiving From** | Channel 1 | The Player Spawn Pad sends a signal for the dialog to pop up. |
+
 3. Click **OK** to save your options.
 
 [![Pop-Up Message](https://dev.epicgames.com/community/api/documentation/image/96020f1c-f0ce-4d4f-8997-03a245b24a04?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/96020f1c-f0ce-4d4f-8997-03a245b24a04?resizing_type=fit)
@@ -196,6 +198,7 @@ To set up this device:
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **Class Identifier** | 1 | The device's registered items will be granted to players of this class. |
+
 5. Click **OK** to save your options.
 
 ### HUD Controller
@@ -214,6 +217,7 @@ To set up this device:
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **Show Minimap** | No | The minimap is removed from the player's HUD. |
+
 3. Click **OK** to save your options.
 
 ## Designer Tips
@@ -264,6 +268,7 @@ To set up these devices:
    | **Max Spawn Distance** | 1 Tile | Creatures can spawn one tile away from the device. |
    | **Spawn Through Walls** | Off | Use this setting for structured arenas with walls from the **Galleries** tab. Creatures will not spawn through walls. Creatures can still spawn through barriers. |
    | **Preferred Spawn Location** | Random | Creatures will spawn in random locations. |
+
 3. Place as many Creature Spawners as your gameplay calls for with various combinations of creature spawns and wave timers.
 4. Head to the final location of your arena to place the second Creature Spawner. These creatures will be the boss enemies and drop Cube Monster Parts when eliminated.
 5. Customize its settings as shown below.
@@ -283,6 +288,7 @@ To set up these devices:
    | **Max Spawn Distance** | 1 Tile | Creatures can spawn one tile away from the device. |
    | **Spawn Through Walls** | Off | Use this setting for structured arenas with walls from the **Galleries** tab. Creatures will not spawn through walls. |
    | **When a Creature is Eliminated Transmit On** | Channel 7 | Eliminating these creatures will send a signal to the **Elimination Manager**, which will drop an item for players to pick up. |
+
 6. Click **OK** to save your options.
 
 ### Mutator Zone
@@ -307,6 +313,7 @@ To set up this device:
    | **Affects Creatures** | No | This device does not affect creatures. |
    | **Disable When Receiving From** | Channel 2 | Once the player triggers this device, it will be disabled from further use. |
    | **On Player Exiting Zone Transmit On** | Channel 2 | This device will disable after players leave it's zone. |
+
 3. Click **OK** to save your options.
 
 ## Designer Tips
@@ -335,6 +342,7 @@ To set up this device:
    | **Show on HUD** | No | The timer should not be visible for this gameplay. |
    | **Start When Receiving From** | Channel 2 | The timer starts after leaving the Mutator Zone, which will automatically disable from triggering this device again. |
    | **On Success Transmit On** | Channel 3 | Once the timer finishes, it will send a signal to activate another Creature Spawner. Set the Creature Spawner to be enabled once receiving a signal on this channel. |
+
 3. Click **OK** to save your options.
 
 Place a combination of the devices from this section to create [gameplay](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#gameplay) where the player encounters more enemies as they progress forward. These enemies could randomly spawn in various directions after being triggered by the player.
@@ -375,6 +383,7 @@ To set up these devices:
    | --- | --- | --- |
    | **Target Type** | All Creatures | Since a variation of creatures may be used in this gameplay, set this setting to affect all creatures. |
    | **When Eliminated Transmit On** | Channel 4 | When creatures are eliminated, a signal will be sent to the Random Number Generator that rolls for if a message will be displayed or not through the HUD Message device. |
+
 3. Place a second Elimination Manager near the Creature Spawner that spawns the boss enemies.
 4. Find and equip the [Cube Monster Parts](https://dev.epicgames.com/documentation/en-us/fortnite/using-crafting-items-in-fortnite-creative) item.
 
@@ -388,6 +397,7 @@ To set up these devices:
    | **Number of Items Dropped** | 1 | One item will drop when a creature is eliminated. |
    | **Target Type** | Megabrute | The settings from this device only affect Megabrute creatures. |
    | **Enable When Receiving From** | Channel 7 | Set the paired Creature Spawner to send a signal upon elimination to this channel. This device will not activate until the last horde and will not affect other Megabrutes if they may spawn earlier. |
+
 6. Click **OK** to save your options.
 
 ### Random Number Generators 1-2
@@ -411,6 +421,7 @@ To set up these devices:
    | **Length** | 3 | The device's sequencer will be three spaces long. |
    | **Play Audio** | No | No audio will play from this device. |
    | **Activate When Receiving From** | Channel 4 | When a creature is eliminated, the Elimination Manager sends a signal to this device. |
+
 3. Click **OK** to save your options.
 
 Place a second Random Number Generator to receive a signal when the sequencer lands on a**Trigger**. When the second RNG is activated, it will roll to activate one of the four HUD Messages.
@@ -428,6 +439,7 @@ To set up the second device:
    | **Roll Time** | Instant | The device will instantly calculate the result. |
    | **Zone** | Forward | The device’s sequencer will move forward. |
    | **Activate When Receiving From** | Channel 5 | This device will activate when the Trigger from the first Random Number Generator is activated. |
+
 3. Click **OK** to save your options.
 
 ### Triggers 1-5
@@ -447,6 +459,7 @@ To set up this device:
    | --- | --- | --- |
    | **Trigger Sound** | Disabled | There will be no audio from this device. |
    | **When Triggered Transmit On** | Channel 5 | When the Random Number Generator hits the trigger, it will send a signal to the second Random Number Generator, which will roll for one of the four messages. |
+
 3. Click **OK** to save your options.
 
 For each space on the second Random Number Generator's sequencer, place both a Trigger and a HUD Message device. This is the last part of the system that will display a HUD message whenever a creature is eliminated. Each time the sequencer lands on one of the spaces, a trigger will signal for a customized message to be displayed.
@@ -462,6 +475,7 @@ To set up the second through fifth devices:
    | --- | --- | --- |
    | **Trigger Sound** | Disabled | There will be no audio from this device. |
    | **When Triggered Transmit On** | Channel 6 | Make sure to use an empty channel for each pair of devices. Pair these channeld to be received from a HUD Message device. |
+
 3. Click **OK** to save your options.
 
 ### HUD Message Devices 1-4
@@ -479,6 +493,7 @@ To set up the second through fifth devices:
    | **Text Style** | Large | The text style will be large. |
    | **Play Sound** | None | This device will not have audio. |
    | **Show When Receiving From** | Channel 6 | If the Random Number Generator lands on a trigger, it will play the paired HUD message. For this setting, each channel should match the trigger it's beside. |
+
 3. Click **OK** to save your options.
 
 [![Creature Horde Gameplay](https://dev.epicgames.com/community/api/documentation/image/fd6aaa46-b9d7-4138-9d3d-5a0791a36317?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fd6aaa46-b9d7-4138-9d3d-5a0791a36317?resizing_type=fit)
@@ -518,6 +533,7 @@ To set up this device:
    | **Show Key Item** | Key and Icon | Both the necessary item and the icon will display from this device. |
    | **Interaction Target Size** | .75M | The player can interact .75 meters from this device. |
    | **When Activated Transmit On** | Channel 8 | When this device is activated, it send a signal to end the game. |
+
 3. Click **OK** to save your options.
 
 ## Designer Tip
@@ -542,6 +558,7 @@ To set up this device:
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **Activate When Receiving From** | Channel 8 | This device will activate after receiving a signal from the Conditional Button. |
+
 3. Click **OK** to save your options.
 
 You have successfully designed your own creature rush game.

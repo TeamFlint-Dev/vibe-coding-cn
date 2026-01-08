@@ -1,6 +1,6 @@
 # navigation_action_error_type enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/navigation_action_error_type
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/navigation_action_error_type>
 > **爬取时间**: 2025-12-27T00:58:44.993896
 
 ---

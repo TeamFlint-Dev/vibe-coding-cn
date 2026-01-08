@@ -1,6 +1,6 @@
 # Creating Items and Offers
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creating-items-and-offers-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creating-items-and-offers-in-fortnite>
 > **爬取时间**: 2025-12-26T23:59:12.989067
 
 ---
@@ -271,7 +271,7 @@ TryBuyOffer(Player : player)<suspends>:void =
     # Limit to at least 1 packet.
     # If the player has the maximum amount, the offer displays with a disabled purchase button.
     NumCornSeedPacks := Max(1, Entitlements.corn_seed_pack{}.MaxCount - NumPlayerCornSeedPacks)
-	
+ 
     Offer := ExampleOffers.max_corn_seed_pack_bundle{
         Offers := array{(ExampleOffers.corn_seed_pack{}, NumCornSeedPacks)},
         Price := MakePriceVBucks(NumCornSeedPacks * OfferInfo.CornSeedPacket.Price)

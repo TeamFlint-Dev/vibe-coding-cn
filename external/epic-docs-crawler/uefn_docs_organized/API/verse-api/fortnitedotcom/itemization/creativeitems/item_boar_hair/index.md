@@ -1,6 +1,6 @@
 # item_boar_hair class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_boar_hair
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_boar_hair>
 > **爬取时间**: 2025-12-27T03:46:35.092134
 
 ---

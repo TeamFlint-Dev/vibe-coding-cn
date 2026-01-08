@@ -1,6 +1,6 @@
 # (Rotation:rotation).GetAngle extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/getangle
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/getangle>
 > **爬取时间**: 2025-12-27T02:36:53.737961
 
 ---

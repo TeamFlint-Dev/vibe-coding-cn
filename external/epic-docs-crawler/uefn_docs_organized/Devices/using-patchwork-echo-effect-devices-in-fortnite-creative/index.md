@@ -1,6 +1,6 @@
 # Echo Effect
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:05:28.767961
 
 ---
@@ -66,16 +66,16 @@ Try patching the Echo to any of these devices!
 
 Instrument Player
 
-The Instrument Player device gives you a selection of instruments for playing melodic content.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative)[![Omega Synthesizer](https://dev.epicgames.com/community/api/documentation/image/cd4b37b9-039d-46b5-9f57-931644136443?resizing_type=fit&width=640&height=640)
+The Instrument Player device gives you a selection of instruments for playing melodic content.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative)[![Omega> Synthesizer](<https://dev.epicgames.com/community/api/documentation/image/cd4b37b9-039d-46b5-9f57-931644136443?resizing_type=fit&width=640&height=640>)
 
 Omega Synthesizer
 
-The Omega Synthesizer device allows you to turn note inputs into audio data.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)[![Drum Player](https://dev.epicgames.com/community/api/documentation/image/b8cf7066-0ea5-4468-a0e3-a3180258e9ec?resizing_type=fit&width=640&height=640)
+The Omega Synthesizer device allows you to turn note inputs into audio data.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)[![Drum> Player](<https://dev.epicgames.com/community/api/documentation/image/b8cf7066-0ea5-4468-a0e3-a3180258e9ec?resizing_type=fit&width=640&height=640>)
 
 Drum Player
 
-Use the Drum Player device to play different drum sounds for your music setup.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-player-devices-in-fortnite-creative)[![Speaker](https://dev.epicgames.com/community/api/documentation/image/780e06d4-572a-4000-93e3-84c4dc6d6fa2?resizing_type=fit&width=640&height=640)
+Use the Drum Player device to play different drum sounds for your music setup.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-player-devices-in-fortnite-creative)[![Speaker>](<https://dev.epicgames.com/community/api/documentation/image/780e06d4-572a-4000-93e3-84c4dc6d6fa2?resizing_type=fit&width=640&height=640>)
 
 Speaker
 
-Use the Patchwork Speaker device to play the Patchwork audio you create, either at a specific location or across the entire island.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-speaker-devices-in-fortnite-creative)
+Use the Patchwork Speaker device to play the Patchwork audio you create, either at a specific location or across the entire island.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-speaker-devices-in-fortnite-creative>)

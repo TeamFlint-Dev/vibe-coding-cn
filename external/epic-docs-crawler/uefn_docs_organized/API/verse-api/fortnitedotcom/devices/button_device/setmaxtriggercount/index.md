@@ -1,6 +1,6 @@
 # SetMaxTriggerCount function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/button_device/setmaxtriggercount
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/button_device/setmaxtriggercount>
 > **爬取时间**: 2025-12-27T06:17:01.526886
 
 ---

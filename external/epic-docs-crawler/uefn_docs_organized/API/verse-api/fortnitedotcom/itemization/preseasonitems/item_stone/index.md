@@ -1,6 +1,6 @@
 # item_stone class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/preseasonitems/item_stone
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/preseasonitems/item_stone>
 > **爬取时间**: 2025-12-27T03:11:19.005604
 
 ---

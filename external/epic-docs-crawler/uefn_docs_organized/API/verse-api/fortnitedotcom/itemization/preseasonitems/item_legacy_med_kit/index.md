@@ -1,6 +1,6 @@
 # item_legacy_med_kit class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/preseasonitems/item_legacy_med_kit
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/preseasonitems/item_legacy_med_kit>
 > **爬取时间**: 2025-12-27T03:10:56.116480
 
 ---

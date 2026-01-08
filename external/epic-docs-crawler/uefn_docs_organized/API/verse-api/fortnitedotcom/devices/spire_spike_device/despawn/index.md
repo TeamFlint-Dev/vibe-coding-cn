@@ -1,6 +1,6 @@
 # Despawn function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/spire_spike_device/despawn
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/spire_spike_device/despawn>
 > **爬取时间**: 2025-12-27T05:15:04.659360
 
 ---

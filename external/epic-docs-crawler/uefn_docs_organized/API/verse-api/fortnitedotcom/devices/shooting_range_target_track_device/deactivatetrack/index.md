@@ -1,6 +1,6 @@
 # DeactivateTrack function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/shooting_range_target_track_device/deactivatetrack
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/shooting_range_target_track_device/deactivatetrack>
 > **爬取时间**: 2025-12-27T06:26:53.917535
 
 ---

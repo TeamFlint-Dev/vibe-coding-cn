@@ -1,6 +1,6 @@
 # item_eradicator_shadow_precision_smg_exotic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_eradicator_shadow_precision_smg_exotic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_eradicator_shadow_precision_smg_exotic>
 > **爬取时间**: 2025-12-27T04:27:13.864827
 
 ---

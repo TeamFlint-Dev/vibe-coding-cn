@@ -1,6 +1,6 @@
 # item_lawless_twinfire_slap_shotgun_exotic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_lawless_twinfire_slap_shotgun_exotic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_lawless_twinfire_slap_shotgun_exotic>
 > **爬取时间**: 2025-12-27T05:01:20.671354
 
 ---

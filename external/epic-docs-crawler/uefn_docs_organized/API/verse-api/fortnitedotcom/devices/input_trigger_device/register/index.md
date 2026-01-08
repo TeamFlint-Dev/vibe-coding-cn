@@ -1,6 +1,6 @@
 # Register function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/input_trigger_device/register
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/input_trigger_device/register>
 > **爬取时间**: 2025-12-27T05:32:37.087721
 
 ---

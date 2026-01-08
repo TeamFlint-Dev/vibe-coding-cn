@@ -1,6 +1,6 @@
 # item_killswitch_revolvers_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/superitems/item_killswitch_revolvers_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/superitems/item_killswitch_revolvers_rare>
 > **爬取时间**: 2025-12-27T04:57:22.216876
 
 ---

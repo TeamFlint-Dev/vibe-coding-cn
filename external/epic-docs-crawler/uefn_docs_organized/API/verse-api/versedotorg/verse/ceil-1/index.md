@@ -1,6 +1,6 @@
 # Ceil function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/ceil-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/ceil-1>
 > **爬取时间**: 2025-12-27T01:31:51.835992
 
 ---

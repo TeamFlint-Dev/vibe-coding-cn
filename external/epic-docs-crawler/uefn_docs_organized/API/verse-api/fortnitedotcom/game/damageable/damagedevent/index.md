@@ -1,6 +1,6 @@
 # DamagedEvent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/damageable/damagedevent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/damageable/damagedevent>
 > **爬取时间**: 2025-12-27T02:53:29.213247
 
 ---

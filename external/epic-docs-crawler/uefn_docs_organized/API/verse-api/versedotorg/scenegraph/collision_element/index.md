@@ -1,6 +1,6 @@
 # collision_element class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/collision_element
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/collision_element>
 > **爬取时间**: 2025-12-27T00:54:44.309004
 
 ---

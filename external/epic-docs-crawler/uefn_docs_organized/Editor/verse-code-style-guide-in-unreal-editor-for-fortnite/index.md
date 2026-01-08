@@ -1,6 +1,6 @@
 # Verse Code Style Guide
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-code-style-guide-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-code-style-guide-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:08:10.581452
 
 ---
@@ -93,6 +93,7 @@ MyVariable:int = 5
   ```verse
   MyNumber := 4 + (2 * (a + b))
   ```
+
 - Don’t add spaces at the beginnings and ends of brackets. Multiple expressions inside brackets should be separated by a single space.
 
   ```verse
@@ -101,6 +102,7 @@ MyVariable:int = 5
   Vector := vector3{Left := 1000.0, Up := -1000.0, Forward := 0.0}
   Foo(Num:int, Str:[]char)
   ```
+
 - Keep identifier and type together; add a space around the assignment `=` operator. Add a space around type definitions and constant initialization operators (`:=`).
 
   ```verse
@@ -108,6 +110,7 @@ MyVariable:int = 5
   MyVariable := 5
   my_type := class
   ```
+
 - Follow the same recommendations for brackets, identifiers, and types spacing for function signatures.
 
   ```verse
@@ -122,8 +125,8 @@ MyVariable:int = 5
 
   |  |  |  |
   | --- | --- | --- |
-  | **Do** | ```verse MyTransform := transform:     Translation := vector3:         Left := 100.0         Up := 200.0         Forward := 300.0      Rotation := rotation:         Pitch := 0.0         Yaw := 0.0         Roll := 0.0 ``` | **More readable and easier to edit.** |
-  | **Don't** | ```verse MyTransform := transform{Translation := vector3{Left := 100.0, Up := 200.0, Forward := 300.0}, Rotation := rotation{...}} ``` | **Hard to read on a single line.** |
+  | **Do** | ```verse MyTransform := transform:     Translation := vector3:         Left := 100.0         Up := 200.0         Forward := 300.0      Rotation := rotation:         Pitch := 0.0         Yaw := 0.0         Roll := 0.0``` | **More readable and easier to edit.** |
+  | **Don't** | ```verse MyTransform := transform{Translation := vector3{Left := 100.0, Up := 200.0, Forward := 300.0}, Rotation := rotation{...}}``` | **Hard to read on a single line.** |
 
 - Define enums in spaced, multiline form if they need per-enumeration comments or if you need to insert a line break.
 
@@ -139,8 +142,8 @@ Don’t use brackets for non-inheriting class definitions.
 
 |  |  |
 | --- | --- |
-| **Do** | ```verse my_base_type := class: ``` |
-| **Don't** | ```verse my_base_type := class(): ``` |
+| **Do** | ```verse my_base_type := class:``` |
+| **Don't** | ```verse my_base_type := class():``` |
 
 ### 3.5 Avoid Dot-Space Notation
 
@@ -148,8 +151,8 @@ Avoid using dot-space ". " notation in place of braces. This makes it visually h
 
 |  |  |
 | --- | --- |
-| **Don't** | ```verse spawn { F() } -> spawn. F() ``` |
-| **Don't** | ```verse using { Foo } -> using. Foo ``` |
+| **Don't** | ```verse spawn { F() } -> spawn. F()``` |
+| **Don't** | ```verse using { Foo } -> using. Foo``` |
 
 ## 4. Functions
 
@@ -182,8 +185,8 @@ Doing this helps Intellisense. By typing `MyVector.Normalize()` instead of `Norm
 
 |  |  |
 | --- | --- |
-| **Do** | ```verse (Vector:vector3).Normalize<public>():vector3 ``` |
-| **Don't** | ```verse Normalize<public>(Vector:vector3):vector3 ``` |
+| **Do** | ```verse (Vector:vector3).Normalize<public>():vector3``` |
+| **Don't** | ```verse Normalize<public>(Vector:vector3):vector3``` |
 
 ## 5. Failure Checks
 
@@ -195,12 +198,13 @@ Doing this helps Intellisense. By typing `MyVector.Normalize()` instead of `Norm
   if (Damage > 10, Player := FindRandomPlayer[], Player.GetFortCharacter[].IsAlive[]):
             EliminatePlayer(Player)
   ```
+
 - Use the form of `if` with parentheses `()` when the number of conditions is less than three.
 
 |  |  |  |
 | --- | --- | --- |
-| **Do** | ```verse if (Damage > 10, Player := FindRandomPlayer[]):     EliminatePlayer(Player) ``` | **Keeps code concise but readable.** |
-| **Don't** | ```verse if:     Damage > 10     Player := FindRandomPlayer[] then:     EliminatePlayer(Player) ``` | **Unnecessarily splits code over multiple lines with no readability improvements.** |
+| **Do** | ```verse if (Damage > 10, Player := FindRandomPlayer[]):     EliminatePlayer(Player)``` | **Keeps code concise but readable.** |
+| **Don't** | ```verse if:     Damage > 10     Player := FindRandomPlayer[] then:     EliminatePlayer(Player)``` | **Unnecessarily splits code over multiple lines with no readability improvements.** |
 
 - If using more than two words for each expression, a maximum of two expressions on a single line is often more readable.
 
@@ -208,13 +212,14 @@ Doing this helps Intellisense. By typing `MyVector.Normalize()` instead of `Norm
   if (Player := FindAlivePlayer[GetPlayspace().GetPlayers()], Team := FindEmptyTeam[GetPlayspace().GetTeamCollection().GetTeams()]):
             AddPlayerToTeam(Player, Team)
   ```
+
 - You can also apply the rule as in a failure context on a single line, don't use more than nine words.
   When over the limit, use the spaced, multiline form.
 
 |  |  |  |
 | --- | --- | --- |
-| **Do** | ```verse if:     Player := FindAlivePlayer[GetPlayspace().GetPlayers()]     Team := FindEmptyTeam[GetPlayspace().GetTeamCollection().GetTeams()]     Character := Player.GetFortCharacter[]     Character.GetHealth() < 50 then:     AddPlayerToTeam(Player, Team)     Character.SetHealth(100) ``` | **The text reads better and the context is understandable over multiple lines.** |
-| **Don't** | ```verse if (Player := FindAlivePlayer[GetPlayspace().GetPlayers()], Team := FindEmptyTeam[GetPlayspace().GetTeamCollection().GetTeams()], Character := Player.GetFortCharacter[], Character.GetHealth() < 50):     AddPlayerToTeam(Player, Team)     Character.SetHealth(100) ``` | **The text is hard to parse.** |
+| **Do** | ```verse if:     Player := FindAlivePlayer[GetPlayspace().GetPlayers()]     Team := FindEmptyTeam[GetPlayspace().GetTeamCollection().GetTeams()]     Character := Player.GetFortCharacter[]     Character.GetHealth() < 50 then:     AddPlayerToTeam(Player, Team)     Character.SetHealth(100)``` | **The text reads better and the context is understandable over multiple lines.** |
+| **Don't** | ```verse if (Player := FindAlivePlayer[GetPlayspace().GetPlayers()], Team := FindEmptyTeam[GetPlayspace().GetTeamCollection().GetTeams()], Character := Player.GetFortCharacter[], Character.GetHealth() < 50):     AddPlayerToTeam(Player, Team)     Character.SetHealth(100)``` | **The text is hard to parse.** |
 
 - Evaluate whether grouping multiple failable conditions into a single `<decides>` function would make the code easier to read and reuse. Note that if the code is only ever used in one place, a "section" comment without an ad hoc function can suffice.
 
@@ -228,6 +233,7 @@ Doing this helps Intellisense. By typing `MyVector.Normalize()` instead of `Norm
         then:
             EliminatePlayer(Player)
   ```
+
 - Can be rewritten as:
 
   ```verse
@@ -241,6 +247,7 @@ Doing this helps Intellisense. By typing `MyVector.Normalize()` instead of `Norm
         if (Player := GetRandomPlayerToEliminate[]):
             Eliminate(Player)
   ```
+
 - The same guideline applies to expressions in `for` loops.
   For example:
 
@@ -250,6 +257,7 @@ Doing this helps Intellisense. By typing `MyVector.Normalize()` instead of `Norm
         if (ShouldLightBeOn?) then LightDevice.TurnOn() else LightDevice.TurnOff()
         LightDevice
   ```
+
 - Better as:
 
   ```verse
@@ -270,10 +278,10 @@ This improves code locality, which simplifies logical understanding and debuggin
 
 |  |  |  |
 | --- | --- | --- |
-| **Do** | ```verse EliminatingCharacter := EliminationResult.EliminatingCharacter if (FortCharacter := EliminatingCharacter?, EliminatingAgent := FortCharacter.GetAgent[]):     GrantNextWeapon(EliminatingAgent) ``` | **Dependent or related conditions are grouped.** |
-| **Do** | ```verse if:     FortCharacter := Player.GetFortCharacter[]     set AgentMap[Player] = 1     FirstItemGranter:item_granter_device = ItemGranters[0] then:     FortCharacter.EliminatedEvent().Subscribe(OnPlayerEliminated)     FirstItemGranter.GrantItem(Player) ``` | **Dependent or related conditions are grouped.** |
-| **Don't** | ```verse EliminatingCharacter := Result.EliminatingCharacter if:     FortCharacter := EliminatingCharacter? then:     if:         EliminatingAgent := FortCharacter.GetAgent[]     then:         GrantNextWeapon(EliminatingAgent) ``` | **Unnecessary indentation can make the flow harder to follow.** |
-| **Don't** | ```verse if:     FortCharacter := Player.GetFortCharacter[] then:     FortCharacter.EliminatedEvent().Subscribe(OnPlayerEliminated) if:     set AgentMap[Player] = 1 if:     FirstItemGranter:item_granter_device = ItemGranters[0] then:     FirstItemGranter.GrantItem(Player) ``` | **Unnecessary indentation can make the flow harder to follow.** |
+| **Do** | ```verse EliminatingCharacter := EliminationResult.EliminatingCharacter if (FortCharacter := EliminatingCharacter?, EliminatingAgent := FortCharacter.GetAgent[]):     GrantNextWeapon(EliminatingAgent)``` | **Dependent or related conditions are grouped.** |
+| **Do** | ```verse if:     FortCharacter := Player.GetFortCharacter[]     set AgentMap[Player] = 1     FirstItemGranter:item_granter_device = ItemGranters[0] then:     FortCharacter.EliminatedEvent().Subscribe(OnPlayerEliminated)     FirstItemGranter.GrantItem(Player)``` | **Dependent or related conditions are grouped.** |
+| **Don't** | ```verse EliminatingCharacter := Result.EliminatingCharacter if:     FortCharacter := EliminatingCharacter? then:     if:         EliminatingAgent := FortCharacter.GetAgent[]     then:         GrantNextWeapon(EliminatingAgent)``` | **Unnecessary indentation can make the flow harder to follow.** |
+| **Don't** | ```verse if:     FortCharacter := Player.GetFortCharacter[] then:     FortCharacter.EliminatedEvent().Subscribe(OnPlayerEliminated) if:     set AgentMap[Player] = 1 if:     FirstItemGranter:item_granter_device = ItemGranters[0] then:     FirstItemGranter.GrantItem(Player)``` | **Unnecessary indentation can make the flow harder to follow.** |
 
 It’s acceptable to split failure contexts if you handle each potential failure (or failure groups) separately.
 
@@ -317,8 +325,8 @@ Avoid decorating `<suspends>` functions with `Async` or similar terms.
 
 |  |  |
 | --- | --- |
-| **Do** | ```verse DoWork()<suspends>:void ``` |
-| **Don't** | ```verse DoWorkAsync()<suspends>:void ``` |
+| **Do** | ```verse DoWork()<suspends>:void``` |
+| **Don't** | ```verse DoWorkAsync()<suspends>:void``` |
 
 It’s acceptable to add the `Await` prefix to a `<suspends>` function that internally waits on something to happen.
 This can clarify how an API is supposed to be used.
@@ -342,8 +350,8 @@ Put attributes on a separate line. It’s more readable, especially if multiple 
 
 |  |  |
 | --- | --- |
-| **Do** | ```verse @editable MyField:int = 42 ``` |
-| **Don't** | ```verse @editable MyField:int = 42 ``` |
+| **Do** | ```verse @editable MyField:int = 42``` |
+| **Don't** | ```verse @editable MyField:int = 42``` |
 
 ## 10. Import Expressions
 

@@ -1,6 +1,6 @@
 # Fortnite Tools Mode
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-tools-mode-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-tools-mode-in-fortnite>
 > **爬取时间**: 2025-12-27T00:08:41.635761
 
 ---
@@ -30,7 +30,7 @@ Fortnite Tools include a series of level design tools that provide ways to:
 - Snap assets in place for water- tight construction.
 - Find out the time it will take for players to traverse your island.
 
-When using Fortnite Tools, you'll need to refocus the orbit camera to access the viewport hotkeys again.   
+When using Fortnite Tools, you'll need to refocus the orbit camera to access the viewport hotkeys again.
   
 Press **Alt**to focus or press **Shift**while clicking an object to re-activate the hotkeys.
 
@@ -207,7 +207,7 @@ The Helper Asset tool has three main tools:
 Click to enlarge image.
 
 - **Shortcuts** - Provides a hotkey:  Left-click in the level to place the Helper Asset.
-- **Actions** - Provides a tool, 
+- **Actions** - Provides a tool,
   Remove All Placed Assets, for removing assets placed with the Helper Asset tool. When clicked, this will remove all assets placed with the Helper Asset tool.
 - **General** - Access to Reference Assets:
 
@@ -339,7 +339,7 @@ Click to enlarge image.
   - **Rotate** - Rotates the selected object.
   - **Duplicate** - Duplicates the selected object.
   - **Move Up/Down** - Moves the selected object up and down.
-- **Actions** - 
+- **Actions** -
   Provides a way to manipulate selected objects:
 
   - **Duplicate Selection** - Duplicates the selected object.
@@ -512,7 +512,7 @@ This is not the same as the **Show All Actors** (Ctrl+H) viewport menu item, w
 
 ### Edge Scaling
 
-**Edge Scaling** provides a way to drag each side of the bounding box without affecting the other edges. This setting can be turned off and replaced with a more traditional Scale and Translate widget. 
+**Edge Scaling** provides a way to drag each side of the bounding box without affecting the other edges. This setting can be turned off and replaced with a more traditional Scale and Translate widget.
 Increase the Transform Gizmo Sensitivity to rapidly grow the selection box using the mouse wheel when using Edge Scaling.
 
 Larger sizes will slow down the performance of the tool as more objects enter the selection bounds.

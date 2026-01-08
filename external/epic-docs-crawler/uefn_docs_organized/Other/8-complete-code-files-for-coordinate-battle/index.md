@@ -1,6 +1,6 @@
 # 8. Complete Code Files for Coordinate Battle
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/8-complete-code-files-for-coordinate-battle
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/8-complete-code-files-for-coordinate-battle>
 > **爬取时间**: 2025-12-27T00:23:50.873642
 
 ---
@@ -14,61 +14,61 @@ using{/UnrealEngine.com/Temporary/SpatialMath}
 
 DataTypes<public> := module:
 
-	tile_coordinate<public> := class<concrete>:
-		Left<public>:int = 0
-		Forward<public>:int = 0
+ tile_coordinate<public> := class<concrete>:
+  Left<public>:int = 0
+  Forward<public>:int = 0
 
-	bounds<public> := class<concrete>:
-		@editable
-		Low<public>:int = 0
-		@editable
-		High<public>:int = 0
+ bounds<public> := class<concrete>:
+  @editable
+  Low<public>:int = 0
+  @editable
+  High<public>:int = 0
 
-	board_bounds<public> := class<concrete>:
-		@editable
-		LeftBounds<public>:bounds = bounds{}
-		@editable
-		ForwardBounds<public>:bounds = bounds{}
+ board_bounds<public> := class<concrete>:
+  @editable
+  LeftBounds<public>:bounds = bounds{}
+  @editable
+  ForwardBounds<public>:bounds = bounds{}
 
-	marker_type<public> := enum<open>:
-		Hit
-		Miss
-		Unknown
+ marker_type<public> := enum<open>:
+  Hit
+  Miss
+  Unknown
 
-	move_type<public> := enum<open>:
-		Attack
-		Reveal
-		Unknown
+ move_type<public> := enum<open>:
+  Attack
+  Reveal
+  Unknown
 
 UtilityFunctions<public> := module:
 
-	using{DataTypes}
+ using{DataTypes}
 
-	Abs(TileCoordinate:tile_coordinate)<transacts>:tile_coordinate = 
-		tile_coordinate:
-			Left := Abs(TileCoordinate.Left)
-			Forward := Abs(TileCoordinate.Forward)
+ Abs(TileCoordinate:tile_coordinate)<transacts>:tile_coordinate = 
+  tile_coordinate:
+   Left := Abs(TileCoordinate.Left)
+   Forward := Abs(TileCoordinate.Forward)
 
-	operator'-'(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<transacts>:tile_coordinate =
-		tile_coordinate:
-			Left := LeftTileCoordinate.Left - RightTileCoordinate.Left
-			Forward := LeftTileCoordinate.Forward - RightTileCoordinate.Forward
+ operator'-'(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<transacts>:tile_coordinate =
+  tile_coordinate:
+   Left := LeftTileCoordinate.Left - RightTileCoordinate.Left
+   Forward := LeftTileCoordinate.Forward - RightTileCoordinate.Forward
 
-	ManhattanDistance<public>(TileCoordinateOne:tile_coordinate, TileCoordinateTwo:tile_coordinate)<transacts>:int =
-		Difference := Abs(TileCoordinateOne - TileCoordinateTwo)
-		Difference.Left + Difference.Forward
+ ManhattanDistance<public>(TileCoordinateOne:tile_coordinate, TileCoordinateTwo:tile_coordinate)<transacts>:int =
+  Difference := Abs(TileCoordinateOne - TileCoordinateTwo)
+  Difference.Left + Difference.Forward
 
-	AreTileCoordinatesEqual<public>(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<decides><transacts>:void =
-		LeftTileCoordinate.Left = RightTileCoordinate.Left
-		LeftTileCoordinate.Forward = RightTileCoordinate.Forward
+ AreTileCoordinatesEqual<public>(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<decides><transacts>:void =
+  LeftTileCoordinate.Left = RightTileCoordinate.Left
+  LeftTileCoordinate.Forward = RightTileCoordinate.Forward
 
-	GenerateUniformRandomTileCoordinate<public>(BoardBounds:board_bounds)<transacts>:tile_coordinate =
-		tile_coordinate:
-			Left := GetRandomInt(BoardBounds.LeftBounds.Low, BoardBounds.LeftBounds.High)
-			Forward := GetRandomInt(BoardBounds.ForwardBounds.Low, BoardBounds.ForwardBounds.High)
+ GenerateUniformRandomTileCoordinate<public>(BoardBounds:board_bounds)<transacts>:tile_coordinate =
+  tile_coordinate:
+   Left := GetRandomInt(BoardBounds.LeftBounds.Low, BoardBounds.LeftBounds.High)
+   Forward := GetRandomInt(BoardBounds.ForwardBounds.Low, BoardBounds.ForwardBounds.High)
 
-	NumberOfTileCoordinates<public>(BoardBounds:board_bounds)<transacts>:int =
-		(BoardBounds.LeftBounds.High - BoardBounds.LeftBounds.Low) * (BoardBounds.ForwardBounds.High - BoardBounds.ForwardBounds.Low)
+ NumberOfTileCoordinates<public>(BoardBounds:board_bounds)<transacts>:int =
+  (BoardBounds.LeftBounds.High - BoardBounds.LeftBounds.Low) * (BoardBounds.ForwardBounds.High - BoardBounds.ForwardBounds.Low)
 ```
 
 ### board.verse

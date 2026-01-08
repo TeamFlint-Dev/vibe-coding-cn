@@ -1,6 +1,6 @@
 # item_rotating_gizmo class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_rotating_gizmo
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_rotating_gizmo>
 > **爬取时间**: 2025-12-27T03:48:02.006051
 
 ---

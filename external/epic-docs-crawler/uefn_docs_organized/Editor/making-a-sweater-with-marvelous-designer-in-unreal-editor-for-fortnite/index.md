@@ -1,6 +1,6 @@
 # Making a Sweater with Marvelous Designer
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-a-sweater-with-marvelous-designer-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-a-sweater-with-marvelous-designer-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:08:29.313984
 
 ---
@@ -38,6 +38,7 @@ To import a MetaHuman into Marvelous Designer, follow these steps:
    | **Axis Conversion** | X, Y (Up), Z |
    | **Align Bottom to Ground** | False |
    | **Move Garment to Start Position** | False |
+
 3. Click on any part of the MetaHuman. Then, in the **Property Editor**, navigate to **Smooth Avatar**, and check the box for the **Smooth** option.
 
    [![Smooth Avatar](https://dev.epicgames.com/community/api/documentation/image/9ca01427-fd58-44dc-8b6a-a19423949daa?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9ca01427-fd58-44dc-8b6a-a19423949daa?resizing_type=fit)
@@ -351,6 +352,7 @@ To export your sweater, follow these steps:
    | **Opacity Map** | False |
    | **Displacement Map** | Map |
    | **Include Garment Simulation Data** | True |
+
 5. Select **OK** to export your sweater as a .usd file.
 
 You can then import this .usd file into UE to [convert it to a cloth asset](https://dev.epicgames.com/documentation/en-us/fortnite/create-your-clothing-asset-in-unreal-engine-in-unreal-editor-for-fortnite).

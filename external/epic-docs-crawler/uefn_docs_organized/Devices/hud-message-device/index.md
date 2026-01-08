@@ -1,6 +1,6 @@
 # HUD Message device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/hud-message-device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/hud-message-device>
 > **爬取时间**: 2025-12-27T00:25:10.873463
 
 ---

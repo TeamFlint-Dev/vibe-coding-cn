@@ -1,6 +1,6 @@
 # Lights and Bridges Puzzle
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-puzzle-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-puzzle-in-fortnite>
 > **爬取时间**: 2025-12-27T00:43:15.516875
 
 ---
@@ -59,20 +59,20 @@ After creating your project, follow these steps to create the Lights and Bridges
 
 Triggerable Interface and Scene Events
 
-Create a common interface for triggerable puzzle components to use and scene events to signal them.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-01-triggerable-interface-and-scene-events-in-fortnite)[![Puzzle Component](https://dev.epicgames.com/community/api/documentation/image/61901627-bfdb-4c36-8fb8-58b699704a05?resizing_type=fit&width=640&height=640)
+Create a common interface for triggerable puzzle components to use and scene events to signal them.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-01-triggerable-interface-and-scene-events-in-fortnite)[![Puzzle> Component](<https://dev.epicgames.com/community/api/documentation/image/61901627-bfdb-4c36-8fb8-58b699704a05?resizing_type=fit&width=640&height=640>)
 
 Puzzle Component
 
-Create a puzzle manager component to determine whether a puzzle is solved.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-02-puzzle-component-in-fortnite)[![Trigger Component and Triggerable Child Classes](https://dev.epicgames.com/community/api/documentation/image/5a4a1239-b1b0-4070-9bec-ba18edcee333?resizing_type=fit&width=640&height=640)
+Create a puzzle manager component to determine whether a puzzle is solved.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-02-puzzle-component-in-fortnite)[![Trigger> Component and Triggerable Child Classes](<https://dev.epicgames.com/community/api/documentation/image/5a4a1239-b1b0-4070-9bec-ba18edcee333?resizing_type=fit&width=640&height=640>)
 
 Trigger Component and Triggerable Child Classes
 
-Create a component that triggers triggerable Scene Graph entities.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-03-trigger-component-and-triggerable-child-classes-in-fortnite)[![Construct Prefabs](https://dev.epicgames.com/community/api/documentation/image/cd954b45-6d15-46ef-aa02-89147073df3c?resizing_type=fit&width=640&height=640)
+Create a component that triggers triggerable Scene Graph entities.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-03-trigger-component-and-triggerable-child-classes-in-fortnite)[![Construct> Prefabs](<https://dev.epicgames.com/community/api/documentation/image/cd954b45-6d15-46ef-aa02-89147073df3c?resizing_type=fit&width=640&height=640>)
 
 Construct Prefabs
 
-Use the previously defined components to construct prefabs and create a puzzle.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-04-construct-prefabs-in-fortnite)[![Create a Puzzle with Prefabs](https://dev.epicgames.com/community/api/documentation/image/e63ed803-be82-4bdf-836a-a024b334a2ee?resizing_type=fit&width=640&height=640)
+Use the previously defined components to construct prefabs and create a puzzle.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-04-construct-prefabs-in-fortnite)[![Create> a Puzzle with Prefabs](<https://dev.epicgames.com/community/api/documentation/image/e63ed803-be82-4bdf-836a-a024b334a2ee?resizing_type=fit&width=640&height=640>)
 
 Create a Puzzle with Prefabs
 
-Use prefabs to construct a puzzle experience.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-05-create-a-puzzle-with-prefabs-in-fortnite)
+Use prefabs to construct a puzzle experience.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-05-create-a-puzzle-with-prefabs-in-fortnite>)

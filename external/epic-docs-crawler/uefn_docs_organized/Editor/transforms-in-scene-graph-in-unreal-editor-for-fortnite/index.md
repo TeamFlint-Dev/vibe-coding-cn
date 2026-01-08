@@ -1,6 +1,6 @@
 # Transforms in Scene Graph
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/transforms-in-scene-graph-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/transforms-in-scene-graph-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:23:14.101562
 
 ---
@@ -27,19 +27,19 @@ Scene Graph uses `/Verse.org/SpatialMath` module transforms. Verse module transf
 ```verse
 # Transform specifying all fields
 MyTransform:transform = transform:
-	Translation := vector3{Left := 2.0, Up := -4.0, Forward := 8.0}
-	Rotation := MakeRotationFromEulerDegrees(-90.0, 180.0, 0.0)
-	Scale := vector3{Left := 2.0, Up := 4.0, Forward := 2.0}
+ Translation := vector3{Left := 2.0, Up := -4.0, Forward := 8.0}
+ Rotation := MakeRotationFromEulerDegrees(-90.0, 180.0, 0.0)
+ Scale := vector3{Left := 2.0, Up := 4.0, Forward := 2.0}
 
 # Transform specifying only Translation
 MyOtherTransform:transform = transform:
-	Translation := vector3{Up := 512.0}
+ Translation := vector3{Up := 512.0}
 
 # Transform that does not change anything
 IdentityTransform:transform = transform:
-	Translation := vector3{Left := 0.0, Up := 0.0, Forward := 0.0}
-	Rotation := MakeRotationFromEulerDegrees(0.0, 0.0, 0.0)
-	Scale := vector3{Left := 1.0, Up := 1.0, Forward := 1.0}
+ Translation := vector3{Left := 0.0, Up := 0.0, Forward := 0.0}
+ Rotation := MakeRotationFromEulerDegrees(0.0, 0.0, 0.0)
+ Scale := vector3{Left := 1.0, Up := 1.0, Forward := 1.0}
 ```
 
 For more information about the coordinate system in UEFN, see  the Left-Up-Forward Coordinate System page. This also includes information about converting between the XYZ transform in the `/UnrealEngine.com/Temporary/SpatialMath` module and the Verse module transform.
@@ -81,13 +81,13 @@ MyEntity:entity = entity{}
 
 # Add entity to simulation entity so MyEntity begins simulating when play begins
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntity})
+ SimEntity.AddEntities(array{MyEntity})
 
 # Identity transform
 IdentityTransform:transform = transform:
-	Translation := vector3{Left := 0.0, Up := 0.0, Forward := 0.0}
-	Rotation := MakeRotationFromEulerDegrees(0.0, 0.0, 0.0)
-	Scale := vector3{Left := 1.0, Up := 1.0, Forward := 1.0}
+ Translation := vector3{Left := 0.0, Up := 0.0, Forward := 0.0}
+ Rotation := MakeRotationFromEulerDegrees(0.0, 0.0, 0.0)
+ Scale := vector3{Left := 1.0, Up := 1.0, Forward := 1.0}
 
 # SetLocalTransform adds a transform_component to MyEntity since it does not have one already
 # Entity transform set relative to its origin
@@ -103,7 +103,7 @@ You can also add the component directly with `AddComponents`:
 ```verse
 # Add entity to simulation entity so MyEntity begins simulating when play begins
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntity})
+ SimEntity.AddEntities(array{MyEntity})
 
 # Use AddComponents
 MyEntity.AddComponents(array{ transform_component{ Entity := MyEntity }})
@@ -227,14 +227,14 @@ If you change the Rotation component of the LocalTransform field of the entity A
 MyEntityNoTransform:entity = entity{}
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntityNoTransform})
+ SimEntity.AddEntities(array{MyEntityNoTransform})
 
 MyEntityWithTransform:entity = entity{}
 MyEntityWithTransform.AddComponents of array:
     transform_component{Entity := MyEntityWithTransform}
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntityWithTransform})
+ SimEntity.AddEntities(array{MyEntityWithTransform})
 
 if (TransformComponent := MyEntityNoTransform.GetComponent[transform_component]):
     # if success, use transform in some way
@@ -258,7 +258,7 @@ MyEntity:entity = entity{}
 MyTransform:transform = transform{}
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntity})
+ SimEntity.AddEntities(array{MyEntity})
 
 # Set the local transform
 MyEntity.SetLocalTransform(MyTransform)
@@ -269,7 +269,7 @@ Translation := vector3{Up := 271}
 Rotation := MakeRotationFromEulerRadians(PiFloat, 0.0, 0.0)
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyOtherEntity})
+ SimEntity.AddEntities(array{MyOtherEntity})
 
 # Set the global transform
 MyOtherEntity.SetGlobalTransform(MyOtherTransform)
@@ -279,9 +279,9 @@ These extension methods are the preferred way to set the transform on a Scene Gr
 
 ```verse
 if (MyEntity.GetComponent[transform_component]):
-	# success, entity has a transform_component
+ # success, entity has a transform_component
 else:
-	# failure, entity does not have a transform_component
+ # failure, entity does not have a transform_component
 ```
 
 Using extension methods, you can obtain the local transform or global transform of an entity's associated transform\_component. `GetLocalTransform` returns an entity's transform with respect to its parent entity or specified Origin field, if it is set. If the entity does not have a `transform_component`, this function returns the identity transform.
@@ -291,7 +291,7 @@ Using extension methods, you can obtain the local transform or global transform 
 MyEntity:entity = entity{}
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntity})
+ SimEntity.AddEntities(array{MyEntity})
 
 # Obtain the local transform with respect to Parent or Origin (if set)
 EntityLocalTransform := MyEntity.GetLocalTransform() # no transform component, returns identity
@@ -299,7 +299,7 @@ EntityLocalTransform := MyEntity.GetLocalTransform() # no transform component, r
 MyOtherEntity:entity = entity{}
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyOtherEntity})
+ SimEntity.AddEntities(array{MyOtherEntity})
 
 MyOtherEntity.AddComponents(array{transform_component{Entity := MyOtherEntity}})
 MyOtherEntity.SetLocalTransform(transform{Translation := vector3{Left := 100.0}})
@@ -313,7 +313,7 @@ OtherEntityLocalTransform := MyOtherEntity.GetLocalTransform() # result is trans
 MyEntity:entity
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntity})
+ SimEntity.AddEntities(array{MyEntity})
 
 # Obtain the global transform
 EntityGlobalTransform := MyEntity.GetGlobalTransform() # returns global transform of Simulation Entity
@@ -328,7 +328,7 @@ MyEntity:entity = entity{}
 MyOtherEntity:entity = entity{}
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntity, MyOtherEntity})
+ SimEntity.AddEntities(array{MyEntity, MyOtherEntity})
 
 MyEntity.SetLocalTransform(transform{Translation := vector3{Left := 100.0}})
 
@@ -347,42 +347,42 @@ To obtain the Origin of an entity in Verse code, use `GetOrigin`.
 MyEntity:entity = entity{}
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyEntity})
+ SimEntity.AddEntities(array{MyEntity})
 
 if (OriginValue := MyEntity.GetOrigin[]):
-	# should not succeed
+ # should not succeed
 else:
-	# should fail, no transform_component on entity MyEntity
+ # should fail, no transform_component on entity MyEntity
 
 MyOtherEntity:entity = entity{}
 
 if (SimEntity := Entity.GetSimulationEntity[]):
-	SimEntity.AddEntities(array{MyOtherEntity})
+ SimEntity.AddEntities(array{MyOtherEntity})
 
 MyOtherEntity.SetLocalTransform(transform{})
 
 if (MyOtherEntity.SetOrigin[MyEntity]):
-	# set entity origin succeeded
+ # set entity origin succeeded
 
 if (OriginValue := MyOtherEntity.GetOrigin[]):
-	# should succeed, MyOtherEntity has a tranform_component and has had the Origin field set with SetOrigin
-	# obtain the transform of the entity's origin object
-	OriginTransform:transform = OriginValue.GetTransform()
+ # should succeed, MyOtherEntity has a tranform_component and has had the Origin field set with SetOrigin
+ # obtain the transform of the entity's origin object
+ OriginTransform:transform = OriginValue.GetTransform()
 else:
-	# should not fail
+ # should not fail
 ```
 
 `GetOrigin` decides whether an entity has its Origin field set and, if it does, returns the value of that field. If not, the call fails. Upon success, the return type of `GetOrigin` is an `origin` object, a Verse class that implements the `origin` interface. This interface provides a single function GetTransform to obtain the transform of the entity's specified origin. You can also check whether the alternative Origin field is set to an entity and determine which entity is set as your entity's Origin.
 
 ```verse
 if:
-	OriginValue := MyOtherEntity.GetOrigin[]		# get Origin object
-	OriginEntityCast := entity_origin[OriginValue]		# cast to entity_origin
+ OriginValue := MyOtherEntity.GetOrigin[]  # get Origin object
+ OriginEntityCast := entity_origin[OriginValue]  # cast to entity_origin
 then:
-	# Obtain the entity that is set as MyOtherEntity's Origin field on its transform_component
-	MyOtherEntityOrigin := OriginEntityCast.Entity
-	# Obtain the origin's transform
-	TransformOfOrigin := OriginEntityCast.GetTransform()
+ # Obtain the entity that is set as MyOtherEntity's Origin field on its transform_component
+ MyOtherEntityOrigin := OriginEntityCast.Entity
+ # Obtain the origin's transform
+ TransformOfOrigin := OriginEntityCast.GetTransform()
 ```
 
 Finally, you can reset the Origin field of an entity's transform\_component with `ResetOrigin`.

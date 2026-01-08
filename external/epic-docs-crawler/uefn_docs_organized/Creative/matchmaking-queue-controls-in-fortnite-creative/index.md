@@ -1,6 +1,6 @@
 # Matchmaking Queue Controls
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/matchmaking-queue-controls-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/matchmaking-queue-controls-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:13:17.789059
 
 ---

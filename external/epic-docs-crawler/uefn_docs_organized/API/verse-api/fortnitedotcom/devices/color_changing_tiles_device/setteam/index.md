@@ -1,6 +1,6 @@
 # SetTeam function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/color_changing_tiles_device/setteam
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/color_changing_tiles_device/setteam>
 > **爬取时间**: 2025-12-27T06:20:03.297897
 
 ---

@@ -1,6 +1,6 @@
 # Trigger Component and Triggerable Child Classes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-03-trigger-component-and-triggerable-child-classes-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-03-trigger-component-and-triggerable-child-classes-in-fortnite>
 > **爬取时间**: 2025-12-27T02:38:27.644373
 
 ---
@@ -52,6 +52,7 @@ For more information about the Verse language features used on this page, see:
        # Array of associated interacting agents
        var InteractingAgents<private>:[]agent = array{}
    ```
+
 4. Add functions named `OnAgentEntersVolume` and `OnAgentExitsVolume` that define what happens when an agent enters and exits this component's associated `volume_device`. When an agent enters the volume, record the interacting agent and look for descendant entities that have a component that implements the `triggerable` interface then trigger the component on those entities. When an agent enters the volume, remove the interacting agent from the list of agents interacting with this volume.
 
    ```verse
@@ -73,6 +74,7 @@ For more information about the Verse language features used on this page, see:
        OnAgentExitsVolume(Agent:agent):void=
            set InteractingAgents = InteractingAgents.RemoveAllElements(Agent)
    ```
+
 5. Connect the `OnAgentEntersVolume` and `OnAgentExitsVolume` functions to the `volume_device` by registering them as the callback functions for the `AgentEntersEvent` and `AgentExitsEvent` in this component's `OnSimulate` function.
 
    ```verse
@@ -98,8 +100,8 @@ For more information about the Verse language features used on this page, see:
 Next, define components that implement the previously created `triggerable` interface. These are components that are added to Scene Graph entities that are descendants of an entity with a `puzzle_component` and are triggered by an ancestor entity with a `trigger_component`. This tutorial defines three different `triggerable` components:
 
 - `triggerable_mesh_component`: Toggles the visibility of the entity's `mesh_component`.
-- `triggerable_light_component`: Toggles the entity's `sphere_light_component` on and off and exchanges the entity`s `mesh_component` for one with or without [emissive](https://dev.epicgames.com/documentation/en-us/fortnite/unreal-editor-for-fortnite-glossary#emissive-material) color, depending on whether the light is on or off.
-- `triggerable_movement_component`: Triggers a transformation of the entity`s `mesh_component` using the `keyframed_movement_component`.
+- `triggerable_light_component`: Toggles the entity's `sphere_light_component` on and off and exchanges the entity`s`mesh_component` for one with or without [emissive](https://dev.epicgames.com/documentation/en-us/fortnite/unreal-editor-for-fortnite-glossary#emissive-material) color, depending on whether the light is on or off.
+- `triggerable_movement_component`: Triggers a transformation of the entity`s`mesh_component` using the `keyframed_movement_component`.
 
 These three different components share a large amount of functionality, and many of the functions are defined the same way. To begin, create a new, empty Verse file named `TriggerableComponents.verse`.
 
@@ -116,6 +118,7 @@ These three different components share a large amount of functionality, and many
    using { /Verse.org/Simulation }
    using { /Verse.org/SpatialMath }
    ```
+
 2. Define the components `triggerable_mesh_component`, `triggerable_light_component`, and `triggerable_movement_component`. All of these components inherit from the base `component` class and implement the triggerable interface.
 3. All three components implement the same three events:
 
@@ -147,6 +150,7 @@ These three different components share a large amount of functionality, and many
        OnSimulate<override>()<suspends>:void =
            void
    ```
+
 4. All three components also implement the `triggerable` interface `PostTrigger` override in the same way by sending up a `triggered_event` if the `triggerable` component is a puzzle piece. You cannot accomplish this inside the `triggerable` interface itself because Verse needs to know which `entity` is triggered, and the `Entity` field is part of the `component` class and not available to the `triggerable` interface without the additional dependence on the `component` class.
 
    ```verse
@@ -175,6 +179,7 @@ The `triggerable_mesh_component` toggles the visibility of a `mesh_component` on
            if (MeshComponent := Entity.GetComponent[mesh_component], MeshComponent.Visible?):
                    set Triggered = true
    ```
+
 3. The reverse action for the `triggerable_mesh_component` is to make the `mesh_component` mesh invisible. To do this, retrieve the `mesh_component` for the corresponding entity, set the mesh to not visible, then set the `triggerable_mesh_component` to the not-triggered state.
 
    ```verse
@@ -206,6 +211,7 @@ In addition, this component uses a few helper functions:
        @editable
        Duration:float = 2.0
    ```
+
 2. This class implements the `triggerable` interface, so overrides need to be provided for the `PerformAction` and `PerformReverseAction` functions since they have no default implementations. Since there is no initial triggered state and the action is a movement between locations, the default initial triggered state is false. This is what the base implementation does in the `triggerable` interface, so this function does not require an override in this component class.
 3. The action for the `triggerable_movement_component` is to move the entity along the series of transforms defined by child entities.
 
@@ -215,6 +221,7 @@ In addition, this component uses a few helper functions:
            AnimationFrames:[]keyframed_movement_delta = ConstructKeyframeDeltas(MovementStates)
            SetAndPlayAnimation(AnimationFrames)
    ```
+
 4. The reverse action for the `triggerable_movement_component` is to move the entity along the series of transforms defined by child entities in reverse order. This function is similar to the `PerformAction` except that the transform array is in reverse order.
 
    ```verse
@@ -228,6 +235,7 @@ In addition, this component uses a few helper functions:
            AnimationFrames := ConstructKeyframeDeltas(ReversedMovementStates)
            SetAndPlayAnimation(AnimationFrames)
    ```
+
 5. Define the helper functions that this component uses. First, create a function named `GetMovementStates` to retrieve the [transforms](https://dev.epicgames.com/documentation/en-us/fortnite/unreal-editor-for-fortnite-glossary#transform) that this movement moves to.
 
    ```verse
@@ -235,6 +243,7 @@ In addition, this component uses a few helper functions:
            for (ChildEntity : Entity.FindDescendantEntities(entity), Entity = ChildEntity.GetParent[]):
                ChildEntity.GetGlobalTransform()
    ```
+
 6. Define a helper function named `MakeDeltaTransform` that constructs a delta transform between two transforms. A delta transform, D, from transform A to transform B is the transform such that when transform D is applied to transform A, the result is transform B.
 
    To expand upon this, suppose that you have a Scene Graph entity with current transform A, but you want to [scale](https://dev.epicgames.com/documentation/en-us/fortnite/unreal-editor-for-fortnite-glossary#scale), rotate, and [translate](https://dev.epicgames.com/documentation/en-us/fortnite/unreal-editor-for-fortnite-glossary#translate) your entity to have transform B. The delta transform D is the transform you need for a `keyframed_movement_delta` to animate the motion of your entity from transform A to transform B.
@@ -249,6 +258,7 @@ In addition, this component uses a few helper functions:
                    Right := InTransformTwo.Scale.Right / InTransformOne.Scale.Right
                    Up := InTransformTwo.Scale.Up / InTransformTwo.Scale.Up
    ```
+
 7. Define a helper named `ConstructKeyframeDelta` that creates an array of `keyframed_movement_delta` objects for input to the `keyframed_movement_component` animation.
 
    ```verse
@@ -270,6 +280,7 @@ In addition, this component uses a few helper functions:
                    else:
                        ease_in_out_cubic_bezier_easing_function{}
    ```
+
 8. Create a function named `SetAndPlayAnimation` that assigns the `keyframed_movement_delta` array to the `keyframed_movement_component` animation and plays it.
 
    ```verse
@@ -302,6 +313,7 @@ The `triggerable_light_component` turns a light on and off. This requires provid
            do:
                set Triggered = true
    ```
+
 2. The action performed by the `triggerable_light_component` is to turn the light on and switch to a mesh indicating that the light is on.
 
    ```verse
@@ -317,6 +329,7 @@ The `triggerable_light_component` turns a light on and off. This requires provid
                set IsLightOn = true
                set Triggered = true
    ```
+
 3. The action performed by the `triggerable_light_component` is to turn the light off and set the non-emissive `mesh_component` to visible.
 
    ```verse
@@ -640,4 +653,4 @@ triggerable_light_component<public> := class<final_super>(component, triggerable
 
 Construct Prefabs
 
-Use the previously defined components to construct prefabs and create a puzzle.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-04-construct-prefabs-in-fortnite)
+Use the previously defined components to construct prefabs and create a puzzle.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-04-construct-prefabs-in-fortnite>)

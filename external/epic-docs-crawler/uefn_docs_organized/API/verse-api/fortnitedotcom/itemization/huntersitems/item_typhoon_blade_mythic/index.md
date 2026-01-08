@@ -1,6 +1,6 @@
 # item_typhoon_blade_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_typhoon_blade_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_typhoon_blade_mythic>
 > **爬取时间**: 2025-12-27T04:07:31.849761
 
 ---

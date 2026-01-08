@@ -1,6 +1,6 @@
 # item_flashlight class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1sxitems/item_flashlight
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1sxitems/item_flashlight>
 > **爬取时间**: 2025-12-27T04:13:37.693433
 
 ---

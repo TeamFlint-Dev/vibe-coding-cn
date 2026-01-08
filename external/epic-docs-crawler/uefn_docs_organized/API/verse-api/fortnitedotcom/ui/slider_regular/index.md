@@ -1,6 +1,6 @@
 # slider_regular class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/slider_regular
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/slider_regular>
 > **爬取时间**: 2025-12-27T01:06:58.536432
 
 ---

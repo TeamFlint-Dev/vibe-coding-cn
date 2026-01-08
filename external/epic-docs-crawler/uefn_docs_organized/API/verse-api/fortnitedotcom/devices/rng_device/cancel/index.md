@@ -1,6 +1,6 @@
 # Cancel function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/rng_device/cancel
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/rng_device/cancel>
 > **爬取时间**: 2025-12-27T06:42:10.431743
 
 ---

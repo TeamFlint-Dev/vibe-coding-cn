@@ -1,6 +1,6 @@
 # round_settings_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/round_settings_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/round_settings_device>
 > **爬取时间**: 2025-12-27T01:51:04.504582
 
 ---

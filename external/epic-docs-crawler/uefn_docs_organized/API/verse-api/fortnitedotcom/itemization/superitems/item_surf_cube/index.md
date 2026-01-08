@@ -1,6 +1,6 @@
 # item_surf_cube class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/superitems/item_surf_cube
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/superitems/item_surf_cube>
 > **爬取时间**: 2025-12-27T04:54:36.461575
 
 ---

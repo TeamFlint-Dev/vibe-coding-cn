@@ -1,6 +1,6 @@
 # Verse Language Get Started
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-get-started-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-get-started-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:08:43.992676
 
 ---
@@ -38,24 +38,24 @@ After watching the video, it's a good idea to go through the documentation in th
 
 Verse Programming Onboarding Guide
 
-Use this checklist to get started if you're new to programming or new to using Verse in Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/onboarding-guide-to-programming-with-verse-in-unreal-editor-for-fortnite)[![Learn the Basics of Writing Code in Verse](https://dev.epicgames.com/community/api/documentation/image/43dbf062-2404-4eb6-88e6-1057e2ccdba8?resizing_type=fit&width=640&height=640)
+Use this checklist to get started if you're new to programming or new to using Verse in Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/onboarding-guide-to-programming-with-verse-in-unreal-editor-for-fortnite)[![Learn> the Basics of Writing Code in Verse](<https://dev.epicgames.com/community/api/documentation/image/43dbf062-2404-4eb6-88e6-1057e2ccdba8?resizing_type=fit&width=640&height=640>)
 
 Learn the Basics of Writing Code in Verse
 
-A short course to introduce Verse to people with no programming experience whatsoever. No. Programming. Experience. Whatsoever. Seriously.](https://dev.epicgames.com/documentation/en-us/fortnite/learn-the-basics-of-writing-code-in-verse)[![Modify and Run Your First Verse Program](https://dev.epicgames.com/community/api/documentation/image/eacc08cd-b83e-4233-874f-7835a232c20d?resizing_type=fit&width=640&height=640)
+A short course to introduce Verse to people with no programming experience whatsoever. No. Programming. Experience. Whatsoever. Seriously.](<https://dev.epicgames.com/documentation/en-us/fortnite/learn-the-basics-of-writing-code-in-verse)[![Modify> and Run Your First Verse Program](<https://dev.epicgames.com/community/api/documentation/image/eacc08cd-b83e-4233-874f-7835a232c20d?resizing_type=fit&width=640&height=640>)
 
 Modify and Run Your First Verse Program
 
-See how easy it can be to run your first Verse program and modify it!](https://dev.epicgames.com/documentation/en-us/fortnite/modify-and-run-your-first-verse-program-in-unreal-editor-for-fortnite)[![Verse Starter Template](https://dev.epicgames.com/community/api/documentation/image/bb425012-692e-4e74-8194-713b8828675c?resizing_type=fit&width=640&height=640)
+See how easy it can be to run your first Verse program and modify it!](<https://dev.epicgames.com/documentation/en-us/fortnite/modify-and-run-your-first-verse-program-in-unreal-editor-for-fortnite)[![Verse> Starter Template](<https://dev.epicgames.com/community/api/documentation/image/bb425012-692e-4e74-8194-713b8828675c?resizing_type=fit&width=640&height=640>)
 
 Verse Starter Template
 
-Create a minigame where you control a NPC with commands using Verse.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-template-in-unreal-editor-for-fortnite)[![Verse Language Quick Reference](https://dev.epicgames.com/community/api/documentation/image/cc0f9db8-f311-4dc0-9d0d-a3a8696a6a0f?resizing_type=fit&width=640&height=640)
+Create a minigame where you control a NPC with commands using Verse.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-starter-template-in-unreal-editor-for-fortnite)[![Verse> Language Quick Reference](<https://dev.epicgames.com/community/api/documentation/image/cc0f9db8-f311-4dc0-9d0d-a3a8696a6a0f?resizing_type=fit&width=640&height=640>)
 
 Verse Language Quick Reference
 
-Need to refresh on a Verse feature? This quick reference can help!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-quick-reference)[![Verse Code Style Guide](https://dev.epicgames.com/community/api/documentation/image/98b2cb16-21b3-46cb-8224-3d35a2d49ebb?resizing_type=fit&width=640&height=640)
+Need to refresh on a Verse feature? This quick reference can help!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-quick-reference)[![Verse> Code Style Guide](<https://dev.epicgames.com/community/api/documentation/image/98b2cb16-21b3-46cb-8224-3d35a2d49ebb?resizing_type=fit&width=640&height=640>)
 
 Verse Code Style Guide
 
-Write consistent, maintainable Verse code that your team will want to read.](https://dev.epicgames.com/documentation/en-us/fortnite/verse-code-style-guide-in-unreal-editor-for-fortnite)
+Write consistent, maintainable Verse code that your team will want to read.](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-code-style-guide-in-unreal-editor-for-fortnite>)

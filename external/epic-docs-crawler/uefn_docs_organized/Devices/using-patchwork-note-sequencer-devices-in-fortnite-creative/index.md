@@ -1,6 +1,6 @@
 # Note Sequencer
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:05:12.205185
 
 ---
@@ -167,11 +167,11 @@ Patch a Note Sequencer to the inputs on these devices to turn your note inputs i
 
 Instrument Player
 
-The Instrument Player device gives you a selection of instruments for playing melodic content.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative)[![Omega Synthesizer](https://dev.epicgames.com/community/api/documentation/image/cd4b37b9-039d-46b5-9f57-931644136443?resizing_type=fit&width=640&height=640)
+The Instrument Player device gives you a selection of instruments for playing melodic content.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative)[![Omega> Synthesizer](<https://dev.epicgames.com/community/api/documentation/image/cd4b37b9-039d-46b5-9f57-931644136443?resizing_type=fit&width=640&height=640>)
 
 Omega Synthesizer
 
-The Omega Synthesizer device allows you to turn note inputs into audio data.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)
+The Omega Synthesizer device allows you to turn note inputs into audio data.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative>)
 
 Patch a Note Sequencer to the input on a Note Trigger to activate Events when certain notes are played.
 
@@ -179,7 +179,7 @@ Patch a Note Sequencer to the input on a Note Trigger to activate Events when ce
 
 Note Trigger
 
-The Note Trigger relays signals to other Creative/UEFN devices each time a particular note is played.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-trigger-devices-in-fortnite-creative)
+The Note Trigger relays signals to other Creative/UEFN devices each time a particular note is played.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-trigger-devices-in-fortnite-creative>)
 
 Patch a Note Sequencer to the input on a Progressor to transpose your sequences in a chord progression.
 
@@ -187,4 +187,4 @@ Patch a Note Sequencer to the input on a Progressor to transpose your sequences 
 
 Note Progressor
 
-The Note Progressor transposes a note pattern to a different key or follows a user-specified chord progression.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-progressor-devices-in-fortnite-creative)
+The Note Progressor transposes a note pattern to a different key or follows a user-specified chord progression.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-progressor-devices-in-fortnite-creative>)

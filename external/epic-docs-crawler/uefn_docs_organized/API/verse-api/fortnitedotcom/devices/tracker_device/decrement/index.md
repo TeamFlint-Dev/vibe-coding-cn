@@ -1,6 +1,6 @@
 # Decrement function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/tracker_device/decrement
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/tracker_device/decrement>
 > **爬取时间**: 2025-12-27T05:44:23.990280
 
 ---

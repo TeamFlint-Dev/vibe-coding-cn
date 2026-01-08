@@ -1,6 +1,6 @@
 # ForcePlayerToCarry function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/carryable_spawner_device/forceplayertocarry
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/carryable_spawner_device/forceplayertocarry>
 > **爬取时间**: 2025-12-27T06:28:28.564158
 
 ---

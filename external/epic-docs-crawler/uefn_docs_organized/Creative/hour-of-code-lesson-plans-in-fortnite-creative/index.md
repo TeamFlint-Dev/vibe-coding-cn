@@ -1,6 +1,6 @@
 # Hour of Code Lessons
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/hour-of-code-lesson-plans-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/hour-of-code-lesson-plans-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:56:34.958767
 
 ---
@@ -17,20 +17,20 @@ You can learn more about the global [Hour of Code](https://hourofcode.com/) init
 
 Conditional Statements in Fortnite Creative
 
-Using the lock and key in Fortnite Creative](https://dev.epicgames.com/documentation/en-us/fortnite/conditional-statements-lesson-plan-in-fortnite-creative)[![Functions in Fortnite Creative](https://dev.epicgames.com/community/api/documentation/image/31ec4cdc-7f3a-483f-8411-59dafcde9c90?resizing_type=fit&width=640&height=640)
+Using the lock and key in Fortnite Creative](<https://dev.epicgames.com/documentation/en-us/fortnite/conditional-statements-lesson-plan-in-fortnite-creative)[![Functions> in Fortnite Creative](<https://dev.epicgames.com/community/api/documentation/image/31ec4cdc-7f3a-483f-8411-59dafcde9c90?resizing_type=fit&width=640&height=640>)
 
 Functions in Fortnite Creative
 
-Use functions to create a tower escape trivia game in Fortnite Creative!](https://dev.epicgames.com/documentation/en-us/fortnite/functions-in-fortnite-creative)[![Making Music in Fortnite Creative](https://dev.epicgames.com/community/api/documentation/image/d60f8668-cff5-4ac0-a409-c05e6ad69d35?resizing_type=fit&width=640&height=640)
+Use functions to create a tower escape trivia game in Fortnite Creative!](<https://dev.epicgames.com/documentation/en-us/fortnite/functions-in-fortnite-creative)[![Making> Music in Fortnite Creative](<https://dev.epicgames.com/community/api/documentation/image/d60f8668-cff5-4ac0-a409-c05e6ad69d35?resizing_type=fit&width=640&height=640>)
 
 Making Music in Fortnite Creative
 
-Create music loops with the Music Sequencer and music notes!](https://dev.epicgames.com/documentation/en-us/fortnite/making-music-lesson-plan-in-fortnite-creative)[![Build an Obstacle Course in Fortnite Creative](https://dev.epicgames.com/community/api/documentation/image/90198113-8656-4de0-b1b6-c87c345d621a?resizing_type=fit&width=640&height=640)
+Create music loops with the Music Sequencer and music notes!](<https://dev.epicgames.com/documentation/en-us/fortnite/making-music-lesson-plan-in-fortnite-creative)[![Build> an Obstacle Course in Fortnite Creative](<https://dev.epicgames.com/community/api/documentation/image/90198113-8656-4de0-b1b6-c87c345d621a?resizing_type=fit&width=640&height=640>)
 
 Build an Obstacle Course in Fortnite Creative
 
-Using collision detection, triggers, and events in Fortnite Creative](https://dev.epicgames.com/documentation/en-us/fortnite/obstacle-course-lesson-plan-in-fortnite-creative)[![Building a Treasure Hunt Race in Fortnite Creative](https://dev.epicgames.com/community/api/documentation/image/4fa35802-28e3-4375-9455-9445bf08921a?resizing_type=fit&width=640&height=640)
+Using collision detection, triggers, and events in Fortnite Creative](<https://dev.epicgames.com/documentation/en-us/fortnite/obstacle-course-lesson-plan-in-fortnite-creative)[![Building> a Treasure Hunt Race in Fortnite Creative](<https://dev.epicgames.com/community/api/documentation/image/4fa35802-28e3-4375-9455-9445bf08921a?resizing_type=fit&width=640&height=640>)
 
 Building a Treasure Hunt Race in Fortnite Creative
 
-Create a scoring system using variables in Fortnite Creative!](https://dev.epicgames.com/documentation/en-us/fortnite/treasure-hunt-race-lesson-plan-in-fortnite-creative)
+Create a scoring system using variables in Fortnite Creative!](<https://dev.epicgames.com/documentation/en-us/fortnite/treasure-hunt-race-lesson-plan-in-fortnite-creative>)

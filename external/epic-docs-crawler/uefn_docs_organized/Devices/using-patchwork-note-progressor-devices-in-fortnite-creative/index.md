@@ -1,6 +1,6 @@
 # Note Progressor
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-progressor-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-progressor-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:05:04.870999
 
 ---
@@ -113,7 +113,7 @@ Try patching the Note Sequencer into the Note Progressor to make more complex pa
 
 Note Sequencer
 
-The Note Sequencer device allows you to choose the notes you want to use in your compositions.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative)
+The Note Sequencer device allows you to choose the notes you want to use in your compositions.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-sequencer-devices-in-fortnite-creative>)
 
 Try patching the Note Progressor into these devices to shape the sounds!
 
@@ -121,8 +121,8 @@ Try patching the Note Progressor into these devices to shape the sounds!
 
 Omega Synthesizer
 
-The Omega Synthesizer device allows you to turn note inputs into audio data.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)[![Instrument Player](https://dev.epicgames.com/community/api/documentation/image/400c75be-0d90-4616-8f07-6bab3c33a705?resizing_type=fit&width=640&height=640)
+The Omega Synthesizer device allows you to turn note inputs into audio data.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)[![Instrument> Player](<https://dev.epicgames.com/community/api/documentation/image/400c75be-0d90-4616-8f07-6bab3c33a705?resizing_type=fit&width=640&height=640>)
 
 Instrument Player
 
-The Instrument Player device gives you a selection of instruments for playing melodic content.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative)
+The Instrument Player device gives you a selection of instruments for playing melodic content.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative>)

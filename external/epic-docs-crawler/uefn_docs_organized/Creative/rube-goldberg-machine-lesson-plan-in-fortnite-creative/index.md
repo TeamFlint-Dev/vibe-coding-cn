@@ -1,6 +1,6 @@
 # Rube Goldberg Machines
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/rube-goldberg-machine-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/rube-goldberg-machine-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:01.864952
 
 ---
@@ -81,7 +81,7 @@ Show a selection of the following videos (These could be shown at different poin
 3. Have students define simple machines in their own words, and identify examples of each from everyday life ([sample
    worksheet](https://d1iv7db44yhgxn.cloudfront.net/documentation/attachments/60ce8d59-9f61-4161-b871-bc60c5c71ff8/rube-goldberg-student-handout.pdf) attached.)
 4. Discuss the Engineering Design Process / Iterative Design Process:
-   https://www.teachengineering.org/k12engineering/designprocess
+   <https://www.teachengineering.org/k12engineering/designprocess>
 
 ### Exploration
 

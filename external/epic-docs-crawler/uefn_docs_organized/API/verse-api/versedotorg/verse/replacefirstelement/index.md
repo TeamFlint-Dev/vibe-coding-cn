@@ -1,6 +1,6 @@
 # (Input:[]t).ReplaceFirstElement extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/replacefirstelement
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/replacefirstelement>
 > **爬取时间**: 2025-12-27T01:21:59.311121
 
 ---

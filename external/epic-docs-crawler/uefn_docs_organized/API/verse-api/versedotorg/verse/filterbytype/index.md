@@ -1,6 +1,6 @@
 # (InSet:classifiable_subset(element_type)).FilterByType extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/filterbytype
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/filterbytype>
 > **爬取时间**: 2025-12-27T01:34:00.553728
 
 ---

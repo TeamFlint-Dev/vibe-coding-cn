@@ -1,6 +1,6 @@
 # item_brown_speckled_dino_egg class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_brown_speckled_dino_egg
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_brown_speckled_dino_egg>
 > **爬取时间**: 2025-12-27T03:52:39.813237
 
 ---

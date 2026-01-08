@@ -1,6 +1,6 @@
 # Vehicle Mod Box Spawner Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/vehicle-mod-box-spawner-device-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/vehicle-mod-box-spawner-device-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:04:35.975027
 
 ---
@@ -89,7 +89,7 @@ And just like that, you now have 11 different powerups to populate your islands 
 
 Try adjusting the respawn timers on each powerup to change the gameplay on your island. Longer respawn timers make more desirable upgrades.
 
-## Build a Vehicle Battle Game!
+## Build a Vehicle Battle Game
 
 Ready to build a game using the Vehicle Mod Box Spawner device? Follow the instructions in this example to create a team vehicle battle game mode for up to 10 players!
 

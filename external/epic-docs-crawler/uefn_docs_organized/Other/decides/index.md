@@ -1,6 +1,6 @@
 # decides
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/decides
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/decides>
 > **爬取时间**: 2025-12-27T02:21:26.535859
 
 ---

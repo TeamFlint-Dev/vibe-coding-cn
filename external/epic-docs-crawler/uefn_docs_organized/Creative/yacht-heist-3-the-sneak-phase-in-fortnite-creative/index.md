@@ -1,6 +1,6 @@
 # 3. The Sneak Phase
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-3-the-sneak-phase-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-3-the-sneak-phase-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:15:03.890656
 
 ---
@@ -381,6 +381,6 @@ The music is turned off when the vault explodes and starts again when the player
 
 [![4. The Escape Phase](https://dev.epicgames.com/community/api/documentation/image/be4ca3a8-7390-48a9-a22b-5e3bd4247caf?resizing_type=fit&width=640&height=640)
 
-4. The Escape Phase
+1. The Escape Phase
 
-This section shows you how to set up the escape phase of the Yacht Heist.](https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-4-the-escape-phase-in-fortnite-creative)
+This section shows you how to set up the escape phase of the Yacht Heist.](<https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-4-the-escape-phase-in-fortnite-creative>)

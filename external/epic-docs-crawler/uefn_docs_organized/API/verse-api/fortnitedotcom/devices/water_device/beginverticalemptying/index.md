@@ -1,6 +1,6 @@
 # BeginVerticalEmptying function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/water_device/beginverticalemptying
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/water_device/beginverticalemptying>
 > **爬取时间**: 2025-12-27T05:39:53.105057
 
 ---

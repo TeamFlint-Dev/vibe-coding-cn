@@ -1,6 +1,6 @@
 # Item Details Component
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/item-details-component-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/item-details-component-in-fortnite>
 > **爬取时间**: 2025-12-27T00:34:34.279068
 
 ---

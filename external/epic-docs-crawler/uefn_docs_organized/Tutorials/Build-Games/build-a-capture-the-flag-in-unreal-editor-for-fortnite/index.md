@@ -1,6 +1,6 @@
 # Capture the Flag Tutorial
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/build-a-capture-the-flag-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/build-a-capture-the-flag-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:01:56.475062
 
 ---
@@ -25,26 +25,26 @@ Here is an overview of the steps you'll need to recreate this island in the idea
 
 1. Set Up the Capture the Flag Game
 
-Create your project and modify Island Settings to get started.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-1-set-up-the-game-in-unreal-editor-for-fortnite)[![2. Create the Island](https://dev.epicgames.com/community/api/documentation/image/dff07ede-ffa6-4d85-908c-84c1ef939345?resizing_type=fit&width=640&height=640)
+Create your project and modify Island Settings to get started.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-1-set-up-the-game-in-unreal-editor-for-fortnite)[![2>. Create the Island](<https://dev.epicgames.com/community/api/documentation/image/dff07ede-ffa6-4d85-908c-84c1ef939345?resizing_type=fit&width=640&height=640>)
 
-2. Create the Island
+1. Create the Island
 
-Build the bases, add colored elements to each base, and build the boundaries of your island.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-2-create-the-island-in-unreal-editor-for-fortnite)[![3. Set Up Classes and Teams](https://dev.epicgames.com/community/api/documentation/image/5793afeb-2869-4a2b-9d1e-34a0ceac499b?resizing_type=fit&width=640&height=640)
+Build the bases, add colored elements to each base, and build the boundaries of your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-2-create-the-island-in-unreal-editor-for-fortnite)[![3>. Set Up Classes and Teams](<https://dev.epicgames.com/community/api/documentation/image/5793afeb-2869-4a2b-9d1e-34a0ceac499b?resizing_type=fit&width=640&height=640>)
 
-3. Set Up Classes and Teams
+1. Set Up Classes and Teams
 
-Use Class Designer devices to set up classes and the Team Settings device to configure the teams.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-3-set-up-the-classes-and-teams-in-unreal-editor-for-fortnite)[![4. Set Up Spawn Rooms](https://dev.epicgames.com/community/api/documentation/image/6a51095a-aab5-4bb4-ac97-18e7e23790f8?resizing_type=fit&width=640&height=640)
+Use Class Designer devices to set up classes and the Team Settings device to configure the teams.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-3-set-up-the-classes-and-teams-in-unreal-editor-for-fortnite)[![4>. Set Up Spawn Rooms](<https://dev.epicgames.com/community/api/documentation/image/6a51095a-aab5-4bb4-ac97-18e7e23790f8?resizing_type=fit&width=640&height=640>)
 
-4. Set Up Spawn Rooms
+1. Set Up Spawn Rooms
 
-Make spawn rooms with locking doors where players can safely choose a class.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-4-set-up-spawn-rooms-in-unreal-editor-for-fortnite)[![5. Set Up Flag Mechanics](https://dev.epicgames.com/community/api/documentation/image/edb0f450-4cc1-4923-8a5e-f294ee9043d2?resizing_type=fit&width=640&height=640)
+Make spawn rooms with locking doors where players can safely choose a class.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-4-set-up-spawn-rooms-in-unreal-editor-for-fortnite)[![5>. Set Up Flag Mechanics](<https://dev.epicgames.com/community/api/documentation/image/edb0f450-4cc1-4923-8a5e-f294ee9043d2?resizing_type=fit&width=640&height=640>)
 
-5. Set Up Flag Mechanics
+1. Set Up Flag Mechanics
 
-Set up the core flag capture mechanic of this game mode.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-5-set-up-flag-mechanics-in-unreal-editor-for-fortnite)[![6. Make the Pre-Game Lobby](https://dev.epicgames.com/community/api/documentation/image/2a79b24e-41c1-4d6b-9799-0b6550acf325?resizing_type=fit&width=640&height=640)
+Set up the core flag capture mechanic of this game mode.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-5-set-up-flag-mechanics-in-unreal-editor-for-fortnite)[![6>. Make the Pre-Game Lobby](<https://dev.epicgames.com/community/api/documentation/image/2a79b24e-41c1-4d6b-9799-0b6550acf325?resizing_type=fit&width=640&height=640>)
 
-6. Make the Pre-Game Lobby
+1. Make the Pre-Game Lobby
 
-Create a pre-game lobby where players will spawn before the start of the match.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-6-make-the-pregame-lobby-in-unreal-editor-for-fortnite)
+Create a pre-game lobby where players will spawn before the start of the match.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-6-make-the-pregame-lobby-in-unreal-editor-for-fortnite>)
 
 You cannot skip a section if you want to build a working capture the flag game. Each step is essential to get to the final product!

@@ -1,6 +1,6 @@
 # sound_component class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/sound_component
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/sound_component>
 > **爬取时间**: 2025-12-27T00:51:47.350415
 
 ---

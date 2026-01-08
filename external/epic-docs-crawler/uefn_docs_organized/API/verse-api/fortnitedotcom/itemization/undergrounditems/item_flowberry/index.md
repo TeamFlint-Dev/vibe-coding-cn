@@ -1,6 +1,6 @@
 # item_flowberry class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_flowberry
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_flowberry>
 > **爬取时间**: 2025-12-27T04:50:10.596287
 
 ---

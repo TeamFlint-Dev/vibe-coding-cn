@@ -1,6 +1,6 @@
 # item_stink_fish class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_stink_fish
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_stink_fish>
 > **爬取时间**: 2025-12-27T03:40:33.191331
 
 ---

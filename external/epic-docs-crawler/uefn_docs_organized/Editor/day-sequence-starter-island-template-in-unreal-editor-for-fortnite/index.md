@@ -1,6 +1,6 @@
 # Day Sequence Starter Island Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-starter-island-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-starter-island-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:20:18.916791
 
 ---
@@ -26,20 +26,20 @@ Walk through each biome and look at how the different environment lighting and s
 
 1. Device Information
 
-Learn how to use the Day Sequence device and Lumen Exposure manager to create custom outdoor lighting for unique environments in your project.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-1-device-information-in-unreal-editor-for-fortnite)[![2. North Biome](https://dev.epicgames.com/community/api/documentation/image/238560ea-2c86-4f21-bc94-11706df4a547?resizing_type=fit&width=640&height=640)
+Learn how to use the Day Sequence device and Lumen Exposure manager to create custom outdoor lighting for unique environments in your project.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-1-device-information-in-unreal-editor-for-fortnite)[![2>. North Biome](<https://dev.epicgames.com/community/api/documentation/image/238560ea-2c86-4f21-bc94-11706df4a547?resizing_type=fit&width=640&height=640>)
 
-2. North Biome
+1. North Biome
 
-Learn how to use the Day Sequence device to create custom outdoor lighting for cold environments.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-2-north-biome-in-unreal-editor-for-fortnite)[![3. South Biome](https://dev.epicgames.com/community/api/documentation/image/97f7e9ec-2fcc-48d8-ad45-7623550fc450?resizing_type=fit&width=640&height=640)
+Learn how to use the Day Sequence device to create custom outdoor lighting for cold environments.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-2-north-biome-in-unreal-editor-for-fortnite)[![3>. South Biome](<https://dev.epicgames.com/community/api/documentation/image/97f7e9ec-2fcc-48d8-ad45-7623550fc450?resizing_type=fit&width=640&height=640>)
 
-3. South Biome
+1. South Biome
 
-Learn how to use the Day Sequence device to create custom outdoor lighting for unique swampy and humid environment.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-3-south-biome-in-unreal-editor-for-fortnite)[![4. East and West Biomes](https://dev.epicgames.com/community/api/documentation/image/0dea01d3-a1d4-42e6-bb0a-0b4b2549d52f?resizing_type=fit&width=640&height=640)
+Learn how to use the Day Sequence device to create custom outdoor lighting for unique swampy and humid environment.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-3-south-biome-in-unreal-editor-for-fortnite)[![4>. East and West Biomes](<https://dev.epicgames.com/community/api/documentation/image/0dea01d3-a1d4-42e6-bb0a-0b4b2549d52f?resizing_type=fit&width=640&height=640>)
 
-4. East and West Biomes
+1. East and West Biomes
 
-Learn how to use the Day Sequence device to create custom outdoor lighting for a hot desert or beach environment.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-4-east-and-west-biomes-in-unreal-editor-for-fortnite)[![5. Post-Process Volumes](https://dev.epicgames.com/community/api/documentation/image/21eda3b7-7241-42e1-becf-4e664782f3d6?resizing_type=fit&width=640&height=640)
+Learn how to use the Day Sequence device to create custom outdoor lighting for a hot desert or beach environment.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-4-east-and-west-biomes-in-unreal-editor-for-fortnite)[![5>. Post-Process Volumes](<https://dev.epicgames.com/community/api/documentation/image/21eda3b7-7241-42e1-becf-4e664782f3d6?resizing_type=fit&width=640&height=640>)
 
-5. Post-Process Volumes
+1. Post-Process Volumes
 
-Learn how to use post-process volumes to create custom lighting for different environments inside your project.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-5-postprocess-volumes-in-unreal-editor-for-fortnite)
+Learn how to use post-process volumes to create custom lighting for different environments inside your project.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-5-postprocess-volumes-in-unreal-editor-for-fortnite>)

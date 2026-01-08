@@ -1,6 +1,6 @@
 # item_obsidian_ore class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_obsidian_ore
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_obsidian_ore>
 > **爬取时间**: 2025-12-27T03:53:24.986945
 
 ---

@@ -1,6 +1,6 @@
 # (V:vector2).LengthSquared extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/lengthsquared
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/lengthsquared>
 > **爬取时间**: 2025-12-27T02:34:46.643985
 
 ---

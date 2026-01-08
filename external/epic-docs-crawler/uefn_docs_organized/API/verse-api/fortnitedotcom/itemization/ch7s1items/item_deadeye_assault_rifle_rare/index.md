@@ -1,6 +1,6 @@
 # item_deadeye_assault_rifle_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_deadeye_assault_rifle_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_deadeye_assault_rifle_rare>
 > **爬取时间**: 2025-12-27T04:17:23.242234
 
 ---

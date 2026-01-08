@@ -1,6 +1,6 @@
 # item_pizza_party class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_pizza_party
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_pizza_party>
 > **爬取时间**: 2025-12-27T03:33:48.651756
 
 ---

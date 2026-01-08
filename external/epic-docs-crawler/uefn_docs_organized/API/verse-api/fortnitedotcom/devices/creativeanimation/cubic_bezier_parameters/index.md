@@ -1,12 +1,12 @@
 # cubic_bezier_parameters struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/cubic_bezier_parameters
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/cubic_bezier_parameters>
 > **爬取时间**: 2025-12-27T01:44:51.525759
 
 ---
 
 A structure for defining Bezier interpolation parameters.
-See https://en.wikipedia.org/wiki/B%C3%A9zier\_curve for more info on Bezier curves.
+See <https://en.wikipedia.org/wiki/B%C3%A9zier\_curve> for more info on Bezier curves.
 
 |  |  |
 | --- | --- |

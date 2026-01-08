@@ -1,6 +1,6 @@
 # item_hearts_havoc_suppressed_rifle_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_hearts_havoc_suppressed_rifle_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_hearts_havoc_suppressed_rifle_mythic>
 > **爬取时间**: 2025-12-27T04:29:43.565028
 
 ---

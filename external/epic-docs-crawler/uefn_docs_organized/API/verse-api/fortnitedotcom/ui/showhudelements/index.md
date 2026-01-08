@@ -1,6 +1,6 @@
 # (PlayerUI:player_ui).ShowHUDElements extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/showhudelements
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/showhudelements>
 > **爬取时间**: 2025-12-27T01:04:13.385299
 
 ---

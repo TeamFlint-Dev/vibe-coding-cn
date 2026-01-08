@@ -1,6 +1,6 @@
 # GetRemainingItemCountRequired function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conditional_button_device/getremainingitemcountrequired
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conditional_button_device/getremainingitemcountrequired>
 > **爬取时间**: 2025-12-27T06:02:10.759883
 
 ---

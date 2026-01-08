@@ -1,6 +1,6 @@
 # item_orange_paint_grenade class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_orange_paint_grenade
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_orange_paint_grenade>
 > **爬取时间**: 2025-12-27T03:01:26.952215
 
 ---

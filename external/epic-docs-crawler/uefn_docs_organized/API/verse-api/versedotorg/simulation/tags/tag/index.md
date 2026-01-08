@@ -1,6 +1,6 @@
 # tag class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/tags/tag
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/tags/tag>
 > **爬取时间**: 2025-12-27T02:47:48.658125
 
 ---

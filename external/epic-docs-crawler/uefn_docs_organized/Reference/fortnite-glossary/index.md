@@ -1,6 +1,6 @@
 # Fortnite Glossary
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary>
 > **爬取时间**: 2025-12-26T22:55:45.876067
 
 ---
@@ -1345,7 +1345,7 @@ engagement loop
 :   See [gameplay loop](https://dev.epicgames.com/documentation/en-us/fortnite-creative/fortnite-creative-glossary#gameplayloop).
 
 entitlement offer
-:   For in-island transactions, 
+:   For in-island transactions,
     any purchasable item, whether consumable or [durable](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#durable-product), is an offer when it's made available to the player. Examples could include an arrow, or a single item of furniture in a game that involves building a house.
 
     An offer is for a single item.

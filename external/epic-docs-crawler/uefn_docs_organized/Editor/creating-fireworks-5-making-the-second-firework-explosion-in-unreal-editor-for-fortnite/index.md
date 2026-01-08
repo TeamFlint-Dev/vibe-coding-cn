@@ -1,6 +1,6 @@
 # 5. Making the Second Firework Explosion
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creating-fireworks-5-making-the-second-firework-explosion-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creating-fireworks-5-making-the-second-firework-explosion-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:41:47.707788
 
 ---

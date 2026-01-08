@@ -1,6 +1,6 @@
 # item_shield_keg class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_shield_keg
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/flippeditems/item_shield_keg>
 > **爬取时间**: 2025-12-27T03:33:53.887806
 
 ---

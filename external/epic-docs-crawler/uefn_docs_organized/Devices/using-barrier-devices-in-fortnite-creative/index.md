@@ -1,6 +1,6 @@
 # Barrier Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-barrier-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-barrier-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:37:09.252668
 
 ---

@@ -1,6 +1,6 @@
 # User Interface Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/user-interface-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/user-interface-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:35:37.386578
 
 ---
@@ -53,7 +53,7 @@ Verse UI utilities are a collection of Verse driven user interface (UI) utilitie
 
 In Verse you create a layout using containers such as **Overlays** or **Stack Boxes**, much like you would in the [UMG Editor](https://dev.epicgames.com/documentation/en-us/fortnite/ui-widget-editor-in-unreal-editor-for-fortnite). Inside these containers, widgets such as `text_block`, `material_block` and `image_block` are used to insert text, materials, or images. These Verse widgets can respond to events in-game, and you can use them with other [Verse widgets](https://dev.epicgames.com/documentation/en-us/fortnite/widget-types-in-unreal-editor-for-fortnite).
 
-The Verse widgets are featured in the back of the second hall, in the second room alongside examples of each widget. The `material_block` widget controls UI materials,  the `text_size` widget controls the UI text size in the `text_block` in the HUD, 
+The Verse widgets are featured in the back of the second hall, in the second room alongside examples of each widget. The `material_block` widget controls UI materials,  the `text_size` widget controls the UI text size in the `text_block` in the HUD,
 and the `player_input` widget maps custom UI elements to the HUD based on keybinds.
 
 | Material Block | Text Size | Player Input |

@@ -1,6 +1,6 @@
 # GetCountedAgents function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/player_counter_device/getcountedagents
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/player_counter_device/getcountedagents>
 > **爬取时间**: 2025-12-27T07:05:35.043034
 
 ---

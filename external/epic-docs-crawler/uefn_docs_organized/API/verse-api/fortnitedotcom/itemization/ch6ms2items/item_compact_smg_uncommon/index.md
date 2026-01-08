@@ -1,6 +1,6 @@
 # item_compact_smg_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch6ms2items/item_compact_smg_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch6ms2items/item_compact_smg_uncommon>
 > **爬取时间**: 2025-12-27T03:22:58.596255
 
 ---

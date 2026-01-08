@@ -1,6 +1,6 @@
 # The Walking Dead Universe Brand and Creator Rules
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-brand-and-creator-rules-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-brand-and-creator-rules-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:00:25.145336
 
 ---

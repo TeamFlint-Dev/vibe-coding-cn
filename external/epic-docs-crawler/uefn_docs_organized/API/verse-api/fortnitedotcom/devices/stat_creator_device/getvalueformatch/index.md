@@ -1,6 +1,6 @@
 # GetValueForMatch function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/stat_creator_device/getvalueformatch
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/stat_creator_device/getvalueformatch>
 > **爬取时间**: 2025-12-27T06:53:28.371503
 
 ---

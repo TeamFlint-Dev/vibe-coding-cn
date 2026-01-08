@@ -1,6 +1,6 @@
 # item_component class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/item_component
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/item_component>
 > **爬取时间**: 2025-12-27T01:03:24.886888
 
 ---

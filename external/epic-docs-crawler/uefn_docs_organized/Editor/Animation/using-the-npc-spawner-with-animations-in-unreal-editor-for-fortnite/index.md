@@ -1,6 +1,6 @@
 # Using the NPC Spawner with Animations
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-the-npc-spawner-with-animations-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-the-npc-spawner-with-animations-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:03:59.443641
 
 ---

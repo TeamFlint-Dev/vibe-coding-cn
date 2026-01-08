@@ -1,6 +1,6 @@
 # 33.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/33-00-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/33-00-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:35:14.279663
 
 ---
@@ -43,7 +43,7 @@ Now, servers react gracefully to their host's shutdown timing, and will have ses
 
 This means that servers you join will now last between 4.5 and 19 hours long, depending on when the server was spun up in comparison to the lifetime of the server's host. This will give you better variability in having an active server that matches your desired working hours, and you won't be forced to requeue for a new server part way through your work.
 
-## Updated Default Creative Hotkeys (Keybinds) in Creative!
+## Updated Default Creative Hotkeys (Keybinds) in Creative
 
 [![Updated default creative hotkeys](https://dev.epicgames.com/community/api/documentation/image/5646f1df-cb61-48a6-9112-0861dbb98920?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/5646f1df-cb61-48a6-9112-0861dbb98920?resizing_type=fit)
 
@@ -117,7 +117,7 @@ Starting this release, when you make changes in Live Edit mode, UEFN only syncs 
 
 If you want to keep the previous behavior where all destruction in Live Edit results in deleting the asset from the project, you can change the default option with the **Live Edit: Non-Edit Destruction** setting.
 
-## MetaSounds are now available in UEFN!
+## MetaSounds are now available in UEFN
 
 MetaSounds presets are now available in UEFN! The presets inherit from SoundBase and are playable with Audio devices so you can play them with your existing UEFN content. By adding the MSS PlayRandom Loop and MSS PlayRandom Oneshot sounds, you can randomize the volume and pitch of a sound and either play it on a loop or in a specified timeframe.
 
@@ -125,7 +125,7 @@ While MetaSounds are currently read-only, this is a first step in the process of
 
 ## Documentation Updates
 
-### New Custom UI Documentation!
+### New Custom UI Documentation
 
 As part of an ongoing effort to bring you the latest information on UMG in UEFN, the [In-Game User Interfaces](https://dev.epicgames.com/documentation/en-us/fortnite/ingame-user-interfaces-in-unreal-editor-for-fortnite) section of the UEFN documentation has been updated and reorganized to feature more tutorials and in-depth information about using new and old features of UMG in UEFN:
 

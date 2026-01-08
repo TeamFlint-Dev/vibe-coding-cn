@@ -1,6 +1,6 @@
 # Analytics Device Dashboard
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/analytics-device-dashboard-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/analytics-device-dashboard-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:06:07.483208
 
 ---

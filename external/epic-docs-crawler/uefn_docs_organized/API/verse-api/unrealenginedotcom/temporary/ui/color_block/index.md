@@ -1,6 +1,6 @@
 # color_block class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/color_block
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/color_block>
 > **爬取时间**: 2025-12-27T07:08:51.664925
 
 ---

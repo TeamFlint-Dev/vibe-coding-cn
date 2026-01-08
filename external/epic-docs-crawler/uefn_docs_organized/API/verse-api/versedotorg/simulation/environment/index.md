@@ -1,6 +1,6 @@
 # (Session:session).Environment extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/environment
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/environment>
 > **爬取时间**: 2025-12-27T00:56:37.600259
 
 ---

@@ -1,6 +1,6 @@
 # DestroySpawnedDrops function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/supply_drop_spawner_device/destroyspawneddrops
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/supply_drop_spawner_device/destroyspawneddrops>
 > **爬取时间**: 2025-12-27T05:11:13.812513
 
 ---

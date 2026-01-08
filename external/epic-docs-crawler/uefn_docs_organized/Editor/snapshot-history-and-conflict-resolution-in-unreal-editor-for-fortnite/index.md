@@ -1,6 +1,6 @@
 # Snapshot History and Conflict Resolution
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/snapshot-history-and-conflict-resolution-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/snapshot-history-and-conflict-resolution-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T22:58:16.632275
 
 ---

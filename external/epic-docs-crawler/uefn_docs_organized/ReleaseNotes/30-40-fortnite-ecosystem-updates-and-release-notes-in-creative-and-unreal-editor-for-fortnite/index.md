@@ -1,6 +1,6 @@
 # 30.40 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/30-40-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/30-40-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:32:36.153785
 
 ---
@@ -11,7 +11,7 @@ This release also brings you closer to your creative neighbors with the introduc
 
 In this update, we’ve also combined Patch Notes and Release Notes into one document! Now you can read all about the updates and changes in one place on the Epic Developer Community!
 
-## Publish Your Fall Guys Islands!
+## Publish Your Fall Guys Islands
 
 Starting today, August 6th, at 9 AM ET you can publish your Creative and UEFN Fall Guys islands for players around the world to enjoy! Publishing a Fall Guys island through the Creator Portal follows the same process and rulesets as publishing any other Creative or UEFN island.
 
@@ -22,7 +22,7 @@ Important reminders:
 
 [![Fall Guys Image](https://dev.epicgames.com/community/api/documentation/image/1a9c5cca-d1f9-450a-851f-261884ffe2e1?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1a9c5cca-d1f9-450a-851f-261884ffe2e1?resizing_type=fit)
 
-## New Fall Guys Islands Are Now Available to Play!
+## New Fall Guys Islands Are Now Available to Play
 
 We have also launched six brand new UEFN Fall Guys islands to sprout more of your own fantastic creations. Each of these islands showcases the Bean's abilities in different ways while testing your platforming skills to the limit!
 

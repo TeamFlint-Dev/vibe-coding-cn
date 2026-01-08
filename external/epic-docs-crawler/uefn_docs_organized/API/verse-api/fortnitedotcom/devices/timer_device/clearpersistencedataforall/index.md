@@ -1,6 +1,6 @@
 # ClearPersistenceDataForAll function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/clearpersistencedataforall
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/clearpersistencedataforall>
 > **爬取时间**: 2025-12-27T07:02:55.156342
 
 ---

@@ -1,6 +1,6 @@
 # GetParentWidget function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget/getparentwidget
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget/getparentwidget>
 > **爬取时间**: 2025-12-27T02:55:51.961272
 
 ---

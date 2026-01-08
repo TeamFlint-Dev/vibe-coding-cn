@@ -1,6 +1,6 @@
 # Create your Clothing Asset in Unreal Engine
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-your-clothing-asset-in-unreal-engine-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-your-clothing-asset-in-unreal-engine-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:18:00.205286
 
 ---
@@ -98,4 +98,4 @@ The Cloth Asset Panel Editor has the following sections:
 
 Configure the Clothing Asset Parameters
 
-Configure the parameters of the cloth asset to ensure proper functionality.](https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-clothing-asset-parameters-in-unreal-editor-for-fortnite)
+Configure the parameters of the cloth asset to ensure proper functionality.](<https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-clothing-asset-parameters-in-unreal-editor-for-fortnite>)

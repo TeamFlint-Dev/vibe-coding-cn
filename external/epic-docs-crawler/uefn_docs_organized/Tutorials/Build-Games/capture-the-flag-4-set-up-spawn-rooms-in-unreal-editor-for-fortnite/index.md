@@ -1,6 +1,6 @@
 # 4. Set Up Spawn Rooms
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-4-set-up-spawn-rooms-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-4-set-up-spawn-rooms-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:16:40.474449
 
 ---
@@ -107,6 +107,6 @@ You can [Playtest your island](playtesting-your-island-unreal-editor-for-fortnit
 
 [![5. Set Up Flag Mechanics](https://dev.epicgames.com/community/api/documentation/image/edb0f450-4cc1-4923-8a5e-f294ee9043d2?resizing_type=fit&width=640&height=640)
 
-5. Set Up Flag Mechanics
+1. Set Up Flag Mechanics
 
-Set up the core flag capture mechanic of this game mode.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-5-set-up-flag-mechanics-in-unreal-editor-for-fortnite)
+Set up the core flag capture mechanic of this game mode.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-5-set-up-flag-mechanics-in-unreal-editor-for-fortnite>)

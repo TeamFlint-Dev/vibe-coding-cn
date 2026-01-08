@@ -1,6 +1,6 @@
 # GetVoteGroup function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vote_option_interface/getvotegroup
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vote_option_interface/getvotegroup>
 > **爬取时间**: 2025-12-27T06:03:22.349664
 
 ---

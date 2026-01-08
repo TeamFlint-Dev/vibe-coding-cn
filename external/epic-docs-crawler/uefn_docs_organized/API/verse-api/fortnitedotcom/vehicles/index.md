@@ -1,6 +1,6 @@
 # Vehicles module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/vehicles
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/vehicles>
 > **爬取时间**: 2025-12-26T23:26:13.036500
 
 ---

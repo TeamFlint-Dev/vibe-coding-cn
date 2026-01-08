@@ -1,6 +1,6 @@
 # Understanding NPC Behaviors
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/understanding-npc-behavior-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/understanding-npc-behavior-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:02:27.471725
 
 ---

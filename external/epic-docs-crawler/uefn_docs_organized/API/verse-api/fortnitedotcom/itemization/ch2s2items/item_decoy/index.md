@@ -1,6 +1,6 @@
 # item_decoy class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_decoy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_decoy>
 > **爬取时间**: 2025-12-27T03:01:05.221958
 
 ---

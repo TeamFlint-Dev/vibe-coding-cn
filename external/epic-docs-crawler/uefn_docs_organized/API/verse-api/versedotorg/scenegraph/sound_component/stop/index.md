@@ -1,6 +1,6 @@
 # Stop function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/sound_component/stop
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/sound_component/stop>
 > **爬取时间**: 2025-12-27T02:42:07.438763
 
 ---

@@ -1,6 +1,6 @@
 # Drum Sequencer
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-sequencer-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-sequencer-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:04:39.568727
 
 ---
@@ -94,11 +94,11 @@ Try connecting the Drum Sequencer to any of these devices!
 
 Drum Player
 
-Use the Drum Player device to play different drum sounds for your music setup.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-player-devices-in-fortnite-creative)[![Note Progressor](https://dev.epicgames.com/community/api/documentation/image/a71f7792-e484-4468-a835-3fb2108bf5b5?resizing_type=fit&width=640&height=640)
+Use the Drum Player device to play different drum sounds for your music setup.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-player-devices-in-fortnite-creative)[![Note> Progressor](<https://dev.epicgames.com/community/api/documentation/image/a71f7792-e484-4468-a835-3fb2108bf5b5?resizing_type=fit&width=640&height=640>)
 
 Note Progressor
 
-The Note Progressor transposes a note pattern to a different key or follows a user-specified chord progression.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-progressor-devices-in-fortnite-creative)
+The Note Progressor transposes a note pattern to a different key or follows a user-specified chord progression.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-note-progressor-devices-in-fortnite-creative>)
 
 ## Using Drum Sequencer in Verse
 

@@ -1,6 +1,6 @@
 # Gameplay Events in Sequencer
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/gameplay-events-in-sequencer-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/gameplay-events-in-sequencer-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:05:25.347176
 
 ---

@@ -1,6 +1,6 @@
 # await_next_keyframe_result enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/await_next_keyframe_result
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/await_next_keyframe_result>
 > **爬取时间**: 2025-12-27T01:42:33.611766
 
 ---

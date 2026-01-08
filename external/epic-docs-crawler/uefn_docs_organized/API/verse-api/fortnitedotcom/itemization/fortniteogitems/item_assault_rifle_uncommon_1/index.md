@@ -1,6 +1,6 @@
 # item_assault_rifle_uncommon_1 class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_assault_rifle_uncommon_1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_assault_rifle_uncommon_1>
 > **爬取时间**: 2025-12-27T04:46:58.695960
 
 ---

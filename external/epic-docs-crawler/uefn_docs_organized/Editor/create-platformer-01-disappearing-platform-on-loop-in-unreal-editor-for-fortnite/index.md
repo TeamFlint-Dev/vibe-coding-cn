@@ -1,6 +1,6 @@
 # 1. Disappearing Platform on Loop
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-01-disappearing-platform-on-loop-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-01-disappearing-platform-on-loop-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:37:59.751756
 
 ---
@@ -33,6 +33,7 @@ Follow these steps to create a disappearing platform using Scene Graph:
        @editable
        var Duration<public>:float = 2.0
    ```
+
 6. To hide a platform, you can make its static mesh invisible by turning off collision so a player can’t land on the platform. Add a new function that extends from `entity` named `Hide()` to your `disappear_on_loop_component` class, Inside this function, call `GetComponents[]` with the type you’re looking for, in this case `mesh_component` , returning the entity's static mesh. Then call `Disable()` on the static mesh.
 
    ```verse
@@ -43,6 +44,7 @@ Follow these steps to create a disappearing platform using Scene Graph:
        then:
            StaticMesh.Disable()
    ```
+
 7. Add another `entity` extension function named `Show()` to your `disappear_on_loop_component` class. The implementation is the same as `Hide()` but you’ll call `Enable()` instead on the static mesh components.
 
    ```verse
@@ -53,6 +55,7 @@ Follow these steps to create a disappearing platform using Scene Graph:
        then:
            StaticMesh.Enable()
    ```
+
 8. Finally in `OnSimulate()` , use a `loop` expression to loop hiding and showing the platform , calling `Sleep()` each time. Your complete `disappear_on_loop_component` class should look like the following:.
 
    ```verse
@@ -83,6 +86,7 @@ Follow these steps to create a disappearing platform using Scene Graph:
                Entity.Show()
                Sleep(Duration)
    ```
+
 9. Save and compile your code.
 10. In the UEFN Outliner, promote your **DisappearingPlatform** entity to a prefab named **disappearing\_platform\_prefab**. As a prefab, you can create more instances of your disappearing platform and update the look and base implementation for them all if you need to later. For how to promote entities to a prefab, see [Prefabs and Prefab Instances](https://dev.epicgames.com/documentation/en-us/fortnite/prefabs-and-prefab-instances-in-unreal-editor-for-fortnite).
 
@@ -139,6 +143,6 @@ disappear_on_loop_component := class<final_super>(component):
 
 [![2. Moving Entities Using Animations](https://dev.epicgames.com/community/api/documentation/image/c603a1f7-a913-46bf-a344-55e13e506d1d?resizing_type=fit&width=640&height=640)
 
-2. Moving Entities Using Animations
+1. Moving Entities Using Animations
 
-Use Scene Graph to create a component that animates an entity to different targets.](https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-02-moving-entities-using-animations-in-scene-graph-in-unreal-editor-for-fortnite)
+Use Scene Graph to create a component that animates an entity to different targets.](<https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-02-moving-entities-using-animations-in-scene-graph-in-unreal-editor-for-fortnite>)

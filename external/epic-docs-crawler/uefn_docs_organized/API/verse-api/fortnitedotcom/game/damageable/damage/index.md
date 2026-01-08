@@ -1,6 +1,6 @@
 # Damage function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/damageable/damage
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/damageable/damage>
 > **爬取时间**: 2025-12-27T02:53:18.012540
 
 ---

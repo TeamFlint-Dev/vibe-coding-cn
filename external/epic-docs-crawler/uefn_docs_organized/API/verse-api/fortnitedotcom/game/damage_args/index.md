@@ -1,6 +1,6 @@
 # damage_args struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/damage_args
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/damage_args>
 > **爬取时间**: 2025-12-27T01:00:33.506696
 
 ---

@@ -1,6 +1,6 @@
 # (Prop:creative_prop).GetAnimationController extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/getanimationcontroller
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/creativeanimation/getanimationcontroller>
 > **爬取时间**: 2025-12-27T01:42:39.263713
 
 ---

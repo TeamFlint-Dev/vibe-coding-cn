@@ -1,6 +1,6 @@
 # Stat Creator Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stat-creator-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stat-creator-design-examples>
 > **爬取时间**: 2025-12-26T23:07:41.391331
 
 ---
@@ -30,6 +30,7 @@ The **Stat Creator** device is perfect for making unique ways to track player pr
    | --- | --- |
    | Stat Name | Explosions Triggered |
    | Stat Icon | Bomb |
+
 4. Place a **Stat Counter** device.
 5. Customize the counter:
 
@@ -41,6 +42,7 @@ The **Stat Creator** device is perfect for making unique ways to track player pr
    | Value Override Type | Add |
    | Value Override | 1 |
    | Visible in Game | No |
+
 6. Place an **Explosive** device.
 7. Configure the device to set **Player Damage** to **0**:
 
@@ -79,6 +81,7 @@ The **Stat Creator** can be configured to have different levels of a statistic, 
    | Max Value | 2 |
    | Max Level | 2 |
    | Stat Icon | Running |
+
 4. Place a **Stat Counter** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/d5d24a7c-1e3a-45b4-9c14-8e2dd6c4cc8d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d5d24a7c-1e3a-45b4-9c14-8e2dd6c4cc8d?resizing_type=fit)
@@ -89,6 +92,7 @@ The **Stat Creator** can be configured to have different levels of a statistic, 
    | Value Override Type | Add |
    | Value Override | 1 |
    | Visible in Game | No |
+
 5. Place a **Movement Modifier** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/ae3bd0ff-b425-478e-ab82-66cc8f2309dd?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/ae3bd0ff-b425-478e-ab82-66cc8f2309dd?resizing_type=fit)
@@ -99,6 +103,7 @@ The **Stat Creator** can be configured to have different levels of a statistic, 
    | Infinite Duration | True |
    | Visible During Game | No |
    | Pad Has Collision | Off |
+
 6. Place a large **Trigger** device at the end of the first parkour segment, as shown:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/796e3557-787c-49da-b14c-dc0de2329a50?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/796e3557-787c-49da-b14c-dc0de2329a50?resizing_type=fit)
@@ -114,6 +119,7 @@ The **Stat Creator** can be configured to have different levels of a statistic, 
    | Times Can Trigger | 1 |
    | Visible During Game | No |
    | Pad Has Collision | Off |
+
 8. Configure the following event on the trigger so that it increases the **Parkour Skill** value when the player reaches it:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/dd3e5a2f-3213-4d22-9074-fc0079b69684?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/dd3e5a2f-3213-4d22-9074-fc0079b69684?resizing_type=fit)
@@ -121,6 +127,7 @@ The **Stat Creator** can be configured to have different levels of a statistic, 
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Triggered | Stat Counter | Override Value |
+
 9. Duplicate this trigger and place the copy on the end of the second parkour section.
 10. Configure the following event on the **Stat Creator** device so that it gives the player a movement upgrade when they level up.
 
@@ -191,6 +198,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Can Lose Level from Point Loss | Yes |
    | Stat Color | #FF0100 |
    | Stat Icon | Exclamation |
+
 2. Place a **Stat Powerup** device in a place that the player can’t reach. This powerup will raise the player’s **Target Stat** when they eliminate a guard.
 3. Customize the powerup:
 
@@ -207,6 +215,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Ambient Audio | Off |
    | Pick Up Audio | Off |
    | Who Can See This Powerup | None |
+
 4. Duplicate this device and rename it to **Decrease Target Stat Powerup**. Change its **Magnitude** setting to **-250**. This will decrease the player’s **Target Stat** when they call off the guards.
 5. Place a **Guard Spawner** device that will spawn guards when the player has a **Target Level** of at least**1** (which will be always), then customize it:
 
@@ -219,6 +228,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Spawn Radius | 25M |
    | Max Patrol Distance | 25.0M |
    | Drop Inventory on Elimination | No |
+
 6. Configure the following event on the Guard Spawner device to increase the player’s Target Stat when a guard is eliminated.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/02e67977-0374-4f32-97e1-f9dbbba28d79?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/02e67977-0374-4f32-97e1-f9dbbba28d79?resizing_type=fit)
@@ -226,6 +236,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Eliminated | Increase Target Stat Powerup | Pickup |
+
 7. Duplicate the Guard Spawner device and place it next to the previous guard spawner. It will spawn guards when the player has a Target Level of at least 2.
 8. Customize the new Guard Spawner device:
 
@@ -242,6 +253,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Enabled at Game Start | Disabled |
    | Max Patrol Distance | 25.0M |
    | Drop Inventory on Elimination | No |
+
 9. Duplicate the guard spawner one more time and place it next to the other two. It will spawn guards when the player has a Target Level of 3.
 10. Customize the third guard spawner:
 
@@ -255,6 +267,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
     | Enabled at Game Start | Disabled |
     | Max Patrol Distance | 25.0M |
     | Drop Inventory on Elimination | No |
+
 11. Place a **Button** device inside a nearby house.
 12. Customize the button:
 
@@ -265,6 +278,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
     | Interact Time | 1.0 Second |
     | Reset Delay | 10 Seconds |
     | Interaction Text | Call them off! |
+
 13. Configure the following event on the button to decrease the player’s Target Stat when they call off the guards by interacting with the button.
 
     [![](https://dev.epicgames.com/community/api/documentation/image/23a9803c-2b3c-4385-af24-dee0d298e164?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/23a9803c-2b3c-4385-af24-dee0d298e164?resizing_type=fit)
@@ -285,6 +299,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Compare Type | Equal To |
    | Broadcast Events On Stat Change | On |
    | Visible in Game | No |
+
 2. Configure the following event on the stat counter to disable the Level 2 Guard Spawner when the player’s level changes to Level 1.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/5c2aec4c-d365-4a06-8c25-93e2cd4c4c47?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/5c2aec4c-d365-4a06-8c25-93e2cd4c4c47?resizing_type=fit)
@@ -292,6 +307,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Compare Success | Level 2 Guard Spawner | Disable |
+
 3. Place another **Stat Counter** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/1602890d-c235-4e96-81e6-fdedb7300ca9?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1602890d-c235-4e96-81e6-fdedb7300ca9?resizing_type=fit)
@@ -303,6 +319,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Comparison Value | 2 |
    | Broadcast Events On Stat Change | On |
    | Visible in Game | No |
+
 4. Configure the following event to disable the **Level 3 Guard Spawner** and enable the **Level 2 Guard Spawner** when the player’s level changes to Level 2.
 
    You must call events on both of these spawners because you don't know whether the player will be leveling up to Level 2 from Level 1 or down from Level 3.
@@ -313,6 +330,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | --- | --- | --- |
    | On Compare Success | Level 2 Guard Spawner | Enable |
    | On Compare Success | Level 3 Guard Spawner | Disable |
+
 5. Place one more **Stat Counter** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/7f688287-4992-444f-8333-f6692b6b07c2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7f688287-4992-444f-8333-f6692b6b07c2?resizing_type=fit)
@@ -324,6 +342,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Comparison Value | 3 |
    | Broadcast Events On Stat Change | On |
    | Visible in Game | No |
+
 6. Configure the following event to enable the **Level 3 Guard Spawner** when the player’s level changes to Level 3.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/a708bf82-3123-4e62-a9be-fd6532d79510?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a708bf82-3123-4e62-a9be-fd6532d79510?resizing_type=fit)
@@ -331,6 +350,7 @@ In this example, you’ll create a system that tracks the player’s “wanted l
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Compare Success | Level 3 Guard Spawner | Enable |
+
 7. Duplicate the cluster of three guard spawners and place the copies in a different area.
 8. Repeat the previous step.
 

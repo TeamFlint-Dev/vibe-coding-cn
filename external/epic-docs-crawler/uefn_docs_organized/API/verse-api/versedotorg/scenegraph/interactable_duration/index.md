@@ -1,6 +1,6 @@
 # interactable_duration class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/interactable_duration
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/interactable_duration>
 > **爬取时间**: 2025-12-27T00:53:55.393374
 
 ---

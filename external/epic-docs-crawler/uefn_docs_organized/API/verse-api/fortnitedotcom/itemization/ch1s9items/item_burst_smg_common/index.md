@@ -1,6 +1,6 @@
 # item_burst_smg_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s9items/item_burst_smg_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s9items/item_burst_smg_common>
 > **爬取时间**: 2025-12-27T04:01:49.795264
 
 ---

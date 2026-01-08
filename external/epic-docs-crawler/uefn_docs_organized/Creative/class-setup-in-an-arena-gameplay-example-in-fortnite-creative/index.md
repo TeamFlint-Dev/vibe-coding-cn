@@ -1,6 +1,6 @@
 # Class Setup In an Arena
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/class-setup-in-an-arena-gameplay-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/class-setup-in-an-arena-gameplay-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:28:44.914904
 
 ---
@@ -152,6 +152,7 @@ The invisible **Class Selector** devices receive signals from trigger devices li
    | **Time to Switch** | **Instant** | Ensures that the class is switched as soon as the Class Selector receives a signal from a triggering device. Must be changed so there is no delay in switching classes. |
    | **Change Player to Class when Receiving From** | **Channel 12** | Sets the channel that will trigger the Class Selector device. Should be the same channel as that transmitted on by the desired triggering device. Must be changed so the class can be automatically switched when receiving a signal. |
    | **When Class Switched Transmit On** | **Channel 4** | Sets the channel a message is transmitted to after the player activates the device. Must be changed so other devices can receive signals from this device. |
+
 10. Set up all the invisible **class selectors.** Repeat steps 1-9 for the other two invisible **class selectors.** For each repetition, change:
 
     - The **Class To Switch To** identifier.

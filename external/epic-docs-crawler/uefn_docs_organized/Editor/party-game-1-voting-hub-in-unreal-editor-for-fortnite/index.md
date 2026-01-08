@@ -1,6 +1,6 @@
 # Voting HUB
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/party-game-1-voting-hub-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/party-game-1-voting-hub-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:21:28.224126
 
 ---
@@ -208,4 +208,4 @@ These names let you know which Trigger is responsible for activating the mini-ga
 
 Targeted Camera Gameplay
 
-Add item spawners to the raft that spawn different weapons at different times.](https://dev.epicgames.com/documentation/en-us/fortnite/party-game-2-targeted-camera-gameplay-in-unreal-editor-for-fortnite)
+Add item spawners to the raft that spawn different weapons at different times.](<https://dev.epicgames.com/documentation/en-us/fortnite/party-game-2-targeted-camera-gameplay-in-unreal-editor-for-fortnite>)

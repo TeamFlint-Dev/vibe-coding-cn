@@ -1,6 +1,6 @@
 # TWDU Custom HUD: Vitals and Selected Item
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/twdu-custom-hud-vitals-and-selected-item-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/twdu-custom-hud-vitals-and-selected-item-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:15:20.680889
 
 ---
@@ -78,4 +78,4 @@ Continue to learn about design elements to enhance your TWDU islands.
 
 Heavy Linework Post-Process Effect
 
-Add a comic book look to your The Walking Dead Universe island with the Heavy Linework post-process effect.](https://dev.epicgames.com/documentation/en-us/fortnite/twdu-heavy-linework-post-process-effect-in-unreal-editor-for-fortnite)
+Add a comic book look to your The Walking Dead Universe island with the Heavy Linework post-process effect.](<https://dev.epicgames.com/documentation/en-us/fortnite/twdu-heavy-linework-post-process-effect-in-unreal-editor-for-fortnite>)

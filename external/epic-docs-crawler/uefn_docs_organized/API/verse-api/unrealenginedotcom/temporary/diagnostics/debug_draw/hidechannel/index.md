@@ -1,6 +1,6 @@
 # HideChannel function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/diagnostics/debug_draw/hidechannel
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/diagnostics/debug_draw/hidechannel>
 > **爬取时间**: 2025-12-27T07:17:01.832619
 
 ---

@@ -1,6 +1,6 @@
 # widget class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget>
 > **爬取时间**: 2025-12-27T02:56:24.852161
 
 ---

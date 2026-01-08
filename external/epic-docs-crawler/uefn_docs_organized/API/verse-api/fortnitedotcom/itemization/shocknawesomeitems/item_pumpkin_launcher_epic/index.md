@@ -1,6 +1,6 @@
 # item_pumpkin_launcher_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_pumpkin_launcher_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_pumpkin_launcher_epic>
 > **爬取时间**: 2025-12-27T04:26:33.918317
 
 ---

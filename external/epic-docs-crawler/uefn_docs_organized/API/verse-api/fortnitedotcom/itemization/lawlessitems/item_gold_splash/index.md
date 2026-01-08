@@ -1,6 +1,6 @@
 # item_gold_splash class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_gold_splash
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_gold_splash>
 > **爬取时间**: 2025-12-27T04:58:46.455206
 
 ---

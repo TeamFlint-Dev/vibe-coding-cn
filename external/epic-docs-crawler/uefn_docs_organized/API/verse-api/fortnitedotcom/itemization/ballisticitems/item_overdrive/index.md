@@ -1,6 +1,6 @@
 # item_overdrive class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ballisticitems/item_overdrive
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ballisticitems/item_overdrive>
 > **爬取时间**: 2025-12-27T03:56:20.653372
 
 ---

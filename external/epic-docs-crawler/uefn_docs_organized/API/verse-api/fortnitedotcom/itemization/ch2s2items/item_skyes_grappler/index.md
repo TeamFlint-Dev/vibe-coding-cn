@@ -1,6 +1,6 @@
 # item_skyes_grappler class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_skyes_grappler
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_skyes_grappler>
 > **爬取时间**: 2025-12-27T03:00:59.220800
 
 ---

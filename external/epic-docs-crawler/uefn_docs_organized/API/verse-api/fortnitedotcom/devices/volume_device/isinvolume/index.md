@@ -1,6 +1,6 @@
 # IsInVolume function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/volume_device/isinvolume
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/volume_device/isinvolume>
 > **爬取时间**: 2025-12-27T05:47:35.063312
 
 ---

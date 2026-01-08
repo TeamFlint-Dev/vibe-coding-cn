@@ -1,6 +1,6 @@
 # item_holo_twister_assault_rifle_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_holo_twister_assault_rifle_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/huntersitems/item_holo_twister_assault_rifle_common>
 > **爬取时间**: 2025-12-27T04:06:42.145468
 
 ---

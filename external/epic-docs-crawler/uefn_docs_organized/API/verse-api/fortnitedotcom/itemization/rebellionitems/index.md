@@ -1,6 +1,6 @@
 # RebellionItems module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/rebellionitems
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/rebellionitems>
 > **爬取时间**: 2025-12-27T01:09:32.296412
 
 ---

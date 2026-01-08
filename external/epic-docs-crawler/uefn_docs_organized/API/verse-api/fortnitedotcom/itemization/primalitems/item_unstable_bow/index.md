@@ -1,6 +1,6 @@
 # item_unstable_bow class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_unstable_bow
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_unstable_bow>
 > **爬取时间**: 2025-12-27T03:42:54.542149
 
 ---

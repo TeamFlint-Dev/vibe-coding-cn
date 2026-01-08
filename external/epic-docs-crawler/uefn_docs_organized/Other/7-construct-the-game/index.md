@@ -1,6 +1,6 @@
 # 7. Construct the Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/7-construct-the-game
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/7-construct-the-game>
 > **爬取时间**: 2025-12-27T00:23:58.074141
 
 ---
@@ -27,12 +27,12 @@ using{/UnrealEngine.com/Temporary/SpatialMath}
 
 DataTypes<public> := module:
 
-	...
+ ...
 
-	move_type<public> := enum<open>:
-		Attack
-		Reveal
-		Unknown
+ move_type<public> := enum<open>:
+  Attack
+  Reveal
+  Unknown
 ```
 
 Since this enum is open, you can always add more move types in the future.
@@ -95,15 +95,15 @@ using { /Fortnite.com/Devices }
 game_manager := class(creative_device):
 
 AssignPlayerObjects():void =
-        	for (Index -> Player : GetPlayspace().GetPlayers()):
-           	 	if:
-                		PlayerObjects := PerPlayerObjects[Index]
-                		set PerPlayerManagement[Player] = PlayerObjects
-            		then:
-                		# Set player objects successfully
-            		else:
-                		# Failed to set player objects, potentially not enough object pools
-                		Print("Not enough object pools")
+         for (Index -> Player : GetPlayspace().GetPlayers()):
+              if:
+                  PlayerObjects := PerPlayerObjects[Index]
+                  set PerPlayerManagement[Player] = PlayerObjects
+              then:
+                  # Set player objects successfully
+              else:
+                  # Failed to set player objects, potentially not enough object pools
+                  Print("Not enough object pools")
 ```
 
 #### Define Win Condition
@@ -119,9 +119,9 @@ using { /Fortnite.com/Devices }
 game_manager := class(creative_device):
 
 WinConditionMet(Player:player)<decides><transacts>:void =
-        	# Player wins if no pawns remain
-        	Print("Pawns remaining: {PerPlayerManagement[Player].Board.Pawns.Length}")
-        	PerPlayerManagement[Player].Board.Pawns.Length = 0
+         # Player wins if no pawns remain
+         Print("Pawns remaining: {PerPlayerManagement[Player].Board.Pawns.Length}")
+         PerPlayerManagement[Player].Board.Pawns.Length = 0
 ```
 
 This function succeeds if and only if there are no more pawns left to find and dispose of for the input player.
@@ -180,23 +180,23 @@ The other move type is the reveal move. This requires some additional setup to w
 ```verse
 UtilityFunctions<public> := module:
 
-	using{DataTypes}
+ using{DataTypes}
 
-	...
+ ...
 
 Abs(TileCoordinate:tile_coordinate)<transacts>:tile_coordinate = 
-		tile_coordinate:
-			Left := Abs(TileCoordinate.Left)
-			Forward := Abs(TileCoordinate.Forward)
+  tile_coordinate:
+   Left := Abs(TileCoordinate.Left)
+   Forward := Abs(TileCoordinate.Forward)
 
-	operator'-'(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<transacts>:tile_coordinate =
-		tile_coordinate:
-			Left := LeftTileCoordinate.Left - RightTileCoordinate.Left
-			Forward := LeftTileCoordinate.Forward - RightTileCoordinate.Forward
+ operator'-'(LeftTileCoordinate:tile_coordinate, RightTileCoordinate:tile_coordinate)<transacts>:tile_coordinate =
+  tile_coordinate:
+   Left := LeftTileCoordinate.Left - RightTileCoordinate.Left
+   Forward := LeftTileCoordinate.Forward - RightTileCoordinate.Forward
 
-	ManhattanDistance<public>(TileCoordinateOne:tile_coordinate, TileCoordinateTwo:tile_coordinate)<transacts>:int =
-		Difference := Abs(TileCoordinateOne - TileCoordinateTwo)
-		Difference.Left + Difference.Forward
+ ManhattanDistance<public>(TileCoordinateOne:tile_coordinate, TileCoordinateTwo:tile_coordinate)<transacts>:int =
+  Difference := Abs(TileCoordinateOne - TileCoordinateTwo)
+  Difference.Left + Difference.Forward
 ```
 
 The Manhattan Distance computes the distance between two `tile_coordinate` objects by navigating along the cardinal directions on the tile grid. For more information, see <https://en.wikipedia.org/wiki/Taxicab_geometry>.
@@ -210,17 +210,17 @@ Add a function named `OnReveal` to your `game_manager` class with the following 
 
 ```verse
 OnReveal(Instigator:player, Recipient:player, TileCoordinate:tile_coordinate):void =
-        	if:
-            		InstigatorObjects := PerPlayerManagement[Instigator]
-            		RecipientObjects := PerPlayerManagement[Recipient]
-        	then:
-            		for:
-                		Pawn : InstigatorObjects.Board.Pawns
-                		PawnTileCoordinate := InstigatorObjects.Board.GetTileCoordinate[Pawn]
-                		ManhattanDistance(PawnTileCoordinate, TileCoordinate) < RevealDistance
-            		do:
-                		# Process the reveal with effects here
-                		Print("Pawn reveal")
+         if:
+              InstigatorObjects := PerPlayerManagement[Instigator]
+              RecipientObjects := PerPlayerManagement[Recipient]
+         then:
+              for:
+                  Pawn : InstigatorObjects.Board.Pawns
+                  PawnTileCoordinate := InstigatorObjects.Board.GetTileCoordinate[Pawn]
+                  ManhattanDistance(PawnTileCoordinate, TileCoordinate) < RevealDistance
+              do:
+                  # Process the reveal with effects here
+                  Print("Pawn reveal")
 ```
 
 #### Player Turn
@@ -230,30 +230,30 @@ Next, piece together what a player's turn looks like. When it is a player's turn
 Add the function `OnTurn` to your `game_manager` class with the following definition:
 
 ```verse
-    	OnTurn(Player:player, Opponent:player)<suspends>:void =
-        	if (PlayerObjects := PerPlayerManagement[Player]):
-            		loop:
-                		var Continue:logic = false
-                		race:
-                    		block:
-                        			# Listens for a call to PerPlayerManager[Player].CoordinateChangeEvent.Signal(:tile_coordinate)
-                        			TileCoordinate := PlayerObjects.CoordinateChangeEvent.Await()
-                    		block:
-                        			# Listens for a call to PerPlayerManager[Player].MoveEvent.Signal(:tile_coordinate,:move_type)
-                        			MoveTuple := PlayerObjects.MoveEvent.Await()
-                        			TileCoordinate := MoveTuple(0)
-                        			MoveType := MoveTuple(1)
-                        			case(MoveType):
-                            			move_type.Attack => block:
-                                				OnAttack(Player, Opponent, TileCoordinate)
-                                				set Continue = true
-                            			move_type.Reveal => block:
-                                				OnReveal(Player, Opponent, TileCoordinate)
-                                				set Continue = true
-                            			_ => void
-                		if (Continue?):
-                    		Print("Moving to next player")
-                    		break
+     OnTurn(Player:player, Opponent:player)<suspends>:void =
+         if (PlayerObjects := PerPlayerManagement[Player]):
+              loop:
+                  var Continue:logic = false
+                  race:
+                      block:
+                           # Listens for a call to PerPlayerManager[Player].CoordinateChangeEvent.Signal(:tile_coordinate)
+                           TileCoordinate := PlayerObjects.CoordinateChangeEvent.Await()
+                      block:
+                           # Listens for a call to PerPlayerManager[Player].MoveEvent.Signal(:tile_coordinate,:move_type)
+                           MoveTuple := PlayerObjects.MoveEvent.Await()
+                           TileCoordinate := MoveTuple(0)
+                           MoveType := MoveTuple(1)
+                           case(MoveType):
+                               move_type.Attack => block:
+                                    OnAttack(Player, Opponent, TileCoordinate)
+                                    set Continue = true
+                               move_type.Reveal => block:
+                                    OnReveal(Player, Opponent, TileCoordinate)
+                                    set Continue = true
+                               _ => void
+                  if (Continue?):
+                      Print("Moving to next player")
+                      break
 ```
 
 #### Define the Game Loop
@@ -267,26 +267,26 @@ You can finally construct the primary game loop now that the player's turn is de
 To to do this, add the following `GameLoop` function to your `game_manager`class:
 
 ```verse
-    	GameLoop()<suspends>:void =
-        	Players := GetPlayspace().GetPlayers()
-        	if :
-            		Players.Length = 2
-            		var TurnPlayer:player = Players[0]
-            		var OtherPlayer:player = Players[1]
-        	then:
-            		loop:
-                		OnTurn(TurnPlayer, OtherPlayer)
-                		if (WinConditionMet[TurnPlayer]):
-                    		# Process player win
-                    		Print("Player win")
-                    		break
-                		else:
-                    		TempPlayer := TurnPlayer
-                    		set TurnPlayer = OtherPlayer
-                    		set OtherPlayer = TempPlayer
-        	else:
-            		# Requisite number of players not met
-            		Print("Requisite number of players not met")
+     GameLoop()<suspends>:void =
+         Players := GetPlayspace().GetPlayers()
+         if :
+              Players.Length = 2
+              var TurnPlayer:player = Players[0]
+              var OtherPlayer:player = Players[1]
+         then:
+              loop:
+                  OnTurn(TurnPlayer, OtherPlayer)
+                  if (WinConditionMet[TurnPlayer]):
+                      # Process player win
+                      Print("Player win")
+                      break
+                  else:
+                      TempPlayer := TurnPlayer
+                      set TurnPlayer = OtherPlayer
+                      set OtherPlayer = TempPlayer
+         else:
+              # Requisite number of players not met
+              Print("Requisite number of players not met")
 ```
 
 #### Beginning Gameplay
@@ -294,10 +294,10 @@ To to do this, add the following `GameLoop` function to your `game_manager`class
 The last thing to do is assign player objects to each player and begin the game loop. Do this automatically by adding calls to `AssignPlayerObjects` and `GameLoop` to the `OnBegin` function:
 
 ```verse
-    	# Runs when the device is started in a running game
-    	OnBegin<override>()<suspends>:void=
-        	AssignPlayerObjects()
-        	GameLoop()
+     # Runs when the device is started in a running game
+     OnBegin<override>()<suspends>:void=
+         AssignPlayerObjects()
+         GameLoop()
 ```
 
 ## Summary

@@ -1,6 +1,6 @@
 # Car Racing Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/design-a-car-racing-game-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/design-a-car-racing-game-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:59:05.905376
 
 ---
@@ -59,6 +59,7 @@ If you're placing multiple identical devices, best practice is to place the firs
    | **Use as Island Start** | No | You will be using a different spawner for your pre-game lobby. |
    | **Visible during games** | No | You don't need the spawner visible during gameplay. |
    | **When Player Spawned Transmit On** | Channel 1 | Assign a [channel](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary) to this spawn pad. When the player spawns, the channel you select will be [triggered](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary). This channel is used later to assign the player as a driver to a vehicle. It's very important to match your team and channel numbers, so Team 1 will transmit on Channel 1, Team 2 on Channel 2, and so on. |
+
 3. Click **OK** to save your options.
 
    Always click **OK** after changing device options settings or they will not save.
@@ -86,6 +87,7 @@ While in [Create mode](https://dev.epicgames.com/documentation/en-us/fortnite/fo
    | **Visible During Game** | Off | This refers to the base the vehicle spawns on, not the vehicle. To hide the base during gameplay, set to Off. |
    | **Boost Regen** | 6.0 | As the creator of the island, it's up to you to determine how much [boost](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary) your vehicle has, but for this tutorial, set it to Slow. |
    | **Color and Style** | Random | You can set this to random, or to any of the different options available. |
+
 5. Copy the vehicle three times, incrementing the **team number** and **Assigns Driver When Receiving From** channel number for each. Also increment the **When Player Exits Vehicle Transmit On** channel for each vehicle.
 
 ### Force a Player into the Driver's Seat
@@ -253,6 +255,7 @@ You can add barriers to prevent players from driving off the island. It's a good
    | **Barrier Width** | Pick a number | You will want to adjust the size of the barriers to fit your terrain. It's good to start with 5 as a width, and resize from there. |
    | **Barrier Depth** | .05 | A thinner barrier will fit more easily, and the depth (thickness) does not affect the effectiveness of the barrier. |
    | **Barrier Height** | 1 | Again, start with a height that will be manageable when placing. You can always increase the height if it isn't high enough. |
+
 2. Copy and place barriers along the edge of the island, and along the racetrack. Adjust the barrier dimensions to fit your terrain as needed.
 
 ## Add a Pre-Game Lobby
@@ -271,6 +274,7 @@ This is where the players will enter your island, so you will need four spawn pa
    | **Enabled During Phase** | All | This should be the default value. If it isn't, then set to All to ensure that the spawn pads are enabled for pre-game. |
    | **Priority Group** | Secondary | Keeps players from being blocked from spawning if there are still open pads. |
    | **Use As Island Start** | Yes | Also a default value, this allows players to spawn onto the island before the game starts. |
+
 3. Copy and place three more spawners. No additional customization is needed.
 
 You can add some fun things for players to do while waiting in the lobby, such as providing [Driftboards](https://dev.epicgames.com/documentation/en-us/fortnite/using-driftboard-spawner-devices-in-fortnite-creative) or [Baller vehicles](https://dev.epicgames.com/documentation/en-us/fortnite/using-baller-spawner-devices-in-fortnite-creative)that are available only during pre-game. You can set this by customizing the **Enabled During Phase** option to **PreGame Only** for that vehicle spawner device.

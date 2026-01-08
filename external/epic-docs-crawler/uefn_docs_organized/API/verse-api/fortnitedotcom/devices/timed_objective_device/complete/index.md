@@ -1,6 +1,6 @@
 # Complete function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timed_objective_device/complete
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timed_objective_device/complete>
 > **爬取时间**: 2025-12-27T06:22:56.752803
 
 ---

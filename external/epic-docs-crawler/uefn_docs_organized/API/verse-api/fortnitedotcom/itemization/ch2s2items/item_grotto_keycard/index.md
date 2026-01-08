@@ -1,6 +1,6 @@
 # item_grotto_keycard class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_grotto_keycard
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_grotto_keycard>
 > **爬取时间**: 2025-12-27T03:00:19.294941
 
 ---

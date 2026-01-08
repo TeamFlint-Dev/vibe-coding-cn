@@ -1,6 +1,6 @@
 # item_zyg_and_choppys_ray_gun_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/invasionitems/item_zyg_and_choppys_ray_gun_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/invasionitems/item_zyg_and_choppys_ray_gun_mythic>
 > **爬取时间**: 2025-12-27T04:23:03.444786
 
 ---

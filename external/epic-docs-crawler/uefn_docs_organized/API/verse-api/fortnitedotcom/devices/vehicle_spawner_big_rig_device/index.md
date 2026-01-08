@@ -1,6 +1,6 @@
 # vehicle_spawner_big_rig_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_spawner_big_rig_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_spawner_big_rig_device>
 > **爬取时间**: 2025-12-27T01:47:13.340130
 
 ---

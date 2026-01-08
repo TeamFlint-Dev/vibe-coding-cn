@@ -1,6 +1,6 @@
 # item_spectrolite_ore class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_spectrolite_ore
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_spectrolite_ore>
 > **爬取时间**: 2025-12-27T03:52:56.112235
 
 ---

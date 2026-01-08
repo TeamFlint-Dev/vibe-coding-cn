@@ -1,6 +1,6 @@
 # Pause function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/cinematic_sequence_device/pause-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/cinematic_sequence_device/pause-1>
 > **爬取时间**: 2025-12-27T05:13:32.378455
 
 ---

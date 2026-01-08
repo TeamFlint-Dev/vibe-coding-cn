@@ -1,6 +1,6 @@
 # TransmitForAllCounted function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/player_counter_device/transmitforallcounted
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/player_counter_device/transmitforallcounted>
 > **爬取时间**: 2025-12-27T07:06:08.838708
 
 ---

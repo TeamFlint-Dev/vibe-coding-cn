@@ -1,6 +1,6 @@
 # EjectAllHiddenPlayers function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hiding_prop_device/ejectallhiddenplayers
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hiding_prop_device/ejectallhiddenplayers>
 > **爬取时间**: 2025-12-27T06:45:22.922552
 
 ---

@@ -1,6 +1,6 @@
 # item_infantry_rifle_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch6ms2items/item_infantry_rifle_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch6ms2items/item_infantry_rifle_legendary>
 > **爬取时间**: 2025-12-27T03:23:09.284263
 
 ---

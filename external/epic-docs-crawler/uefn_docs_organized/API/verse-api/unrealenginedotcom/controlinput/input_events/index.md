@@ -1,6 +1,6 @@
 # input_events function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/controlinput/input_events
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/controlinput/input_events>
 > **爬取时间**: 2025-12-27T01:17:59.653759
 
 ---

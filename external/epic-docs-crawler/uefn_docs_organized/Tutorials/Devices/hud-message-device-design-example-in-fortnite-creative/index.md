@@ -1,6 +1,6 @@
 # HUD Message Device Design Example
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/hud-message-device-design-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/hud-message-device-design-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:07:53.296007
 
 ---
@@ -191,6 +191,7 @@ You will create two sets of these tiles. The first set will connect with **Captu
    | **Icon Visible at Game Start** | Off | You don't want the tile icon to show in-game. |
    | **Alternate Tile Shape Starting Color** | #0000FF | Using the blue here is a quick and easy reference to ice cold! |
    | **Change Color on Player Contact** | Off | No need for this since the tile won't show in-game. |
+
 3. Copy and place devices for the remaining HUD messages, changing the name of the device and the color for each one:
 
 - Set **Tile A1\_COLD** to **light blue**.
@@ -230,6 +231,7 @@ All of the bindings you set here will be triggered by **Capture Area\_A**.
    | --- | --- | --- |
    | **On Triggered Send Event To** | Capture Area\_A | Enable |
    | **On Triggered Send Event To** | Tile A\_Warmer | Enable |
+
 5. Continue to add bindings until all of the A-related tiles have been bound.
 
 ## Place the Color Changing Tiles Inside the Maze
@@ -259,6 +261,7 @@ Next step is to set up the events that will activate the first Capture Zone devi
    | **On Triggered Send Event To** | Tile A\_Warmer7 | Enable |
    | **On Triggered Send Event To** | Tile A\_Warmer1 | Enable |
    | **On Triggered Send Event To** | Tile A\_Warmer2 | Enable |
+
 2. Continue to bind the **A** devices with **Trigger\_A** until they've all been bound. It does not matter what sequence they're bound in.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/7954b3f3-96c3-432b-a1a8-65ef3d5d71df?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7954b3f3-96c3-432b-a1a8-65ef3d5d71df?resizing_type=fit)
@@ -283,6 +286,7 @@ You're almost done!
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | **On Enter Send Event To** | HUD\_ICE COLD | Show |
+
 3. Place an **\*End Game** device outside of the maze.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/bba1ea74-53cd-42af-bd2b-b5c376a555e8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/bba1ea74-53cd-42af-bd2b-b5c376a555e8?resizing_type=fit)

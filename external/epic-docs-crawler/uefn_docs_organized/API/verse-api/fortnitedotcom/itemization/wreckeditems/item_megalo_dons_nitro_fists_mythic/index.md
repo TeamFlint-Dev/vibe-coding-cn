@@ -1,6 +1,6 @@
 # item_megalo_dons_nitro_fists_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wreckeditems/item_megalo_dons_nitro_fists_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wreckeditems/item_megalo_dons_nitro_fists_mythic>
 > **爬取时间**: 2025-12-27T03:20:00.750482
 
 ---

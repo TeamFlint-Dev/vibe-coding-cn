@@ -1,6 +1,6 @@
 # Accolades Device Gameplay Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/accolades-device-gameplay-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/accolades-device-gameplay-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:26:07.497221
 
 ---
@@ -51,6 +51,7 @@ Any options not mentioned in the instructions below should be left at their defa
       | **Destroy Structures at Spawn Location** | Off | Creatures will not destroy any structures where they spawn. This is optional; you can set this to **On** if it fits your game. |
       | **Max Spawn Distance** | 4 Tiles | This is the maximum distance from the device that creatures can spawn. |
       | **Spawn Through Walls** | Off | This is also optional; feel free to change this if it fits your game. |
+
 2. Set up the **Creature Manager** device by customizing the options shown below. The Creature Manager will send a signal on Channel 25 when the player eliminates a Ranged Ice Fiend.
 
    1. Make sure your phone tool is active. Press the number button for the Quick Bar slot where you put the Creature Manager.
@@ -68,6 +69,7 @@ Any options not mentioned in the instructions below should be left at their defa
       | **Score** | 1 | This is how much score a player receives for eliminating the creature set in the **Creature Type** option. |
       | **Score Distribution** | All to Eliminator | All the score for eliminating a creature is granted to the player who eliminated it. |
       | **When a Matching Creature Type Eliminated Transmit On** | Channel 25 | When the player eliminates an Ice Ranged Fiend, the Creature Manager transmits a signal on Channel 25. |
+
 3. Set up the **Tracker** device by customizing the options shown below. The Tracker will keep a count of how many Ranged Ice Fiends are eliminated. Each time the Tracker receives a signal on Channel 25, it raises the count by one. When the Tracker count reaches 4, it completes and sends a signal on Channel 24.
 
    1. Make sure your phone tool is active. Press the number button for the Quick Bar slot where you put the Tracker.
@@ -88,6 +90,7 @@ Any options not mentioned in the instructions below should be left at their defa
       | **Player Eliminations Count** | No | You don't want player eliminations to be tracked so this is set to **No**. |
       | **Increment Progress When Receiving From** | Channel 25 | The Creature Manager sends a signal on Channel 25. When the Tracker receives a signal on Channel 25, it raises the count by 1. |
       | **When Complete Transmit On** | Channel 24 | When the count reaches 4, the Tracker completes. When this happens, the device sends a signal on Channel 24. |
+
 4. Set up the **Accolades** device by customizing the options shown below. The Accolades device receives a signal from the Tracker on Channel 24, and awards the accolade to the player.
 
    1. Make sure your phone tool is active. Press the number button for the Quick Bar slot where you put the Accolades device.
@@ -169,6 +172,7 @@ Any options not mentioned in the instructions below should be left at their defa
       | **Number of Creatures** | 2 | This is the number of creatures the spawner can have active at a time. |
       | **Total Spawn Limit** | 3 | This is the maximum number of creatures the device can spawn. |
       | **Destroy Structures at Spawn Location** | Off | Creatures will not destroy any structures where they spawn. This is optional; you can set this to **On** if it fits your game. |
+
 2. Set up the **Creature Manager** device by customizing the options shown below. The Creature Manager will send a signal on Channel 30 when a player eliminates a Fiend.
 
    1. Make sure your phone tool is active. Press the number button for the Quick Bar slot where you put the Creature Manager.
@@ -294,6 +298,7 @@ Any options not mentioned in the instructions below should be left at their defa
       | **Tracker Title** | Enemies Eliminated | You can type in a name for the Tracker. The text field has a 150 character limit. |
       | **Tracker Completion Ceremony** | No | Normally when a Tracker completes, the game performs a ceremony. However in this case the Accolade device will serve that purpose so this is set to **No**. |
       | **When Complete Transmit On** | Channel 37 | When the Tracker count gets to 5, it completes and sends a signal on channel 37 to the Accolade device. |
+
 2. Set up the **Accolades** device by customizing the options shown below. The Accolades device receives a signal from the Tracker on Channel 37, and awards the accolade to the player.
 
    1. Make sure your phone tool is active. Press the number button for the Quick Bar slot where you put the Accolades device.
@@ -370,6 +375,7 @@ Any options not mentioned in the instructions below should be left at their defa
       | **Storm Phases** | Custom | This example uses several Advanced Storm Beacons to manage the storm phases, so this option is set to **Custom**. |
       | **Bounds Radius** | 100 M | When a storm is created, there is a bounding sphere that limits the storm's movement. This option sets the radius of that bounding sphere. The storm will not go beyond the distance set here. |
       | **When Phase Ends Transmit On** | Channel 26 | When a storm phase ends, the controller sends a signal on Channel 26. |
+
 2. Next add the **Advanced Storm Beacons**. Set up the Advanced Storm Beacons by customizing the options as shown below. Each Advanced Storm Beacon adds a phase to the storm. On the sample island there are a total of three phases, and when each phase ends the controller sends a signal on Channel 26.
 
    1. Make sure your phone tool is active. Press the number button for the Quick Bar slot where you put the Advanced Storm Beacons.
@@ -482,6 +488,7 @@ Any options not mentioned in the instructions below should be left at their defa
       | **Tracker Completion Ceremony** | No | Normally when a Tracker completes, the game performs a ceremony. However in this case the Accolades device will serve that purpose so this is set to **No**. |
       | **Player Eliminations Count** | No | You don't want player eliminations to be tracked so this is set to **No**. |
       | **When Completed Transmit On** | Channel 32 | When the Tracker count gets to 2, it completes and sends a signal on channel 32 to the Accolades device. |
+
 2. Set up the **Accolades** device by customizing the options shown below. The Accolades device receives a signal from the Tracker on Channel 32, and awards the accolade to the player.
 
    1. Make sure your phone tool is active. Press the number button for the Quick Bar slot where you put the Accolades device.
@@ -565,6 +572,7 @@ Any options not mentioned in the instructions below should be left at their defa
       | **Timer Running Text** | Time Left Before Accolade | This text displays while the timer is running. The text field has a limit of 80 characters. |
       | **Timer Label Text Style** | Small | Both the countdown display and the label text will be in small text. |
       | **On Success Transmit On** | Channel 34 | By default, when the Timer finishes the countdown it registers Success. On success, the Timer sends a signal on Channel 34. |
+
 2. Set up the **Accolades** device by customizing the options shown below. The Accolades device receives a signal from the Timer on Channel 34, and awards the accolade to the players who are still active.
 
    1. Make sure your phone tool is active. Press the number button for the Quick Bar slot where you put the Accolades device.

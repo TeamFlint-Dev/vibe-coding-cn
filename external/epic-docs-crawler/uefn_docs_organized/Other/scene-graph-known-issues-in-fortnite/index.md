@@ -1,6 +1,6 @@
 # Known Issues
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/scene-graph-known-issues-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/scene-graph-known-issues-in-fortnite>
 > **爬取时间**: 2025-12-26T23:23:53.042856
 
 ---
@@ -62,6 +62,7 @@ Following are known issues when you work with with Scene Graph in your project. 
           then:
               Print("Character Teleported")
   ```
+
 - Enabling Scene Graph changes some of the code generation rules for classes generated into `Assets.digest.verse`. This can mean that existing Verse code will no longer compile. You will need to fix up the Verse code before proceeding with your project.
 
   **Key Examples**
@@ -90,6 +91,7 @@ Following are known issues when you work with with Scene Graph in your project. 
   SetMesh(MyMesh_asset)
   SetMaterial(MyMaterial{})
   ```
+
 - Both the `tag_component` and the Scene Event systems are still being iterated on and are still experimental. Avoid using these features if you want to publish islands containing Scene Graph code.
 - Simulation Entity will not be available unless a scene graph entity has already been placed in the level.
 - There is a problem with Verse classes referencing prefab classes in their member variables. This results in an error message when starting the editor. You'll get an ensure from the `StaticAllocateObject()`that you are trying to create an instance of an abstract class, and the class is `Object`. This `StaticAllocateObject()`is called from the $InitCDO of your Verse class.

@@ -1,6 +1,6 @@
 # (Rotation:rotation).GetLocalRight extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/getlocalright
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/getlocalright>
 > **爬取时间**: 2025-12-27T02:31:17.030637
 
 ---

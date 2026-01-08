@@ -1,6 +1,6 @@
 # (Input:[]t).Insert extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/insert
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/insert>
 > **爬取时间**: 2025-12-27T01:31:41.062329
 
 ---

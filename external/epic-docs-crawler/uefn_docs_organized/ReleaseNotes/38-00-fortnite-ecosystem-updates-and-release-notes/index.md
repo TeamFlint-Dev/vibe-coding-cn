@@ -1,6 +1,6 @@
 # 38.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/38-00-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/38-00-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-26T23:14:43.213529
 
 ---
@@ -47,7 +47,7 @@ Texture Effects
 
 Texture Masks
 
-## New: Sidekicks!
+## New: Sidekicks
 
 Sidekicks are now available as a cosmetic item in Fortnite! You’ll find new island settings for Sidekicks in the Cosmetic section. These settings let you choose whether a player’s Sidekicks are enabled in your game, decide if they’re visible to everyone or just to their owner, and disable the automated reaction animations on a Sidekick. Sidekicks are disabled by default, and can be enabled in Island Settings.
 
@@ -57,7 +57,7 @@ A new UEFN feature example showcases best practices for building Tycoon games us
 
 [![](https://dev.epicgames.com/community/api/documentation/image/ee75d1c0-b55e-4933-b9aa-2b5891cf1f3e?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/ee75d1c0-b55e-4933-b9aa-2b5891cf1f3e?resizing_type=fit)
 
-## Epic Developer Assistant Now Available in Editor with Increased Character Limits!
+## Epic Developer Assistant Now Available in Editor with Increased Character Limits
 
 [![](https://dev.epicgames.com/community/api/documentation/image/cf603c4b-cb5c-4ca1-b3f0-a65b32db43c2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/cf603c4b-cb5c-4ca1-b3f0-a65b32db43c2?resizing_type=fit)
 
@@ -96,9 +96,9 @@ Instead, consider a single function that takes type entity:
 ```verse
 SetTarget(Target:entity):void = 
   if (Agent := agent[Target]):
-	# Treat Target as an agent
+ # Treat Target as an agent
   Else:
-	# Treat Target as a generic entity
+ # Treat Target as a generic entity
 ```
 
 ## Debug Commands

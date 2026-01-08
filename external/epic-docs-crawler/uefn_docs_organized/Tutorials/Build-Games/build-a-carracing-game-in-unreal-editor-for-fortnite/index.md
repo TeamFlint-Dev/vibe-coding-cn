@@ -1,6 +1,6 @@
 # Car Racing
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/build-a-carracing-game-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/build-a-carracing-game-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:03:29.179392
 
 ---
@@ -23,18 +23,18 @@ The following is an overview of the steps you'll need to recreate this island in
 
 1. Set Up the Car Racing Game
 
-Get started by creating your project and modifying the Island Settings.](https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-1-set-up-the-game-in-unreal-editor-for-fortnite)[![2. Make the Racetrack](https://dev.epicgames.com/community/api/documentation/image/0b640a75-e88b-4b44-994b-b0c3475ae653?resizing_type=fit&width=640&height=640)
+Get started by creating your project and modifying the Island Settings.](<https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-1-set-up-the-game-in-unreal-editor-for-fortnite)[![2>. Make the Racetrack](<https://dev.epicgames.com/community/api/documentation/image/0b640a75-e88b-4b44-994b-b0c3475ae653?resizing_type=fit&width=640&height=640>)
 
-2. Make the Racetrack
+1. Make the Racetrack
 
-Create your racetrack.](https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-2-make-the-racetrack-in-unreal-editor-for-fortnite)[![3. Add Vehicles](https://dev.epicgames.com/community/api/documentation/image/ab297383-af49-42d6-b200-98c947c14380?resizing_type=fit&width=640&height=640)
+Create your racetrack.](<https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-2-make-the-racetrack-in-unreal-editor-for-fortnite)[![3>. Add Vehicles](<https://dev.epicgames.com/community/api/documentation/image/ab297383-af49-42d6-b200-98c947c14380?resizing_type=fit&width=640&height=640>)
 
-3. Add Vehicles
+1. Add Vehicles
 
-Add vehicles and customize how they work in game.](https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-3-add-vehicles-in-unreal-editor-for-fortnite)[![4. Add a Scoring System](https://dev.epicgames.com/community/api/documentation/image/e21b9551-fe70-43d7-9004-ba81d68575a7?resizing_type=fit&width=640&height=640)
+Add vehicles and customize how they work in game.](<https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-3-add-vehicles-in-unreal-editor-for-fortnite)[![4>. Add a Scoring System](<https://dev.epicgames.com/community/api/documentation/image/e21b9551-fe70-43d7-9004-ba81d68575a7?resizing_type=fit&width=640&height=640>)
 
-4. Add a Scoring System
+1. Add a Scoring System
 
-Add a scoring system to your game.](https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-4-add-a-scoring-system-in-unreal-editor-for-fortnite)
+Add a scoring system to your game.](<https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-4-add-a-scoring-system-in-unreal-editor-for-fortnite>)
 
 You cannot skip a section if you want to build a working car racing game. Each step is essential to get to the final product!

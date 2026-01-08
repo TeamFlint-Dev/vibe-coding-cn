@@ -1,6 +1,6 @@
 # ToVector2i function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/tovector2i
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/tovector2i>
 > **爬取时间**: 2025-12-27T02:31:45.266444
 
 ---

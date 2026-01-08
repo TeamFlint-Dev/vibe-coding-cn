@@ -1,6 +1,6 @@
 # NamedColors module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/colors/namedcolors
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/colors/namedcolors>
 > **爬取时间**: 2025-12-27T01:19:37.674272
 
 ---

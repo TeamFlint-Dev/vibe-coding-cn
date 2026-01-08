@@ -1,6 +1,6 @@
 # OnEndSimulation function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fort_item_pickup_component/onendsimulation
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fort_item_pickup_component/onendsimulation>
 > **爬取时间**: 2025-12-27T04:31:41.942382
 
 ---

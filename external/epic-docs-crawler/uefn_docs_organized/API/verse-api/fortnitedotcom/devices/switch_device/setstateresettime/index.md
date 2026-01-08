@@ -1,6 +1,6 @@
 # SetStateResetTime function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/setstateresettime
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/setstateresettime>
 > **爬取时间**: 2025-12-27T05:50:31.788006
 
 ---

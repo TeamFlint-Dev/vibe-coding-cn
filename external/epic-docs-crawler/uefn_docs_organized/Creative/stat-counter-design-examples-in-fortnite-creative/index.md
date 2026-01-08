@@ -1,6 +1,6 @@
 # Stat Counter Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stat-counter-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stat-counter-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:06:14.804626
 
 ---
@@ -28,6 +28,7 @@ You can set the Stat Counter device to require that a player reach a specified q
    | --- | --- |
    | Receiving Players | All |
    | Grant on Game Start | On |
+
 4. Place a large **Stat Counter** device in a place where the player can see it.
 5. Customize the counter:
 
@@ -38,6 +39,7 @@ You can set the Stat Counter device to require that a player reach a specified q
    | Tracked Stat | AI Eliminations |
    | Comparison Value | 3 |
    | Broadcast Events On Stat Change | On |
+
 6. Place a **Guard Spawner** device.
 7. Customize the device:
 
@@ -46,6 +48,7 @@ You can set the Stat Counter device to require that a player reach a specified q
    | Option | Value |
    | --- | --- |
    | Guard Team Option | Team Wildlife & Creatures |
+
 8. Configure the following event on the **Stat Counter** device so that when the player reaches **3 AI eliminations**, it disables the spawner:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b9af9509-d236-4b7c-8644-5ac1e6ffec77?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b9af9509-d236-4b7c-8644-5ac1e6ffec77?resizing_type=fit)
@@ -92,6 +95,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | --- | --- |
    | Receiving Players | All |
    | Grant on Game Start | On |
+
 6. Place a **HUD Message** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/fe8ec964-b9ef-4d27-8df2-3741ed6bd327?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fe8ec964-b9ef-4d27-8df2-3741ed6bd327?resizing_type=fit)
@@ -102,6 +106,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | Show on Round Start | On |
    | Time from Round Start | Instant |
    | Text Color | White |
+
 7. Place a **Stat Creator** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/50642b64-2253-4c57-96e2-2e7c6db448ff?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/50642b64-2253-4c57-96e2-2e7c6db448ff?resizing_type=fit)
@@ -111,6 +116,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | Stat Name | Guard Alerts |
    | Stat Color | #FF0100 |
    | Stat Icon | Exclamation |
+
 8. Place a **Stat Counter** device on top of the castle and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/61d94156-886a-47ba-8cb4-37394ea47e1a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/61d94156-886a-47ba-8cb4-37394ea47e1a?resizing_type=fit)
@@ -126,6 +132,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | Value Override | 1 |
    | Value to Show | Value |
    | Show Background | Off |
+
 9. Place a **Guard Spawner** device on the player's path to the top of the castle and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/246cb20a-44ed-4b1f-8cea-ac7767b7466f?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/246cb20a-44ed-4b1f-8cea-ac7767b7466f?resizing_type=fit)
@@ -142,6 +149,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | Max Patrol Distance | 25.0M |
    | Visibility Range | 20M |
    | Team Awareness Propagation | No |
+
 10. Configure the following event on the guard spawner so that when a guard is alerted, the stat counter adds **1** to the Guard Alerts stat.
 
     [![](https://dev.epicgames.com/community/api/documentation/image/849e788e-41c8-44b4-8dc9-a2ce7dd7da59?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/849e788e-41c8-44b4-8dc9-a2ce7dd7da59?resizing_type=fit)
@@ -149,6 +157,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
     | Event | Select Device | Select Function |
     | --- | --- | --- |
     | On Alerted To Player | Stat Counter | Override value |
+
 11. Duplicate the guard spawner four more times and place them on the player’s path to the top of the castle.
 
 ### Configure the Rewards
@@ -163,6 +172,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | Receiving Players | All |
    | On Grant Action | Keep All |
    | Drop Items at Player Location | Always |
+
 3. Place a **HUD Message** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/2b8840a5-60d1-4f50-9709-d0ec0682cb5d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2b8840a5-60d1-4f50-9709-d0ec0682cb5d?resizing_type=fit)
@@ -171,6 +181,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | --- | --- |
    | Message | Well done! Here's your reward... |
    | Text Color | White |
+
 4. Place another **HUD Message** device and customize with a different message.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/daf8c604-8dc9-4bb9-a12b-1ed0f3ba4d1c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/daf8c604-8dc9-4bb9-a12b-1ed0f3ba4d1c?resizing_type=fit)
@@ -179,6 +190,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | --- | --- |
    | Message | You alerted too many Guards! No reward for you! |
    | Text Color | White |
+
 5. Configure the following event on the **Stat Counter** device so that when the stat is checked, if the player succeeds (alerted guards ten times or less), the reward is given and the success message is shown, but if they do not succeed, it will show the failure message.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/a895ca8a-ca64-4441-92d4-09252192600c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a895ca8a-ca64-4441-92d4-09252192600c?resizing_type=fit)
@@ -188,6 +200,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | On Compare Success | Success HUD Message Device | Show |
    | On Compare Success | Reward Item Granter | Grant Item |
    | On Compare Failure | Failure HUD Message Device | Show |
+
 6. Place a wide **Trigger** device across the stairs on top of the castle as shown:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/0ed5db35-d0bc-4b52-b3b2-705f4581ae36?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/0ed5db35-d0bc-4b52-b3b2-705f4581ae36?resizing_type=fit)
@@ -201,6 +214,7 @@ The **Stat Counter** can be configured to only check a value at a certain point,
    | Times Can Trigger | 1 |
    | Trigger VFX | Off |
    | Trigger SFX | Off |
+
 8. Configure the following event on the trigger to see whether the player succeeded or failed when they reach the top of the castle.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/63a2b88e-852c-49c7-be3f-1152c15837aa?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/63a2b88e-852c-49c7-be3f-1152c15837aa?resizing_type=fit)
@@ -253,6 +267,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
    | Max Level | 3 |
    | Stat Color | #FFF000 |
    | Stat Icon | Cave |
+
 4. Place a **Stat Counter** device to trigger gameplay unlocks when the player reaches Level 2. Customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b6f4b670-f945-4c2c-9850-2173dabc2052?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b6f4b670-f945-4c2c-9850-2173dabc2052?resizing_type=fit)
@@ -264,6 +279,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
    | Comparison Value | 2 |
    | Broadcast Events On Stat Change | On |
    | Visible in Game | No |
+
 5. Place another Stat Counter device to trigger gameplay unlocks when the player reaches Level 3, and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/2b77cb56-1ca9-4805-a268-bc96e29be713?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2b77cb56-1ca9-4805-a268-bc96e29be713?resizing_type=fit)
@@ -275,6 +291,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
    | Comparison Value | 3 |
    | Broadcast Events On Stat Change | On |
    | Visible in Game | No |
+
 6. Place a **Stat Powerup**  device where the player cannot reach it. This device will increase the player’s **Harvest Skill** when they mine ores.
 7. Customize the Stat Powerup device:
 
@@ -303,6 +320,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
    | Resource Node Available | 5 |
    | Resource Node Type | Item |
    | Resource Node Depletion Mode | Destroy |
+
 4. Configure the following event on the **Prop Manipulator** device to increase the player’s Harvest Skill when the rock is destroyed:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/6dd1f507-c91d-4e09-b55f-3ccebdbe5334?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6dd1f507-c91d-4e09-b55f-3ccebdbe5334?resizing_type=fit)
@@ -310,6 +328,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Destroyed | Harvest Stat Powerup | Pickup |
+
 5. Place a rock from the **Tropical Rock** gallery. This will contain the **Silver** resource.
 6. Duplicate the previous **Prop Manipulator** device and place it on the new Silver rock. Clear the items in the prop manipulator and register a **Silver** item to the device.
 7. Customize the prop manipulator:
@@ -323,6 +342,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
    | Resource Node Available | 5 |
    | Resource Node Type | Item |
    | Resource Node Depletion Mode | Destroy |
+
 8. Place a rock from the **Volcanic Rock** gallery. This will contain the **Obsidian** resource.
 9. Duplicate the previous prop manipulator and place it on the new Obsidian rock.
 10. Clear the items in the prop manipulator and register an Obsidian item to the device, then rename the Prop Manipulator device to Level 3 Prop Manipulator.  Leave the settings from the Level 2 Prop Manipulator the same.
@@ -342,6 +362,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Activated Send Event To | Level 1 Item Granter | Grant Item |
+
 6. Duplicate the **Item Granter** and **Conditional Button** devices together and rename the devices to **Level 2...** instead of **Level 1... .**
 7. Customize the conditional button:
 
@@ -352,8 +373,9 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
    | Interact Text | Craft Grapple Glove |
    | Number of Key Item Slots | 2 |
    | Enabled on Game Start | Off |
+
 8. Clear the items from the Prop Manipulator and Item Granter devices. Register a **Grapple Glove** in the Item Granter device. Register **10 Copper** and **10 Silver** in the Conditional Button device.
-9. Duplicate the Item Granter and Conditional Button devices together and rename the devices to 
+9. Duplicate the Item Granter and Conditional Button devices together and rename the devices to
    Level 3... instead of Level 2...  .
 10. Customize the new Conditional Button device:
 
@@ -364,6 +386,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
     | Interact Text | Craft Jetpack |
     | Number Of Key Item Slots | 3 |
     | Enabled on Game Start | Off |
+
 11. Clear the items from the Prop Manipulator and Item Granter devices. Register a **Grapple Glove** in the Item Granter device. Register **10 Copper**, 1**0 Silver**, and **10 Obsidian** in the Conditional Button device.
 
     For clarity, use Billboard devices to label the different Conditional Button devices.
@@ -376,6 +399,7 @@ The Stat Counter can be used to track levels of a given stat, allowing you to co
     | On Compare Success | Level 2 Prop Manipulator | Show Props |
     |  |  |  |
     | --- | --- | --- |
+
 13. Configure the following event on the Level 3 Stat Counter device to unlock the Level 3 crafting recipe and show the Obsidian Rock when the player reaches Level 3.
 14. Duplicate the Copper rock and Prop Manipulator 9 more times, placing them around the map.
 15. Duplicate the Silver Rock and Prop Manipulator 9 more times, placing them around the map.

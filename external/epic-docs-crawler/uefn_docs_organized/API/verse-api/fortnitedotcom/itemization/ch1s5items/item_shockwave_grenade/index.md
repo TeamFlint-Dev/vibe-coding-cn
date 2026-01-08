@@ -1,6 +1,6 @@
 # item_shockwave_grenade class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s5items/item_shockwave_grenade
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s5items/item_shockwave_grenade>
 > **爬取时间**: 2025-12-27T04:31:52.997734
 
 ---

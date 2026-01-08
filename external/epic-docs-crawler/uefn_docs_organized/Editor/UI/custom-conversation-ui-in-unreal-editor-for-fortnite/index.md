@@ -1,6 +1,6 @@
 # Custom Conversation UI
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/custom-conversation-ui-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/custom-conversation-ui-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:16:11.771992
 
 ---
@@ -186,7 +186,7 @@ You can also use Conversation Material in a **UI animation**. The **[Conversat
 
 Click to enlarge image.
 
-To bind this Conversation node to your UI widget, you must use the **Progress** value in the Viewmodel to link to the UI animation you create in Sequencer. 
+To bind this Conversation node to your UI widget, you must use the **Progress** value in the Viewmodel to link to the UI animation you create in Sequencer.
 To learn how to animate your material see the [Animating UI](https://dev.epicgames.com/documentation/en-us/fortnite/aninmating-ui-in-unreal-editor-for-fortnite) document.
 
 [![Use the Progress value in the Viewmodel link to be able to use the animation you create for the Conversation Material.](https://dev.epicgames.com/community/api/documentation/image/254b4fc5-187f-4f56-a0d4-2516e0fac14d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/254b4fc5-187f-4f56-a0d4-2516e0fac14d?resizing_type=fit)

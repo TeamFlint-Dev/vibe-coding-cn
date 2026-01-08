@@ -1,6 +1,6 @@
 # item_deadeye_assault_rifle_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_deadeye_assault_rifle_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_deadeye_assault_rifle_legendary>
 > **爬取时间**: 2025-12-27T04:17:46.261523
 
 ---

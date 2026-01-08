@@ -1,6 +1,6 @@
 # LEGO® Brick Editor Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lego-brick-editor-template-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lego-brick-editor-template-in-fortnite>
 > **爬取时间**: 2025-12-27T00:35:59.313126
 
 ---
@@ -51,9 +51,9 @@ At this teaching pod, you will:
 
 1.    Separate the fence build into bricks.
 
-2.       Identify the repeating pattern in the fence build and select it.
+1.       Identify the repeating pattern in the fence build and select it.
 
-3.       Kragle the fence module and rebuild the fence with duplicates of it.
+2.       Kragle the fence module and rebuild the fence with duplicates of it.
 
 This is an important step that optimizes the performance of your island, which means you can add in even more bricks!
 

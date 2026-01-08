@@ -1,6 +1,6 @@
 # (Entity:entity).FindSweepHits extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/findsweephits-2
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/findsweephits-2>
 > **爬取时间**: 2025-12-27T00:50:58.982673
 
 ---

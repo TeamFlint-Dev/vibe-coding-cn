@@ -1,6 +1,6 @@
 # GetTimeBetweenSpawns function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_spawner_device/gettimebetweenspawns
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_spawner_device/gettimebetweenspawns>
 > **爬取时间**: 2025-12-27T06:14:46.148866
 
 ---

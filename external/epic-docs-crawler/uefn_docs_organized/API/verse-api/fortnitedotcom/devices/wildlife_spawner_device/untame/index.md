@@ -1,6 +1,6 @@
 # Untame function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/wildlife_spawner_device/untame
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/wildlife_spawner_device/untame>
 > **爬取时间**: 2025-12-27T06:31:16.154562
 
 ---

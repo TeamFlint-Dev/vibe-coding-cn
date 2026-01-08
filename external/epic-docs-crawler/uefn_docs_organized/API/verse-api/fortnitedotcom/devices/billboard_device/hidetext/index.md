@@ -1,6 +1,6 @@
 # HideText function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/billboard_device/hidetext
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/billboard_device/hidetext>
 > **爬取时间**: 2025-12-27T05:51:12.793812
 
 ---

@@ -1,6 +1,6 @@
 # fort_leashable interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/fort_leashable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/fort_leashable>
 > **爬取时间**: 2025-12-27T00:58:29.002669
 
 ---

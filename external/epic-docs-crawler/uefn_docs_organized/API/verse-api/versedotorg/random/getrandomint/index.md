@@ -1,6 +1,6 @@
 # GetRandomInt function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/random/getrandomint
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/random/getrandomint>
 > **爬取时间**: 2025-12-27T02:01:18.723843
 
 ---

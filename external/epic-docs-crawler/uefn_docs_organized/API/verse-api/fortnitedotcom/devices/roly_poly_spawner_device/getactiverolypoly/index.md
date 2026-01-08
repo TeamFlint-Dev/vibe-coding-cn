@@ -1,6 +1,6 @@
 # GetActiveRolyPoly function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/roly_poly_spawner_device/getactiverolypoly
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/roly_poly_spawner_device/getactiverolypoly>
 > **爬取时间**: 2025-12-27T05:24:32.758924
 
 ---

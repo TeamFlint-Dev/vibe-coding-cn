@@ -1,6 +1,6 @@
 # Grind Rail Device Design Example
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/grind-rail-device-design-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/grind-rail-device-design-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:06:58.375868
 
 ---
@@ -116,6 +116,7 @@ Adding a **Timer** device for each rail makes it possible to assign different aw
    | **Timer Color** | White | Select the color that matches the rail. |
    | **Success Score Value** | 1 | One point value is added for each second the player remains on the rail. The longer the player grinds, the greater the score. |
    | **Display Score Update on HUD** | On | Score results will display on the player's HUD. |
+
 3. Copy and place timers for remaining rails, and make additional edits as shown:
 
    | Option | Value | Description |
@@ -137,6 +138,7 @@ Use your color naming to make sure each rail matches the right timer.
    | --- | --- | --- |
    | **On Started Grinding Send Event To** | White Timer | Start. |
    | **On Ended Grinding Send Event To** | White Timer | Reset |
+
 2. Repeat for each remaining rail.
 
 ### Add Pulse Triggers
@@ -164,6 +166,7 @@ The Pulse Trigger device sends a **damage pulse** through a custom volume. You c
    | **Damage** | 33.0 | Sets how much damage the pulse will inflict. |
    | **Activate on Phase** | Game Start | Sets when the trigger activates. |
    | **Enabled on Phase** | Gameplay Only | Sets when the trigger is enabled. |
+
 3. Copy and place the device on any other spots where you want to make a rail more challenging.
 
 The player can navigate around the pulses to earn more points.

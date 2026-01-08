@@ -1,6 +1,6 @@
 # item_med_kit class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_med_kit
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_med_kit>
 > **爬取时间**: 2025-12-27T04:52:35.939359
 
 ---

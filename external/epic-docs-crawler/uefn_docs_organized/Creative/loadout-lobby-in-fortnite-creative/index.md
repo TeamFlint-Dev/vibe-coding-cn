@@ -1,6 +1,6 @@
 # Loadout Lobby
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/loadout-lobby-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/loadout-lobby-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:06:29.257627
 
 ---
@@ -89,6 +89,7 @@ The **Mutator Zone** devices are used to make the lobby a [safe zone](https://de
    | **Zone Depth** | **Large enough to cover Spawn Area** | Ensures that the depth of the Mutator Zone covers the entire lobby. |
    | **Zone Height** | **Large enough to cover Spawn Area** | Ensures that the height of the Mutator Zone covers the entire lobby. |
    | **Pick Up Life Span** | **5 Seconds** | Items dropped into this zone will be destroyed after the selected amount of time. |
+
 4. The second Mutator Zone teleports all the players in the spawn zone into the gameplay area of the island at the end of the initial countdown.
 5. Customize the second Mutator Zone device as shown below.
 
@@ -128,6 +129,7 @@ The **Timed Objective** devices are used to count down to the players teleportin
    | **Audio Effects** | **Off** | Determines that the timer's audio effects will not be played in the game. |
    | **Timer Sound** | **Off** | Determines that the timer's sound will not be heard during the game. |
    | **When Completed Transmit On** | **Channel 1** | Transmits a signal to the devices that need to be activated upon the end of the timer countdown. |
+
 4. The second Timed Objective is enabled at the end of the first countdown and is used to activate the second Mutator Zone device for two seconds to teleport players from the spawn area to the gameplay area.
 5. Customize the second Timed Objective device as shown below.
 
@@ -160,6 +162,7 @@ When the initial countdown ends, the players are randomly teleported to one of t
    | **Teleporter Rift Visible** | **No** | Determines that the teleporter will not be visible during gameplay. |
    | **Face Player in Teleporter Direction** | **Yes** | Determines whether the orientation of the player should be changed to that of the destination teleporter. |
    | **Teleport To When Receiving From** | **Channel 6** | Teleports the player to this location when it receives a signal from its corresponding trigger. |
+
 3. Use the same device options for the other Teleporter devices you place around the island, except increase the channel number for the **Teleport To When Receiving From** device option for each additional teleporter. For example, use Channel 7 for the second Teleporter device, Channel 8 for the third, and so on.
 4. Place the extra teleporter in your preferred location in the lobby area. This teleporter can be used by players to rejoin the game when they respawn in the lobby.
 
@@ -225,6 +228,7 @@ The setup described below means that when the Random Number Generator is activat
    | Option | Value | Description |
    | --- | --- | --- |
    | **When Triggered Transmit On** | **Channel 06** | Transmits to the corresponding teleporter, ensuring that the player is teleported to that location. |
+
 3. For each additional Trigger device, increase the channel number of the **When Triggered Transmit On** device option. For example, set the second Trigger device to transmit on channel 7, the third on channel 8, and so on.
 
    Make sure to set up the same number of Trigger devices as Teleporter devices you placed in the gameplay area. You need one Trigger for each gameplay area teleporter. Each trigger should only have one teleporter it transmits to.

@@ -1,11 +1,11 @@
 # Taxi Spawner Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-taxi-spawner-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-taxi-spawner-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:46:08.728319
 
 ---
 
-A **Taxi Spawner** is a device that [spawns](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#spawning) a Taxi vehicle onto your island at the spawner's given location and orientation. 
+A **Taxi Spawner** is a device that [spawns](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#spawning) a Taxi vehicle onto your island at the spawner's given location and orientation.
 Use Taxi Spawner devices in combination with the [Race Checkpoint Device](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#race-checkpoint) to design a racing game for your players. You can place a player directly inside the Taxi using a trigger.
 
 For help on how to find the **Taxi Spawner** device, see [Using Devices](https://dev.epicgames.com/documentation/en-us/fortnite/using-devices-in-fortnite).

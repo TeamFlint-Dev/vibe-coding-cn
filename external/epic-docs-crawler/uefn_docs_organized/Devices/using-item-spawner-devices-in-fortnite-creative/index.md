@@ -1,6 +1,6 @@
 # Item Spawner Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-item-spawner-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-item-spawner-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:32:26.877594
 
 ---
@@ -113,6 +113,7 @@ To have items spawn nonstop after an event, combine an Item Spawner with a Switc
    | Time Between Spawns | Instant | There will be no delay between item spawns. |
    | Enabled At Game Start | No | The Item Spawner will not begin enabled and will not spawn items until it is enabled. |
    | Continuously Spawn Items | On | The Item Spawner will continue to spawn items regardless of whether or not they have been picked up. |
+
 2. Place a **Switch** and customize it to the following settings:
 
    [![Switch Settings](https://dev.epicgames.com/community/api/documentation/image/2aa5d824-1553-4745-8d41-6e9a7d996ec0?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2aa5d824-1553-4745-8d41-6e9a7d996ec0?resizing_type=fit)
@@ -120,6 +121,7 @@ To have items spawn nonstop after an event, combine an Item Spawner with a Switc
    | Option | Value | Description |
    | --- | --- | --- |
    | Device Model | Antique Lever | The Switch will appear as an Antique Lever in game. |
+
 3. Set the direct event bindings of the Switch to the following:
 
    [![Switch Events](https://dev.epicgames.com/community/api/documentation/image/39449e73-e2fb-4ed9-a557-1c2e767b8b9a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/39449e73-e2fb-4ed9-a557-1c2e767b8b9a?resizing_type=fit)

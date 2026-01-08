@@ -1,6 +1,6 @@
 # Show function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hud_message_device/show-3
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hud_message_device/show-3>
 > **爬取时间**: 2025-12-27T05:41:12.143887
 
 ---

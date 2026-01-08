@@ -1,6 +1,6 @@
 # fort_playspace interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/fort_playspace
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/fort_playspace>
 > **爬取时间**: 2025-12-27T00:44:01.490277
 
 ---

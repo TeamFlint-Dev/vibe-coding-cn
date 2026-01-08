@@ -1,6 +1,6 @@
 # item_scoped_burst_smg_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_scoped_burst_smg_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_scoped_burst_smg_uncommon>
 > **爬取时间**: 2025-12-27T04:29:54.648180
 
 ---

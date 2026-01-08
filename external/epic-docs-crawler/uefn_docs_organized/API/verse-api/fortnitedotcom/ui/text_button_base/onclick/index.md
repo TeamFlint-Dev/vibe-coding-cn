@@ -1,6 +1,6 @@
 # OnClick function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/text_button_base/onclick
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/text_button_base/onclick>
 > **爬取时间**: 2025-12-27T02:55:57.060949
 
 ---

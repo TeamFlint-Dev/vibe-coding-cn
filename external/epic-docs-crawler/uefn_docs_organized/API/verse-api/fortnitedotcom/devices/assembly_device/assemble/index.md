@@ -1,6 +1,6 @@
 # Assemble function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/assembly_device/assemble
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/assembly_device/assemble>
 > **爬取时间**: 2025-12-27T05:20:58.035666
 
 ---

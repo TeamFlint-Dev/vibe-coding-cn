@@ -1,6 +1,6 @@
 # Signal Remote Manager Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-signal-remote-manager-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-signal-remote-manager-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:48:39.223723
 
 ---
@@ -139,6 +139,7 @@ You will need the following devices.
    | **Lock When Receiving From** | Channel 2 | The secondary fire of the Signal Remote will lock the door. |
    | **Open When Receiving From** | Channel 1 | The primary fire of the Signal Remote will open the door. |
    | **Close When Receiving From** | Channel 2 | The secondary fire of the Signal Remote will close the door. |
+
 2. Place a set-up Signal Remote Manager device anywhere on your island. Customize it with the following settings.
 
    [![Remote Manager Settings](https://dev.epicgames.com/community/api/documentation/image/7b369ab6-7845-4bff-9983-83986f9c0b79?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7b369ab6-7845-4bff-9983-83986f9c0b79?resizing_type=fit)
@@ -175,6 +176,7 @@ You will need the following devices.
    | **Play Sound Effects** | No | The teleporter sound effects are not played when used. |
    | **Face Player In Teleporter Direction** | Yes | The player is faced in a specific direction to make sure they are properly oriented when using the teleporter. |
    | **Teleport To When Receiving From** | Channel 2 | Teleports the player when using the alternate fire of the Signal Remote. |
+
 2. Copy the teleporter, and place a second one down in the secure front lines section of your arena. Adjust only the following setting.
 
    [![Teleporter Settings](https://dev.epicgames.com/community/api/documentation/image/22040f29-ffa3-4124-9d09-efad1166af30?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/22040f29-ffa3-4124-9d09-efad1166af30?resizing_type=fit)
@@ -182,6 +184,7 @@ You will need the following devices.
    | Option | Value | Description |
    | --- | --- | --- |
    | **Teleport To When Receiving From** | Channel 1 | Teleports the player when using the primary fire of the Signal Remote. |
+
 3. Populate the resupply depot with the vending machines and equipment you want, using the default device settings.
 
 You now have a Signal Remote weapon able to teleport the player between two different locations.
@@ -208,6 +211,7 @@ You will use the following devices.
    | **Light Intensity** | 10% | Make sure to set a desired light intensity. This setting was used for demonstration purposes. |
    | **Turn On When Receiving From** | Channel 2 | Automatically turns the lights back on with a Timed Objective device a short duration after being shut off. |
    | **Turn Off When Receiving From** | Channel 1 | The Signal Remote primary fire will turn off the lights and set the automatic reboot from the Timed Objective device. |
+
 3. Duplicate the customizable light and populate the interior with copies until it is well lit.
 4. Place a Timed Objective device anywhere on the island. Customize it to the following settings.
 
@@ -220,6 +224,7 @@ You will use the following devices.
    | **Urgency Mode Start Time** | 3 | The remaining duration before the timer countdown begins to play urgent sound effects. |
    | **Start When Receiving From** | Channel 1 | The timer is begun when the primary button of the Signal Remote is hit that deactivates the lights. |
    | **When Completed Transmit On** | Channel 2 | After completing, transmits a signal to turn all the Customizeable Lights back on. |
+
 5. Finally, place a set-up Signal Remote Manager device anywhere on your island. Customize it with the following settings.
 
    [![Remote Signal Settings](https://dev.epicgames.com/community/api/documentation/image/2ff3e5b8-f265-4965-82eb-7ca838408bcf?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2ff3e5b8-f265-4965-82eb-7ca838408bcf?resizing_type=fit)

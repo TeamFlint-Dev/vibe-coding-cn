@@ -1,6 +1,6 @@
 # editable_curve class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/curves/editable_curve
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/curves/editable_curve>
 > **爬取时间**: 2025-12-27T07:07:29.652246
 
 ---

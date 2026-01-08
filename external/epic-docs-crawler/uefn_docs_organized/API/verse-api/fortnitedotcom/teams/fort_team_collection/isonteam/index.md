@@ -1,6 +1,6 @@
 # IsOnTeam function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/teams/fort_team_collection/isonteam
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/teams/fort_team_collection/isonteam>
 > **爬取时间**: 2025-12-27T02:51:31.598743
 
 ---

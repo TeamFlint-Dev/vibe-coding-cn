@@ -1,6 +1,6 @@
 # color struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/colors/color
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/colors/color>
 > **爬取时间**: 2025-12-27T01:18:26.191732
 
 ---

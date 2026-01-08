@@ -1,6 +1,6 @@
 # InitiateConversation function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conversation_device/initiateconversation
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conversation_device/initiateconversation>
 > **爬取时间**: 2025-12-27T05:31:37.224375
 
 ---

@@ -1,6 +1,6 @@
 # item_grenade class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_grenade
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_grenade>
 > **爬取时间**: 2025-12-27T04:18:19.387094
 
 ---

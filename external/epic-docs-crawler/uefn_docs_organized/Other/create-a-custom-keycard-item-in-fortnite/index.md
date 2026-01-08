@@ -1,6 +1,6 @@
 # Create a Custom Keycard Item
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-a-custom-keycard-item-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-a-custom-keycard-item-in-fortnite>
 > **爬取时间**: 2025-12-27T00:34:43.286225
 
 ---
@@ -79,6 +79,7 @@ Pick one door for setting up a typical Fortnite locked door. Follow these steps 
    | **Starts Locked** | Locked | This makes the door locked when the game starts. |
    | **Hide Interaction When Locked** | True (Checked) | This hides the interaction prompt when the door is locked. |
    | **Initial Door Position** | Closed | This makes the default starting position for the door is Closed. |
+
 2. Under **User Options - Functions**, set the following functions for the Lock device.
 
    You may not be able to set the Lock function until after you place the Volume device in step 3, below.
@@ -88,6 +89,7 @@ Pick one door for setting up a typical Fortnite locked door. Follow these steps 
    | **Function** | **Target Device** | **Event to Bind** | **Explanation** |
    | **Unlock** | Conditional Button | On Activated | The door is unlocked when the Conditional Button activates. |
    | **Lock** | Volume | On Exit | The door is locked when the player exits the Volume for the Fortnite devices door. |
+
 3. Place one Volume device centered on the door itself. In the Details panel, customize the device options as shown below. Options not listed can be left at their default values.
 
    |  |  |  |
@@ -96,6 +98,7 @@ Pick one door for setting up a typical Fortnite locked door. Follow these steps 
    | **Volume Shape** | Cylinder | This determines the shape of the volume. |
    | **Volume Height** | 0.25x | This determines how high the volume cylinder goes. |
    | **Volume Radius** | 0.9x | This sets the radius of the volume cylinder, which determines how close or far it is from the device location. You want the radius relatively small, so the player has to come close to the door to enter the volume. |
+
 4. Place the Conditional Button device next to the door, under the Lock device. Customize the options as shown below. Options not listed can be left at their default values.
 
    |  |  |  |
@@ -103,6 +106,7 @@ Pick one door for setting up a typical Fortnite locked door. Follow these steps 
    | **Option** | **Value** | **Explanation** |
    | **Key Items Required** | True (Checked), 1 | Check this to indicate that a key item is required to pass the condition. Enter 1 in the field to indicate that only one keycard is required. |
    | **Key Item 1** | Authority Keycard (In-game name) or AGID\_CP\_Keycard\_Agency (Item ID) | To select the item that is required, click the dropdown and search for "keycard". There are several keycard items, but this example uses the "Authority Keycard" item. |
+
 5. Under **User Options - Functions**, set the following functions for the Conditional Button device.
 
    |  |  |  |  |
@@ -123,6 +127,7 @@ For the second door, follow these steps to set up the devices.
    | --- | --- | --- | --- |
    | **Function** | **Target Device** | **Event to Bind** | **Explanation** |
    | **Lock** | Player 1 Spawn Pad | On Player Spawned | When a player spawns from Player 1 Spawn Pad, the Lock device activates and locks the door. |
+
 3. The options for both Volume devices are the same, so you can also copy the first Volume and paste the copy in your level. You may want to rename the device to distinguish it from the first one.
 
 ### Setting Up the Table for the Keycards
@@ -136,6 +141,7 @@ Follow these steps to set up the Table with the Fortnite keycard and your custom
    | --- | --- | --- |
    | **Option** | **Value** | **Explanation** |
    | **Item List** | Authority Keycard | Click the + to add an array element, then click the dropdown and search for "keycard". Then select the Authority Keycard item. |
+
 3. Locate your custom keycard item in the Content Browser, and drag it into the level. Place the custom keycard on the table, on the side nearest the locked door set up for it.
 4. Once you've created the keycard\_gameplay\_device (add anchor link here), locate the Verse device in the Content Browser, and drag it into your level.
 
@@ -234,12 +240,14 @@ Because you are creating a custom item (the keycard), and you want to trigger a 
    using { /UnrealEngine.com/Itemization }
    using { /UnrealEngine.com/Temporary/Diagnostics }
    ```
+
 5. Next, add the code that defines your custom item component.
 
    ```verse
    # KEYCARD ITEM COMPONENT
    keycard_item_component := class(item_component) :
    ```
+
 6. We can add a helper function that will enable us to find the root inventory of the target agent:
 
    ```verse
@@ -248,6 +256,7 @@ Because you are creating a custom item (the keycard), and you want to trigger a 
    GetAgentInventory(Agent:agent)<decides><transacts>:inventory_component=
        TragetInventory := (for (I : Agent.FindDescendantComponents(inventory_component)) { I })[0]
    ```
+
 7. Next, define your custom Verse device as a subclass of `creative_device`. Under that, set up an editable property for the Volume and Lock devices. This allows you to select a particular instance of the Volume or Lock device in the editor (important since you have two Volume devices and two Lock devices).
 
    ```verse
@@ -262,6 +271,7 @@ Because you are creating a custom item (the keycard), and you want to trigger a 
        @editable
        LockDevice:?lock_device = false
    ```
+
 8. Now you'll use the query to see if the Volume device is present, and subscribe to the Volume device's **On Agent Enters** and **On Agent Exits** events.
 
    ```verse
@@ -273,6 +283,7 @@ Because you are creating a custom item (the keycard), and you want to trigger a 
                TargetVolume.AgentEntersEvent.Subscribe(OnAgentEntersEvent)
                TargetVolume.AgentExitsEvent.Subscribe(OnAgentExitsEvent)
    ```
+
 9. You want to check the player's inventory to see if they have the custom keycard in their inventory. This is accomplished by checking for anything with the `keycard_item_component`. This code also requires that the `keycard_item_component` is present in order to open the Lock device.
 
    ```verse
@@ -288,6 +299,7 @@ Because you are creating a custom item (the keycard), and you want to trigger a 
                    if(TargetDoorLock := LockDevice?):
                        TargetDoorLock.Open(Agent)
    ```
+
 10. Lastly, if there is more than one player present, and one player has the keycard, this code will make sure the lock stays open. But if the player with the keycard exits the volume, the Lock is closed again.
 
     ```verse

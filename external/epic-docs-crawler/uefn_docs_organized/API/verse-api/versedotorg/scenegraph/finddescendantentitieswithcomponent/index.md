@@ -1,6 +1,6 @@
 # (InEntity:entity).FindDescendantEntitiesWithComponent extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/finddescendantentitieswithcomponent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/finddescendantentitieswithcomponent>
 > **爬取时间**: 2025-12-27T00:53:50.142474
 
 ---

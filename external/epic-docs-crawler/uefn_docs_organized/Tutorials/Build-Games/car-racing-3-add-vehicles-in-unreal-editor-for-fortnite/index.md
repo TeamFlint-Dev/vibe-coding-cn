@@ -1,6 +1,6 @@
 # 3. Add Vehicles
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-3-add-vehicles-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-3-add-vehicles-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:24:50.575642
 
 ---
@@ -69,6 +69,6 @@ Drag the **Timed Objective** device onto the viewport to an out-of-the-way locat
 
 [![4. Add a Scoring System](https://dev.epicgames.com/community/api/documentation/image/e21b9551-fe70-43d7-9004-ba81d68575a7?resizing_type=fit&width=640&height=640)
 
-4. Add a Scoring System
+1. Add a Scoring System
 
-Add a scoring system to your game.](https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-4-add-a-scoring-system-in-unreal-editor-for-fortnite)
+Add a scoring system to your game.](<https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-4-add-a-scoring-system-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # Elimination Game
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-an-elimination-game-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-an-elimination-game-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:58:27.528222
 
 ---
@@ -61,6 +61,7 @@ To set up this device:
    | **Team** | Team 1 - Team 12 | Determines which team each player belongs to. Incrementally increase this setting from Team 1 to Team 12 for each device placed. |
    | **Equip Granted Item** | First Item | Equips the first registered item. |
    | **When Enemy Eliminated By Team Member Transmit On** | Channel 1 - Channel 12 | Causes a unique signal to go out to the Item Granter each time an enemy is eliminated. |
+
 3. Click **OK** to save.
 4. Copy and place this device 11 times.
 
@@ -86,6 +87,7 @@ To set up this device:
    | --- | --- | --- |
    | **Equip Granted Item** | First Item | This device will automatically equip each granted item. |
    | **Cycle To Next Item When Receiving From** | Channel 1 - Channel 12 | When this device receives a signal from an elimination, the device will switch registered weapons and equip it. This setting will increase incrementally for each device, matching the **When Enemy Eliminated By Team Member Transmit On** setting of the Team Settings & Inventory beside it, from Channel 1 to Channel 12. |
+
 3. Click **OK** save.
 4. Equip and drop 20 weapons in order of how they will be awarded to players onto the Item Granter.
 5. Copy and paste this device 11 times.
@@ -113,6 +115,7 @@ To set up this device:
    | **Ambient Audio** | Off | This device will not have audio. |
    | **Pick Up Audio** | Off | This device will not have audio. |
    | **Pickup When Received From** | Channel 1 - Channel 12 | These powerups are consumed when the Team Settings and Inventory device sends a signal when a player is eliminated. This setting will increase incrementally for each device, matching the channel settings of the Team Settings & Inventory and Item Granter devices beside it, from Channel 1 to Channel 12. |
+
 3. Select **OK** to save.
 4. Copy and place this device 11 more times.
 
@@ -152,6 +155,7 @@ To set up this device:
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **Visible in Game** | Off | This device will not be visible in the gameplay. |
+
 3. Select **OK** to save.
 4. Copy and place this device 11 more times in safe areas.
 

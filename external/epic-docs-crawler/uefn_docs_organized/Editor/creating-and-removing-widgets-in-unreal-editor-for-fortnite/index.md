@@ -1,6 +1,6 @@
 # Creating and Removing Widgets
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creating-and-removing-widgets-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creating-and-removing-widgets-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:16:32.245877
 
 ---
@@ -27,9 +27,13 @@ This example shows how to add a widget when a player interacts with a [Button de
     `# Runs when the device is started in a running game
    OnBegin<override>()<suspends> : void =
    MyButton.InteractedWithEvent.Subscribe(HandleButtonInteraction)
+
    # A custom UI can only be associated with a specific player, and only that player can see it
+
    HandleButtonInteraction(Agent : agent) : void =
+
    # Display UI`
+
 6. Now, you can call the [failable function](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#failable-expression) `GetPlayerUI[]` in an [if](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#if-expression) expression to get a reference to the player’s UI.
 
    ```verse
@@ -40,14 +44,19 @@ This example shows how to add a widget when a player interacts with a [Button de
             if (InPlayer := player[Agent], PlayerUI := GetPlayerUI[InPlayer]):
                 # Display UI
    ```
+
 7. With the reference to the player's UI, you can call `AddWidget()` to add your widget.
 
    1. Create a message named TextForMyUI that has the `localizes` specifer and initialize it with the string `"Hello, world!"`.
        `hello_world_device := class(creative_device):
+
       # Set the Button device in the Editor to reference the device in the level
+
       @editable
       MyButton : button_device = button_device{}
+
       # A localizable message to display as text in the UI
+
       TextForMyUI<localizes> : message = "Hello, world!"`
 
    The `message` type means the text can be localized, and the string you use to initialize a `message` variable is the default text and language for the message. To learn more about the `message` type, see the [Verse Language Quick Reference](https://dev.epicgames.com/documentation/en-us/fortnite/verse-language-quick-reference).
@@ -63,6 +72,7 @@ This example shows how to add a widget when a player interacts with a [Button de
                MyUI : text_block = text_block{DefaultText := TextFOrMyUI}
                PlayerUI.AddWidget(MyUI)
       ```
+
 8. The following is the complete code:
 
    ```verse
@@ -93,6 +103,7 @@ This example shows how to add a widget when a player interacts with a [Button de
                     MyUI : text_block = text_block{DefaultText := TextForMyUI}
                     PlayerUI.AddWidget(MyUI)
    ```
+
 9. Save your Verse file and choose **Verse > Build Verse Code** in the UEFN main menu to update your Verse device.
 
 When you playtest your level with this Verse device, the text "Hello, world!" appears in the upper left corner of the screen when the player interacts with the Button device.
@@ -117,6 +128,7 @@ This example shows how to remove the UI from the player's screen when they inter
                 PlayerUI.AddWidget(NewUI)
                 if (set MaybeMyUIPerPlayer[InPlayer] = option{NewUI}) {}
    ```
+
 5. Now update the function to check if the player already has a widget showing for them in `MaybeMyUIPerPlayer`. If they do, then remove the widget. If they don't, then create a new widget for them to see.
 
    ```verse
@@ -133,6 +145,7 @@ This example shows how to remove the UI from the player's screen when they inter
                     PlayerUI.AddWidget(NewUI)
                     if (set MaybeMyUIPerPlayer[InPlayer] = option{NewUI}) {}
    ```
+
 6. The following is the complete code:
 
    ```verse
@@ -171,6 +184,7 @@ This example shows how to remove the UI from the player's screen when they inter
                         PlayerUI.AddWidget(NewUI)
                         if (set MaybeMyUIPerPlayer[InPlayer] = option{NewUI}) {}
    ```
+
 7. Save your Verse file and choose **Verse > Build Verse Code** in the UEFN main menu to update your Verse device.
 
 When you playtest your level with this Verse device, the text "Hello, world!" appears in the upper left corner of the screen when the player first interacts with the Button device. The text disappears when the player interacts with the Button device again.

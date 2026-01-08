@@ -1,6 +1,6 @@
 # Generating New Terrain
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/generating-new-terrain-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/generating-new-terrain-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:18:29.319030
 
 ---
@@ -56,4 +56,4 @@ Continue making your custom terrain by learning how to use the [Sculpt tools](ht
 
 Sculpting the Terrain
 
-Learn how to sculpt a custom terrain.](https://dev.epicgames.com/documentation/en-us/fortnite/sculpting-the-terrain-in-unreal-editor-for-fortnite)
+Learn how to sculpt a custom terrain.](<https://dev.epicgames.com/documentation/en-us/fortnite/sculpting-the-terrain-in-unreal-editor-for-fortnite>)

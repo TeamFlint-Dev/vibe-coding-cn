@@ -1,6 +1,6 @@
 # vehicle_spawner_getaway_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_spawner_getaway_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_spawner_getaway_device>
 > **爬取时间**: 2025-12-27T01:36:55.546864
 
 ---

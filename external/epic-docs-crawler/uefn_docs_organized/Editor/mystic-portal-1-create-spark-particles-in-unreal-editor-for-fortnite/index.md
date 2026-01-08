@@ -1,6 +1,6 @@
 # 1. Create Spark Particles
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-1-create-spark-particles-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-1-create-spark-particles-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:40:58.223125
 
 ---
@@ -172,6 +172,6 @@ Your emitter has the shape of a portal and the particles look like magic dust fl
 
 [![2. Create Inner Portal Ring](https://dev.epicgames.com/community/api/documentation/image/26a47aca-6f47-44f4-b1be-b33033958135?resizing_type=fit&width=640&height=640)
 
-2. Create Inner Portal Ring
+1. Create Inner Portal Ring
 
-Create and edit the inner ring of your mystical portal.](https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-2-create-inner-portal-ring-in-unreal-editor-for-fortnite)
+Create and edit the inner ring of your mystical portal.](<https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-2-create-inner-portal-ring-in-unreal-editor-for-fortnite>)

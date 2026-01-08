@@ -1,6 +1,6 @@
-# Think Before You Spend!
+# Think Before You Spend
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/think-before-you-spend-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/think-before-you-spend-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:11:15.230712
 
 ---
@@ -20,7 +20,7 @@ The classroom is a one-to-one classroom in which students use iPads as their pri
 
 Author: Katie Wright
 
-Email: teachkatiewright@gmail.com
+Email: <teachkatiewright@gmail.com>
 
 Twitter:@mrs\_katiewright
 
@@ -68,7 +68,7 @@ Include multimedia components and visual displays in presentations to clarify cl
 **ISTE Standard 1c: Empowered Learner**
 Students use technology to seek feedback that informs and improves their practice and to demonstrates their learning in a variety of ways.
 
-**New Jersey Core Curriculum Content Standards 21st Century Life and Careers 9.1: Personal Financial Literacy 9.1.8.A.6** 
+**New Jersey Core Curriculum Content Standards 21st Century Life and Careers 9.1: Personal Financial Literacy 9.1.8.A.6**
 Explain how income affects spending decisions.
 
 ## ASSESSMENT EVIDENCE

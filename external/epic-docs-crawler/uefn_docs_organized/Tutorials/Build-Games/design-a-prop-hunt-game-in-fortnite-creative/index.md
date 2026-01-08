@@ -1,6 +1,6 @@
 # Prop Hunt Game Tutorial
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/design-a-prop-hunt-game-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/design-a-prop-hunt-game-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:57:50.083513
 
 ---
@@ -67,6 +67,7 @@ To set up this device:
    | **Zone Audio** | Off | Entering the zone will not play audio. |
    | **Display VFX on Activation** | No | There will be no visuals from registering a player from this device. |
    | **Change Player to Class When Receiving From** | Channel 1 - Channel 3 | This channel will be paired with each Hunter’s Player Spawn Pad. Incrementally increase this channel for each device, ranging from Channel 1-3. |
+
 3. Select **OK** to save.
 4. Copy and place this device two more times.
 
@@ -104,6 +105,7 @@ To set up this device:
    | **Spawn Location** | Spawn Pads | Hunters will initially spawn on the Team 1 Player Spawn Pads. |
    | **Allow Item Drop** | No | Hunters will not be able to drop items. |
    | **Allow Item Pickup** | No | Hunters will not be able to interact with items. |
+
 3. Select **OK** to save.
 4. Equip two weapons and items like the **Boogie Bomb** and **Grenade**.
 
@@ -144,6 +146,7 @@ To set up this device:
    | **Use as Island Start** | Off | Players do not spawn here in the pre-game. |
    | **Visible in Game** | Off | This device will not be visible in the game. |
    | **When Player Spawned Transmit On** | Channel 1 - Channel 3 | This channel is paired with the Player Reference devices. Incrementally increase this channel for each spawn pad, ranging from Channel 1 to Channel 3. |
+
 3. Select **OK** to save.
 4. Copy and place this device two more times.
 
@@ -168,6 +171,7 @@ To set up this device:
    | **Register Player When Receiving From** | Channel 1 - Channel 3 | Pair this channel with the Player Spawn Pad. |
    | **Activate When Receiving From** | Channel 4 | This channel will send a signal to the main arena’s teleporter, sending seperate signals to a single channel. |
    | **When Activated Transmit On** | Channel 5 - Channel 7 | Players will teleport when a signal is sent from this channel. This setting will be paired with each Hunter’s teleporter for the arena. Incrementally increase this setting for each device placed. |
+
 3. Select **OK** to save.
 4. Copy and place this device two more times.
 
@@ -198,6 +202,7 @@ To set up this device:
    | **Activation Sound** | Off | This device will not have audio. |
    | **Completion Sound Distance** | Whole Map | The completion sound will be heard everywhere on the map. |
    | **When Completed Transmit On** | Channel 4 | This channel will teleport Hunters to their teleporters after the timer completes. |
+
 3. Select **OK** to save.
 
 ### Teleporter #1 - 3
@@ -222,6 +227,7 @@ To set up this device:
    | **Play Sound Effects** | No | This device will not have sound effects. |
    | **Conserve Momentum** | No | Hunters are dropped for the teleporter from a stopped position. |
    | **Teleport To When Receiving From** | Channel 5 to Channel 7 | This setting is tied to the Player Reference device so they are all teleported at once. Incrementally increase this setting for each device placed. |
+
 3. Select **OK** to save.
 4. Copy and place this device two more times.
 
@@ -257,6 +263,7 @@ To set up this device:
    | **Player Team** | Team 2 | Only the Prop team can spawn on these pads. |
    | **Visible In Game** | Off | This device will not be visible in the game. |
    | **When Player Spawned Transmit On** | Channel 10 | This setting sends a signal to the HUD Message to display an onboarding message. |
+
 3. Select **OK** to save.
 4. Copy and paste this device 7 more times.
 
@@ -308,6 +315,7 @@ To set up this device:
    | **Spawn Limit** | 1 | Players disguised as Props will only have one life. |
    | **Allow Item Drop** | No | Players disguised as Props will not drop items when eliminated. |
    | **Allow Item Pickup** | Yes | Players disguised as Props will be able to pick up items. |
+
 3. Select **OK** to save.
 4. Equip a **Prop-o-Matic** weapon.
 
@@ -357,6 +365,7 @@ To set up this device:
    | **Visible On Game Start** | Off | The collectibles do not become visible until the 1:00 timer expires at the beginning of the map. |
    | **Turn Visibility On When Receiving From** | Channel 21 | When the staring Timed Objective ends, the coins will become visible. |
    | **Turn visibility Off When Receiving From** | Channel 20 | When picked up, all coins are temporarily turned invisible and uncollectible. |
+
 3. Select **OK** to save.
 4. Copy and place the **Collectible Object** 15 to 20 times randomly around your arena.
 
@@ -377,6 +386,7 @@ To set up this device:
    | **Duration** | 10S | The debuff will last for 10 seconds. |
    | **Activating Team** | Any | Any team that collects a coin can activate it. |
    | **Activating When Receiving From** | Channel 20 | The player who picks up the coin, on top of making them all invisible, will also be slowed down for 10 seconds. |
+
 3. Select **OK** to save.
 
 ### Timed Objective 2 - 3
@@ -400,6 +410,7 @@ To set up this device:
    | **Activation Sound** | Off | This device will not have an activation sound. |
    | **Completion Sound Distance** | Whole Map | This device will be heard everywhere when the 10 seconds elapses. |
    | **When Completed Transmit On** | Channel 21 | This channel will activate the coins. |
+
 3. Select **OK** to save.
 4. Copy and paste another **Timed Objective**.
 5. Customize its settings as shown below.
@@ -457,6 +468,7 @@ To set up this device:
    | **Counted Team** | Team 1 | The Hunter team will be counted by this device. |
    | **Include Spectators** | No | This device will only include players in the game. |
    | **When Count Succeeds Transmit On** | Channel 50 | Sends a signal to the End Round device if the count reaches zero. |
+
 3. Select **OK** to save.
 4. Place a second **Player Counter** to track the Props.
 5. Customize its settings as shown below.
@@ -467,6 +479,7 @@ To set up this device:
    | **Counted Team** | Team 2 | The Prop team will be counted by this device. |
    | **Include Spectators** | No | This device will only include players in the game. |
    | **When Count Succeeds Transmit On** | Channel 51 | Sends a signal to the second End Round device if the count reaches zero. |
+
 6. Select **OK** to save.
 
 ### End Game #1 - 2
@@ -488,6 +501,7 @@ To customize this device:
    | **Custom Victory Callout** | The Hunters were defeated! | This message will display to teams for ending. |
    | **Custom Defeat Callout** | The Hunters were defeated! | This message will display to teams for ending. |
    | **Activate When Receiving From** | Channel 50 | When the Player Counter for Team 1 reaches zero, this device will activate to end the game. |
+
 3. Select **OK** to save.
 4. Copy and paste another **End Game** device.
 5. Customize its settings as shown below.

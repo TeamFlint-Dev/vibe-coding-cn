@@ -1,6 +1,6 @@
 # item_midas_gilded_eye_drum_gun_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_midas_gilded_eye_drum_gun_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_midas_gilded_eye_drum_gun_mythic>
 > **爬取时间**: 2025-12-27T05:00:29.142273
 
 ---

@@ -1,6 +1,6 @@
 # Interactable Components
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/interactable-components
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/interactable-components>
 > **爬取时间**: 2025-12-27T00:43:33.312625
 
 ---

@@ -1,6 +1,6 @@
 # Conversation Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/conversation-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/conversation-device-design-examples>
 > **爬取时间**: 2025-12-26T23:07:35.277999
 
 ---
@@ -36,6 +36,7 @@ This example starts in **Creative**, then moves into **UEFN**.
    | Button Text Color | White |
    | Speaker Name | Tomatohead |
    | Show Indicator Bubble | Of |
+
 5. Customize the Character device as follows:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/4d1606a0-4a46-43ff-8dc9-e4f9aa357ad6?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/4d1606a0-4a46-43ff-8dc9-e4f9aa357ad6?resizing_type=fit)
@@ -47,6 +48,7 @@ This example starts in **Creative**, then moves into **UEFN**.
    | Emote | Air Guitar |
    | Interact Type | Send Event Only |
    | Interaction Text | Tal |
+
 6. Configure the following event on the Character device so that when the player interacts with the character, the conversation will begin.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b0255d6e-9d8f-464a-a93a-b55e49be2a41?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b0255d6e-9d8f-464a-a93a-b55e49be2a41?resizing_type=fit)
@@ -54,6 +56,7 @@ This example starts in **Creative**, then moves into **UEFN**.
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Interacted With Send Event To | Conversation Device | Initiate Conversation |
+
 7. Configure the following event on the Conversation device so that when triggered in the conversation, the character will play the emote.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/6c00ff8a-666a-4fe7-9b73-e788867fdbbc?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6c00ff8a-666a-4fe7-9b73-e788867fdbbc?resizing_type=fit)
@@ -61,6 +64,7 @@ This example starts in **Creative**, then moves into **UEFN**.
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Interacted With Send Event To | Conversation Device | Initiate Conversation |
+
 8. In UEFN, create a **Conversation Bank** called **Conversation**.
 9. Create the following conversation:|
 
@@ -110,6 +114,7 @@ The Conversation device is great at giving the player clear choices to make duri
    | Use Animated Idle | On |
    | Interact Type | Send Event Only |
    | Interaction Text | Shop |
+
 6. Place a **Conditional Button** device in front of the counter and register one **Gold** to the device.
 7. Place an **Item Placer** device in another part of the restaurant and register one Gold to the device.
 8. Place an **Item Granter** device and register an **Ice Cream Cone** to the device.
@@ -121,6 +126,7 @@ The Conversation device is great at giving the player clear choices to make duri
    | --- | --- |
    | On Grant Action | Keep All |
    | Equip Granted Item | Yes |
+
 10. Duplicate this device twice, registering a Pizza Slice and Banana to each duplicate respectively.
 
 When duplicating the device, make sure to clear out the registered items before adding new ones!
@@ -138,6 +144,7 @@ When duplicating the device, make sure to clear out the registered items before 
    | --- | --- |
    | Speaker Name | Shop |
    | Show Indicator Bubble | Off |
+
 3. Configure the following events on the Conversation device so that each of the first three conversation events will grant a different food item.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/71493cce-3d8e-4772-b0b4-1a732f05c0d5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/71493cce-3d8e-4772-b0b4-1a732f05c0d5?resizing_type=fit)
@@ -147,6 +154,7 @@ When duplicating the device, make sure to clear out the registered items before 
    | On Conversation Event One Send Event To | Ice Cream Item Granter | Grant Item |
    | On Conversation Event Two Send Event To | Pizza Slice Item Granter | Grant Item |
    | On Conversation Event Three Send Event To | Banana Item Granter | Grant Item |
+
 4. Configure the following event on the Conditional Button device so that when the player pays one Gold, they will be able to buy food.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/d20bb2fb-428c-44af-a9df-802c2d66d50b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d20bb2fb-428c-44af-a9df-802c2d66d50b?resizing_type=fit)
@@ -154,6 +162,7 @@ When duplicating the device, make sure to clear out the registered items before 
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Activated Send Event To | Conversation Device | Initiate Conversation |
+
 5. In UEFN, create a Conversation Bank called **Shop Conversation.**
 6. Create the following conversation:
 
@@ -170,7 +179,7 @@ When duplicating the device, make sure to clear out the registered items before 
 
 The Conversation device has a number of nodes that can help you create unique gameplay in the conversation itself. The Restart Conversation node can create looping conversations such as this one, and the Random node is great for making your conversations more dynamic and surprising!
 
-## Build a Shipwreck Experience!
+## Build a Shipwreck Experience
 
 Because the **Conversation** device can call events on other devices at specific moments in the conversation, you can use **Fixed Point Camera** devices to create a more cinematic conversation!
 
@@ -199,6 +208,7 @@ Because the **Conversation** device can call events on other devices at specific
    | Use Animated Idle | On |
    | Emote | Cheer |
    | Interact Type | Send Event Only |
+
 6. Place a **Boat Spawner** device in the water.
 7. Customize the Boat Spawner as follows:
 
@@ -222,6 +232,7 @@ Because the **Conversation** device can call events on other devices at specific
    | --- | --- |
    | Enabled During Phase | None |
    | Transition Out Time | 1.5 Sec |
+
 3. Place another Fixed Point Camera, this one looking at the **Boat Spawner**.
 4. Customize this camera as follows:
 
@@ -231,6 +242,7 @@ Because the **Conversation** device can call events on other devices at specific
    | --- | --- |
    | Enabled During Phase | None |
    | Transition In Time | 1.5 Sec |
+
 5. Place a **Post Process** device.
 6. Customize the device as follows:
 
@@ -254,6 +266,7 @@ Because the **Conversation** device can call events on other devices at specific
    | Button Text Color | White |
    | Speaker Name | Castaway |
    | Show Indicator Bubble | Off |
+
 3. In UEFN, create a **Conversation Bank** called **CastawayConversation**.
 4. Create the following conversation:
 
@@ -266,6 +279,7 @@ Because the **Conversation** device can call events on other devices at specific
    | Option | Value |
    | --- | --- |
    | Conversation | CastawayConversation |
+
 5. Customize the Conversation  device to the following setting:
 
 ### Bind Functions / Events
@@ -277,6 +291,7 @@ Direct event binding is how you set devices to communicate directly with other d
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Interacted With Send Event To | Conversation Device | Initiate Conversation |
+
 2. Configure the following events on the Conversation device to trigger different gameplay changes at different moments in the conversation.
 
    - **Conversation Event 1:** At the start of the conversation, triggers the camera switch to be in front of Castaway Jonesy.

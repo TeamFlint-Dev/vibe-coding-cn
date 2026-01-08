@@ -1,6 +1,6 @@
 # GetMaxHealth function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/objective_device/getmaxhealth
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/objective_device/getmaxhealth>
 > **爬取时间**: 2025-12-27T06:45:46.207389
 
 ---

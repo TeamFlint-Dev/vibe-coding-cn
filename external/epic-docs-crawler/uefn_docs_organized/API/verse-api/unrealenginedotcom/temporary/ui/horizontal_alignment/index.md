@@ -1,6 +1,6 @@
 # horizontal_alignment enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/horizontal_alignment
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/horizontal_alignment>
 > **爬取时间**: 2025-12-27T07:08:25.713733
 
 ---

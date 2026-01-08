@@ -1,6 +1,6 @@
 # 39.10 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/39-10-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/39-10-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-26T22:53:38.073117
 
 ---
@@ -23,7 +23,7 @@ Team members will join us **on the EDC forums on December 18 from 11AM to 12PM E
 
 You can submit your mobile questions now directly in the [forum post](https://forums.unrealengine.com/t/ask-epic-mobile-development-in-uefn-december-18-11am-et/2681203).
 
-## LEGO® NINJAGO® Assets Are Now Available!
+## LEGO® NINJAGO® Assets Are Now Available
 
 Spinning into this launch are NINJAGO assets for you to create ninja-themed LEGO islands.
 
@@ -94,7 +94,7 @@ Check out all the new assets and items available this release!
 
 ### Device Updates and Fixes
 
-##### Fixes:
+##### Fixes
 
 - Fixed an issue where the Reboot Van device user options did not seem to work and materials would flicker.
 - Fixed an issue where the Reboot Van device displayed "Not Enough Gold" instead of "Missing Items: ITEM NAME (RARITY)".
@@ -148,7 +148,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Fortnite Ecosystem Updates and Fixes
 
-##### Fixes:
+##### Fixes
 
 - Fixed the size reduction on large actors when a user selects them with the phone tool.
 - The maximum scaling restriction on props has been removed.
@@ -159,7 +159,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## UEFN Updates and Fixes
 
-##### Fixes:
+##### Fixes
 
 - Fixed an issue where some gallery props would revert their materials after being spawned from the quickbar in UEFN.
 - Filtered out mesh properties called "Mesh" in the digest.
@@ -176,11 +176,11 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Scene Graph
 
-##### New:
+##### New
 
 - **Custom Items and Inventories**: In the item component the `StackSize` and `MaxStackSize` variables are now private and must be modified through `SetMaxStackSize` and `SetStackSize` functions.
 
-##### Fixes:
+##### Fixes
 
 - Added an option to create a prefab subclass from the content drawer context menu.
 - In the Entity Editor, when selecting multiple entities that have the same asset component (such as each having a mesh\_component that is the same asset), the thumbnail in the Details panel should now show the common asset.
@@ -191,16 +191,16 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Verse Updates and fixes
 
-##### New:
+##### New
 
 - [API] Added Verse class wrappers for Chapter Seven: Season One Items for usage with Custom Items and Inventories.
 
-##### Fixes:
+##### Fixes
 
 - Fixed an issue with items (Custom Items and Inventories) instantiated through Verse not having the correct `StackSize` or `MaxStackSize` after being granted.
 
 ## Unreal Revision Control Updates and Fixes
 
-##### Fixes:
+##### Fixes
 
 - Made many performance optimizations, including reducing the frequency of Revision Control status checks, following an investigation into creator reports of unnecessary lags in the user experience.

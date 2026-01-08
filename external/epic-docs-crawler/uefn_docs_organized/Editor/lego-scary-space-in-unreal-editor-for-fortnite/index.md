@@ -1,6 +1,6 @@
 # Scary Space
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lego-scary-space-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lego-scary-space-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:37:33.778496
 
 ---
@@ -200,6 +200,7 @@ When you are close to the end of the hangar maze, a hand will reach out to get y
                     else:
                         Sleep(RotationInterval)
   ```
+
 - **Sequence E**: At the end of the area is a jump scare. This scene was built using the Sequencer. You can find the **SkeletonArmTrapSequence** asset in the Sequences folder of your project.
 
 ### Cross-Section and Box Alien Chase

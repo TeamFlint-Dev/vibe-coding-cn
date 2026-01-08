@@ -1,6 +1,6 @@
 # Parse function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/json/parse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/json/parse>
 > **爬取时间**: 2025-12-27T01:16:58.205655
 
 ---

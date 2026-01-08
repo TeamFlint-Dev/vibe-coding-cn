@@ -1,6 +1,6 @@
 # ease_in_cubic_bezier_easing_function class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/keyframedmovement/ease_in_cubic_bezier_easing_function
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/keyframedmovement/ease_in_cubic_bezier_easing_function>
 > **爬取时间**: 2025-12-27T02:45:41.181713
 
 ---

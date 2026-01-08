@@ -1,6 +1,6 @@
 # FortniteItemCategories module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteitemcategories
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteitemcategories>
 > **爬取时间**: 2025-12-27T01:13:01.683345
 
 ---

@@ -1,6 +1,6 @@
 # item_apple class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s4items/item_apple
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s4items/item_apple>
 > **爬取时间**: 2025-12-27T03:57:27.735130
 
 ---

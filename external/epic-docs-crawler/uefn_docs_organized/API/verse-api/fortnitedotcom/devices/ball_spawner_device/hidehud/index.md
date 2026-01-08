@@ -1,6 +1,6 @@
 # HideHUD function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/ball_spawner_device/hidehud
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/ball_spawner_device/hidehud>
 > **爬取时间**: 2025-12-27T06:38:53.491148
 
 ---

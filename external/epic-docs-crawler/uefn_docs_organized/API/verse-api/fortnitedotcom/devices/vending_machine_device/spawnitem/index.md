@@ -1,6 +1,6 @@
 # SpawnItem function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vending_machine_device/spawnitem
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vending_machine_device/spawnitem>
 > **爬取时间**: 2025-12-27T05:52:45.327133
 
 ---

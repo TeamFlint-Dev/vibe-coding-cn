@@ -1,6 +1,6 @@
 # overlay class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/overlay
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/overlay>
 > **爬取时间**: 2025-12-27T07:07:40.256924
 
 ---

@@ -1,6 +1,6 @@
 # npc_behavior class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_behavior
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_behavior>
 > **爬取时间**: 2025-12-27T00:57:03.802287
 
 ---

@@ -1,6 +1,6 @@
 # 37.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/37-00-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/37-00-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-26T23:14:17.227913
 
 ---
@@ -27,7 +27,7 @@ To resolve the validation errors, you must use the default values for the follow
 
 Alternatively, you can stop using the listed properties. If you’re still having issues, please let us know in [this forum thread.](https://forums.unrealengine.com/t/minimum-and-maximum-values-of-user-device-options-creator-suggestions/2633628)
 
-## Coming Soon: Publish Your Squid Game Islands in Fortnite!
+## Coming Soon: Publish Your Squid Game Islands in Fortnite
 
 Get ready! Starting August 14 at 9 am ET, you can publish your Fortnite islands featuring Squid Game-themed assets! If you’ve created a Squid Game-inspired island, you can now submit it through the Creator Portal and schedule it to go live when publishing opens.
 
@@ -35,7 +35,7 @@ Squid Game islands will be taking the spotlight in Discover with a dedicated Gam
 
 That’s not all! Squid Game islands will be eligible for additional Discover placement, including Epic’s Picks, so be sure to [submit yours](https://creative.fortnite.com/s/?lang=en-US) for feature consideration.
 
-### Last Call: Squid Game Island Conversions!
+### Last Call: Squid Game Island Conversions
 
 Submit your UEFN island by August 12, 9 am ET to request conversion. [See here for details](https://www.epicgames.com/help/c1/a000095080) on how to start your conversion.
 
@@ -195,14 +195,14 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Fortnite Ecosystem Updates and Fixes
 
-#### New:
+#### New
 
 - Added support for variable periods of Health/Shield/Overshield regeneration, which is configurable in Island Settings, the Class Designer device, and the Team Settings & Inventory device.
 
   - Increased the default application period from 0.2 seconds to 1 second.
   - Increased the default application amount from 1 to 5.
 
-#### Fixes:
+#### Fixes
 
 - Fixed an issue where users could create the same island multiple times after approving the island's name due to a delay in the menu closing. This could have resulted in duplicate islands that didn't function correctly.
 - Fixed an issue where creators could place prefabs/galleries outside the Creative map boundary.
@@ -215,7 +215,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Device Updates and Fixes
 
-#### New:
+#### New
 
 - Added a new style option to the Supply Drop Spawner to allow the spawning of Drop Pods. Drop Pods behave similarly to existing supply drops with two key differences:
 
@@ -234,7 +234,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
   - Dance Mannequin device
   - Guard Spawner device
 
-#### Fixes:
+#### Fixes
 
 - Earth Sprite fixes:
 
@@ -252,7 +252,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## UEFN Updates and Fixes
 
-#### New:
+#### New
 
 - Increased performance when handling input from mice with high polling rates.
 - Added the new sum cell reduction method for the Spatial Profiler.
@@ -275,7 +275,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
   - BoundsScale
 - Added Subpixel Morphological Anti-Aliasing.
 
-#### Fixes:
+#### Fixes
 
 - Fixed an issue with the **collide with copies** option for entities.
 - Fixed an issue where billboard backgrounds were hidden in edit mode for the Detonation Feature Example.
@@ -301,7 +301,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Physics
 
-#### Fixes:
+#### Fixes
 
 - Props are now affected by pickaxe hits in the UEFN/Creative edit mode.
 - Regular props are now not knocked back by the explosive device.
@@ -313,13 +313,13 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Scene Graph
 
-#### New:
+#### New
 
 - Improved the code for the EntityEntered event example in the **Scene Graph Feature Example**.
 - In the entity prefab editor, entities may now be dragged onto their parents, attaching them to the prefab root.
 - Added a boolean for MoviePipelineFunctionalTestBase to toggle screenshot comparisons.
 
-#### Fixes:
+#### Fixes
 
 - Fixed selection issues in the entity prefab editor when the user switched editor modes in the level editor.
 - Fixed an issue where entity prefabs would not reinstance properly.
@@ -333,11 +333,11 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Verse Updates and Fixes
 
-#### New:
+#### New
 
 - Created the `<castable>` tag.
 
-#### Fixes:
+#### Fixes
 
 - Fixed a bug related to the Sleep function.
 - The attribute `<localizes>` is not allowed on local variables, and the compiler now recognizes that. This code will not compile:
@@ -363,11 +363,11 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Unreal Revision Control Updates and Fixes
 
-#### New:
+#### New
 
 - Improved messaging when a project has invalid Source Control settings.
 
-#### Fixes:
+#### Fixes
 
 - Fixed an issue that caused a **No files staged for commit** error on check-in if Unreal Revision Control was turned off during project creation and then subsequently turned on.
 - Fixed an issue that caused the editor to crash when checking in changes.

@@ -1,6 +1,6 @@
 # TurnOn function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/customizable_light_device/turnon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/customizable_light_device/turnon>
 > **爬取时间**: 2025-12-27T05:55:06.894051
 
 ---

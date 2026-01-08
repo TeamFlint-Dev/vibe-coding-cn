@@ -1,6 +1,6 @@
 # item_speed_boost_high class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_speed_boost_high
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_speed_boost_high>
 > **爬取时间**: 2025-12-27T03:49:26.526934
 
 ---

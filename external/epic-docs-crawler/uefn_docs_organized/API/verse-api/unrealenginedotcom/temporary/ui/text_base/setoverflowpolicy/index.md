@@ -1,6 +1,6 @@
 # SetOverflowPolicy function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/text_base/setoverflowpolicy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/text_base/setoverflowpolicy>
 > **爬取时间**: 2025-12-27T02:58:36.474725
 
 ---

@@ -1,6 +1,6 @@
 # button class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/button
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/button>
 > **爬取时间**: 2025-12-27T07:08:15.069642
 
 ---

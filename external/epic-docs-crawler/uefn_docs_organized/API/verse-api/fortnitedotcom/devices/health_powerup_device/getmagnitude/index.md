@@ -1,6 +1,6 @@
 # GetMagnitude function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/health_powerup_device/getmagnitude
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/health_powerup_device/getmagnitude>
 > **爬取时间**: 2025-12-27T06:37:45.032897
 
 ---

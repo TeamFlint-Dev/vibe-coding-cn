@@ -1,6 +1,6 @@
 # Mod function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/mod
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/mod>
 > **爬取时间**: 2025-12-27T01:29:57.651047
 
 ---

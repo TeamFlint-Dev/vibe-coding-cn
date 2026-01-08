@@ -1,6 +1,6 @@
 # (PlayerUI:player_ui).ResetHUDElementVisibility extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/resethudelementvisibility
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/resethudelementvisibility>
 > **爬取时间**: 2025-12-27T01:08:18.627948
 
 ---

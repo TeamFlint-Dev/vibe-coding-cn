@@ -1,6 +1,6 @@
 # SetMagnitude function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/damage_amplifier_powerup_device/setmagnitude
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/damage_amplifier_powerup_device/setmagnitude>
 > **爬取时间**: 2025-12-27T06:02:43.693627
 
 ---

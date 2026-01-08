@@ -1,6 +1,6 @@
 # 1. Overview of Coordinate Spaces
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/overview-of-coordinate-spaces
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/overview-of-coordinate-spaces>
 > **爬取时间**: 2025-12-27T00:24:10.000381
 
 ---
@@ -33,18 +33,18 @@ World space is the default space that UEFN and Verse use to position objects in 
 
 ```verse
 transform<public> := struct<concrete><computes>:
-	Scale<public>:vector3
-	Rotation<public>:rotation
-	Translation<public>:vector3
+ Scale<public>:vector3
+ Rotation<public>:rotation
+ Translation<public>:vector3
 ```
 
 where `vector3` is defined as:
 
 ```verse
 vector3<public> := struct<concrete><computes><persistable>:
-	X<public>:float
-	Y<public>:float
-	Z<public>:float
+ X<public>:float
+ Y<public>:float
+ Z<public>:float
 ```
 
 The `transform` defines where an object is located (`Translation`), which direction it faces (`Rotation`), and how big it is (`Scale`).

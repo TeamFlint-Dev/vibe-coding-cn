@@ -1,6 +1,6 @@
 # GetEntities function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/entity/getentities
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/entity/getentities>
 > **爬取时间**: 2025-12-27T02:47:01.766820
 
 ---

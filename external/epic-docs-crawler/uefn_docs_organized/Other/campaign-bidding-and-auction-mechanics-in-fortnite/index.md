@@ -1,6 +1,6 @@
 # Campaign Bidding and Auction Mechanics
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/campaign-bidding-and-auction-mechanics-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/campaign-bidding-and-auction-mechanics-in-fortnite>
 > **爬取时间**: 2025-12-27T00:01:33.119322
 
 ---
@@ -114,12 +114,12 @@ Once your daily budget is reached, your campaign stops delivering impressions fo
 The Sponsored Row auction works through:
 
 - **Daily competition**: Each day at 00:00 coordinated universal time (UTC), all eligible, approved campaigns for that date are evaluated.
-- **Second‑price auction**: Higher bids win delivery earlier and higher in the row. The auction winner pays just above the next highest bid (not their full bid). 
+- **Second‑price auction**: Higher bids win delivery earlier and higher in the row. The auction winner pays just above the next highest bid (not their full bid).
   If there’s no next bid, the auction winner pays the minimum price of $0.10.
-- **Ties and rotation**: 
+- **Ties and rotation**:
   If multiple campaigns have the same max bid, they pay that bid amount, and their placement rotates regularly to ensure fair exposure during delivery.
 - **Delivery and budget**: Once your island tile is in the Sponsored Row rotation, it continues to deliver until your daily budget is met, or until the day ends.
-- **Automated protectio**n: 
+- **Automated protectio**n:
   If the performance of an island's click-through-rate ([CTR](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#ctr)), [bounce rate](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#bounce-rate), or session length is low, your island may be removed from the sponsored row, and your campaign canceled. This is done to keep you from using your budget without meaningful results.
 
 [![An example of checking the Market History to see how successful the campaign is.](https://dev.epicgames.com/community/api/documentation/image/e092a545-1d6e-4d68-87f1-af4d7bd3629b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e092a545-1d6e-4d68-87f1-af4d7bd3629b?resizing_type=fit)

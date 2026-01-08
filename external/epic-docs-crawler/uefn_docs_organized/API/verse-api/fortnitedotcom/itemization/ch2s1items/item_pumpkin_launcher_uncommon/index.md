@@ -1,6 +1,6 @@
 # item_pumpkin_launcher_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_pumpkin_launcher_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items/item_pumpkin_launcher_uncommon>
 > **爬取时间**: 2025-12-27T05:03:29.082241
 
 ---

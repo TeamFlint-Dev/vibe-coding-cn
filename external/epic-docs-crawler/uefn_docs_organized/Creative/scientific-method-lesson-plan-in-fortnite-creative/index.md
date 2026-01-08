@@ -1,6 +1,6 @@
 # The Scientific Method with Fortnite
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/scientific-method-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/scientific-method-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:08.342436
 
 ---
@@ -21,7 +21,7 @@ This lesson works in a middle school science or STEM class, and is quite adaptab
 **Author, Organization/Role:** Alfonso Gonzalez, Chimacum Elementary School, 6th Grade Science
 and STEM
 
-**Email:** educatoral@gmail.com
+**Email:** <educatoral@gmail.com>
 
 **Twitter:** <https://twitter.com/educatoral>
 

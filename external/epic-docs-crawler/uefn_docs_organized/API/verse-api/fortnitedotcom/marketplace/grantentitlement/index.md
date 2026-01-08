@@ -1,6 +1,6 @@
 # GrantEntitlement function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/grantentitlement
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/grantentitlement>
 > **爬取时间**: 2025-12-27T01:14:43.428776
 
 ---

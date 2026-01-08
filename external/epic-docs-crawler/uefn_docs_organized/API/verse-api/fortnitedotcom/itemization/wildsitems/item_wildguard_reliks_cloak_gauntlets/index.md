@@ -1,6 +1,6 @@
 # item_wildguard_reliks_cloak_gauntlets class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_wildguard_reliks_cloak_gauntlets
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_wildguard_reliks_cloak_gauntlets>
 > **爬取时间**: 2025-12-27T04:10:29.637431
 
 ---

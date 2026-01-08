@@ -1,6 +1,6 @@
 # UseDefaultTeam function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/automated_turret_device/usedefaultteam
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/automated_turret_device/usedefaultteam>
 > **爬取时间**: 2025-12-27T06:09:37.542887
 
 ---

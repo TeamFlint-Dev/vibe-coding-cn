@@ -1,6 +1,6 @@
 # add_item_query_event class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/add_item_query_event
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/add_item_query_event>
 > **爬取时间**: 2025-12-27T01:03:35.885153
 
 ---

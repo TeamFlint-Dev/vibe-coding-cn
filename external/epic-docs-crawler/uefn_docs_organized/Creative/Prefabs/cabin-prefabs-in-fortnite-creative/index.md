@@ -1,6 +1,6 @@
 # Cabin Prefabs
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/cabin-prefabs-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/cabin-prefabs-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:12:03.489502
 
 ---

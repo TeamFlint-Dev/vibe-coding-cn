@@ -1,6 +1,6 @@
 # Class Designer
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/class-designer
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/class-designer>
 > **爬取时间**: 2025-12-27T02:06:02.112535
 
 ---

@@ -1,6 +1,6 @@
 # Toggle function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conditional_button_device/toggle
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conditional_button_device/toggle>
 > **爬取时间**: 2025-12-27T06:01:19.582359
 
 ---

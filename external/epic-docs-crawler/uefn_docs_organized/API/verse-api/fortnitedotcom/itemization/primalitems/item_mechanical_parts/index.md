@@ -1,6 +1,6 @@
 # item_mechanical_parts class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_mechanical_parts
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_mechanical_parts>
 > **爬取时间**: 2025-12-27T03:43:52.074425
 
 ---

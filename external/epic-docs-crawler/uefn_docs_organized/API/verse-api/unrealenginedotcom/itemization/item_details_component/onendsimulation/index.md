@@ -1,6 +1,6 @@
 # OnEndSimulation function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/item_details_component/onendsimulation
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/item_details_component/onendsimulation>
 > **爬取时间**: 2025-12-27T02:54:02.867422
 
 ---

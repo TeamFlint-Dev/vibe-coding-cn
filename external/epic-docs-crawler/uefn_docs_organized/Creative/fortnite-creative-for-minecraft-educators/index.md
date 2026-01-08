@@ -1,6 +1,6 @@
 # Fortnite Creative for Minecraft Educators
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-for-minecraft-educators
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-for-minecraft-educators>
 > **爬取时间**: 2025-12-26T23:57:09.598683
 
 ---

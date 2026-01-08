@@ -1,6 +1,6 @@
 # vehicle_spawner_biplane_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_spawner_biplane_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vehicle_spawner_biplane_device>
 > **爬取时间**: 2025-12-27T01:59:46.794435
 
 ---

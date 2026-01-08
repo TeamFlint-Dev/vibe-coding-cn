@@ -1,6 +1,6 @@
 # Activate function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/air_vent_device/activate
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/air_vent_device/activate>
 > **爬取时间**: 2025-12-27T05:33:11.858948
 
 ---

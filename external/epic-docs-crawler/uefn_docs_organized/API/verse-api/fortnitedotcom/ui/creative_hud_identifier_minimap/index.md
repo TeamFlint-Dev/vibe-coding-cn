@@ -1,6 +1,6 @@
 # creative_hud_identifier_minimap class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_minimap
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_minimap>
 > **爬取时间**: 2025-12-27T01:05:47.674507
 
 ---

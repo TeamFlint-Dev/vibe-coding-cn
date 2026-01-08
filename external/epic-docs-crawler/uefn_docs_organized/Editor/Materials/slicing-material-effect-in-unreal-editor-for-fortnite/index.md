@@ -1,6 +1,6 @@
 # Slicing Material Effect
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/slicing-material-effect-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/slicing-material-effect-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:02:31.646634
 
 ---
@@ -112,4 +112,4 @@ The **ComponentMask** node is an alternative to the DotProduct node with the blu
 
 Cut a Mesh in Half
 
-Learn how to create a material that cuts a mesh in half.](https://dev.epicgames.com/documentation/en-us/fortnite/cutting-a-mesh-in-half-in-unreal-editor-for-fortnite)
+Learn how to create a material that cuts a mesh in half.](<https://dev.epicgames.com/documentation/en-us/fortnite/cutting-a-mesh-in-half-in-unreal-editor-for-fortnite>)

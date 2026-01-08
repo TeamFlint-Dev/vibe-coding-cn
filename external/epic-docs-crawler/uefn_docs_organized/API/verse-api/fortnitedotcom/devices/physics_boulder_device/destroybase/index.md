@@ -1,6 +1,6 @@
 # DestroyBase function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/physics_boulder_device/destroybase
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/physics_boulder_device/destroybase>
 > **爬取时间**: 2025-12-27T05:35:33.736460
 
 ---

@@ -1,6 +1,6 @@
 # item_vehicle_mod_off_road_tires class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_vehicle_mod_off_road_tires
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_vehicle_mod_off_road_tires>
 > **爬取时间**: 2025-12-27T03:41:22.541902
 
 ---

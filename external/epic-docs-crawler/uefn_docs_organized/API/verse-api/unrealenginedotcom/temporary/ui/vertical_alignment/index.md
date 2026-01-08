@@ -1,6 +1,6 @@
 # vertical_alignment enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/vertical_alignment
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/vertical_alignment>
 > **爬取时间**: 2025-12-27T07:07:52.554809
 
 ---

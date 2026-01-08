@@ -1,6 +1,6 @@
 # editable_slider function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/editable_slider
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/editable_slider>
 > **爬取时间**: 2025-12-27T00:56:47.986876
 
 ---

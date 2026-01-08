@@ -1,6 +1,6 @@
 # bundle_offer class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/bundle_offer
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/bundle_offer>
 > **爬取时间**: 2025-12-27T01:14:48.652184
 
 ---

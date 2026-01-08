@@ -1,6 +1,6 @@
 # item_mk_alpha_assault_rifle_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/megaitems/item_mk_alpha_assault_rifle_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/megaitems/item_mk_alpha_assault_rifle_legendary>
 > **爬取时间**: 2025-12-27T04:40:02.572742
 
 ---

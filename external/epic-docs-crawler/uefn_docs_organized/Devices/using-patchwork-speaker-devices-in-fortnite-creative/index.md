@@ -1,6 +1,6 @@
 # Speaker
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-speaker-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-speaker-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:05:49.691393
 
 ---
@@ -144,7 +144,7 @@ Patch the Instrument Player into the Speaker to hear the instrument play the mus
 
 Instrument Player
 
-The Instrument Player device gives you a selection of instruments for playing melodic content.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative)
+The Instrument Player device gives you a selection of instruments for playing melodic content.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative>)
 
 Patch the Distortion Effect into the Speaker to hear distortion in your music.
 
@@ -152,7 +152,7 @@ Patch the Distortion Effect into the Speaker to hear distortion in your music.
 
 Distortion Effect
 
-Use this audio-shaping tool that results in sounds typical of genres like electronic, rock, and metal.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-distortion-effect-devices-in-fortnite-creative)
+Use this audio-shaping tool that results in sounds typical of genres like electronic, rock, and metal.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-distortion-effect-devices-in-fortnite-creative>)
 
 Patch the Echo Effect into the Speaker to hear echo in the music.
 
@@ -160,7 +160,7 @@ Patch the Echo Effect into the Speaker to hear echo in the music.
 
 Echo Effect
 
-This device takes in an audio signal and sends it out again, but with a time delay, like your voice echoing in a canyon.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative)
+This device takes in an audio signal and sends it out again, but with a time delay, like your voice echoing in a canyon.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative>)
 
 Patch the Omega Synth into Speaker to hear synth sounds in your music.
 
@@ -168,4 +168,4 @@ Patch the Omega Synth into Speaker to hear synth sounds in your music.
 
 Omega Synthesizer
 
-The Omega Synthesizer device allows you to turn note inputs into audio data.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)
+The Omega Synthesizer device allows you to turn note inputs into audio data.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative>)

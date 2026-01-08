@@ -1,6 +1,6 @@
 # player_ui class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/player_ui
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/player_ui>
 > **爬取时间**: 2025-12-27T07:09:02.803313
 
 ---

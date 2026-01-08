@@ -1,6 +1,6 @@
 # SetPlaybackFrame function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/cinematic_sequence_device/setplaybackframe
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/cinematic_sequence_device/setplaybackframe>
 > **爬取时间**: 2025-12-27T05:13:13.935313
 
 ---

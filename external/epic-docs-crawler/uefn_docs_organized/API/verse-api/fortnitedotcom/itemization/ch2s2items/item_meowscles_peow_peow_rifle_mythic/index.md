@@ -1,6 +1,6 @@
 # item_meowscles_peow_peow_rifle_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_meowscles_peow_peow_rifle_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s2items/item_meowscles_peow_peow_rifle_mythic>
 > **爬取时间**: 2025-12-27T03:02:10.761268
 
 ---

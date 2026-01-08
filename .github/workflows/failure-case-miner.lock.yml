@@ -31,6 +31,7 @@ name: "Failure Case Miner"
         required: false
         type: string
       skill_path:
+        default: skills/github/ghAgenticWorkflows/workUnits/failureCaseMiner
         description: 目标 Skill 路径 (如 skills/verseDev/verseComponent)
         required: false
         type: string
@@ -163,7 +164,7 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /tmp/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1},"create_issue":{"max":3},"missing_tool":{"max":0},"noop":{"max":1}}
+          {"add_comment":{"max":1},"create_issue":{"max":3},"create_pull_request":{},"missing_tool":{"max":0},"noop":{"max":1}}
           EOF
           cat > /tmp/gh-aw/safeoutputs/tools.json << 'EOF'
           [
@@ -228,6 +229,39 @@ jobs:
                 "type": "object"
               },
               "name": "add_comment"
+            },
+            {
+              "description": "Create a new GitHub pull request to propose code changes. Use this after making file edits to submit them for review and merging. The PR will be created from the current branch with your committed changes. For code review comments on an existing PR, use create_pull_request_review_comment instead. CONSTRAINTS: Maximum 1 pull request(s) can be created. Title will be prefixed with \"[failure-case-miner] \".",
+              "inputSchema": {
+                "additionalProperties": false,
+                "properties": {
+                  "body": {
+                    "description": "Detailed PR description in Markdown. Include what changes were made, why, testing notes, and any breaking changes. Do NOT repeat the title as a heading.",
+                    "type": "string"
+                  },
+                  "branch": {
+                    "description": "Source branch name containing the changes. If omitted, uses the current working branch.",
+                    "type": "string"
+                  },
+                  "labels": {
+                    "description": "Labels to categorize the PR (e.g., 'enhancement', 'bugfix'). Labels must exist in the repository.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "title": {
+                    "description": "Concise PR title describing the changes. Follow repository conventions (e.g., conventional commits). The title appears as the main heading.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "body"
+                ],
+                "type": "object"
+              },
+              "name": "create_pull_request"
             },
             {
               "description": "Report that a tool or capability needed to complete the task is not available. Use this when you cannot accomplish what was requested because the required functionality is missing or access is restricted.",
@@ -314,6 +348,35 @@ jobs:
                 },
                 "temporary_id": {
                   "type": "string"
+                },
+                "title": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 128
+                }
+              }
+            },
+            "create_pull_request": {
+              "defaultMax": 1,
+              "fields": {
+                "body": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 65000
+                },
+                "branch": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 256
+                },
+                "labels": {
+                  "type": "array",
+                  "itemType": "string",
+                  "itemSanitize": true,
+                  "itemMaxLength": 128
                 },
                 "title": {
                   "required": true,
@@ -488,12 +551,25 @@ jobs:
           ## 任务上下文
           
           - **仓库**: __GH_AW_GITHUB_REPOSITORY__
-          - **目标 Skill**: "__GH_AW_GITHUB_EVENT_INPUTS_SKILL_PATH__"
+          - **目标 Skill**: "__GH_AW_GITHUB_EVENT_INPUTS_SKILL_PATH__"（默认沉淀到本 Work Unit）
           - **回溯天数**: __GH_AW_GITHUB_EVENT_INPUTS_DAYS_BACK__
           
           ## 核心理念
           
           > **错误即素材**：困难和错误值得被记录，它们是研究的起点。
+          
+          ## Work Unit 技能包（自维护）
+          
+          本 Work Unit 的知识包位置：
+          
+          - `skills/github/ghAgenticWorkflows/workUnits/failureCaseMiner/`
+          
+          运行时会读取其中的：
+          
+          - `SKILL.md`
+          - `PREFLIGHT-CHECKLIST.md`
+          - `CAPABILITY-BOUNDARIES.md`
+          - `FAILURE-CASES.md`
           
           ## 分析流程
           
@@ -502,6 +578,7 @@ jobs:
           搜索过去 N 天内的 Issue：
           
           使用 GitHub tools 搜索：
+          
           - 标签包含 bug、error、问题 的 Issue
           - 标题/内容包含"编译失败"、"错误"、"踩坑"的 Issue
           - 已关闭的 Issue（可能包含解决方案）
@@ -509,6 +586,7 @@ jobs:
           ### Phase 2: 搜索相关 PR
           
           搜索 PR 中的问题修复：
+          
           - 标题包含 fix、修复 的 PR
           - PR review 评论中的问题讨论
           - 被 revert 的 PR
@@ -526,27 +604,50 @@ jobs:
           ### Phase 4: 检查现有 FAILURE-CASES.md
           
           ```bash
-          # 查找现有的失败案例文件
-          find skills -name "FAILURE-CASES.md" | head -10
+          # 读取 Work Unit 自维护 Skill（用于对齐格式与要求）
+          echo "\n== Work Unit Skill (failureCaseMiner) =="
+          cat "skills/github/ghAgenticWorkflows/workUnits/failureCaseMiner/SKILL.md" 2>/dev/null | head -80 || true
           
-          # 读取示例
-          cat skills/verseDev/FAILURE-CASES.md 2>/dev/null | head -50 || echo "No file found"
+          echo "\n== Work Unit Prefight Checklist =="
+          cat "skills/github/ghAgenticWorkflows/workUnits/failureCaseMiner/PREFLIGHT-CHECKLIST.md" 2>/dev/null | head -80 || true
+          
+          # 目标沉淀路径（默认指向本 Work Unit 的知识包）
+          echo "Target skill_path: __GH_AW_GITHUB_EVENT_INPUTS_SKILL_PATH__"
+          
+          # 检查目标文件是否存在
+          test -f "__GH_AW_GITHUB_EVENT_INPUTS_SKILL_PATH__/FAILURE-CASES.md" \
+            && echo "Found: __GH_AW_GITHUB_EVENT_INPUTS_SKILL_PATH__/FAILURE-CASES.md" \
+            || echo "Missing: __GH_AW_GITHUB_EVENT_INPUTS_SKILL_PATH__/FAILURE-CASES.md"
+          
+          # 预览目标文件头部，确认格式
+          cat "__GH_AW_GITHUB_EVENT_INPUTS_SKILL_PATH__/FAILURE-CASES.md" 2>/dev/null | head -60 || true
           ```
           
           ### Phase 5: 提炼失败案例
           
           对每个发现的问题，提取：
+          
           1. **现象**：观察到的错误表现
           2. **根因**：问题的根本原因
           3. **修复**：如何解决的
           4. **教训**：可以总结的检查项
           
-          ### Phase 6: 创建 Issue 追踪
+          ### Phase 6: 沉淀到 FAILURE-CASES.md（优先）
+          
+          将提炼出的失败案例，按仓库统一的 FC 模板，写入目标 Skill：
+          
+          - 目标文件：`__GH_AW_GITHUB_EVENT_INPUTS_SKILL_PATH__/FAILURE-CASES.md`
+          - 要求：更新“案例索引表”并追加“案例详情”
+          
+          如果信息不完整、或你无法确定根因，请标注不确定点，并转入 Phase 7 创建 Issue 追踪。
+          
+          ### Phase 7: 创建 PR / Issue 追踪
           
           为需要沉淀的失败案例创建 Issue：
           
           **Issue 内容模板**:
-          ```markdown
+          
+          ````markdown
           ## 失败案例待沉淀
           
           ### 来源
@@ -590,11 +691,18 @@ jobs:
           - [ ] 更新 PREFLIGHT-CHECKLIST.md: {具体检查项}
           - [ ] 更新 CAPABILITY-BOUNDARIES.md: {具体边界}
           ```
-          ```
           
-          ### Phase 7: 统计总结
+          ````
+          
+          同时：
+          
+          - 如果你对仓库文件做了任何修改（例如更新 `FAILURE-CASES.md`），请通过 `create-pull-request` 提交变更。
+          - 如果没有文件修改，仅创建 Issue 并在触发来源处用 `add-comment` 汇报统计。
+          
+          ### Phase 8: 统计总结
           
           输出挖掘统计：
+          
           - 扫描的 Issue/PR 数量
           - 发现的潜在失败案例数
           - 已沉淀 vs 待沉淀的比例
@@ -649,7 +757,7 @@ jobs:
           <instructions>
           To create or modify GitHub resources (issues, discussions, pull requests, etc.), you MUST call the appropriate safe output tool. Simply writing content will NOT work - the workflow requires actual tool calls.
           
-          **Available tools**: add_comment, create_issue, missing_tool, noop
+          **Available tools**: add_comment, create_issue, create_pull_request, missing_tool, noop
           
           **Critical**: Tool calls write structured data that downstream jobs process. Without tool calls, follow-up actions will be skipped.
           </instructions>
@@ -885,6 +993,13 @@ jobs:
             setupGlobals(core, github, context, exec, io);
             const { main } = require('/tmp/gh-aw/actions/validate_errors.cjs');
             await main();
+      - name: Upload git patch
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: aw.patch
+          path: /tmp/gh-aw/aw.patch
+          if-no-files-found: ignore
 
   conclusion:
     needs:
@@ -1137,12 +1252,13 @@ jobs:
 
   safe_outputs:
     needs:
+      - activation
       - agent
       - detection
     if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (needs.detection.outputs.success == 'true')
     runs-on: ubuntu-slim
     permissions:
-      contents: read
+      contents: write
       discussions: write
       issues: write
       pull-requests: write
@@ -1170,12 +1286,37 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs/
           find "/tmp/gh-aw/safeoutputs/" -type f -print
           echo "GH_AW_AGENT_OUTPUT=/tmp/gh-aw/safeoutputs/agent_output.json" >> "$GITHUB_ENV"
+      - name: Download patch artifact
+        continue-on-error: true
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: aw.patch
+          path: /tmp/gh-aw/
+      - name: Checkout repository
+        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          token: ${{ github.token }}
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Configure Git credentials
+        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
+        env:
+          REPO_NAME: ${{ github.repository }}
+          SERVER_URL: ${{ github.server_url }}
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          # Re-authenticate git with GitHub token
+          SERVER_URL_STRIPPED="${SERVER_URL#https://}"
+          git remote set-url origin "https://x-access-token:${{ github.token }}@${SERVER_URL_STRIPPED}/${REPO_NAME}.git"
+          echo "Git configured with standard GitHub Actions identity"
       - name: Process Safe Outputs
         id: process_safe_outputs
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"failure-case\",\"knowledge-capture\"],\"max\":3,\"title_prefix\":\"[Failure Case] \"}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"failure-case\",\"knowledge-capture\"],\"max\":3,\"title_prefix\":\"[Failure Case] \"},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[failure-case-miner] \"}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |

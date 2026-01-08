@@ -1,6 +1,6 @@
 # event function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/event
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/event>
 > **爬取时间**: 2025-12-27T00:20:33.946625
 
 ---

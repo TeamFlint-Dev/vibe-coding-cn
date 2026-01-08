@@ -1,6 +1,6 @@
 # GetDefaultCooldownDuration function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/nitro_hoop_device/getdefaultcooldownduration
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/nitro_hoop_device/getdefaultcooldownduration>
 > **爬取时间**: 2025-12-27T05:52:11.265182
 
 ---

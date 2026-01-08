@@ -1,6 +1,6 @@
 # SetDuration function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/powerup_device/setduration
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/powerup_device/setduration>
 > **爬取时间**: 2025-12-27T05:56:06.066029
 
 ---

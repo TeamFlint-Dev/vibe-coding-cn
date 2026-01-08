@@ -1,6 +1,6 @@
 # item_zero_point_pretzel class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_zero_point_pretzel
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_zero_point_pretzel>
 > **爬取时间**: 2025-12-27T03:15:14.739349
 
 ---

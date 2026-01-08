@@ -1,6 +1,6 @@
 # Mix Tape
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/mix-tape-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/mix-tape-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:28:12.595855
 
 ---
@@ -95,6 +95,7 @@ Each of the devices you need for this gameplay example is described below.
    | **Outline** | Light | Adding an outline makes the text easier to see. |
    | **Shadow** | Lower Right | Adding a shadow makes the text easier to see. |
    | **Background Color** | Blue | Adding color to the background makes the text easier to read. |
+
 3. Change the **My Island Settings** option for **Environmental Damage** to **Off**.
 
    [![Edit the My Island Settings option for Environmental Destruction to Off](https://dev.epicgames.com/community/api/documentation/image/fba51bbb-5104-4f78-b832-4e0bd6e61c70?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/fba51bbb-5104-4f78-b832-4e0bd6e61c70?resizing_type=fit)

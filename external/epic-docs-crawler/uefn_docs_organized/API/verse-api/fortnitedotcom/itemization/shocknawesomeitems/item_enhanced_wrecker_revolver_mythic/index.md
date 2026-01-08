@@ -1,6 +1,6 @@
 # item_enhanced_wrecker_revolver_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_enhanced_wrecker_revolver_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/shocknawesomeitems/item_enhanced_wrecker_revolver_mythic>
 > **爬取时间**: 2025-12-27T04:27:03.085544
 
 ---

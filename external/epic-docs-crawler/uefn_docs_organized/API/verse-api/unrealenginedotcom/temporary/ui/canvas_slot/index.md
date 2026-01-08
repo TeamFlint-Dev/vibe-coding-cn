@@ -1,6 +1,6 @@
 # canvas_slot struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/canvas_slot
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/canvas_slot>
 > **爬取时间**: 2025-12-27T07:07:47.134385
 
 ---

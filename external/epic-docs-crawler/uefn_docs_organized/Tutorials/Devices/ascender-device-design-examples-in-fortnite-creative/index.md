@@ -1,6 +1,6 @@
 # Ascender Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/ascender-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/ascender-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:05:47.148156
 
 ---
@@ -33,6 +33,7 @@ The ascender is great for giving players a way to gain the high ground in a comp
    | --- | --- | --- |
    | **Receiving Players** | All | Any player can receive the rifle. |
    | **Grant on Game Start** | On | The player receives the rifle at the start of the game. |
+
 4. Place an **Ascender** device leading up to the top of the tower.
 5. Customize the ascender as follows:
 
@@ -41,6 +42,7 @@ The ascender is great for giving players a way to gain the high ground in a comp
    | Option | Value | Description |
    | --- | --- | --- |
    | **Ascender Style** | Wall | The ascender looks like a wall. |
+
 6. Place a **Guard Spawner** on the ground.
 7. Customize the device as follows:
 
@@ -93,6 +95,7 @@ The Ascender device can be configured to send events when players begin or end a
    | **Light Size** | Huge (100) | Sets how much area the light will shine on. |
    | **Rhythm Preset** | Wave | Makes the light change in a rhythmic pattern. |
    | **Rhythm Time** | X8 | How fast the pattern changes. |
+
 3. Configure the following [functions](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary) on the light to turn it on when the player reaches the top of the ascender.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/7ecc00ee-d20b-46b1-86ac-06f627759136?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7ecc00ee-d20b-46b1-86ac-06f627759136?resizing_type=fit)
@@ -100,6 +103,7 @@ The Ascender device can be configured to send events when players begin or end a
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Turn On** | Ascender | Ascend End |
+
 4. Place an Audio Player device.
 5. Customize the audio player as follows:
 
@@ -111,6 +115,7 @@ The Ascender device can be configured to send events when players begin or end a
    | **Visible in Game** | On | Players can see the device in-game. |
    | **Play on Hit** | Off | Doesn't make a sound if the player collides with it. |
    | **Mesh** | Loudspeaker | The device will appear as a loudspeaker in-game. |
+
 6. Configure the following functions on the audio player to play the sound when the player finishes ascending.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/dbb673b2-0567-44fa-9965-9ee532640966?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/dbb673b2-0567-44fa-9965-9ee532640966?resizing_type=fit)
@@ -118,6 +123,7 @@ The Ascender device can be configured to send events when players begin or end a
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Play** | Ascender | Ascend End |
+
 7. Duplicate the Customizable Light and Audio Player devices four times each, placing them around the castle.
 
 You now have the basic functionality for a system that triggers an alarm when a player uses the ascender.
@@ -128,7 +134,7 @@ This functionality could be very engaging in an asymmetrical game mode where one
 
 Consider using this system to increase the tension in a single-player heist game mode!
 
-## Example 3: Build a Boss Battle Entrance with the Ascender!
+## Example 3: Build a Boss Battle Entrance with the Ascender
 
 The **Ascender** device can be enabled and disabled with events from other devices, making it perfect for a traversal method that can be unlocked.
 
@@ -164,6 +170,7 @@ In this example, you’ll set up a basic adventure game with a locked ascender t
    | --- | --- | --- |
    | **Creature Type** | Red Fiend | Vary this setting between the Creature Placers to create interesting gameplay. |
    | **Activation Range** | 5.0 Tiles | Vary this setting between the Creature Placers to create interesting gameplay. |
+
 4. Place an **Elimination Manager** device, then register a stack of **gold** to the device.
 5. Customize the elimination manager as follows:
 
@@ -171,6 +178,7 @@ In this example, you’ll set up a basic adventure game with a locked ascender t
    | --- | --- | --- |
    | **Target Type** | All creatures | This applies to any creatures you add. |
    | **Run Over Pickup** | On | Lets the player pick up an item by running over it. |
+
 6. Place a **Post Process** device.
 7. Customize the device by setting the **Post Process Effect** option to **Horror Movie** to make things look creepy.
 
@@ -206,6 +214,7 @@ Consider adding more trees, rocks, or other props along the path to give it a mo
    | --- | --- | --- |
    | **Creature Type** | Major Ice Brute | This creature type makes a good boss! |
    | **Activation Range** | 3.0 Tiles | How close the player has to get before the creature is activated. |
+
 3. Place an **Item Granter** device and register a **Pump Shotgun** to it.
 4. Customize the Item Granter by setting the **Spare Weapon Ammo** to **999**.
 
@@ -220,6 +229,7 @@ Consider adding more trees, rocks, or other props along the path to give it a mo
    | **Limit Audio Distance** | Off |  |
    | **Volume** | 2.0 |  |
    | **Play at Location** | Registered Players |  |
+
 6. Place an **End Game** device and set the **Custom Victory Callout** option to **Boss Defeated!**
 
    [![](https://dev.epicgames.com/community/api/documentation/image/35808881-ccbd-45e1-9477-1f4c24aa71e9?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/35808881-ccbd-45e1-9477-1f4c24aa71e9?resizing_type=fit)
@@ -235,6 +245,7 @@ Consider adding more trees, rocks, or other props along the path to give it a mo
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | **On Activated** | Ascender | Enable |
+
 2. Configure the following events on the ascender to grant the shotgun to the player and start the boss music when they reach the top of the hill.
 
    (w:600)
@@ -244,6 +255,7 @@ Consider adding more trees, rocks, or other props along the path to give it a mo
    | **Ascend End** | Radio | Play |
    | **Ascend End** | Radio | Register Player |
    | **Item Granter** | Item Granter | Grant Item |
+
 3. Configure the following events on the **Boss Creature Placer** device to end the game when the boss is defeated.
 
    (w:600)

@@ -1,6 +1,6 @@
 # item_ex_caliber_rifle_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_ex_caliber_rifle_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_ex_caliber_rifle_uncommon>
 > **爬取时间**: 2025-12-27T04:35:35.969225
 
 ---

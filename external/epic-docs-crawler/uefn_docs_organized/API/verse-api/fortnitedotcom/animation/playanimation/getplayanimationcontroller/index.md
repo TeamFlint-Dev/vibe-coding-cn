@@ -1,6 +1,6 @@
 # (InCharacter:fort_character).GetPlayAnimationController extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/animation/playanimation/getplayanimationcontroller
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/animation/playanimation/getplayanimationcontroller>
 > **爬取时间**: 2025-12-27T07:07:24.815993
 
 ---

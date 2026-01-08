@@ -1,6 +1,6 @@
 # 39.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/39-00-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/39-00-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-26T22:56:37.403148
 
 ---
@@ -15,7 +15,7 @@ All monetization metrics are now available in the Monetization page in Creator P
 
 There are several updates for in-island transactions in this release.
 
-### Island Publishing on Jan 9, 2026!
+### Island Publishing on Jan 9, 2026
 
 Publishing for in-island transactions will now open on **January 9, 2026**. We’re shifting the date out to give ourselves more time to test and fix bugs before going live to players. You will see the Experimental flag removed for in-island transactions, but publishing will not go live until January 9.
 
@@ -27,7 +27,7 @@ The following are now available for testing on your island:
 - Validation rules, such as receiving an error when the products have invalid data (exceeding V-Bucks pricing maximums)
 - Real & persistence flows (no V-Bucks deducted)
 
-### Consequential to Gameplay Function Added!
+### Consequential to Gameplay Function Added
 
 Items that give players meaningful advantages for gameplay are considered **Consequential to Gameplay**, and in your code `ConsequentialToGameplay` must be set to `True`. To learn more about consequential to gameplay items, see [Creating Items and Offers](https://dev.epicgames.com/documentation/en-us/fortnite/creating-items-and-offers-in-fortnite).
 

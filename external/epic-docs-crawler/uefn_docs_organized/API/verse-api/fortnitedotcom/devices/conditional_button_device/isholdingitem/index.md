@@ -1,6 +1,6 @@
 # IsHoldingItem function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conditional_button_device/isholdingitem
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conditional_button_device/isholdingitem>
 > **爬取时间**: 2025-12-27T06:01:50.652604
 
 ---

@@ -1,6 +1,6 @@
 # function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/function
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/function>
 > **爬取时间**: 2025-12-27T02:03:28.344383
 
 ---

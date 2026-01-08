@@ -1,6 +1,6 @@
 # GetShield function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/shieldable/getshield
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/shieldable/getshield>
 > **爬取时间**: 2025-12-27T02:52:52.656299
 
 ---

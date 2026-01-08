@@ -1,6 +1,6 @@
 # Adding Audio to Your Project
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/adding-audio-to-your-project-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/adding-audio-to-your-project-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:16:17.871152
 
 ---
@@ -78,25 +78,25 @@ The audio you import and the sound cues you create can be selected from differen
 
 Following are a few techniques to maximize audio quality in your UEFN experiences.
 
-### Use an audio asset's dynamic range.
+### Use an audio asset's dynamic range
 
 Make sure your imported audio is fully utilizing its dynamic range.
 
 Audio assets you create should try to avoid compressing their dynamic range too much so you can control the volume of the sounds inside the UEFN experience itself (using the [Audio Mixer device](https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-mixer-devices-in-unreal-editor-for-fortnite) and setting volumes on the generated assets in UEFN). When audio sums together in an audio engine, all the noise in the asset will accumulate and the audio in your experience can get loud very fast depending on the amount of audio that is playing.
 
-### Use similar volume levels in a group.
+### Use similar volume levels in a group
 
 Make sure the volume of the assets you intend to control in a common group using the [Audio Mixer device](https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-mixer-devices-in-unreal-editor-for-fortnite) are at a similar volume level.
 
 When you control the volume of a group of sounds, it’s helpful if the sounds in that group are of similar perceptual volume. This is a little tricky to get right and it doesn’t have to be perfect, but loudness perception is non-linear, and it depends on the frequency content of the sound. This means that different sounds at different perceptual loudness levels will react to different volume changes in a way that is hard to predict.
 
-### Keep an eye on memory usage.
+### Keep an eye on memory usage
 
 Try to avoid using large files, and be creative when making longer duration sounds. For example, instead of a three-minute ambience loop, consider breaking it down into smaller fragments of sound that crossfade randomly in a sound cue.
 
 See [Memory Management](https://dev.epicgames.com/documentation/en-us/uefn/memory-management-in-unreal-editor-for-fortnite) for more tips.
 
-### Subtlety is key.
+### Subtlety is key
 
 It's common to focus on the big sounds in a game experience, but the small, quiet sounds are a huge aspect of creating a believable immersive audio experience.
 
@@ -106,16 +106,16 @@ It's common to focus on the big sounds in a game experience, but the small, quie
 
 Audio Player Device
 
-Import, play and customize sound waves and sound cues.](https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-player-devices-in-unreal-editor-for-fortnite)[![The Audio Mixer Device](https://dev.epicgames.com/community/api/documentation/image/36ccfbcb-c8fd-4297-88a7-4d90754a1f69?resizing_type=fit&width=640&height=640)
+Import, play and customize sound waves and sound cues.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-player-devices-in-unreal-editor-for-fortnite)[![The> Audio Mixer Device](<https://dev.epicgames.com/community/api/documentation/image/36ccfbcb-c8fd-4297-88a7-4d90754a1f69?resizing_type=fit&width=640&height=640>)
 
 The Audio Mixer Device
 
-Adjust volumes of sound groups using the Audio Mixer device.](https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-mixer-devices-in-unreal-editor-for-fortnite)[![Importing Custom Audio](https://dev.epicgames.com/community/api/documentation/image/54adc69d-66fe-4b57-8b03-df9597f7f562?resizing_type=fit&width=640&height=640)
+Adjust volumes of sound groups using the Audio Mixer device.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-mixer-devices-in-unreal-editor-for-fortnite)[![Importing> Custom Audio](<https://dev.epicgames.com/community/api/documentation/image/54adc69d-66fe-4b57-8b03-df9597f7f562?resizing_type=fit&width=640&height=640>)
 
 Importing Custom Audio
 
-Import custom audio into your island and immerse players in the world of your creation.](https://dev.epicgames.com/documentation/en-us/fortnite/importing-custom-audio-in-unreal-editor-for-fortnite)[![Audio Troubleshooting](https://dev.epicgames.com/community/api/documentation/image/b3caded9-a92a-4682-91dd-ee1acc7fdfa4?resizing_type=fit&width=640&height=640)
+Import custom audio into your island and immerse players in the world of your creation.](<https://dev.epicgames.com/documentation/en-us/fortnite/importing-custom-audio-in-unreal-editor-for-fortnite)[![Audio> Troubleshooting](<https://dev.epicgames.com/community/api/documentation/image/b3caded9-a92a-4682-91dd-ee1acc7fdfa4?resizing_type=fit&width=640&height=640>)
 
 Audio Troubleshooting
 
-Answers to common audio issues in Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/audio-troubleshooting-in-unreal-editor-for-fortnite)
+Answers to common audio issues in Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/audio-troubleshooting-in-unreal-editor-for-fortnite>)

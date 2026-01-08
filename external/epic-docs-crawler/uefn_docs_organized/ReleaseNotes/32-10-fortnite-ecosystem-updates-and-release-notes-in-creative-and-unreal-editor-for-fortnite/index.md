@@ -1,6 +1,6 @@
 # 32.10 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/32-10-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/32-10-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:35:08.848723
 
 ---
@@ -9,7 +9,7 @@ We’re excited to see what you've been creating! Starting today, you'll be able
 
 In this v32.10 release, there's also a brand new holiday-themed template for LEGO® Island creators, featuring sample Verse code, game examples, and tutorials for building a factory-style game.
 
-## You Can Now Publish Your Teenage Mutant Ninja Turtles Islands!
+## You Can Now Publish Your Teenage Mutant Ninja Turtles Islands
 
 [![TNMT banner](https://dev.epicgames.com/community/api/documentation/image/6eb0c752-515a-4a46-a67b-7c55fd058a2e?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6eb0c752-515a-4a46-a67b-7c55fd058a2e?resizing_type=fit)
 
@@ -47,7 +47,7 @@ By default, actors **checked out by others** and actors that are **out of date**
 
 We've also improved the Outliner's functionality to enable you to filter by revision control status!
 
-## First Person Camera Mode Device Enters Beta Soon!
+## First Person Camera Mode Device Enters Beta Soon
 
 The First Person Camera Mode device is entering Beta on December 11, meaning you'll soon be able to publish islands using this device! Starting December 11, head to the [Creator Portal](https://create.fortnite.com/welcome) to submit your island for content review.
 

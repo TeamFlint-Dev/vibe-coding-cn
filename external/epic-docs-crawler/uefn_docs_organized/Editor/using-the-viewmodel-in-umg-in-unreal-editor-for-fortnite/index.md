@@ -1,6 +1,6 @@
 # Using the Viewmodel in UMG
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-the-viewmodel-in-umg-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-the-viewmodel-in-umg-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:07:40.771703
 
 ---
@@ -20,12 +20,12 @@ For a deeper dive into Viewmodel, refer to [**UMG Viewmodel**](https://dev.epicg
 
 Conversion Functions: Showing Textures from a Viewmodel
 
-Use conversion functions to insert images and icons into your User Widget.](https://dev.epicgames.com/documentation/en-us/fortnite/conversion-functions-showing-textures-from-a-viewmodel)[![Conversion Functions: To Text (Int) and To Text (Double)](https://dev.epicgames.com/community/api/documentation/image/d656c7d4-4ea6-4886-b136-195f1d00224f?resizing_type=fit&width=640&height=640)
+Use conversion functions to insert images and icons into your User Widget.](<https://dev.epicgames.com/documentation/en-us/fortnite/conversion-functions-showing-textures-from-a-viewmodel)[![Conversion> Functions: To Text (Int) and To Text (Double)](<https://dev.epicgames.com/community/api/documentation/image/d656c7d4-4ea6-4886-b136-195f1d00224f?resizing_type=fit&width=640&height=640>)
 
 Conversion Functions: To Text (Int) and To Text (Double)
 
-Learn how to use the ToText (Int) and ToText (Double) conversion functions to create custom UI.](https://dev.epicgames.com/documentation/en-us/fortnite/conversion-functions-to-text-int-and-to-text-double-in-unreal-editor-for-fortnite)[![Conversion Function: Setting Material Parameters in UMG](https://dev.epicgames.com/community/api/documentation/image/8a7d05ca-a118-4a83-9383-cdaf1c10ce9d?resizing_type=fit&width=640&height=640)
+Learn how to use the ToText (Int) and ToText (Double) conversion functions to create custom UI.](<https://dev.epicgames.com/documentation/en-us/fortnite/conversion-functions-to-text-int-and-to-text-double-in-unreal-editor-for-fortnite)[![Conversion> Function: Setting Material Parameters in UMG](<https://dev.epicgames.com/community/api/documentation/image/8a7d05ca-a118-4a83-9383-cdaf1c10ce9d?resizing_type=fit&width=640&height=640>)
 
 Conversion Function: Setting Material Parameters in UMG
 
-Use dynamic materials to create custom UI in UMG.](https://dev.epicgames.com/documentation/en-us/fortnite/conversion-function-setting-material-parameters-in-umg-in-unreal-editor-for-fortnite)
+Use dynamic materials to create custom UI in UMG.](<https://dev.epicgames.com/documentation/en-us/fortnite/conversion-function-setting-material-parameters-in-umg-in-unreal-editor-for-fortnite>)

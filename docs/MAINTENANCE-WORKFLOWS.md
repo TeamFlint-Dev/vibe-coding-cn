@@ -8,6 +8,7 @@
 ## 概览
 
 这 10 个 Agent Workflows 专注于**仓库维护**和**需求发掘**，帮助你：
+
 - 发现仓库中的改进机会
 - 通过 Issue 追踪待办事项
 - 沉淀知识和经验
@@ -105,7 +106,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 |------|------|------|--------|------|
 | `focus_area` | string | 否 | `all` | 聚焦领域: verseDev/gameDev/infra/all |
 
-**适用场景**: 
+**适用场景**:
+
 - 定期检查 Skill 体系完整性
 - 发现需要补充的技能文档
 - 找出文档不完整的 Skill
@@ -118,7 +120,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 |------|------|------|--------|------|
 | `project_name` | string | ✅ 是 | - | 项目名称 (如 fishing) |
 
-**适用场景**: 
+**适用场景**:
+
 - 不知道项目下一步该做什么
 - 项目阶段切换时
 - 需要梳理项目进度
@@ -131,7 +134,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 |------|------|------|--------|------|
 | `api_type` | string | 否 | `all` | API 类型: Verse/Fortnite/UnrealEngine/all |
 
-**适用场景**: 
+**适用场景**:
+
 - UEFN 版本更新后
 - 怀疑 API 文档过时
 - 定期同步检查
@@ -145,7 +149,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 | `skill_path` | string | 否 | - | 目标 Skill 路径 |
 | `days_back` | string | 否 | `30` | 回溯天数 |
 
-**适用场景**: 
+**适用场景**:
+
 - 知识沉淀周期性任务
 - 发现 Issue 中有价值的经验
 - 补充 FAILURE-CASES.md
@@ -158,12 +163,14 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 |------|------|------|--------|------|
 | `topic` | string | ✅ 是 | - | 研究主题 |
 
-**适用场景**: 
+**适用场景**:
+
 - 学习 Verse 新特性
 - 调研最佳实践
 - 探索社区方案
 
 **示例主题**:
+
 - "SceneGraph最佳实践"
 - "Verse性能优化"
 - "Entity-Component架构"
@@ -177,7 +184,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 |------|------|------|--------|------|
 | `project_name` | string | ✅ 是 | - | 项目名称 |
 
-**适用场景**: 
+**适用场景**:
+
 - 设计阶段完成后的质量检查
 - 准备进入开发前的验证
 - 设计文档维护
@@ -190,7 +198,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 |------|------|------|--------|------|
 | `skill_path` | string | ✅ 是 | - | Skill 路径 |
 
-**适用场景**: 
+**适用场景**:
+
 - Skill 创建后的质量检查
 - 定期质量审计
 - 发现改进机会
@@ -204,7 +213,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 | `report_scope` | string | 否 | `repo` | 范围: repo/project/skill |
 | `target_path` | string | 否 | - | 目标路径 (project/skill 需要) |
 
-**适用场景**: 
+**适用场景**:
+
 - 每周例行回顾
 - 项目进度汇报
 - 团队同步
@@ -217,7 +227,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 |------|------|------|--------|------|
 | `scan_path` | string | 否 | - | 扫描路径，留空扫描全部 |
 
-**适用场景**: 
+**适用场景**:
+
 - 代码重构时
 - 发现重复代码
 - 扩展代码库
@@ -231,7 +242,8 @@ gh aw run skill-quality-auditor -f skill_path=skills/verseDev/verseComponent
 | `focus_area` | string | 否 | `all` | 领域: all/skills/projects/library/infra |
 | `time_horizon` | string | 否 | `month` | 时间范围: week/month/quarter |
 
-**适用场景**: 
+**适用场景**:
+
 - 规划周期开始时
 - 需要梳理优先级
 - 制定阶段目标

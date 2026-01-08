@@ -1,6 +1,6 @@
 # AddTag function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/tag_component/addtag
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/tag_component/addtag>
 > **爬取时间**: 2025-12-27T02:43:06.934221
 
 ---

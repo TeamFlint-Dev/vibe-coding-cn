@@ -1,6 +1,6 @@
 # ActivateLinkToTarget function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/teleporter_device/activatelinktotarget
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/teleporter_device/activatelinktotarget>
 > **爬取时间**: 2025-12-27T06:11:42.925876
 
 ---

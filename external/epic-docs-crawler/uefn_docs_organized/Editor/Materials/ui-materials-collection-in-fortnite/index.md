@@ -1,6 +1,6 @@
 # UI Materials Collection
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/ui-materials-collection-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/ui-materials-collection-in-fortnite>
 > **爬取时间**: 2025-12-27T00:07:13.051550
 
 ---

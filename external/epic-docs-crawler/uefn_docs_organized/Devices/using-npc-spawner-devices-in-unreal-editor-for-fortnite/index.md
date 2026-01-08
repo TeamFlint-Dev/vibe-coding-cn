@@ -1,13 +1,13 @@
 # NPC Spawner Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-npc-spawner-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-npc-spawner-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:15:34.355843
 
 ---
 
 This feature is in Beta. You can publish an island with this feature, but be aware that changes may break your island and may require your active intervention.
 
-With the **NPC Spawner** device, you can create unique creatures, enemies, and more with engaging roles that bring your gameplay to life. These non-playable characters (NPCs) can have health, [patrol set paths](https://dev.epicgames.com/documentation/en-us/fortnite/using-ai-patrol-path-node-devices-in-fortnite-creative), and even aid players in solving puzzles. Use this device to assign scripts and [NPC Character Definitions](https://dev.epicgames.com/documentation/en-us/fortnite/using-npc-character-definitions-in-unreal-editor-for-fortnite) 
+With the **NPC Spawner** device, you can create unique creatures, enemies, and more with engaging roles that bring your gameplay to life. These non-playable characters (NPCs) can have health, [patrol set paths](https://dev.epicgames.com/documentation/en-us/fortnite/using-ai-patrol-path-node-devices-in-fortnite-creative), and even aid players in solving puzzles. Use this device to assign scripts and [NPC Character Definitions](https://dev.epicgames.com/documentation/en-us/fortnite/using-npc-character-definitions-in-unreal-editor-for-fortnite)
 that you can reuse across multiple NPC Spawner devices.
 
 Include NPCs, characters with artificial intelligence (AI), in your gameplay to add an extra layer of immersion. You can customize NPCs to perform various actions, from reviving teammates to following players.

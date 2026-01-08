@@ -1,6 +1,6 @@
 # SetInteractionTime function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/setinteractiontime
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/switch_device/setinteractiontime>
 > **爬取时间**: 2025-12-27T05:48:21.421744
 
 ---

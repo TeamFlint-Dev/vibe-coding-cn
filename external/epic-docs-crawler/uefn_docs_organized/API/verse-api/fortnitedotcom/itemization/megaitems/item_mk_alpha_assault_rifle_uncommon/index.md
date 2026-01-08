@@ -1,6 +1,6 @@
 # item_mk_alpha_assault_rifle_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/megaitems/item_mk_alpha_assault_rifle_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/megaitems/item_mk_alpha_assault_rifle_uncommon>
 > **爬取时间**: 2025-12-27T04:39:24.136754
 
 ---

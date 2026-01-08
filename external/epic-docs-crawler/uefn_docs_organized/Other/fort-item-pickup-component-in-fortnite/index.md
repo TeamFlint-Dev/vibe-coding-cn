@@ -1,6 +1,6 @@
 # Fort Item Pickup Component
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/fort-item-pickup-component-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/fort-item-pickup-component-in-fortnite>
 > **爬取时间**: 2025-12-27T00:34:27.525661
 
 ---
@@ -31,7 +31,7 @@ If you do not want to use this pickup component, you can create your own using t
 
 The fort\_item\_pickup\_component provides a quick way to give items Fortnite comparable behavior.
 
-When the Custom Items and Inventories system is turned on, the `fort_item_pickup_component` is listed in the component dropdown list. For more information, 
+When the Custom Items and Inventories system is turned on, the `fort_item_pickup_component` is listed in the component dropdown list. For more information,
 check out the `fort_item_pickup_component`API reference from the [Verse API](https://dev.epicgames.com/documentation/en-us/fortnite/verse-api).
 
 See **[Components](https://dev.epicgames.com/documentation/en-us/fortnite/components-in-unreal-editor-for-fortnite)** for a complete list of Custom Items and Inventories components.

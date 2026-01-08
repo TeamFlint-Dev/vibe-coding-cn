@@ -1,6 +1,6 @@
 # camera class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/collisionchannels/camera
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/collisionchannels/camera>
 > **爬取时间**: 2025-12-27T02:40:13.394094
 
 ---

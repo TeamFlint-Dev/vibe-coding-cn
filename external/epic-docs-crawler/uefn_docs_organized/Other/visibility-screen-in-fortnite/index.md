@@ -1,6 +1,6 @@
 # Visibility Screen
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/visibility-screen-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/visibility-screen-in-fortnite>
 > **爬取时间**: 2025-12-27T00:14:51.819845
 
 ---

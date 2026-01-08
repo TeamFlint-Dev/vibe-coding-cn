@@ -1,6 +1,6 @@
 # 2. North Biome
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-2-north-biome-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-2-north-biome-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:42:41.156787
 
 ---
@@ -115,6 +115,6 @@ Although you’re not able to see much of the clouds beyond the fog, they are th
 
 [![3. South Biome](https://dev.epicgames.com/community/api/documentation/image/97f7e9ec-2fcc-48d8-ad45-7623550fc450?resizing_type=fit&width=640&height=640)
 
-3. South Biome
+1. South Biome
 
-Learn how to use the Day Sequence device to create custom outdoor lighting for unique swampy and humid environment.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-3-south-biome-in-unreal-editor-for-fortnite)
+Learn how to use the Day Sequence device to create custom outdoor lighting for unique swampy and humid environment.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-3-south-biome-in-unreal-editor-for-fortnite>)

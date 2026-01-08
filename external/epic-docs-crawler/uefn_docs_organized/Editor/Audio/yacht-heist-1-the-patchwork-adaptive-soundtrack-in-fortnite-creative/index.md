@@ -1,6 +1,6 @@
 # 1. The Patchwork Adaptive Soundtrack
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-1-the-patchwork-adaptive-soundtrack-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-1-the-patchwork-adaptive-soundtrack-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:15:21.046868
 
 ---
@@ -115,6 +115,6 @@ These turn on the Escape track.
 
 [![2. The Guard Alert System](https://dev.epicgames.com/community/api/documentation/image/7d6cd150-d8d1-4166-870e-1532f5a737e1?resizing_type=fit&width=640&height=640)
 
-2. The Guard Alert System
+1. The Guard Alert System
 
-Find out how guards are alerted and how their state changes the Patchwork adaptive soundtrack.](https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-2-the-guard-alert-system-in-fortnite-creative)
+Find out how guards are alerted and how their state changes the Patchwork adaptive soundtrack.](<https://dev.epicgames.com/documentation/en-us/fortnite/yacht-heist-2-the-guard-alert-system-in-fortnite-creative>)

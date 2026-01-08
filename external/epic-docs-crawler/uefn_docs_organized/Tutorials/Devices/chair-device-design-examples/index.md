@@ -1,13 +1,13 @@
 # Chair Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/chair-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/chair-device-design-examples>
 > **爬取时间**: 2025-12-26T23:04:29.000834
 
 ---
 
 You can use the Chair device to create places for players to sit on your island. But this simple device has other capabilities that let you build all sorts of unexpected things!
 
-## Eject That Player!
+## Eject That Player
 
 This design example showcases the Chair device's basic features, along with how to make a fun ejector seat.
 
@@ -65,6 +65,7 @@ The **Chair** device can be customized to use a number of different models. Pick
    | Enable Device Activation on Move | ON |
    | \*Should Move From Start | OFF |
    | Allow Reverse Past Start | OFF |
+
 2. Configure the Prop Mover **functions**:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/f6c3e44e-edd1-4192-babb-92f40be2da5d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f6c3e44e-edd1-4192-babb-92f40be2da5d?resizing_type=fit)
@@ -73,6 +74,7 @@ The **Chair** device can be customized to use a number of different models. Pick
    | --- | --- | --- |
    | Enable When Receiving From | Chair Device | On Player Seated |
    | Start When Receiving From | Chair Device | On Player Seated |
+
 3. Configure the events:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/2a1f0378-5972-4951-a34f-90b44ced3337?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2a1f0378-5972-4951-a34f-90b44ced3337?resizing_type=fit)

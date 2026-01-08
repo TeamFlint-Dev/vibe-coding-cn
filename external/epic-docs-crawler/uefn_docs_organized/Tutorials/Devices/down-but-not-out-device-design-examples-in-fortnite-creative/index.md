@@ -1,6 +1,6 @@
 # Down But Not Out Device Design Example
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/down-but-not-out-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/down-but-not-out-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:05:05.357339
 
 ---
@@ -87,7 +87,7 @@ This lets you push the ledge rocks into the base mountain to create an upward pa
 
 Be sure to test the path that you build — if *you* can’t climb from ground to peak, it's likely no one else can either!
 
-## Add Some Danger!
+## Add Some Danger
 
 On the mountain, players have to watch out for dangerous boulders rolling down from above. You'll use devices to help players identify dangerous areas with showers of falling rocks and a rumbling sound when they enter into an area where a boulder can fall.
 
@@ -292,6 +292,7 @@ The final step is to configure the Mode and Round settings in your Island Settin
    | **Max Players** | 4 | Controls how many players can enter the game at a time. |
    | **Teams** | Cooperative | This keeps all players working together. |
    | **Team Size** | 1 | This ensures everyone is on the same team. |
+
 3. Go to **Round > End Condition**, and make the following changes:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/c45cc8db-8212-4387-a2a0-67c69b281687?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c45cc8db-8212-4387-a2a0-67c69b281687?resizing_type=fit)
@@ -300,6 +301,7 @@ The final step is to configure the Mode and Round settings in your Island Settin
    | --- | --- | --- |
    | **Time Limit** | None | There is no time limit to the game. |
    | **Objectives to End** | 1 | Only 1 objective is required for the players to win the game. |
+
 4. Go to **Round > Victory Condition**, and make the following changes:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/daae66f5-5acd-4422-98d5-f83754b5690f?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/daae66f5-5acd-4422-98d5-f83754b5690f?resizing_type=fit)

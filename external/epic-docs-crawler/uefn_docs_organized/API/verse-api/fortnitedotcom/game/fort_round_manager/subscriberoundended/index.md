@@ -1,6 +1,6 @@
 # SubscribeRoundEnded function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/fort_round_manager/subscriberoundended
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/fort_round_manager/subscriberoundended>
 > **爬取时间**: 2025-12-27T02:52:12.081098
 
 ---

@@ -1,6 +1,6 @@
 # GetRespawnDelay function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/nitro_barrel_spawner_device/getrespawndelay
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/nitro_barrel_spawner_device/getrespawndelay>
 > **爬取时间**: 2025-12-27T06:32:48.451483
 
 ---

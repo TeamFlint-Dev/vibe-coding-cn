@@ -1,6 +1,6 @@
 # SetDescriptionText function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/popup_dialog_device/setdescriptiontext
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/popup_dialog_device/setdescriptiontext>
 > **爬取时间**: 2025-12-27T06:08:27.676517
 
 ---

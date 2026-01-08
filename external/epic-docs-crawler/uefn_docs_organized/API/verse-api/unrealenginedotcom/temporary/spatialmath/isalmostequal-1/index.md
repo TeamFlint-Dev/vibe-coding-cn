@@ -1,6 +1,6 @@
 # IsAlmostEqual function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/isalmostequal-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/isalmostequal-1>
 > **爬取时间**: 2025-12-27T02:34:35.923448
 
 ---

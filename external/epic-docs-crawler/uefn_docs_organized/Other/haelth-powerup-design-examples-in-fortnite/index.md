@@ -1,6 +1,6 @@
 # Health Powerup Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/haelth-powerup-design-examples-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/haelth-powerup-design-examples-in-fortnite>
 > **爬取时间**: 2025-12-26T23:04:11.312215
 
 ---
@@ -31,6 +31,7 @@ You can set up a health boost that increases a player’s health over time. In t
    | --- | --- |
    | Receiving Players | All |
    | Grant on Game Start | On |
+
 5. Place a **Creature Spawner** device.
 6. Place a **Health Powerup** device.
 7. Customize the Health Powerup as follows:
@@ -41,6 +42,7 @@ You can set up a health boost that increases a player’s health over time. In t
    | --- | --- |
    | Effect Magnitude | 15 |
    | Effect Duration | 3 Seconds |
+
 8. Duplicate the Health Powerup two more times in different locations.
 
 You now have the basic functionality for a powerup that gives a timed health boost!
@@ -84,6 +86,7 @@ In this example, you’ll use a Volume device with the Health Powerup device to 
    | Spawn Through Walls | Off |
    | Spawn Radius | 30.0M |
    | Taming | Disabled |
+
 7. Place a **Post Process** device.
 8. Customize the Post Process device as follows:
 
@@ -108,6 +111,7 @@ In this example, you’ll use a Volume device with the Health Powerup device to 
    | Starting Strength | 0.0 |
    | Blend in Duration | 1.0 |
    | Blend out Duration | 1.0 |
+
 3. Place a **Health Powerup** in a location that the player won’t be able to reach.
 4. Customize the Health Powerup as follows:
 5. Place a Volume device in the center of the building.
@@ -141,7 +145,7 @@ You now have the functionality for a safe zone in an arctic survival game!
 
 Invisible Health Powerups can give the impression that anything is healing the player, as long as it can send events to start and stop the healing! For example, try healing the player whenever they are in a vehicle! Or maybe heal the player only when they are standing in fire!
 
-## Build a Combat Game with Custom Health Pickup!
+## Build a Combat Game with Custom Health Pickup
 
 In this example, you’ll use events and functions on the Health Powerup to create your own custom health pickup, complete with audio and visual effects!
 
@@ -170,6 +174,7 @@ In this example, you’ll use events and functions on the Health Powerup to crea
    | --- | --- |
    | Receiving Players | All |
    | Grant on Game Start | On |
+
 5. Place three **Creature Spawners** around the area.
 6. Place a Tracker.
 7. Customize the **Tracker** as follows:
@@ -183,6 +188,7 @@ In this example, you’ll use events and functions on the Health Powerup to crea
    | Tracker Title | Eliminate Creatures |
    | Description Text | Eliminate 5 Creatures to Spawn the Healing Idol! |
    | Quest Icon | Enemy |
+
 8. Configure the following **functions** on the Tracker to increment the progress each time a creature is eliminated.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/ea8aa273-c152-4dac-b4d7-040e594f06be?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/ea8aa273-c152-4dac-b4d7-040e594f06be?resizing_type=fit)
@@ -212,6 +218,7 @@ In this example, you’ll use events and functions on the Health Powerup to crea
    | Ambient Audio | Off |
    | Pick Up Audio | Off |
    | Who Can See This Powerup | None |
+
 4. Place a **Prop Manipulator** connected to the statue.
 5. Customize the Prop Manipulator so **Start Hidden** is set to **On**:
 6. Place a **Customizable Light** over the statue.
@@ -223,6 +230,7 @@ In this example, you’ll use events and functions on the Health Powerup to crea
    | --- | --- |
    | Initial State | Off |
    | Light Color | #FFB000 |
+
 8. Place an **Audio Player** by the statue.
 9. Customize the Audio Player as follows:
 
@@ -232,6 +240,7 @@ In this example, you’ll use events and functions on the Health Powerup to crea
    | --- | --- |
    | Audio | Unlock |
    | Play on Hit | Off |
+
 10. Place a **VFX Spawner** on the statue.
 11. Customize the VFX Spawner as follows:
 
@@ -241,6 +250,7 @@ In this example, you’ll use events and functions on the Health Powerup to crea
     | --- | --- |
     | Effect Type | Burst |
     | Burst Visual Effect | Explosion Electrical |
+
 12. Configure the following events on the Tracker to spawn the custom pickup when the player completes the creature elimination objective.
 
     [![](https://dev.epicgames.com/community/api/documentation/image/4f14aa0f-016a-4924-9741-93db6ba992ff?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/4f14aa0f-016a-4924-9741-93db6ba992ff?resizing_type=fit)
@@ -251,6 +261,7 @@ In this example, you’ll use events and functions on the Health Powerup to crea
     | When Complete Send Event To | Health Powerup | Spawn |
     | When Complete Send Event To | Prop Manipulator | Show Props |
     | When Complete Send Event To | Audio Player | Play |
+
 13. Configure the following events on the Health Powerup to play the custom effects and destroy the Creature Spawners when the player picks it up.
 
     [![](https://dev.epicgames.com/community/api/documentation/image/c16973f1-1969-448f-b2c9-d00432f794e0?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c16973f1-1969-448f-b2c9-d00432f794e0?resizing_type=fit)

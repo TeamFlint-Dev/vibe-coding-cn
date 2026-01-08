@@ -1,6 +1,6 @@
 # LEGO® Templates
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lego-templates-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lego-templates-in-fortnite>
 > **爬取时间**: 2025-12-26T23:15:27.116707
 
 ---
@@ -42,32 +42,32 @@ Using a template doesn’t lock you in, feel free to disable or remove parts you
 
 LEGO® Action Adventure Template
 
-Become a hero as you take on quests, solve puzzles, and defeat enemies in the LEGO® Action Adventure template.](https://dev.epicgames.com/documentation/en-us/fortnite/lego-action-adventure-in-unreal-editor-for-fortnite)[![LEGO® Bloom Tycoon](https://dev.epicgames.com/community/api/documentation/image/3ec8c615-6eb9-43e5-b478-319b5b6ec8d9?resizing_type=fit&width=640&height=640)
+Become a hero as you take on quests, solve puzzles, and defeat enemies in the LEGO® Action Adventure template.](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-action-adventure-in-unreal-editor-for-fortnite)[![LEGO®> Bloom Tycoon](<https://dev.epicgames.com/community/api/documentation/image/3ec8c615-6eb9-43e5-b478-319b5b6ec8d9?resizing_type=fit&width=640&height=640>)
 
 LEGO® Bloom Tycoon
 
-Explore the LEGO® Bloom Tycoon template to learn how to create islands where players can place and build with persistent assets.](https://dev.epicgames.com/documentation/en-us/fortnite/lego-bloom-tycoon-in-fortnite)[![Home Builder](https://dev.epicgames.com/community/api/documentation/image/a79d3bd9-744a-4b50-9d0a-987b1ae37a40?resizing_type=fit&width=640&height=640)
+Explore the LEGO® Bloom Tycoon template to learn how to create islands where players can place and build with persistent assets.](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-bloom-tycoon-in-fortnite)[![Home> Builder](<https://dev.epicgames.com/community/api/documentation/image/a79d3bd9-744a-4b50-9d0a-987b1ae37a40?resizing_type=fit&width=640&height=640>)
 
 Home Builder
 
-Longing to level up with some LEGO® lodging? Here's how!](https://dev.epicgames.com/documentation/en-us/fortnite/build-lego-home-builder-in-fortnite)[![Music Concert](https://dev.epicgames.com/community/api/documentation/image/4f7d1c53-f284-477a-932f-1e1244e9b69a?resizing_type=fit&width=640&height=640)
+Longing to level up with some LEGO® lodging? Here's how!](<https://dev.epicgames.com/documentation/en-us/fortnite/build-lego-home-builder-in-fortnite)[![Music> Concert](<https://dev.epicgames.com/community/api/documentation/image/4f7d1c53-f284-477a-932f-1e1244e9b69a?resizing_type=fit&width=640&height=640>)
 
 Music Concert
 
-Jam out and explore the Patchwork music devices to create a uniquely LEGO® concert!](https://dev.epicgames.com/documentation/en-us/fortnite/build-your-own-lego-music-concert-in-fortnite-creative)[![Obstacle Course](https://dev.epicgames.com/community/api/documentation/image/18980b90-b259-4881-a5e1-57dbc7466d5b?resizing_type=fit&width=640&height=640)
+Jam out and explore the Patchwork music devices to create a uniquely LEGO® concert!](<https://dev.epicgames.com/documentation/en-us/fortnite/build-your-own-lego-music-concert-in-fortnite-creative)[![Obstacle> Course](<https://dev.epicgames.com/community/api/documentation/image/18980b90-b259-4881-a5e1-57dbc7466d5b?resizing_type=fit&width=640&height=640>)
 
 Obstacle Course
 
-Jump in and start building things to jump on with your own LEGO® obstacle course!](https://dev.epicgames.com/documentation/en-us/fortnite/build-your-own-lego-obstacle-course-in-fortnite-creative)[![LEGO® PvP Extraction Template](https://dev.epicgames.com/community/api/documentation/image/f271297e-4e23-4e9c-81e2-578e8f28de97?resizing_type=fit&width=640&height=640)
+Jump in and start building things to jump on with your own LEGO® obstacle course!](<https://dev.epicgames.com/documentation/en-us/fortnite/build-your-own-lego-obstacle-course-in-fortnite-creative)[![LEGO®> PvP Extraction Template](<https://dev.epicgames.com/community/api/documentation/image/f271297e-4e23-4e9c-81e2-578e8f28de97?resizing_type=fit&width=640&height=640>)
 
 LEGO® PvP Extraction Template
 
-Learn to build player-versus-player extraction gameplay for your LEGO® Islands with the LEGO® PvP Extraction Template.](https://dev.epicgames.com/documentation/en-us/fortnite/lego-pvp-extraction-template-in-unreal-editor-for-fortnite)[![LEGO® Santa's Toy Factory](https://dev.epicgames.com/community/api/documentation/image/503c9375-f429-4013-a72a-cc5b0e5fffa3?resizing_type=fit&width=640&height=640)
+Learn to build player-versus-player extraction gameplay for your LEGO® Islands with the LEGO® PvP Extraction Template.](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-pvp-extraction-template-in-unreal-editor-for-fortnite)[![LEGO®> Santa's Toy Factory](<https://dev.epicgames.com/community/api/documentation/image/503c9375-f429-4013-a72a-cc5b0e5fffa3?resizing_type=fit&width=640&height=640>)
 
 LEGO® Santa's Toy Factory
 
-Learn some game mechanics that encourage player retention by using Verse to create engaging gameplay loops!](https://dev.epicgames.com/documentation/en-us/fortnite/lego-santas-toy-factory-in-unreal-editor-for-fortnite)[![Scary Space](https://dev.epicgames.com/community/api/documentation/image/a05c9414-fc62-4fc2-93d1-88b9823400b7?resizing_type=fit&width=640&height=640)
+Learn some game mechanics that encourage player retention by using Verse to create engaging gameplay loops!](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-santas-toy-factory-in-unreal-editor-for-fortnite)[![Scary> Space](<https://dev.epicgames.com/community/api/documentation/image/a05c9414-fc62-4fc2-93d1-88b9823400b7?resizing_type=fit&width=640&height=640>)
 
 Scary Space
 
-Build a scary space horror game with LEGO® assets!](https://dev.epicgames.com/documentation/en-us/fortnite/lego-scary-space-in-unreal-editor-for-fortnite)
+Build a scary space horror game with LEGO® assets!](<https://dev.epicgames.com/documentation/en-us/fortnite/lego-scary-space-in-unreal-editor-for-fortnite>)

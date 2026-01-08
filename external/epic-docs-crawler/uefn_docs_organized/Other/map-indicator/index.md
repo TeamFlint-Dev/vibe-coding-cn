@@ -1,6 +1,6 @@
 # Map Indicator
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/map-indicator
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/map-indicator>
 > **爬取时间**: 2025-12-27T00:39:50.703877
 
 ---

@@ -1,6 +1,6 @@
 # ToggleForAll function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vfx_creator_device/toggleforall
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/vfx_creator_device/toggleforall>
 > **爬取时间**: 2025-12-27T06:50:40.033932
 
 ---

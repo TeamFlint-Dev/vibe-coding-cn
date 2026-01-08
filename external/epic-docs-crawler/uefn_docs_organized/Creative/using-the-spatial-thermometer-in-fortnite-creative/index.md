@@ -1,6 +1,6 @@
 # Using the Spatial Thermometer Heatmap
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-the-spatial-thermometer-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-the-spatial-thermometer-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:12:51.090400
 
 ---

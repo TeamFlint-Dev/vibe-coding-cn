@@ -1,6 +1,6 @@
 # item_chug_cannon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_chug_cannon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s5items/item_chug_cannon>
 > **爬取时间**: 2025-12-27T03:59:03.337395
 
 ---

@@ -1,6 +1,6 @@
 # Ignite function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/fire_volume_device/ignite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/fire_volume_device/ignite>
 > **爬取时间**: 2025-12-27T06:30:13.992619
 
 ---

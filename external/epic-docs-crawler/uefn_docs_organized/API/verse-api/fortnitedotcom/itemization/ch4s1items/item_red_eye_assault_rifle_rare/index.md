@@ -1,6 +1,6 @@
 # item_red_eye_assault_rifle_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_red_eye_assault_rifle_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_red_eye_assault_rifle_rare>
 > **爬取时间**: 2025-12-27T04:37:03.717455
 
 ---

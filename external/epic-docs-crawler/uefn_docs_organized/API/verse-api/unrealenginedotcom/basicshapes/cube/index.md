@@ -1,6 +1,6 @@
 # cube class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/basicshapes/cube
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/basicshapes/cube>
 > **爬取时间**: 2025-12-27T02:01:24.494971
 
 ---

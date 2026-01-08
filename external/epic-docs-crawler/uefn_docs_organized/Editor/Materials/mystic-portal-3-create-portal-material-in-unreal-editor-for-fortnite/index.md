@@ -1,6 +1,6 @@
 # 3. Create a Portal Material
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-3-create-portal-material-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-3-create-portal-material-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:41:09.125998
 
 ---
@@ -236,6 +236,6 @@ Next, you’ll model a disc to place the material on.
 
 [![4. Create the Portal Center](https://dev.epicgames.com/community/api/documentation/image/75ce84bd-5904-499d-bcb1-99e51473e139?resizing_type=fit&width=640&height=640)
 
-4. Create the Portal Center
+1. Create the Portal Center
 
-Use the refraction material in your mystical portal.](https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-4-create-the-portal-center-in-unreal-editor-for-fortnite)
+Use the refraction material in your mystical portal.](<https://dev.epicgames.com/documentation/en-us/fortnite/mystic-portal-4-create-the-portal-center-in-unreal-editor-for-fortnite>)

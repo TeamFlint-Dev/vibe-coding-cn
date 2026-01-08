@@ -1,6 +1,6 @@
 # GetValue function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/tracker_device/getvalue-2
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/tracker_device/getvalue-2>
 > **爬取时间**: 2025-12-27T05:44:29.582372
 
 ---

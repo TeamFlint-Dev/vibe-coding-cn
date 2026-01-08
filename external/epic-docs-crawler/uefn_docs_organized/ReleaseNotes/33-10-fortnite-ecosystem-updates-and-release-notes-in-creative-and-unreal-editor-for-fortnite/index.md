@@ -1,13 +1,13 @@
 # 33.10 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/33-10-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/33-10-fortnite-ecosystem-updates-and-release-notes-in-creative-and-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:35:32.180234
 
 ---
 
 Get ready to publish your Fortnite islands using the First Person Camera device. Publishing for these islands unlocks tomorrow! Also with v33.10 you’ll find new options for player communication in your islands with text chat now available and more ways to grow your following with players now able to access Creator Pages in the Fortnite client.
 
-## Publish Your Islands Using the First Person Camera Device Tomorrow!
+## Publish Your Islands Using the First Person Camera Device Tomorrow
 
 It’s almost time! Starting tomorrow, **December 11** **at 9 A.M. Eastern Time (ET)**, you can publish your Fortnite islands using the First Person Camera device. We’re excited to see your first-person shooters, tactical games, horror adventures, and everything else you’ve created with this new point of view. [Submit your island](https://create.fortnite.com/welcome)!
 
@@ -29,7 +29,7 @@ In addition to voice chat, you can now customize text chat settings for your isl
 
 ## New Locomotion Preset Island Setting
 
-The new **Locomotion Preset** setting allows creators to quickly adopt and inherit locomotion from either Battle Royale or Ballistic. Creators will notice other locomotion island settings ([Player Movement] (https://dev.epicgames.com/documentation/en-us/fortnite-creative/player-movement-in-fortnite-creative)) are disabled when using either preset value. This affects the following Player Movement settings:
+The new **Locomotion Preset** setting allows creators to quickly adopt and inherit locomotion from either Battle Royale or Ballistic. Creators will notice other locomotion island settings ([Player Movement] (<https://dev.epicgames.com/documentation/en-us/fortnite-creative/player-movement-in-fortnite-creative>)) are disabled when using either preset value. This affects the following Player Movement settings:
 
 - Energy Max
 - Energy Recharge Amount
@@ -127,7 +127,7 @@ The following list of fixes are from issues that you submitted to us on the foru
   - [Crash when I try to make a private version…](https://forums.unrealengine.com/t/crash-when-i-try-to-make-a-private-version-i-crash-following-the-memory-calculation/2114869?u=laabouds)
 - Fixed issues where islands would stop updating at 99% when matchmaking.
 
-  - [Stuck at Updating 99% when matchmaking] (https://forums.unrealengine.com/t/stuck-at-updating-99-when-matchmaking/2106981)
+  - [Stuck at Updating 99% when matchmaking] (<https://forums.unrealengine.com/t/stuck-at-updating-99-when-matchmaking/2106981>)
 - Fixed an issue where a conversation would terminate as soon as it began when the conversation involved an infinite loop.
 
   - [Fortnite session was broken with conversation bank](https://forums.unrealengine.com/t/fortnite-session-was-broken-with-conversation-bank/2117440)

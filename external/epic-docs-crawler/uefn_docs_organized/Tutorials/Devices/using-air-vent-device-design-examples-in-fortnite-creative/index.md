@@ -1,6 +1,6 @@
 # Air Vent Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-air-vent-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-air-vent-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:05:22.632704
 
 ---
@@ -88,6 +88,7 @@ You will need to [bind](https://dev.epicgames.com/documentation/en-us/fortnite/g
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | Respawn for All When Receiving From | Timer Silver Coin | On Success |
+
 2. Then set up the following **Event** binding on the silver coin collectible object.
 
    [![On Collected Send Event To event](https://dev.epicgames.com/community/api/documentation/image/c7c5ea5b-a9f1-4c44-aa61-0df5b3a059bb?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/c7c5ea5b-a9f1-4c44-aa61-0df5b3a059bb?resizing_type=fit)
@@ -95,6 +96,7 @@ You will need to [bind](https://dev.epicgames.com/documentation/en-us/fortnite/g
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | On Collected Send Event To | Timer Silver Coin | Start When Receiving From |
+
 3. For the silver coin's timer, set the following **Function** binding.
 
    [![Start When Receiving From function](https://dev.epicgames.com/community/api/documentation/image/e25f6b39-52f8-4f89-96a0-652693745a85?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e25f6b39-52f8-4f89-96a0-652693745a85?resizing_type=fit)
@@ -102,6 +104,7 @@ You will need to [bind](https://dev.epicgames.com/documentation/en-us/fortnite/g
    | Function | Select Device | Select Event |
    | --- | --- | --- |
    | **Start When Receiving From** | Collectible Silver Coin | On Collected |
+
 4. Then set the silver coin's timer for the following **Event** binding.
 
    [![On Success Send Event To](https://dev.epicgames.com/community/api/documentation/image/48c1a666-2297-4557-87dd-5eb73105490d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/48c1a666-2297-4557-87dd-5eb73105490d?resizing_type=fit)
@@ -109,6 +112,7 @@ You will need to [bind](https://dev.epicgames.com/documentation/en-us/fortnite/g
    | Event | Select Device | Select Function |
    | --- | --- | --- |
    | **On Success Send Event To** | Collectible Silver Coin | Respawn |
+
 5. Repeat these steps for the Bronze and Gold coins.
 
 ### Modify Island Settings

@@ -1,6 +1,6 @@
 # Setting Up the LEGO® Grid Entity Manager
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/setting-up-the-lego-grid-entity-manager-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/setting-up-the-lego-grid-entity-manager-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:25:20.460980
 
 ---
@@ -139,13 +139,13 @@ To start adding your own props for players to place:
 2. Open the **Details** panel and navigate to the **GridEnityDefinitions** to load your prop.
 3. Navigate to the **UnlockPacks** category to define any props as locked.
 
-Each grid entity requires data to make the item spawn appropriately into the world. This data 
+Each grid entity requires data to make the item spawn appropriately into the world. This data
 is in the **GridEnityDefinitions** category and  consists of:
 
 1. **Name:** The name for the prop.
 2. **PropAsset:** Determines what prop spawns.
 3. **SoloPropDefinition:** Information about the prop including the stud dimensions. Click the adjacent arrow to add the values.
-4. **Object Definition:** Determines the prop category, grid cell size, type, and thumbnail for the UI. 
+4. **Object Definition:** Determines the prop category, grid cell size, type, and thumbnail for the UI.
    Click the adjacent arrow to add the values.
 5. **UnlockCategory:** Determines if the prop uses an unlock pack.
 
@@ -197,4 +197,4 @@ Learn to configure prop placement to control what objects players can place in
 
 Configuring LEGO® Prop Placement
 
-Learn to create plot definitions in your grid placement system for LEGO Islands.](https://dev.epicgames.com/documentation/en-us/fortnite/configuring-lego-prop-placement-in-unreal-editor-for-fortnite)
+Learn to create plot definitions in your grid placement system for LEGO Islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/configuring-lego-prop-placement-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # item_modular_boom_bolt_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wreckeditems/item_modular_boom_bolt_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wreckeditems/item_modular_boom_bolt_legendary>
 > **爬取时间**: 2025-12-27T03:20:45.461401
 
 ---

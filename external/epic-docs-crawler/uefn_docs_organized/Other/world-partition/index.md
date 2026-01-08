@@ -1,6 +1,6 @@
 # World Partition
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/world-partition
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/world-partition>
 > **爬取时间**: 2025-12-27T02:16:06.368771
 
 ---

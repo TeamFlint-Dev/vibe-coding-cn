@@ -1,6 +1,6 @@
 # 36.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/36-00-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/36-00-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:36:16.903978
 
 ---
@@ -9,7 +9,7 @@ Scene Graph beta is here! Scene Graph is a new foundational engine layer that un
 
 Plus say hello to three new devices: Player Movement, Hero Chest, and the Progress Based Mesh. And that’s not all, Test Players have two new behaviors, there is a new version of Unreal Revision Control, and you’ll find new weapons and items.
 
-## Scene Graph Beta Launch!
+## Scene Graph Beta Launch
 
 Scene Graph is a new foundation layer of the engine that breaks down all of the objects in a scene and enables you to access, modify, and control them using Verse. Scene Graph brings all the objects on your island — gameplay, visuals, sounds, VFX, and so on — into a single unified structure, letting you work more efficiently and build richer experiences.
 
@@ -28,7 +28,7 @@ To check out all the new updates, you can get started with the all new Scene Gra
 
 In addition to the example content, all our documentation has been updated for the Beta launch. You can check out all the [Scene Graph](https://dev.epicgames.com/documentation/en-us/fortnite/scene-graph-in-unreal-editor-for-fortnite) documentation on the EDC now!
 
-## Forward-Right-Up (FRU) is Changing to Left-Up-Forward (LUF)!
+## Forward-Right-Up (FRU) is Changing to Left-Up-Forward (LUF)
 
 With the v36.00 release, we’re switching to the Left-Up-Forward (LUF) coordinate system. This replaces the Forward-Right-Up (FRU) setup from v35.00, and better aligns with common 3D tools like Autodesk® Maya® as well as Universal Scene Description (USD).
 
@@ -52,7 +52,7 @@ You don't need to change the code or content for your published islands to work 
 
 The shift to LUF coordinates will impact existing content, including environments created with Scene Graph. To learn more about the change and how you might be impacted, see **[Left-Up-Forward Coordinate System](https://dev.epicgames.com/documentation/en-us/fortnite/leftupforward-coordinate-system-in-unreal-editor-for-fortnite)**.
 
-## New Progress Based Mesh Device!
+## New Progress Based Mesh Device
 
 Start creating growth mechanics with the Progress Based Mesh device. The device swaps between meshes and materials at different thresholds to visually represent progression. The default mesh in Creative and UEFN is a Slurp Jar.
 
@@ -66,7 +66,7 @@ Build a range of mechanics like:
 
 To learn more, see [Using Progress Based Mesh Devices](https://dev.epicgames.com/documentation/en-us/fortnite/using-progress-based-mesh-devices-in-fortnite).
 
-## New Player Movement Device!
+## New Player Movement Device
 
 The Player Movement device manages different types of movement through movement attributes. The customized movement determines how players move beyond what is controlled through Island Settings. This, in turn, adds a level of control to the island that creates a unique feeling to the in-game experience and supports different game genres.
 
@@ -77,7 +77,7 @@ The Player Movement device:
 
 Learn more about controlling player movement on your island with the **[Player Movement Device](https://dev.epicgames.com/documentation/en-us/fortnite/using-player-movement-devices)** document.
 
-## New Shove Gameplay Item!
+## New Shove Gameplay Item
 
 The [Shove item](https://dev.epicgames.com/documentation/en-us/fortnite/shove-gameplay-item-in-fortnite) is an all-new gameplay-oriented item that players can equip to push another player with a small force a certain distance away. Players cannot see when other players have Shove equipped and the item requires stamina to use.
 
@@ -85,7 +85,7 @@ Shove can be used to give a player a sneaky push from the back or when in melee 
 
 At 36.00, the **Shove** item will be listed under **Weapons**, but at 36.10, Shove will be moved under **Items**. Shove is considered an item, not a weapon.
 
-## New Hero Chest Device!
+## New Hero Chest Device
 
 The new Hero Chest can be found in the **Chest and Ammo Gallery** in Creative. This is the first chest device with user options, events, and functions!
 
@@ -108,15 +108,15 @@ As part of the User Interface template, the Conversation device hall will have f
 
 [![The Conversation template is now part of the User Interface island template.](https://dev.epicgames.com/community/api/documentation/image/cd1a3bae-ef9c-4fb2-b733-8d0465b2cb9d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/cd1a3bae-ef9c-4fb2-b733-8d0465b2cb9d?resizing_type=fit)
 
-## Test Players Now Have Behaviors!
+## Test Players Now Have Behaviors
 
 You can now assign two new behaviors to test players: Random Movement and Follow Player. **Random Movement** will move test players to a random position, then back to their starting position. **Follow Player** will lock a test player onto a nearby player then, when the player crouches, the test player will begin following them. When the player un-crouches, the test player will stop following the player.
 
 You can also assign custom behaviors using NPC Character Definitions. Test players can be configured as a **participant** in the `npc_behavior` class.
 
-## Learn More About Fortnite Discover!
+## Learn More About Fortnite Discover
 
-We want creators to understand how they can influence their success in the ecosystem, and we know Discover is a big part of that. 
+We want creators to understand how they can influence their success in the ecosystem, and we know Discover is a big part of that.
  We recently released our most transparent [Discover documentation](https://dev.epicgames.com/documentation/en-us/fortnite/how-discover-works-in-fortnite) yet, providing detailed technical information on how Discover works.
 
 We also shared our long-term vision for Fortnite Discover, which is to become the go-to destination where players find their next favorite game.
@@ -131,7 +131,7 @@ On May 28, we launched the [Fortnite Data API](https://create.fortnite.com/news/
 
 To learn more about the API, see the [Fortnite Data API Overview](https://dev.epicgames.com/documentation/en-us/fortnite/using-fortnite-data-api-in-fortnite).
 
-## New Version of Unreal Revision Control!
+## New Version of Unreal Revision Control
 
 With this release, we’re rolling out a **new version of Unreal Revision Control (URC)**. Starting today, all **new projects** will use it by default. **Existing projects** will be migrated gradually over the coming weeks and months.
 
@@ -201,7 +201,7 @@ Check out all the new devices and items available this release!
 - Lawless Rift Launcher
 - Tracking Visor
 
-## Fortnite Documentation is Now Combined!
+## Fortnite Documentation is Now Combined
 
 As mentioned in the last release, if you head over to Documentation in the Epic Developer Community, you’ll see that the tabs are gone and the docs are all in one streamlined set!
 

@@ -1,6 +1,6 @@
 # 4. Holding Area
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-04-holding-area-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-04-holding-area-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:17:14.766549
 
 ---
@@ -151,6 +151,6 @@ This device has no bearing on the first escape. It’s simply to prepare for the
 
 [![5. Sub-Basement](https://dev.epicgames.com/community/api/documentation/image/9e081a49-72dd-41ba-b69e-f9e10fa4bff1?resizing_type=fit&width=640&height=640)
 
-5. Sub-Basement
+1. Sub-Basement
 
-Create a mysterious outroom for players to explore.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-05-sub-basement-in-unreal-editor-for-fortnite)
+Create a mysterious outroom for players to explore.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-05-sub-basement-in-unreal-editor-for-fortnite>)

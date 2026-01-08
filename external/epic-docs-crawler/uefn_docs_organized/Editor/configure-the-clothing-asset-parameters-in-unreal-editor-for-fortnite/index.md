@@ -1,6 +1,6 @@
 # Configure the Clothing Asset Parameters
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-clothing-asset-parameters-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-clothing-asset-parameters-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:18:18.201705
 
 ---
@@ -43,6 +43,7 @@ You will also add a **Max Distance Configuration**. The Max Distance value infor
    | **8. View** | Toggle between **2D Sim**, **3D Sim**, and **Render** inside the panel. |
    | **9. Cursor** | Represents the **cursor location** where you are painting values on the mesh. |
    | **10. Paint Weight Maps** | You can **Accept** or **Cancel** the Weight Map changes you applied to the mesh. |
+
 4. With the **Brush** tool selected and an **Attribute Value** of **1**, paint over your cloth mesh where you want your cloth to have complete movement freedom. Recall that 0 means no movement (kinematic) and 1 represents full movement within the maximum distance.
 
    [![With the Brush tool selected and an Attribute Value of 1, paint over your cloth mesh where you want your cloth to have complete movement freedom](https://dev.epicgames.com/community/api/documentation/image/9fc741de-67e7-4d25-8fdc-57d4aedf6bac?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9fc741de-67e7-4d25-8fdc-57d4aedf6bac?resizing_type=fit)
@@ -175,4 +176,4 @@ In this section you will set up the **Physics Asset**, which will drive collisio
 
 Configure the Simulation Settings
 
-Configure the simulation settings of the cloth asset to ensure expected behavior.](https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-simulation-settings-in-unreal-editor-for-fortnite)
+Configure the simulation settings of the cloth asset to ensure expected behavior.](<https://dev.epicgames.com/documentation/en-us/fortnite/configure-the-simulation-settings-in-unreal-editor-for-fortnite>)

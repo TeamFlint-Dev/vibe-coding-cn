@@ -1,6 +1,6 @@
 # 4. East and West Biomes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-4-east-and-west-biomes-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-4-east-and-west-biomes-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:42:20.344220
 
 ---
@@ -81,6 +81,6 @@ Select the **Day Sequence Device\_West** asset in the **West** folder inside the
 
 [![5. Post-Process Volumes](https://dev.epicgames.com/community/api/documentation/image/21eda3b7-7241-42e1-becf-4e664782f3d6?resizing_type=fit&width=640&height=640)
 
-5. Post-Process Volumes
+1. Post-Process Volumes
 
-Learn how to use post-process volumes to create custom lighting for different environments inside your project.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-5-postprocess-volumes-in-unreal-editor-for-fortnite)
+Learn how to use post-process volumes to create custom lighting for different environments inside your project.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-5-postprocess-volumes-in-unreal-editor-for-fortnite>)

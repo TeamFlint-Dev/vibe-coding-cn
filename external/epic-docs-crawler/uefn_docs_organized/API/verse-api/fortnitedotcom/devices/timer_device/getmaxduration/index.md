@@ -1,6 +1,6 @@
 # GetMaxDuration function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/getmaxduration
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/getmaxduration>
 > **爬取时间**: 2025-12-27T07:02:12.827522
 
 ---

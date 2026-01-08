@@ -1,6 +1,6 @@
 # item_hushs_deadeye_assault_rifle_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_hushs_deadeye_assault_rifle_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_hushs_deadeye_assault_rifle_mythic>
 > **爬取时间**: 2025-12-27T04:19:25.733015
 
 ---

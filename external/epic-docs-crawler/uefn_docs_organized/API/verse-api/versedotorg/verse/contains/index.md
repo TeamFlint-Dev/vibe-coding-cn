@@ -1,6 +1,6 @@
 # (InSet:classifiable_subset(element_type)).Contains extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/contains
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/verse/contains>
 > **爬取时间**: 2025-12-27T01:34:24.089563
 
 ---

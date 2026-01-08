@@ -1,6 +1,6 @@
 # GetActiveDuration function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/getactiveduration
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/timer_device/getactiveduration>
 > **爬取时间**: 2025-12-27T07:03:50.699647
 
 ---

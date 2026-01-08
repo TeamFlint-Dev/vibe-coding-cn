@@ -1,6 +1,6 @@
 # item_slap_berry class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_slap_berry
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_slap_berry>
 > **爬取时间**: 2025-12-27T04:37:25.601879
 
 ---

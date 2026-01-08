@@ -1,6 +1,6 @@
 # item_adhesive_resin class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_adhesive_resin
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_adhesive_resin>
 > **爬取时间**: 2025-12-27T03:46:17.505297
 
 ---

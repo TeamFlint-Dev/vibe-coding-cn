@@ -1,6 +1,6 @@
 # The Walking Dead Universe Level Design
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-level-design-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-level-design-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:15:03.395365
 
 ---
@@ -127,7 +127,7 @@ Compared to the Horror level design, fewer NPC Spawner devices are used because 
 | Walkers in UEFN | Think about where your players will run to, where they will fight. What are their odds? How will this develop? | The placement of Walkers, weapons, resources, and building assets all contribute to these considerations. |
 |  | Ammo is a resource, just the same as health. Force your players to choose which resources they conserve under pressure. | Walkers are overwhelming in numbers, limiting your movement and resources. |
 
-To prevent Walkers from breaking barricades or other props, you can adjust the damage value for the prop. 
+To prevent Walkers from breaking barricades or other props, you can adjust the damage value for the prop.
 To adjust the setting for a prop, select the actor in the Viewport, navigate to the Details panel, and uncheck Can Be Damaged.
 
 ### Arena Devices Setup
@@ -248,4 +248,4 @@ Set up cameras to aid the level design and experience the gameplay different vie
 
 The Walking Dead Universe Cameras
 
-Set up cameras to bring the horror and action to your The Walking Dead Universe islands.](https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-cameras-in-unreal-editor-for-fortnite)
+Set up cameras to bring the horror and action to your The Walking Dead Universe islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/the-walking-dead-universe-cameras-in-unreal-editor-for-fortnite>)

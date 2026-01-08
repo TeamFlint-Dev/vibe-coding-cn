@@ -1,6 +1,6 @@
 # gameplay_camera_fixed_point_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/gameplay_camera_fixed_point_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/gameplay_camera_fixed_point_device>
 > **爬取时间**: 2025-12-27T01:56:43.382884
 
 ---

@@ -1,6 +1,6 @@
 # item_six_shooter_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s6items/item_six_shooter_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s6items/item_six_shooter_rare>
 > **爬取时间**: 2025-12-27T03:09:54.871856
 
 ---

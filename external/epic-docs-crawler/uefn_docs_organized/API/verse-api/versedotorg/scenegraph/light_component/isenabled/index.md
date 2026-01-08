@@ -1,6 +1,6 @@
 # IsEnabled function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/light_component/isenabled
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/light_component/isenabled>
 > **爬取时间**: 2025-12-27T02:40:49.382739
 
 ---

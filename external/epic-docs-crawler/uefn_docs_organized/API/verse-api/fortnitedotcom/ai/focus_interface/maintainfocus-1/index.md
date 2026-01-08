@@ -1,6 +1,6 @@
 # MaintainFocus function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/focus_interface/maintainfocus-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/focus_interface/maintainfocus-1>
 > **爬取时间**: 2025-12-27T02:48:51.688466
 
 ---

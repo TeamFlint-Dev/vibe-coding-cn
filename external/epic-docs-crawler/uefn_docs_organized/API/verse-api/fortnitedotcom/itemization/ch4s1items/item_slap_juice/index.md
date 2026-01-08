@@ -1,6 +1,6 @@
 # item_slap_juice class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_slap_juice
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch4s1items/item_slap_juice>
 > **爬取时间**: 2025-12-27T04:34:09.138826
 
 ---

@@ -1,6 +1,6 @@
 # (Inventory:inventory_component).CanRemoveItem extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/canremoveitem
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/canremoveitem>
 > **爬取时间**: 2025-12-27T01:01:44.435876
 
 ---

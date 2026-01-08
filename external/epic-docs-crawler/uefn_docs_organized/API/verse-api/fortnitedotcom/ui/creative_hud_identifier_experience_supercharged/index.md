@@ -1,6 +1,6 @@
 # creative_hud_identifier_experience_supercharged class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_experience_supercharged
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/creative_hud_identifier_experience_supercharged>
 > **爬取时间**: 2025-12-27T01:06:20.935966
 
 ---

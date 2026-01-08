@@ -1,6 +1,6 @@
 # Heal function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healable/heal-1
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healable/heal-1>
 > **爬取时间**: 2025-12-27T02:52:28.733718
 
 ---

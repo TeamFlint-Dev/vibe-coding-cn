@@ -1,6 +1,6 @@
 # item_port_a_cover class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_port_a_cover
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_port_a_cover>
 > **爬取时间**: 2025-12-27T05:02:24.139020
 
 ---

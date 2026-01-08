@@ -1,6 +1,6 @@
 # Sculpting the Terrain
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/sculpting-the-terrain-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/sculpting-the-terrain-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:18:34.362803
 
 ---
@@ -77,4 +77,4 @@ Once you’re happy with how your mountain looks, you’re ready to add a body o
 
 Painting the Terrain
 
-Paint your custom terrain to edit its appearance.](https://dev.epicgames.com/documentation/en-us/fortnite/painting-the-terrain-in-unreal-editor-for-fortnite)
+Paint your custom terrain to edit its appearance.](<https://dev.epicgames.com/documentation/en-us/fortnite/painting-the-terrain-in-unreal-editor-for-fortnite>)

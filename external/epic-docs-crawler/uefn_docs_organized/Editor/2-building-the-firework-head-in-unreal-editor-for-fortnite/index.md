@@ -1,6 +1,6 @@
 # 2. Building the Firework Head
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/2-building-the-firework-head-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/2-building-the-firework-head-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:41:34.462838
 
 ---

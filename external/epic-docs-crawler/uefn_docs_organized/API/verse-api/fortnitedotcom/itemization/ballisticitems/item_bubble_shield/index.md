@@ -1,6 +1,6 @@
 # item_bubble_shield class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ballisticitems/item_bubble_shield
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ballisticitems/item_bubble_shield>
 > **爬取时间**: 2025-12-27T03:54:28.357049
 
 ---

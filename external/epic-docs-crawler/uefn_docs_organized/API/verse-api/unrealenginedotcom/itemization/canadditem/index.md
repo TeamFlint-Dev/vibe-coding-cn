@@ -1,6 +1,6 @@
 # (Inventory:inventory_component).CanAddItem extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/canadditem
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/canadditem>
 > **爬取时间**: 2025-12-27T01:02:35.638769
 
 ---

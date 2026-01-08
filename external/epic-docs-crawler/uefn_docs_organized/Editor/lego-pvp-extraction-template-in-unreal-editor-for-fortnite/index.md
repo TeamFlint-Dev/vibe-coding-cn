@@ -1,6 +1,6 @@
 # LEGO® PvP Extraction Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lego-pvp-extraction-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lego-pvp-extraction-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:32:31.030432
 
 ---
@@ -51,7 +51,7 @@ The chest contains studs you can collect to unlock features. After you collect t
 
 Head to the extraction point at the top of the hill and activate the button to begin extracting from the world. The process includes a countdown to an elevator’s arrival that you can use to extract from the island. The event triggers an alarm, letting other players know you are trying to escape.
 
-You can expand the countdown to include a final wave of enemies who want to steal the player's loot. The second time you emerge on the island, NPCs spawn on the hill. 
+You can expand the countdown to include a final wave of enemies who want to steal the player's loot. The second time you emerge on the island, NPCs spawn on the hill.
 
 [![](https://dev.epicgames.com/community/api/documentation/image/9f6b18a1-57af-4892-ad94-9d36f3599d88?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/9f6b18a1-57af-4892-ad94-9d36f3599d88?resizing_type=fit)
 

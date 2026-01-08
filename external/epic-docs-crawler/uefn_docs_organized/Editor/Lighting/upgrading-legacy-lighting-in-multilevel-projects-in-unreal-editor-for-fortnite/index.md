@@ -1,11 +1,11 @@
 # Upgrading Legacy Lighting in Multi-Level Projects
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/upgrading-legacy-lighting-in-multilevel-projects-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/upgrading-legacy-lighting-in-multilevel-projects-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:17:00.651937
 
 ---
 
-With the deprecation of the old time of day manager’s (TODM) day and night cycle and the Skydome device, it is recommended to convert all islands you wish to preserve to the new TODM. 
+With the deprecation of the old time of day manager’s (TODM) day and night cycle and the Skydome device, it is recommended to convert all islands you wish to preserve to the new TODM.
 All islands using the Skydome device will retain their gameplay, volume data, and positional data, but the island lighting will default to Chapter 5 lighting and ignore any settings used with the Skydome device.
 
 The upgrade guarantees:

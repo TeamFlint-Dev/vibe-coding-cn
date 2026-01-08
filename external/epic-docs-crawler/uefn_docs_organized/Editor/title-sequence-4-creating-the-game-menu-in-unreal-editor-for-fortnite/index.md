@@ -1,6 +1,6 @@
 # 4. Creating the Game Menu
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-4-creating-the-game-menu-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-4-creating-the-game-menu-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:17:38.329500
 
 ---
@@ -18,6 +18,7 @@ Follow these steps to create a custom menu:
    | **Padding** | 0.0, 0.0, 0.0, 40.0 | This will add 40 pixel padding to the bottom of the widget. |
    | **Horizontal Alignment** | Center Align Horizontally | This aligns the widget in the middle of the screen. |
    | **Vertical Alignment** | Bottom Align Vertically | This aligns the widget to the bottom of the screen. |
+
 4. In the Details panel of the Image widget, apply the following settings.
    Option
    Value
@@ -96,6 +97,6 @@ You'll add this custom widget to a Popup Dialog device next in [step 5](https://
 
 [![5. Setting Up the Devices](https://dev.epicgames.com/community/api/documentation/image/de6a98c8-4bb5-4816-9fe4-43002f0c3569?resizing_type=fit&width=640&height=640)
 
-5. Setting Up the Devices
+1. Setting Up the Devices
 
-Set up the Creative devices for making a title sequence.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-5-setting-up-the-devices-in-unreal-editor-for-fortnite)
+Set up the Creative devices for making a title sequence.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-5-setting-up-the-devices-in-unreal-editor-for-fortnite>)

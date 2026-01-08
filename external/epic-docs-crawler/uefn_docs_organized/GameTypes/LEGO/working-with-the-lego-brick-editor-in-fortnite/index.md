@@ -1,6 +1,6 @@
 # Working with the LEGO® Brick Editor
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/working-with-the-lego-brick-editor-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/working-with-the-lego-brick-editor-in-fortnite>
 > **爬取时间**: 2025-12-26T23:15:10.262167
 
 ---

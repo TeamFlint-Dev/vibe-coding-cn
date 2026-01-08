@@ -1,6 +1,6 @@
 # sidekick_mood enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/sidekick_mood
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/sidekick_mood>
 > **爬取时间**: 2025-12-27T00:59:05.125671
 
 ---

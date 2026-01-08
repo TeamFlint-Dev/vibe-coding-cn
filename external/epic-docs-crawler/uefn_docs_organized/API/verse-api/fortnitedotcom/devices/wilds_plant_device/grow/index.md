@@ -1,6 +1,6 @@
 # Grow function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/wilds_plant_device/grow
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/wilds_plant_device/grow>
 > **爬取时间**: 2025-12-27T05:16:29.753127
 
 ---

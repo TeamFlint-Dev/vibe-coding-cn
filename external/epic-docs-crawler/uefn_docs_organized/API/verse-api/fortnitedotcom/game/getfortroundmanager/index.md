@@ -1,6 +1,6 @@
 # (InEntity:entity).GetFortRoundManager extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/getfortroundmanager
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/getfortroundmanager>
 > **爬取时间**: 2025-12-27T01:00:28.479341
 
 ---

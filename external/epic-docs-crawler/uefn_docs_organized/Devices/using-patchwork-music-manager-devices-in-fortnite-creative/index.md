@@ -1,6 +1,6 @@
 # Music Manager
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-music-manager-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-music-manager-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:04:33.791186
 
 ---
@@ -127,12 +127,12 @@ The Music Manager does not have cable inputs or outputs, but can be controlled b
 
 Value Setter
 
-This is the glue that allows Creative and UEFN devices to control the state of Patchwork systems.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-value-setter-devices-in-fortnite-creative)[![LFO Modulator](https://dev.epicgames.com/community/api/documentation/image/c4b5f838-6a8d-47e1-9f52-9db16729ab7b?resizing_type=fit&width=640&height=640)
+This is the glue that allows Creative and UEFN devices to control the state of Patchwork systems.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-value-setter-devices-in-fortnite-creative)[![LFO> Modulator](<https://dev.epicgames.com/community/api/documentation/image/c4b5f838-6a8d-47e1-9f52-9db16729ab7b?resizing_type=fit&width=640&height=640>)
 
 LFO Modulator
 
-Use the Low-Frequency Oscillator Modulator device to modify a setting on another Patchwork device in a repeating pattern.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-lfo-modulator-devices-in-fortnite-creative)[![Step Modulator](https://dev.epicgames.com/community/api/documentation/image/d6d1c0b3-dcd4-4489-b49d-dd352758c0c5?resizing_type=fit&width=640&height=640)
+Use the Low-Frequency Oscillator Modulator device to modify a setting on another Patchwork device in a repeating pattern.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-lfo-modulator-devices-in-fortnite-creative)[![Step> Modulator](<https://dev.epicgames.com/community/api/documentation/image/d6d1c0b3-dcd4-4489-b49d-dd352758c0c5?resizing_type=fit&width=640&height=640>)
 
 Step Modulator
 
-Patch the Step Modulator device to controls on other devices to create sequenced patterns with values from the Step Modulator.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-step-modulator-devices-in-fortnite-creative)
+Patch the Step Modulator device to controls on other devices to create sequenced patterns with values from the Step Modulator.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-step-modulator-devices-in-fortnite-creative>)

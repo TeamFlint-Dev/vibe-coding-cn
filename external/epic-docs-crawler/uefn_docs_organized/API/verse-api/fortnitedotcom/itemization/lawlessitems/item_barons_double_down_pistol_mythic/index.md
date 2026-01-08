@@ -1,6 +1,6 @@
 # item_barons_double_down_pistol_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_barons_double_down_pistol_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_barons_double_down_pistol_mythic>
 > **爬取时间**: 2025-12-27T05:01:14.814909
 
 ---

@@ -1,6 +1,6 @@
 # Project Navigation Menu
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/project-navigation-menu-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/project-navigation-menu-in-fortnite>
 > **爬取时间**: 2025-12-27T00:14:06.946235
 
 ---

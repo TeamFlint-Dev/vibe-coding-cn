@@ -1,6 +1,6 @@
 # AI Patrol Path Node device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/ai-patrol-path-node-device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/ai-patrol-path-node-device>
 > **爬取时间**: 2025-12-27T02:06:23.570327
 
 ---

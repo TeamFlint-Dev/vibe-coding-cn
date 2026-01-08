@@ -1,6 +1,6 @@
 # Prop Hunt Template
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-template-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-template-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:03:18.650531
 
 ---
@@ -44,40 +44,40 @@ Follow these steps to learn how to link devices with Verse to create a multiplay
 
 1. Creating a New Project
 
-Learn how to create a new project and modify the island settings.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-01-creating-a-new-project-in-unreal-editor-for-fortnite)[![2. Playing Visual Effects on Players](https://dev.epicgames.com/community/api/documentation/image/b63d76ff-7532-4e95-88b0-3c20447574e7?resizing_type=fit&width=640&height=640)
+Learn how to create a new project and modify the island settings.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-01-creating-a-new-project-in-unreal-editor-for-fortnite)[![2>. Playing Visual Effects on Players](<https://dev.epicgames.com/community/api/documentation/image/b63d76ff-7532-4e95-88b0-3c20447574e7?resizing_type=fit&width=640&height=640>)
 
-2. Playing Visual Effects on Players
+1. Playing Visual Effects on Players
 
-Learn how to add custom visual effects to the VFX Spawner device.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-02-playing-visual-effects-on-players-in-unreal-editor-for-fortnite)[![3. Playing Effects on Idle Players](https://dev.epicgames.com/community/api/documentation/image/29b74f2b-a3a4-40a0-8c54-b92ee2228969?resizing_type=fit&width=640&height=640)
+Learn how to add custom visual effects to the VFX Spawner device.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-02-playing-visual-effects-on-players-in-unreal-editor-for-fortnite)[![3>. Playing Effects on Idle Players](<https://dev.epicgames.com/community/api/documentation/image/29b74f2b-a3a4-40a0-8c54-b92ee2228969?resizing_type=fit&width=640&height=640>)
 
-3. Playing Effects on Idle Players
+1. Playing Effects on Idle Players
 
-Use the Verse code in this section to add effects to idle players.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-03-playing-effects-on-idle-players-in-unreal-editor-for-fortnite)[![4. Setting up Teams and Classes](https://dev.epicgames.com/community/api/documentation/image/32759977-2ded-4ccf-a776-8dc86355d7df?resizing_type=fit&width=640&height=640)
+Use the Verse code in this section to add effects to idle players.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-03-playing-effects-on-idle-players-in-unreal-editor-for-fortnite)[![4>. Setting up Teams and Classes](<https://dev.epicgames.com/community/api/documentation/image/32759977-2ded-4ccf-a776-8dc86355d7df?resizing_type=fit&width=640&height=640>)
 
-4. Setting up Teams and Classes
+1. Setting up Teams and Classes
 
-Use a combination of devices to designate teams and classes for players.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-04-setting-up-teams-and-classes-in-unreal-editor-for-fortnite)[![5. Game Loop and Round Management](https://dev.epicgames.com/community/api/documentation/image/7d0d4062-a5b2-46bb-8235-d02eaff0750e?resizing_type=fit&width=640&height=640)
+Use a combination of devices to designate teams and classes for players.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-04-setting-up-teams-and-classes-in-unreal-editor-for-fortnite)[![5>. Game Loop and Round Management](<https://dev.epicgames.com/community/api/documentation/image/7d0d4062-a5b2-46bb-8235-d02eaff0750e?resizing_type=fit&width=640&height=640>)
 
-5. Game Loop and Round Management
+1. Game Loop and Round Management
 
-Use the Verse code in this section to add a game loop and round management system.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-05-game-loop-and-round-management-in-unreal-editor-for-fortnite)[![6. Adding the Full Script](https://dev.epicgames.com/community/api/documentation/image/3fb872fd-5229-440c-b545-5b9168b720b2?resizing_type=fit&width=640&height=640)
+Use the Verse code in this section to add a game loop and round management system.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-05-game-loop-and-round-management-in-unreal-editor-for-fortnite)[![6>. Adding the Full Script](<https://dev.epicgames.com/community/api/documentation/image/3fb872fd-5229-440c-b545-5b9168b720b2?resizing_type=fit&width=640&height=640>)
 
-6. Adding the Full Script
+1. Adding the Full Script
 
-Use these devices to customize the gameplay experience in Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-06-adding-the-full-script-in-unreal-editor-for-fortnite)[![7. Designing Your Island](https://dev.epicgames.com/community/api/documentation/image/6dfb7ca6-e523-43d6-8788-8c2ab35c2f04?resizing_type=fit&width=640&height=640)
+Use these devices to customize the gameplay experience in Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-06-adding-the-full-script-in-unreal-editor-for-fortnite)[![7>. Designing Your Island](<https://dev.epicgames.com/community/api/documentation/image/6dfb7ca6-e523-43d6-8788-8c2ab35c2f04?resizing_type=fit&width=640&height=640>)
 
-7. Designing Your Island
+1. Designing Your Island
 
-Use your creativity to design your island.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-07-designing-your-island-in-unreal-editor-for-fortnite)[![8. Customizing Player Spawns](https://dev.epicgames.com/community/api/documentation/image/2c0ff358-b601-4962-984e-cae3fdb0d519?resizing_type=fit&width=640&height=640)
+Use your creativity to design your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-07-designing-your-island-in-unreal-editor-for-fortnite)[![8>. Customizing Player Spawns](<https://dev.epicgames.com/community/api/documentation/image/2c0ff358-b601-4962-984e-cae3fdb0d519?resizing_type=fit&width=640&height=640>)
 
-8. Customizing Player Spawns
+1. Customizing Player Spawns
 
-Learn how to spawn and teleport players with VFX.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-08-customizing-player-spawns-in-unreal-editor-for-fortnite)[![9. Configuring the Informative Devices](https://dev.epicgames.com/community/api/documentation/image/2c19e6e7-3e2a-43e0-b199-989c0862b40d?resizing_type=fit&width=640&height=640)
+Learn how to spawn and teleport players with VFX.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-08-customizing-player-spawns-in-unreal-editor-for-fortnite)[![9>. Configuring the Informative Devices](<https://dev.epicgames.com/community/api/documentation/image/2c19e6e7-3e2a-43e0-b199-989c0862b40d?resizing_type=fit&width=640&height=640>)
 
-9. Configuring the Informative Devices
+1. Configuring the Informative Devices
 
-Set up the devices that send information to players and the game.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-09-configuring-the-informative-devices-in-unreal-editor-for-fortnite)[![10. Customize the Gameplay](https://dev.epicgames.com/community/api/documentation/image/1eafebcc-0a6a-4e5b-b4b6-a1ce64a705c5?resizing_type=fit&width=640&height=640)
+Set up the devices that send information to players and the game.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-09-configuring-the-informative-devices-in-unreal-editor-for-fortnite)[![10>. Customize the Gameplay](<https://dev.epicgames.com/community/api/documentation/image/1eafebcc-0a6a-4e5b-b4b6-a1ce64a705c5?resizing_type=fit&width=640&height=640>)
 
-10. Customize the Gameplay
+1. Customize the Gameplay
 
-Use these devices to customize the gameplay experience.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-10-customizing-the-gameplay-in-unreal-editor-for-fortnite)
+Use these devices to customize the gameplay experience.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-10-customizing-the-gameplay-in-unreal-editor-for-fortnite>)

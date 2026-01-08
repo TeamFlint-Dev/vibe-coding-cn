@@ -1,6 +1,6 @@
 # ResumeVerticalMovement function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/water_device/resumeverticalmovement
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/water_device/resumeverticalmovement>
 > **爬取时间**: 2025-12-27T05:40:16.273441
 
 ---

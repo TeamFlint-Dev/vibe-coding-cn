@@ -1,6 +1,6 @@
 # Equip function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/item_component/equip
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/item_component/equip>
 > **爬取时间**: 2025-12-27T02:55:11.214978
 
 ---

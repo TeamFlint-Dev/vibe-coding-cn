@@ -1,6 +1,6 @@
 # CycleToPreviousItem function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_granter_device/cycletopreviousitem
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_granter_device/cycletopreviousitem>
 > **爬取时间**: 2025-12-27T05:28:59.956233
 
 ---

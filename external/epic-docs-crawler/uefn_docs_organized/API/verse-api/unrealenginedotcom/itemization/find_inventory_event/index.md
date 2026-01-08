@@ -1,6 +1,6 @@
 # find_inventory_event class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/find_inventory_event
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/find_inventory_event>
 > **爬取时间**: 2025-12-27T01:03:41.314672
 
 ---

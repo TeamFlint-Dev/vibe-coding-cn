@@ -1,6 +1,6 @@
 # entitlement_change function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/entitlement_change
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/entitlement_change>
 > **爬取时间**: 2025-12-27T01:14:38.221290
 
 ---

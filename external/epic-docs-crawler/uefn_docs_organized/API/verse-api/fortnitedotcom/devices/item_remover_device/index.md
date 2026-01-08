@@ -1,6 +1,6 @@
 # item_remover_device class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_remover_device
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/item_remover_device>
 > **爬取时间**: 2025-12-27T01:46:17.424876
 
 ---

@@ -1,6 +1,6 @@
 # item_dual_fiend_hunters_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_dual_fiend_hunters_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_dual_fiend_hunters_common>
 > **爬取时间**: 2025-12-27T03:15:26.302833
 
 ---

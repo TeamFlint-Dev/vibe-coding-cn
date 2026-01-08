@@ -1,6 +1,6 @@
 # Spawning a Grid of Platforms with Scene Graph
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/spawning-a-grid-of-platforms-with-scene-graph-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/spawning-a-grid-of-platforms-with-scene-graph-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:43:04.442787
 
 ---
@@ -62,6 +62,7 @@ Follow these steps to spawn a grid made from the platform prefab:
      MinComponentValue := option{0.0}
      PlatformSpacing:vector2 = vector2{X := 256.0, Y := 256.0}
      ~~~
+
 3. In the `OnSimulate` function, iterate across the `GridSize` vector to know how many platforms to spawn. In the loop, create an instance of your prefab class and add it to the entity this Verse component is attached to, to spawn the prefab in the world.
 
    ~~~(verse)
@@ -90,6 +91,7 @@ Follow these steps to spawn a grid made from the platform prefab:
    ChooseOnePlatform := choose\_one\_platform\_prefab{}
    Entity.AddEntities(array{ChooseOnePlatform})
    ~~~
+
 4. If you ran the code now, all the platforms would spawn in the same location. Since the prefab has the transform component and the parent constraint component, you can set the **InitialRelativeTransform** property on its transform component to spawn the prefab at an offset relative to the location of the entity you add the prefab to. Without the parent constraint component on the entity you're spawning, you'd have to specify the location in the world space (and not relative to the root entity).
 
    ```verse
@@ -139,6 +141,7 @@ Follow these steps to spawn a grid made from the platform prefab:
 
                         Entity.AddEntities(array{ChooseOnePlatform})
    ```
+
 5. Save and compile your code.
 
 If you attach this Verse component to an entity and launch a session, a grid of platforms will appear at that entity's location.
@@ -214,6 +217,7 @@ Follow these steps to randomly select valid platforms in the grid:
                                    @editable
                                    NotChosenColor:color = NamedColors.Blue
      ```
+
 2. The result of a `for` expression is an array of each iteration. Store all the platforms spawned for a row in an array and pass this array to a function for randomly setting the platforms named `RandomizeCollidablePlatformsPerRow()`.
 
    ```verse
@@ -252,6 +256,7 @@ Follow these steps to randomly select valid platforms in the grid:
                 # Since the row of platforms are spawned, select which ones have collision.
                 RandomizeCollidablePlatformsPerRow(EntitiesInRow)
    ```
+
 3. Create a function named `RandomizeCollidablePlatformsPerRow` that should randomly select entities to have collision, and have it disable collision on all of the entities. Since the point light component is on the child entity of the prefab, you can use `FindComponents` to search among the entity's children for the point light to change its color.
 
    ```verse
@@ -268,6 +273,7 @@ Follow these steps to randomly select valid platforms in the grid:
                     Collision.Disable()
                     Light.SetColor(NotChosenColor)
    ```
+
 4. Create an extension method for arrays named `ChooseOne` to choose a random element from the array. The result is a tuple containing both the chosen element and an array with all the other elements that are not selected.
 
    ```verse
@@ -277,6 +283,7 @@ Follow these steps to randomly select valid platforms in the grid:
             NotChosenElements := Input.RemoveFirstElement[ChosenElement]
             (ChosenElement, NotChosenElements)
    ```
+
 5. Call `ChooseOne` from `RandomizeCollidablePlatformsPerRow` to select an entity to have collision and change its color.
 
    ```verse
@@ -292,7 +299,7 @@ Follow these steps to randomly select valid platforms in the grid:
             do:
                 Collision.Disable()
                 Light.SetColor(NotChosenColor)
-   		
+     
             # Enable an entity by enabling the collision on the entity,
             # and finding a point light in its child entities to change its color.
             if:
@@ -304,6 +311,7 @@ Follow these steps to randomly select valid platforms in the grid:
                 Collision.Enable()
                 Light.SetColor(ChosenColor)
    ```
+
 6. Update `RandomizeCollidablePlatformsPerRow` to choose multiple entities to have collision based on the editable properties. First, get a random value between the min and max number of correct platforms per row and choose an entity as many times, then remove the entity that was chosen from the list of next candidates to choose from.
 
    ```verse
@@ -319,7 +327,7 @@ Follow these steps to randomly select valid platforms in the grid:
             do:
                 Collision.Disable()
                 Light.SetColor(NotChosenColor)
-   		
+     
             # Enable a random number of entities between min and max correct platforms per row.
             # After choosing an entity to enable, remove it from the list so it's not selected again.
             # It enables an entity by enabling the collision on the entity,
@@ -337,6 +345,7 @@ Follow these steps to randomly select valid platforms in the grid:
                 Collision.Enable()
                 Light.SetColor(ChosenColor)
    ```
+
 7. Save and compile your code.
 
 If you launch a session now, a grid of platforms are spawned in the world with a unique sequence of platforms that have collision and the chosen color.

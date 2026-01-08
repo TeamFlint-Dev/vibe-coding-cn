@@ -1,6 +1,6 @@
 # 1. Create a New Project
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-01-create-a-new-project-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-01-create-a-new-project-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:14:38.601382
 
 ---
@@ -45,6 +45,6 @@ Use the **Search** bar to locate each setting faster.
 
 [![2. Add Devices](https://dev.epicgames.com/community/api/documentation/image/b78cffb3-ced4-4a17-bf5f-814c3102bdb8?resizing_type=fit&width=640&height=640)
 
-2. Add Devices
+1. Add Devices
 
-Add and configure the devices that drive Stronghold.](https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-02-add-devices-in-unreal-editor-for-fortnite)
+Add and configure the devices that drive Stronghold.](<https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-02-add-devices-in-unreal-editor-for-fortnite>)

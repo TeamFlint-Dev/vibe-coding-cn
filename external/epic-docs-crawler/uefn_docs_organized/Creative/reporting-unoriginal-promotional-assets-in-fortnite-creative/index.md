@@ -1,6 +1,6 @@
 # Reporting Unoriginal Promotional Assets
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/reporting-unoriginal-promotional-assets-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/reporting-unoriginal-promotional-assets-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:24:08.311255
 
 ---

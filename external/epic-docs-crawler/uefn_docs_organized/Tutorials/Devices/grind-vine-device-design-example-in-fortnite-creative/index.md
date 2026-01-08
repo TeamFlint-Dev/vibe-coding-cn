@@ -1,6 +1,6 @@
 # Grind Vine Device Design Example
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/grind-vine-device-design-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/grind-vine-device-design-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:03:35.833769
 
 ---
@@ -57,6 +57,7 @@ The base of the course in this example is a water volume created with a Water de
    | **Zone Width** | 40.0 | You're setting the basic dimensions based on grid counts. This and the depth provides enough of an area to build a fun course. |
    | **Zone Depth** | 8.0 | See Zone Width. |
    | **Zone Height** | 0.5 | This is how deep the water volume is. You don't really need more depth than this. |
+
 3. Add the major **terrain features**. In this example, there are rocks and trees that support the vine. Use whatever assets you want, but the ones used here are from the following galleries and prefabs:
 
    - Nature 4 Cliff Gallery
@@ -146,6 +147,7 @@ Equipping a player with a weapon requires an Item Spawner device, and a weapon d
    | **Time Between Spawns** | 1.0 Second | This controls how quickly a new weapon will spawn after a player picks it. |
    | **Run Over Pickup** | On | Allows the player to pick up the item by running over it. |
    | **Item Scale** | 1.5 | Determines the size of the weapon's display. A slightly larger display makes it easier for the player to remember to grab it. |
+
 3. Select your weapon of choice from the **Weapons** category under Creative **Content** and click **Drop**.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/73b47322-576e-4ad8-a6ef-de15652fecd8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/73b47322-576e-4ad8-a6ef-de15652fecd8?resizing_type=fit)
@@ -176,6 +178,7 @@ Use the following devices to set up and control the game state:
    | **Enable Urgency Mode** | On | Sets the device to urgency mode when the remaining time reaches the threshold below. |
    | **Urgency Mode Time** | 5.0 Seconds | Sets the threshold by number of seconds before timer completion for when urgency mode kicks in. |
    | **Urgency Text** | type text | The text that displays when urgency mode starts. |
+
 3. Place the **Score Manager** device and customize:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/f2f2d9a9-1d2f-46c9-81a1-c9fc7c5d16f5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f2f2d9a9-1d2f-46c9-81a1-c9fc7c5d16f5?resizing_type=fit)
@@ -185,6 +188,7 @@ Use the following devices to set up and control the game state:
    | **Score Value** | 100 | Points awarded when device is triggered. |
    | **Enabled During Phase** | None | Set to None since this device is triggered only through direct event binding. |
    | **Display Score Update on HUD** | On | Score updates will be visible to player through their HUD. |
+
 4. Add the **Capture Area** device to the tower at the end of the play area.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/38c55468-1772-47c4-b967-a8ac2ced801a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/38c55468-1772-47c4-b967-a8ac2ced801a?resizing_type=fit)
@@ -199,6 +203,7 @@ Use the following devices to set up and control the game state:
    | **Can Be Captured by Team** | All | Capture is not restricted to a specific team. |
    | **Count as Objective** | On | Landing in the capture area will score for the player. |
    | **Show in Objective HUD** | On | This device will show in the Objective HUD as a player objective. |
+
 6. Add the **End Game** device to the tower at the end of the play space.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/2ed64d5c-21fa-4ab4-9b53-3ccae562b5ac?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2ed64d5c-21fa-4ab4-9b53-3ccae562b5ac?resizing_type=fit)
@@ -218,6 +223,7 @@ Use the following devices to set up and control the game state:
    | **Start When Receiving From** | Grind Vine | On Started Grinding |
    | **Complete When Receiving From** | Capture Area | On Player Entering Zone |
    | **Resume When Receiving From** | Grind Vine | On Started Grinding |
+
 2. Set the **Score Manager** to use the following functions:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/54ef7d6c-cfea-4f5c-b503-730f76861f81?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/54ef7d6c-cfea-4f5c-b503-730f76861f81?resizing_type=fit)
@@ -238,6 +244,7 @@ Use the following devices to set up and control the game state:
    | --- | --- | --- |
    | **On Player Entering Zone Send Event To** | Timer device | Complete |
    | **On Player Entering Zone Send Event To** | End Game device | Activate |
+
 4. Set the **End Game** device to use the following functions:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/3d724f43-07ff-4bd8-b47b-c794ea98e918?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/3d724f43-07ff-4bd8-b47b-c794ea98e918?resizing_type=fit)

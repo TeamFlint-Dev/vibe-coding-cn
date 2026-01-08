@@ -1,6 +1,6 @@
 # item_stink_sac class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_stink_sac
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/primalitems/item_stink_sac>
 > **爬取时间**: 2025-12-27T03:39:53.090039
 
 ---

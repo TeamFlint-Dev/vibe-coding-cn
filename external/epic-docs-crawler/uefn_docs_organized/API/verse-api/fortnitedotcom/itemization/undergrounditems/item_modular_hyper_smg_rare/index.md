@@ -1,6 +1,6 @@
 # item_modular_hyper_smg_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_modular_hyper_smg_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/undergrounditems/item_modular_hyper_smg_rare>
 > **爬取时间**: 2025-12-27T04:52:41.212792
 
 ---

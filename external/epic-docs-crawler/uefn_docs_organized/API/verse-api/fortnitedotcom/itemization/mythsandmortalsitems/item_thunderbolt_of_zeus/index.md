@@ -1,6 +1,6 @@
 # item_thunderbolt_of_zeus class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/mythsandmortalsitems/item_thunderbolt_of_zeus
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/mythsandmortalsitems/item_thunderbolt_of_zeus>
 > **爬取时间**: 2025-12-27T03:05:27.389118
 
 ---

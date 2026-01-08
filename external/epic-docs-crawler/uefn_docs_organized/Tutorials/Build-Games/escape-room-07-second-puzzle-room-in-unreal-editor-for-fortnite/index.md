@@ -1,6 +1,6 @@
 # 7. Second Puzzle Room
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-07-second-puzzle-room-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-07-second-puzzle-room-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:17:08.630469
 
 ---
@@ -149,6 +149,6 @@ Rename the Item placer devices to tell them apart:
 
 [![8. Outside Cabin](https://dev.epicgames.com/community/api/documentation/image/2464762c-ab81-4c7e-a73c-aa995d8145ca?resizing_type=fit&width=640&height=640)
 
-8. Outside Cabin
+1. Outside Cabin
 
-Create creepy woods around the cabin for players to explore and to capture in your cinemtaics.](https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-08-outside-cabin-in-unreal-editor-for-fortnite)
+Create creepy woods around the cabin for players to explore and to capture in your cinemtaics.](<https://dev.epicgames.com/documentation/en-us/fortnite/escape-room-08-outside-cabin-in-unreal-editor-for-fortnite>)

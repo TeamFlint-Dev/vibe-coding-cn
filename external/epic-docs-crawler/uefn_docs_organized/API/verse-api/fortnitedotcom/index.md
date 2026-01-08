@@ -1,6 +1,6 @@
 # Fortnite.com module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom>
 > **爬取时间**: 2025-12-26T23:27:18.857469
 
 ---

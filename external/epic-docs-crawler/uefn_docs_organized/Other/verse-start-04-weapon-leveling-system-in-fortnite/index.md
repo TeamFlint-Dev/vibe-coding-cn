@@ -1,6 +1,6 @@
 # 4. Weapon Leveling System
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-04-weapon-leveling-system-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-04-weapon-leveling-system-in-fortnite>
 > **爬取时间**: 2025-12-27T00:29:25.617953
 
 ---
@@ -49,6 +49,7 @@ This page guides you step by step through the code changes, but if you want to c
 
        var CurrentWeaponLevel:int = 1
    ```
+
 3. Add the `IncreaseWeaponLevel` method to increase the weapon level variable and cycle to the next item.
 
    ```verse
@@ -63,6 +64,7 @@ This page guides you step by step through the code changes, but if you want to c
                set CurrentWeaponLevel += 1
                ItemGranter.CycleToNextItem(Player)
    ```
+
 4. Modify the `OnComboTargetHit` method to call `IncreaseWeaponLevel`.
 
    ```verse
@@ -78,6 +80,7 @@ This page guides you step by step through the code changes, but if you want to c
 
            ResetCombo()
    ```
+
 5. Modify the `AdjustScore` method to multiply the score awarded by the weapon level.
 
    ```verse
@@ -118,6 +121,7 @@ This page guides you step by step through the code changes, but if you want to c
                    # Enable the BonusTimeTarget.
                    BonusTimeTarget.Enable()
    ```
+
 6. Save and build your Verse code.
 
 ## Complete Code
@@ -380,6 +384,6 @@ shooting_range_manager_device := class(creative_device):
 
 [![5. Refactor and Refine](https://dev.epicgames.com/community/api/documentation/image/d73cd87f-7a6e-438b-a44b-8cc5e4c1d2a3?resizing_type=fit&width=640&height=640)
 
-5. Refactor and Refine
+1. Refactor and Refine
 
-Learn some key Verse concepts as you tweak your code!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-05-refactor-and-refine-in-fortnite)
+Learn some key Verse concepts as you tweak your code!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-05-refactor-and-refine-in-fortnite>)

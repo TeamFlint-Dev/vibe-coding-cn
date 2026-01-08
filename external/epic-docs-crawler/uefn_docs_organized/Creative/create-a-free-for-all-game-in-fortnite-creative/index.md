@@ -1,6 +1,6 @@
 # Free For All Tutorial
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-a-free-for-all-game-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-a-free-for-all-game-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:58:08.514076
 
 ---
@@ -82,6 +82,7 @@ Once your play area is in place, add your first Player Spawn Pad. Because all sp
    | **Priority Group** | Primary | Players respawn on these pads during gameplay. |
    | **Use As Island Start** | No | Players do not spawn here initially, instead they spawn into the game for the first time into the lobby you set up. |
    | **Visible during games** | No | Spawn pads aren’t visible during gameplay, this is one of the ways spawn camping is discouraged. |
+
 4. Click **OK** to save your options.
 5. Next, copy the spawn pad and place seven copies, for a total of eight Player Spawn Pads. Place the spawn pads around the play area, using the suggestions in the [Level Design Tips](https://dev.epicgames.com/documentation/en-us/fortnite/create-a-free-for-all-game-in-fortnite-creative) section.
 
@@ -129,6 +130,7 @@ Once your player spawners are in place, add the Class Designer. The reason you a
     | **Gold Granted on Elimination** | 0 | Player building is not allowed in this game mode, so no resources are granted for eliminating another player. |
     | **Maximum Building Resources** | 0 | Player building is not allowed in this game mode, so this is set to 0. |
     | **Spawn Immunity Time** | 2 seconds | Players are immune to damage for 2 seconds after spawning and respawning. |
+
 11. Click **OK** to save your options.
 
     Make sure you click **OK** after changing your settings. Otherwise, your customized options will not be saved.
@@ -150,6 +152,7 @@ Next, add your first Item Spawner. You should have determined how many Item Spaw
    | **Time Before First Spawn** | Instant | Items will spawn immediately on game start. Note: this example has set this option to different values for each Item Spawner, so that the devices are all spawning different items at different times. |
    | **Time Between Spawns** | 1 minute | This is the amount of time it takes for the device to spawn another item. Note: this example has set this option to different values for each Item Spawner, so that the devices are all spawning different items at different times. |
    | **Run Over Pickup** | On | Players can pick up spawned items by running over them. |
+
 4. Click **OK** to save your options.
 5. You can add weapons, ammo, health items, or powerups to the Item Spawner. Stand close to the device. Press the **Tab** key to open the **CREATIVE** inventory, and add the items you picked to your Player inventory or Equipment bar.
 6. Click **PLAY** in the top navigation bar. Drag the weapons or other items you selected from your Player inventory onto the Item Spawner.
@@ -172,6 +175,7 @@ Next, place and set up the Elimination Manager. Elimination Manager devices can 
    | Option | Value | Explanation |
    | --- | --- | --- |
    | **Initial Movement of Item** | Gravity | The items dropped from an eliminated player should drop as close to the eliminated player as possible, to make it easy for the eliminating player to pick them up. |
+
 4. Click **OK** to save your options.
 5. Add the types and amounts of ammo that you want players to drop when they are eliminated. Stand close to the device. Press the **Tab** key to open the **CREATIVE** inventory, and add these items to your Player inventory.
 
@@ -195,6 +199,7 @@ The HUD Controller lets you edit the Fortnite HUD to eliminate unnecessary infor
    | **Show Wood Resource** | No | Hides the wood resource HUD element during your game. |
    | **Show Stone Resource** | No | Hides the stone resource HUD element during your game. |
    | **Show Metal Resource** | No | Hides the metal resource HUD element during your game. |
+
 4. Click **OK** to save your options.
 
 Make sure you click **OK** after changing your settings. Otherwise, your customized options will not be saved.
@@ -284,6 +289,7 @@ You can build the pre-game lobby space wherever you want, as long as it is separ
    | **Priority Group** | Secondary | You don’t want the players to spawn here after the game starts, so this is set to Secondary. The Player Spawner pads in the Spawn Rooms are set to Primary, so that eliminated players will spawn there and not in the Pre-Game Lobby. |
    | **Visible During Games** | No | Just like the Player Spawner pads in the Spawn Room, we don’t want the devices to be visible during the game. |
    | **Use as Island Start** | Yes (default) | This is where the players arrive when they get to the island. After the game starts, when players are eliminated they will spawn in the Spawn Rooms you set up. |
+
 4. Click **OK** to save your options.
 5. Next, copy the spawn pad, then place seven copies for a total of eight spawn pads.
 6. Use Billboard devices to give players information on how to play your game. Place the Billboards in prominent places near the spawn pads, and make the instructions short and clear so players can read them quickly.

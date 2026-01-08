@@ -1,6 +1,6 @@
 # SpawnObject function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/prop_spawner_base_device/spawnobject
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/prop_spawner_base_device/spawnobject>
 > **爬取时间**: 2025-12-27T05:35:49.825536
 
 ---

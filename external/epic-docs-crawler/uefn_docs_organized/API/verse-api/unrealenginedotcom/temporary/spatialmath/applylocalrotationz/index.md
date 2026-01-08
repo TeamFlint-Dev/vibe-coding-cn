@@ -1,6 +1,6 @@
 # (InitialRotation:rotation).ApplyLocalRotationZ extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/applylocalrotationz
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/applylocalrotationz>
 > **爬取时间**: 2025-12-27T02:36:48.545464
 
 ---

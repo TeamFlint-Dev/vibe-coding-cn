@@ -1,6 +1,6 @@
 # Knock Knock
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/knock-knock-gameplay-example-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/knock-knock-gameplay-example-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T00:27:55.314861
 
 ---
@@ -39,6 +39,7 @@ To learn more about placing devices and props, and using the grid, watch the [Vi
    | --- | --- | --- |
    | **Interaction Text** | **Detonate Barrel!** | Tells the player what the button does. |
    | **When Interacted With Transmit on** | **Channel 1** | When you interact with the Button device, it sends a signal that detonates the Explosive Barrel device. |
+
 4. Customize the device options for the Explosive Barrel device.
 
    [![Customize the options for the Explosive Barrel device.](https://dev.epicgames.com/community/api/documentation/image/229c96a9-02e4-4197-8de9-6d25b2b05726?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/229c96a9-02e4-4197-8de9-6d25b2b05726?resizing_type=fit)

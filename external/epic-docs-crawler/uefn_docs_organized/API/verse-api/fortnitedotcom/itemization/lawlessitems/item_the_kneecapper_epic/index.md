@@ -1,6 +1,6 @@
 # item_the_kneecapper_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_the_kneecapper_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_the_kneecapper_epic>
 > **爬取时间**: 2025-12-27T05:00:17.600174
 
 ---

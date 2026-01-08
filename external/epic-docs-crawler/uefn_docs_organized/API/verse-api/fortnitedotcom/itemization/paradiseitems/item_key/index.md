@@ -1,6 +1,6 @@
 # item_key class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/paradiseitems/item_key
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/paradiseitems/item_key>
 > **爬取时间**: 2025-12-27T03:17:15.081443
 
 ---

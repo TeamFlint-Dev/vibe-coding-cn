@@ -1,6 +1,6 @@
 # reboot_progress_decay_behavior enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/reboot_progress_decay_behavior
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/reboot_progress_decay_behavior>
 > **爬取时间**: 2025-12-27T01:44:57.350061
 
 ---

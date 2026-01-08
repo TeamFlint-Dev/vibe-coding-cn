@@ -1,6 +1,6 @@
 # DeactivateSkinAndEmoteCapture function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/dance_mannequin_device/deactivateskinandemotecapture
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/dance_mannequin_device/deactivateskinandemotecapture>
 > **爬取时间**: 2025-12-27T05:45:31.413297
 
 ---

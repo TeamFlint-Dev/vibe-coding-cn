@@ -1,6 +1,6 @@
 # GetAgent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/player_reference_device/getagent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/player_reference_device/getagent>
 > **爬取时间**: 2025-12-27T06:19:21.903826
 
 ---

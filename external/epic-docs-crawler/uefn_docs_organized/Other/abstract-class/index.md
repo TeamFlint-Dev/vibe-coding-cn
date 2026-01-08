@@ -1,6 +1,6 @@
 # abstract class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/abstract-class
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/abstract-class>
 > **爬取时间**: 2025-12-27T07:10:25.538701
 
 ---

@@ -1,6 +1,6 @@
 # item_charge_shotgun_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s3items/item_charge_shotgun_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s3items/item_charge_shotgun_common>
 > **爬取时间**: 2025-12-27T03:24:44.474902
 
 ---

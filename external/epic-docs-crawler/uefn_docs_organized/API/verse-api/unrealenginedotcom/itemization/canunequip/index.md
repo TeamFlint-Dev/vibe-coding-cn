@@ -1,6 +1,6 @@
 # (Item:item_component).CanUnequip extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/canunequip
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/itemization/canunequip>
 > **爬取时间**: 2025-12-27T01:03:57.954417
 
 ---

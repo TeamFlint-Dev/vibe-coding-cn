@@ -1,6 +1,6 @@
 # 8. Customizing Player Spawns
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-08-customizing-player-spawns-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-08-customizing-player-spawns-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:23:37.993436
 
 ---
@@ -80,6 +80,6 @@ Place a Teleporter in your desired location and configure the **User Options** t
 
 [![9. Configuring the Informative Devices](https://dev.epicgames.com/community/api/documentation/image/2c19e6e7-3e2a-43e0-b199-989c0862b40d?resizing_type=fit&width=640&height=640)
 
-9. Configuring the Informative Devices
+1. Configuring the Informative Devices
 
-Set up the devices that send information to players and the game.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-09-configuring-the-informative-devices-in-unreal-editor-for-fortnite)
+Set up the devices that send information to players and the game.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-09-configuring-the-informative-devices-in-unreal-editor-for-fortnite>)

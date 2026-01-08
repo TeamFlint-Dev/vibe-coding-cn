@@ -1,6 +1,6 @@
 # ApplyForce function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/characters/fort_character/applyforce
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/characters/fort_character/applyforce>
 > **爬取时间**: 2025-12-27T05:05:48.916917
 
 ---

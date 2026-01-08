@@ -1,6 +1,6 @@
 # Box Fight
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/build-a-box-fight-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/build-a-box-fight-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:02:11.975746
 
 ---
@@ -25,18 +25,18 @@ Here is an overview of the steps you'll need to recreate this island in the idea
 
 1. Set Up the Box Fight Game
 
-Create a new project and modify the Island Settings.](https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-1-set-up-the-game-in-unreal-editor-for-fortnite)[![2. Build the Level](https://dev.epicgames.com/community/api/documentation/image/e0166bde-040d-4c52-988b-dec743b26ca3?resizing_type=fit&width=640&height=640)
+Create a new project and modify the Island Settings.](<https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-1-set-up-the-game-in-unreal-editor-for-fortnite)[![2>. Build the Level](<https://dev.epicgames.com/community/api/documentation/image/e0166bde-040d-4c52-988b-dec743b26ca3?resizing_type=fit&width=640&height=640>)
 
-2. Build the Level
+1. Build the Level
 
-Build the area for your box fight, including a basement underneath the main playing area.](https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-2-build-the-level-in-unreal-editor-for-fortnite)[![3. Add Devices](https://dev.epicgames.com/community/api/documentation/image/25334b81-f62c-4349-93f3-4c3428578ed6?resizing_type=fit&width=640&height=640)
+Build the area for your box fight, including a basement underneath the main playing area.](<https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-2-build-the-level-in-unreal-editor-for-fortnite)[![3>. Add Devices](<https://dev.epicgames.com/community/api/documentation/image/25334b81-f62c-4349-93f3-4c3428578ed6?resizing_type=fit&width=640&height=640>)
 
-3. Add Devices
+1. Add Devices
 
-Add and configure the devices that make up the box fight.](https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-3-add-devices-in-unreal-editor-for-fortnite)[![4. Link Devices](https://dev.epicgames.com/community/api/documentation/image/1997e8ec-6bde-4085-8494-ca4a777b6703?resizing_type=fit&width=640&height=640)
+Add and configure the devices that make up the box fight.](<https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-3-add-devices-in-unreal-editor-for-fortnite)[![4>. Link Devices](<https://dev.epicgames.com/community/api/documentation/image/1997e8ec-6bde-4085-8494-ca4a777b6703?resizing_type=fit&width=640&height=640>)
 
-4. Link Devices
+1. Link Devices
 
-Set up direct event binding or set up a Verse script to link the devices.](https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-4-link-devices-in-unreal-editor-for-fortnite)
+Set up direct event binding or set up a Verse script to link the devices.](<https://dev.epicgames.com/documentation/en-us/fortnite/box-fight-4-link-devices-in-unreal-editor-for-fortnite>)
 
 You cannot skip a section if you want to build a working box fight game. Each step is essential to get to the final product!

@@ -1,6 +1,6 @@
 # Conversion Function: Setting Material Parameters in UMG
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/conversion-function-setting-material-parameters-in-umg-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/conversion-function-setting-material-parameters-in-umg-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:16:56.973573
 
 ---

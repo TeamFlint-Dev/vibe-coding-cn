@@ -1,6 +1,6 @@
 # GetActiveWeakpointHealth function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/bank_vault_interface/getactiveweakpointhealth
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/bank_vault_interface/getactiveweakpointhealth>
 > **爬取时间**: 2025-12-27T05:15:38.650844
 
 ---

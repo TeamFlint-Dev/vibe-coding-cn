@@ -1,6 +1,6 @@
 # 1. Device Information
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-1-device-information-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-1-device-information-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:42:25.301234
 
 ---
@@ -103,6 +103,6 @@ You could stop after adjusting these settings in your project, or continue to cu
 
 [![2. North Biome](https://dev.epicgames.com/community/api/documentation/image/238560ea-2c86-4f21-bc94-11706df4a547?resizing_type=fit&width=640&height=640)
 
-2. North Biome
+1. North Biome
 
-Learn how to use the Day Sequence device to create custom outdoor lighting for cold environments.](https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-2-north-biome-in-unreal-editor-for-fortnite)
+Learn how to use the Day Sequence device to create custom outdoor lighting for cold environments.](<https://dev.epicgames.com/documentation/en-us/fortnite/day-sequence-2-north-biome-in-unreal-editor-for-fortnite>)

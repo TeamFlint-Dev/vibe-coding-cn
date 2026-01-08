@@ -1,6 +1,6 @@
 # GetParticipants function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/fort_playspace/getparticipants
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/playspaces/fort_playspace/getparticipants>
 > **爬取时间**: 2025-12-27T02:39:15.535308
 
 ---

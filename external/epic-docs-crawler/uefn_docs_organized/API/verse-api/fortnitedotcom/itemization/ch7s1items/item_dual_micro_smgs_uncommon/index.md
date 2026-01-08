@@ -1,6 +1,6 @@
 # item_dual_micro_smgs_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_dual_micro_smgs_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_dual_micro_smgs_uncommon>
 > **爬取时间**: 2025-12-27T04:17:11.004048
 
 ---

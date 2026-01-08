@@ -1,6 +1,6 @@
 # GetTiling function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/texture_block/gettiling
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/texture_block/gettiling>
 > **爬取时间**: 2025-12-27T07:16:02.629614
 
 ---

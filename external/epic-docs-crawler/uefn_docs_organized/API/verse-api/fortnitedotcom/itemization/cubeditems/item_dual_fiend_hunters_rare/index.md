@@ -1,6 +1,6 @@
 # item_dual_fiend_hunters_rare class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_dual_fiend_hunters_rare
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/cubeditems/item_dual_fiend_hunters_rare>
 > **爬取时间**: 2025-12-27T03:12:46.592491
 
 ---

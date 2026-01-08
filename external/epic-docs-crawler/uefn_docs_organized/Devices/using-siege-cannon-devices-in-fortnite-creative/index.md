@@ -1,6 +1,6 @@
 # Siege Cannon Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-siege-cannon-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-siege-cannon-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:38:13.007735
 
 ---
@@ -97,6 +97,7 @@ You can make an aerial target practice island using the Siege Cannon.
    | --- | --- | --- |
    | Score Value | 10 | 10 points will be awarded when the device is activated. |
    | Display Score Update on HUD | On | When the score is updated, a notification will appear on the player's HUD. |
+
 4. Place a balloon from the **Balloon Prop Gallery** and resize it to be as small as possible.
 5. Attach a **Prop Manipulator** to the balloon and give it a recognizable name. Keep the default settings.
 6. Place a **Trigger** directly in front of the balloon. Rotate and resize it to match the image below, then customize it to the following settings:
@@ -112,6 +113,7 @@ You can make an aerial target practice island using the Siege Cannon.
    | Times Can Trigger | 1 | The Trigger can only be activated once. |
    | Visible in Game | No | The Trigger will be invisible so it feels like the player is shooting the balloon behind it. |
    | Receive Damage While Invisible | Take Damage | This ensures that the Trigger will still be activated from damage even though it is invisible. |
+
 7. Set the direct event bindings of the Trigger to the following:
 
    [![Trigger Events](https://dev.epicgames.com/community/api/documentation/image/8f3a79b5-6e88-45c8-9994-6b390023592c?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/8f3a79b5-6e88-45c8-9994-6b390023592c?resizing_type=fit)
@@ -120,6 +122,7 @@ You can make an aerial target practice island using the Siege Cannon.
    | --- | --- | --- | --- |
    | On Triggered Send Event To | ScoreManager10 | Activate | The player will be awarded 10 points for hitting a balloon. |
    | On Triggered Send Event To | BalloonPropManipulator | Hide Props | The balloon will be hidden when it is hit. |
+
 8. Copy the entire balloon system (balloon, Prop Manipulator, and Trigger) and paste it two times in different locations in front of the Siege Cannon.
 
    After selecting all of the individual elements of the balloon system, press a number key (1-8) to store the entire system in the toolbar, making it easier to place again later.
@@ -170,6 +173,7 @@ Make building entries much more dynamic with the Siege Cannon!
    | Spawn Radius | 2.5M | Guards will only spawn within this small radius, giving more control over their positions. |
    | Visibility Range | 100M | The guards will be able to detect the player from 100 meters away. |
    | Drop Inventory On Elimination | No | The player already has a gun, so the guards do not need to drop their guns when they are eliminated. |
+
 3. Outside of the building, place a **Siege Cannon** with default settings. Ensure that when the player is fired, they can reach the player-built wall on the building.
 4. Place an **Item Granter**. Give it a name you can recognize from a list. Drop an Epic Heavy Assault Rifle while standing next to the Item Granter to register the weapon. Customize it to the following settings:
 
@@ -178,6 +182,7 @@ Make building entries much more dynamic with the Siege Cannon!
    | Option | Value | Description |
    | --- | --- | --- |
    | Equip Granted Item | First Item | The weapon will be immediately equipped when granted. |
+
 5. Place a **Player Spawner** behind the Siege Cannon. Set the direct event bindings of the Player Spawner to the following:
 
    [![Player Spawner](https://dev.epicgames.com/community/api/documentation/image/6a0266dc-bd7f-4aff-b868-bee404038735?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6a0266dc-bd7f-4aff-b868-bee404038735?resizing_type=fit)
@@ -185,6 +190,7 @@ Make building entries much more dynamic with the Siege Cannon!
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Player Spawned Send Event To | WeaponItemGranter | Grant Item | When the player spawns, they will be given the Heavy Assault Rifle. |
+
 6. Finally, modify the following Island Settings:
 
    | Modified Setting | Option | Explanation |
@@ -221,6 +227,7 @@ You can add a Siege Cannon as an unlockable upgrade after completing an objectiv
    | Option | Value | Description |
    | --- | --- | --- |
    | Equip Granted Item | First Item | The weapon will be immediately equipped when granted. |
+
 2. Place a **Player Spawner** and set the direct event bindings of the Player Spawner to the following:
 
    [![Player Spawner](https://dev.epicgames.com/community/api/documentation/image/1cb01b1f-e7d9-4c0d-978f-71e5e2893dcc?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1cb01b1f-e7d9-4c0d-978f-71e5e2893dcc?resizing_type=fit)
@@ -228,6 +235,7 @@ You can add a Siege Cannon as an unlockable upgrade after completing an objectiv
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Player Spawned Send Event To | WeaponItemGranter | Grant Item | When the player spawns, they will be given the Storm Scout Sniper Rifle. |
+
 3. Place a **Siege Cannon** near the player's spawn location and customize it to the following settings:
 
    [![Trigger](https://dev.epicgames.com/community/api/documentation/image/e5ff027d-0415-4554-8922-50929c7e5caf?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e5ff027d-0415-4554-8922-50929c7e5caf?resizing_type=fit)
@@ -235,6 +243,7 @@ You can add a Siege Cannon as an unlockable upgrade after completing an objectiv
    | Option | Value | Description |
    | --- | --- | --- |
    | Enabled During Phase | None | The Siege Cannon will not be enabled when the game begins. |
+
 4. Place a **Conditional Button** next to the Siege Cannon. Drop a **Gold coin** while standing next to the Conditional Button to assign it. Set its direct event bindings to the following:
 
    [![Conditional Button](https://dev.epicgames.com/community/api/documentation/image/15829d14-5549-4af8-b513-4d6a099f2020?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/15829d14-5549-4af8-b513-4d6a099f2020?resizing_type=fit)
@@ -242,6 +251,7 @@ You can add a Siege Cannon as an unlockable upgrade after completing an objectiv
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Activated Send Event To | SiegeCannon | Enable | When the player activates the Conditional Button with a Gold coin, the Siege Cannon will appear. |
+
 5. Place another **Item Granter**. Give it a name you can recognize from a list. Drop a **Gold coin** while standing next to the Item Granter to register it. Customize it to the following settings:
 
    [![Trigger](https://dev.epicgames.com/community/api/documentation/image/a2a5cbdd-f3d3-4155-a0b9-12b1169780d5?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/a2a5cbdd-f3d3-4155-a0b9-12b1169780d5?resizing_type=fit)
@@ -250,6 +260,7 @@ You can add a Siege Cannon as an unlockable upgrade after completing an objectiv
    | --- | --- | --- |
    | On-Grant Action | Keep All | The Item Granter will not replace any other items in the player's inventory. |
    | Drop Items at Player Location | Yes | Instead of the Gold coin appearing in the player's inventory, it will spawn on the ground beside them. |
+
 6. Place a **Trigger** to keep track of the number of Target Dummies that have been hit and customize it to the following settings:
 
    [![Trigger](https://dev.epicgames.com/community/api/documentation/image/b43f51cf-42f5-4f3b-a8f5-213666ba1e5b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b43f51cf-42f5-4f3b-a8f5-213666ba1e5b?resizing_type=fit)
@@ -260,6 +271,7 @@ You can add a Siege Cannon as an unlockable upgrade after completing an objectiv
    | Times Can Trigger | 5 | The Trigger can only activate 5 times total to prevent repeated activations of the Gold coin granter. |
    | Transmit Every X Triggers | 5 | The Trigger will only transmit a signal after it is activated 5 times. |
    | Visible in Game | No | The Trigger should not be visible during gameplay. |
+
 7. Set the direct event bindings of the Trigger to the following:
 
    [![Trigger Events](https://dev.epicgames.com/community/api/documentation/image/6e088c87-1dc8-4694-96ce-be95f11f3c7d?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6e088c87-1dc8-4694-96ce-be95f11f3c7d?resizing_type=fit)
@@ -267,6 +279,7 @@ You can add a Siege Cannon as an unlockable upgrade after completing an objectiv
    | Function | Device | Event | Description |
    | --- | --- | --- | --- |
    | On Triggered Send Event To | GoldItemGranter | Grant Item | After 5 triggers, the Item Granter will grant a Gold coin to the player. |
+
 8. About 12-15 tiles away from the Player Spawner, create a large shooting range using Target Dummies from the **Shooting Range Gallery**. Customize the settings on the Target Dummies to create moving, hopping, and visually varied targets. Set the direct event bindings on all of the Target Dummies to the following:
 
    [![Target Dummy](https://dev.epicgames.com/community/api/documentation/image/4b59ca85-6b64-43e9-8c80-f68c5f84b193?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/4b59ca85-6b64-43e9-8c80-f68c5f84b193?resizing_type=fit)

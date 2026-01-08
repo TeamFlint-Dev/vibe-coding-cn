@@ -1,6 +1,6 @@
 # IsOfClass function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/class_designer_device/isofclass
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/class_designer_device/isofclass>
 > **爬取时间**: 2025-12-27T05:23:57.796461
 
 ---

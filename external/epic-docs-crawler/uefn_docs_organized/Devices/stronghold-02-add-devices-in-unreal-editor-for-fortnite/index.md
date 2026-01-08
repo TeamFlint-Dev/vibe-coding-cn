@@ -1,6 +1,6 @@
 # 2. Add Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-02-add-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/stronghold-02-add-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:14:57.107449
 
 ---

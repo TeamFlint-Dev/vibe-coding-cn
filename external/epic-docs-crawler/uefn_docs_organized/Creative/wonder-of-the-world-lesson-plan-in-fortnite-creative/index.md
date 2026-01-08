@@ -1,6 +1,6 @@
 # Build a Wonder of the World
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/wonder-of-the-world-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/wonder-of-the-world-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:58.870139
 
 ---
@@ -19,11 +19,11 @@
 Author: Caleb Clark, Putney Central School, Putney, VT, Para Educator and
 Educational Technologist
 
-Email: cclark@wsesdvt.org
+Email: <cclark@wsesdvt.org>
 
-Twitter: https://twitter.com/calebjc
+Twitter: <https://twitter.com/calebjc>
 
-LinkedIn: https://www.linkedin.com/in/calebjc/
+LinkedIn: <https://www.linkedin.com/in/calebjc/>
 
 ## Lesson Overview
 
@@ -138,7 +138,7 @@ Students with extra time should further develop their Wonder to include game mec
 ## EXTERNAL RESOURCES
 
 Wakelet resources, including information on each Wonder of the World and examples on YouTube of similar structures built by Fortnite players and captured in speed-build videos
-https://wke.lt/w/s/VIvxlM
+<https://wke.lt/w/s/VIvxlM>
 
 - [The Pyramid of Menkaure](https://en.wikipedia.org/wiki/Pyramid_of_Menkaure#Temple_complex)
 - Jinshanling slopes of [The Great Wall of China](https://en.wikipedia.org/wiki/Great_Wall_of_China)
@@ -149,7 +149,7 @@ https://wke.lt/w/s/VIvxlM
 - [The Temple of Artemis](https://en.wikipedia.org/wiki/Temple_of_Artemis)
 - [Stonehenge](https://en.wikipedia.org/wiki/Stonehenge)
 
-Artemis Temple created by Darkous Gaming: https://youtu.be/nMlDuy-9qu8
+Artemis Temple created by Darkous Gaming: <https://youtu.be/nMlDuy-9qu8>
 
 ASSESSMENT
 
@@ -209,4 +209,4 @@ Incorporate an adaptive controller / game controller if necessary.
 
 Please include other teaching materials as separate documents (handouts, etc.)
 Wakelet Resources provided throughout template (videos of FN Creators’ Builds)
-https://wke.lt/w/s/VIvxlM
+<https://wke.lt/w/s/VIvxlM>

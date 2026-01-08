@@ -1,6 +1,6 @@
 # vector2i struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/vector2i
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/vector2i>
 > **爬取时间**: 2025-12-27T02:29:46.129042
 
 ---

@@ -1,6 +1,6 @@
 # device_ai_interaction_result struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/device_ai_interaction_result
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/device_ai_interaction_result>
 > **爬取时间**: 2025-12-27T01:42:28.033575
 
 ---

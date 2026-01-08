@@ -1,6 +1,6 @@
 # KPop Demon Hunters Islands
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/kpop-demon-hunters-islands-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/kpop-demon-hunters-islands-in-fortnite>
 > **爬取时间**: 2025-12-26T22:56:43.003146
 
 ---
@@ -21,8 +21,8 @@ Use the following resources when building your KPop Demon Hunters islands.
 
 KPop Demon Hunters Brand and Creator Rules
 
-Work with KPop Demon Hunters assets to create and publish custom KPop Demon Hunters Islands.](https://dev.epicgames.com/documentation/en-us/fortnite/kpop-demon-hunters-brand-and-creator-rules-in-fortnite)[![Working with KPop Demon Hunters Islands](https://dev.epicgames.com/community/api/documentation/image/740ada75-e1d3-43a5-bb14-c1e0db8bc3b9?resizing_type=fit&width=640&height=640)
+Work with KPop Demon Hunters assets to create and publish custom KPop Demon Hunters Islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/kpop-demon-hunters-brand-and-creator-rules-in-fortnite)[![Working> with KPop Demon Hunters Islands](<https://dev.epicgames.com/community/api/documentation/image/740ada75-e1d3-43a5-bb14-c1e0db8bc3b9?resizing_type=fit&width=640&height=640>)
 
 Working with KPop Demon Hunters Islands
 
-Learn about the available feature set for KPop Demon Hunters, including exclusive assets and a starter island.](https://dev.epicgames.com/documentation/en-us/fortnite/working-with-kpdh-islands-in-fortnite)
+Learn about the available feature set for KPop Demon Hunters, including exclusive assets and a starter island.](<https://dev.epicgames.com/documentation/en-us/fortnite/working-with-kpdh-islands-in-fortnite>)

@@ -1,6 +1,6 @@
 # 1. Combo System
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-01-combo-system-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-01-combo-system-in-fortnite>
 > **爬取时间**: 2025-12-27T00:29:11.706258
 
 ---
@@ -128,6 +128,7 @@ In this section, you'll add a combo system to your game that rewards players wit
                # Awards the points to the player.
                ScoreManager.Activate(Player)
    ```
+
 5. Select the shooting\_range\_manager\_device in the viewport.
 6. In the Details panel, set ComboTarget to the Llama target.
 7. Add the following code to:
@@ -250,6 +251,7 @@ In this section, you'll add a combo system to your game that rewards players wit
                # Awards the points to the player.
                ScoreManager.Activate(Player)
    ```
+
 8. Add the following code to:
 
    1. Set GoodTarget logic variables to true on hit.
@@ -544,6 +546,7 @@ In this section, you'll add a combo system to your game that rewards players wit
                # Awards the points to the player.
                ScoreManager.Activate(Player)
    ```
+
 10. Select **Verse** > **Build Verse Code** from the **Menu Bar**.
 11. Playtest your changes in an Edit Session.
 
@@ -556,6 +559,6 @@ In this section, you'll add a combo system to your game that rewards players wit
 
 [![2. Timer System](https://dev.epicgames.com/community/api/documentation/image/60517b39-a9a8-42ab-bb1c-b696bf1226a3?resizing_type=fit&width=640&height=640)
 
-2. Timer System
+1. Timer System
 
-Build suspense by adding a countdown to the end of the game!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-02-timer-system-in-fortnite)
+Build suspense by adding a countdown to the end of the game!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-02-timer-system-in-fortnite>)

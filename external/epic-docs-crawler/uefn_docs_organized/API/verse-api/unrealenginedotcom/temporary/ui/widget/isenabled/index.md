@@ -1,6 +1,6 @@
 # IsEnabled function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget/isenabled
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/ui/widget/isenabled>
 > **爬取时间**: 2025-12-27T02:56:29.963743
 
 ---

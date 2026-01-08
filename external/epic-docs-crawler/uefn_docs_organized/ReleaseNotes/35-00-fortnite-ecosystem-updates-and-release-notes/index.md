@@ -1,6 +1,6 @@
 # 35.00 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/35-00-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/35-00-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:33:39.270341
 
 ---
@@ -132,7 +132,7 @@ All inventory resources are now shown in players’ inventoriesy by default, so 
 
 ### Device Updates and Fixes
 
-##### Updates:
+##### Updates
 
 - **Grind Rails**: Added a new user option for disabling grinding when a player is walking over the rail, and new user options to control grinding direction and minimum speed.
 - **Bank Vault and Armored Transport**: Added new functions to destroy or restore the current active weak point.
@@ -149,7 +149,7 @@ All inventory resources are now shown in players’ inventoriesy by default, so 
 - The **Movement Modifier** device has a new user option, **Apply To Non-Player Character**. This option supports usage with Guards, NPCs and Wildlife. The default value is **Off**. When this option is set to **On**, AI characters can be affected by the device.
 - Shoe Cosmetics are now supported on both the **Player Reference** device and **Dance Mannequin** device.
 
-##### Fixes:
+##### Fixes
 
 - Fixed an issue where the Timer device would not synchronize for users joining in progress.
 - Fixed an issue where having two or more Prop Manipulator devices on the same prop would result in the one with the highest priority not being selected.
@@ -182,7 +182,7 @@ All inventory resources are now shown in players’ inventoriesy by default, so 
 
 ## Documentation and Learning Content
 
-### New Build Your First Island Tutorial!
+### New Build Your First Island Tutorial
 
 It’s been two years since UEFN’s launch! Now, we've completely overhauled the first-island experience to match all of the changes the Fortnite tools have gone through in that time.
 
@@ -190,7 +190,7 @@ Spend one hour following the [Build Your First Island in Fortnite](https://dev.e
 
 Stay tuned for more documentation and learning updates improving our onboarding experience over the next couple of releases!
 
-### Install and Launch Fortnite Overhaul!
+### Install and Launch Fortnite Overhaul
 
 Installing, downloading, and launching Fortnite documentation has now been combined and streamlined into one page that covers all you need to know about getting set up in Fortnite and UEFN in [one location](https://dev.epicgames.com/documentation/en-us/fortnite/install-and-launch-fortnite-creative-and-unreal-editor-for-fortnite)!
 
@@ -228,7 +228,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## Fortnite Ecosystem Updates and Fixes
 
-##### Fixes:
+##### Fixes
 
 - Fixed an issue where some team members' pings appeared white.
 - In Island Settings, fixed an issue where setting **Team** to **Custom**, **Coop** or a **Number** would put all players in the same team when the **Team Size** was set to **1** when two clients were connected, or **Team Size** was set to **2** when three clients were connected.
@@ -263,36 +263,36 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ## UEFN Updates and Fixes
 
-##### Fixes:
+##### Fixes
 
 - Fixed a crash that occurred in the signaling connection code that can happen after the connection has been destroyed.
 
 ### UI
 
-##### New:
+##### New
 
 - Added support for dragging widget and viewmodel properties into the bindings list.
 - Added **On Selected** and **On Unselected** events to UEFN Buttons.
 - Added support for duplicating ViewModel bindings in the UMG Editor. There is now a context menu item you can use to duplicate binding entries in the ViewModel Binding list.
 
-##### Fixes:
+##### Fixes
 
 - Fixed an issue that was causing soft-lock when disabling or hiding buttons using Verse code.
 
 ### Scene Graph Experimental
 
-##### New:
+##### New
 
 - Introduced a specialized text widget in the Scene Outliner. The Scene Outliner now shows the ID suffix of entities in dark gray, and rename operations don't affect it so it doesn't need to be manually managed.
 - You can now set the `Receives` property onto Decals in the mesh\_component.
 
-##### Fixes:
+##### Fixes
 
 - Fixed a problem with entities not being added correctly using AddEntities if the entities that are being added are already simulating.
 
 ### Editor
 
-##### New:
+##### New
 
 - Localization export now only modifies PO files when their localization data changes.
 - Actor discovery has been optimized within the localization export.
@@ -304,7 +304,7 @@ The following fixes are from issues that you submitted to us on the forums. Than
 - Added the **Show in Content Browser** option for plugins in the Plugin Reference Viewer.
 - Added a **Reimport Options** popup dialog to DataTable Import Options that will display when the Curve Table reimport button is pressed. This allows an interpolation mode to be selected.
 
-##### Fixes:
+##### Fixes
 
 - Fixed the cause of OOM crashes. These were caused by high peak memory usage when adding a large number of meshes into a scene.
 - Fixed the AssetPicker filters going out of scope when selecting them from a UtilityRig.
@@ -319,12 +319,12 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ### Environments and Landscapes
 
-##### New:
+##### New
 
 - Changed the default landscape edit layer method to BatchMerge. The Landscape.EditLayersLocalMerge.Enable default value is changed to **2**.
 - When saving, pending work related to landscape layers and physical material will now be flushed.
 
-##### Fixes:
+##### Fixes
 
 - Disabled TAA when in landscape mode because landscape brushes don't play well with temporal algorithms.
 - Re-entrant calls to UpdateLayersContent or other main entry points to add or remove layers during UpdateLayersContent are now correctly detected.
@@ -339,13 +339,13 @@ The following fixes are from issues that you submitted to us on the forums. Than
 
 ### Modeling
 
-##### New:
+##### New
 
 - Added height map bake support to the BakeVertex and BakeTextures tools.
 - In ScriptableTools, made the gizmo respect the Scale Uniform flag, and added the free translate and rotate flags so that uniform scale, arcball, and screen translation can be used.
 - The Simple Collision editor tool in Modeling mode now uses interval gizmos to control capsule and box dimensions, and supports toggling world and local spaces for the transform gizmos.
 
-##### Fixes:
+##### Fixes
 
 - Fixed an issue in the PivotActorTool that prevented the output object to be named using the input object name.
 - Fixed an issue in the PaintVertexColors tool that caused the resulting colors to be transformed incorrectly on Accept.

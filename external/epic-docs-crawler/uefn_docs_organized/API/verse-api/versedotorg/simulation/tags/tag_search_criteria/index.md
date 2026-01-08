@@ -1,6 +1,6 @@
 # tag_search_criteria class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/tags/tag_search_criteria
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/tags/tag_search_criteria>
 > **爬取时间**: 2025-12-27T02:47:33.303728
 
 ---

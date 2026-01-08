@@ -1,6 +1,6 @@
 # Giftbox Device for Hiding and Teleportation
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-giftbox-device-for-hiding-and-teleportation-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-giftbox-device-for-hiding-and-teleportation-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:12:58.760602
 
 ---
@@ -238,4 +238,4 @@ Learn to add a custom Squid Game UI to your island.
 
 Squid Game Custom UI
 
-Lean to add the Squid Game custom UI to your island.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-custom-ui-in-unreal-editor-for-fortnite)
+Lean to add the Squid Game custom UI to your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-custom-ui-in-unreal-editor-for-fortnite>)

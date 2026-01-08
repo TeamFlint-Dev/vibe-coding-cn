@@ -1,6 +1,6 @@
 # Item Component
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/item-component-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/item-component-in-fortnite>
 > **爬取时间**: 2025-12-27T00:34:58.565918
 
 ---
@@ -26,9 +26,9 @@ Attaching an `item_component` to an entity turns the entity into an item. This m
   - `StackSize` - An integer that conveys how many of these items are stacked.
   - `MaxStackSize` - How many items can be merged or stacked, before a new stack must be created. This defaults to no maximum (for example, infinite stacking).
   - Subscribe to `ChangeStackSizeEvent` to monitor stack changes.
-  - `MergeableItemComponentClasses` is an array that can contain subclasses of 
+  - `MergeableItemComponentClasses` is an array that can contain subclasses of
     the `item_component`. This allows any entity with a subclass inside the array to merge with this entity to form a stack.
-- The component also contains helper functions such 
+- The component also contains helper functions such
   as `GetParentInventory()` and `IsEquipped()`.
 
 More functionality can be given to an item with additional components that expose different features and basic Fortnite gameplay. You can also write your own custom Verse components. For more information check out the `item_component` API reference from the [Verse API](https://dev.epicgames.com/documentation/en-us/fortnite/verse-api).

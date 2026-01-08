@@ -1,6 +1,6 @@
 # Campaigns Page
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/campaigns-page-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/campaigns-page-in-fortnite>
 > **爬取时间**: 2025-12-27T00:01:16.499585
 
 ---
@@ -44,7 +44,7 @@ Click to enlarge image.
 4. **Delivered budget**: What you were actually charged (per day and in total).
 5. **Delivery rate**: The percentage of planned daily budget actually delivered. (Daily Spent ÷ Daily Planned × 100).
 6. **Max. bid**: Your maximum price per 1,000 impressions to be used in [auction](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#auction).
-7. **[CPM](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#cpm)**: 
+7. **[CPM](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#cpm)**:
    [Cost per mille](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#cost-per-mille) (CPM) is the cost per 1,000 impressions in a Sponsored Row campaign.
 8. **[Impressions](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-glossary#impression)**: An impression is a player view of your island thumbnail.
 9. **[Clicks](https://dev.epicgames.com/documentation/en-us/fortnite/project-analytics-for-fortnite-games)**: Number of times players clicked your sponsored tile.

@@ -1,6 +1,6 @@
 # item_banana class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s8items/item_banana
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s8items/item_banana>
 > **爬取时间**: 2025-12-27T04:15:21.919527
 
 ---

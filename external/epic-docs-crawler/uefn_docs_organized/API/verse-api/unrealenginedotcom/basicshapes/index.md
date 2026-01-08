@@ -1,6 +1,6 @@
 # BasicShapes module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/basicshapes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/basicshapes>
 > **爬取时间**: 2025-12-26T23:27:34.566755
 
 ---

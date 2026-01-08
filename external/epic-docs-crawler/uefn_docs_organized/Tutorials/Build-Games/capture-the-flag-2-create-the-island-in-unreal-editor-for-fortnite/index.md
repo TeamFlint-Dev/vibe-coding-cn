@@ -1,6 +1,6 @@
 # 2. Create the Island
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-2-create-the-island-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-2-create-the-island-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:16:45.625999
 
 ---
@@ -73,6 +73,6 @@ Configure the **User Options** for the first barrier as follows:
 
 [![3. Set Up Classes and Teams](https://dev.epicgames.com/community/api/documentation/image/5793afeb-2869-4a2b-9d1e-34a0ceac499b?resizing_type=fit&width=640&height=640)
 
-3. Set Up Classes and Teams
+1. Set Up Classes and Teams
 
-Use Class Designer devices to set up classes and the Team Settings device to configure the teams.](https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-3-set-up-the-classes-and-teams-in-unreal-editor-for-fortnite)
+Use Class Designer devices to set up classes and the Team Settings device to configure the teams.](<https://dev.epicgames.com/documentation/en-us/fortnite/capture-the-flag-3-set-up-the-classes-and-teams-in-unreal-editor-for-fortnite>)

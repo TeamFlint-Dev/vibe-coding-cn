@@ -1,6 +1,6 @@
 # ResumePulse function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/pulse_trigger_device/resumepulse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/pulse_trigger_device/resumepulse>
 > **爬取时间**: 2025-12-27T06:49:21.467108
 
 ---

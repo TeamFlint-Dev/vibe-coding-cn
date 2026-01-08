@@ -1,6 +1,6 @@
 # (InInstigator:game_action_instigator).GetInstigatorAgent extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/characters/getinstigatoragent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/characters/getinstigatoragent>
 > **爬取时间**: 2025-12-27T01:17:44.362633
 
 ---

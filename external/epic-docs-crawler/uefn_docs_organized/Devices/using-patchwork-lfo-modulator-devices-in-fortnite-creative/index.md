@@ -1,6 +1,6 @@
 # LFO Modulator
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-lfo-modulator-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-lfo-modulator-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:04:19.605824
 
 ---
@@ -136,7 +136,7 @@ Try patching the LFO to the Volume knob to easily hear modulation in action as t
 
 Omega Synthesizer
 
-The Omega Synthesizer device allows you to turn note inputs into audio data.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative)
+The Omega Synthesizer device allows you to turn note inputs into audio data.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-omega-synthesizer-devices-in-fortnite-creative>)
 
 Try patching the LFO to the [Tame](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#tame) knob to modulate which audio frequencies are filtered by distortion, which creates an effect known as a filter sweep.
 
@@ -144,4 +144,4 @@ Try patching the LFO to the [Tame](https://dev.epicgames.com/documentation/en-us
 
 Distortion Effect
 
-Use this audio-shaping tool that results in sounds typical of genres like electronic, rock, and metal.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-distortion-effect-devices-in-fortnite-creative)
+Use this audio-shaping tool that results in sounds typical of genres like electronic, rock, and metal.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-distortion-effect-devices-in-fortnite-creative>)

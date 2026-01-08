@@ -1,6 +1,6 @@
 # IsActivated function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/scout_spire_device/isactivated
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/scout_spire_device/isactivated>
 > **爬取时间**: 2025-12-27T07:00:52.608678
 
 ---

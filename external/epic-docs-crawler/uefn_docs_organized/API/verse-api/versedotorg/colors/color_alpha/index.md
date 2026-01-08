@@ -1,6 +1,6 @@
 # color_alpha struct
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/colors/color_alpha
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/colors/color_alpha>
 > **爬取时间**: 2025-12-27T01:19:43.549819
 
 ---

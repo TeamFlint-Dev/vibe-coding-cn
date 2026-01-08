@@ -1,6 +1,6 @@
 # Lighting and Color
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-2-lighting-and-color-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-2-lighting-and-color-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:09:01.620152
 
 ---
@@ -168,32 +168,32 @@ In the image below, a color palette of white, black and red are enhanced by the 
 
 Composition Techniques
 
-Use composition to capture artful cinematics for your gameplay.](https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-1-composition-techniques-in-unreal-editor-for-fortnite)[![Camera Movement and Framing](https://dev.epicgames.com/community/api/documentation/image/a2fcf6b0-cf89-4383-8a91-6437d751f768?resizing_type=fit&width=640&height=640)
+Use composition to capture artful cinematics for your gameplay.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-1-composition-techniques-in-unreal-editor-for-fortnite)[![Camera> Movement and Framing](<https://dev.epicgames.com/community/api/documentation/image/a2fcf6b0-cf89-4383-8a91-6437d751f768?resizing_type=fit&width=640&height=640>)
 
 Camera Movement and Framing
 
-Discover how camera movement and framing creates satisfying and thoughtful cinematics for your game.](https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-3-camera-movement-and-framing-in-unreal-editor-for-fortnite)[![Integrating Cinematics](https://dev.epicgames.com/community/api/documentation/image/496064bc-9b66-4940-bfdf-84ac6154089a?resizing_type=fit&width=640&height=640)
+Discover how camera movement and framing creates satisfying and thoughtful cinematics for your game.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-3-camera-movement-and-framing-in-unreal-editor-for-fortnite)[![Integrating> Cinematics](<https://dev.epicgames.com/community/api/documentation/image/496064bc-9b66-4940-bfdf-84ac6154089a?resizing_type=fit&width=640&height=640>)
 
 Integrating Cinematics
 
-Discover all the elements you need to create satisfying and thoughtful cinematics for your game.](https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-4-integrating-cinematics-in-unreal-editor-for-fortnite)[![Day Sequence Device](https://dev.epicgames.com/community/api/documentation/image/d8e685bb-e039-495e-8242-468dbd615611?resizing_type=fit&width=640&height=640)
+Discover all the elements you need to create satisfying and thoughtful cinematics for your game.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-cinematics-4-integrating-cinematics-in-unreal-editor-for-fortnite)[![Day> Sequence Device](<https://dev.epicgames.com/community/api/documentation/image/d8e685bb-e039-495e-8242-468dbd615611?resizing_type=fit&width=640&height=640>)
 
 Day Sequence Device
 
-Master the skies with the Day Sequence device.](https://dev.epicgames.com/documentation/en-us/fortnite/using-day-sequence-devices-in-unreal-editor-for-fortnite)[![Environment Light Rig Device](https://dev.epicgames.com/community/api/documentation/image/fb04b93e-6652-47da-a8ed-94a0debf0bd3?resizing_type=fit&width=640&height=640)
+Master the skies with the Day Sequence device.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-day-sequence-devices-in-unreal-editor-for-fortnite)[![Environment> Light Rig Device](<https://dev.epicgames.com/community/api/documentation/image/fb04b93e-6652-47da-a8ed-94a0debf0bd3?resizing_type=fit&width=640&height=640>)
 
 Environment Light Rig Device
 
-Add dynamic lighting and reflections to your project to create custom world lighting.](https://dev.epicgames.com/documentation/en-us/fortnite/environment-light-rig-device-in-unreal-editor-for-fortnite)[![Lighting and Lumen Quick Start Guide](https://dev.epicgames.com/community/api/documentation/image/825b3326-f941-49ec-a626-f1e183167f32?resizing_type=fit&width=640&height=640)
+Add dynamic lighting and reflections to your project to create custom world lighting.](<https://dev.epicgames.com/documentation/en-us/fortnite/environment-light-rig-device-in-unreal-editor-for-fortnite)[![Lighting> and Lumen Quick Start Guide](<https://dev.epicgames.com/community/api/documentation/image/825b3326-f941-49ec-a626-f1e183167f32?resizing_type=fit&width=640&height=640>)
 
 Lighting and Lumen Quick Start Guide
 
-Learn how to use the different lighting devices and sequencers available in UEFN.](https://dev.epicgames.com/documentation/en-us/fortnite/lighting-and-lumen-quick-start-guide-in-unreal-editor-for-fortnite)[![Lumen Exposure Manager](https://dev.epicgames.com/community/api/documentation/image/3e52809b-f0fe-420f-96ea-af29bb603848?resizing_type=fit&width=640&height=640)
+Learn how to use the different lighting devices and sequencers available in UEFN.](<https://dev.epicgames.com/documentation/en-us/fortnite/lighting-and-lumen-quick-start-guide-in-unreal-editor-for-fortnite)[![Lumen> Exposure Manager](<https://dev.epicgames.com/community/api/documentation/image/3e52809b-f0fe-420f-96ea-af29bb603848?resizing_type=fit&width=640&height=640>)
 
 Lumen Exposure Manager
 
-Learn to modify your island's lighting using the Lumen Exposure Manager.](https://dev.epicgames.com/documentation/en-us/fortnite/using-the-lumen-exposure-manager-in-unreal-editor-for-fortnite)[![Lighting Starter Island Template](https://dev.epicgames.com/community/api/documentation/image/56b17a5f-e252-43d3-8920-7078c58e5335?resizing_type=fit&width=640&height=640)
+Learn to modify your island's lighting using the Lumen Exposure Manager.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-the-lumen-exposure-manager-in-unreal-editor-for-fortnite)[![Lighting> Starter Island Template](<https://dev.epicgames.com/community/api/documentation/image/56b17a5f-e252-43d3-8920-7078c58e5335?resizing_type=fit&width=640&height=640>)
 
 Lighting Starter Island Template
 
-Learn how to effectively use basic lighting and lighting concepts on your island.](https://dev.epicgames.com/documentation/en-us/fortnite/lighting-starter-island-template-in-unreal-editor-for-fortnite)
+Learn how to effectively use basic lighting and lighting concepts on your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/lighting-starter-island-template-in-unreal-editor-for-fortnite>)

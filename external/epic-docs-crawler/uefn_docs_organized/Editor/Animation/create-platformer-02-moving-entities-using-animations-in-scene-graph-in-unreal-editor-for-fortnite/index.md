@@ -1,6 +1,6 @@
 # 2. Moving Entities Using Animations
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-02-moving-entities-using-animations-in-scene-graph-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-02-moving-entities-using-animations-in-scene-graph-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:38:06.900860
 
 ---
@@ -37,6 +37,7 @@ It should do these movements over a specific duration, and be able to rotate and
    # Place this component to an entity to move between preset targets.
    animate_to_targets_component<public> := class<final_super>(component):
    ```
+
 2. The tool tips used in this section of the tutorial are included below. You can copy and paste these above your `animate_to_targets_component` class definition.
 
    ```verse
@@ -57,6 +58,7 @@ It should do these movements over a specific duration, and be able to rotate and
    # Place this component to an entity to move between preset targets.
    animate_to_targets_component<public> := class<final_super>(component):
    ```
+
 3. Add the following fields to your `animate_to_targets_component` class definition:
 
    - An editable number float variable named `InitialPauseSeconds`. This is the amount of time it takes before the entity starts animating. Set this to `10.0` so that the entity waits ten seconds before starting to animate.
@@ -77,6 +79,7 @@ It should do these movements over a specific duration, and be able to rotate and
        ToolTip := PlaybackModeTip
    var PlaybackMode<public>:keyframed_movement_playback_mode = loop_keyframed_movement_playback_mode{}
    ```
+
 4. Save your code and compile it.
 
 ## Splitting Animations into Segments
@@ -105,6 +108,7 @@ To build individual keyframes in code, you’re going to define a `segment` cla
    # Each segment acts as a single animation, and multiple segments make up an animation sequence.
    segment<public> := class<concrete>:
    ```
+
 2. Add the following fields to your segment class definition:
 
    - An editable `entity` option named `SegmentStartPosition`. This entity will act as a reference for the world position where the entity should start animating from.
@@ -146,6 +150,7 @@ To build individual keyframes in code, you’re going to define a `segment` cla
        ToolTip := PauseTip
    PauseSeconds:?float = false
    ```
+
 3. Back in your `animate_to_targets_component` class definition, add the following fields:
 
    - An editable array of `segment` named Segments. This will reference each segment of animation that makes up the overall animation that your entity runs through.
@@ -165,6 +170,7 @@ To build individual keyframes in code, you’re going to define a `segment` cla
        ToolTip := DefaultEasingFunctionTip
    var DefaultEasingFunction<public>:easing_function = ease_in_out_cubic_bezier_easing_function{}
    ```
+
 4. Save your code and compile it. In the editor, you should see the `Segments` array appear on entities that have the **animate\_to\_targets\_component** attached.
 
 ## Building Keyframes with Code
@@ -179,18 +185,21 @@ Because math operations are useful in a variety of scenarios, it’s helpful to 
    # Module containing utility functions.
    Utilities<public> := module:
    ```
+
 2. Add a new `vector3` type alias named `VectorOnes` to your Utilities module that makes a `vector3` where `Left`, `Up`, and `Forward` are all set to `1.0`. You'll use this vector later to make some math easier, so defining a type alias for it means you don't have to write `vector3{Left := 1.0, Up := 1.0, Forward := 1.0}` repeatedly. Because you imported both the `/Verse.org/SpatialMath` and `/UnrealEngine.com/Temporary/SpatialMath` modules, you'll need to specify that this is a `/Verse.org/SpatialMath` `vector3` since both modules include a definition for it.
 
    ```verse
    # Utility function for the identity of component-wise vector multiplication.
    VectorOnes<public>()<transacts>:(/Verse.org/SpatialMath:)vector3 = (/Verse.org/SpatialMath:)vector3{Left := 1.0, Up := 1.0, Forward := 1.0}
    ```
+
 3. Add a new function named `GetDeltaTransform()` to your `Utilities` module. This function will calculate the difference between two transforms and return the delta. Add the `<transacts>` modifier to this function to allow it to be rolled back. Specify `/Verse.org/SpatialMath` as the module for each `transform` since you'll be calculating the difference between entity transforms.
 
    ```verse
    # Get the delta transform between two given transforms.
    GetDeltaTransform<public>(TransformOne:(/Verse.org/SpatialMath:)transform, TransformTwo:(/Verse.org/SpatialMath:)transform)<transacts>:(/Verse.org/SpatialMath:)transform=
    ```
+
 4. In `GetDeltaTransform`, initialize a new `/Verse.org/SpatialMath` `transform`. Set the `Translation` to the difference between each transform's translation. Set the `Rotation` to the result of calling `MakeComponentWiseDeltaRotation()`. Because this function is located in the `/UnrealEngine.com/Temporary/SpatialMath` module you'll need to convert from `/Verse.org/SpatialMath` rotations to `/UnrealEngine.com/Temporary/SpatialMath` rotations. You can do this using the `FromRotation()` function. Call `MakeComponentWiseDeltaRotation()` passing each transform's rotation after converting it with `FromRotation()`. Then convert the result of this function call using `FromRotation()` again to convert back to a `/Verse.org/SpatialMath` rotation. Finally, set the Scale to the result of adding `VectorOnes` to the difference between the first and second scales divided by the first scale. This ensures that your entity scales correctly while animating. Your complete `GetDeltaTransform()` function should look like this:
 
    ```verse
@@ -203,6 +212,7 @@ Because math operations are useful in a variety of scenarios, it’s helpful to 
                FromRotation(TransformOne.Rotation)))
            Scale := VectorOnes() + ((TransformTwo.Scale - TransformOne.Scale) / TransformOne.Scale)
    ```
+
 5. Finally, add a function named `TryGetvalueOrDefault()` to your `Utilities` module and add the `<transacts>` modifier to it. This function takes an `option` value of some type and a default value of the same type and returns either the default value or the item inside `Value` if it exists. This is useful when you want to check whether a value in a class is actually initialized, and guarantees that you return some value if it isn't. Inside `TryGetValueOrDefault()`, check if `Value` contains a value and return it. Otherwise, return `Default`. Your complete `Utilities` module and `TryGetValurOrDefault()` function should look like this:
 
    ```verse
@@ -242,6 +252,7 @@ Follow these steps to build your keyframe creation functions:
    # Construct a single keyframe that animates between the Source and Destination entity using the given easing function over a set duration.
    ConstructKeyframe<private>(Source:entity, Destination:entity, Easing:?easing_function, Duration:float)<transacts><decides>:[]keyframed_movement_delta=
    ```
+
 2. In `ConstructKeyframe()`, first get the transforms of both the `Source` and `Destination` entities by calling `GetGlobalTransform()`.
 
    ```verse
@@ -250,6 +261,7 @@ Follow these steps to build your keyframe creation functions:
        var SourceTransform:(/Verse.org/SpatialMath:)transform = Source.GetGlobalTransform()
        var DestinationTransform:(/Verse.org/SpatialMath:)transform = Destination.GetGlobalTransform()
    ```
+
 3. Initialize an array with a single member of `keyframed_movement_delta`. Set the `Transform` to the result of calling `GetDeltaTransform()` passing the source and destination transforms, and set the `Duration` and `Easing` to the values passed to this function. Your complete `ConstructKeyframe()` function should look like this:
 
    ```verse
@@ -272,6 +284,7 @@ This function builds individual keyframes, but you’ll need more logic to build
    # Construct and play an animation from an array of animation segments.
    ConstructAndPlayAnimations<private>(InSegments:[]segment, AnimationPlayback:keyframed_movement_playback_mode)<suspends>:void=
    ```
+
 2. In `ConstructAndPlayAnimations()`, define a new `logic` variable names `ShouldBreakOut` and initialize it to `false`. Given the three keyframed movement playback modes, you'll need to handle each individually. You'll use a `loop` expression to continuously build animations to handle the ping pong loop modes, but the one-shot mode should break out of the loop out of the first iteration. Check if the animation playback mode is the one-shot mode, and if so, set `ShouldBreakOut` to true.
 
    ```verse
@@ -283,6 +296,7 @@ This function builds individual keyframes, but you’ll need more logic to build
        if (oneshot := oneshot_keyframed_movement_playback_mode[AnimationPlayback]):
            set ShouldBreakOut = true
    ```
+
 3. Next, in an `if` expression, get the `keyframed_movement_component` of the entity in a variable `KeyframedMovementComponent`.  Then get the starting transform of the animation in a variable named `StartingTransform` by getting the first element in the `InSegments` array,  then its global transform.
 
    ```verse
@@ -292,6 +306,7 @@ This function builds individual keyframes, but you’ll need more logic to build
        StartingTransform :=
            FirstSegment := InSegments[0].SegmentStartPosition?.GetGlobalTransform()
    ```
+
 4. Finally, position the entity in its starting location by setting its global transform to the starting transform, and sleep for the `InitialPauseSeconds` before the animation plays.
 
    ```verse
@@ -306,6 +321,7 @@ This function builds individual keyframes, but you’ll need more logic to build
        # Sleep for initial pause.
        Sleep(InitialPauseSeconds)
    ```
+
 5. Now it's time to build the array of keyframes that you'll build the animation from. First, initialize a new variable array of `keyframed_movement_delta` named `Keyframes`. Next, in a `for` expression, iterate through each segment in the `InSegments` array, getting both the segment and its index in a local variable named `Index`.
 
    ```verse
@@ -316,6 +332,7 @@ This function builds individual keyframes, but you’ll need more logic to build
        SourceEntity := Segment.SegmentStartPosition?
        DestinationEntity := InSegments[Index + 1].SegmentStartPosition?
    ```
+
 6. Now, get the easing function used for this keyframe in a local variable named `Easing` by calling `TryGetValueOrDefault()`, passing the `Segment.EasingFunction` and the `DefaultEasingFunction`. Also, get the duration of the animation segment in a local variable `Duration` from the `Segment.AnimationDuration`. With all your values in place, in an `if` expression, construct the keyframe by passing each value to `ConstructKeyframe[]` and add the result to the `Keyframes` array. When all your keyframes are built, set the array of keyframes on the keyframed movement component by calling `SetKeyframes()` passing the `Keyframes` array and the `PlaybackMode`.
 
    ```verse
@@ -335,6 +352,7 @@ This function builds individual keyframes, but you’ll need more logic to build
 
    KeyframedMovementComponent.SetKeyframes(Keyframes, PlaybackMode)
    ```
+
 7. With your keyframes array set, it’s time to start playing them. Your animation needs to run on a loop but should stop after the first iteration if the animation mode is set to one shot. It also needs to handle pausing at each keyframe if the segment has any `PauseSeconds`. To handle this, set up a `loop` expression with a `for` expression inside it. In the `for` expression, iterate through each keyframe in the `Keyframes` array, additionally getting the index of each keyframe in a variable `KeyframeIndex`.
 
    ```verse
@@ -346,6 +364,7 @@ This function builds individual keyframes, but you’ll need more logic to build
    loop:
        for(KeyframeIndex -> Keyframe:Keyframes):
    ```
+
 8. Inside the `for` expression, get the segment associated with this keyframe by indexing into the `InSegments` array using `KeyframeIndex`. Then if the segment has any `PauseSeconds`, call `Sleep()` for that amount of time. Afterward, call `KeyframedMovementComponent.Play()`, followed by awaiting the `KeyframeReachedEvent` and calling `KeyframedMovementComponent.Pause()`. What this does is that it pauses the animation at each keyframe for a `PauseSeconds` amount of time, before playing and waiting for the next keyframe and pausing again. Finally, at the end of the `loop` expression, check if `ShouldBreakOut` is true and if so, break out of the loop.
 
    ```verse
@@ -364,6 +383,7 @@ This function builds individual keyframes, but you’ll need more logic to build
        if(ShouldBreakOut?):
            break
    ```
+
 9. Your complete `ContstructAndPlayAnimations()` function should look like the following:
 
    ```verse
@@ -426,6 +446,6 @@ In the next step, you’ll create a prefab of your animating entity and instanti
 
 [![3. Building Your Platformer with Prefabs](https://dev.epicgames.com/community/api/documentation/image/518a9a4d-4f9a-4700-bd1d-46962afef72c?resizing_type=fit&width=640&height=640)
 
-3. Building Your Platformer with Prefabs
+1. Building Your Platformer with Prefabs
 
-Use Scene Graph and Verse to build your own platformer.](https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-03-building-your-platformer-with-prefabs-in-unreal-editor-for-fortnite)
+Use Scene Graph and Verse to build your own platformer.](<https://dev.epicgames.com/documentation/en-us/fortnite/create-platformer-03-building-your-platformer-with-prefabs-in-unreal-editor-for-fortnite>)

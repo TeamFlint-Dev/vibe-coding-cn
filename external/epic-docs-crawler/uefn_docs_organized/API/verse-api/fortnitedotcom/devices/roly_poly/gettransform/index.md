@@ -1,6 +1,6 @@
 # GetTransform function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/roly_poly/gettransform
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/roly_poly/gettransform>
 > **爬取时间**: 2025-12-27T06:43:54.066225
 
 ---

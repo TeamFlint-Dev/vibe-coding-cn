@@ -1,6 +1,6 @@
 # hero_chest_rank enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hero_chest_rank
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hero_chest_rank>
 > **爬取时间**: 2025-12-27T01:57:17.717807
 
 ---

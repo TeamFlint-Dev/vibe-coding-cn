@@ -1,6 +1,6 @@
 # Ddakji and Flying Stone Target Practice
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-ddakji-and-flying-stone-target-practice-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-ddakji-and-flying-stone-target-practice-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:13:36.136789
 
 ---
@@ -86,4 +86,4 @@ Learn to create items that players can carry.
 
 Carry Items Through Obstacles
 
-Learn to create Squid Game minigames with the Carryable Spawner device.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-carry-items-through-obstacles-in-unreal-editor-for-fortnite)
+Learn to create Squid Game minigames with the Carryable Spawner device.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-carry-items-through-obstacles-in-unreal-editor-for-fortnite>)

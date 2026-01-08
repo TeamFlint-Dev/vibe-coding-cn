@@ -1,6 +1,6 @@
 # (InitialRotation:rotation).ApplyWorldRotationY extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/applyworldrotationy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/applyworldrotationy>
 > **爬取时间**: 2025-12-27T02:27:43.595822
 
 ---

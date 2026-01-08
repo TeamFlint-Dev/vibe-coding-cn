@@ -1,6 +1,6 @@
 # item_rocket_launcher_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_rocket_launcher_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/fortniteogitems/item_rocket_launcher_common>
 > **爬取时间**: 2025-12-27T04:43:52.184700
 
 ---

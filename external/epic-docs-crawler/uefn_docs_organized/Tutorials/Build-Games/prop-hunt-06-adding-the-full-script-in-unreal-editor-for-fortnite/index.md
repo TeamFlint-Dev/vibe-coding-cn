@@ -1,6 +1,6 @@
 # 6. Adding the Full Script
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-06-adding-the-full-script-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-06-adding-the-full-script-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:23:44.569150
 
 ---
@@ -782,6 +782,6 @@ waiting_for_more_players := class(creative_device):
 
 [![7. Designing Your Island](https://dev.epicgames.com/community/api/documentation/image/6dfb7ca6-e523-43d6-8788-8c2ab35c2f04?resizing_type=fit&width=640&height=640)
 
-7. Designing Your Island
+1. Designing Your Island
 
-Use your creativity to design your island.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-07-designing-your-island-in-unreal-editor-for-fortnite)
+Use your creativity to design your island.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-07-designing-your-island-in-unreal-editor-for-fortnite>)

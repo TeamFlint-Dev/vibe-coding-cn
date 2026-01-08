@@ -1,6 +1,6 @@
 # 4. Add a Scoring System
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-4-add-a-scoring-system-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/car-racing-4-add-a-scoring-system-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:24:45.373567
 
 ---

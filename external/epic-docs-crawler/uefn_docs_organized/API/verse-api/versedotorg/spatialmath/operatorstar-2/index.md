@@ -1,6 +1,6 @@
 # operator'*' function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/operatorstar-2
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/operatorstar-2>
 > **爬取时间**: 2025-12-27T00:47:17.087172
 
 ---

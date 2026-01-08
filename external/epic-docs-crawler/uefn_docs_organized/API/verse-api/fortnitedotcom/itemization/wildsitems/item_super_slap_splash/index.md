@@ -1,6 +1,6 @@
 # item_super_slap_splash class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_super_slap_splash
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_super_slap_splash>
 > **爬取时间**: 2025-12-27T04:10:24.410945
 
 ---

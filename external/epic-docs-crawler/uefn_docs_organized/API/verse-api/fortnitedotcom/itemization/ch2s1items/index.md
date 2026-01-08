@@ -1,6 +1,6 @@
 # CH2S1Items module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s1items>
 > **爬取时间**: 2025-12-27T01:14:17.573540
 
 ---

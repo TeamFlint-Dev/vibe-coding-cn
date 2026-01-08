@@ -1,6 +1,6 @@
 # The Audio Mixer Device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/audio-mixer-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/audio-mixer-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:37:51.707621
 
 ---
@@ -200,16 +200,16 @@ For this example, let's prototype a Hide and Seek game. Footsteps are muted whil
 
 Adding Audio to Your Project
 
-Add audio to a project.](https://dev.epicgames.com/documentation/en-us/fortnite/adding-audio-to-your-project-in-unreal-editor-for-fortnite)[![Audio Player Device](https://dev.epicgames.com/community/api/documentation/image/b75bc25e-8809-400a-b3bf-fbc937a8cec8?resizing_type=fit&width=640&height=640)
+Add audio to a project.](<https://dev.epicgames.com/documentation/en-us/fortnite/adding-audio-to-your-project-in-unreal-editor-for-fortnite)[![Audio> Player Device](<https://dev.epicgames.com/community/api/documentation/image/b75bc25e-8809-400a-b3bf-fbc937a8cec8?resizing_type=fit&width=640&height=640>)
 
 Audio Player Device
 
-Import, play and customize sound waves and sound cues.](https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-player-devices-in-unreal-editor-for-fortnite)[![Importing Custom Audio](https://dev.epicgames.com/community/api/documentation/image/54adc69d-66fe-4b57-8b03-df9597f7f562?resizing_type=fit&width=640&height=640)
+Import, play and customize sound waves and sound cues.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-player-devices-in-unreal-editor-for-fortnite)[![Importing> Custom Audio](<https://dev.epicgames.com/community/api/documentation/image/54adc69d-66fe-4b57-8b03-df9597f7f562?resizing_type=fit&width=640&height=640>)
 
 Importing Custom Audio
 
-Import custom audio into your island and immerse players in the world of your creation.](https://dev.epicgames.com/documentation/en-us/fortnite/importing-custom-audio-in-unreal-editor-for-fortnite)[![Audio Troubleshooting](https://dev.epicgames.com/community/api/documentation/image/b3caded9-a92a-4682-91dd-ee1acc7fdfa4?resizing_type=fit&width=640&height=640)
+Import custom audio into your island and immerse players in the world of your creation.](<https://dev.epicgames.com/documentation/en-us/fortnite/importing-custom-audio-in-unreal-editor-for-fortnite)[![Audio> Troubleshooting](<https://dev.epicgames.com/community/api/documentation/image/b3caded9-a92a-4682-91dd-ee1acc7fdfa4?resizing_type=fit&width=640&height=640>)
 
 Audio Troubleshooting
 
-Answers to common audio issues in Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/audio-troubleshooting-in-unreal-editor-for-fortnite)
+Answers to common audio issues in Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/audio-troubleshooting-in-unreal-editor-for-fortnite>)

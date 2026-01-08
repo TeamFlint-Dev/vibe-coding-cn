@@ -1,6 +1,6 @@
 # Importing Custom Audio
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/importing-custom-audio-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/importing-custom-audio-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:16:05.938669
 
 ---
@@ -35,16 +35,16 @@ You can also import audio into UEFN by:
 
 Adding Audio to Your Project
 
-Add audio to a project.](https://dev.epicgames.com/documentation/en-us/fortnite/adding-audio-to-your-project-in-unreal-editor-for-fortnite)[![Audio Player Device](https://dev.epicgames.com/community/api/documentation/image/b75bc25e-8809-400a-b3bf-fbc937a8cec8?resizing_type=fit&width=640&height=640)
+Add audio to a project.](<https://dev.epicgames.com/documentation/en-us/fortnite/adding-audio-to-your-project-in-unreal-editor-for-fortnite)[![Audio> Player Device](<https://dev.epicgames.com/community/api/documentation/image/b75bc25e-8809-400a-b3bf-fbc937a8cec8?resizing_type=fit&width=640&height=640>)
 
 Audio Player Device
 
-Import, play and customize sound waves and sound cues.](https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-player-devices-in-unreal-editor-for-fortnite)[![The Audio Mixer Device](https://dev.epicgames.com/community/api/documentation/image/36ccfbcb-c8fd-4297-88a7-4d90754a1f69?resizing_type=fit&width=640&height=640)
+Import, play and customize sound waves and sound cues.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-player-devices-in-unreal-editor-for-fortnite)[![The> Audio Mixer Device](<https://dev.epicgames.com/community/api/documentation/image/36ccfbcb-c8fd-4297-88a7-4d90754a1f69?resizing_type=fit&width=640&height=640>)
 
 The Audio Mixer Device
 
-Adjust volumes of sound groups using the Audio Mixer device.](https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-mixer-devices-in-unreal-editor-for-fortnite)[![Audio Troubleshooting](https://dev.epicgames.com/community/api/documentation/image/b3caded9-a92a-4682-91dd-ee1acc7fdfa4?resizing_type=fit&width=640&height=640)
+Adjust volumes of sound groups using the Audio Mixer device.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-audio-mixer-devices-in-unreal-editor-for-fortnite)[![Audio> Troubleshooting](<https://dev.epicgames.com/community/api/documentation/image/b3caded9-a92a-4682-91dd-ee1acc7fdfa4?resizing_type=fit&width=640&height=640>)
 
 Audio Troubleshooting
 
-Answers to common audio issues in Unreal Editor for Fortnite.](https://dev.epicgames.com/documentation/en-us/fortnite/audio-troubleshooting-in-unreal-editor-for-fortnite)
+Answers to common audio issues in Unreal Editor for Fortnite.](<https://dev.epicgames.com/documentation/en-us/fortnite/audio-troubleshooting-in-unreal-editor-for-fortnite>)

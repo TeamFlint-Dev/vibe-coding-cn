@@ -1,6 +1,6 @@
 # Custom Round Logic
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/custom-round-logic-using-verse
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/custom-round-logic-using-verse>
 > **爬取时间**: 2025-12-26T23:18:11.801398
 
 ---
@@ -35,6 +35,7 @@ Follow these steps to set up the persistable data for each player and record the
             LastRoundFinishOrder:int = -1
             LastCompletedRound<public>:int = -1
    ```
+
 2. Create a player weak map variable using the `player_circuit_info` class to persist the round info with players.
 
    ```verse
@@ -42,6 +43,7 @@ Follow these steps to set up the persistable data for each player and record the
         # what order they finished the previous round.
         var CircuitInfo<public>:weak_map(player, player_circuit_info) = map{}
    ```
+
 3. As a best practice for working with persistable data, create a [constructor](https://dev.epicgames.com/documentation/en-us/fortnite/constructor-in-verse) for the persistable class to be able to update the info for each player easily. For more details, see [using constructors for partial updates](https://dev.epicgames.com/documentation/en-us/fortnite/using-persistable-data-in-verse).
 
    ```verse
@@ -51,6 +53,7 @@ Follow these steps to set up the persistable data for each player and record the
             LastRoundFinishOrder := OldPlayerCircuitInfo.LastRoundFinishOrder
             LastCompletedRound := OldPlayerCircuitInfo.LastCompletedRound
    ```
+
 4. Now that you’ve defined structures for this data, add a function to record a player’s finish order and update their persistent data. This function uses the constructor made in the previous step to partially update the data for the only information you’re concerned with: the finish order.
 
    ```verse
@@ -69,6 +72,7 @@ Follow these steps to set up the persistable data for each player and record the
                 MakePlayerCircuitInfo<constructor>(PlayerCircuitInfo)
                 LastRoundFinishOrder := FinishOrder
    ```
+
 5. Create another function to update only the last completed round for the player.
 
    ```verse
@@ -81,6 +85,7 @@ Follow these steps to set up the persistable data for each player and record the
                 MakePlayerCircuitInfo<constructor>(PlayerCircuitInfo)
                 LastCompletedRound := CompletedRound
    ```
+
 6. Now that you can record the last completed round for the player, create a function to calculate the last completed round for the game by checking which players have the latest recorded round. You need to check all players to account for players that may have joined the session in progress. The last completed round variable is initialized with `-1` to represent invalid data. If any players have a value greater than `-1` then a round has already finished.
 
    ```verse
@@ -100,6 +105,7 @@ Follow these steps to set up the persistable data for each player and record the
 
             LastCompletedRound
    ```
+
 7. Create a Verse device to test that the round and player finish order is working as expected. Make sure your project is set up for multiple rounds, by setting the Total Rounds property in [Island Settings](https://dev.epicgames.com/documentation/en-us/fortnite/island-settings-in-unreal-editor-for-fortnite).
 
    ```verse
@@ -140,6 +146,7 @@ Follow these steps to reset round information when a player leaves:
                 LastRoundFinishOrder := -1
                 LastCompletedRound := -1
    ```
+
 2. Create a function named `OnPlayerRemoved` to reset the round information when a player leaves.
 
    ```verse
@@ -152,6 +159,7 @@ Follow these steps to reset round information when a player leaves:
             else:
                 Print("Unable to reset circuit info for player")
    ```
+
 3. Set up the `OnPlayerRemoved` function to be called when a player leaves the game, by subscribing to the event `GetPlayspace().PlayerRemovedEvent()`.
 
    ```verse
@@ -174,6 +182,7 @@ Follow these steps to reset round information when a player leaves:
                 do:
                     Print("Recorded finish order {Index} and current round {CurrentRound} for player")
    ```
+
 4. Test to verify that a player leaving the game resets their info.
 
 ## Reset Round Info on Game End
@@ -208,6 +217,7 @@ Follow these steps to reset the round info when the game has ended:
                 do:
                     Print("Recorded finish order {Index} and current round {CurrentRound} for player")
    ```
+
 2. Update the function for `GetLastCompletedRound` to reset the player’s persistent data for the last completed round if it’s greater than the expected number of rounds in the game.
 
    ```verse
@@ -239,6 +249,7 @@ Follow these steps to reset the round info when the game has ended:
 
             LastCompletedRound
    ```
+
 3. Update the call to `GetLastCompletedRound` to pass in the total rounds as an argument, to reset player round info if they’re in an unexpected state.
 
    ```verse
@@ -265,6 +276,7 @@ Follow these steps to reset the round info when the game has ended:
                 do:
                     Print("Recorded finish order {Index} and current round {CurrentRound} for player")
    ```
+
 4. Test to verify that player round info resets even after playing and completing all the rounds.
 
 ## Adding Logic Based on Current Round
@@ -286,18 +298,21 @@ Follow these steps to set up a session weak map variable for storing the current
         round_info := class:
             CurrentRound:int = -1
    ```
+
 2. Create a session weak map variable using the `round_info` class to store the round info with the session.
 
    ```verse
         # Maps the current session to its associated round info.
         var RoundInfo:weak_map(session, round_info) = map{}
    ```
+
 3. Add a getter function for getting the current round from the session weak map variable.
 
    ```verse
         GetRound<public>()<decides><transacts>:int=
             RoundInfo[GetSession()].CurrentRound
    ```
+
 4. Add a function to get the current round and store it in the session weak map variable.
 
    ```verse
@@ -317,6 +332,7 @@ Follow these steps to set up a session weak map variable for storing the current
             else:
                 Print("Unable to record round info in session weak map.")
    ```
+
 5. Update your Verse device to use the new `RecordCurrentRound` function and call `GetRound` when you need to know which round it is.
 
    ```verse

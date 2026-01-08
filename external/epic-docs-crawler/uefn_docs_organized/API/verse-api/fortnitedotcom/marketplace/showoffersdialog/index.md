@@ -1,6 +1,6 @@
 # ShowOffersDialog function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/showoffersdialog
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/marketplace/showoffersdialog>
 > **爬取时间**: 2025-12-27T01:15:15.160416
 
 ---

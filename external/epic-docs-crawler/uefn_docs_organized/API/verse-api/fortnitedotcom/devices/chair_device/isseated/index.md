@@ -1,6 +1,6 @@
 # IsSeated function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/chair_device/isseated
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/chair_device/isseated>
 > **爬取时间**: 2025-12-27T06:50:16.547714
 
 ---

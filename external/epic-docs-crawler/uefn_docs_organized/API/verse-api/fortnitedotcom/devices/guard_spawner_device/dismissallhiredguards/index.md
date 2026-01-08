@@ -1,6 +1,6 @@
 # DismissAllHiredGuards function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_device/dismissallhiredguards
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/guard_spawner_device/dismissallhiredguards>
 > **爬取时间**: 2025-12-27T06:03:34.384193
 
 ---

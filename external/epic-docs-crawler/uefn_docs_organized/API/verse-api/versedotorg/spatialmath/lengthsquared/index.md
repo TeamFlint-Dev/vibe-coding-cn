@@ -1,6 +1,6 @@
 # (V:vector3).LengthSquared extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/lengthsquared
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/lengthsquared>
 > **爬取时间**: 2025-12-27T00:48:09.027250
 
 ---

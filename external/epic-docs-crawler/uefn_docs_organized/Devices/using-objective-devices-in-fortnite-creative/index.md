@@ -1,6 +1,6 @@
 # Objective Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-objective-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-objective-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:43:40.734229
 
 ---

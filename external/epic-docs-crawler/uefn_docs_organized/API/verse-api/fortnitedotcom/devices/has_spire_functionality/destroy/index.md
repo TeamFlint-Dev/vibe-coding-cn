@@ -1,6 +1,6 @@
 # Destroy function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/has_spire_functionality/destroy
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/has_spire_functionality/destroy>
 > **爬取时间**: 2025-12-27T05:41:46.747539
 
 ---

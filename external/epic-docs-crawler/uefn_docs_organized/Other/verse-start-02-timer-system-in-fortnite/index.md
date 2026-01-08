@@ -1,6 +1,6 @@
 # 2. Timer System
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-02-timer-system-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-02-timer-system-in-fortnite>
 > **爬取时间**: 2025-12-27T00:29:18.362385
 
 ---
@@ -39,6 +39,7 @@ This page guides you step by step through the code changes, but if you want to c
 
        var IsTimerStarted:logic = false
    ```
+
 3. Add the `OnTimerSuccess` callback method, which will be called when the timer runs out to end the game.
 
    The **OnTimerSuccess** method receives an optional agent parameter, which is the agent that activated the timer, if any. The End Game device requires a non-option agent parameter to activate, so the optional agent is converted to non-optional in the `if` statement. See [option](https://dev.epicgames.com/documentation/en-us/fortnite/option-in-verse) for more information on option types.
@@ -49,6 +50,7 @@ This page guides you step by step through the code changes, but if you want to c
            if (TriggerAgent := Agent?):
                EndGame.Activate(TriggerAgent)
    ```
+
 4. Add the **StartTimer** method that sets up the timer's subscription to the **OnTimerSuccess** callback and starts the timer.
 
    ```verse
@@ -63,6 +65,7 @@ This page guides you step by step through the code changes, but if you want to c
            # Track that the timer has started.
            set IsTimerStarted = true
    ```
+
 5. Modify the **AdjustScore** method to start the timer. This gives the player a moment to ready their first shot to begin the game.
 
    ```verse
@@ -85,6 +88,7 @@ This page guides you step by step through the code changes, but if you want to c
                # Awards the points to the player.
                ScoreManager.Activate(Player)
    ```
+
 6. Save and build your Verse code.
 
 ## Complete Code
@@ -275,6 +279,6 @@ shooting_range_manager_device := class(creative_device):
 
 [![3. Bonus Time Target](https://dev.epicgames.com/community/api/documentation/image/f40e269b-bba5-46d3-a309-67a4dbc1295a?resizing_type=fit&width=640&height=640)
 
-3. Bonus Time Target
+1. Bonus Time Target
 
-Reward players with a surprise extra target that can add precious seconds to the game!](https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-03-bonus-time-target-in-fortnite)
+Reward players with a surprise extra target that can add precious seconds to the game!](<https://dev.epicgames.com/documentation/en-us/fortnite/verse-start-03-bonus-time-target-in-fortnite>)

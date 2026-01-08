@@ -1,6 +1,6 @@
 # Making Custom Health and Shield Bars
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-health-and-shield-bars-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-health-and-shield-bars-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:17:03.138270
 
 ---
@@ -305,4 +305,4 @@ Using the information here and the Materials we provide you with, try making the
 
 Making a Custom Squad View
 
-Expand on the custom backplate knowledge to create a custom squad view for your project.](https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-squad-view-in-unreal-editor-for-fortnite)
+Expand on the custom backplate knowledge to create a custom squad view for your project.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-squad-view-in-unreal-editor-for-fortnite>)

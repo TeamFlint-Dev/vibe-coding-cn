@@ -1,6 +1,6 @@
 # Inclusive Island SDG Lesson Plan
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/sdg-inclusive-island-sdg-lesson-plan-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/sdg-inclusive-island-sdg-lesson-plan-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:10:30.262602
 
 ---
@@ -91,7 +91,7 @@ Have the students rewatch the pause-and-play **SDG 10 Student Video** again if n
 2. They can use any and all of the building tools — [prefabs](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary), [galleries](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary), [devices](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary), and more, found in the [Creative inventory](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary).
 3. Every few class periods, ask students to reflect on their work and compare it to their initial brainstorming and planning ideas. Introduce the idea of [iterative design](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary) to help think about the new ideas and changes they are making to their islands.
 
-### 4. Show Off Your Work!
+### 4. Show Off Your Work
 
 It's time for students to share their work with the class, and online, if they choose.
 

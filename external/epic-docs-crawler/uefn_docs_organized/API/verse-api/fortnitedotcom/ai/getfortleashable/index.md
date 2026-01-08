@@ -1,6 +1,6 @@
 # (InCharacter:fort_character).GetFortLeashable extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/getfortleashable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/getfortleashable>
 > **爬取时间**: 2025-12-27T00:57:40.067744
 
 ---

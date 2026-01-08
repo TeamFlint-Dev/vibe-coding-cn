@@ -1,6 +1,6 @@
 # item_infiltrator_pump_shotgun_common class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_infiltrator_pump_shotgun_common
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lastresortitems/item_infiltrator_pump_shotgun_common>
 > **爬取时间**: 2025-12-27T04:31:03.773687
 
 ---

@@ -1,6 +1,6 @@
 # item_firefly_jar class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s3items/item_firefly_jar
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s3items/item_firefly_jar>
 > **爬取时间**: 2025-12-27T03:24:39.170996
 
 ---

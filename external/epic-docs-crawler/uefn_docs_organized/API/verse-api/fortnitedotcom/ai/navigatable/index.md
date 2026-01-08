@@ -1,6 +1,6 @@
 # navigatable interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/navigatable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/navigatable>
 > **爬取时间**: 2025-12-27T00:58:02.807574
 
 ---

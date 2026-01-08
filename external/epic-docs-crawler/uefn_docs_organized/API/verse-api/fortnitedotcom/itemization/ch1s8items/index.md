@@ -1,6 +1,6 @@
 # CH1S8Items module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s8items
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s8items>
 > **爬取时间**: 2025-12-27T01:12:39.301145
 
 ---

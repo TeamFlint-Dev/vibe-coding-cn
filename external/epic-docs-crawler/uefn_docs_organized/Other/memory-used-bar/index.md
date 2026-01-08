@@ -1,6 +1,6 @@
 # Memory Used bar
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/memory-used-bar
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/memory-used-bar>
 > **爬取时间**: 2025-12-27T02:15:56.147669
 
 ---

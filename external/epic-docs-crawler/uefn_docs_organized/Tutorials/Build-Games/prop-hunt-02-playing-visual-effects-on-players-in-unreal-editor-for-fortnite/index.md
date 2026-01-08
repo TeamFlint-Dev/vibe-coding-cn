@@ -1,6 +1,6 @@
 # 2. Playing Visual Effects on Players
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-02-playing-visual-effects-on-players-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-02-playing-visual-effects-on-players-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:23:13.452435
 
 ---
@@ -74,6 +74,7 @@ Follow these steps to move the VFX Spawner device in Verse to play and stop the 
         using { /Verse.org/Colors }
         using { /Verse.org/Simulation }
    ```
+
 3. This code creates a class named `heartbeat_vfx` in **heartbeat.verse**. The `heartbeat_vfx` class contains a struct of data to track `vfx_spawner_device` objects per player as well as the functions to set the VFX to a position or reset it.
 
    ```verse
@@ -158,6 +159,7 @@ Follow these steps to move the VFX Spawner device in Verse to play and stop the 
                             SizeToContent := true
                             Widget := Text
    ```
+
 4. This code creates an `Activate()` method in the `heartbeat_vfx` class that takes a transform argument and moves the VFX Spawner device to that `transform`.
 
    ```verse
@@ -173,6 +175,7 @@ Follow these steps to move the VFX Spawner device in Verse to play and stop the 
                 if (VFXDevice.TeleportTo[VFXPosition, Transform.Rotation]):
                     VFXDevice.Enable()
    ```
+
 5. This code creates a `Deactivate()` method in the `heartbeat_vfx` class that disables the VFX Spawner device and therefore hides the heartbeat visuals.
 
    ```verse
@@ -206,6 +209,7 @@ Follow these steps to set up a custom UI with a text block that will display the
        HeartBeatWarningMessage<localizes>(Time:int):message = "Heart Beat in {Time} Seconds. Move!"
        HeartBeatWarningClear<localizes>:message = ""
      ```
+
 2. Create a new class named `heartbeat_warning_ui` in **heartbeat.verse**. The heartbeat\_warning\_ui class contains a struct of data to track the UI canvas and text\_block per player as well as the function to create a new heartbeat warning UI canvas.
 
    ```verse
@@ -240,6 +244,7 @@ Follow these steps to create the heartbeat manager.
                 @editable
                 MoveTime:float = 15.0
    ```
+
 2. This code adds the following editable properties to the `heart_beat` class.
 
    1. This code controls the seconds before a prop agent must move before the heartbeat effect reveals its position.
@@ -269,18 +274,21 @@ Follow these steps to create the heartbeat manager.
        @editable
        SFXPlayer:radio_device = radio_device{}
       ```
+
 3. This code maps associates a UI for displaying the heartbeat warning to each prop agent.
 
    ```verse
         # This map associates a UI for displaying the heartbeat warning to each prop agent.
         var WarningUI:[agent]heartbeat_warning_ui = map{}
    ```
+
 4. This code keeps track of how many players have an active heartbeat so we can manage the SFX device.
 
    ```verse
         # Keeps track of how many players have an active heartbeat so we can manage the SFX device.
         var NumberOfHeartBeats:int = 0
    ```
+
 5. This code shows the warning UI for players.
 
    ```verse
@@ -296,6 +304,7 @@ Follow these steps to create the heartbeat manager.
                 PlayerUI.AddWidget(UIData.Canvas, player_ui_slot{ZOrder := 1})
                 if (set WarningUI[PropAgent] = UIData) {}
    ```
+
 6. This code activates visual effects (VFX) and sound effects (SFX) for the specified player.
 
    ```verse
@@ -315,6 +324,7 @@ Follow these steps to create the heartbeat manager.
                 else:
                     Logger.Print("Character, Index, or HeartBeatVFXData not found. Cannot start the heartbeat")
    ```
+
 7. This code creates a method to disable the VFX and SFX for one player, and another to disable it for all players.
 
    ```verse
@@ -344,6 +354,6 @@ Follow these steps to create the heartbeat manager.
 
 [![3. Playing Effects on Idle Players](https://dev.epicgames.com/community/api/documentation/image/29b74f2b-a3a4-40a0-8c54-b92ee2228969?resizing_type=fit&width=640&height=640)
 
-3. Playing Effects on Idle Players
+1. Playing Effects on Idle Players
 
-Use the Verse code in this section to add effects to idle players.](https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-03-playing-effects-on-idle-players-in-unreal-editor-for-fortnite)
+Use the Verse code in this section to add effects to idle players.](<https://dev.epicgames.com/documentation/en-us/fortnite/prop-hunt-03-playing-effects-on-idle-players-in-unreal-editor-for-fortnite>)

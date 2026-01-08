@@ -1,6 +1,6 @@
 # Widget Types
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/widget-types-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/widget-types-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:06:25.515805
 
 ---
@@ -23,9 +23,9 @@ There are three kinds of button widgets you can add to your UI. The difference b
 
 | UI | Verse Code |
 | --- | --- |
-| [Button_Loud Verse UI Element](https://dev.epicgames.com/community/api/documentation/image/d4172d94-6d0b-45b0-92d7-21133d6b0753?resizing_type=fit) | ```verse TextForUI<localizes> : message = "Option" Widget := button_loud{DefaultText := TextForUI} ``` |
-| [Button_Regular Verse UI Element](https://dev.epicgames.com/community/api/documentation/image/d95a3cea-c244-45a6-89a1-21767270155e?resizing_type=fit) | ```verse TextForUI<localizes> : message = "Option" Widget := button_regular{DefaultText := TextForUI} ``` |
-| [Button_Quiet Verse UI Element](https://dev.epicgames.com/community/api/documentation/image/543f6336-8733-4e43-a2d8-4b53bc2a98e3?resizing_type=fit) | ```verse TextForUI<localizes> : message = "Option" Widget := button_quiet{DefaultText := TextForUI} ``` |
+| [Button_Loud Verse UI Element](https://dev.epicgames.com/community/api/documentation/image/d4172d94-6d0b-45b0-92d7-21133d6b0753?resizing_type=fit) | ```verse TextForUI<localizes> : message = "Option" Widget := button_loud{DefaultText := TextForUI}``` |
+| [Button_Regular Verse UI Element](https://dev.epicgames.com/community/api/documentation/image/d95a3cea-c244-45a6-89a1-21767270155e?resizing_type=fit) | ```verse TextForUI<localizes> : message = "Option" Widget := button_regular{DefaultText := TextForUI}``` |
+| [Button_Quiet Verse UI Element](https://dev.epicgames.com/community/api/documentation/image/543f6336-8733-4e43-a2d8-4b53bc2a98e3?resizing_type=fit) | ```verse TextForUI<localizes> : message = "Option" Widget := button_quiet{DefaultText := TextForUI}``` |
 
 See [Making Widgets Interactable](https://dev.epicgames.com/documentation/en-us/fortnite/making-widgets-interactable-in-unreal-editor-for-fortnite) for how to make button interactions.
 
@@ -113,4 +113,4 @@ You can stack widgets vertically or horizontally using a **stack box** widget.
 | Vertical Orientation | Horizontal Orientation |
 | --- | --- |
 | [Vertical Stack Box Verse UI Element](https://dev.epicgames.com/community/api/documentation/image/1be23bcf-9faa-46bf-af07-a03832ed721d?resizing_type=fit) | [Horizontal Stack Box Verse UI Element](https://dev.epicgames.com/community/api/documentation/image/0133a783-580f-4fba-b700-bf643675c424?resizing_type=fit) |
-| ```verse MoveText<localizes> : message = "Move" AttackText<localizes> : message = "Attack" CancelText<localizes> : message = "Cancel"  Widget := stack_box:     Orientation := orientation.Vertical     Slots := array:         stack_box_slot:             Widget := button_loud{DefaultText := MoveText}         stack_box_slot: ``` | ```verse MoveText<localizes> : message = "Move" AttackText<localizes> : message = "Attack" CancelText<localizes> : message = "Cancel"  Widget := stack_box:     Orientation := orientation.Horizontal     Slots := array:         stack_box_slot:             Widget := button_loud{DefaultText := MoveText}         stack_box_slot: ``` |
+| ```verse MoveText<localizes> : message = "Move" AttackText<localizes> : message = "Attack" CancelText<localizes> : message = "Cancel"  Widget := stack_box:     Orientation := orientation.Vertical     Slots := array:         stack_box_slot:             Widget := button_loud{DefaultText := MoveText}         stack_box_slot:``` | ```verse MoveText<localizes> : message = "Move" AttackText<localizes> : message = "Attack" CancelText<localizes> : message = "Cancel"  Widget := stack_box:     Orientation := orientation.Horizontal     Slots := array:         stack_box_slot:             Widget := button_loud{DefaultText := MoveText}         stack_box_slot:``` |

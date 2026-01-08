@@ -1,6 +1,6 @@
 # Deception Through Disguises
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-deception-through-disguises-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-deception-through-disguises-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:12:48.402974
 
 ---
@@ -99,4 +99,4 @@ Learn to add voting to your island.
 
 Create Voting Opportunities
 
-Learn to use the voting devices for your Squid Game islands.](https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-create-voting-opportunities-in-unreal-editor-for-fortnite)
+Learn to use the voting devices for your Squid Game islands.](<https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-create-voting-opportunities-in-unreal-editor-for-fortnite>)

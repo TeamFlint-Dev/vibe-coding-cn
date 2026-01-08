@@ -1,6 +1,6 @@
 # SetRemainingInteractDurationForAgent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/interactable_duration/setremaininginteractdurationforagent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/interactable_duration/setremaininginteractdurationforagent>
 > **爬取时间**: 2025-12-27T02:43:30.323821
 
 ---

@@ -1,6 +1,6 @@
 # fort_round_manager interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/fort_round_manager
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/fort_round_manager>
 > **爬取时间**: 2025-12-27T01:00:39.022835
 
 ---

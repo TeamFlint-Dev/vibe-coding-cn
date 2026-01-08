@@ -1,6 +1,6 @@
 # Conditional Button Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/conditional-button-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/conditional-button-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:06:20.246314
 
 ---
@@ -78,6 +78,7 @@ In this example, you will learn how to create a simple system for the player to 
    | **Key Items Required** | 100 | Each key item will require 100 to activate the button. |
    | **Second Key Items Required** | 100 | See **Key Items Required** above. |
    | **Third Key Items Required** | 100 | See **Key Items Required** above. |
+
 5. While standing near the Conditional Button device, go to the **Items** category in the **Content** browser, then find and drop **wood**, **stone**, and **metal** to register the materials to the device.
 6. Configure a conditional button event to grant the pistol from the item granter to the player when the device is activated.
 

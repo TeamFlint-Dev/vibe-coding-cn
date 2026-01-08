@@ -1,6 +1,6 @@
 # hive_stash_style enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hive_stash_style
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/hive_stash_style>
 > **爬取时间**: 2025-12-27T01:43:58.320086
 
 ---

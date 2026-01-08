@@ -1,6 +1,6 @@
 # 34.20 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/34-20-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/34-20-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:33:27.785623
 
 ---
@@ -70,7 +70,7 @@ We want to deliver a solid experience when we put these features in your hands a
 
 You can get the latest information on the [Fortnite Creator Roadmap](https://trello.com/b/nnpaY0cM/fortnite-creator-roadmap).
 
-## The LEGO Action Adventure Template Comes to Unreal Editor for Fortnite!
+## The LEGO Action Adventure Template Comes to Unreal Editor for Fortnite
 
 In the new Action Adventure template, there’s all-new content to explore to build your own classic LEGO adventure experience!
 
@@ -84,7 +84,7 @@ To learn more, check out the [Action Adventure Template](https://dev.epicgames.c
 
 The Assembly device has some quality-of-life updates! You can now select volume shapes — you’ve got three options. In UEFN, there’s a new setting for previewing material so you can customize the holographic preview.
 
-## Spawn Teenage Mutant Ninja Turtles Characters in Creative!
+## Spawn Teenage Mutant Ninja Turtles Characters in Creative
 
 You can now spawn Teenage Mutant Ninja Turtles (TMNT) characters using devices in Fortnite Creative! TMNT character cosmetics options (Foot Clan/Shredder/Super Shredder) can now be selected in a TMNT project or island on the following devices:
 
@@ -93,7 +93,7 @@ You can now spawn Teenage Mutant Ninja Turtles (TMNT) characters using devices i
 - Dance Mannequin device
 - Guard Spawner device
 
-## Access Brand Islands from any Island Template!
+## Access Brand Islands from any Island Template
 
 In UEFN, you can now use a wide range of templates as a starting point for building islands with brand-specific content. This feature brings the selection of the partners we offer in the Brand Templates section to starter islands.
 

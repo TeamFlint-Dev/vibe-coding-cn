@@ -1,6 +1,6 @@
 # offline progression
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/offline-progression
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/offline-progression>
 > **爬取时间**: 2025-12-27T02:24:55.930885
 
 ---

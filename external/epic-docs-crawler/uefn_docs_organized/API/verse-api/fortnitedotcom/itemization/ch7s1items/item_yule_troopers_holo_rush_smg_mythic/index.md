@@ -1,6 +1,6 @@
 # item_yule_troopers_holo_rush_smg_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_yule_troopers_holo_rush_smg_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_yule_troopers_holo_rush_smg_mythic>
 > **爬取时间**: 2025-12-27T04:21:27.376359
 
 ---

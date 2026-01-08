@@ -1,6 +1,6 @@
 # transacts
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/transacts
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/transacts>
 > **爬取时间**: 2025-12-27T02:21:35.000515
 
 ---

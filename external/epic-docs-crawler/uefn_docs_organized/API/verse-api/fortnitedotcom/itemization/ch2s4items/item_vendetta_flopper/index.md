@@ -1,6 +1,6 @@
 # item_vendetta_flopper class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_vendetta_flopper
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch2s4items/item_vendetta_flopper>
 > **爬取时间**: 2025-12-27T04:03:48.703202
 
 ---

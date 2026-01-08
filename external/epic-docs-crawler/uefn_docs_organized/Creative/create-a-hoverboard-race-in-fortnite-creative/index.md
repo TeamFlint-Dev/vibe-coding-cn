@@ -1,6 +1,6 @@
 # Hoverboard Race
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/create-a-hoverboard-race-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/create-a-hoverboard-race-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:58:34.947025
 
 ---
@@ -568,6 +568,7 @@ All games should have a pre-game lobby, where the players wait until the start o
    | **Priority Group** | Secondary | This determines the priority order in which spawn pads are used. If all Primary spawn pads are not available, players will be spawned on Secondary spawn pads. |
    | **Use As Island Start** | Yes | This determines if this spawn pad can be used when players are spawning into the Island during the Pre-Game Phase. |
    | **Visible During Game** | No | Spawn pads should not be visible during the game. |
+
 4. Press **M** and click **Island Settings** at the top of the screen. Modify the following options in the **Game** category.
 
    If you have completed all the previous sections, some of these settings have already been modified. However you can use these steps and this list of My Island setting modifications to create a pre-game lobby in any game you build in Fortnite Creative.

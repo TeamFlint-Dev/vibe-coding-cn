@@ -1,6 +1,6 @@
 # item_suppressed_sniper_rifle_epic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_suppressed_sniper_rifle_epic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_suppressed_sniper_rifle_epic>
 > **爬取时间**: 2025-12-27T03:21:25.063854
 
 ---

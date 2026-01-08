@@ -1,6 +1,6 @@
 # entity_prefab class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/entity_prefab
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/entity_prefab>
 > **爬取时间**: 2025-12-27T00:50:37.306944
 
 ---

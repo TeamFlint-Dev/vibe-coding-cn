@@ -1,6 +1,6 @@
 # GetEntity function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_behavior/getentity
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/npc_behavior/getentity>
 > **爬取时间**: 2025-12-27T02:48:20.287520
 
 ---

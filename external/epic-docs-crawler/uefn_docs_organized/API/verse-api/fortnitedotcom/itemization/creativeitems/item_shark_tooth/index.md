@@ -1,6 +1,6 @@
 # item_shark_tooth class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_shark_tooth
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_shark_tooth>
 > **爬取时间**: 2025-12-27T03:52:45.470578
 
 ---

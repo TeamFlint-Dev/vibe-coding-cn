@@ -1,6 +1,6 @@
 # item_wildwasp_jar class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_wildwasp_jar
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_wildwasp_jar>
 > **爬取时间**: 2025-12-27T04:12:42.241679
 
 ---

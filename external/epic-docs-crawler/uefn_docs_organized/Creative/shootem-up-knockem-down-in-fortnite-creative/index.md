@@ -1,6 +1,6 @@
 # Shoot'em Up, Knock'em Down
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/shootem-up-knockem-down-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/shootem-up-knockem-down-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:53:57.373709
 
 ---
@@ -200,6 +200,7 @@ It is pretty dark inside the buildings, which can make it hard to find targets. 
    | Options | Value | Explanation |
    | --- | --- | --- |
    | **Light Intensity** | 5% | 5% intensity provides enough light without being too bright for players. |
+
 3. Copy the light and add 47 more in buildings where lighting is needed.
 
 ## Place the Barrier Device

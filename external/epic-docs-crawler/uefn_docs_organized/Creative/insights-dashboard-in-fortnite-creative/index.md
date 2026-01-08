@@ -1,6 +1,6 @@
 # Insights Dashboard
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/insights-dashboard-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/insights-dashboard-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T22:59:20.713141
 
 ---

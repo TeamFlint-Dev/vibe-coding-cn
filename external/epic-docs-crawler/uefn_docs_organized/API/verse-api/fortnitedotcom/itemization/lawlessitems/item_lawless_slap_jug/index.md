@@ -1,6 +1,6 @@
 # item_lawless_slap_jug class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_lawless_slap_jug
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/lawlessitems/item_lawless_slap_jug>
 > **爬取时间**: 2025-12-27T04:59:22.756491
 
 ---

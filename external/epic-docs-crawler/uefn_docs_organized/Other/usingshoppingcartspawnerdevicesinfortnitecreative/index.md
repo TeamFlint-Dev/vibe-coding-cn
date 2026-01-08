@@ -1,6 +1,6 @@
 # Shopping Cart Spawner Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/usingshoppingcartspawnerdevicesinfortnitecreative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/usingshoppingcartspawnerdevicesinfortnitecreative>
 > **爬取时间**: 2025-12-26T23:41:50.025228
 
 ---

@@ -1,6 +1,6 @@
 # Basic Storm Controller
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/basic-storm-controller
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/basic-storm-controller>
 > **爬取时间**: 2025-12-27T02:12:03.321790
 
 ---

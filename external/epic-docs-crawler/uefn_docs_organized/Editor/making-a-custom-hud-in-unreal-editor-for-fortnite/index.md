@@ -1,6 +1,6 @@
 # Making a Custom HUD
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-hud-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-hud-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:07:28.530675
 
 ---
@@ -29,12 +29,12 @@ To learn more about the UMG Editor in UEFN, refer to the **[UI Widget Editor](ht
 
 Making Custom Backplates
 
-Create custom avatar backplates for your custom HUD.](https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-backplates-in-unreal-editor-for-fortnite)[![Making Custom Health and Shield Bars](https://dev.epicgames.com/community/api/documentation/image/79ff27c4-b164-4df1-9408-373681cb0967?resizing_type=fit&width=640&height=640)
+Create custom avatar backplates for your custom HUD.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-backplates-in-unreal-editor-for-fortnite)[![Making> Custom Health and Shield Bars](<https://dev.epicgames.com/community/api/documentation/image/79ff27c4-b164-4df1-9408-373681cb0967?resizing_type=fit&width=640&height=640>)
 
 Making Custom Health and Shield Bars
 
-Create custom Health and Shield Bars for your custom HUD.](https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-health-and-shield-bars-in-unreal-editor-for-fortnite)[![Making a Custom Squad View](https://dev.epicgames.com/community/api/documentation/image/ef2ad1eb-1150-45f5-ae98-e4a8b57a1a57?resizing_type=fit&width=640&height=640)
+Create custom Health and Shield Bars for your custom HUD.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-custom-health-and-shield-bars-in-unreal-editor-for-fortnite)[![Making> a Custom Squad View](<https://dev.epicgames.com/community/api/documentation/image/ef2ad1eb-1150-45f5-ae98-e4a8b57a1a57?resizing_type=fit&width=640&height=640>)
 
 Making a Custom Squad View
 
-Expand on the custom backplate knowledge to create a custom squad view for your project.](https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-squad-view-in-unreal-editor-for-fortnite)
+Expand on the custom backplate knowledge to create a custom squad view for your project.](<https://dev.epicgames.com/documentation/en-us/fortnite/making-a-custom-squad-view-in-unreal-editor-for-fortnite>)

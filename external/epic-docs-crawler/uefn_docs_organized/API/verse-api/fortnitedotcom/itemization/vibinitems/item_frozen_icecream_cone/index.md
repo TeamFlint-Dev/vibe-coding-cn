@@ -1,6 +1,6 @@
 # item_frozen_icecream_cone class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/vibinitems/item_frozen_icecream_cone
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/vibinitems/item_frozen_icecream_cone>
 > **爬取时间**: 2025-12-27T03:34:39.844425
 
 ---

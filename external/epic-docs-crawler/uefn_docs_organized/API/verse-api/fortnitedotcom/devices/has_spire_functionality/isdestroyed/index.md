@@ -1,6 +1,6 @@
 # IsDestroyed function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/has_spire_functionality/isdestroyed
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/has_spire_functionality/isdestroyed>
 > **爬取时间**: 2025-12-27T05:42:03.838540
 
 ---

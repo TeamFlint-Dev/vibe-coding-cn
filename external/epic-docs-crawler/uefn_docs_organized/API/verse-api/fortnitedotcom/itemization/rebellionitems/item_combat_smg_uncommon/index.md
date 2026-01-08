@@ -1,6 +1,6 @@
 # item_combat_smg_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/rebellionitems/item_combat_smg_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/rebellionitems/item_combat_smg_uncommon>
 > **爬取时间**: 2025-12-27T03:07:24.903882
 
 ---

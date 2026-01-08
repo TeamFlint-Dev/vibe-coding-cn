@@ -1,6 +1,6 @@
 # Knockback function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/spire_spike_device/knockback
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/spire_spike_device/knockback>
 > **爬取时间**: 2025-12-27T05:14:34.487529
 
 ---

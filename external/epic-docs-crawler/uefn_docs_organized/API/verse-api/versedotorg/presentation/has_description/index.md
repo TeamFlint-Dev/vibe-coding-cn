@@ -1,6 +1,6 @@
 # has_description interface
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/presentation/has_description
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/presentation/has_description>
 > **爬取时间**: 2025-12-27T02:02:26.261761
 
 ---

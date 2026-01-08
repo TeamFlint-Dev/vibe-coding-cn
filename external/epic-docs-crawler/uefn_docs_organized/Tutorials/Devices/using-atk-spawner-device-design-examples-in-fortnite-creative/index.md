@@ -1,13 +1,13 @@
 # ATK Spawner Device Design Example
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-atk-spawner-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-atk-spawner-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:07:15.257222
 
 ---
 
 The **ATK Spawner** device spawns an all-terrain kart (ATK) that you can place players into directly at the start of the game, or that they can choose to drive during the game.
 
-## The Great ATK Collectibles Race!
+## The Great ATK Collectibles Race
 
 In this design example, you'll use several devices to create a fun multiplayer-team game. The game is constructed around a “hidden” feature of the ATK — players can use the awning on the top of the kart as a bounce pad!
 
@@ -47,6 +47,7 @@ Teams start in the center of the play area where ATK vehicles for each team will
    | **Enabled During Phase** | Create Only | You will only be able to interact directly with the ATK when you're in Create mode. Once the game starts, players will only access the ATK through the game mechanics you're setting up. |
    | **Enable Respawn** | Off | Prevents the ATK from respawning. |
    | **Activating Team** | Team 1 | Name the team that can access this ATK. Note that you will change this for each team for the remaining ATKs. |
+
 3. Name this device to match the team it corresponds to.
 4. Copy and place the remaining ATK spawners on the starting platform as shown.
 
@@ -74,6 +75,7 @@ Each team will have its own button. Once the game starts, players must push thei
    | --- | --- | --- |
    | **Interact Time** | 2.0 Seconds | This sets how much time a player has to interact with the button once the game starts. |
    | **Activating Team** | Team 1 | The team that can access this button. |
+
 3. Copy and place a Button device on the remaining pillars, naming each for the team that will use it, and setting the corresponding **Activating Team**.
 
 ### Add Player Spawners
@@ -93,6 +95,7 @@ Place four groups of four player spawners each. Each group will be on a differen
    | --- | --- | --- |
    | **Player Team** | Team 1 | The team the player will be assigned to at the start of game. |
    | **Visible in Game** | Off | The actual spawn pad will not show during the game. |
+
 3. Copy and place three more times for **Team 1**.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/caf6845b-b7f4-48b6-b8a3-78623262f230?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/caf6845b-b7f4-48b6-b8a3-78623262f230?resizing_type=fit)
@@ -143,6 +146,7 @@ A player can collect an object by coming into contact with it.
    | **Collecting Team** | Team 1 | Each team will have four objects only they can collect. Players cannot collect an object assigned to a different team. |
    | **Consume if Collected By** | Team | Once a team member collects this item, it will no longer be available. |
    | **Display Score Update on HUD** | On | The HUD will display the number of objects collected by each team. |
+
 3. Copy and place three more objects for this platform. You can use the same object or mix them up.
 4. Move on to the next large floating platform and repeat these steps, but this time set the **Collecting Team** to **Team 2**.
 5. Repeat step 4 for Teams 3 and 4.
@@ -159,6 +163,7 @@ A player can collect an object by coming into contact with it.
    | --- | --- | --- |
    | **Enable When Receiving From** | Button 1 | On Vehicle Is Destroyed |
    | **Respawn Vehicle When Receiving From** | Button 1 | On Interact |
+
 2. What this does is to spawn a vehicle for the team when the team's button is pushed. Because the ATV spawner and the button are now bound, the events that are called from the functions on the spawner will automatically show on the Button device. How cool is that!
 3. The ATK spawners use the following events in the game mode. These disable the ATK spawner until it is needed (for example when the previous ATK is destroyed).To disable the ATK spawner until it's needed, set the following [events](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary).
 

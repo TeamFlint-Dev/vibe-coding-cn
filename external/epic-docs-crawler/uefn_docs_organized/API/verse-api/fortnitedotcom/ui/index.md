@@ -1,6 +1,6 @@
 # UI module
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui>
 > **爬取时间**: 2025-12-26T23:25:34.791991
 
 ---

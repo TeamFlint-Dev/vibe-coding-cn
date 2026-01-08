@@ -1,6 +1,6 @@
 # Fab User Interface Reference
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/fab-user-interface-reference-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/fab-user-interface-reference-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:54:50.376885
 
 ---

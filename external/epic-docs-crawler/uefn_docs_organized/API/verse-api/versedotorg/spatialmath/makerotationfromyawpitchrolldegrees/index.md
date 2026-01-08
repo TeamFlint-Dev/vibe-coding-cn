@@ -1,6 +1,6 @@
 # MakeRotationFromYawPitchRollDegrees function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/makerotationfromyawpitchrolldegrees
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/makerotationfromyawpitchrolldegrees>
 > **爬取时间**: 2025-12-27T00:49:31.428944
 
 ---

@@ -1,6 +1,6 @@
 # item_human_bills_arc_lightning_gun_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_human_bills_arc_lightning_gun_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch7s1items/item_human_bills_arc_lightning_gun_mythic>
 > **爬取时间**: 2025-12-27T04:18:24.620031
 
 ---

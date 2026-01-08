@@ -1,6 +1,6 @@
 # Disable function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/overlord_spire_device/disable
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/overlord_spire_device/disable>
 > **爬取时间**: 2025-12-27T06:35:24.984170
 
 ---

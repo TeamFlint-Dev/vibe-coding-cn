@@ -1,6 +1,6 @@
 # SetHealth function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healthful/sethealth
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healthful/sethealth>
 > **爬取时间**: 2025-12-27T02:52:01.983787
 
 ---

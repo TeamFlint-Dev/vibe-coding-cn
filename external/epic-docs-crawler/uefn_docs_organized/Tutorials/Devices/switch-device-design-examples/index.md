@@ -1,6 +1,6 @@
 # Switch Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/switch-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/switch-device-design-examples>
 > **爬取时间**: 2025-12-26T23:04:05.081467
 
 ---
@@ -34,6 +34,7 @@ One basic use of the Switch device is as a light switch as it can be easily conf
    | Turn On Text | Turn On Lights |
    | Turn Off Text | Turn Off Lights |
    | Device Model | Antique Lever (Unlit) |
+
 5. Place two **Customizable Lights (Torch)** devices.
 6. Customize the lights:
 
@@ -102,6 +103,7 @@ You’ll begin by setting up the basic play area and gameplay functionality.
    | Receiving Players | All |
    | Spare Weapon Ammo | 999 |
    | Grant on Game Start | On |
+
 5. Place a **Creature Spawner** device in the tutorial area, and customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/69344db7-1cb1-4292-8e76-77795ecf0969?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/69344db7-1cb1-4292-8e76-77795ecf0969?resizing_type=fit)
@@ -126,6 +128,7 @@ You’ll now use the **Teleporter** and **Player Checkpoint** devices to configu
    | Option | Value |
    | Visible In Game | Off |
    | Play Activate FX | Off |
+
 2. Place a Teleporter device on top of the player checkpoint and customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/dc64b0c0-a2fd-4828-976b-d42d0d404d81?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/dc64b0c0-a2fd-4828-976b-d42d0d404d81?resizing_type=fit)
@@ -136,6 +139,7 @@ You’ll now use the **Teleporter** and **Player Checkpoint** devices to configu
    | Teleporter Rift Visible | No |
    | Play Visual Effects | No |
    | Play Sound Effects | No |
+
 3. Copy these two devices and place another pair at the beginning of the Gameplay segment. Rename them accordingly.
 4. Customize the new Gameplay Teleporter device.
 
@@ -165,6 +169,7 @@ Now, set up a switch to keep track of whether the player has completed the tutor
    | Use Persistence | Use |
    | Auto-Save | Yes |
    | Auto-Load | Game Start |
+
 2. Place a **Trigger** device in the doorway at the exit of the tutorial segment and customize.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/e7bb790c-5f6c-4934-b032-3cdebf47873a?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/e7bb790c-5f6c-4934-b032-3cdebf47873a?resizing_type=fit)
@@ -189,6 +194,7 @@ The next step is to bind the functions and events.
    | --- | --- | --- |
    | Event | Select Device | Select Function |
    | On Player Spawned | Tutorial Switch | Check State |
+
 2. Configure the following events on the switch to send the player to the correct location and set their respawn location at the beginning of the game.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/01c03303-8788-4907-903e-92e89e8f01f6?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/01c03303-8788-4907-903e-92e89e8f01f6?resizing_type=fit)
@@ -199,6 +205,7 @@ The next step is to bind the functions and events.
    | On Check Result On | Gameplay Teleporter | Teleport |
    | On Check Result Off | Tutorial Checkpoint | Register |
    | On Check Result Off | Tutorial Teleporter | Teleport |
+
 3. Configure the following events on the Trigger device to update the player’s respawn point and save their tutorial progress when they complete the tutorial segment.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/f892c0f5-499b-4897-9653-63511e92ea32?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/f892c0f5-499b-4897-9653-63511e92ea32?resizing_type=fit)
@@ -216,7 +223,7 @@ This example showcases a Persistent Tutorial Manager in a single-player context,
 
 For each player to have their own unique switch, make sure the **Store State Per Player** setting is on **Yes**. This would be great in Islands where different players can enter the game at different times, making sure that each is able to interact with the tutorial on their own.
 
-## Build a King-of-the-Hill Game!
+## Build a King-of-the-Hill Game
 
 The Switch device can be used as an interactable objective in a two-player King-of-the-Hill game!
 
@@ -249,6 +256,7 @@ In this example, you will use a Switch device to represent which player is in co
    | Turn On Text | CHANGE TO BLUE |
    | Turn Off Text | CHANGE TO RED |
    | Device Model | Antique Lever (Unlit) |
+
 4. Place a **Timer** device to create a delay before the switch activates at the beginning of the game and customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/d97a003a-f819-4e03-8d52-861b9da06ab0?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d97a003a-f819-4e03-8d52-861b9da06ab0?resizing_type=fit)
@@ -266,6 +274,7 @@ In this example, you will use a Switch device to represent which player is in co
    | Timer Color | White |
    | Display Time In | Seconds Only |
    | Timer Running Text | Hill Active In… |
+
 5. Place an **Item Granter** device and register a **Legendary Tactical Assault Rifle** to the device.
 6. Customize the device.
 
@@ -293,6 +302,7 @@ In this example, you will use a Switch device to represent which player is in co
    | Team Name | Blue |
    | Team | 1 |
    | Team Color | Sky Blue |
+
 3. Place an **End Game** device in the blue spawn area and customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/94d10e23-e714-4808-8fb4-d2205b4ed16b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/94d10e23-e714-4808-8fb4-d2205b4ed16b?resizing_type=fit)
@@ -302,6 +312,7 @@ In this example, you will use a Switch device to represent which player is in co
    | Option | Value |
    | Winning Team | Team 1 |
    | Custom Victory Callout | Blue Wins |
+
 4. Place a **Timer** device in the blue spawn area, and customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/43390203-2519-4079-8d7c-31275ce96675?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/43390203-2519-4079-8d7c-31275ce96675?resizing_type=fit)
@@ -319,6 +330,7 @@ In this example, you will use a Switch device to represent which player is in co
    | Timer Label Text Style | Blue |
    | Enable Urgency Mode | On |
    | Urgency Mode Time | 5.0 Seconds |
+
 5. Copy the devices placed in this section and place the duplicates in the red spawn area. Update the settings on the devices for Team 2 instead of Team 1 and Red instead of Blue where applicable.
 
 ### Set Up the VFX
@@ -336,6 +348,7 @@ In this example, you will use a Switch device to represent which player is in co
    | Color Change Time | Instant |
    | Turn On Team | None |
    | Turn Off Team | None |
+
 2. Place two **VFX Spawner** devices at the top of the hill. Customize each spawner to your liking, with one set for blue and one for red. Make sure the spawners are set to **Enabled on Phase** at **None**.
 3. Place four additional VFX spawners on the sides of the hill. Customize each to your liking, with one on each side for blue and one on each side for red.
 4. Place two **Channel** devices, one for blue and one for red. These will streamline our direct event binding for the VFX in the next section.
@@ -350,6 +363,7 @@ In this example, you will use a Switch device to represent which player is in co
    | --- | --- | --- |
    | Event | Select Device | Select Function |
    | On Success | Switch | Enable |
+
 2. Configure the following events on the Blue Timer to make the Blue Team win if the timer reaches 0.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/73c1b21a-0aa7-411e-b4a2-3281c447b918?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/73c1b21a-0aa7-411e-b4a2-3281c447b918?resizing_type=fit)
@@ -358,6 +372,7 @@ In this example, you will use a Switch device to represent which player is in co
    | --- | --- | --- |
    | Event | Select Device | Select Function |
    | On Success | Blue End Game Device | Activate |
+
 3. Repeat the previous step with the red timer and Red End Game device.
 4. Configure the following events on the Blue Channel device to trigger the VFX changes when the channel is triggered.
 
@@ -371,6 +386,7 @@ In this example, you will use a Switch device to represent which player is in co
    | On Received Transmit | Light-Light16 | Set to Team Color |
    | On Received Transmit | Red VFX Spawner1-3 | Disable |
    | On Received Transmit | Blue VFX Spawner1-3 | Enable |
+
 5. Repeat the previous step with the **Red Channel.**Configure it so that it disables the Blue VFX Spawners and Skydome, and enables the Red VFX Spawners and Skydome. Leave the light events the same.
 6. Configure the following events on the switch to start and pause the timers and trigger the VFX channels.
 

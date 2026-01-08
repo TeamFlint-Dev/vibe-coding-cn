@@ -1,6 +1,6 @@
 # Tracker Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/tracker-device-design-examples
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/tracker-device-design-examples>
 > **爬取时间**: 2025-12-26T23:04:42.243134
 
 ---
@@ -33,6 +33,7 @@ A basic use of the tracker is to track events sent to the device. In this exampl
    | Option | Value |
    | Receiving Players | All |
    | Grant on Game Start | On |
+
 4. Place a **Tracker** device.
 5. Customize the tracker.
 
@@ -45,6 +46,7 @@ A basic use of the tracker is to track events sent to the device. In this exampl
    | When Target Is Reached | End Round |
    | Tracker Title | Hit Targets |
    | Description Text | Hit the targets 5 times to end the round. |
+
 6. Place three **Target Dummy** devices.
 
 ### Bind Functions and Events
@@ -104,6 +106,7 @@ You can configure the Tracker device to track many different events by default, 
    | Tracker TItle | Find Chests |
    | Description Text | Find and open all 3 chests before the time runs out! |
    | Quest Icon | Chest |
+
 3. Place a **Timer** device.
 4. Customize the timer.
 
@@ -134,6 +137,7 @@ You can configure the Tracker device to track many different events by default, 
    | --- | --- | --- |
    | Event | Select Device | Select Function |
    | On Failure | Tracker | Remove |
+
 2. Configure the following events on the tracker to unlock the doors and end the timer if the player completes the objective.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/d4866923-9dc8-403b-8d01-cfc51882396b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d4866923-9dc8-403b-8d01-cfc51882396b?resizing_type=fit)
@@ -207,6 +211,7 @@ In this example, you’ll use the tracker to track a quest in a farming game. Yo
    | Use Persistence | On |
    | Auto-Save | Yes |
    | Auto-Load | Initial Spawn |
+
 3. Configure the following event on the tracker to unblock the second plot of land when the objective is completed.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/597e2910-ee80-4c9d-87a7-1094a168f352?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/597e2910-ee80-4c9d-87a7-1094a168f352?resizing_type=fit)
@@ -230,6 +235,7 @@ In this example, you’ll use the tracker to track a quest in a farming game. Yo
    | Resource Node Depletion Mode | Stay Empty | You will configure what happens when there is no Wheat left in the prop manually. |
    | Modify Prop Health | Yes |  |
    | Is Prop Invulnerable | Yes |  |
+
 3. Place a **Conditional Button** device in the wheat prop. Drop a Wheat resource near it to register it to the device, then customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/4641cf63-ec54-4849-a967-96b6f3d8303b?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/4641cf63-ec54-4849-a967-96b6f3d8303b?resizing_type=fit)
@@ -242,6 +248,7 @@ In this example, you’ll use the tracker to track a quest in a farming game. Yo
    | Missing Items Text | Need Wheat to Plant Crops |
    | Key Items Required | 1 |
    | Visible During Game | Hologram Only |
+
 4. Place a timer near the ground in the wheat prop, and customize it.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/d4a1b2c6-b298-4a29-a91f-8645b8ea12d0?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/d4a1b2c6-b298-4a29-a91f-8645b8ea12d0?resizing_type=fit)
@@ -253,6 +260,7 @@ In this example, you’ll use the tracker to track a quest in a farming game. Yo
    | Can Interact | No |
    | Timer Color | White |
    | Show on HUD | No |
+
 5. Configure the following event on the Prop Manipulator device to notify the tracker every time a Wheat resource is harvested from the prop.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/1e616297-5bb1-4643-855c-1dcd8b386258?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/1e616297-5bb1-4643-855c-1dcd8b386258?resizing_type=fit)
@@ -261,6 +269,7 @@ In this example, you’ll use the tracker to track a quest in a farming game. Yo
    | --- | --- | --- |
    | Function | Select Device | Select Event |
    | On Harvesting | Tracker | Increment Progress |
+
 6. Configure the following event on the Prop Manipulator device to notify the tracker every time a Wheat resource is harvested from the prop.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/aa470b28-2e69-4742-9ade-dd39672ce8c3?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/aa470b28-2e69-4742-9ade-dd39672ce8c3?resizing_type=fit)
@@ -269,6 +278,7 @@ In this example, you’ll use the tracker to track a quest in a farming game. Yo
    | --- | --- | --- |
    | Function | Select Device | Select Event |
    | On Harvesting | Tracker | Increment Progress |
+
 7. Configure the following functions on the **Conditional Button** device to enable it when there is no more Wheat in the prop and disable it when it is activated.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/7eac8777-0b94-48f7-af71-238391a276f2?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/7eac8777-0b94-48f7-af71-238391a276f2?resizing_type=fit)
@@ -278,6 +288,7 @@ In this example, you’ll use the tracker to track a quest in a farming game. Yo
    | Function | Select Device | Select Event |
    | Enable | Crop Prop Manipulator | On Resource Depletion |
    | Disable | Crop Conditional Button | On Activated |
+
 8. Configure the following functions on the Timer device to start the countdown when the Conditional Button is activated and reset to its original state when the prop runs out of Wheat.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/57d989c6-f99c-45d1-b4e1-afbff6351ee6?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/57d989c6-f99c-45d1-b4e1-afbff6351ee6?resizing_type=fit)

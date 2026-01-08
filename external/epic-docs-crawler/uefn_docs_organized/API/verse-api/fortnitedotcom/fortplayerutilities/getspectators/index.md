@@ -1,6 +1,6 @@
 # (InAgent:agent).GetSpectators extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/fortplayerutilities/getspectators
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/fortplayerutilities/getspectators>
 > **爬取时间**: 2025-12-27T01:00:04.997919
 
 ---

@@ -1,6 +1,6 @@
 # item_enhanced_compact_smg_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch6ms2items/item_enhanced_compact_smg_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch6ms2items/item_enhanced_compact_smg_mythic>
 > **爬取时间**: 2025-12-27T03:23:32.613348
 
 ---

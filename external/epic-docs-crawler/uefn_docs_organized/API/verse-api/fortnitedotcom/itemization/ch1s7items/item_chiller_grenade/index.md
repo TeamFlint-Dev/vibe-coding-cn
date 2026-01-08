@@ -1,6 +1,6 @@
 # item_chiller_grenade class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_chiller_grenade
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s7items/item_chiller_grenade>
 > **爬取时间**: 2025-12-27T03:21:59.880170
 
 ---

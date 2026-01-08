@@ -1,6 +1,6 @@
 # HealedEvent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healable/healedevent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/game/healable/healedevent>
 > **爬取时间**: 2025-12-27T02:52:38.734603
 
 ---

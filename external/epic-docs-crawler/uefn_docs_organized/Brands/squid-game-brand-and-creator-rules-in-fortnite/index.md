@@ -1,6 +1,6 @@
 # Squid Game Brand and Creator Rules
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-brand-and-creator-rules-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/squid-game-brand-and-creator-rules-in-fortnite>
 > **爬取时间**: 2025-12-27T00:00:43.797608
 
 ---

@@ -1,6 +1,6 @@
 # GetCurrentDestination function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/navigatable/getcurrentdestination
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/navigatable/getcurrentdestination>
 > **爬取时间**: 2025-12-27T02:49:11.810361
 
 ---

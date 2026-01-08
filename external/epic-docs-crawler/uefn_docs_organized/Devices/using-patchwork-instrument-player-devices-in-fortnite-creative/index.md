@@ -1,6 +1,6 @@
 # Instrument Player
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-instrument-player-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:05:57.123884
 
 ---
@@ -188,11 +188,11 @@ Try patching the Instrument Player into the Echo Effect or the Distortion Effect
 
 Echo Effect
 
-This device takes in an audio signal and sends it out again, but with a time delay, like your voice echoing in a canyon.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative)[![Distortion Effect](https://dev.epicgames.com/community/api/documentation/image/fe26526b-54d6-4832-8114-6deb1f7f1a00?resizing_type=fit&width=640&height=640)
+This device takes in an audio signal and sends it out again, but with a time delay, like your voice echoing in a canyon.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-echo-effect-devices-in-fortnite-creative)[![Distortion> Effect](<https://dev.epicgames.com/community/api/documentation/image/fe26526b-54d6-4832-8114-6deb1f7f1a00?resizing_type=fit&width=640&height=640>)
 
 Distortion Effect
 
-Use this audio-shaping tool that results in sounds typical of genres like electronic, rock, and metal.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-distortion-effect-devices-in-fortnite-creative)
+Use this audio-shaping tool that results in sounds typical of genres like electronic, rock, and metal.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-distortion-effect-devices-in-fortnite-creative>)
 
 Patch the Instrument player into the Speaker to hear the result of the Patchwork chain.
 
@@ -200,4 +200,4 @@ Patch the Instrument player into the Speaker to hear the result of the Patchwork
 
 Speaker
 
-Use the Patchwork Speaker device to play the Patchwork audio you create, either at a specific location or across the entire island.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-speaker-devices-in-fortnite-creative)
+Use the Patchwork Speaker device to play the Patchwork audio you create, either at a specific location or across the entire island.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-speaker-devices-in-fortnite-creative>)

@@ -1,6 +1,6 @@
 # CrossProduct function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/crossproduct
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/temporary/spatialmath/crossproduct>
 > **爬取时间**: 2025-12-27T02:33:52.490962
 
 ---

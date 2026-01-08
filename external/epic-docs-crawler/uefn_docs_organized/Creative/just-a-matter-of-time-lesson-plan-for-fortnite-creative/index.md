@@ -1,6 +1,6 @@
-# Just a Matter of Time!
+# Just a Matter of Time
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/just-a-matter-of-time-lesson-plan-for-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/just-a-matter-of-time-lesson-plan-for-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:11:20.736341
 
 ---
@@ -20,11 +20,11 @@ This activity can be done as either an individual assignment or a group assignme
 
 Author: Mike Washburn
 
-Email: mwashburn@mikewashburn.net
+Email: <mwashburn@mikewashburn.net>
 
 Twitter: @misterwashburn
 
-LinkedIn: https://www.linkedin.com/in/mwashburn1979
+LinkedIn: <https://www.linkedin.com/in/mwashburn1979>
 
 ## Lesson Overview
 
@@ -67,7 +67,7 @@ By the end of this lesson, students will be able to:
 
 ### Common Core
 
-**CCSS.ELA-LITERACY.RH.9-10.2** 
+**CCSS.ELA-LITERACY.RH.9-10.2**
 Determine the central ideas or information of a primary or secondary source; provide an accurate summary of how key events or ideas develop over the course of the text.
 
 **CCSS.ELA-LITERACY.RH.9-10.3**

@@ -1,6 +1,6 @@
 # AddTo function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/gameplay_controls_device/addto
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/gameplay_controls_device/addto>
 > **爬取时间**: 2025-12-27T05:46:31.029156
 
 ---

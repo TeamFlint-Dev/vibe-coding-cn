@@ -1,6 +1,6 @@
 # Project Analytics
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/project-analytics-for-fortnite-games
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/project-analytics-for-fortnite-games>
 > **爬取时间**: 2025-12-26T22:59:26.037474
 
 ---

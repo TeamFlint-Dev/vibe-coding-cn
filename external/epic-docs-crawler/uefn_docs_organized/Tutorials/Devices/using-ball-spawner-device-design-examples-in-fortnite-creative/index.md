@@ -1,6 +1,6 @@
 # Ball Spawner Device Design Examples
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-ball-spawner-device-design-examples-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-ball-spawner-device-design-examples-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:05:34.104200
 
 ---
@@ -45,6 +45,7 @@ Place a player spawner on one of the raised platforms at the corners of the aren
    | Option | Value | Description |
    | --- | --- | --- |
    | **Visible in Game** | Off | Player spawners disappear when the game starts. |
+
 2. Copy the configured spawner to the remaining corners.
 
 ### Add the Ball Spawner
@@ -66,6 +67,7 @@ A player has to use their pickaxe to propel the ball into another player, but if
    | **Enabled During Phase** | Gameplay Only | The ball will spawn only after the game starts. |
    | Ball Color | optional | Use the default color, or pick your own! |
    | Eliminate Player When Touched | On | This causes a player to be eliminated when another player propels the ball into them. |
+
 2. On the **Functions** tab, set the ball spawner to **Enable When Receiving From** the first **Player Spawner** in the area.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/eac202f7-fb32-4ddb-af1e-24003a155ef4?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/eac202f7-fb32-4ddb-af1e-24003a155ef4?resizing_type=fit)
@@ -86,6 +88,7 @@ The **Damage Volume** device is to encourage players to jump into the game. If t
    | --- | --- | --- |
    | **Zone Width** | 5 | These dimensions make it possible to cover all of the player spawners with a single volume. |
    | **Zone Height** | 5 | These dimensions make it possible to cover all of the player spawners with a single volume. |
+
 2. Go to [**Functions**](getting-started-with-direct-event-binding-in-fortnite-creative) and set the following:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/4940c9c1-ccf8-4867-9945-64d729edb9b8?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/4940c9c1-ccf8-4867-9945-64d729edb9b8?resizing_type=fit)
@@ -146,6 +149,7 @@ For a more authentic look, use the goal object from the **Sports Gallery** set i
    | **Player Team** | Team 1 | You will set two spawners to **Team 1** and the other two to **Team 2**. |
    | **Use as Island Start** | On | This is the default value and should stay to **On**. |
    | **Visible in Game** | Off | Once the game starts, the player spawners should not be visible. |
+
 2. Copy and place another player spawner next to the first. At this point you should have two spawners at one end of the field.
 3. Copy and place a third spawner, but at the other end of the field.
 4. Change **Player Team** to **Team 2**, then copy and place a second Team 2 spawner next to it.
@@ -208,6 +212,7 @@ The final step in setting up this mini-game is to configure the Island Settings.
    | Teams | 2 |
    | Team Size | 2 |
    | Total Rounds | 5 |
+
 2. Go to **Mode > Matchmaking Settings**, and set:
 
    [![](https://dev.epicgames.com/community/api/documentation/image/b1d5d055-b99c-4e6d-86f3-dd0fc0c89069?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b1d5d055-b99c-4e6d-86f3-dd0fc0c89069?resizing_type=fit)
@@ -216,6 +221,7 @@ The final step in setting up this mini-game is to configure the Island Settings.
    | --- | --- |
    | **Island Matchmaking Privacy** | Party Choice |
    | **Team Fill Option** | Must Fill |
+
 3. Go to **Mode > Team Settings > UI Team Colors**, and set to **Relationship**.
 
    [![](https://dev.epicgames.com/community/api/documentation/image/db948903-c3a3-4cd3-bb69-4fc988b23b08?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/db948903-c3a3-4cd3-bb69-4fc988b23b08?resizing_type=fit)

@@ -1,6 +1,6 @@
 # EndConversation function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conversation_device/endconversation
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/conversation_device/endconversation>
 > **爬取时间**: 2025-12-27T05:31:31.689960
 
 ---

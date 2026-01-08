@@ -1,6 +1,6 @@
 # (Rotation:rotation).GetEulerRadians extension
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/geteulerradians
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/spatialmath/geteulerradians>
 > **爬取时间**: 2025-12-27T00:49:09.724982
 
 ---

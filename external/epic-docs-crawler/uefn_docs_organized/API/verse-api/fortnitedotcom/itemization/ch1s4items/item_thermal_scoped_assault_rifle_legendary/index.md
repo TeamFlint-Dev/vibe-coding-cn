@@ -1,6 +1,6 @@
 # item_thermal_scoped_assault_rifle_legendary class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s4items/item_thermal_scoped_assault_rifle_legendary
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s4items/item_thermal_scoped_assault_rifle_legendary>
 > **爬取时间**: 2025-12-27T03:57:49.663047
 
 ---

@@ -1,6 +1,6 @@
 # Using Accolades
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-accolades-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-accolades-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T00:30:08.359788
 
 ---
@@ -31,6 +31,7 @@ For more information on how this device grants players XP, see [Accolade Devices
    | **Name** | "Zombie Elimination" | A brief message to explain the type of award. |
    | **XP Award** | Very Small | Since this is an easy to achieve goal, the award should be small. |
    | **Splash Size** | Small | The message on the player’s screen will take up a small amount of space. |
+
 7. In the Content Browser, navigate to **All** > **Fortnite** > **Devices** and search for "creature spawn".
 
    [![creature spawner](https://dev.epicgames.com/community/api/documentation/image/5c4d127f-49ab-4dc1-9102-baf467fe0924?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/5c4d127f-49ab-4dc1-9102-baf467fe0924?resizing_type=fit)
@@ -63,6 +64,7 @@ You can use direct event binding to trigger the Accolade device whenever a zombi
    | **XP Award** | Large | 15 minutes of playtime could warrant a large award. |
    | **Limit Award Count** | True, "1" | This XP award can only be granted once. |
    | **Icon** | Choose two | Search for "Star", then set the small icon to the “\_64” version and the large icon to the “\_128” version. |
+
 3. Find the **Timer** device in the Content Browser and drag into your level.
 4. In the Details panel for the Timer device, modify the following settings:
 
@@ -129,19 +131,21 @@ This example builds on the [zombie elimination](https://dev.epicgames.com/docume
 
       ```verse
        accolade_example := class(creative_device):
-      		
+        
           @editable
           Accolades:accolades_device = accolades_device{}
-      		
+        
           @editable
           ConditionalButton:conditional_button_device = conditional_button_device{}
       ```
+
 4. In `OnBegin()`, subscribe the `ConditionalButton` `ActivatedEvent` to a new function named `BountyComplete`.
 
    ```verse
         OnBegin<override>()<suspends>:void=
             ConditionalButton.ActivatedEvent.Subscribe(BountyComplete)
    ```
+
 5. Add the new method `BountyComplete()` to the `accolade` class. This method awards the player who activated the `ConditionalButton` with the `Accolades` score.
 
    ```verse
@@ -150,6 +154,7 @@ This example builds on the [zombie elimination](https://dev.epicgames.com/docume
         BountyComplete(Agent:agent):void=
             Accolades.Award(Agent)
    ```
+
 6. Your `accolade_example` code should now look like:
 
    ```verse
@@ -173,6 +178,7 @@ This example builds on the [zombie elimination](https://dev.epicgames.com/docume
             BountyComplete(Agent:agent):void=
                 Accolades.Award(Agent)
    ```
+
 7. Save the script in Visual Studio Code, and in the Main Menu, under Verse, click **Build Verse Code** to compile your code. If errors are discovered, you can find them in the Message Log panel under the **Verse Build** section.
 
    [![build verse code](https://dev.epicgames.com/community/api/documentation/image/6e850b7f-52bf-411f-99f5-d09309ef5810?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/6e850b7f-52bf-411f-99f5-d09309ef5810?resizing_type=fit)

@@ -1,6 +1,6 @@
 # Using the Conversation Device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/conversation-devices-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/conversation-devices-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T07:11:01.731689
 
 ---
@@ -143,7 +143,7 @@ The **Standard Box Type** displays NPC conversations in a box with the player’
 
 #### Single Speaker
 
-The **Single Speaker Box Type** displays the speaker's name and text in a box with response buttons to the right of the  speech box. Unlike the default Standard option, you can use the ****Conversation Material** ****option******to use a UI material to represent the speaker above the speech box.
+The **Single Speaker Box Type** displays the speaker's name and text in a box with response buttons to the right of the  speech box. Unlike the default Standard option, you can use the ****Conversation Material******option******to use a UI material to represent the speaker above the speech box.
 
 [![Single Speaker Conversation type provides a way to add an icon to identify the speaker.](https://dev.epicgames.com/community/api/documentation/image/b4e07f06-f7ef-4745-988d-9e69f73ae751?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/b4e07f06-f7ef-4745-988d-9e69f73ae751?resizing_type=fit)
 

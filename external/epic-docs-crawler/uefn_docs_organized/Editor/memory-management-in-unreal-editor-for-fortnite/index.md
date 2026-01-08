@@ -1,6 +1,6 @@
 # Memory Management
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/memory-management-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/memory-management-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:17:11.485504
 
 ---
@@ -41,7 +41,7 @@ The bar shows a maximum of 100,000 memory units to give you a picture of the me
 
 With streaming enabled, memory is calculated based on the player's position on the island rather than the total memory used by all the assets on the island. Performing a [memory calculation](https://dev.epicgames.com/documentation/en-us/fortnite/memory-management-in-unreal-editor-for-fortnite) will give you the most accurate memory consumption values for each streaming cell.
 
-Some assets will stay in memory regardless of the player's position, and will add to the memory usage anywhere in the map. 
+Some assets will stay in memory regardless of the player's position, and will add to the memory usage anywhere in the map.
 Most assets will load and unload as they stream in and out, and the bar will update to reflect this.
 
 All assets referenced by the level (including **Devices**, **Landscapes**, custom **Meshes** and **Textures**, etc.) count toward total memory usage.
@@ -112,6 +112,7 @@ There are many strategies to save on memory once you hit the limit. Try any comb
   | **# Actor Refs** | The number of actors referencing the resource, directly or indirectly. |
   | **# Package Refs** | The number of cooked packages referencing the resource. This number will generally increase if a resource is referenced by multiple World Partition cells. |
   | **Size** | The size of the resource. This is the amount that a particular resource contributes to the Current Memory Usage bar at the sampled location. |
+
 - Stream textures where possible. This means authoring textures to be streaming-friendly (power of two dimensions), and configuring the textures so mipmaps are generated. If textures can’t be streamed, they will always use the maximum amount of memory, regardless of how far away it is being used. More information can be found on [Resizing Textures](https://dev.epicgames.com/documentation/en-us/fortnite/resizing-textures-in-unreal-editor-for-fortnite).
 - **[Turn Streaming ON](https://dev.epicgames.com/documentation/en-us/fortnite/streaming-and-hlods-in-unreal-editor-for-fortnite)** in the World Partition panel. Although this is a must for large islands, smaller islands may also benefit from streaming, especially if the content gets too dense.
 - When streaming is turned on, make sure that actors have Is Spatially Loaded enabled where possible. If not, they will be cooked into the main level package and will always be loaded. This is specially relevant for Landscape streaming proxy actors, as these can contain a lot of collision data that you generally want to stream in on demand.

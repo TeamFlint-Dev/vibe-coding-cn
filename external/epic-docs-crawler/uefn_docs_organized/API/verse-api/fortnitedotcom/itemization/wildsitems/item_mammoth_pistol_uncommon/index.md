@@ -1,6 +1,6 @@
 # item_mammoth_pistol_uncommon class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_mammoth_pistol_uncommon
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/wildsitems/item_mammoth_pistol_uncommon>
 > **爬取时间**: 2025-12-27T04:12:53.440886
 
 ---

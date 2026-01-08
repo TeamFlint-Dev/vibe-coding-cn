@@ -1,6 +1,6 @@
 # Fort Inventory Component
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/fort-inventory-component-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/fort-inventory-component-in-fortnite>
 > **爬取时间**: 2025-12-27T00:34:51.720564
 
 ---
@@ -58,7 +58,7 @@ Once Custom Items and Inventories has been enabled, a new property is exposed in
 
 Like other Scene Graph components, the `fort_inventory_component` can also be added and removed through Verse.
 
-Below is a script for getting specific `fort_inventory_components` and reading the items inside them. Since they inherit all the functionality of the 
+Below is a script for getting specific `fort_inventory_components` and reading the items inside them. Since they inherit all the functionality of the
 base `inventory_component`, you can write your own systems to leverage Custom Items and Inventories alongside Fortnite Items.
 
 ```verse

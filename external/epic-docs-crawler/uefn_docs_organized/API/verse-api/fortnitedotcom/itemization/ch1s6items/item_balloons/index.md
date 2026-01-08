@@ -1,6 +1,6 @@
 # item_balloons class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s6items/item_balloons
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/ch1s6items/item_balloons>
 > **爬取时间**: 2025-12-27T03:09:37.773200
 
 ---

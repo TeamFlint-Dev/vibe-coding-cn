@@ -1,6 +1,6 @@
 # Light function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/campfire_device/light
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/campfire_device/light>
 > **爬取时间**: 2025-12-27T05:53:15.696335
 
 ---

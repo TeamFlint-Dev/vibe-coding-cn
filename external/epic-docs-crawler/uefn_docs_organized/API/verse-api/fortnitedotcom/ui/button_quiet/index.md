@@ -1,6 +1,6 @@
 # button_quiet class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/button_quiet
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ui/button_quiet>
 > **爬取时间**: 2025-12-27T01:05:15.456473
 
 ---

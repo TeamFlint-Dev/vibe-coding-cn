@@ -1,6 +1,6 @@
 # Creating Teams in Creator Portal
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/creating-teams-in-creator-portal-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/creating-teams-in-creator-portal-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T22:54:13.794103
 
 ---
@@ -39,7 +39,7 @@ From the Creator Portal:
    [![Give the team a name and provide a description of the team and its goals.](https://dev.epicgames.com/community/api/documentation/image/2e4ca2dd-b076-464d-ae06-6338c4ccfc25?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/2e4ca2dd-b076-464d-ae06-6338c4ccfc25?resizing_type=fit)
 5. Add team members using their personal **Epic Account name** and assign a role. Follow steps **5** and **6** to add additional team members.
 
-1. Click the **Create Team** button to create the team.
+6. Click the **Create Team** button to create the team.
 
    [![Click Create Team to finish the process.](https://dev.epicgames.com/community/api/documentation/image/bfcd63be-97bc-4d7e-a674-c7a0d149dc42?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/bfcd63be-97bc-4d7e-a674-c7a0d149dc42?resizing_type=fit)
 

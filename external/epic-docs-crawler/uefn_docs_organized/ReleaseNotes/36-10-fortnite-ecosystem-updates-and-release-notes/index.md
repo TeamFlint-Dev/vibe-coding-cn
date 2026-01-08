@@ -1,11 +1,11 @@
 # 36.10 Fortnite Ecosystem Updates and Release Notes
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/36-10-fortnite-ecosystem-updates-and-release-notes
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/36-10-fortnite-ecosystem-updates-and-release-notes>
 > **爬取时间**: 2025-12-27T00:36:25.848421
 
 ---
 
-## LEGO® Brick Editor is Live!
+## LEGO® Brick Editor is Live
 
 You can now build with LEGO® bricks in UEFN! It’s time to unleash your creativity and build your own amazing props and environments for your islands.
 
@@ -79,7 +79,7 @@ Voting Options device defines the choices players can vote for. Each choice need
 
 We plan to release Verse APIs for this device in the future.
 
-### Skilled Interaction Device Updates!
+### Skilled Interaction Device Updates
 
 The [Skilled Interaction Device](https://dev.epicgames.com/documentation/en-us/fortnite/using-skilled-interaction-devices-in-fortnite-creative) now supports multiplayer gameplay! You can now specify a Queue Type to let players interact in unique and powerful ways. You can configure interactions to be synchronous, sequential, and random, to create many types of minigames!
 
@@ -192,15 +192,15 @@ You wanted it, you got it!
             HUDMessageDevice.Show(Message(Agent, "exploded the Carryable! {AgentArray.Length} player(s) caught in the explosion!"))
 ```
 
-### Fortnite Creative And UEFN Docs Are Now One!
+### Fortnite Creative And UEFN Docs Are Now One
 
 As you can see, our documentation merge is complete! All your official learning content is all in one place now and rebranded from UEFN & Creative to Fortnite. All pages should be redirected to the new community. Let us know what you think and leave any suggestions in the forums!
 
-### All New Home Page!
+### All New Home Page
 
 New docs merge? New [home page](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-documentation)! With all the content coming together, we wanted a visual refresh to orient new users to our latest content, where to get started and more!
 
-### Refreshed Getting Started Page!
+### Refreshed Getting Started Page
 
 With our content merging into one, we also updated the [Getting Started](https://dev.epicgames.com/community/fortnite/getting-started) page in the EDC! Not only does it have with the latest links and content, but is also instantly accessible from the left-hand navigation, no matter where you are in the Fortnite EDC.
 

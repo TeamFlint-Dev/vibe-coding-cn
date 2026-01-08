@@ -1,6 +1,6 @@
 # Cut a Mesh in Half
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/cutting-a-mesh-in-half-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/cutting-a-mesh-in-half-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:02:37.020516
 
 ---
@@ -114,4 +114,4 @@ Changing the negative B values in the ObjectClip node restores the object and po
 
 Animate Materials
 
-Learn how to animate materials to create effects for a mesh's surface.](https://dev.epicgames.com/documentation/en-us/fortnite/animate-materials-in-unreal-editor-for-fortnite)
+Learn how to animate materials to create effects for a mesh's surface.](<https://dev.epicgames.com/documentation/en-us/fortnite/animate-materials-in-unreal-editor-for-fortnite>)

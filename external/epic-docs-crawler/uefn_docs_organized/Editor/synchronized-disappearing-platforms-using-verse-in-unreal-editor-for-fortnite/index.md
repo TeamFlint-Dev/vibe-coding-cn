@@ -1,6 +1,6 @@
 # Synchronized Disappearing Platforms
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/synchronized-disappearing-platforms-using-verse-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/synchronized-disappearing-platforms-using-verse-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:19:14.757508
 
 ---
@@ -79,6 +79,7 @@ Follow these steps to expose these properties from the **platform\_series** devi
        @editable
        HeadStart:float = 2.5
      ```
+
    - An editable `float` named `AppearDelay`. This represents how long to wait, in seconds, before the next platform appears. Initialize this value to `1.0`, or one second.
 
      ```verse
@@ -86,6 +87,7 @@ Follow these steps to expose these properties from the **platform\_series** devi
        @editable
        AppearDelay:float = 1.0
      ```
+
    - An editable `float` named `DisappearDelay`. This represents how long to wait, in seconds, before the next platform disappears. Initialize this value to `1.25`, or one and a quarter seconds.
 
      ```verse
@@ -93,6 +95,7 @@ Follow these steps to expose these properties from the **platform\_series** devi
        @editable
        DisappearDelay:float = 1.25
      ```
+
    - An editable `creative_prop` named `DisappearingPlatform`. This is the in-level platform that will disappear and appear. Because your code doesn't yet have a reference to this object in the level, you'll instantiate this with an empty [archetype](https://dev.epicgames.com/documentation/en-us/fortnite/verse-glossary#archetype) `creative_prop{}`. You'll assign this reference to your floating platform later.
 
      ```verse
@@ -100,25 +103,26 @@ Follow these steps to expose these properties from the **platform\_series** devi
        @editable
        DisappearingPlatform:creative_prop = creative_prop{}
      ```
+
 3. Your `platform_series` class fields should look like this:
 
    ```verse
         # A Verse-authored creative device that can be placed in a level
         platform_series := class(creative_device):
-   		
+     
         # How long to wait in seconds after platforms start appearing
         # before they start disappearing.
         @editable
         HeadStart:float = 2.5
-   		
+     
         # How long to wait in seconds before the next platform appears.
         @editable
         AppearDelay:float = 1.0
-   		
+     
         # How long to wait in seconds before the next platform disappears.
         @editable
         DisappearDelay:float = 1.25
-   		
+     
         # The in-level platform that disappears and reappears.
         @editable
         DisappearingPlatform:creative_prop = creative_prop{}
@@ -141,10 +145,10 @@ Now that you've set up the level and the first platform, let's add the functiona
    ```verse
         # Runs when the device is started in a running game
         OnBegin<override>()<suspends>:void=
-   		
+     
             # Hide the platform.
             DisappearingPlatform.Hide()
-   		
+     
             # Show the platform.
             DisappearingPlatform.Show()
    ```
@@ -155,13 +159,13 @@ Now that you've set up the level and the first platform, let's add the functiona
    ```verse
         # Runs when the device is started in a running game
         OnBegin<override>()<suspends>:void=
-   		
+     
             # Hide the platform.
             DisappearingPlatform.Hide()
-   		
+     
             # Wait for DisappearDelay seconds.
             Sleep(DisappearDelay)
-   		
+     
             # Show the platform.
             DisappearingPlatform.Show()
    ```
@@ -181,6 +185,7 @@ While you could repeat the code in the previous step for every platform in the l
         @editable
         DisappearingPlatforms:[]creative_prop = array{}
    ```
+
 2. You can use the `for` expression to iterate over each element in the array. The `for` expression uses the `X -> Y` pattern, to give you an index-value pairing. The index is bound to the left part (`X`) and the value is bound to the right part (`Y`). In this case, `X` is the platform's number / index and `Y` is each platform reference retrieved from the array. First, create a `for` expression to iterate over each element, and get the index of each number in a variable `PlatformNumber`.
 
    ~~~(verse)
@@ -190,6 +195,7 @@ While you could repeat the code in the previous step for every platform in the l
    PlatformNumber -> DisappearingPlatform:DisappearingPlatforms
    do:
    ~~~
+
 3. Print out the number of the platform, and call `Hide()` to hide the platform. Then `Sleep()` for a `DisappearDelay` amount of seconds.
 
    ```verse
@@ -202,6 +208,7 @@ While you could repeat the code in the previous step for every platform in the l
             Print("Platform {PlatformNumber} is now hidden")
             Sleep(DisappearDelay)
    ```
+
 4. To show the platforms against, you'll use a second `for` expression after the first. Iterate over each platform in `DisappearingPlatforms` in the same way, except this time call `Show()` to show the platform, and `Sleep()` for an `AppearDelay` amount of seconds.
 
    ~~~(verse)
@@ -214,6 +221,7 @@ While you could repeat the code in the previous step for every platform in the l
    Print("Platform {PlatformNumber} is now visible")
    Sleep(AppearDelay)
    ~~~
+
 5. When writing code, it's a good idea to put code you might want to reuse into separate functions. This lets you call the code from different contexts, and avoid having to rewrite the same code over and over. Depending on your experience you may want to hide and show the platforms during different situations, so you'll make functions to handle each of these. Add two new functions named `HideAllPlatforms()` and `ShowAllPlatforms()` to your `platform_series` class definition. Move the `for` expression that handles hiding the platforms into `HideAllPlatforms()`, and the expression that handles showing the platforms into `ShowAllPlatforms()`. Since you're using the `Sleep()` function, these functions need to be asynchronous, so add the `<suspends>` modifier to each. Then in `OnBegin()`, call `HideAllPlatforms()`, then `ShowAllPlatforms()`.
 
    ```verse
@@ -242,6 +250,7 @@ While you could repeat the code in the previous step for every platform in the l
                 Print("Platform {PlatformNumber} is now visible")
                 Sleep(AppearDelay)
    ```
+
 6. As it stands, this code will only run once. To make the platforms disappear and reappear for as long as the game is running, you can use the [loop](https://dev.epicgames.com/documentation/en-us/fortnite/loop-and-break-in-verse) expression to repeat this behavior. To handle this, add a `loop` expression to `OnBegin()` that includes the calls to `HideAllPlatforms()` and `ShowAllPlatforms()`In this example, you want to toggle the visibility of the platforms for as long as the game is running, so there's no need to add a `break` expression to exit the `loop`.
 
    ```verse
@@ -283,6 +292,7 @@ Follow these steps to make the platforms all hide and show at the same time.
                     # Show all platforms.
                     ShowAllPlatforms()
    ```
+
 2. If you run this code as is, hiding and showing a platform will happen simultaneously. This isn't the desired result, so you'll need to delay platform disappearance by a little bit. To give the player a head start, you'll want to use `Sleep()`, passing in the `HeadStart` value. Since the `sync` expression executes all the expressions in its code block at the same time, you must use the `block` expression to nest the `Sleep()` and `HideAllPlatforms()`. Add `block` expression that covers `Sleep()` and `HideAllPlatforms()`. Now the sync will run two expressions. The first calls `ShowAllPlatforms()`, and the second calls `Sleep()`, and afterwards calls `HideAllPlatforms()`.
 
    ```verse
@@ -298,6 +308,7 @@ Follow these steps to make the platforms all hide and show at the same time.
                     # Show all platforms.
                     ShowAllPlatforms()
    ```
+
 3. Save the script and click **Verse**, and then **Build Verse Code** to compile the code.
 4. Click **Launch Session** in the UEFN toolbar to playtest the level.
 

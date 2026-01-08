@@ -1,6 +1,6 @@
 # GetPlayerInput function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/controlinput/getplayerinput
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/unrealenginedotcom/controlinput/getplayerinput>
 > **爬取时间**: 2025-12-27T01:18:10.514228
 
 ---

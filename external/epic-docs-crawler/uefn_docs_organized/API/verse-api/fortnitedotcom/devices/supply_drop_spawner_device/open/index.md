@@ -1,6 +1,6 @@
 # Open function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/supply_drop_spawner_device/open
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/supply_drop_spawner_device/open>
 > **爬取时间**: 2025-12-27T05:11:51.937955
 
 ---

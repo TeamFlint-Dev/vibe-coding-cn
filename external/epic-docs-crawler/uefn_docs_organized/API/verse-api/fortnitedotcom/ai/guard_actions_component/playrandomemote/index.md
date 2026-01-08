@@ -1,6 +1,6 @@
 # PlayRandomEmote function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/guard_actions_component/playrandomemote
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/ai/guard_actions_component/playrandomemote>
 > **爬取时间**: 2025-12-27T02:50:55.602223
 
 ---

@@ -1,6 +1,6 @@
 # 1. Coding the Verse Device
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-1-coding-the-verse-device-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-1-coding-the-verse-device-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-27T02:17:20.567076
 
 ---
@@ -69,51 +69,79 @@ Follow these steps to create your Title Sequence Verse device:
                      # Runs when the device is started in a running game
                      OnBegin<override>()<suspends>:void=
      ```
+
 3. Create a method named `ShowTitleAndGameMenu()` that has the [suspends](https://dev.epicgames.com/documentation/en-us/fortnite/specifiers-and-attributes-in-verse) specifier. This method will show the camera for the title, display the title screen, wait for GameMenuDelay seconds before showing the game start dialog, and wait for the player to press the Start Game button in the UI.
     `# Shows the title screen and the Start Game option.
    ShowTitleAndGameMenu()<suspends>:void=
-   # Add title camera to all players.
+
+   # Add title camera to all players
+
    TitleGameCamera.AddToAll()
-   # Show the title screen.
+
+   # Show the title screen
+
    TitleScreen.Show()
-   # Wait for GameMenuDelay seconds before showing the Start Game option.
+
+   # Wait for GameMenuDelay seconds before showing the Start Game option
+
    Sleep(GameMenuDelay)
+
    # Show the Start Game menu
+
    StartGameDialog.Show()
-   # Wait for the player to press Start Game before doing anything else.
+
+   # Wait for the player to press Start Game before doing anything else
+
    StartGameDialog.RespondingButtonEvent.Await()`
 4. Create a method named `HideTitleAndGameMenu()`. This method will hide the title screen and remove the camera that's used for the title.
+
    ~~~(verse)
    # Hide the title screen and removes the camera from all players.
    HideTitleAndGameMenu():void=
    TitleScreen.Hide()
    TitleGameCamera.RemoveFromAll()
    ~~~
+
 5. Create a method named `ShowSplashScreens()`. This method will iterate through all the HUD Message devices added to the `SplashScreens` array to show the splash screen, and wait for as long as the splash screen was set to display in its properties. After all the splash screens have been shown, the camera for the splash screens is disabled.
     `# Show the series of splash screens.
    ShowSplashScreens()<suspends>:void=
-   # Iterates through all splash screens.
+
+   # Iterates through all splash screens
+
    for (SplashScreen : SplashScreens):
-   # Show each splash screen.
+
+   # Show each splash screen
+
    SplashScreen.Show()
-   # Wait for as long as the splash screen should be shown.
+
+   # Wait for as long as the splash screen should be shown
+
    Sleep(SplashScreen.GetDisplayTime())
-   # Remove game camera that's used to show the splash screens.
+
+   # Remove game camera that's used to show the splash screens
+
    SplashScreenGameCamera.Disable()`
 6. Create a method named `ToggleStasisForAllPlayers()`. This method will iterate through all the players and put them in stasis (so they can't move) if the `ShouldFreeze` argument is `true`, and release them from stasis (so they can move again) if the `ShouldFreeze` argument is `false`.
     `# Toggle player stasis.
-   # When ShouldFreeze is true, all players will be put in stasis.
-   # When ShouldFreeze is false, all players will be released from stasis.
+
+   # When ShouldFreeze is true, all players will be put in stasis
+
+   # When ShouldFreeze is false, all players will be released from stasis
+
    ToggleStasisForAllPlayers(ShouldFreeze:logic):void=
    for:
    Player : GetPlayspace().GetPlayers()
    Character := Player.GetFortCharacter[]
    do:
    if (ShouldFreeze?):
-   # Put player in stasis and not allow them to turn or emote, either.
+
+   # Put player in stasis and not allow them to turn or emote, either
+
    Character.PutInStasis(stasis_args{AllowFalling := true, AllowTurning := false, AllowEmotes := false})
    else:
-   # Release player from stasis.
+
+   # Release player from stasis
+
    Character.ReleaseFromStasis()`
 7. Update `OnBegin()` to:
 
@@ -128,25 +156,43 @@ Follow these steps to create your Title Sequence Verse device:
       `# Runs when the device is started in a running game
      OnBegin<override>()<suspends>:void=
      IntroHUDController.Enable()
-     # Wait one simulation update for everything to initialize.
+
+     # Wait one simulation update for everything to initialize
+
      Sleep(0.0)
-     # Put players in stasis so they can't move.
+
+     # Put players in stasis so they can't move
+
      ToggleStasisForAllPlayers(true)
-     # Show the series of splash screens.
+
+     # Show the series of splash screens
+
      ShowSplashScreens()
-     # Hide the title and game menu at the very last second.
-     # This defer executes when the current code block exits,
-     # which is the end of this OnBegin function, after GameStart.Trigger().
+
+     # Hide the title and game menu at the very last second
+
+     # This defer executes when the current code block exits
+
+     # which is the end of this OnBegin function, after GameStart.Trigger()
+
      defer:
      HideTitleAndGameMenu()
-     # Show the title and game menu.
+
+     # Show the title and game menu
+
      ShowTitleAndGameMenu()
-     # Release players from stasis so they can move again.
+
+     # Release players from stasis so they can move again
+
      ToggleStasisForAllPlayers(false)
-     # Change HUD controllers to the actual game HUD.
+
+     # Change HUD controllers to the actual game HUD
+
      IntroHUDController.Disable()
      GameHUDController.Enable()
-     # Notify any devices that are listening that the game should now start!
+
+     # Notify any devices that are listening that the game should now start
+
      GameStart.Trigger()`
 8. Save your Verse file and compile your code to update your Verse device in the level.
 
@@ -283,6 +329,6 @@ title_sequence := class(creative_device):
 
 [![2. Customizing the Splash Screens](https://dev.epicgames.com/community/api/documentation/image/44a027b3-aefa-44d3-b10b-e1f1fe8dc807?resizing_type=fit&width=640&height=640)
 
-2. Customizing the Splash Screens
+1. Customizing the Splash Screens
 
-Create custom images to show on the HUD Message devices for the splash screens.](https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-2-customizing-the-splash-screens-in-unreal-editor-for-fortnite)
+Create custom images to show on the HUD Message devices for the splash screens.](<https://dev.epicgames.com/documentation/en-us/fortnite/title-sequence-2-customizing-the-splash-screens-in-unreal-editor-for-fortnite>)

@@ -1,6 +1,6 @@
 # Player Movement Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-player-movement-devices
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-player-movement-devices>
 > **爬取时间**: 2025-12-26T23:49:22.924731
 
 ---
@@ -23,7 +23,7 @@ Use this device to:
 - Create gameplay movements similar to Fortnite Ballistic with the use of the [First Person camera devices](https://dev.epicgames.com/documentation/en-us/fortnite/using-first-person-camera-devices-in-fortnite-creative).
 - Create gameplay movement that complements the [Fixed Angle Camera](https://dev.epicgames.com/documentation/en-us/fortnite/fixed-angle-camera) and [Fixed Point Camera](https://dev.epicgames.com/documentation/en-us/fortnite/fixed-point-camera).
 
-To find the **Player Movement** device, 
+To find the **Player Movement** device,
 go to the **Creative menu** and select the **Devices**category. From there you can search or browse for the device. For more information on finding devices see [Using Devices](https://dev.epicgames.com/documentation/en-us/fortnite/using-devices-in-fortnite).
 
 If you're using multiple copies of a device on an island, it can be useful to [rename](https://dev.epicgames.com/documentation/en-us/fortnite/fortnite-creative-glossary#rename-a-device) them. Choosing names that relate to a device's purpose makes it easier to remember what each one does, and easier to find a specific device when using the **[Event Browser](https://dev.epicgames.com/documentation/en-us/fortnite/event-browser-in-fortnite-creative).**

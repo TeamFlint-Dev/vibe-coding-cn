@@ -1,6 +1,6 @@
 # SetTransmitDelay function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trigger_base_device/settransmitdelay
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/devices/trigger_base_device/settransmitdelay>
 > **爬取时间**: 2025-12-27T05:18:26.944949
 
 ---

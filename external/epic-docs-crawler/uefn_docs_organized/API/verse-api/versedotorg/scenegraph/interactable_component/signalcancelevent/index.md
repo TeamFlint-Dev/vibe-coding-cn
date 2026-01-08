@@ -1,6 +1,6 @@
 # SignalCancelEvent function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/interactable_component/signalcancelevent
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/scenegraph/interactable_component/signalcancelevent>
 > **爬取时间**: 2025-12-27T02:44:19.525900
 
 ---

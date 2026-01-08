@@ -1,6 +1,6 @@
 # Construct Prefabs
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-04-construct-prefabs-in-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-04-construct-prefabs-in-fortnite>
 > **爬取时间**: 2025-12-27T02:38:40.037380
 
 ---
@@ -63,7 +63,7 @@ The `transform_component` is included on all entities by default. This is becaus
 
 You'll repeat a similar process for the other prefabs you create in this project.
 
-## Triggerable Light PrefabThe Prefab\_TriggerableLight is a prefab with the following hierarchy:
+## Triggerable Light PrefabThe Prefab\_TriggerableLight is a prefab with the following hierarchy
 
 - Entity: `transform_component`, `triggerable_light_component`
 
@@ -130,7 +130,7 @@ To create the **Prefab\_TriggerableLight**, follow these steps:
 
    Click to enlarge image.
 
-## Triggerable Moving Mesh PrefabThe Prefab\_TriggerableMovingMesh is a prefab with the following hierarchy:
+## Triggerable Moving Mesh PrefabThe Prefab\_TriggerableMovingMesh is a prefab with the following hierarchy
 
 - Entity: `transform_component`, `triggerable_movement_component`, `mesh_component`
 
@@ -272,4 +272,4 @@ Now that all prefabs have been constructed from Scene Graph entities and compone
 
 Create a Puzzle with Prefabs
 
-Use prefabs to construct a puzzle experience.](https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-05-create-a-puzzle-with-prefabs-in-fortnite)
+Use prefabs to construct a puzzle experience.](<https://dev.epicgames.com/documentation/en-us/fortnite/lights-and-bridges-05-create-a-puzzle-with-prefabs-in-fortnite>)

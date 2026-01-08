@@ -1,6 +1,6 @@
 # Drum Player
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-player-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-player-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:05:23.169760
 
 ---
@@ -113,7 +113,7 @@ Patch the Drum Sequencer into the Drum Player to create a sequence for the drum 
 
 Drum Sequencer
 
-Use the Drum Sequencer device to make your own drum pattern, or choose from a number of presets.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-sequencer-devices-in-fortnite-creative)
+Use the Drum Sequencer device to make your own drum pattern, or choose from a number of presets.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-drum-sequencer-devices-in-fortnite-creative>)
 
 Patch the Drum Player into the Distortion Effect to add distortion to the drum sample.
 
@@ -121,4 +121,4 @@ Patch the Drum Player into the Distortion Effect to add distortion to the drum s
 
 Distortion Effect
 
-Use this audio-shaping tool that results in sounds typical of genres like electronic, rock, and metal.](https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-distortion-effect-devices-in-fortnite-creative)
+Use this audio-shaping tool that results in sounds typical of genres like electronic, rock, and metal.](<https://dev.epicgames.com/documentation/en-us/fortnite/using-patchwork-distortion-effect-devices-in-fortnite-creative>)

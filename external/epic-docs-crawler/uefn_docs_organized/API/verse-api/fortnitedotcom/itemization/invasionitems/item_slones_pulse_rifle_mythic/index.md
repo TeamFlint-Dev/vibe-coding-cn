@@ -1,6 +1,6 @@
 # item_slones_pulse_rifle_mythic class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/invasionitems/item_slones_pulse_rifle_mythic
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/invasionitems/item_slones_pulse_rifle_mythic>
 > **爬取时间**: 2025-12-27T04:22:57.786127
 
 ---

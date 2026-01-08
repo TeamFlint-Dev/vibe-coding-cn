@@ -1,6 +1,6 @@
 # session_environment enumeration
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/session_environment
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/session_environment>
 > **爬取时间**: 2025-12-27T00:56:42.978616
 
 ---

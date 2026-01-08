@@ -1,6 +1,6 @@
 # Lava Bounce
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/lava-bounce-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/lava-bounce-in-fortnite-creative>
 > **爬取时间**: 2025-12-27T02:07:19.045698
 
 ---
@@ -78,6 +78,7 @@ Find the devices you need in the [Devices tab](https://dev.epicgames.com/documen
    | Option | Value | Description |
    | --- | --- | --- |
    | **Knockback** | **High** | Launches the player into the air so they can jump to the next platform. |
+
 8. Place the Collectible Gallery somewhere convenient, then select a single collectible object to place on the center of the second Hover Platform. Delete the rest of the gallery. This item is the player’s prize for completing the Lava Bounce game!
 
    [![Placing the Collectible Gallery object in the center of the final Hover Platform.](https://dev.epicgames.com/community/api/documentation/image/dac185a9-5019-4041-ab53-eb2353f81e88?resizing_type=fit)](https://dev.epicgames.com/community/api/documentation/image/dac185a9-5019-4041-ab53-eb2353f81e88?resizing_type=fit)

@@ -1,6 +1,6 @@
 # Octane Spawner Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-octane-spawner-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-octane-spawner-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:30:40.779293
 
 ---
@@ -93,7 +93,7 @@ A [function](https://dev.epicgames.com/documentation/en-us/fortnite-creative/fo
 | **Enable When Receiving From** | Enables this device to spawn vehicles when an event occurs. |
 | **Disable When Receiving From** | Disables this device from spawning vehicles when an event occurs. |
 
-### sn event tells another device when to perform a function.
+### sn event tells another device when to perform a function
 
 1. or any event, click the option, then **Select Device** to access and select from the **Device** dropdown menu.
 2. Once you've selected a device, click **Select Function** to bind this event to a function for that device.

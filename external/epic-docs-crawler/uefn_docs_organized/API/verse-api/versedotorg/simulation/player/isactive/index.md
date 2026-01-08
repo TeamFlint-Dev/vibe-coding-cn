@@ -1,6 +1,6 @@
 # IsActive function
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/player/isactive
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/versedotorg/simulation/player/isactive>
 > **爬取时间**: 2025-12-27T02:47:28.411012
 
 ---

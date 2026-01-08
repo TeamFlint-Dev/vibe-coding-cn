@@ -1,6 +1,6 @@
 # item_active_powercell class
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_active_powercell
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/verse-api/fortnitedotcom/itemization/creativeitems/item_active_powercell>
 > **爬取时间**: 2025-12-27T03:48:29.835094
 
 ---

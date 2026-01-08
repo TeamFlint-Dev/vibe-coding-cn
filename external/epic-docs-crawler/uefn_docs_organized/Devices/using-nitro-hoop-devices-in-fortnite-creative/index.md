@@ -1,6 +1,6 @@
 # Nitro Hoop Devices
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/using-nitro-hoop-devices-in-fortnite-creative
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/using-nitro-hoop-devices-in-fortnite-creative>
 > **爬取时间**: 2025-12-26T23:35:00.603073
 
 ---

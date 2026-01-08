@@ -1,6 +1,6 @@
 # Streaming and HLODs
 
-> **来源**: https://dev.epicgames.com/documentation/en-us/fortnite/streaming-and-hlods-in-unreal-editor-for-fortnite
+> **来源**: <https://dev.epicgames.com/documentation/en-us/fortnite/streaming-and-hlods-in-unreal-editor-for-fortnite>
 > **爬取时间**: 2025-12-26T23:17:37.132176
 
 ---
@@ -181,7 +181,7 @@ An optional step is to generate a high fidelity minimap in your editor session. 
 
 **A**: Check to see if actors are attached/nested under a parent actor. Click the actor and select **Attach: none** to detach them.
 
-#### Q: Some of my important assets disappear when the cells are unloaded.
+#### Q: Some of my important assets disappear when the cells are unloaded
 
 **A**: Certain UEFN-ready assets will not have **Include Actor in HLOD** checked by default. If you're seeing issues, check the asset's properties.
 
