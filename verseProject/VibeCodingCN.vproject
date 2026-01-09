@@ -1,0 +1,73 @@
+{
+    "packages": [
+        {
+            "desc": {
+                "name": "VibeCodingCN",
+                "dirPath": "./source",
+                "settings": {
+                    "versePath": "/VibeCodingCN",
+                    "verseScope": "PublicUser",
+                    "role": "Source",
+                    "verseVersion": 1,
+                    "dependencyPackages": [
+                        "Verse",
+                        "UnrealEngine",
+                        "Fortnite"
+                    ],
+                    "allowExperimental": true
+                }
+            },
+            "readOnly": false
+        },
+        {
+            "desc": {
+                "name": "Verse",
+                "dirPath": "./digests/Verse",
+                "settings": {
+                    "versePath": "/Verse.org",
+                    "verseScope": "PublicAPI",
+                    "role": "External",
+                    "dependencyPackages": [],
+                    "vniDestDir": "Verse",
+                    "allowExperimental": false
+                }
+            },
+            "readOnly": true
+        },
+        {
+            "desc": {
+                "name": "UnrealEngine",
+                "dirPath": "./digests/UnrealEngine",
+                "settings": {
+                    "versePath": "/UnrealEngine.com",
+                    "verseScope": "PublicAPI",
+                    "role": "External",
+                    "dependencyPackages": [
+                        "Verse"
+                    ],
+                    "vniDestDir": "UnrealEngine",
+                    "allowExperimental": false
+                }
+            },
+            "readOnly": true
+        },
+        {
+            "desc": {
+                "name": "Fortnite",
+                "dirPath": "./digests/Fortnite",
+                "settings": {
+                    "versePath": "/Fortnite.com",
+                    "verseScope": "PublicAPI",
+                    "role": "External",
+                    "dependencyPackages": [
+                        "UnrealEngine",
+                        "Verse"
+                    ],
+                    "vniDestDir": "Fortnite",
+                    "allowExperimental": false
+                }
+            },
+            "readOnly": true
+        }
+    ]
+}
