@@ -1,10 +1,15 @@
-using { /Verse.org/Simulation }
-
 # 曲线与缓动函数模块
 # 功能：贝塞尔曲线、缓动函数 (Easing functions)
 # 架构：Logic 层 - 纯函数，无状态
 
 MathCurves<public> := module:
+    
+    # ═══════════════════════════════════════════════════════════
+    # 常量定义
+    # ═══════════════════════════════════════════════════════════
+    
+    Pi<private>:float = 3.14159265359
+    Epsilon<private>:float = 0.0001
     
     # ═══════════════════════════════════════════════════════════
     # 贝塞尔曲线 (Bezier Curves)
@@ -61,17 +66,14 @@ MathCurves<public> := module:
     
     # Sine 缓入 (Ease In)
     EaseInSine<public>(T:float):float =
-        Pi := 3.14159265359
         1.0 - Cos(T * Pi / 2.0)
     
     # Sine 缓出 (Ease Out)
     EaseOutSine<public>(T:float):float =
-        Pi := 3.14159265359
         Sin(T * Pi / 2.0)
     
     # Sine 缓入缓出 (Ease In-Out)
     EaseInOutSine<public>(T:float):float =
-        Pi := 3.14159265359
         -(Cos(Pi * T) - 1.0) / 2.0
     
     # ───────────────────────────────────────────────────────────
@@ -142,23 +144,23 @@ MathCurves<public> := module:
     
     # Exponential 缓入
     EaseInExpo<public>(T:float):float =
-        if (T = 0.0):
+        if (T < Epsilon):
             0.0
         else:
             Pow(2.0, 10.0 * (T - 1.0))
     
     # Exponential 缓出
     EaseOutExpo<public>(T:float):float =
-        if (T = 1.0):
+        if (T > 1.0 - Epsilon):
             1.0
         else:
             1.0 - Pow(2.0, -10.0 * T)
     
     # Exponential 缓入缓出
     EaseInOutExpo<public>(T:float):float =
-        if (T = 0.0):
+        if (T < Epsilon):
             0.0
-        else if (T = 1.0):
+        else if (T > 1.0 - Epsilon):
             1.0
         else if (T < 0.5):
             Pow(2.0, 20.0 * T - 10.0) / 2.0
