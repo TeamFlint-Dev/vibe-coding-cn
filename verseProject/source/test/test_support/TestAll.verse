@@ -1,7 +1,9 @@
 using { /Verse.org/Simulation }
 using { /UnrealEngine.com/Temporary/SpatialMath }
-using { /VibeCodingCN/library/logicModules/coreMathUtils }
-using { /VibeCodingCN/library/logicModules/characterAndStateUtils }
+using { library.logicModules.coreMathUtils }
+using { library.logicModules.characterAndStateUtils }
+using { library.logicModules.characterAndStateUtils }
+using { library.logicModules.coreMathUtils }
 
 test_all<public> := module:
     

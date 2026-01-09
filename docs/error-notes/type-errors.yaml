@@ -1,0 +1,75 @@
+# 类型错误修复建议
+
+errors:
+  - code: 3509
+    name: "Parameter Type Mismatch"
+    category: "Type"
+    description: "函数参数类型与期望类型不匹配"
+    
+    patterns:
+      - trigger: "expects a value of type"
+        cause: "传递的参数类型与函数签名不符"
+        fixes:
+          - "检查函数签名，确认参数类型"
+          - "进行类型转换"
+          - "检查是否传递了 logic 类型给非 logic 参数"
+        example:
+          before: |
+            # 假设 Func 期望 float
+            Result := Func(42)  # Error: int vs float
+          after: |
+            Result := Func(42.0)
+            # 或
+            Result := Func(Value * 1.0)
+
+      - trigger: "tuple"
+        cause: "元组类型不匹配，可能是解构问题"
+        fixes:
+          - "检查元组解构语法"
+          - "确保元组元素数量匹配"
+        example:
+          before: |
+            (A, B) := GetPair()  # 如果返回 3 元素元组会报错
+          after: |
+            (A, B, C) := GetTriple()
+
+  - code: 3510
+    name: "Return Type Mismatch"
+    category: "Type"
+    description: "函数返回值类型与声明不符"
+    
+    patterns:
+      - trigger: "function returns a value of type"
+        cause: "函数体返回的类型与签名声明的返回类型不匹配"
+        fixes:
+          - "修改返回表达式的类型"
+          - "修改函数签名的返回类型"
+          - "检查所有分支是否返回相同类型"
+        
+      - trigger: "logic"
+        cause: "声明返回 logic 但返回了其他类型"
+        fixes:
+          - "如果要返回 logic，使用比较表达式"
+          - "如果要做检查，改用 <decides> 函数"
+        example:
+          before: |
+            IsEmpty()<computes>:logic =
+                Array.Length = 0  # 这是比较，返回 logic
+            # 但如果写成:
+            IsEmpty()<computes>:logic =
+                Array.Length  # Error: int vs logic
+          after: |
+            IsEmpty()<computes>:logic =
+                Array.Length = 0
+
+      - trigger: "void"
+        cause: "声明返回 void 但有返回值，或反之"
+        fixes:
+          - "如果不需要返回值，声明为 `:void`"
+          - "如果需要返回值，指定正确的返回类型"
+
+# 常见类型转换
+type_conversions:
+  int_to_float: "乘以 1.0: `IntVal * 1.0`"
+  float_to_int: "使用 Floor 或 Ceil（可能需要 <decides>）"
+  logic_check: "使用 `?` 后缀检查 logic: `if (MyLogic?):`"

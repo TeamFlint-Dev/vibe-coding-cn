@@ -1,0 +1,54 @@
+# 调用约定错误修复建议
+
+errors:
+  - code: 3511
+    name: "Wrong Bracket Type"
+    category: "Call"
+    description: "函数调用使用了错误的括号类型"
+    
+    patterns:
+      - trigger: "uses parentheses to call a function that has the 'decides' effect"
+        cause: "用圆括号 () 调用了可能失败的函数"
+        rule: "可能失败的函数（有 decides 效果）必须用方括号 [] 调用"
+        fixes:
+          - "将 `Func()` 改为 `Func[]`"
+          - "将调用放在 if 中处理失败情况"
+        example:
+          before: |
+            Value := Array(0)  # Error: wrong brackets
+            Result := SomeFailable(Arg)
+          after: |
+            if (Value := Array[0]):
+                # 使用 Value
+            
+            if (Result := SomeFailable[Arg]):
+                # 使用 Result
+
+      - trigger: "uses square brackets to call a function that does not have the 'decides' effect"
+        cause: "用方括号 [] 调用了不会失败的函数"
+        rule: "确定成功的函数必须用圆括号 () 调用"
+        fixes:
+          - "将 `Func[]` 改为 `Func()`"
+        example:
+          before: |
+            Result := Add[1, 2]  # Error if Add is <computes>
+          after: |
+            Result := Add(1, 2)
+
+# 调用规则速查
+call_rules:
+  parentheses: "() - 用于确定成功的函数 (<computes>, <transacts>)"
+  brackets: "[] - 用于可能失败的函数 (<decides>)"
+  
+common_failable_operations:
+  - "数组索引访问: `Array[Index]`"
+  - "字典访问: `Map[Key]`"
+  - "类型转换/检查"
+  - "可选值解包"
+  - "任何标记为 <decides> 的函数"
+
+common_non_failable_operations:
+  - "普通函数调用"
+  - "数学运算: Add, Multiply, Lerp 等"
+  - "字符串操作"
+  - "构造函数"

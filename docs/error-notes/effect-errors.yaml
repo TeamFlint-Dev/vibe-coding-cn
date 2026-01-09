@@ -1,0 +1,115 @@
+# 效果系统错误修复建议
+
+errors:
+  - code: 3512
+    name: "Effect Mismatch"
+    category: "Effect"
+    description: "函数调用或操作的效果与当前上下文不兼容"
+    
+    patterns:
+      - trigger: "has the 'decides' effect"
+        cause: "在非失败上下文中调用了可能失败的函数"
+        fixes:
+          - "将调用放在 if 语句中: `if (Result := Func[]):`"
+          - "将调用放在 or 表达式左侧"
+          - "给当前函数添加 `<decides>` 效果"
+        example:
+          before: |
+            MyFunc()<computes>:int =
+                Array[0]  # Error: decides effect
+          after: |
+            MyFunc()<decides><transacts>:int =
+                Array[0]
+            # 或者
+            MyFunc()<computes>:int =
+                if (Value := Array[0]):
+                    Value
+                else:
+                    0
+
+      - trigger: "has the 'transacts' effect"
+        cause: "在 <computes> 函数中使用了需要 transacts 的操作"
+        fixes:
+          - "将函数签名改为 `<transacts>`"
+          - "如果调用其他函数，检查被调用函数的效果"
+        operations_needing_transacts:
+          - "Lerp() 函数"
+          - "Pow() 函数"
+          - "struct 实例化"
+          - "var 变量声明"
+
+      - trigger: "'allocates' effect"
+        cause: "使用了 var 变量或创建了对象"
+        fixes:
+          - "将函数签名改为 `<transacts>`"
+          - "避免使用 var，改用不可变绑定"
+        example:
+          before: |
+            Sum()<computes>:float =
+                var Total:float = 0.0  # Error: allocates
+                Total
+          after: |
+            Sum()<transacts>:float =
+                var Total:float = 0.0
+                Total
+
+      - trigger: "'reads' effect"
+        cause: "读取了 var 变量"
+        fixes:
+          - "将函数签名改为 `<transacts>`（包含 reads）"
+        
+      - trigger: "'writes' effect"
+        cause: "写入了 var 变量（使用 set）"
+        fixes:
+          - "将函数签名改为 `<transacts>`（包含 writes）"
+
+  - code: 3565
+    name: "Varies Effect Removed"
+    category: "Effect"
+    description: "`<varies>` 效果已被移除，不再支持"
+    
+    patterns:
+      - trigger: "`<varies>` effect has been removed"
+        cause: "使用了已废弃的 <varies> 效果修饰符"
+        fixes:
+          - "移除 `<varies>`，改用 `<transacts>` 或其他合适的效果"
+          - "如果函数确实有副作用，明确使用 `<transacts>`"
+        example:
+          before: |
+            MyFunc()<varies>:float = Sin(X)
+          after: |
+            MyFunc()<transacts>:float = Sin(X)
+
+# 效果系统速查表
+effect_reference:
+  computes:
+    description: "纯函数，无副作用"
+    allows:
+      - "纯计算"
+      - "调用其他 <computes> 函数"
+    forbids:
+      - "var 变量"
+      - "set 赋值"
+      - "调用 <transacts>/<decides> 函数"
+  
+  transacts:
+    description: "可变操作"
+    includes:
+      - "reads (读取 var)"
+      - "writes (写入 var)"
+      - "allocates (创建 var/对象)"
+    allows:
+      - "var 变量"
+      - "set 赋值"
+      - "struct 实例化"
+      - "调用 Lerp, Pow 等"
+  
+  decides:
+    description: "可能失败的操作"
+    requires:
+      - "失败上下文（if, or, 等）"
+      - "方括号调用 `Func[]`"
+    common_uses:
+      - "数组访问"
+      - "类型转换"
+      - "可选值解包"

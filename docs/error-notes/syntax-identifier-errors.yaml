@@ -1,0 +1,126 @@
+# 语法和标识符错误修复建议
+
+errors:
+  - code: 3506
+    name: "Unknown Member/Identifier"
+    category: "Identifier"
+    description: "引用了不存在的成员或标识符"
+    
+    patterns:
+      - trigger: "Unknown member"
+        cause: "访问了类型上不存在的成员"
+        common_mistakes:
+          - "`vector3.Length` - vector3 没有 Length 属性"
+          - "`vector3.Normalize()` - 可能不存在或签名不同"
+        fixes:
+          - "查阅 API 文档确认成员名称"
+          - "使用 grep 在 digest 文件中搜索"
+          - "对于 vector3，使用手动计算替代"
+        example:
+          before: |
+            Len := Vec.Length  # Error: no Length member
+          after: |
+            Len := Sqrt(Vec.X*Vec.X + Vec.Y*Vec.Y + Vec.Z*Vec.Z)
+            # 或定义辅助函数
+            
+      - trigger: "Unknown identifier"
+        cause: "使用了未定义的变量或函数"
+        fixes:
+          - "检查拼写"
+          - "确认变量已声明"
+          - "检查 using 语句是否正确"
+
+  - code: 3524
+    name: "For Loop Syntax"
+    category: "Syntax"
+    description: "for 循环语法错误"
+    
+    patterns:
+      - trigger: "First argument to `for` must be"
+        cause: "for 循环格式不正确"
+        correct_forms:
+          - "`for (Item : Array):` - 遍历数组"
+          - "`for (I := 0..N-1):` - 范围遍历"
+          - "`for (I := 0..N-1, Item := Array[I]):` - 带索引"
+        example:
+          before: |
+            for:
+                Total := 0.0
+                Value : Arr
+            do:
+                Total + Value
+          after: |
+            var Total:float = 0.0
+            for (Value : Arr):
+                set Total += Value
+            Total
+
+  - code: 3549
+    name: "Cannot Define Expression"
+    category: "Syntax"
+    description: "左值表达式无法被定义"
+    
+    patterns:
+      - trigger: "left hand side of this definition is an expression that cannot be defined"
+        cause: "尝试给不能赋值的表达式赋值"
+        common_mistakes:
+          - "元组解构语法错误"
+          - "尝试重新定义已存在的变量"
+        fixes:
+          - "元组解构使用正确格式"
+          - "使用不同的变量名"
+        example:
+          before: |
+            (State, Result) := SomeFunc()  # 可能语法问题
+          after: |
+            TupleResult := SomeFunc()
+            State := TupleResult(0)
+            Result := TupleResult(1)
+
+  - code: 3588
+    name: "Ambiguous Identifier"
+    category: "Identifier"
+    description: "标识符存在歧义，可能指向多个定义"
+    
+    patterns:
+      - trigger: "Ambiguous identifier"
+        cause: "多个模块/作用域中有同名定义"
+        fixes:
+          - "使用完整路径引用"
+          - "重命名局部变量避免冲突"
+        example:
+          before: |
+            Distance := Distance(V1, V2)  # 变量名与函数名冲突
+          after: |
+            Dist := Distance(V1, V2)
+            # 或使用完整路径
+            Dist := /UnrealEngine.com/Temporary/SpatialMath.Distance(V1, V2)
+
+  - code: 3532
+    name: "Ambiguous Definition"
+    category: "Identifier"
+    description: "定义与另一个定义冲突"
+    
+    patterns:
+      - trigger: "is ambiguous with"
+        cause: "模块内有同名定义冲突"
+        fixes:
+          - "重命名其中一个定义"
+          - "将定义移到不同的模块"
+
+  - code: 3625
+    name: "Default Parameter Syntax"
+    category: "Syntax"
+    description: "默认参数需要使用 ? 前缀"
+    
+    patterns:
+      - trigger: "should be `?` with a prefixed question mark"
+        cause: "有默认值的参数必须使用 ? 前缀标记为命名参数"
+        fixes:
+          - "在参数名前添加 `?`"
+        example:
+          before: |
+            Func(Value:int = 10):int = Value
+          after: |
+            Func(?Value:int = 10):int = Value
+            # 调用时: Func() 或 Func(Value := 20)
