@@ -1392,6 +1392,163 @@ imports:
 
 ---
 
+### 20. Parent-Child Issue Management 模式 ⭐⭐⭐⭐⭐⭐⭐⭐
+
+**适用场景**: 需要创建层级化 Issue（Parent → Children），如任务分解、Epic 拆分
+
+**Frontmatter 配置**:
+```yaml
+safe-outputs:
+  create-issue:
+    title-prefix: "[plan] "
+    labels: [plan, ai-generated]
+    max: 6  # 1 parent + 5 children (Discussion 模式) OR 5 children (Issue 模式)
+```
+
+**Prompt 指导**:
+```markdown
+## Step 1: Create the Parent Tracking Issue (仅 Discussion 模式)
+
+Create a parent issue first with:
+- **temporary_id**: Generate a unique temporary ID (format: `aw_` followed by 12 hex characters, e.g., `aw_abc123def456`)
+- **title**: A brief summary of the overall work
+- **body**: Overview + Link to source discussion
+
+## Step 2: Create Sub-Issues
+
+{{#if github.event.discussion.number}}
+Use the **parent** field with the temporary_id from Step 1 to link each sub-issue to the parent.
+{{/if}}
+
+{{#if github.event.issue.number}}
+Use the **parent** field set to `#${{ github.event.issue.number }}` to link to the current issue.
+Do NOT create a new parent tracking issue.
+{{/if}}
+```
+
+**JSON 输出示例**:
+```json
+// Discussion 模式: 先创建 Parent
+{
+  "type": "create_issue",
+  "temporary_id": "aw_abc123def456",
+  "title": "Implement feature X",
+  "body": "## Overview\n\nThis tracking issue covers the implementation of feature X.\n\n**Source**: Discussion #123"
+}
+
+// 然后创建 Children（引用 temporary_id）
+{
+  "type": "create_issue",
+  "parent": "aw_abc123def456",
+  "title": "Sub-task 1: Add authentication middleware",
+  "body": "..."
+}
+
+// Issue 模式: 直接创建 Children（引用 issue number）
+{
+  "type": "create_issue",
+  "parent": "#456",
+  "title": "Sub-task 1: Add authentication middleware",
+  "body": "..."
+}
+```
+
+**核心技术**: **temporary_id 机制**优雅解决"先引用后创建"的鸡生蛋问题
+
+**典型案例**: plan
+
+(来源: plan 分析 #14)
+
+---
+
+### 21. Dual-Context Workflow 模式 ⭐⭐⭐⭐⭐⭐⭐⭐
+
+**适用场景**: 同一工作流需要在不同上下文（Issue/PR/Discussion）执行不同逻辑
+
+**设计原则**:
+- ✅ **2 个上下文是最佳平衡**（如 Issue + Discussion）
+- ⚠️ **3+ 上下文** → Prompt 过于复杂 → 考虑拆分
+- ✅ **共享逻辑提取**到独立章节（如 Guidelines）
+
+**模板结构**:
+```markdown
+---
+on:
+  slash_command:
+    name: mycommand
+    events: [issue_comment, discussion_comment]
+---
+
+# Your Mission
+
+{{#if github.event.issue.number}}
+**When triggered from an issue comment** (current context):
+
+- Step 1: 做 A1
+- Step 2: 做 A2
+- Do NOT 做 X（避免混淆）
+{{/if}}
+
+{{#if github.event.discussion.number}}
+**When triggered from a discussion** (current context):
+
+1. Step 1: 做 B1（不同于 A1）
+2. Step 2: 做 B2（不同于 A2）
+3. Step 3: 做 B3（Issue 模式没有的步骤）
+{{/if}}
+
+## Shared Guidelines（两个模式都适用）
+
+### Guideline 1
+[共享规则...]
+
+### Guideline 2
+[共享规则...]
+
+## Examples
+
+{{#if github.event.issue.number}}
+### When Triggered from an Issue
+[Issue 模式专属示例...]
+{{/if}}
+
+{{#if github.event.discussion.number}}
+### When Triggered from a Discussion
+[Discussion 模式专属示例...]
+{{/if}}
+
+## Important Notes
+
+{{#if github.event.issue.number}}
+- 重要约束 A
+- 重要约束 B
+{{/if}}
+
+{{#if github.event.discussion.number}}
+- 重要约束 X
+- 重要约束 Y
+{{/if}}
+```
+
+**注意事项**:
+- 清晰标记每个分支（"When triggered from..."）
+- 在多处重复关键约束（防止 Agent 遗忘）
+- 每个分支应完整且自洽
+
+**优势**:
+- ✅ 避免维护重复工作流
+- ✅ 用户统一入口（如 `/plan`）
+- ✅ 代码复用（Guidelines 共享）
+
+**风险与缓解**:
+- ⚠️ Prompt 复杂度增加 → 清晰分支标记 + 重复约束
+
+**典型案例**: plan (Issue vs Discussion 双路径)
+
+(来源: plan 分析 #14)
+
+---
+
 ## ✅ 最佳实践
 
 ### 权限
@@ -1761,6 +1918,232 @@ safe-outputs:
 - 非技术人员也能理解和修改
 - 减少手工错误
 - 版本控制友好
+
+---
+
+### 22. Task Decomposition Guidelines（任务分解指导框架）⭐⭐⭐⭐⭐⭐
+
+**用途**: 指导 Agent 如何分解任务，确保生成高质量的子任务
+
+**完整框架**:
+```markdown
+### Guidelines for Sub-Issues
+
+#### 1. Clarity and Specificity（清晰具体）
+Each sub-issue should:
+- Have a clear, specific objective that can be completed independently
+- Use concrete language that a SWE agent can understand and execute
+- Include specific files, functions, or components when relevant
+- Avoid ambiguity and vague requirements
+
+#### 2. Proper Sequencing（正确顺序）
+Order the tasks logically:
+- Start with foundational work (setup, infrastructure, dependencies)
+- Follow with implementation tasks
+- End with validation and documentation
+- Consider dependencies between tasks
+
+#### 3. Right Level of Granularity（合适粒度）
+Each task should:
+- Be completable in a single PR
+- Not be too large (avoid epic-sized tasks)
+- With a single focus or goal. Keep them extremely small and focused even it means more tasks.
+- Have clear acceptance criteria
+
+#### 4. SWE Agent Formulation（面向Agent的表述）
+Write tasks as if instructing a software engineer:
+- Use imperative language: "Implement X", "Add Y", "Update Z"
+- Provide context: "In file X, add function Y to handle Z"
+- Include relevant technical details
+- Specify expected outcomes
+```
+
+**关键原则**:
+- "completable in a single PR"（粒度控制）
+- "Keep them extremely small and focused"（强调最小化）
+- "Use imperative language"（行动导向）
+- "Consider dependencies"（顺序意识）
+
+**适用场景**: 任何涉及任务分解的工作流（项目规划、Issue triage、Epic 分解）
+
+**可复用性**: ⭐⭐⭐⭐⭐（极高，可直接复制）
+
+(来源: plan 分析 #14)
+
+---
+
+### 23. Issue Body Template with Acceptance Criteria（带验收标准的 Issue 模板）⭐⭐⭐⭐⭐⭐
+
+**用途**: 确保创建的 Issue 质量高、可执行、可验证
+
+**完整模板**:
+```markdown
+## Objective
+[Clear statement of what needs to be done]
+
+## Context
+[Why this is needed, what depends on it]
+
+## Approach
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+## Files to Modify
+- Create: `path/to/new/file.js`
+- Update: `path/to/existing/file.js`
+- Update: `tests/path/to/test.js` (add tests)
+
+## Acceptance Criteria
+- [ ] [Specific, testable criterion 1]
+- [ ] [Specific, testable criterion 2]
+- [ ] [Specific, testable criterion 3]
+- [ ] [Tests cover success and error cases]
+```
+
+**每部分作用**:
+- **Objective**: 快速理解任务目标
+- **Context**: 理解任务在大局中的位置
+- **Approach**: 有实施起点，不用从零思考
+- **Files to Modify**: 明确文件范围，避免漏改
+- **Acceptance Criteria**: 可测试检查点，支持自检
+
+**设计意图**:
+- 明确完成定义（何时算"完成"？）
+- SWE Agent 自检能力
+- 审查者清晰检查点
+
+**与 Definition of Done 的关系**:
+- **DoD**: 通用标准（如"所有测试通过"）
+- **Acceptance Criteria**: 任务特定标准（互补）
+
+(来源: plan 分析 #14)
+
+---
+
+### 24. temporary_id 生成指导（Parent-Child Issue 引用机制）⭐⭐⭐⭐⭐⭐⭐⭐
+
+**用途**: 指导 Agent 生成 temporary_id，用于 Parent-Child Issue 引用
+
+**Prompt 指导**:
+```markdown
+Generate a unique temporary ID using this format:
+- **Prefix**: `aw_`
+- **Followed by**: 12 hexadecimal characters (0-9, a-f)
+- **Example**: `aw_abc123def456`
+
+Use this temporary_id to reference the parent issue when creating child issues.
+```
+
+**使用方式**:
+```json
+// Step 1: 创建 Parent Issue（带 temporary_id）
+{
+  "type": "create_issue",
+  "temporary_id": "aw_abc123def456",
+  "title": "Parent: Implement feature X",
+  "body": "## Overview\n\nThis tracking issue covers..."
+}
+
+// Step 2: 创建 Child Issues（引用 temporary_id）
+{
+  "type": "create_issue",
+  "parent": "aw_abc123def456",
+  "title": "Sub-task 1: ...",
+  "body": "..."
+}
+
+{
+  "type": "create_issue",
+  "parent": "aw_abc123def456",
+  "title": "Sub-task 2: ...",
+  "body": "..."
+}
+```
+
+**设计意图**: 优雅解决"先引用后创建"的鸡生蛋问题
+
+**格式约束**:
+- 必须以 `aw_` 开头
+- 12 位16进制字符（确保唯一性）
+- 总长度 15 字符
+
+(来源: plan 分析 #14)
+
+---
+
+### 25. Dual-Context Mission Statement（双上下文任务声明）⭐⭐⭐⭐⭐⭐⭐⭐
+
+**用途**: 在 Issue 和 Discussion 两种场景下工作的工作流，清晰区分执行路径
+
+**模板**:
+```markdown
+{{#if github.event.issue.number}}
+**When triggered from an issue comment** (current context):
+
+- Use the **current issue** (#${{ github.event.issue.number }}) as the parent issue
+- Create actionable **sub-issues** (at most 5) as children of this issue
+- Do NOT create a new parent tracking issue
+{{/if}}
+
+{{#if github.event.discussion.number}}
+**When triggered from a discussion** (current context):
+
+1. **First**: Create a **parent tracking issue** that links to the triggering discussion
+2. **Then**: Create actionable **sub-issues** (at most 5) as children of that parent issue
+{{/if}}
+```
+
+**设计要点**:
+- 清晰标记"When triggered from..."
+- 每个分支有不同的步骤
+- 明确禁止混淆的操作（"Do NOT..."）
+
+**使用场景**: 任何需要在 Issue/PR/Discussion 多场景工作的 Slash Command
+
+**复用难度**: ⭐（极易，直接复制并调整步骤）
+
+(来源: plan 分析 #14)
+
+---
+
+### 26. Conditional Discussion Close（条件关闭 Discussion）⭐⭐⭐⭐⭐
+
+**用途**: Ideas Discussion 转为 Issue 后自动关闭
+
+**Frontmatter 配置**:
+```yaml
+safe-outputs:
+  close-discussion:
+    required-category: "Ideas"
+```
+
+**Prompt 指导**:
+```markdown
+After creating all issues successfully, if this was triggered from a discussion 
+in the "Ideas" category, close the discussion with a comment summarizing the plan 
+and resolution reason "RESOLVED"
+```
+
+**设计意图**:
+- **Ideas Discussion** 是草案，转为 Issue 后使命完成
+- **其他类别**（Q&A、Announcements）不应被自动关闭
+- **防御性设计**: `required-category` 限制范围降低误关闭风险
+
+**状态流转**:
+```
+Ideas Discussion（草案）
+     │
+     ▼ /plan 触发
+创建 Parent Issue + Sub-Issues
+     │
+     ▼ 成功后
+关闭 Discussion（RESOLVED）
+```
+
+**适用场景**: 任何 Draft → Active → Done 状态流转
+
+(来源: plan 分析 #14)
 
 ---
 
