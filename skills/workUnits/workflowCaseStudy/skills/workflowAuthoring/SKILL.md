@@ -1003,6 +1003,552 @@ Before creating `.github/workflows/<workflow-id>.md`:
 
 ---
 
+### 7. MCP Multi-Server Imports 模板 ⭐⭐⭐⭐⭐
+
+**When**: 需要多种专业能力（代码分析、工作流管理、文档检索等）
+
+```yaml
+---
+imports:
+  - shared/mcp/gh-aw.md         # 工作流自省
+  - shared/mcp/serena.md        # 代码分析
+  - shared/jqschema.md          # JSON 工具
+tools:
+  serena: ["go"]                # MCP 服务器参数
+---
+```
+
+**Prompt 中引用**:
+```markdown
+## Available Tools
+
+You have access to:
+1. **Serena MCP**: Code analysis and intelligence
+2. **gh-aw MCP**: Workflow introspection
+3. **JQ Schema**: JSON structure discovery
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 8. Tool Selection Decision Tree 模板 ⭐⭐⭐⭐
+
+**When**: "瑞士军刀"式多功能工作流
+
+```markdown
+### If Code Changes Are Needed
+1. Use **MCP** for analysis
+2. Use **edit** tool
+3. **ALWAYS create PR**
+
+### If Web Automation Is Needed
+1. Use **Playwright**
+2. **ALWAYS add comment**
+
+⚠️ **NEVER** modify `.github/.workflows`
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 9. Themed Persona Messages 模板 ⭐⭐⭐⭐
+
+```yaml
+messages:
+  footer: "> 🎭 *[Themed message] by [{workflow_name}]({run_url})*"
+  run-started: "🎵 [Start message]..."
+  run-success: "🎤 [Success]! 🌟"
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 10. High-Turn + Memory 模板 ⭐⭐⭐
+
+```yaml
+engine:
+  id: claude
+  max-turns: 100
+tools:
+  cache-memory:
+    key: ${{ github.workflow }}-memory-${{ github.run_id }}
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 11. Queued Execution 模板 ⭐⭐⭐
+
+```yaml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false  # 排队而非取消
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 12. Progressive Context Disclosure 模板 ⭐⭐⭐⭐
+
+```handlebars
+{{#if github.event.issue.number}}
+## Issue Context
+- **Issue Number**: ${{ github.event.issue.number }}
+{{/if}}
+
+{{#if github.event.pull_request.number}}
+## Pull Request Context
+**IMPORTANT**: Capture branch info...
+{{/if}}
+```
+
+(来源: cloclo 分析 #10)
+
+---
+
+### 13. Reusable Workflow 基础模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要在多个工作流中复用相同逻辑
+
+```yaml
+---
+on:
+  workflow_call:
+    inputs:
+      param1:
+        description: '参数说明'
+        required: true
+        type: string
+      param2:
+        description: '可选参数'
+        required: false
+        type: string
+        default: 'default-value'
+permissions:
+  contents: read
+  # 最小权限...
+---
+
+# 可重用工作流名称
+
+你的任务描述...
+
+## 输入参数
+
+- **param1**: ${{ inputs.param1 }}
+- **param2**: ${{ inputs.param2 }}
+
+## 任务流程
+
+[执行步骤...]
+```
+
+**调用示例**（在另一个工作流中）:
+```yaml
+jobs:
+  call-reusable:
+    uses: ./.github/workflows/my-reusable.md
+    with:
+      param1: "value"
+      param2: "custom-value"
+```
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 14. MCP 工具选择约束模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 多个 MCP 服务器，需要明确工具使用边界
+
+```markdown
+## 工具使用指南
+
+**IMPORTANT**: 使用正确的工具完成任务
+
+### 工作流诊断
+- ✅ **使用**: `gh-aw_audit` 工具获取诊断信息
+- ✅ **使用**: `gh-aw_logs` 工具下载日志
+- ❌ **禁止**: 使用 GitHub MCP 查询工作流运行
+
+### 仓库操作
+- ✅ **使用**: GitHub MCP 查询 issues, PRs, commits
+- ❌ **禁止**: 使用 gh-aw 工具操作仓库
+
+**原因**: 每个 MCP 服务器专注于特定领域，使用专业工具获得更好结果。
+```
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 15. 文件系统知识库模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要跨运行积累知识，支持模式识别
+
+```markdown
+## 知识持久化策略
+
+### 存储结构
+
+将调查结果保存到以下目录：
+
+​```bash
+/tmp/gh-aw/cache-memory/
+├── investigations/       # 调查报告
+│   └── YYYYMMDD-HHMMSS-<context-id>.json
+├── patterns/            # 错误模式库
+│   └── <pattern-name>.json
+└── index.json          # 快速检索索引
+​```
+
+### 存储格式
+
+​```json
+{
+  "timestamp": "2026-01-08T12:00:00Z",
+  "context_id": "run-12345",
+  "category": "failure-type",
+  "signature": "error-pattern-hash",
+  "findings": {
+    "root_cause": "具体原因",
+    "resolution": "解决方案"
+  }
+}
+​```
+
+### 检索逻辑
+
+1. **查询历史**: 读取 `index.json` 快速定位
+2. **模式匹配**: 比较 `signature` 识别相似问题
+3. **提取经验**: 从历史 `resolution` 学习解决方案
+```
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 16. 动态输出路由模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要基于上下文智能选择输出位置
+
+```markdown
+## 输出位置决策
+
+### Step 1: 查询关联上下文
+
+使用 GitHub 搜索 API 查找关联的 Pull Request：
+
+​```markdown
+Query: `repo:${{ github.repository }} is:pr <commit-sha>`
+​```
+
+### Step 2: 动态路由
+
+​```markdown
+{{#if pull_request_found}}
+## 发现关联 PR: #<pr-number>
+
+使用 `add_comment` 将报告发布到 PR。
+{{else}}
+## 未找到关联 PR
+
+使用 `create_issue` 创建新 Issue。
+{{/if}}
+​```
+
+**Frontmatter 配置**:
+​```yaml
+safe-outputs:
+  add-comment:
+    target: "*"           # 支持任意 PR/Issue
+  create-issue:
+    expires: 2h           # 临时 Issue
+​```
+```
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 17. Phased 调查框架模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要系统化调查（失败分析、性能调优、安全审计）
+
+```markdown
+## 调查流程
+
+### Phase 1: 快速分类 (2 分钟)
+- 使用专业工具获取初步诊断
+- 判断是否需要深入分析
+
+### Phase 2: 数据收集 (5 分钟)
+- 提取详细日志和错误信息
+- 识别错误模式和堆栈追踪
+
+### Phase 3: 历史对比 (3 分钟)
+- 查询知识库中的相似案例
+- 提取历史解决方案
+
+### Phase 4: 根因分析 (5 分钟)
+- 分类失败类型
+- 深度分析根本原因
+
+### Phase 5: 知识存储 (2 分钟)
+- 持久化调查结果
+- 更新模式库
+
+### Phase 6: 去重判断 (1 分钟)
+- 搜索现有 Issue
+- 决定是否创建新 Issue
+
+### Phase 7: 报告输出 (2 分钟)
+- 格式化报告
+- 动态路由输出
+```
+
+**时间预算原则**:
+- 快速阶段优先（Phase 1: 10%）
+- 核心分析充足（Phase 4: 25%）
+- 输出轻量（Phase 7: 10%）
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 18. Expiring Issue 配置模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 创建临时通知 Issue，自动过期
+
+```yaml
+safe-outputs:
+  create-issue:
+    expires: 2h              # 2小时后自动关闭
+    title-prefix: "[临时通知] "
+    labels: [automation, temporary]
+```
+
+**使用场景**:
+- ✅ 临时通知（失败调查、每日报告）
+- ✅ 快速反馈（强制开发者响应）
+- ❌ 长期跟踪（功能请求、Bug 修复）
+
+**最佳实践**:
+- 结合 cache-memory 持久化重要信息
+- 在 Issue 中明确说明"临时性质"
+- 提供查询历史的途径（如链接到知识库）
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 19. Reporting Format 导入复用 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要统一报告格式
+
+**导入方式**:
+```yaml
+imports:
+  - shared/reporting.md
+```
+
+**遵循格式**:
+```markdown
+<!-- 1-2 段落概述 -->
+调查发现工作流失败的根本原因是 XXX。建议采取以下行动修复。
+
+<details>
+<summary><b>完整调查报告 - Run #<run-number></b></summary>
+
+## 失败详情
+- **Run**: [§<run-id>](<url>)
+
+## 根因分析
+[详细分析...]
+
+## 建议行动
+- [ ] [具体步骤]
+
+</details>
+
+---
+
+**References:**
+- [§<run-id>](<url>)
+```
+
+**关键规范**:
+- 1-2 段落概述在前
+- `<details>` 折叠详细内容
+- 工作流运行 ID 使用 `[§RunID](url)` 格式
+- 最多 3 个参考链接
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 20. Parent-Child Issue Management 模式 ⭐⭐⭐⭐⭐⭐⭐⭐
+
+**适用场景**: 需要创建层级化 Issue（Parent → Children），如任务分解、Epic 拆分
+
+**Frontmatter 配置**:
+```yaml
+safe-outputs:
+  create-issue:
+    title-prefix: "[plan] "
+    labels: [plan, ai-generated]
+    max: 6  # 1 parent + 5 children (Discussion 模式) OR 5 children (Issue 模式)
+```
+
+**Prompt 指导**:
+```markdown
+## Step 1: Create the Parent Tracking Issue (仅 Discussion 模式)
+
+Create a parent issue first with:
+- **temporary_id**: Generate a unique temporary ID (format: `aw_` followed by 12 hex characters, e.g., `aw_abc123def456`)
+- **title**: A brief summary of the overall work
+- **body**: Overview + Link to source discussion
+
+## Step 2: Create Sub-Issues
+
+{{#if github.event.discussion.number}}
+Use the **parent** field with the temporary_id from Step 1 to link each sub-issue to the parent.
+{{/if}}
+
+{{#if github.event.issue.number}}
+Use the **parent** field set to `#${{ github.event.issue.number }}` to link to the current issue.
+Do NOT create a new parent tracking issue.
+{{/if}}
+```
+
+**JSON 输出示例**:
+```json
+// Discussion 模式: 先创建 Parent
+{
+  "type": "create_issue",
+  "temporary_id": "aw_abc123def456",
+  "title": "Implement feature X",
+  "body": "## Overview\n\nThis tracking issue covers the implementation of feature X.\n\n**Source**: Discussion #123"
+}
+
+// 然后创建 Children（引用 temporary_id）
+{
+  "type": "create_issue",
+  "parent": "aw_abc123def456",
+  "title": "Sub-task 1: Add authentication middleware",
+  "body": "..."
+}
+
+// Issue 模式: 直接创建 Children（引用 issue number）
+{
+  "type": "create_issue",
+  "parent": "#456",
+  "title": "Sub-task 1: Add authentication middleware",
+  "body": "..."
+}
+```
+
+**核心技术**: **temporary_id 机制**优雅解决"先引用后创建"的鸡生蛋问题
+
+**典型案例**: plan
+
+(来源: plan 分析 #14)
+
+---
+
+### 21. Dual-Context Workflow 模式 ⭐⭐⭐⭐⭐⭐⭐⭐
+
+**适用场景**: 同一工作流需要在不同上下文（Issue/PR/Discussion）执行不同逻辑
+
+**设计原则**:
+- ✅ **2 个上下文是最佳平衡**（如 Issue + Discussion）
+- ⚠️ **3+ 上下文** → Prompt 过于复杂 → 考虑拆分
+- ✅ **共享逻辑提取**到独立章节（如 Guidelines）
+
+**模板结构**:
+```markdown
+---
+on:
+  slash_command:
+    name: mycommand
+    events: [issue_comment, discussion_comment]
+---
+
+# Your Mission
+
+{{#if github.event.issue.number}}
+**When triggered from an issue comment** (current context):
+
+- Step 1: 做 A1
+- Step 2: 做 A2
+- Do NOT 做 X（避免混淆）
+{{/if}}
+
+{{#if github.event.discussion.number}}
+**When triggered from a discussion** (current context):
+
+1. Step 1: 做 B1（不同于 A1）
+2. Step 2: 做 B2（不同于 A2）
+3. Step 3: 做 B3（Issue 模式没有的步骤）
+{{/if}}
+
+## Shared Guidelines（两个模式都适用）
+
+### Guideline 1
+[共享规则...]
+
+### Guideline 2
+[共享规则...]
+
+## Examples
+
+{{#if github.event.issue.number}}
+### When Triggered from an Issue
+[Issue 模式专属示例...]
+{{/if}}
+
+{{#if github.event.discussion.number}}
+### When Triggered from a Discussion
+[Discussion 模式专属示例...]
+{{/if}}
+
+## Important Notes
+
+{{#if github.event.issue.number}}
+- 重要约束 A
+- 重要约束 B
+{{/if}}
+
+{{#if github.event.discussion.number}}
+- 重要约束 X
+- 重要约束 Y
+{{/if}}
+```
+
+**注意事项**:
+- 清晰标记每个分支（"When triggered from..."）
+- 在多处重复关键约束（防止 Agent 遗忘）
+- 每个分支应完整且自洽
+
+**优势**:
+- ✅ 避免维护重复工作流
+- ✅ 用户统一入口（如 `/plan`）
+- ✅ 代码复用（Guidelines 共享）
+
+**风险与缓解**:
+- ⚠️ Prompt 复杂度增加 → 清晰分支标记 + 重复约束
+
+**典型案例**: plan (Issue vs Discussion 双路径)
+
+(来源: plan 分析 #14)
+
+---
+
 ## ✅ 最佳实践
 
 ### 权限
@@ -1096,6 +1642,691 @@ Before creating `.github/workflows/<workflow-id>.md`:
 - ✅ **总时间匹配**: Phase总时间 < timeout，留10-20%缓冲 (来源: #6)
 - ✅ **关键阶段优先**: 复杂阶段分配更多时间 (来源: #6)
 
+### MCP 集成
+
+- ✅ **分离关注点**: 每个 MCP 专注一个领域（代码分析、工作流管理、文档检索） (来源: #10)
+- ✅ **配置复用**: 通过 imports 机制共享 MCP 配置（shared/mcp/目录） (来源: #10)
+- ✅ **显式说明**: Prompt 中明确列出每个 MCP 的能力 (来源: #10)
+- ✅ **多 MCP 协作**: 设计清晰的工具选择决策树，避免混乱 (来源: #10)
+
+### 工具编排
+
+- ✅ **决策树优先**: 多工具场景下提供明确的 If-Then 分支 (来源: #10)
+- ✅ **ALWAYS 约束**: 确保关键步骤（如创建 PR、添加评论）不被遗漏 (来源: #10)
+- ✅ **NEVER 约束**: 明确禁止危险操作（如修改 .github/workflows） (来源: #10)
+- ✅ **元级别保护**: 保护工作流目录不被 AI 意外修改 (来源: #10)
+
+### 人格化设计
+
+- ✅ **功能优先**: 确保功能正确后再添加人格化元素 (来源: #10)
+- ✅ **风格一致性**: 使用定制 messages 和 Prompt 风格指导 (来源: #10)
+- ✅ **适度原则**: 避免过度人格化降低专业性 (来源: #10)
+- ⚠️ **语言门槛**: 避免使用外语或过于小众的文化梗 (来源: #10)
+
+### 引擎和并发
+
+- ✅ **Claude vs Copilot**: 复杂推理选 Claude，常规任务选 Copilot (来源: #10)
+- ✅ **高 max-turns**: 复杂交互场景配置 50-100 turns + cache-memory (来源: #10)
+- ✅ **并发策略**: 有副作用选排队（cancel-in-progress: false），无副作用选取消 (来源: #10)
+- ✅ **成本监控**: 高 turns 可能导致高成本，需监控实际使用 (来源: #10)
+
+### 可重用工作流 (来源: #11)
+
+- ✅ **workflow_call**: 使用 `on: workflow_call` 创建可重用工作流
+- ✅ **参数化设计**: 通过 `inputs` 定义必需和可选参数
+- ✅ **单一职责**: 每个可重用工作流专注一个任务
+- ✅ **DRY 原则**: 诊断、部署、通知等通用逻辑只写一次
+- ✅ **调用方式**: `uses: ./.github/workflows/reusable.md` + `with:` 参数
+
+### MCP 专业化 (来源: #11)
+
+- ✅ **明确工具边界**: Prompt 中用 IMPORTANT 约束指定工具使用
+- ✅ **专业化胜于通用化**: 专业工具提供更好能力
+- ✅ **gh-aw MCP**: 工作流诊断专用（audit, logs, status, compile）
+- ✅ **工具选择决策树**: 明确"什么情况用什么工具"
+
+### 知识积累 (来源: #11)
+
+- ✅ **文件系统知识库**: cache-memory 用于长期知识积累
+- ✅ **结构化存储**: investigations/, patterns/, logs/ 三层架构
+- ✅ **跨运行学习**: 每次运行存储结构化 JSON，未来查询
+- ✅ **模式识别**: 通过 error_signature 识别相似失败
+
+### 输出路由 (来源: #11)
+
+- ✅ **动态路由**: 基于运行时上下文选择输出位置
+- ✅ **上下文感知**: 使用 commit SHA 查询关联 PR
+- ✅ **减少噪音**: PR 失败评论到 PR，不创建独立 Issue
+- ✅ **临时 Issue**: 使用 `expires: 2h` 创建自动过期的临时通知
+
+### 调查框架 (来源: #11)
+
+- ✅ **Phased 流程**: 7 个 Phase 覆盖收集、分析、行动完整周期
+- ✅ **漏斗设计**: 快速分类（35%）→ 深度分析（40%）→ 输出（10%）
+- ✅ **明确边界**: 每个 Phase 有清晰的输入和输出
+- ✅ **可跳过**: 如 Phase 6 发现重复，跳过 Phase 7
+- ✅ **通用性**: 调查框架可应用于失败分析、性能调优、安全审计
+
+---
+
+## 🎯 Campaign 模式库 ⭐⭐⭐⭐⭐⭐⭐
+
+> **新模式类型**: Campaign 模式（来源: discussion-task-mining.campaign 分析 #12）
+
+### Campaign 模式概述
+
+**适用场景**: 长期运行的多工作流协同任务（代码质量改进、技术债务管理）
+
+**核心组件**:
+1. **Campaign 定义文件** (`.campaign.md`)：声明式配置 + 文档
+2. **Worker 工作流**：独立、可复用、campaign-agnostic
+3. **Orchestrator**：自动生成 (`.campaign.g.md`)，负责协调
+4. **Repo-memory**：状态管理和 metrics 存储
+5. **GitHub Project**：作为 UI，提供可视化管理
+
+### Campaign Frontmatter 模板
+
+```yaml
+---
+id: my-campaign                # 全局唯一标识符
+name: "Campaign: My Title"     # 显示名称
+description: "Short desc"      # 简短描述
+version: v1                    # 版本号
+project-url: "https://..."     # GitHub Project URL
+workflows:                     # 关联的 Worker 工作流列表
+  - worker-1
+  - worker-2
+tracker-label: "campaign:my-campaign"  # Orchestrator 通过此标签发现 Issue
+memory-paths:                  # 状态存储位置（支持通配符）
+  - "memory/campaigns/my-campaign/**"
+  - "memory/worker-1/**"
+metrics-glob: "memory/campaigns/my-campaign/metrics/*.json"
+cursor-glob: "memory/campaigns/my-campaign/cursor.json"
+state: planned                 # planned/active/paused/completed
+tags: [tag1, tag2]            # 分类标签
+risk-level: low                # low/medium/high
+allowed-safe-outputs:          # 限制可用的 safe-output 类型
+  - create-issue
+  - add-comment
+objective: "One-sentence objective"
+kpis:                          # 关键绩效指标
+  - name: "Primary KPI"
+    priority: primary
+    unit: count
+    baseline: 0
+    target: 100
+    time-window-days: 7
+    direction: increase
+    source: custom
+governance:                    # 治理策略
+  max-issues-per-run: 5
+  max-comments-per-run: 3
+---
+```
+
+**用途**: 创建新 Campaign 的起点
+
+### Campaign 设计模式
+
+#### 1. Campaign Architecture Pattern
+
+**识别特征**:
+- Campaign 定义 + Worker + Orchestrator + Repo-memory + GitHub Project
+- Worker 保持 campaign-agnostic
+- Orchestrator 自动生成
+
+**协作流程**:
+```
+Campaign Definition (.campaign.md)
+    ↓ 编译器读取
+Orchestrator 自动生成 (.campaign.g.md)
+    ↓ 通过 tracker-id 发现
+Worker 输出 (Issues 带 tracker-label)
+    ↓ Orchestrator 聚合
+GitHub Project Board (可视化管理)
+```
+
+**典型案例**: discussion-task-mining
+
+#### 2. KPI-Driven Workflow Pattern
+
+**KPI 定义模板**:
+```yaml
+kpis:
+  - name: "Metric name"
+    priority: primary | supporting
+    unit: count | percent | ms | bytes
+    baseline: <current_value>
+    target: <goal_value>
+    time-window-days: 7
+    direction: increase | decrease
+    source: custom | pull_requests | issues
+```
+
+**设计价值**: 
+- Baseline → Target 驱动持续改进
+- 数据驱动决策
+- 区分 primary 和 supporting KPIs
+
+#### 3. Governance-First Design Pattern
+
+**Governance 模板**:
+```yaml
+governance:
+  # Rate Limits
+  max-issues-per-run: 5
+  max-comments-per-run: 3
+  
+  # Quality Standards (在 Markdown 中详细描述)
+  # - Specific: 明确范围
+  # - Actionable: 可执行
+  # - Valuable: 有价值
+  # - Scoped: 可完成
+  # - Independent: 无依赖
+  
+  # Deduplication Policy
+  # - 跟踪已处理项
+  # - 检查现有 Issues
+  # - 标题相似度匹配
+  
+  # Review Requirements
+  # - Auto-expire 时间
+  # - Approval 规则
+```
+
+**设计价值**: 预防式设计，从定义阶段就考虑风险
+
+#### 4. Memory-Based State Management Pattern
+
+**Memory 结构模板**:
+```
+memory/
+├── campaigns/
+│   └── {campaign-id}/
+│       ├── metrics/
+│       │   └── weekly-stats.json    # Orchestrator 写入
+│       └── cursor.json               # Orchestrator 状态
+└── {worker-name}/
+    ├── processed-items.json          # Worker 写入（去重）
+    ├── extracted-data.json           # Worker 写入（历史）
+    └── latest-run.md                 # Worker 写入（最新运行）
+```
+
+**设计价值**: 去重、审计、恢复能力、分层存储
+
+#### 5. Project-as-UI Pattern
+
+**Custom Fields 配置**:
+```markdown
+**Recommended Custom Fields**:
+
+1. **Source** (Text): 任务来源
+   - 用途: 追溯性
+   
+2. **Type** (Single select): Category1, Category2, ...
+   - 用途: 分类
+   
+3. **Priority** (Single select): High, Medium, Low
+   - 用途: 优先级排序
+   
+4. **Effort** (Single select): Small, Medium, Large
+   - 用途: 工作量估算
+   
+5. **Status** (Single select): Todo, In Progress, Blocked, Done
+   - 用途: 状态跟踪
+```
+
+**设计价值**: GitHub Project 自动化管理，提供可视化界面
+
+#### 6. Worker-Orchestrator Separation Pattern
+
+**Worker 特征**:
+- ✅ Campaign-agnostic（不知道所属 Campaign）
+- ✅ 使用 `tracker-id` 标记输出
+- ✅ 独立触发（定时或事件）
+- ✅ 写入 repo-memory
+
+**Orchestrator 特征**:
+- ✅ 通过 `tracker-label` 查询 Issues
+- ✅ 发现 Worker 输出
+- ✅ 更新 Project Board
+- ✅ 聚合 Metrics
+- ✅ 晚于 Worker 运行（或使用 workflow_run 触发）
+
+**协作示例**:
+```yaml
+# Worker (discussion-task-miner.md)
+safe-outputs:
+  create-issue:
+    labels: ["campaign:discussion-task-mining"]  # tracker-id
+
+# Orchestrator (自动生成)
+# 查询 Issues: label:campaign:discussion-task-mining
+# 添加到 Project Board
+# 更新 Custom Fields
+```
+
+#### 7. Declarative Campaign Definition Pattern
+
+**特点**:
+- ✅ 纯声明式配置（YAML Frontmatter + Markdown）
+- ✅ 不包含可执行代码
+- ✅ 编译器自动生成 Orchestrator
+- ✅ 配置即文档
+
+**设计价值**: 
+- 非技术人员也能理解和修改
+- 减少手工错误
+- 版本控制友好
+
+---
+
+### 22. Task Decomposition Guidelines（任务分解指导框架）⭐⭐⭐⭐⭐⭐
+
+**用途**: 指导 Agent 如何分解任务，确保生成高质量的子任务
+
+**完整框架**:
+```markdown
+### Guidelines for Sub-Issues
+
+#### 1. Clarity and Specificity（清晰具体）
+Each sub-issue should:
+- Have a clear, specific objective that can be completed independently
+- Use concrete language that a SWE agent can understand and execute
+- Include specific files, functions, or components when relevant
+- Avoid ambiguity and vague requirements
+
+#### 2. Proper Sequencing（正确顺序）
+Order the tasks logically:
+- Start with foundational work (setup, infrastructure, dependencies)
+- Follow with implementation tasks
+- End with validation and documentation
+- Consider dependencies between tasks
+
+#### 3. Right Level of Granularity（合适粒度）
+Each task should:
+- Be completable in a single PR
+- Not be too large (avoid epic-sized tasks)
+- With a single focus or goal. Keep them extremely small and focused even it means more tasks.
+- Have clear acceptance criteria
+
+#### 4. SWE Agent Formulation（面向Agent的表述）
+Write tasks as if instructing a software engineer:
+- Use imperative language: "Implement X", "Add Y", "Update Z"
+- Provide context: "In file X, add function Y to handle Z"
+- Include relevant technical details
+- Specify expected outcomes
+```
+
+**关键原则**:
+- "completable in a single PR"（粒度控制）
+- "Keep them extremely small and focused"（强调最小化）
+- "Use imperative language"（行动导向）
+- "Consider dependencies"（顺序意识）
+
+**适用场景**: 任何涉及任务分解的工作流（项目规划、Issue triage、Epic 分解）
+
+**可复用性**: ⭐⭐⭐⭐⭐（极高，可直接复制）
+
+(来源: plan 分析 #14)
+
+---
+
+### 23. Issue Body Template with Acceptance Criteria（带验收标准的 Issue 模板）⭐⭐⭐⭐⭐⭐
+
+**用途**: 确保创建的 Issue 质量高、可执行、可验证
+
+**完整模板**:
+```markdown
+## Objective
+[Clear statement of what needs to be done]
+
+## Context
+[Why this is needed, what depends on it]
+
+## Approach
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+## Files to Modify
+- Create: `path/to/new/file.js`
+- Update: `path/to/existing/file.js`
+- Update: `tests/path/to/test.js` (add tests)
+
+## Acceptance Criteria
+- [ ] [Specific, testable criterion 1]
+- [ ] [Specific, testable criterion 2]
+- [ ] [Specific, testable criterion 3]
+- [ ] [Tests cover success and error cases]
+```
+
+**每部分作用**:
+- **Objective**: 快速理解任务目标
+- **Context**: 理解任务在大局中的位置
+- **Approach**: 有实施起点，不用从零思考
+- **Files to Modify**: 明确文件范围，避免漏改
+- **Acceptance Criteria**: 可测试检查点，支持自检
+
+**设计意图**:
+- 明确完成定义（何时算"完成"？）
+- SWE Agent 自检能力
+- 审查者清晰检查点
+
+**与 Definition of Done 的关系**:
+- **DoD**: 通用标准（如"所有测试通过"）
+- **Acceptance Criteria**: 任务特定标准（互补）
+
+(来源: plan 分析 #14)
+
+---
+
+### 24. temporary_id 生成指导（Parent-Child Issue 引用机制）⭐⭐⭐⭐⭐⭐⭐⭐
+
+**用途**: 指导 Agent 生成 temporary_id，用于 Parent-Child Issue 引用
+
+**Prompt 指导**:
+```markdown
+Generate a unique temporary ID using this format:
+- **Prefix**: `aw_`
+- **Followed by**: 12 hexadecimal characters (0-9, a-f)
+- **Example**: `aw_abc123def456`
+
+Use this temporary_id to reference the parent issue when creating child issues.
+```
+
+**使用方式**:
+```json
+// Step 1: 创建 Parent Issue（带 temporary_id）
+{
+  "type": "create_issue",
+  "temporary_id": "aw_abc123def456",
+  "title": "Parent: Implement feature X",
+  "body": "## Overview\n\nThis tracking issue covers..."
+}
+
+// Step 2: 创建 Child Issues（引用 temporary_id）
+{
+  "type": "create_issue",
+  "parent": "aw_abc123def456",
+  "title": "Sub-task 1: ...",
+  "body": "..."
+}
+
+{
+  "type": "create_issue",
+  "parent": "aw_abc123def456",
+  "title": "Sub-task 2: ...",
+  "body": "..."
+}
+```
+
+**设计意图**: 优雅解决"先引用后创建"的鸡生蛋问题
+
+**格式约束**:
+- 必须以 `aw_` 开头
+- 12 位16进制字符（确保唯一性）
+- 总长度 15 字符
+
+(来源: plan 分析 #14)
+
+---
+
+### 25. Dual-Context Mission Statement（双上下文任务声明）⭐⭐⭐⭐⭐⭐⭐⭐
+
+**用途**: 在 Issue 和 Discussion 两种场景下工作的工作流，清晰区分执行路径
+
+**模板**:
+```markdown
+{{#if github.event.issue.number}}
+**When triggered from an issue comment** (current context):
+
+- Use the **current issue** (#${{ github.event.issue.number }}) as the parent issue
+- Create actionable **sub-issues** (at most 5) as children of this issue
+- Do NOT create a new parent tracking issue
+{{/if}}
+
+{{#if github.event.discussion.number}}
+**When triggered from a discussion** (current context):
+
+1. **First**: Create a **parent tracking issue** that links to the triggering discussion
+2. **Then**: Create actionable **sub-issues** (at most 5) as children of that parent issue
+{{/if}}
+```
+
+**设计要点**:
+- 清晰标记"When triggered from..."
+- 每个分支有不同的步骤
+- 明确禁止混淆的操作（"Do NOT..."）
+
+**使用场景**: 任何需要在 Issue/PR/Discussion 多场景工作的 Slash Command
+
+**复用难度**: ⭐（极易，直接复制并调整步骤）
+
+(来源: plan 分析 #14)
+
+---
+
+### 26. Conditional Discussion Close（条件关闭 Discussion）⭐⭐⭐⭐⭐
+
+**用途**: Ideas Discussion 转为 Issue 后自动关闭
+
+**Frontmatter 配置**:
+```yaml
+safe-outputs:
+  close-discussion:
+    required-category: "Ideas"
+```
+
+**Prompt 指导**:
+```markdown
+After creating all issues successfully, if this was triggered from a discussion 
+in the "Ideas" category, close the discussion with a comment summarizing the plan 
+and resolution reason "RESOLVED"
+```
+
+**设计意图**:
+- **Ideas Discussion** 是草案，转为 Issue 后使命完成
+- **其他类别**（Q&A、Announcements）不应被自动关闭
+- **防御性设计**: `required-category` 限制范围降低误关闭风险
+
+**状态流转**:
+```
+Ideas Discussion（草案）
+     │
+     ▼ /plan 触发
+创建 Parent Issue + Sub-Issues
+     │
+     ▼ 成功后
+关闭 Discussion（RESOLVED）
+```
+
+**适用场景**: 任何 Draft → Active → Done 状态流转
+
+(来源: plan 分析 #14)
+
+---
+
+## 10. Meta-Orchestrator Quality Analysis Pattern
+
+**适用场景**: 监控其他工作流的输出质量和行为模式
+
+**关键配置**:
+
+```yaml
+on: daily  # 或 schedule: cron
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  discussions: read
+  actions: read
+engine: copilot
+tools:
+  agentic-workflows:
+  github:
+    toolsets: [default, actions, repos]
+  repo-memory:
+    branch-name: memory/meta-orchestrators
+    file-glob: "**"
+safe-outputs:
+  create-issue:
+    max: 5        # 严重质量问题
+  create-discussion:
+    max: 2        # 综合性能报告
+  add-comment:
+    max: 10       # 跟进现有问题
+timeout-minutes: 30
+```
+
+**质量评估维度**:
+
+```yaml
+# 5维度评估框架 (每项 1-5 分)
+- Clarity: 输出是否清晰、结构良好？
+- Accuracy: 输出是否解决了预期问题？
+- Completeness: 是否包含所有必要元素？
+- Relevance: 是否切题且恰当？
+- Actionability: 人类是否能据此采取行动？
+
+# 聚合为 Quality Score (0-100)
+Quality Score = (Σ维度分数 / 25) * 100
+```
+
+**效率评估指标**:
+
+```yaml
+# Effectiveness Score (0-100)
+基于以下指标计算:
+- Task completion rate (任务完成率)
+- PR merge rate (PR 合并率)
+- User engagement (用户互动：reactions, comments)
+- Time to completion (完成耗时)
+
+# 与历史基准对比
+- 7天趋势
+- 30天趋势
+- 同类 Agent 对比
+```
+
+**行为反模式检测**:
+
+```yaml
+主动扫描以下问题模式:
+- Over-creation: 创建过多 issues/PRs/comments
+- Under-creation: 产出低于预期
+- Repetition: 创建重复或冗余工作
+- Scope creep: 超出定义的职责范围
+- Stale outputs: 创建后很快变得过时 (40%在7天内关闭)
+- Inconsistency: 运行间行为差异显著
+```
+
+**共享内存协调**:
+
+```yaml
+# 读取其他 Meta-Orchestrator 的输出
+Read from shared memory:
+  - metrics/latest.json              # 最新性能指标
+  - metrics/daily/YYYY-MM-DD.json   # 历史数据 (30天)
+  - {other-agent}-latest.md         # 其他分析者的发现
+  - shared-alerts.md                # 跨 Agent 协调笔记
+
+# 写入自己的发现
+Write to shared memory:
+  - {your-agent}-latest.md          # 本次运行摘要
+  - shared-alerts.md                # 需要协调的事项
+
+# 格式要求
+- 仅使用 Markdown
+- 文件头包含 timestamp + workflow name
+- 保持简洁 (< 10KB 推荐)
+- 使用清晰的标题和列表
+```
+
+**分层输出策略**:
+
+```yaml
+# 根据问题严重性选择输出类型
+Critical Agent Issues (质量分 < 40):
+  → create-issue (max: 5)
+  - 详细的改进建议
+  - 预期影响估算
+  - 实施难度评估
+
+Comprehensive Reports:
+  → create-discussion (max: 2)
+  - 周期性性能报告
+  - 生态系统健康状况
+  - 趋势分析
+
+Follow-ups:
+  → add-comment (max: 10)
+  - 跟进已有 Issue
+  - 回答问题
+  - 提供更新
+```
+
+**建设性反馈原则**:
+
+```yaml
+Fair and Objective:
+- 基于可测量指标评分
+- 同类 Agent 间比较 (不拿苹果比橘子)
+- 考虑外部因素 (API 故障等)
+
+Actionable:
+- 每个洞察 → 具体建议
+- 包含: 做什么 + 为什么 + 预期影响 + 工作量
+- 按 effort vs. impact 排优先级
+
+Constructive:
+- 正面表述问题
+- 强调改进机会，而非只批评
+- 认可和庆祝高表现者
+- 提供好/坏模式的具体例子
+```
+
+**典型工作流**:
+
+```yaml
+Phase 1: Data Collection (10 min)
+  - 从 shared memory 加载 metrics
+  - 收集 Agent 输出样本
+  - 分析工作流运行日志
+
+Phase 2: Quality Assessment (10 min)
+  - 评估输出质量（5维度）
+  - 计算效率分数
+  - 识别质量异常值
+
+Phase 3: Pattern Detection (5 min)
+  - 扫描行为反模式
+  - 分析 Agent 间协作
+  - 评估覆盖度和冗余
+
+Phase 4: Insights & Recommendations (3 min)
+  - 生成洞察
+  - 开发建议（高/中/低优先级）
+  - 估算影响
+
+Phase 5: Reporting (2 min)
+  - 创建 Discussion（综合报告）
+  - 创建 Issues（严重问题）
+  - 更新 shared memory
+```
+
+**典型案例**: agent-performance-analyzer
+
+**关键洞察**:
+
+- 💡 **Quality Dimensions 可避免主观评价** - 将"好不好"分解为可测量维度
+- 💡 **Implementation rate 是核心指标** - 不看报告数量，看建议是否被采纳
+- 💡 **5/2/10 Safe-Output 比例** - Issue 最珍贵，数量限制倒逼优先级排序
+- 💡 **共享内存 = 去中心化协调** - 无需中央调度器，通过文件命名约定协作
+- 💡 **时间预算倒金字塔** - 数据收集最重要（10分钟），报告最简洁（2分钟）
+
+(来源: agent-performance-analyzer 分析 #17)
+
 ---
 
 ## 📖 学习记录
@@ -1116,3 +2347,134 @@ _(待填充)_
 
 - [workflowAnalyzer Skill](../workflowAnalyzer/SKILL.md) - 如何分析工作流
 - [父级 SKILL](../../SKILL.md) - 工作单元概览
+
+---
+
+## 📦 研究/分析类工作流片段库
+
+> 以下片段来自 scout 工作流分析 #18
+
+### 片段 1: RARA 质量评估框架
+
+**适用场景**: 研究类、分析类、文献综述类工作流
+
+```markdown
+### Quality Evaluation
+
+For each information source, evaluate:
+
+- **Relevance**: How directly it addresses the issue
+- **Authority**: Source credibility and expertise
+- **Recency**: How current the information is
+- **Applicability**: How it applies to this specific context
+```
+
+**复用建议**:
+- 任何需要评估信息质量的工作流
+- 可扩展添加第 5 维 "Verifiability"（可验证性）
+
+---
+
+### 片段 2: 无结果处理模板
+
+**适用场景**: 所有搜索/分析类工作流
+
+```markdown
+**If no relevant findings were discovered**, use this format:
+
+# 🔍 Research Report
+
+## Executive Summary
+No relevant findings were discovered for this research request.
+
+## Search Conducted
+- Query 1: [What you searched for]
+- Query 2: [What you searched for]
+
+## Explanation
+[Brief explanation of why no relevant results were found]
+
+## Suggestions
+[Optional: Suggestions for alternative searches or approaches]
+```
+
+**关键价值**:
+- 避免 Agent 沉默
+- 提供透明度（告知搜索了什么）
+- 引导下一步行动
+
+---
+
+### 片段 3: 简洁约束章节
+
+**适用场景**: 所有用户面向的报告型工作流
+
+```markdown
+## SHORTER IS BETTER
+
+Focus on the most relevant and actionable information. Avoid overwhelming detail. Keep it concise and to the point.
+```
+
+**设计意图**:
+- 对抗 LLM（尤其是 Claude）的冗长倾向
+- 用大标题引起 Agent 注意
+- 强制优先级排序
+
+---
+
+### 片段 4: 主题化消息示例
+
+**适用场景**: 任何工作流（提升用户体验）
+
+```yaml
+safe-outputs:
+  messages:
+    footer: "> 🔭 *Intelligence gathered by [{workflow_name}]({run_url})*"
+    run-started: "🏕️ Scout on patrol! [{workflow_name}]({run_url}) is blazing trails..."
+    run-success: "🔭 Recon complete! [{workflow_name}]({run_url}) has charted the territory. 🗺️"
+    run-failure: "🏕️ Lost in the wilderness! [{workflow_name}]({run_url}) {status}..."
+```
+
+**主题化策略**:
+- 选择一致的隐喻（Scout → 勘探主题）
+- 使用相关 emoji（🏕️ 🔭 🗺️）
+- 保持措辞风格统一
+
+**其他主题示例**:
+- CI-Coach: 教练主题
+- Grumpy Reviewer: 吐槽风格
+- Firewall: 安全防护主题
+
+---
+
+### 片段 5: 工具箱模式 Frontmatter
+
+**适用场景**: 需要集成多个 MCP 服务器的工作流
+
+```yaml
+imports:
+  - shared/mcp/tool1.md
+  - shared/mcp/tool2.md
+  - shared/mcp/tool3.md
+tools:
+  edit:
+  cache-memory: true
+```
+
+**配合 Prompt 中的工具描述**:
+
+```markdown
+## Research Strategy
+
+Use available research tools:
+- **Tool1**: [用途描述] - 何时使用
+- **Tool2**: [用途描述] - 何时使用
+- **Tool3**: [用途描述] - 何时使用
+```
+
+**设计智慧**:
+- 提供工具箱，不强制执行顺序
+- 让 Agent 根据上下文自主选择
+- 通过用途描述引导（隐式优先级）
+
+---
