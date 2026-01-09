@@ -91,6 +91,41 @@ test_all<public> := module:
         
         Print("RpgHealth tests completed!")
     
+    # ========== 概率测试 ==========
+    TestProbability<public>():void =
+        Print("=== Testing MathProbability ===")
+        
+        # 测试整数范围随机
+        IntRandom1 := MathProbability.RandomIntRange(1, 10)
+        IntRandom2 := MathProbability.RandomIntRange(1, 10)
+        Print("Random int [1, 10): {IntRandom1}, {IntRandom2}")
+        
+        # 测试浮点数范围随机
+        FloatRandom1 := MathProbability.RandomFloatRange(0.0, 100.0)
+        FloatRandom2 := MathProbability.RandomFloatRange(0.0, 100.0)
+        Print("Random float [0, 100): {FloatRandom1}, {FloatRandom2}")
+        
+        # 测试概率判定
+        var SuccessCount:int = 0
+        for (I := 1..10):
+            if (MathProbability.CheckProbability[0.7]):
+                set SuccessCount += 1
+        Print("Probability 0.7 passed {SuccessCount}/10 times")
+        
+        # 测试权重随机
+        Weights := array{10.0, 20.0, 30.0, 40.0}
+        Index1 := MathProbability.WeightedRandomIndex(Weights)
+        Index2 := MathProbability.WeightedRandomIndex(Weights)
+        Index3 := MathProbability.WeightedRandomIndex(Weights)
+        Print("Weighted random indices: {Index1}, {Index2}, {Index3}")
+        
+        # 测试边界情况
+        EmptyWeights := array{}
+        EmptyIndex := MathProbability.WeightedRandomIndex(EmptyWeights)
+        Print("Empty weights index (should be -1): {EmptyIndex}")
+        
+        Print("MathProbability tests completed!")
+    
     # ========== 运行所有测试 ==========
     Run<public>():void =
         Print("========================================")
@@ -101,6 +136,7 @@ test_all<public> := module:
         TestArrays()
         TestInterpolation()
         TestHealth()
+        TestProbability()
         
         Print("========================================")
         Print("All tests completed!")
