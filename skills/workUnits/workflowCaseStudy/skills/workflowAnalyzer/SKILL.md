@@ -74,11 +74,17 @@
 | **Fuzzy Scheduling Advocacy** ⭐⭐⭐⭐ | 推荐模糊调度避免负载尖峰 | create-agentic-workflow |
 | **Safe Outputs Jobs** ⭐⭐⭐⭐ | 自定义安全输出作业 | create-agentic-workflow |
 | **Fail-Safe File Creation** ⭐⭐⭐⭐ | 创建前检查，避免覆盖 | create-agentic-workflow |
+| **Temporary ID Referencing** ⭐⭐⭐⭐⭐⭐⭐⭐ | temporary_id 跨 safe-output 引用 | plan |
+| **Dual-Mode Single Workflow** ⭐⭐⭐⭐⭐⭐⭐⭐ | 一个工作流，多触发源，条件分支 | plan |
+| **Task Decomposition Framework** ⭐⭐⭐⭐⭐⭐⭐⭐ | 系统化任务分解指南（四维度） | plan |
+| **Constrained Creativity** ⭐⭐⭐⭐⭐⭐⭐⭐ | 创造+约束，重复强化关键规则 | plan |
+| **Safe-Output Workflow Closure** ⭐⭐⭐⭐⭐⭐⭐⭐ | 清理触发源，工作流闭环 | plan |
 
 ⭐ = 新发现模式 (来源: ci-coach 分析 #3)  
 ⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)  
 ⭐⭐⭐ = 新发现模式 (来源: workflow-health-manager 分析 #6)  
-⭐⭐⭐⭐ = 新发现模式 (来源: create-agentic-workflow 分析 #9)
+⭐⭐⭐⭐ = 新发现模式 (来源: create-agentic-workflow 分析 #9)  
+⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: plan 分析 #15)
 
 #### MCP Multi-Server Integration Pattern ⭐⭐⭐⭐⭐
 
@@ -276,6 +282,53 @@
 - **典型案例**: discussion-task-mining.campaign.md
 
 ⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: discussion-task-mining.campaign 分析 #12)
+
+#### Temporary ID Referencing Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 使用 `temporary_id` 字段创建资源 + 后续资源通过 `parent: "temporary_id"` 引用 + 运行时自动解析为真实 ID
+- **格式规范**: `aw_` + 12 位十六进制（如 `aw_abc123def456`），地址空间 2^48，碰撞概率极低
+- **技术细节**: GitHub Actions 运行时维护 temporary_id → real_id 映射表，创建 parent 后自动解析引用
+- **设计价值**: 解决"创建前不知道 ID"的异步问题，允许 Agent 一次性提交所有创建请求，提高效率
+- **用途**: 创建层级化资源（parent-child），批量创建有依赖关系的实体，减少 Agent 与 API 往返
+- **典型案例**: plan（创建 1 个 parent issue + 5 个 sub-issues）
+
+#### Dual-Mode Single Workflow Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: `on: slash_command` 支持多种 events + Prompt 中大量使用 `{{#if github.event.X}}` 条件分支 + 同一工作流文件，行为根据触发来源动态调整
+- **设计权衡**: ✅ DRY 原则（90% 代码复用）、统一用户体验（单一命令入口）、维护成本低 | ❌ Prompt 复杂度增加、测试覆盖成本增加
+- **适用规则**: 逻辑重叠 > 80% → 使用双模式；逻辑差异 > 50% → 拆分为独立工作流
+- **设计价值**: 代码复用、统一用户体验、单点修改同时生效
+- **用途**: 同一功能需要适配多种触发源，逻辑主体相同但输入/输出格式不同
+- **典型案例**: plan（Issue 评论和 Discussion 评论触发，仅 parent 创建逻辑不同）
+
+#### Task Decomposition Framework Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Prompt 包含系统化的"任务分解指南"章节 + 多维度分解框架（Clarity, Sequencing, Granularity, Formulation） + 每个维度有具体检查清单
+- **框架结构**: 1. Clarity and Specificity（清晰性）、2. Proper Sequencing（正确顺序）、3. Right Level of Granularity（合适粒度）、4. SWE Agent Formulation（Agent 友好表述）
+- **设计价值**: 标准化任务分解流程，确保生成的任务"可执行"（对 SWE Agent 友好），避免任务粒度过粗或过细
+- **应用价值**: 可直接复用为团队的"任务编写规范"，可用于培训如何编写高质量的 Issue
+- **用途**: Epic → Story → Task 的层级分解，需求 → 实现方案 → PR 的转化，任何需要"拆大任务"的场景
+- **典型案例**: plan（分解 Discussion/Issue 为 5 个可执行子任务）
+
+#### Constrained Creativity Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Agent 承担创造性任务（生成规划、代码、文档） + 同时受严格约束（数量、格式、规则） + 约束在 Prompt 中多次重复强调
+- **心理学原理**: Primacy Effect（首因效应，开头强调）+ Recency Effect（近因效应，结尾重复）+ Repetition（关键规则重复 2-3 次）
+- **设计平衡**: ✅ 给 Agent 足够创造空间（如何分解、任务顺序、任务描述） | ⚠️ 严格控制边界（max 5, 格式要求, 禁止重复）
+- **设计价值**: 防止 Agent 失控，确保输出质量，通过重复降低 Agent 遗忘关键约束的概率
+- **用途**: 需要 Agent 生成内容同时严格遵守格式和规则，避免 Agent 过度创造导致失控
+- **典型案例**: plan（创意=规划逻辑，约束=max 5 + 格式要求 + 禁止创建新 parent）
+
+#### Safe-Output Workflow Closure Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 工作流最后一步"清理触发源" + `close-discussion` 配置带条件约束（如 `required-category: "Ideas"`） + 自动关闭已处理的事件
+- **设计意图**: 工作流闭环（Discussion 想法 → Issue 任务 → Close Discussion 完成转化），防止重复处理，状态流转自动化
+- **类比**: 收件箱归零（Inbox Zero）、Kanban 的"完成即移除"、IFTTT 的"触发后清理"
+- **设计价值**: 避免重复处理同一事件，自动化状态流转和清理，保持触发源整洁
+- **用途**: 需要"消耗"触发源的工作流，避免遗忘已处理事件
+- **典型案例**: plan（Discussion 转化为 Issue 后自动关闭 Discussion，仅关闭 "Ideas" 类别）
+
+⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: plan 分析 #15)
 
 ---
 
