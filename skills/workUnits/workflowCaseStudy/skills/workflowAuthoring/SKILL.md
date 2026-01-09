@@ -1111,6 +1111,287 @@ concurrency:
 
 ---
 
+### 13. Reusable Workflow 基础模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要在多个工作流中复用相同逻辑
+
+```yaml
+---
+on:
+  workflow_call:
+    inputs:
+      param1:
+        description: '参数说明'
+        required: true
+        type: string
+      param2:
+        description: '可选参数'
+        required: false
+        type: string
+        default: 'default-value'
+permissions:
+  contents: read
+  # 最小权限...
+---
+
+# 可重用工作流名称
+
+你的任务描述...
+
+## 输入参数
+
+- **param1**: ${{ inputs.param1 }}
+- **param2**: ${{ inputs.param2 }}
+
+## 任务流程
+
+[执行步骤...]
+```
+
+**调用示例**（在另一个工作流中）:
+```yaml
+jobs:
+  call-reusable:
+    uses: ./.github/workflows/my-reusable.md
+    with:
+      param1: "value"
+      param2: "custom-value"
+```
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 14. MCP 工具选择约束模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 多个 MCP 服务器，需要明确工具使用边界
+
+```markdown
+## 工具使用指南
+
+**IMPORTANT**: 使用正确的工具完成任务
+
+### 工作流诊断
+- ✅ **使用**: `gh-aw_audit` 工具获取诊断信息
+- ✅ **使用**: `gh-aw_logs` 工具下载日志
+- ❌ **禁止**: 使用 GitHub MCP 查询工作流运行
+
+### 仓库操作
+- ✅ **使用**: GitHub MCP 查询 issues, PRs, commits
+- ❌ **禁止**: 使用 gh-aw 工具操作仓库
+
+**原因**: 每个 MCP 服务器专注于特定领域，使用专业工具获得更好结果。
+```
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 15. 文件系统知识库模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要跨运行积累知识，支持模式识别
+
+```markdown
+## 知识持久化策略
+
+### 存储结构
+
+将调查结果保存到以下目录：
+
+​```bash
+/tmp/gh-aw/cache-memory/
+├── investigations/       # 调查报告
+│   └── YYYYMMDD-HHMMSS-<context-id>.json
+├── patterns/            # 错误模式库
+│   └── <pattern-name>.json
+└── index.json          # 快速检索索引
+​```
+
+### 存储格式
+
+​```json
+{
+  "timestamp": "2026-01-08T12:00:00Z",
+  "context_id": "run-12345",
+  "category": "failure-type",
+  "signature": "error-pattern-hash",
+  "findings": {
+    "root_cause": "具体原因",
+    "resolution": "解决方案"
+  }
+}
+​```
+
+### 检索逻辑
+
+1. **查询历史**: 读取 `index.json` 快速定位
+2. **模式匹配**: 比较 `signature` 识别相似问题
+3. **提取经验**: 从历史 `resolution` 学习解决方案
+```
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 16. 动态输出路由模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要基于上下文智能选择输出位置
+
+```markdown
+## 输出位置决策
+
+### Step 1: 查询关联上下文
+
+使用 GitHub 搜索 API 查找关联的 Pull Request：
+
+​```markdown
+Query: `repo:${{ github.repository }} is:pr <commit-sha>`
+​```
+
+### Step 2: 动态路由
+
+​```markdown
+{{#if pull_request_found}}
+## 发现关联 PR: #<pr-number>
+
+使用 `add_comment` 将报告发布到 PR。
+{{else}}
+## 未找到关联 PR
+
+使用 `create_issue` 创建新 Issue。
+{{/if}}
+​```
+
+**Frontmatter 配置**:
+​```yaml
+safe-outputs:
+  add-comment:
+    target: "*"           # 支持任意 PR/Issue
+  create-issue:
+    expires: 2h           # 临时 Issue
+​```
+```
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 17. Phased 调查框架模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要系统化调查（失败分析、性能调优、安全审计）
+
+```markdown
+## 调查流程
+
+### Phase 1: 快速分类 (2 分钟)
+- 使用专业工具获取初步诊断
+- 判断是否需要深入分析
+
+### Phase 2: 数据收集 (5 分钟)
+- 提取详细日志和错误信息
+- 识别错误模式和堆栈追踪
+
+### Phase 3: 历史对比 (3 分钟)
+- 查询知识库中的相似案例
+- 提取历史解决方案
+
+### Phase 4: 根因分析 (5 分钟)
+- 分类失败类型
+- 深度分析根本原因
+
+### Phase 5: 知识存储 (2 分钟)
+- 持久化调查结果
+- 更新模式库
+
+### Phase 6: 去重判断 (1 分钟)
+- 搜索现有 Issue
+- 决定是否创建新 Issue
+
+### Phase 7: 报告输出 (2 分钟)
+- 格式化报告
+- 动态路由输出
+```
+
+**时间预算原则**:
+- 快速阶段优先（Phase 1: 10%）
+- 核心分析充足（Phase 4: 25%）
+- 输出轻量（Phase 7: 10%）
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 18. Expiring Issue 配置模板 ⭐⭐⭐⭐⭐⭐
+
+**When**: 创建临时通知 Issue，自动过期
+
+```yaml
+safe-outputs:
+  create-issue:
+    expires: 2h              # 2小时后自动关闭
+    title-prefix: "[临时通知] "
+    labels: [automation, temporary]
+```
+
+**使用场景**:
+- ✅ 临时通知（失败调查、每日报告）
+- ✅ 快速反馈（强制开发者响应）
+- ❌ 长期跟踪（功能请求、Bug 修复）
+
+**最佳实践**:
+- 结合 cache-memory 持久化重要信息
+- 在 Issue 中明确说明"临时性质"
+- 提供查询历史的途径（如链接到知识库）
+
+(来源: smoke-detector 分析 #11)
+
+---
+
+### 19. Reporting Format 导入复用 ⭐⭐⭐⭐⭐⭐
+
+**When**: 需要统一报告格式
+
+**导入方式**:
+```yaml
+imports:
+  - shared/reporting.md
+```
+
+**遵循格式**:
+```markdown
+<!-- 1-2 段落概述 -->
+调查发现工作流失败的根本原因是 XXX。建议采取以下行动修复。
+
+<details>
+<summary><b>完整调查报告 - Run #<run-number></b></summary>
+
+## 失败详情
+- **Run**: [§<run-id>](<url>)
+
+## 根因分析
+[详细分析...]
+
+## 建议行动
+- [ ] [具体步骤]
+
+</details>
+
+---
+
+**References:**
+- [§<run-id>](<url>)
+```
+
+**关键规范**:
+- 1-2 段落概述在前
+- `<details>` 折叠详细内容
+- 工作流运行 ID 使用 `[§RunID](url)` 格式
+- 最多 3 个参考链接
+
+(来源: smoke-detector 分析 #11)
+
+---
+
 ## ✅ 最佳实践
 
 ### 权限
@@ -1231,6 +1512,43 @@ concurrency:
 - ✅ **高 max-turns**: 复杂交互场景配置 50-100 turns + cache-memory (来源: #10)
 - ✅ **并发策略**: 有副作用选排队（cancel-in-progress: false），无副作用选取消 (来源: #10)
 - ✅ **成本监控**: 高 turns 可能导致高成本，需监控实际使用 (来源: #10)
+
+### 可重用工作流 (来源: #11)
+
+- ✅ **workflow_call**: 使用 `on: workflow_call` 创建可重用工作流
+- ✅ **参数化设计**: 通过 `inputs` 定义必需和可选参数
+- ✅ **单一职责**: 每个可重用工作流专注一个任务
+- ✅ **DRY 原则**: 诊断、部署、通知等通用逻辑只写一次
+- ✅ **调用方式**: `uses: ./.github/workflows/reusable.md` + `with:` 参数
+
+### MCP 专业化 (来源: #11)
+
+- ✅ **明确工具边界**: Prompt 中用 IMPORTANT 约束指定工具使用
+- ✅ **专业化胜于通用化**: 专业工具提供更好能力
+- ✅ **gh-aw MCP**: 工作流诊断专用（audit, logs, status, compile）
+- ✅ **工具选择决策树**: 明确"什么情况用什么工具"
+
+### 知识积累 (来源: #11)
+
+- ✅ **文件系统知识库**: cache-memory 用于长期知识积累
+- ✅ **结构化存储**: investigations/, patterns/, logs/ 三层架构
+- ✅ **跨运行学习**: 每次运行存储结构化 JSON，未来查询
+- ✅ **模式识别**: 通过 error_signature 识别相似失败
+
+### 输出路由 (来源: #11)
+
+- ✅ **动态路由**: 基于运行时上下文选择输出位置
+- ✅ **上下文感知**: 使用 commit SHA 查询关联 PR
+- ✅ **减少噪音**: PR 失败评论到 PR，不创建独立 Issue
+- ✅ **临时 Issue**: 使用 `expires: 2h` 创建自动过期的临时通知
+
+### 调查框架 (来源: #11)
+
+- ✅ **Phased 流程**: 7 个 Phase 覆盖收集、分析、行动完整周期
+- ✅ **漏斗设计**: 快速分类（35%）→ 深度分析（40%）→ 输出（10%）
+- ✅ **明确边界**: 每个 Phase 有清晰的输入和输出
+- ✅ **可跳过**: 如 Phase 6 发现重复，跳过 Phase 7
+- ✅ **通用性**: 调查框架可应用于失败分析、性能调优、安全审计
 
 ---
 
