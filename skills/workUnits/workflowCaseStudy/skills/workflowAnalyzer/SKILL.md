@@ -97,6 +97,10 @@
 | **Null-Result Explicit Handling** ⭐⭐⭐ | 显式无结果模板 + "ALWAYS Respond"要求 + 避免Agent沉默 | scout |
 | **Thematic Safe-Output Messages** ⭐⭐ | 品牌化/主题化消息文案 + emoji+一致隐喻 + 提升用户体验 | scout |
 | **Cognitive Synthesis Pattern** ⭐⭐ | 依赖LLM综合能力 + 不机械去重 + 简化实现利用LLM优势 | scout |
+| **Lightweight Engine Selection** ⭐⭐⭐⭐⭐ | copilot（简单任务，低成本）vs claude（复杂任务，强推理） + 引擎选择 = 成本 + 性能权衡 + copilot ≈ 1/5 claude 成本 | brave vs scout |
+| **Single-Tool Specialization** ⭐⭐⭐⭐ | 单一 MCP 服务器 + 专注明确功能 + 低维护成本 + 适合功能边界清晰的任务 | brave |
+| **Minimalist Quality Assurance** ⭐⭐⭐ | 简化版 RARA（内联在流程中）+ 保留核心4维度 + 简短说明无详细解释 + 适合简单任务 | brave |
+| **Role-Open vs Role-Restricted** ⭐⭐⭐ | 基于风险和成本决定角色限制 + 只读工具无限制 + 写操作/高成本工具需限制 | brave vs scout |
 
 ⭐ = 新发现模式 (来源: ci-coach 分析 #3)  
 ⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)  
@@ -106,8 +110,9 @@
 ⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: agent-performance-analyzer 分析 #17)  
 ⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: agent-performance-analyzer 分析 #17)  
 ⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: human-ai-collaboration 分析 #16 或 agent-performance-analyzer 分析 #17)
-⭐⭐⭐⭐ = 新发现模式 (来源: scout 分析 #18)
-⭐⭐⭐ = 新发现模式 (来源: scout 分析 #18)
+⭐⭐⭐⭐⭐ = 新发现模式 (来源: brave 分析 #21 - 引擎选择)
+⭐⭐⭐⭐ = 新发现模式 (来源: scout 分析 #18 或 brave 分析 #21)
+⭐⭐⭐ = 新发现模式 (来源: scout 分析 #18 或 brave 分析 #21)
 ⭐⭐ = 新发现模式 (来源: scout 分析 #18)
 
 #### MCP Multi-Server Integration Pattern ⭐⭐⭐⭐⭐

@@ -2478,3 +2478,334 @@ Use available research tools:
 - 通过用途描述引导（隐式优先级）
 
 ---
+
+## 📦 引擎选择与成本优化
+
+### 引擎选择决策框架
+
+**来源**: brave 分析 #21
+
+**核心洞察**: 引擎选择 = 成本 + 性能的权衡
+
+| 引擎 | 适用任务 | 成本 | 速度 | 推理能力 | 典型案例 |
+|------|---------|------|------|---------|---------|
+| **copilot** | 结构化任务（搜索、格式化、简单判断） | 💰 | ⚡⚡⚡ | ⭐⭐ | brave, issue-classifier |
+| **claude** | 综合分析任务（多源融合、批判性思考） | 💰💰💰 | ⚡⚡ | ⭐⭐⭐⭐⭐ | scout, plan |
+
+**成本差异**: copilot ≈ **1/5** claude 成本
+
+**决策伪代码**:
+
+```python
+def select_engine(task):
+    if task.需要跨源信息综合 or task.需要深度推理:
+        return "claude"  # 必须用强推理引擎
+    
+    if task.有清晰流程 and task.输出可结构化:
+        return "copilot"  # 节省成本，速度快
+    
+    if task.预算紧张:
+        return "copilot"  # 优先成本控制
+    
+    # 默认策略：先用 copilot，不够再升级
+    return "copilot"
+```
+
+**代码片段（带注释）**:
+
+```yaml
+# 轻量引擎选择 - 简单搜索任务
+engine: copilot
+# 决策依据：
+#   - 任务有清晰流程：✅
+#   - 输出可结构化：✅
+#   - 需要深度推理：❌
+#   - 需要跨源综合：❌
+# 预计成本节省：约 80%（vs claude）
+
+---
+
+# 重量引擎选择 - 复杂分析任务
+engine: claude
+# 决策依据：
+#   - 需要多源信息综合：✅
+#   - 需要批判性思考：✅
+#   - 任务复杂度高：✅
+#   - 成本可接受：✅
+```
+
+---
+
+### 单工具 vs 多工具策略
+
+**来源**: brave vs scout 对比分析 #21
+
+**Single-Tool Specialization Pattern**:
+
+```yaml
+# 单工具模式 - 适合功能明确的场景
+imports:
+  - shared/mcp/brave.md  # 只导入一个 MCP 服务器
+
+# 优点：
+#   - 简洁，易维护
+#   - 配置简单
+#   - 功能边界清晰
+# 缺点：
+#   - 单点故障
+#   - 功能有限
+# 适用场景：
+#   - 工具能力完全覆盖需求
+#   - 优先考虑简洁性
+#   - 不需要跨源信息融合
+```
+
+**Multi-Tool Integration Pattern**:
+
+```yaml
+# 多工具模式 - 适合复杂研究任务
+imports:
+  - shared/mcp/tavily.md      # Web 搜索
+  - shared/mcp/arxiv.md       # 学术论文
+  - shared/mcp/microsoft-docs.md  # 官方文档
+  - shared/mcp/deepwiki.md    # GitHub 仓库文档
+  - shared/mcp/context7.md    # 语义搜索
+  - shared/mcp/markitdown.md  # 文档转换
+
+# 优点：
+#   - 全面，多源信息融合
+#   - 有备选工具，降低失败风险
+# 缺点：
+#   - 复杂，维护成本高
+#   - 配置繁琐
+# 适用场景：
+#   - 需要跨领域信息
+#   - 深度研究调研
+#   - 质量优先于简洁性
+```
+
+**决策框架**:
+
+```
+判断是否使用单工具模式：
+
+1. 工具能力是否完全覆盖需求？
+   - 是 → 单工具（brave 模式）
+   - 否 → 多工具（scout 模式）
+
+2. 是否需要跨源信息融合？
+   - 是 → 多工具
+   - 否 → 单工具
+
+3. 维护成本 vs 功能全面性权衡？
+   - 优先简洁 → 单工具
+   - 优先全面 → 多工具
+```
+
+---
+
+### 极简版 vs 完整版 RARA 框架
+
+**来源**: brave vs scout 对比分析 #21
+
+**Minimalist RARA（适用于简单任务）**:
+
+```markdown
+### Result Evaluation
+
+For each [结果类型], evaluate:
+- **Relevance**: How directly it addresses [目标]
+- **Authority**: Source credibility and expertise
+- **Recency**: How current the information is
+- **Applicability**: How it applies to this specific context
+```
+
+**Complete RARA（适用于复杂任务）**:
+
+```markdown
+## Quality Evaluation Framework
+
+**CRITICAL**: Apply this framework to EVERY [结果类型].
+
+### Relevance（相关性）
+- Does this directly address [研究问题]?
+- How closely aligned is it with [具体上下文]?
+- Can this information be applied immediately?
+
+### Authority（权威性）
+- What is the source's expertise in this domain?
+- Is this from official documentation, peer-reviewed research, or community consensus?
+- Are there credentials, case studies, or empirical evidence backing this?
+
+### Recency（时效性）
+- When was this information published or last updated?
+- Is this still relevant given [技术栈/标准] evolution?
+- Are there newer alternatives or superseding information?
+
+### Applicability（适用性）
+- Can this be applied to [我们的场景] without major modifications?
+- What are the prerequisites, dependencies, or constraints?
+- Are there known limitations or edge cases?
+
+**Scoring**: Rate each dimension 1-5, discard results scoring < 3 in any dimension.
+```
+
+**选择指南**:
+
+| 场景 | 推荐版本 | 理由 |
+|------|---------|------|
+| 简单 Web 搜索 | 极简版 | Agent 能力足够，无需过多指导 |
+| 代码质量评审 | 完整版 | 需要严格标准，防止漏判 |
+| 深度研究调研 | 完整版 | 多源信息，需要明确评估标准 |
+| 文档分类标注 | 极简版 | 任务明确，标准清晰 |
+
+---
+
+### 角色限制决策
+
+**来源**: brave vs scout 对比分析 #21
+
+**Role-Open Pattern（公开工具）**:
+
+```yaml
+# 无角色限制配置 - 适用于只读工具
+on:
+  slash_command:
+    name: mytool
+    events: [issue_comment]
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+# 注意：无 roles 字段 → 任何人都可触发
+# 适用场景：搜索、查询、只读操作
+```
+
+**Role-Restricted Pattern（限制工具）**:
+
+```yaml
+# 角色限制配置 - 适用于写操作/高成本工具
+on:
+  slash_command:
+    name: plan
+permissions:
+  contents: read
+  issues: write
+roles: [admin, maintainer, write]
+# 限制为有写权限的用户
+# 适用场景：创建 Issue/PR、修改代码、高成本 API
+```
+
+**决策矩阵**:
+
+| 工作流类型 | 需要 roles 限制 | 推荐角色 | 典型案例 |
+|-----------|----------------|---------|---------|
+| **只读工具**（搜索、查询） | ❌ | 无限制 | brave, issue-classifier |
+| **低成本操作** | ❌ | 无限制 | daily-team-status |
+| **创建 Issue/Comment** | ⚠️ | [write, maintain, admin] | plan, scout |
+| **创建 PR** | ✅ | [maintain, admin] | ci-coach |
+| **修改代码** | ✅ | [maintain, admin] | ci-coach, grumpy-reviewer |
+| **高成本 API 调用** | ✅ | [write, maintain, admin] | scout（6个MCP）|
+| **管理员操作** | ✅ | [admin] | workflow-recompile |
+
+**设计原则**:
+
+1. **最小权限原则**: 只读工具 → 无需 roles 限制
+2. **成本控制原则**: 高成本工具 → 需要限制（防止滥用）
+3. **用户体验原则**: 公共工具 → 降低使用门槛
+
+---
+
+### 无结果处理模板
+
+**来源**: brave 分析 #21 改进建议
+
+**问题**: 搜索无结果时 Agent 可能沉默或模糊回复
+
+**解决方案**:
+
+```markdown
+## If No Results Found
+
+If your search returns no relevant results, respond with:
+
+\```markdown
+# 🔍 [工作流名称] Results
+
+*Triggered by @${{ github.actor }}*
+
+## No Relevant Results Found
+
+I searched [来源] for information related to [搜索主题], but unfortunately could not find directly relevant results.
+
+**What I searched for:**
+- Query 1: "[查询内容]"
+- Query 2: "[查询内容]"
+- Query 3: "[查询内容]"
+
+**Possible reasons:**
+- The topic may be too specific or niche
+- The query may need refinement
+- The information may not be publicly available
+- [其他可能原因]
+
+**Suggestions:**
+- Try rephrasing your question
+- Break down into more specific sub-questions
+- Consult domain-specific documentation or communities
+- [其他建议]
+\```
+```
+
+**预期效果**:
+- ✅ 提供透明度（告知搜索了什么）
+- ✅ 避免 Agent 沉默
+- ✅ 引导用户下一步行动
+
+---
+
+### 输出格式模板
+
+**来源**: brave 分析 #21
+
+```markdown
+## Output Format
+
+Your [任务名称] should be formatted as a comment with:
+
+\```markdown
+# 🔍 [任务标题]
+
+*Triggered by @${{ github.actor }}*
+
+## Summary
+[简要概述，1-2 段]
+
+## Key Findings
+
+### [主题 1]
+[发现内容 + 来源链接]
+
+### [主题 2]
+[发现内容 + 来源链接]
+
+[... 更多主题 ...]
+
+## Recommendations
+- [具体可执行的建议 1]
+- [具体可执行的建议 2]
+- [具体可执行的建议 3]
+
+## Sources
+- [来源 1 标题](链接)
+- [来源 2 标题](链接)
+- [来源 3 标题](链接)
+\```
+```
+
+**设计智慧**:
+- 提供完整的 Markdown 模板，Agent 直接填充
+- 清晰的章节划分（Summary → Findings → Recommendations → Sources）
+- 用户知道会得到什么样的输出
+
+---
