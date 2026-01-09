@@ -82,12 +82,24 @@
 | **Progressive Disclosure (Decision Brief)** ⭐⭐⭐⭐⭐⭐⭐⭐ | 信息分层（总览→详细→ROI→完整数据） | human-ai-collaboration |
 | **Accountability Trail** ⭐⭐⭐⭐⭐⭐⭐⭐ | 决策必须解释理由，可追溯 | human-ai-collaboration |
 | **Guardrails as Contract** ⭐⭐⭐⭐⭐⭐⭐⭐ | 安全边界是合约（safe-outputs+测试+回滚+监控） | human-ai-collaboration |
+| **Quality Dimensions Framework** ⭐⭐⭐⭐⭐⭐ | 多维度质量评估（Clarity/Accuracy/Completeness/Relevance/Actionability）+ 1-5分评分 + 聚合为0-100总分 | agent-performance-analyzer |
+| **Effectiveness Scoring** ⭐⭐⭐⭐⭐⭐ | 基于任务完成率+PR合并率+用户互动的0-100分数 + 历史趋势对比（7天/30天） | agent-performance-analyzer |
+| **Behavioral Anti-Pattern Detection** ⭐⭐⭐⭐⭐⭐⭐ | 预定义反模式清单（Over-creation/Under-creation/Repetition/Scope creep/Stale outputs/Inconsistency）+ 主动扫描 | agent-performance-analyzer |
+| **Shared Memory Coordination** ⭐⭐⭐⭐⭐⭐⭐⭐ | 多Meta-Orchestrator通过共享文件协调（{agent}-latest.md + shared-alerts.md）+ 文件命名约定 + 大小限制<10KB | agent-performance-analyzer |
+| **Metrics-Driven Analysis** ⭐⭐⭐⭐⭐⭐⭐⭐ | 依赖独立metrics-collector + latest.json快速访问 + daily/*.json趋势分析 + 避免重复API查询 | agent-performance-analyzer |
+| **Layered Safe-Output Strategy** ⭐⭐⭐⭐⭐⭐⭐⭐ | 按严重性分层输出（Issue: max 5, Discussion: max 2, Comment: max 10）+ 数量限制倒逼优先级排序 | agent-performance-analyzer |
+| **Constructive Feedback Framework** ⭐⭐⭐⭐⭐⭐⭐⭐ | 5大原则（Fair/Actionable/Constructive/Continuous/Comprehensive）+ 具体行为要求 + 认可高表现者 | agent-performance-analyzer |
+| **Time-Budgeted Execution** ⭐⭐⭐⭐⭐ | Phase级时间预算（10/10/5/3/2分钟）+ 倒金字塔分配 + 保证报告产出 | agent-performance-analyzer |
+| **Success Metrics for Analyzers** ⭐⭐⭐⭐⭐ | 定义分析者自身的成功指标（建议实施率 > 报告产出数）+ Meta-Meta监控 | agent-performance-analyzer |
 
 ⭐ = 新发现模式 (来源: ci-coach 分析 #3)  
 ⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)  
 ⭐⭐⭐ = 新发现模式 (来源: workflow-health-manager 分析 #6)  
 ⭐⭐⭐⭐ = 新发现模式 (来源: create-agentic-workflow 分析 #9)  
-⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: human-ai-collaboration 分析 #16)
+⭐⭐⭐⭐⭐ = 新发现模式 (来源: agent-performance-analyzer 分析 #17)  
+⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: agent-performance-analyzer 分析 #17)  
+⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: agent-performance-analyzer 分析 #17)  
+⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: human-ai-collaboration 分析 #16 或 agent-performance-analyzer 分析 #17)
 
 #### MCP Multi-Server Integration Pattern ⭐⭐⭐⭐⭐
 
