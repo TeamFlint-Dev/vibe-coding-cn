@@ -2147,6 +2147,188 @@ Ideas Discussion（草案）
 
 ---
 
+## 10. Meta-Orchestrator Quality Analysis Pattern
+
+**适用场景**: 监控其他工作流的输出质量和行为模式
+
+**关键配置**:
+
+```yaml
+on: daily  # 或 schedule: cron
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  discussions: read
+  actions: read
+engine: copilot
+tools:
+  agentic-workflows:
+  github:
+    toolsets: [default, actions, repos]
+  repo-memory:
+    branch-name: memory/meta-orchestrators
+    file-glob: "**"
+safe-outputs:
+  create-issue:
+    max: 5        # 严重质量问题
+  create-discussion:
+    max: 2        # 综合性能报告
+  add-comment:
+    max: 10       # 跟进现有问题
+timeout-minutes: 30
+```
+
+**质量评估维度**:
+
+```yaml
+# 5维度评估框架 (每项 1-5 分)
+- Clarity: 输出是否清晰、结构良好？
+- Accuracy: 输出是否解决了预期问题？
+- Completeness: 是否包含所有必要元素？
+- Relevance: 是否切题且恰当？
+- Actionability: 人类是否能据此采取行动？
+
+# 聚合为 Quality Score (0-100)
+Quality Score = (Σ维度分数 / 25) * 100
+```
+
+**效率评估指标**:
+
+```yaml
+# Effectiveness Score (0-100)
+基于以下指标计算:
+- Task completion rate (任务完成率)
+- PR merge rate (PR 合并率)
+- User engagement (用户互动：reactions, comments)
+- Time to completion (完成耗时)
+
+# 与历史基准对比
+- 7天趋势
+- 30天趋势
+- 同类 Agent 对比
+```
+
+**行为反模式检测**:
+
+```yaml
+主动扫描以下问题模式:
+- Over-creation: 创建过多 issues/PRs/comments
+- Under-creation: 产出低于预期
+- Repetition: 创建重复或冗余工作
+- Scope creep: 超出定义的职责范围
+- Stale outputs: 创建后很快变得过时 (40%在7天内关闭)
+- Inconsistency: 运行间行为差异显著
+```
+
+**共享内存协调**:
+
+```yaml
+# 读取其他 Meta-Orchestrator 的输出
+Read from shared memory:
+  - metrics/latest.json              # 最新性能指标
+  - metrics/daily/YYYY-MM-DD.json   # 历史数据 (30天)
+  - {other-agent}-latest.md         # 其他分析者的发现
+  - shared-alerts.md                # 跨 Agent 协调笔记
+
+# 写入自己的发现
+Write to shared memory:
+  - {your-agent}-latest.md          # 本次运行摘要
+  - shared-alerts.md                # 需要协调的事项
+
+# 格式要求
+- 仅使用 Markdown
+- 文件头包含 timestamp + workflow name
+- 保持简洁 (< 10KB 推荐)
+- 使用清晰的标题和列表
+```
+
+**分层输出策略**:
+
+```yaml
+# 根据问题严重性选择输出类型
+Critical Agent Issues (质量分 < 40):
+  → create-issue (max: 5)
+  - 详细的改进建议
+  - 预期影响估算
+  - 实施难度评估
+
+Comprehensive Reports:
+  → create-discussion (max: 2)
+  - 周期性性能报告
+  - 生态系统健康状况
+  - 趋势分析
+
+Follow-ups:
+  → add-comment (max: 10)
+  - 跟进已有 Issue
+  - 回答问题
+  - 提供更新
+```
+
+**建设性反馈原则**:
+
+```yaml
+Fair and Objective:
+- 基于可测量指标评分
+- 同类 Agent 间比较 (不拿苹果比橘子)
+- 考虑外部因素 (API 故障等)
+
+Actionable:
+- 每个洞察 → 具体建议
+- 包含: 做什么 + 为什么 + 预期影响 + 工作量
+- 按 effort vs. impact 排优先级
+
+Constructive:
+- 正面表述问题
+- 强调改进机会，而非只批评
+- 认可和庆祝高表现者
+- 提供好/坏模式的具体例子
+```
+
+**典型工作流**:
+
+```yaml
+Phase 1: Data Collection (10 min)
+  - 从 shared memory 加载 metrics
+  - 收集 Agent 输出样本
+  - 分析工作流运行日志
+
+Phase 2: Quality Assessment (10 min)
+  - 评估输出质量（5维度）
+  - 计算效率分数
+  - 识别质量异常值
+
+Phase 3: Pattern Detection (5 min)
+  - 扫描行为反模式
+  - 分析 Agent 间协作
+  - 评估覆盖度和冗余
+
+Phase 4: Insights & Recommendations (3 min)
+  - 生成洞察
+  - 开发建议（高/中/低优先级）
+  - 估算影响
+
+Phase 5: Reporting (2 min)
+  - 创建 Discussion（综合报告）
+  - 创建 Issues（严重问题）
+  - 更新 shared memory
+```
+
+**典型案例**: agent-performance-analyzer
+
+**关键洞察**:
+
+- 💡 **Quality Dimensions 可避免主观评价** - 将"好不好"分解为可测量维度
+- 💡 **Implementation rate 是核心指标** - 不看报告数量，看建议是否被采纳
+- 💡 **5/2/10 Safe-Output 比例** - Issue 最珍贵，数量限制倒逼优先级排序
+- 💡 **共享内存 = 去中心化协调** - 无需中央调度器，通过文件命名约定协作
+- 💡 **时间预算倒金字塔** - 数据收集最重要（10分钟），报告最简洁（2分钟）
+
+(来源: agent-performance-analyzer 分析 #17)
+
+---
+
 ## 📖 学习记录
 
 > 以下内容由 `workflow-case-study` 工作流自动更新
