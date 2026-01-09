@@ -43,7 +43,7 @@ env:
 
 jobs:
   activation:
-    runs-on: ubuntu-slim
+    runs-on: self-hosted
     permissions:
       contents: read
     outputs:
@@ -1156,7 +1156,7 @@ jobs:
       - detection
       - safe_outputs
     if: (always()) && (needs.agent.result != 'skipped')
-    runs-on: ubuntu-slim
+    runs-on: self-hosted
     permissions:
       contents: read
       discussions: write
@@ -1246,7 +1246,7 @@ jobs:
   detection:
     needs: agent
     if: needs.agent.outputs.output_types != '' || needs.agent.outputs.has_patch == 'true'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     permissions: {}
     concurrency:
       group: "gh-aw-copilot-${{ github.workflow }}"
@@ -1402,7 +1402,7 @@ jobs:
       - agent
       - detection
     if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (needs.detection.outputs.success == 'true')
-    runs-on: ubuntu-slim
+    runs-on: self-hosted
     permissions:
       contents: write
       discussions: write
