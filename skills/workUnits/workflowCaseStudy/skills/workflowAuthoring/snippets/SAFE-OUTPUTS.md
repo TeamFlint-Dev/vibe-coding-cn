@@ -223,3 +223,37 @@ safe-outputs:
 | `labels` | 自动添加标签 | `labels: [ai-generated]` |
 | `expires` | 自动过期时间 | `expires: 1d`, `expires: 7d` |
 | `required-category` | 限制 Discussion 类别 | `required-category: "Ideas"` |
+
+---
+
+## 关闭旧讨论配置（来源：audit-workflows 分析 #24）
+
+```yaml
+safe-outputs:
+  create-discussion:
+    category: "audits"
+    max: 1
+    close-older-discussions: true  # 关键配置
+```
+
+**用途**: 确保只有最新审计报告可见，避免过时信息
+
+**适用场景**:
+- 定期生成的报告（日报、周报、月报）
+- 状态报告类 Discussion（系统健康、性能指标）
+- 只需要最新版本的文档
+
+**设计价值**:
+- 避免 Discussion 列表被历史报告淹没
+- 减少用户困惑（不会误读过时信息）
+- 自动化清理，无需人工维护
+
+**配合使用**:
+```yaml
+safe-outputs:
+  upload-asset:  # 上传趋势图表
+  create-discussion:
+    category: "audits"
+    max: 1
+    close-older-discussions: true
+```

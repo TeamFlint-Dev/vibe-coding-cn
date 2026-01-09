@@ -109,3 +109,37 @@
 - **设计优雅**: 上下文感知（失败信息出现在最相关的地方）
 - **典型案例**: smoke-detector
 - **来源**: smoke-detector 分析
+
+---
+
+## Centralized Error Taxonomy Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**:
+  - 错误分类存储：`patterns/{errors,missing-tools,mcp-failures}.json`
+  - 频率统计：Request Count
+  - 影响范围分析：Workflows Affected
+  - **合理性判断**：Reason（区分合法缺失 vs 真正问题）
+- **典型报告结构**:
+  ```markdown
+  ## Missing Tools
+  | Tool Name | Request Count | Workflows Affected | Reason |
+  |-----------|---------------|-------------------|---------|
+  | [tool]    | [count]       | [workflows]       | [reason]|
+  
+  ## Error Analysis
+  ### Critical Errors
+  ### Warnings
+  
+  ## MCP Server Failures
+  | Server Name | Failure Count | Workflows Affected |
+  ```
+- **设计亮点**:
+  - **不是简单的错误日志，而是知识库**
+  - Missing Tools ≠ Bug（可能是合理的工具请求）
+  - 错误模式识别 → 根本原因 → 系统性改进
+- **价值**:
+  - 从"发现错误"到"理解错误模式"
+  - 支撑优先级决策（哪些工具应该添加）
+  - 避免噪音（区分合理缺失和真正问题）
+- **典型案例**: audit-workflows
+- **来源**: audit-workflows 分析 #24

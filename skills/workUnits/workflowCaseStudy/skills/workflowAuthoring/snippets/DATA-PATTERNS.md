@@ -266,3 +266,101 @@ For intermediate processing, use in-memory or temp files:
 Temp files don't persist across workflow runs.
 Use repo-memory for persistent storage.
 ```
+
+---
+
+## 11. 预下载日志步骤（来源：audit-workflows 分析 #24）
+
+```yaml
+steps:
+  - name: Download logs from last 24 hours
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    run: ./gh-aw logs --start-date -1d -o /tmp/gh-aw/aw-mcp/logs
+```
+
+**设计智慧**: 
+- 分离数据准备和分析阶段，提高效率
+- 避免 Agent 等待网络 I/O
+- 符合职责单一原则
+
+**适用场景**:
+- 需要大量日志数据
+- 数据下载耗时较长
+- 想避免 Agent 等待
+
+---
+
+## 12. Repo-Memory 多格式配置（来源：audit-workflows 分析 #24）
+
+```yaml
+tools:
+  repo-memory:
+    branch-name: memory/audit-workflows
+    description: "Historical audit data and patterns"
+    file-glob: ["memory/audit-workflows/*.json", "memory/audit-workflows/*.jsonl", "memory/audit-workflows/*.csv", "memory/audit-workflows/*.md"]
+    max-file-size: 102400  # 100KB 防止膨胀
+    timeout: 300
+```
+
+**格式选择逻辑**:
+- `.json` - 结构化数据，易于程序处理
+- `.jsonl` - 日志追加，避免重写大文件
+- `.csv` - 表格数据，易于生成图表
+- `.md` - 人类可读，便于审查
+
+**设计价值**:
+- 不同数据类型用最合适的格式
+- 100KB 文件大小限制防止膨胀
+- 300s 超时保证批量操作完成
+
+---
+
+## 13. 错误分类存储模式（来源：audit-workflows 分析 #24）
+
+```markdown
+## Error Taxonomy Storage
+
+**目录结构**:
+```
+memory/audit-workflows/
+├── audits/
+│   ├── <date>.json           # 每日审计结果
+│   └── index.json            # 审计索引
+└── patterns/
+    ├── errors.json           # 错误模式
+    ├── missing-tools.json    # 缺失工具请求
+    └── mcp-failures.json     # MCP 服务器故障
+```
+
+**错误模式结构**:
+```json
+{
+  "error_signature": "MCP server timeout",
+  "frequency": 15,
+  "affected_workflows": ["workflow-a", "workflow-b"],
+  "first_seen": "2026-01-01",
+  "last_seen": "2026-01-08",
+  "severity": "warning",
+  "reason": "Network instability during peak hours"
+}
+```
+
+**Missing Tools 结构**:
+```json
+{
+  "tool_name": "code-search",
+  "request_count": 42,
+  "workflows_affected": ["workflow-x", "workflow-y"],
+  "reason": "Legitimate request - tool not yet implemented",
+  "priority": "high"
+}
+```
+
+**设计价值**:
+- 从错误日志到知识库
+- 频率统计 → 优先级判断
+- 影响范围 → 严重程度
+- 合理性判断 → 避免噪音（区分合法缺失 vs 真正问题）
+```
+```
