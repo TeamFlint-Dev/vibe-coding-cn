@@ -32,33 +32,58 @@
 ```
 
 ---
+---
 
-## Verse 远程编译
+## Verse 代码验证
 
-**编写或修改 Verse 代码后，必须验证编译。**
+**编写或修改 Verse 代码后，必须验证语法和类型正确性。**
 
-### 使用方法
+### 使用本地分析工具（推荐）
 
-```powershell
-# 编译并等待结果（需要先提交到 Git 分支）
-.\tools\Invoke-VerseRemoteCompile.ps1 -Wait
+```bash
+# Linux/macOS/WSL
+cd verseProject
+./analyze.sh --format text
+
+# Windows PowerShell
+cd verseProject
+.\analyze.ps1 -Format text
 ```
 
-> **工具入口**：所有 Agent 可用工具见 [tools/AGENT-TOOLS.md](tools/AGENT-TOOLS.md)
+> **工具文档**：详细使用说明见 [verseProject/ANALYSIS-TOOL-REFERENCE.md](verseProject/ANALYSIS-TOOL-REFERENCE.md)
 
 ### 工作原理
 
-1. 脚本自动检测当前 Git 分支和 commit
-2. 发送请求到云端服务器 (193.112.183.143:19527)
-3. 云端触发 GitHub Actions，Self-hosted Runner 执行编译
-4. Runner 连接本地 UEFN 编辑器完成真实编译
-5. 结果回传，脚本显示错误/警告
+1. VerseLspCE (Verse Language Server - Community Edition) 执行静态分析
+2. 分析所有 `.verse` 文件的语法、类型和效果系统
+3. 1-2 秒内返回结果（无需 UEFN 编辑器）
+4. 输出格式：`VERSE_ANALYSIS:<文件数>:<错误数>:<警告数>`
+
+### 输出示例
+
+**✅ 成功（无错误）：**
+```
+VERSE_ANALYSIS:44:0:0
+VERSE_ANALYSIS_END
+```
+
+**❌ 失败（有错误）：**
+```
+VERSE_ANALYSIS:44:2:0
+path/to/file.verse:10:5:10:20:error:3588:Ambiguous identifier...
+VERSE_ANALYSIS_END
+```
 
 ### 注意事项
 
-- **UEFN 必须在 Runner 机器上打开并加载项目**
-- 编译前确保代码已 commit（脚本会检测当前 commit）
-- 使用 `-Wait` 可阻塞等待结果，适合需要立即知道编译状态的场景
+- ✅ **无需 UEFN 编辑器** - 纯命令行工具
+- ✅ **快速反馈** - 1-2 秒完成分析
+- ✅ **完整类型检查** - 包括效果系统验证
+- ⚠️ **仅静态分析** - 不包含运行时行为测试
+
+### 远程编译（已弃用）
+
+~~`tools/Invoke-VerseRemoteCompile.ps1`~~ 已被本地分析工具取代。
 
 ---
 

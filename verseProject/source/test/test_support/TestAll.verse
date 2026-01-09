@@ -128,6 +128,109 @@ test_all<public> := module:
         
         Print("MathProbability tests completed!")
     
+    # ========== 曲线与缓动测试 ==========
+    TestMathCurves<public>():void =
+        Print("=== Testing MathCurves ===")
+        
+        # 测试贝塞尔曲线
+        Print("--- Bezier Curves ---")
+        
+        # 线性贝塞尔曲线
+        LinearResult := MathCurves.LinearBezier(0.0, 100.0, 0.5)
+        Print("Linear Bezier at T=0.5: {LinearResult} (expected ~50)")
+        
+        # 二次贝塞尔曲线
+        QuadResult := MathCurves.QuadraticBezier(0.0, 50.0, 100.0, 0.5)
+        Print("Quadratic Bezier at T=0.5: {QuadResult} (expected ~50)")
+        
+        # 三次贝塞尔曲线
+        CubicResult := MathCurves.CubicBezier(0.0, 33.33, 66.67, 100.0, 0.5)
+        Print("Cubic Bezier at T=0.5: {CubicResult} (expected ~50)")
+        
+        # 测试缓动函数
+        Print("--- Easing Functions ---")
+        
+        # 线性缓动
+        EaseLinearResult := MathCurves.EaseLinear(0.5)
+        Print("EaseLinear(0.5): {EaseLinearResult} (expected 0.5)")
+        
+        # Sine 系列
+        EaseInSineResult := MathCurves.EaseInSine(0.5)
+        EaseOutSineResult := MathCurves.EaseOutSine(0.5)
+        EaseInOutSineResult := MathCurves.EaseInOutSine(0.5)
+        Print("EaseInSine(0.5): {EaseInSineResult}")
+        Print("EaseOutSine(0.5): {EaseOutSineResult}")
+        Print("EaseInOutSine(0.5): {EaseInOutSineResult}")
+        
+        # Quadratic 系列
+        EaseInQuadResult := MathCurves.EaseInQuad(0.5)
+        EaseOutQuadResult := MathCurves.EaseOutQuad(0.5)
+        EaseInOutQuadResult := MathCurves.EaseInOutQuad(0.5)
+        Print("EaseInQuad(0.5): {EaseInQuadResult} (expected 0.25)")
+        Print("EaseOutQuad(0.5): {EaseOutQuadResult} (expected 0.75)")
+        Print("EaseInOutQuad(0.5): {EaseInOutQuadResult}")
+        
+        # Cubic 系列
+        EaseInCubicResult := MathCurves.EaseInCubic(0.5)
+        EaseOutCubicResult := MathCurves.EaseOutCubic(0.5)
+        EaseInOutCubicResult := MathCurves.EaseInOutCubic(0.5)
+        Print("EaseInCubic(0.5): {EaseInCubicResult} (expected 0.125)")
+        Print("EaseOutCubic(0.5): {EaseOutCubicResult} (expected 0.875)")
+        Print("EaseInOutCubic(0.5): {EaseInOutCubicResult}")
+        
+        # Quartic 系列
+        EaseInQuartResult := MathCurves.EaseInQuart(0.5)
+        EaseOutQuartResult := MathCurves.EaseOutQuart(0.5)
+        EaseInOutQuartResult := MathCurves.EaseInOutQuart(0.5)
+        Print("EaseInQuart(0.5): {EaseInQuartResult} (expected 0.0625)")
+        Print("EaseOutQuart(0.5): {EaseOutQuartResult}")
+        Print("EaseInOutQuart(0.5): {EaseInOutQuartResult}")
+        
+        # Exponential 系列
+        EaseInExpoResult := MathCurves.EaseInExpo(0.5)
+        EaseOutExpoResult := MathCurves.EaseOutExpo(0.5)
+        EaseInOutExpoResult := MathCurves.EaseInOutExpo(0.5)
+        Print("EaseInExpo(0.5): {EaseInExpoResult}")
+        Print("EaseOutExpo(0.5): {EaseOutExpoResult}")
+        Print("EaseInOutExpo(0.5): {EaseInOutExpoResult}")
+        
+        # Back 系列
+        EaseInBackResult := MathCurves.EaseInBack(0.5)
+        EaseOutBackResult := MathCurves.EaseOutBack(0.5)
+        EaseInOutBackResult := MathCurves.EaseInOutBack(0.5)
+        Print("EaseInBack(0.5): {EaseInBackResult}")
+        Print("EaseOutBack(0.5): {EaseOutBackResult}")
+        Print("EaseInOutBack(0.5): {EaseInOutBackResult}")
+        
+        # 测试辅助工具函数
+        Print("--- Utility Functions ---")
+        
+        # ClampT 测试
+        ClampedNeg := MathCurves.ClampT(-0.5)
+        ClampedPos := MathCurves.ClampT(1.5)
+        ClampedNorm := MathCurves.ClampT(0.5)
+        Print("ClampT(-0.5): {ClampedNeg} (expected 0.0)")
+        Print("ClampT(1.5): {ClampedPos} (expected 1.0)")
+        Print("ClampT(0.5): {ClampedNorm} (expected 0.5)")
+        
+        # MapRange 测试
+        Mapped := MathCurves.MapRange(0.5, 0.0, 200.0)
+        Print("MapRange(0.5, 0, 200): {Mapped} (expected 100)")
+        
+        # 测试边界情况
+        Print("--- Boundary Tests ---")
+        BezierStart := MathCurves.CubicBezier(0.0, 33.33, 66.67, 100.0, 0.0)
+        BezierEnd := MathCurves.CubicBezier(0.0, 33.33, 66.67, 100.0, 1.0)
+        Print("Cubic Bezier at T=0.0: {BezierStart} (expected 0)")
+        Print("Cubic Bezier at T=1.0: {BezierEnd} (expected 100)")
+        
+        EaseStart := MathCurves.EaseInQuad(0.0)
+        EaseEnd := MathCurves.EaseInQuad(1.0)
+        Print("EaseInQuad at T=0.0: {EaseStart} (expected 0)")
+        Print("EaseInQuad at T=1.0: {EaseEnd} (expected 1)")
+        
+        Print("MathCurves tests completed!")
+    
     # ========== 运行所有测试 ==========
     Run<public>():void =
         Print("========================================")
@@ -139,6 +242,7 @@ test_all<public> := module:
         TestInterpolation()
         TestHealth()
         TestProbability()
+        TestMathCurves()
         
         Print("========================================")
         Print("All tests completed!")
