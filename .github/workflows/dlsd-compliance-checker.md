@@ -28,7 +28,7 @@ on:
         default: 'report-only'
 permissions:
   contents: read
-  issues: write
+  issues: read
 engine: copilot
 tools:
   github:

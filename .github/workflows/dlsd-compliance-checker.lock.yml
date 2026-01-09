@@ -19,27 +19,43 @@
 #   gh aw compile
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
-# 智能分析 GitHub Agentic Workflows，持续沉淀知识到 Skills
+# 检查 Verse 代码的 DLSD 架构合规性，发现违规并报告
 
-name: "Workflow Case Study"
+name: "DLSD Compliance Checker"
 "on":
-  schedule:
-  - cron: "17 */4 * * *"
   workflow_dispatch:
+    inputs:
+      output_mode:
+        default: report-only
+        description: 输出模式
+        options:
+        - report-only
+        - create-issues
+        required: true
+        type: choice
+      rule_set:
+        default: all
+        description: 规则集
+        options:
+        - all
+        - architecture-only
+        - quality-only
+        required: true
+        type: choice
+      target_path:
+        default: verse/library/
+        description: 检查目标路径 (如 verse/library/)
+        required: true
+        type: string
 
 permissions:
   contents: read
   issues: read
 
 concurrency:
-  group: "gh-aw-${{ github.workflow }}"
+  group: "gh-aw-${{ github.workflow }}-${{ github.event.issue.number }}"
 
-run-name: "Workflow Case Study"
-
-env:
-  GH_AW_REPO: githubnext/gh-aw
-  SKILLS_BASE: skills/workUnits/workflowCaseStudy/skills
-  WORK_UNIT_NAME: workflowCaseStudy
+run-name: "DLSD Compliance Checker"
 
 jobs:
   activation:
@@ -57,7 +73,7 @@ jobs:
       - name: Check workflow file timestamps
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          GH_AW_WORKFLOW_FILE: "workflow-case-study.lock.yml"
+          GH_AW_WORKFLOW_FILE: "dlsd-compliance-checker.lock.yml"
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
@@ -71,8 +87,6 @@ jobs:
     permissions:
       contents: read
       issues: read
-    concurrency:
-      group: "gh-aw-copilot-${{ github.workflow }}"
     env:
       GH_AW_MCP_LOG_DIR: /tmp/gh-aw/mcp-logs/safeoutputs
       GH_AW_SAFE_OUTPUTS: /tmp/gh-aw/safeoutputs/outputs.jsonl
@@ -158,12 +172,12 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /tmp/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1},"create_issue":{"max":1},"create_pull_request":{},"missing_tool":{"max":0},"noop":{"max":1}}
+          {"add_comment":{"max":1},"create_issue":{"max":20},"missing_tool":{"max":0},"noop":{"max":1}}
           EOF
           cat > /tmp/gh-aw/safeoutputs/tools.json << 'EOF'
           [
             {
-              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 1 issue(s) can be created. Labels [agent-suggested needs-triage] will be automatically added.",
+              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 20 issue(s) can be created. Title will be prefixed with \"[DLSD] \". Labels [dlsd-violation compliance verse] will be automatically added.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -223,39 +237,6 @@ jobs:
                 "type": "object"
               },
               "name": "add_comment"
-            },
-            {
-              "description": "Create a new GitHub pull request to propose code changes. Use this after making file edits to submit them for review and merging. The PR will be created from the current branch with your committed changes. For code review comments on an existing PR, use create_pull_request_review_comment instead. CONSTRAINTS: Maximum 1 pull request(s) can be created. Title will be prefixed with \"[workflow-study] \". Labels [knowledge-capture gh-aw-research] will be automatically added.",
-              "inputSchema": {
-                "additionalProperties": false,
-                "properties": {
-                  "body": {
-                    "description": "Detailed PR description in Markdown. Include what changes were made, why, testing notes, and any breaking changes. Do NOT repeat the title as a heading.",
-                    "type": "string"
-                  },
-                  "branch": {
-                    "description": "Source branch name containing the changes. If omitted, uses the current working branch.",
-                    "type": "string"
-                  },
-                  "labels": {
-                    "description": "Labels to categorize the PR (e.g., 'enhancement', 'bugfix'). Labels must exist in the repository.",
-                    "items": {
-                      "type": "string"
-                    },
-                    "type": "array"
-                  },
-                  "title": {
-                    "description": "Concise PR title describing the changes. Follow repository conventions (e.g., conventional commits). The title appears as the main heading.",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "title",
-                  "body"
-                ],
-                "type": "object"
-              },
-              "name": "create_pull_request"
             },
             {
               "description": "Report that a tool or capability needed to complete the task is not available. Use this when you cannot accomplish what was requested because the required functionality is missing or access is restricted.",
@@ -351,35 +332,6 @@ jobs:
                 }
               }
             },
-            "create_pull_request": {
-              "defaultMax": 1,
-              "fields": {
-                "body": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 65000
-                },
-                "branch": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 256
-                },
-                "labels": {
-                  "type": "array",
-                  "itemType": "string",
-                  "itemSanitize": true,
-                  "itemMaxLength": 128
-                },
-                "title": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 128
-                }
-              }
-            },
             "missing_tool": {
               "defaultMax": 20,
               "fields": {
@@ -439,7 +391,7 @@ jobs:
                   "-e",
                   "GITHUB_LOCKDOWN_MODE=${{ steps.determine-automatic-lockdown.outputs.lockdown == 'true' && '1' || '0' }}",
                   "-e",
-                  "GITHUB_TOOLSETS=repos",
+                  "GITHUB_TOOLSETS=issues,repos",
                   "ghcr.io/github/github-mcp-server:v0.26.3"
                 ],
                 "tools": ["*"],
@@ -491,7 +443,7 @@ jobs:
               version: "",
               agent_version: "0.0.374",
               cli_version: "v0.34.3",
-              workflow_name: "Workflow Case Study",
+              workflow_name: "DLSD Compliance Checker",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -532,278 +484,182 @@ jobs:
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
-          GH_AW_ENV_SKILLS_BASE: ${{ env.SKILLS_BASE }}
-          GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_AW_GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          GH_AW_INPUTS_OUTPUT_MODE: ${{ inputs.output_mode }}
+          GH_AW_INPUTS_RULE_SET: ${{ inputs.rule_set }}
+          GH_AW_INPUTS_TARGET_PATH: ${{ inputs.target_path }}
         run: |
           bash /tmp/gh-aw/actions/create_prompt_first.sh
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
-          # 🔬 Workflow Case Study Agent
+          # DLSD 架构合规检查器
           
-          你是一位**工作流考古学家**——挖掘设计者的意图、揣摩隐藏的智慧、质疑看似合理的选择。
+          你是 DLSD（Data-Logic-Session-Driver）架构合规检查专家。你的任务是扫描 Verse 代码，检查是否符合 DLSD 架构规则。
           
-          **所有输出使用中文**（代码和技术术语可用英文）。
+          ## 输入参数
           
-          ## 任务上下文
+          - **目标路径**: __GH_AW_INPUTS_TARGET_PATH__
+          - **规则集**: __GH_AW_INPUTS_RULE_SET__
+          - **输出模式**: __GH_AW_INPUTS_OUTPUT_MODE__
           
-          - **仓库**: __GH_AW_GITHUB_REPOSITORY__
-          - **运行编号**: #__GH_AW_GITHUB_RUN_NUMBER__
-          - **目标仓库**: `githubnext/gh-aw`
+          ## 执行流程
           
-          ---
+          ### Phase 1: 读取规则定义
           
-          ## Phase 0: 自我认知 📚
+          首先读取 DLSD 架构规则：
           
-          **按需读取 Skills，不一次性全部加载。**
+          ```bash
+          # 读取架构规则
+          cat skills/verseDev/verseDLSD/rules/architecture-rules.md
           
-          ### 0.1 Skill 按阶段加载指引
+          # 读取命名规范
+          cat skills/verseDev/verseDLSD/rules/naming-conventions.md
           
-          > **原则**: 每个 Skill 只在需要时读取，避免上下文过载。
+          # 读取代码质量规则
+          cat skills/verseDev/verseDLSD/rules/code-quality-rules.md
+          ```
           
-          | Phase | 需要的 Skill | 何时读取 |
-          |-------|-------------|---------|
-          | Phase 0 | `skillsMaintenance/SKILL.md` | 判断是否需要重构 |
-          | Phase 1 | `valueAssessment/SKILL.md` | 评估目标研究价值 |
-          | Phase 2 | `workflowAnalyzer/SKILL.md` | 执行深度分析 |
-          | Phase 3 | `reportWriting/SKILL.md` | 撰写报告和日志 |
-          | Phase 4 | `reportWriting/SKILL.md` | 撰写 PR 描述 |
-          | Phase 5 | `autonomyBoundaries/SKILL.md` | 判断自主行动边界 |
-          | Phase R | `skillsMaintenance/SKILL.md` | 执行重构 |
+          ### Phase 2: 扫描代码文件
           
-          **Skill 路径前缀**: `__GH_AW_ENV_SKILLS_BASE__/`
+          扫描目标路径下的所有 `.verse` 文件：
           
-          ### 0.2 回顾历史
+          ```bash
+          find __GH_AW_INPUTS_TARGET_PATH__ -name "*.verse" -type f
+          ```
           
-          检查已有的分析报告和工作日志：
-          - `skills/workUnits/workflowCaseStudy/reports/case-studies/`
-          - `journals/workUnits/workflowCaseStudy/`
+          ### Phase 3: 检查每个文件
           
-          ### 0.3 读取研究议程
+          对于每个 `.verse` 文件，检查以下规则：
           
-          - `skills/workUnits/workflowCaseStudy/RESEARCH-AGENDA.md`
+          #### 架构规则 (DLSD-ARC-xxx)
           
-          ### 0.4 决定运行模式
+          1. **DLSD-ARC-001 层间依赖方向**
+             - 检查 `import` 语句
+             - Logic 不应 import Data/Session/Driver
+             - Data 不应 import Session/Driver
+             - Session 不应 import Driver
           
-          **先读取**: `__GH_AW_ENV_SKILLS_BASE__/skillsMaintenance/SKILL.md`
+          2. **DLSD-ARC-002 Data 职责边界**
+             - Data Component 中检查是否有业务逻辑
+             - 查找 `if...then...else` 链超过 3 层的情况
           
-          然后判断：
+          3. **DLSD-ARC-003 Logic 无状态**
+             - Logic Module 中检查是否有 `var` 声明
           
-          | 观察 | 模式 |
-          |------|------|
-          | 发现明显的重构信号 | → **Phase R**（重构模式）|
-          | Skills 状态良好 | → **Phase 1-4**（调研模式）|
+          4. **DLSD-ARC-004 Session 非 Component**
+             - Session 类检查是否继承 `component`
           
-          ### 0.5 检查失败案例
+          5. **DLSD-ARC-006 UEFN API 调用边界**
+             - 在 Logic/Session 中检查是否直接调用 UEFN API
           
-          避免重蹈覆辙：
-          - `__GH_AW_ENV_SKILLS_BASE__/workflowAnalyzer/FAILURE-CASES.md`
-          - `__GH_AW_ENV_SKILLS_BASE__/workflowAuthoring/FAILURE-CASES.md`
+          #### 命名规范
           
-          ---
+          1. **文件命名**
+             - `data/` 目录下的文件应匹配 `*Data.verse`
+             - `logic/` 目录下的文件应匹配 `*Logic.verse`
+             - `session/` 目录下的文件应匹配 `*Session.verse`
+             - `drivers/` 目录下的文件应匹配 `*System.verse` 或 `*Driver.verse`
           
-          ## Phase 1: 选择研究目标 🎯
+          2. **类型命名**
+             - 检查类名是否使用正确后缀 (`_data`, `_logic`, `_session`, `_system`)
           
-          **先读取**: `__GH_AW_ENV_SKILLS_BASE__/valueAssessment/SKILL.md`
+          #### 代码质量规则 (DLSD-QUA-xxx)
           
-          ### 1.1 探索 gh-aw 仓库
+          1. **DLSD-QUA-002 空值检查**
+             - 检查可选类型 `?` 的使用是否有检查
           
-          探索 `githubnext/gh-aw` 的最新内容。
+          2. **DLSD-QUA-003 边界验证**
+             - 检查数组索引操作是否有边界检查
+             - 检查除法操作是否有除零保护
           
-          **备选**：本地缓存 `skills/github/ghAgenticWorkflows/shared/gh-aw-raw/workflows/`
+          ### Phase 4: 生成报告
           
-          ### 1.2 价值评估
+          汇总所有违规项，按严重程度分类：
           
-          **按照 `valueAssessment/SKILL.md` 中的四维评估模型打分**：
-          - 主题匹配度 (35%)
-          - Skill 空白度 (30%)
-          - 模式新颖度 (20%)
-          - 实用价值 (15%)
+          ```markdown
+          # DLSD 合规检查报告
           
-          **决策阈值**：≥70 深入分析 | 50-69 快速分析 | <50 换一个
+          ## 检查范围
+          - 路径: __GH_AW_INPUTS_TARGET_PATH__
+          - 规则集: __GH_AW_INPUTS_RULE_SET__
+          - 检查时间: [当前时间]
           
-          ---
+          ## 统计摘要
+          - 🔴 阻断级违规: X 个
+          - ⚠️ 警告级违规: Y 个
+          - ✅ 通过检查的文件: Z 个
           
-          ## Phase 2: 深度分析 🔬
+          ## 违规详情
           
-          **先读取**: `__GH_AW_ENV_SKILLS_BASE__/workflowAnalyzer/SKILL.md`
+          ### 🔴 阻断级
           
-          > SKILL.md 是骨架文件，会指向 `./framework/` 和 `./patterns/` 子目录的详细内容。按需深入阅读。
+          | 文件 | 规则 | 问题描述 | 行号 |
+          |------|------|----------|------|
+          | ... | ... | ... | ... |
           
-          ### 2.1 获取工作流内容
+          ### ⚠️ 警告级
           
-          从 gh-aw 仓库获取目标工作流的完整内容。
+          | 文件 | 规则 | 问题描述 | 行号 |
+          |------|------|----------|------|
+          | ... | ... | ... | ... |
           
-          ### 2.2 执行分析
+          ## 修复建议
           
-          **按照 `workflowAnalyzer/SKILL.md` 中的分析框架进行**：
-          - Frontmatter 配置分析
-          - Prompt 设计分析
-          - 设计模式识别
+          [针对每种违规类型提供修复建议]
+          ```
           
-          **分析时追问 "为什么"，而不止于 "是什么"。**
+          ### Phase 5: 输出结果
           
-          ### 2.3 反思
+          根据 `output_mode` 参数：
           
-          分析完成后，思考：
-          - 这次分析有没有发现分析框架的不足？
-          - 是否需要更新 `workflowAnalyzer/SKILL.md`？
+          - **report-only**: 仅输出报告到工作流日志
+          - **create-issues**: 为每个阻断级违规创建 Issue
           
-          ---
+          如果创建 Issue，使用以下格式：
           
-          ## Phase 3: 知识沉淀 📝
+          ```markdown
+          标题: [DLSD] {规则ID}: {文件名} 违反 {规则名称}
           
-          **先读取**: `__GH_AW_ENV_SKILLS_BASE__/reportWriting/SKILL.md`
+          ## 违规详情
           
-          > SKILL.md 是骨架文件，会指向 `./templates/` 子目录的模板文件。按需深入阅读。
+          - **文件**: {文件路径}
+          - **行号**: {行号}
+          - **规则**: {规则ID} - {规则名称}
+          - **级别**: 🔴 阻断
           
-          ### 3.1 撰写分析报告
+          ## 问题描述
           
-          **按照 `reportWriting/SKILL.md` 的「分析报告撰写指南」撰写**。
+          {具体问题描述}
           
-          **目录**: `skills/workUnits/workflowCaseStudy/reports/case-studies/`  
-          **命名**: `{workflow-name}-analysis.md`
+          ## 代码片段
           
-          ### 3.2 更新 Skills（增量）
+          ```verse
+          {违规代码}
+          ```
           
-          如有新发现，更新：
-          - `workflowAnalyzer/SKILL.md` - 添加新模式
-          - `workflowAuthoring/SKILL.md` - 添加新片段
+          ## 修复建议
           
-          **标注来源**: `(来源: {workflow-name} 分析 #__GH_AW_GITHUB_RUN_NUMBER__)`
+          {如何修复}
           
-          ### 3.3 记录工作日志
+          ## 参考
           
-          **目录**: `journals/workUnits/workflowCaseStudy/`  
-          **命名**: `YYYY-MM-DD-{workflow-name}.md`
+          - [DLSD 架构规范](skills/verseDev/verseDLSD/SKILL.md)
+          - [架构规则](skills/verseDev/verseDLSD/rules/architecture-rules.md)
+          ```
           
-          **按照 `reportWriting/SKILL.md` 的「工作日志撰写指南」撰写**。
+          ## 注意事项
           
-          ---
-          
-          ## Phase R: 重构执行 🔧
-          
-          > ⚠️ **仅在 Phase 0.4 检测到重构信号时执行，跳过 Phase 1-3**
-          
-          **先读取**: `__GH_AW_ENV_SKILLS_BASE__/skillsMaintenance/SKILL.md`（如未在 0.4 读取）
-          
-          **按照 `skillsMaintenance/SKILL.md` 的重构策略执行**：
-          1. 确认重构目标和信号
-          2. 选择策略（垂直拆分/知识压缩/归档）
-          3. 执行重构
-          4. 更新索引和链接
-          5. 创建重构 PR
-          
-          **PR 标题前缀**: `[skills-refactor]`
-          
-          ---
-          
-          ## Phase 4: 创建 PR 📤 【强制】
-          
-          > ⚠️ **没有 PR = 工作白做！绝对不能跳过。**
-          
-          ### 4.1 检查工作产出
-          
-          - 📄 分析报告完成？
-          - 📓 工作日志记录？
-          - 📚 Skills 更新？
-          
-          ### 4.2 创建 PR
-          
-          **按照 `reportWriting/SKILL.md` 的「PR 描述撰写指南」撰写**。
-          
-          **标题格式**: `[workflow-study] 分析 {workflow-name} 工作流`
-          
-          ### 4.3 确认 PR 创建成功
-          
-          验证 PR 链接已生成。
-          
-          ---
-          
-          ## Phase 5: 自主行动 💡（可选）
-          
-          **如果剩余预算充足**（至少 5 分钟），进入自主行动阶段。
-          
-          **先读取**: `__GH_AW_ENV_SKILLS_BASE__/autonomyBoundaries/SKILL.md`
-          
-          > SKILL.md 是骨架文件，会指向 `./rules/` 子目录的详细边界定义。按需深入阅读。
-          
-          ### 5.1 启发式思考
-          
-          问自己：
-          - Skills 需要什么补充？
-          - RESEARCH-AGENDA.md 需要调整吗？
-          - 有值得深入研究的新主题吗？
-          
-          ### 5.2 行动决策
-          
-          **按照 `autonomyBoundaries/SKILL.md` 判断**：
-          
-          | 判断结果 | 行动 |
-          |---------|------|
-          | 绿灯区任务 | 立即执行 + 记录 |
-          | 红灯区任务 | 创建 Issue |
-          | 黄灯区任务 | 评估后决定 |
-          
-          ### 5.3 反思 Skills
-          
-          执行自主行动后，思考：
-          - `autonomyBoundaries/SKILL.md` 的边界定义合理吗？
-          - 需要调整吗？
-          
-          ---
-          
-          ## 质量自检
-          
-          ### ✅ 必须完成
-          
-          - [ ] **创建了 PR 并获得链接** ← 没有 PR = 任务失败
-          - [ ] PR 描述完整
-          
-          ### ✅ 分析质量
-          
-          - [ ] 追问了 "为什么"，不只是 "是什么"
-          - [ ] 找到了至少一个不明显的设计亮点
-          - [ ] 诚实指出了可改进的地方
-          
-          ### ✅ 知识沉淀
-          
-          - [ ] Skill 更新是增量的，标注了来源
-          - [ ] 日志记录了后续研究建议
-          
-          ---
-          
-          ## 🔄 Skills 的自我进化
-          
-          **每次运行后，反思你使用的 Skills**：
-          
-          | 观察 | 行动 |
-          |------|------|
-          | Skill 指引不够清晰 | 更新该 Skill，让下次更顺畅 |
-          | 发现新的好实践 | 添加到对应 Skill |
-          | Skill 内容过时 | 更新或标注 |
-          
-          **这是 Skills 驱动架构的核心：每次使用都让 Skills 变得更聪明。**
-          
-          ---
-          
-          ## 🚨 任务完成标准
-          
-          | 模式 | 必须完成 |
-          |------|---------|
-          | 调研模式 | Phase 0-4 + PR 链接 |
-          | 重构模式 | Phase 0 + R + PR 链接（标题前缀 `[skills-refactor]`）|
-          
-          **❌ 没有创建 PR = 任务失败**  
-          **✅ 成功标志：你能够提供一个 PR 链接**
+          1. 只报告确定的违规，不要猜测
+          2. 提供具体的行号和代码片段
+          3. 给出可操作的修复建议
+          4. 如果文件为空或只有 README，跳过检查
           
           PROMPT_EOF
       - name: Substitute placeholders
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-          GH_AW_ENV_SKILLS_BASE: ${{ env.SKILLS_BASE }}
-          GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_AW_GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          GH_AW_INPUTS_OUTPUT_MODE: ${{ inputs.output_mode }}
+          GH_AW_INPUTS_RULE_SET: ${{ inputs.rule_set }}
+          GH_AW_INPUTS_TARGET_PATH: ${{ inputs.target_path }}
         with:
           script: |
             const substitutePlaceholders = require('/tmp/gh-aw/actions/substitute_placeholders.cjs');
@@ -812,9 +668,9 @@ jobs:
             return await substitutePlaceholders({
               file: process.env.GH_AW_PROMPT,
               substitutions: {
-                GH_AW_ENV_SKILLS_BASE: process.env.GH_AW_ENV_SKILLS_BASE,
-                GH_AW_GITHUB_REPOSITORY: process.env.GH_AW_GITHUB_REPOSITORY,
-                GH_AW_GITHUB_RUN_NUMBER: process.env.GH_AW_GITHUB_RUN_NUMBER
+                GH_AW_INPUTS_OUTPUT_MODE: process.env.GH_AW_INPUTS_OUTPUT_MODE,
+                GH_AW_INPUTS_RULE_SET: process.env.GH_AW_INPUTS_RULE_SET,
+                GH_AW_INPUTS_TARGET_PATH: process.env.GH_AW_INPUTS_TARGET_PATH
               }
             });
       - name: Append XPIA security instructions to prompt
@@ -827,11 +683,6 @@ jobs:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
         run: |
           cat "/tmp/gh-aw/prompts/temp_folder_prompt.md" >> "$GH_AW_PROMPT"
-      - name: Append edit tool accessibility instructions to prompt
-        env:
-          GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-        run: |
-          cat "/tmp/gh-aw/prompts/edit_tool_prompt.md" >> "$GH_AW_PROMPT"
       - name: Append safe outputs instructions to prompt
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
@@ -845,7 +696,7 @@ jobs:
           <instructions>
           To create or modify GitHub resources (issues, discussions, pull requests, etc.), you MUST call the appropriate safe output tool. Simply writing content will NOT work - the workflow requires actual tool calls.
           
-          **Available tools**: add_comment, create_issue, create_pull_request, missing_tool, noop
+          **Available tools**: add_comment, create_issue, missing_tool, noop
           
           **Critical**: Tool calls write structured data that downstream jobs process. Without tool calls, follow-up actions will be skipped.
           </instructions>
@@ -927,9 +778,9 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-          GH_AW_ENV_SKILLS_BASE: ${{ env.SKILLS_BASE }}
-          GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_AW_GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          GH_AW_INPUTS_OUTPUT_MODE: ${{ inputs.output_mode }}
+          GH_AW_INPUTS_RULE_SET: ${{ inputs.rule_set }}
+          GH_AW_INPUTS_TARGET_PATH: ${{ inputs.target_path }}
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
@@ -957,11 +808,26 @@ jobs:
       - name: Execute GitHub Copilot CLI
         id: agentic_execution
         # Copilot CLI tool arguments (sorted):
+        # --allow-tool github
+        # --allow-tool safeoutputs
+        # --allow-tool shell(cat)
+        # --allow-tool shell(date)
+        # --allow-tool shell(echo)
+        # --allow-tool shell(find)
+        # --allow-tool shell(grep)
+        # --allow-tool shell(head)
+        # --allow-tool shell(ls)
+        # --allow-tool shell(pwd)
+        # --allow-tool shell(sort)
+        # --allow-tool shell(tail)
+        # --allow-tool shell(uniq)
+        # --allow-tool shell(wc)
+        # --allow-tool shell(yq)
         timeout-minutes: 30
         run: |
           set -o pipefail
           sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --mount /home/runner/.copilot:/home/runner/.copilot:rw --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.7.0 \
-            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-all-tools --allow-all-paths --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
+            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --allow-tool github --allow-tool safeoutputs --allow-tool 'shell(cat)' --allow-tool 'shell(date)' --allow-tool 'shell(echo)' --allow-tool 'shell(find)' --allow-tool 'shell(grep)' --allow-tool 'shell(head)' --allow-tool 'shell(ls)' --allow-tool 'shell(pwd)' --allow-tool 'shell(sort)' --allow-tool 'shell(tail)' --allow-tool 'shell(uniq)' --allow-tool 'shell(wc)' --allow-tool 'shell(yq)' --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)"${GH_AW_MODEL_AGENT_COPILOT:+ --model "$GH_AW_MODEL_AGENT_COPILOT"} \
             2>&1 | tee /tmp/gh-aw/agent-stdio.log
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
@@ -1050,7 +916,7 @@ jobs:
         continue-on-error: true
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: firewall-logs-workflow-case-study
+          name: firewall-logs-dlsd-compliance-checker
           path: /tmp/gh-aw/sandbox/firewall/logs/
           if-no-files-found: ignore
       - name: Parse firewall logs for step summary
@@ -1081,13 +947,6 @@ jobs:
             setupGlobals(core, github, context, exec, io);
             const { main } = require('/tmp/gh-aw/actions/validate_errors.cjs');
             await main();
-      - name: Upload git patch
-        if: always()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
-        with:
-          name: aw.patch
-          path: /tmp/gh-aw/aw.patch
-          if-no-files-found: ignore
 
   conclusion:
     needs:
@@ -1139,8 +998,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "Workflow Case Study"
-          GH_AW_TRACKER_ID: "workflow-case-study"
+          GH_AW_WORKFLOW_NAME: "DLSD Compliance Checker"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -1153,8 +1011,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Workflow Case Study"
-          GH_AW_TRACKER_ID: "workflow-case-study"
+          GH_AW_WORKFLOW_NAME: "DLSD Compliance Checker"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -1170,11 +1027,9 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "Workflow Case Study"
-          GH_AW_TRACKER_ID: "workflow-case-study"
+          GH_AW_WORKFLOW_NAME: "DLSD Compliance Checker"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
-          GH_AW_SAFE_OUTPUT_MESSAGES: "{\"runStarted\":\"🔬 正在评估研究价值... [{workflow_name}]({run_url})\",\"runSuccess\":\"💡 知识沉淀完成！[{workflow_name}]({run_url})\",\"runFailure\":\"🤔 研究遇到困难... [{workflow_name}]({run_url}) {status}\"}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -1188,8 +1043,6 @@ jobs:
     if: needs.agent.outputs.output_types != '' || needs.agent.outputs.has_patch == 'true'
     runs-on: ubuntu-latest
     permissions: {}
-    concurrency:
-      group: "gh-aw-copilot-${{ github.workflow }}"
     timeout-minutes: 10
     outputs:
       success: ${{ steps.parse_results.outputs.success }}
@@ -1225,8 +1078,8 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "Workflow Case Study"
-          WORKFLOW_DESCRIPTION: "智能分析 GitHub Agentic Workflows，持续沉淀知识到 Skills"
+          WORKFLOW_NAME: "DLSD Compliance Checker"
+          WORKFLOW_DESCRIPTION: "检查 Verse 代码的 DLSD 架构合规性，发现违规并报告"
         with:
           script: |
             const { setupGlobals } = require('/tmp/gh-aw/actions/setup_globals.cjs');
@@ -1344,23 +1197,20 @@ jobs:
 
   safe_outputs:
     needs:
-      - activation
       - agent
       - detection
     if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (needs.detection.outputs.success == 'true')
     runs-on: ubuntu-slim
     permissions:
-      contents: write
+      contents: read
       discussions: write
       issues: write
       pull-requests: write
     timeout-minutes: 15
     env:
       GH_AW_ENGINE_ID: "copilot"
-      GH_AW_SAFE_OUTPUT_MESSAGES: "{\"runStarted\":\"🔬 正在评估研究价值... [{workflow_name}]({run_url})\",\"runSuccess\":\"💡 知识沉淀完成！[{workflow_name}]({run_url})\",\"runFailure\":\"🤔 研究遇到困难... [{workflow_name}]({run_url}) {status}\"}"
-      GH_AW_TRACKER_ID: "workflow-case-study"
-      GH_AW_WORKFLOW_ID: "workflow-case-study"
-      GH_AW_WORKFLOW_NAME: "Workflow Case Study"
+      GH_AW_WORKFLOW_ID: "dlsd-compliance-checker"
+      GH_AW_WORKFLOW_NAME: "DLSD Compliance Checker"
     outputs:
       process_safe_outputs_processed_count: ${{ steps.process_safe_outputs.outputs.processed_count }}
       process_safe_outputs_temporary_id_map: ${{ steps.process_safe_outputs.outputs.temporary_id_map }}
@@ -1380,37 +1230,12 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs/
           find "/tmp/gh-aw/safeoutputs/" -type f -print
           echo "GH_AW_AGENT_OUTPUT=/tmp/gh-aw/safeoutputs/agent_output.json" >> "$GITHUB_ENV"
-      - name: Download patch artifact
-        continue-on-error: true
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
-        with:
-          name: aw.patch
-          path: /tmp/gh-aw/
-      - name: Checkout repository
-        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
-        with:
-          token: ${{ github.token }}
-          persist-credentials: false
-          fetch-depth: 1
-      - name: Configure Git credentials
-        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
-        env:
-          REPO_NAME: ${{ github.repository }}
-          SERVER_URL: ${{ github.server_url }}
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          # Re-authenticate git with GitHub token
-          SERVER_URL_STRIPPED="${SERVER_URL#https://}"
-          git remote set-url origin "https://x-access-token:${{ github.token }}@${SERVER_URL_STRIPPED}/${REPO_NAME}.git"
-          echo "Git configured with standard GitHub Actions identity"
       - name: Process Safe Outputs
         id: process_safe_outputs
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"labels\":[\"knowledge-capture\",\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"dlsd-violation\",\"compliance\",\"verse\"],\"max\":20,\"title_prefix\":\"[DLSD] \"}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
