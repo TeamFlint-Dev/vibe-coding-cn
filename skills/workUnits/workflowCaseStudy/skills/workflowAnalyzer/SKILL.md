@@ -91,6 +91,12 @@
 | **Constructive Feedback Framework** ⭐⭐⭐⭐⭐⭐⭐⭐ | 5大原则（Fair/Actionable/Constructive/Continuous/Comprehensive）+ 具体行为要求 + 认可高表现者 | agent-performance-analyzer |
 | **Time-Budgeted Execution** ⭐⭐⭐⭐⭐ | Phase级时间预算（10/10/5/3/2分钟）+ 倒金字塔分配 + 保证报告产出 | agent-performance-analyzer |
 | **Success Metrics for Analyzers** ⭐⭐⭐⭐⭐ | 定义分析者自身的成功指标（建议实施率 > 报告产出数）+ Meta-Meta监控 | agent-performance-analyzer |
+| **RARA Quality Framework** ⭐⭐⭐⭐ | 四维质量评估（Relevance/Authority/Recency/Applicability）+ 显式列出评估维度 + 强制批判性思考 | scout |
+| **Tool Autonomy Pattern** ⭐⭐⭐ | 提供工具箱+用途描述，Agent自主选择 + 不强制执行顺序 + 灵活适应不同场景 | scout |
+| **Brevity as Constraint** ⭐⭐⭐ | 独立章节"SHORTER IS BETTER" + 显式强调简洁 + 对抗LLM冗长倾向 | scout |
+| **Null-Result Explicit Handling** ⭐⭐⭐ | 显式无结果模板 + "ALWAYS Respond"要求 + 避免Agent沉默 | scout |
+| **Thematic Safe-Output Messages** ⭐⭐ | 品牌化/主题化消息文案 + emoji+一致隐喻 + 提升用户体验 | scout |
+| **Cognitive Synthesis Pattern** ⭐⭐ | 依赖LLM综合能力 + 不机械去重 + 简化实现利用LLM优势 | scout |
 
 ⭐ = 新发现模式 (来源: ci-coach 分析 #3)  
 ⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)  
@@ -100,6 +106,9 @@
 ⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: agent-performance-analyzer 分析 #17)  
 ⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: agent-performance-analyzer 分析 #17)  
 ⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: human-ai-collaboration 分析 #16 或 agent-performance-analyzer 分析 #17)
+⭐⭐⭐⭐ = 新发现模式 (来源: scout 分析 #18)
+⭐⭐⭐ = 新发现模式 (来源: scout 分析 #18)
+⭐⭐ = 新发现模式 (来源: scout 分析 #18)
 
 #### MCP Multi-Server Integration Pattern ⭐⭐⭐⭐⭐
 

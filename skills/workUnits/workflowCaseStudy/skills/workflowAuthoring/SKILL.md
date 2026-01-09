@@ -2347,3 +2347,134 @@ _(待填充)_
 
 - [workflowAnalyzer Skill](../workflowAnalyzer/SKILL.md) - 如何分析工作流
 - [父级 SKILL](../../SKILL.md) - 工作单元概览
+
+---
+
+## 📦 研究/分析类工作流片段库
+
+> 以下片段来自 scout 工作流分析 #18
+
+### 片段 1: RARA 质量评估框架
+
+**适用场景**: 研究类、分析类、文献综述类工作流
+
+```markdown
+### Quality Evaluation
+
+For each information source, evaluate:
+
+- **Relevance**: How directly it addresses the issue
+- **Authority**: Source credibility and expertise
+- **Recency**: How current the information is
+- **Applicability**: How it applies to this specific context
+```
+
+**复用建议**:
+- 任何需要评估信息质量的工作流
+- 可扩展添加第 5 维 "Verifiability"（可验证性）
+
+---
+
+### 片段 2: 无结果处理模板
+
+**适用场景**: 所有搜索/分析类工作流
+
+```markdown
+**If no relevant findings were discovered**, use this format:
+
+# 🔍 Research Report
+
+## Executive Summary
+No relevant findings were discovered for this research request.
+
+## Search Conducted
+- Query 1: [What you searched for]
+- Query 2: [What you searched for]
+
+## Explanation
+[Brief explanation of why no relevant results were found]
+
+## Suggestions
+[Optional: Suggestions for alternative searches or approaches]
+```
+
+**关键价值**:
+- 避免 Agent 沉默
+- 提供透明度（告知搜索了什么）
+- 引导下一步行动
+
+---
+
+### 片段 3: 简洁约束章节
+
+**适用场景**: 所有用户面向的报告型工作流
+
+```markdown
+## SHORTER IS BETTER
+
+Focus on the most relevant and actionable information. Avoid overwhelming detail. Keep it concise and to the point.
+```
+
+**设计意图**:
+- 对抗 LLM（尤其是 Claude）的冗长倾向
+- 用大标题引起 Agent 注意
+- 强制优先级排序
+
+---
+
+### 片段 4: 主题化消息示例
+
+**适用场景**: 任何工作流（提升用户体验）
+
+```yaml
+safe-outputs:
+  messages:
+    footer: "> 🔭 *Intelligence gathered by [{workflow_name}]({run_url})*"
+    run-started: "🏕️ Scout on patrol! [{workflow_name}]({run_url}) is blazing trails..."
+    run-success: "🔭 Recon complete! [{workflow_name}]({run_url}) has charted the territory. 🗺️"
+    run-failure: "🏕️ Lost in the wilderness! [{workflow_name}]({run_url}) {status}..."
+```
+
+**主题化策略**:
+- 选择一致的隐喻（Scout → 勘探主题）
+- 使用相关 emoji（🏕️ 🔭 🗺️）
+- 保持措辞风格统一
+
+**其他主题示例**:
+- CI-Coach: 教练主题
+- Grumpy Reviewer: 吐槽风格
+- Firewall: 安全防护主题
+
+---
+
+### 片段 5: 工具箱模式 Frontmatter
+
+**适用场景**: 需要集成多个 MCP 服务器的工作流
+
+```yaml
+imports:
+  - shared/mcp/tool1.md
+  - shared/mcp/tool2.md
+  - shared/mcp/tool3.md
+tools:
+  edit:
+  cache-memory: true
+```
+
+**配合 Prompt 中的工具描述**:
+
+```markdown
+## Research Strategy
+
+Use available research tools:
+- **Tool1**: [用途描述] - 何时使用
+- **Tool2**: [用途描述] - 何时使用
+- **Tool3**: [用途描述] - 何时使用
+```
+
+**设计智慧**:
+- 提供工具箱，不强制执行顺序
+- 让 Agent 根据上下文自主选择
+- 通过用途描述引导（隐式优先级）
+
+---
