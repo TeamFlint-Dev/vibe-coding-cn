@@ -4,35 +4,62 @@
 
 ## 🔧 可用工具列表
 
-### Invoke-VerseRemoteCompile.ps1
+### verseProject/analyze.sh | analyze.ps1 ⭐ 推荐
 
-**用途**：远程编译 Verse 代码，验证代码正确性
+**用途**：本地分析 Verse 代码，验证语法和类型正确性
 
 **使用场景**：
 
 - 编写或修改了 `.verse` 文件后
-- 提交代码前验证编译是否通过
-- 分支切换后验证代码状态
+- 提交代码前验证代码正确性
+- 快速迭代开发（无需等待远程编译）
 
 **调用方式**：
 
-```powershell
-# 编译并等待结果（推荐）
-.\tools\Invoke-VerseRemoteCompile.ps1 -Wait
+```bash
+# Linux/macOS/WSL
+cd verseProject
+./analyze.sh --format text
 
-# 仅触发编译，不等待
-.\tools\Invoke-VerseRemoteCompile.ps1
+# Windows PowerShell
+cd verseProject
+.\analyze.ps1 -Format text
 ```
 
 **前提条件**：
 
-- 代码必须已 commit 到 Git
-- UEFN 必须在 Runner 机器上打开
+- 无需 UEFN 或其他依赖
+- 代码文件在 `verseProject/source/` 目录下
 
 **退出码**：
 
-- `0` - 编译成功
-- `1` - 编译失败或超时
+- `0` - 分析通过（无错误）
+- `1` - 发现错误或警告
+
+**输出格式**：
+
+- `text` - 人类可读（推荐开发时使用）
+- `agent` - AI Agent 解析（默认）
+- `json` / `jsonl` / `markdown` - 工具集成
+
+**优点**：
+
+- ✅ 极快（1-2 秒）
+- ✅ 无需外部服务
+- ✅ 完整类型检查
+- ✅ 效果系统验证
+
+**文档**：[verseProject/ANALYSIS-TOOL-REFERENCE.md](../verseProject/ANALYSIS-TOOL-REFERENCE.md)
+
+---
+
+### Invoke-VerseRemoteCompile.ps1 ⚠️ 已弃用
+
+~~**用途**：远程编译 Verse 代码~~
+
+**状态**：已被本地分析工具取代，不再推荐使用。
+
+本地分析工具 (`analyze.sh` / `analyze.ps1`) 提供更快的反馈且无需外部依赖。
 
 ---
 
