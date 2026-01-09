@@ -219,6 +219,64 @@
 
 ⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: smoke-detector 分析 #11)
 
+#### Campaign Architecture Pattern ⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Campaign 定义文件 (`.campaign.md`) + Worker 工作流 + Orchestrator (自动生成 `.campaign.g.md`) + Repo-memory + GitHub Project
+- **三层架构**: Campaign Definition → Worker (campaign-agnostic) + Orchestrator (自动生成) + Repo-Memory (状态管理)
+- **设计价值**: 关注点分离、Worker 可复用、声明式配置、自动化编排
+- **用途**: 长期运行的多工作流协同任务（代码质量改进、技术债务管理）
+- **典型案例**: discussion-task-mining.campaign
+
+#### KPI-Driven Workflow Pattern ⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 明确的 KPIs 定义（primary + supporting）+ Baseline → Target 跟踪 + metrics-glob + time-window-days + direction (increase/decrease)
+- **KPI 结构**: name, priority, unit, baseline, target, time-window-days, direction, source
+- **设计价值**: 目标明确、持续改进、数据驱动、优先级管理
+- **用途**: 需要长期跟踪效果的自动化任务
+- **典型案例**: discussion-task-mining (15 tasks/week target)
+
+#### Governance-First Design Pattern ⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Rate Limits (max-issues-per-run) + Quality Standards (5 条标准) + Deduplication Policy + Review Requirements + Risk Assessment
+- **治理层次**: Rate Limits → Quality Standards → Deduplication → Review → Risk
+- **设计价值**: 预防式设计、可持续运行、质量优先、透明度
+- **用途**: 高频运行、长期存在的自动化任务
+- **典型案例**: discussion-task-mining (max 5 issues/run, risk: low)
+
+#### Memory-Based State Management Pattern ⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: memory-paths 定义 + cursor.json (Campaign 进度) + Worker 专属 memory + Campaign 聚合 memory
+- **Memory 结构**: `memory/campaigns/{id}/` (metrics, cursor) + `memory/{worker}/` (processed, extracted, latest-run)
+- **设计价值**: 去重、审计、恢复能力、分层存储
+- **用途**: 需要跨运行持久化状态的工作流
+- **典型案例**: discussion-task-mining (processed-discussions.json 防重复)
+
+#### Project-as-UI Pattern ⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: project-url 作为 Campaign 主界面 + Custom Fields 定义 + Orchestrator 自动更新 Board + GitHub Project = Single Source of Truth
+- **Custom Fields**: Source, Type, Priority, Effort, Status, Impact Area
+- **设计价值**: 可视化、自动化、人机协作、可搜索
+- **用途**: 需要任务可视化管理的 Campaign
+- **典型案例**: discussion-task-mining (6 个 Custom Fields)
+
+#### Worker-Orchestrator Separation Pattern ⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Worker 保持 campaign-agnostic + Orchestrator 通过 tracker-id 发现输出 + 独立触发（非直接调用）
+- **协作模型**: Worker 创建 Issue (带 tracker-id) → Orchestrator 查询 Issues → 更新 Project Board
+- **设计价值**: 松耦合、可测试性、可扩展性、容错性
+- **用途**: 复杂的多工作流协同场景
+- **典型案例**: discussion-task-mining (Worker: discussion-task-miner, tracker-label: campaign:discussion-task-mining)
+
+#### Declarative Campaign Definition Pattern ⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Campaign 文件是纯声明式配置 (YAML Frontmatter + Markdown) + 不包含可执行代码 + Orchestrator 根据配置自动生成
+- **声明内容**: id, workflows, tracker-label, memory-paths, metrics-glob, kpis, governance, allowed-safe-outputs
+- **设计价值**: 可读性、可维护性、自动化、版本控制
+- **用途**: 需要非开发者参与配置的自动化系统
+- **典型案例**: discussion-task-mining.campaign.md
+
+⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: discussion-task-mining.campaign 分析 #12)
+
 ---
 
 ## 📏 质量评估标准
@@ -282,6 +340,7 @@ grep -n "{{#if" path/to/workflow.md
 
 | 日期 | 工作流 | 主要发现 |
 |------|--------|---------|
+| 2026-01-09 | discussion-task-mining.campaign | 发现 7 个全新 Campaign 模式：Campaign 架构、KPI 驱动、治理优先等 |
 | 2026-01-08 | cloclo | 发现 6 个新模式：MCP 多服务器集成、工具选择决策树、主题化人格等 |
 | 2026-01-08 | create-agentic-workflow (Agent) | 发现 6 个新模式：双模式 Agent、渐进式披露、嵌入式安全框架等 |
 | 2026-01-08 | workflow-health-manager | 发现 6 个新模式：元编排器、共享metrics、多层健康检查等 |
