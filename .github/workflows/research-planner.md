@@ -1,6 +1,7 @@
 ---
 name: Research Planner
 description: 科研规划者 - 创建跟踪 Issue（分配功能由 issue-assigner 工作流处理）
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   workflow_dispatch:
     inputs:

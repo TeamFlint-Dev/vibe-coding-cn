@@ -1,6 +1,7 @@
 ---
 name: Verse Code Scout
 description: 研究 Verse 语言新特性、最佳实践、社区方案，创建研究任务
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   workflow_dispatch:
     inputs:

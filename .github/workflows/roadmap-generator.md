@@ -1,6 +1,7 @@
 ---
 name: Roadmap Generator
 description: 根据仓库现状生成优先级排序的待办清单和路线图
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   workflow_dispatch:
     inputs:

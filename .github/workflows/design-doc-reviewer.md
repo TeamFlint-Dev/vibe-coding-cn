@@ -1,6 +1,7 @@
 ---
 name: Design Doc Reviewer
 description: 检查项目设计文档的完整性和一致性，发现问题并创建 Issue
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   workflow_dispatch:
     inputs:

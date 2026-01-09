@@ -71,7 +71,11 @@ jobs:
 
   agent:
     needs: activation
-    runs-on: ubuntu-latest
+    runs-on:
+    - self-hosted
+    - linux
+    - x64
+    - tencent-cloud
     permissions:
       contents: read
       issues: read

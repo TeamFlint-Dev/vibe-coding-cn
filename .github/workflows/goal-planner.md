@@ -1,6 +1,7 @@
 ---
 name: Goal Planner
 description: 目标规划者 - 根据目标创建 Issue 并自动分配 Copilot 和 Maybank01
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   workflow_dispatch:
     inputs:

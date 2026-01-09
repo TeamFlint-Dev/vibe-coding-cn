@@ -1,6 +1,7 @@
 ---
 name: Project Next Step
 description: 根据项目当前状态，分析并建议下一步开发任务
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   workflow_dispatch:
     inputs:

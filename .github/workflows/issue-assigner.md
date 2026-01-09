@@ -1,6 +1,7 @@
 ---
 name: Issue Assigner
 description: 自动为新创建的 [Plan] Issue 分配 Copilot 和 Maybank01
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   issues:
     types: [opened]

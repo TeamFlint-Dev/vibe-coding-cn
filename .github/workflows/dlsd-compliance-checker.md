@@ -1,6 +1,7 @@
 ---
 name: DLSD Compliance Checker
 description: 检查 Verse 代码的 DLSD 架构合规性，发现违规并报告
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   workflow_dispatch:
     inputs:

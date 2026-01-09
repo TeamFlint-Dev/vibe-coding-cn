@@ -1,6 +1,7 @@
 ---
 name: Code Library Discoverer
 description: 发现可复用的代码模式，建议抽取到 verse/library
+runs-on: [self-hosted, linux, x64, tencent-cloud]
 on:
   workflow_dispatch:
     inputs:

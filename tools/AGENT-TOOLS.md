@@ -63,12 +63,51 @@ cd verseProject
 
 ---
 
+### setup-github-runner.sh
+
+**用途**：在 Linux 服务器上安装和配置 GitHub Actions Self-Hosted Runner
+
+**使用场景**：
+
+- 需要将服务器配置为 GitHub Actions 运行器
+- 替换/升级现有的 runner 配置
+- 迁移服务器用途（如从 Webhook 服务转为 Runner）
+
+**调用方式**：
+
+```bash
+# SSH 到目标服务器后
+export RUNNER_CFG_PAT="ghp_xxxxxxxxxxxx"  # GitHub PAT（需要 repo 权限）
+
+# 可选：自定义配置
+export RUNNER_NAME="my-runner"
+export RUNNER_LABELS="self-hosted,linux,x64,custom"
+export RUNNER_VERSION="2.321.0"
+
+# 运行安装脚本
+./tools/setup-github-runner.sh
+```
+
+**前提条件**：
+
+- 需要 Ubuntu Linux 服务器（推荐 22.04 LTS）
+- 需要 root 权限或 sudo 权限
+- 需要设置 `RUNNER_CFG_PAT` 环境变量
+
+**相关文档**：
+
+- 技能文档：[skills/infra/selfHostedRunner/SKILL.md](../skills/infra/selfHostedRunner/SKILL.md)
+- 服务器配置：`.secrets/tencent-runner-config.md`
+
+---
+
 ## 📁 工具目录结构
 
 ```
 tools/
 ├── AGENT-TOOLS.md                    # ⭐ 本文件 - Agent 工具入口
 ├── Invoke-VerseRemoteCompile.ps1     # Verse 远程编译脚本
+├── setup-github-runner.sh            # GitHub Actions Runner 安装脚本
 ├── README.md                         # 工具开发规范
 └── reference/                        # 基础设施实现代码
     ├── verseCompiler/                # 编译系统实现
