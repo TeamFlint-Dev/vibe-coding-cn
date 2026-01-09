@@ -74,11 +74,20 @@
 | **Fuzzy Scheduling Advocacy** ⭐⭐⭐⭐ | 推荐模糊调度避免负载尖峰 | create-agentic-workflow |
 | **Safe Outputs Jobs** ⭐⭐⭐⭐ | 自定义安全输出作业 | create-agentic-workflow |
 | **Fail-Safe File Creation** ⭐⭐⭐⭐ | 创建前检查，避免覆盖 | create-agentic-workflow |
+| **Risk-Tiered Decision Gate** ⭐⭐⭐⭐⭐⭐⭐⭐ | 按风险分层审批（Critical→Defer, High→架构评审, Medium→团队负责人, Low→自动执行） | human-ai-collaboration |
+| **Decision Brief with Rationale** ⭐⭐⭐⭐⭐⭐⭐⭐ | 推荐附带完整理由（Risk+Effort+Impact+Assessment） | human-ai-collaboration |
+| **Default Safe Behavior** ⭐⭐⭐⭐⭐⭐⭐⭐ | 无决策时执行最安全部分（防止瘫痪） | human-ai-collaboration |
+| **Bidirectional Learning Loop** ⭐⭐⭐⭐⭐⭐⭐⭐ | 记录成功率+失败原因+人类反馈，持续改进 | human-ai-collaboration |
+| **Workflow Decomposition by Risk** ⭐⭐⭐⭐⭐⭐⭐⭐ | 按风险分解为多个工作流（权限+超时+职责隔离） | human-ai-collaboration |
+| **Progressive Disclosure (Decision Brief)** ⭐⭐⭐⭐⭐⭐⭐⭐ | 信息分层（总览→详细→ROI→完整数据） | human-ai-collaboration |
+| **Accountability Trail** ⭐⭐⭐⭐⭐⭐⭐⭐ | 决策必须解释理由，可追溯 | human-ai-collaboration |
+| **Guardrails as Contract** ⭐⭐⭐⭐⭐⭐⭐⭐ | 安全边界是合约（safe-outputs+测试+回滚+监控） | human-ai-collaboration |
 
 ⭐ = 新发现模式 (来源: ci-coach 分析 #3)  
 ⭐⭐ = 新发现模式 (来源: campaign-generator 分析 #5)  
 ⭐⭐⭐ = 新发现模式 (来源: workflow-health-manager 分析 #6)  
-⭐⭐⭐⭐ = 新发现模式 (来源: create-agentic-workflow 分析 #9)
+⭐⭐⭐⭐ = 新发现模式 (来源: create-agentic-workflow 分析 #9)  
+⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: human-ai-collaboration 分析 #16)
 
 #### MCP Multi-Server Integration Pattern ⭐⭐⭐⭐⭐
 
@@ -276,6 +285,74 @@
 - **典型案例**: discussion-task-mining.campaign.md
 
 ⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: discussion-task-mining.campaign 分析 #12)
+
+#### Risk-Tiered Decision Gate Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 任务按风险分类（Critical/High/Medium/Low）+ 每个风险级别有不同的审批流程 + 默认行为是"最安全"的选择
+- **风险映射**: Critical → Defer（专项项目）| High → Architecture Review | Medium → Team Lead Approval | Low → Auto-Execute
+- **设计意图**: 不是二元决策（批准/拒绝），而是分层决策，风险越高审批越严格
+- **默认安全**: 无决策时，只执行低风险（防止决策瘫痪）
+- **用途**: 代码重构 Campaign、依赖升级 Campaign、技术债清理 Campaign
+- **典型案例**: human-ai-collaboration（4层风险，4种审批流程）
+
+#### Decision Brief with Embedded Rationale Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 每个推荐都有明确的"为什么"（Risk + Effort + Business Impact + AI Assessment + Recommendation）+ 提供多个选择（Approve/Reject/Defer）+ 解释空间
+- **设计意图**: 不只是"做/不做"，而是"为什么要做/不做"，AI 展示思考过程建立信任，人类可以 override 且必须解释理由
+- **关键要素**: Risk（技术风险）+ Effort（工作量）+ Business Impact（业务影响）+ AI Assessment（AI判断）+ Recommendation（推荐动作）+ Your Decision（决策空间 + 解释）
+- **用途**: 任何需要详细审批的 Campaign、PR 评审、架构变更提案
+- **典型案例**: human-ai-collaboration（87 items，每个都有完整 rationale）
+
+#### Default Safe Behavior Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: `If no decision: Campaign auto-executes low-risk items only (safest default)`
+- **设计意图**: 防止决策瘫痪（无决策时系统仍能推进）+ 默认行为是最安全的 + 有限的自动化 > 完全停滞
+- **对比传统**: 传统自动化无人批准就不执行，这个模式无人批准就执行最安全部分
+- **用途**: 定时 Campaign、无人值守的自动化任务、防止决策延迟导致项目停滞
+- **典型案例**: human-ai-collaboration（3天无决策后自动执行低风险）
+
+#### Bidirectional Learning Loop Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Phase 3 专门用于学习 + 记录成功率、失败原因、recommendation_accuracy + 人类反馈也被记录 + 学习结果用于改进下次推荐
+- **数据结构**: ai_learnings（patterns_that_worked, patterns_that_failed, improvements_for_next_time）+ human_feedback（satisfaction, comments）
+- **设计意图**: AI 不是静态的，每次 Campaign 都改进，人类反馈 = 训练数据，AI 学习人类偏好
+- **用途**: 任何长期运行的 Campaign 系统、需要持续改进的自动化任务
+- **典型案例**: human-ai-collaboration（learnings.json 记录成功率和改进建议）
+- **⚠️ 当前缺失**: 下次运行时如何读取 learnings.json，如何根据历史调整风险评估
+
+#### Workflow Decomposition by Risk Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 不是"一个工作流做所有事"，按风险级别分解为多个工作流（execute-low-risk, execute-medium-risk, execute-high-risk, monitor-learn）
+- **设计意图**: 权限隔离（低风险有 write，高风险只有 read）+ 超时隔离（低风险快速，高风险慢）+ 职责隔离（每个工作流单一职责）
+- **关键好处**: 安全性（高风险任务不会意外获得自动执行权限）+ 可维护性（每个工作流简单）+ 可审计性（不同风险级别日志分离）
+- **用途**: 任何多阶段、多风险级别的 Campaign
+- **典型案例**: human-ai-collaboration（分析工作流只读，执行工作流分层权限）
+
+#### Progressive Disclosure in Decision Brief Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 信息分层 - 先给总览（87 items 按风险分类）→ 再给详细（每个 item 的 Risk/Effort/Impact）→ 然后给业务价值（ROI）→ 最后给流程说明（Next Steps）
+- **信息层级**: Level 1 总览表格（扫一眼知道全局）→ Level 2 风险分层 → Level 3 每个 item 详细 → Level 4 完整数据（analysis.json）
+- **设计意图**: 不 overwhelm 决策者（一次只展示必要信息）+ 支持深入挖掘（想看细节可查 JSON）+ 适配不同读者（CTO 看总览，架构师看详细）
+- **用途**: 任何需要人类决策的复杂报告、Dashboard 设计、技术方案评审文档
+- **典型案例**: human-ai-collaboration（Epic Issue 的分层信息设计）
+
+#### Accountability Trail Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: `Your Decision: [ ] Approve / [ ] Reject / [ ] Defer - Explain why: __________`
+- **设计意图**: Checkbox = 明确记录 + Explain why = 必须说理由 + 可追溯（6个月后能看到"谁批准的，为什么"）
+- **关键价值**: 防止"拍脑袋决策"+ 建立决策知识库 + 责任清晰（blame-free 但 traceable）
+- **用途**: 重大架构决策、预算审批、风险评估
+- **典型案例**: human-ai-collaboration（每个 item 都要求解释决策理由）
+
+#### Guardrails as Contract Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: `AI executes with guardrails: Creates PRs with rollback plans + Runs tests automatically + Monitors for issues + Alerts on failures`
+- **设计意图**: Guardrails 不是建议而是合约，AI 承诺只在这些约束下执行，人类因 guardrails 而信任
+- **Guardrails 清单**: safe-outputs（权限限制）+ Tests must pass（质量门）+ Rollback plans（风险缓解）+ Monitoring（实时监控）
+- **用途**: 任何有执行权限的工作流、生产环境变更、数据库迁移
+- **典型案例**: human-ai-collaboration（执行阶段的安全合约）
+
+⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: human-ai-collaboration 分析 #16)
 
 ---
 
