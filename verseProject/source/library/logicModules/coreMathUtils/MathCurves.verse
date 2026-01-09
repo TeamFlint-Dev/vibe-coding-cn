@@ -8,8 +8,8 @@ MathCurves<public> := module:
     # 常量定义
     # ═══════════════════════════════════════════════════════════
     
-    Pi<private>:float = 3.14159265359
-    Epsilon<private>:float = 0.0001
+    Pi:float = 3.14159265359
+    Epsilon:float = 0.0001
     
     # ═══════════════════════════════════════════════════════════
     # 贝塞尔曲线 (Bezier Curves)
@@ -209,6 +209,6 @@ MathCurves<public> := module:
         else:
             T
     
-    # 值域映射：将 [0.0, 1.0] 映射到 [Min, Max]
-    MapRange<public>(T:float, Min:float, Max:float):float =
-        Min + T * (Max - Min)
+    # 值域映射：将 [0.0, 1.0] 映射到 [MinValue, MaxValue]
+    MapRange<public>(T:float, MinValue:float, MaxValue:float):float =
+        MinValue + T * (MaxValue - MinValue)
