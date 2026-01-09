@@ -39,12 +39,46 @@ imports:
 
 ---
 
-## 验证计划
+## 反驳证据
 
-1. 阅读 `shared/mcp/gh-aw.md`
-2. 对比 3-5 个工作流的工具选择模式
-3. 查阅官方文档
+### 证据 3: copilot-session-insights 不使用 MCP
+
+**来源**: `copilot-session-insights.md` 分析 (Run #27)
+
+```yaml
+tools:
+  bash:
+    - "jq *"
+    - "find /tmp -type f"
+    - "cat /tmp/*"
+# 未使用任何 MCP 工具
+```
+
+**分析**：该工作流使用 `jq` + Python pandas 处理 JSON 数据，效果良好（能生成复杂趋势图和洞察），说明非 MCP 工具也能有效处理结构化数据。
 
 ---
 
-*最后更新: 2026-01-09*
+## 修正方向
+
+原猜想过于绝对。更准确的表述：
+
+**修正后的猜想**：
+```
+结构化数据工具（MCP / jq+Python）优于纯文本解析
+
+- MCP 适合标准 GitHub API 操作（开箱即用）
+- jq+Python 适合自定义数据处理（更灵活）
+- 两者都优于 grep/awk 等文本工具
+```
+
+---
+
+## 验证计划
+
+1. ✅ 已分析 `copilot-session-insights`（jq + Python 案例）
+2. ⬜ 阅读 `shared/mcp/gh-aw.md`（MCP 用法）
+3. ⬜ 对比更多工作流的工具选择模式
+
+---
+
+*最后更新: 2026-01-09 (Run #27)*

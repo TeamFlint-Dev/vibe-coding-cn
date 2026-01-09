@@ -27,12 +27,51 @@
 
 ---
 
-## 验证计划
+## 反驳证据
 
-1. 查看 `shared/trending-charts-simple.md` 实现
-2. 对比其他工作流（daily-firewall-report）
-3. 研究时间序列分析理论
+### 证据 2: copilot-session-insights 未强制移动平均
+
+**来源**: `copilot-session-insights.md` 分析 (Run #27)
+
+趋势图要求（Prompt 第 62-122 行）：
+```markdown
+**IMPORTANT**: Generate exactly 2 trend charts
+- Chart 1: Session Completion Trends
+- Chart 2: Session Duration & Efficiency
+# 未提及移动平均
+```
+
+`shared/trends.md` 中的说明：
+```markdown
+Tips for Trending Charts:
+3. **Smooth noise**: Use moving averages for volatile data
+```
+
+**分析**：移动平均是**可选技巧**，用于高波动数据，而非通用要求。
 
 ---
 
-*最后更新: 2026-01-09*
+## 修正方向
+
+原猜想假设「7 天移动平均是通用要求」，但实际上是**场景依赖**的技巧。
+
+**修正后的猜想**：
+```
+趋势图需要根据数据波动性选择平滑技术
+
+- 高波动（标准差 > 阈值）→ 移动平均
+- 低波动 → 原始数据即可
+- 7 天窗口适合周循环数据
+```
+
+---
+
+## 验证计划
+
+1. ✅ 已查看 `shared/trends.md`（移动平均是可选技巧）
+2. ✅ 已分析 `copilot-session-insights`（未强制平滑）
+3. ⬜ 查找「何时使用移动平均」的判断标准
+
+---
+
+*最后更新: 2026-01-09 (Run #27)*

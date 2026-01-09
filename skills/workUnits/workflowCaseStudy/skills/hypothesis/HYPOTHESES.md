@@ -1,7 +1,7 @@
 # 猜想索引
 
-> **最后更新**: 2026-01-09  
-> **统计**: 总计 4 | 待验证 4 | 已证实 0 | 已证伪 0
+> **最后更新**: 2026-01-09 (Run #27)  
+> **统计**: 总计 4 | 待验证 2 | 已证实 1 | 已证伪 0 | 需修正 1
 
 ---
 
@@ -10,8 +10,9 @@
 | 状态 | 数量 | 猜想列表 |
 |------|------|----------|
 | `proposed` | 0 | |
-| `investigating` | 4 | H001, H002, H003, H004 |
-| `confirmed` | 0 | |
+| `investigating` | 2 | H003 |
+| `needs-revision` | 1 | H001, H002 |
+| `confirmed` | 1 | H004 |
 | `refuted` | 0 | |
 | `revised` | 0 | |
 | `abandoned` | 0 | |
@@ -34,35 +35,41 @@
 
 ## 📋 猜想列表
 
+### 需修正 (needs-revision)
+
+#### [H001: 结构化数据工具优于文本解析](hypotheses/H001-mcp-vs-cli.md)
+- **提出**: 2026-01-09 (Run #26)
+- **来源**: audit-workflows 分析
+- **修正理由**: 原猜想「MCP 优于 CLI」过于绝对，实际上 jq+Python 也能有效处理结构化数据
+- **修正方向**: 「结构化数据工具（MCP / jq+Python）优于纯文本解析」
+- **证据**: copilot-session-insights 使用 jq + Python，效果良好（Run #27）
+
+#### [H002: 趋势图平滑技术需场景适配](hypotheses/H002-moving-average-window.md)
+- **提出**: 2026-01-09 (Run #26)
+- **来源**: audit-workflows 分析
+- **修正理由**: 原猜想「7 天移动平均是通用要求」，但实际是场景依赖的可选技巧
+- **修正方向**: 「根据数据波动性选择平滑技术」
+- **证据**: shared/trends.md 将移动平均列为可选技巧（Run #27）
+
+### 已证实 (confirmed)
+
+#### [H004: 两层监控架构（运行时 + 内容）](hypotheses/H004-two-layer-observability.md)
+- **提出**: 2026-01-09 (Run #26)
+- **确认**: 2026-01-09 (Run #27)
+- **核心**: 运行时监控（audit-workflows）+ 内容监控（copilot-session-insights）互补
+- **证据**: 两个工作流分别监控不同维度，功能互补
+- **应用**: 完整的工作流可观测性需要两层架构
+
 ### 待验证 (investigating)
-
-#### [H001: MCP 工具提供结构化数据优于 CLI 文本输出](hypotheses/H001-mcp-vs-cli.md)
-- **提出**: 2026-01-09 (Run #26)
-- **来源**: audit-workflows 分析
-- **核心**: MCP 返回 JSON，比 CLI 文本输出更易解析
-- **验证**: 查看 shared/mcp/gh-aw.md + 对比 3-5 个工作流
-
-#### [H002: 趋势图需要 7 天移动平均来平滑短期波动](hypotheses/H002-moving-average-window.md)
-- **提出**: 2026-01-09 (Run #26)
-- **来源**: audit-workflows 分析
-- **核心**: 7 天平滑周循环，识别真实趋势
-- **验证**: 查看 shared/trending-charts-simple.md + 时间序列理论
 
 #### [H003: repo-memory 的 patterns/ 目录是知识沉淀的关键](hypotheses/H003-patterns-directory.md)
 - **提出**: 2026-01-09 (Run #26)
 - **来源**: audit-workflows 分析
 - **核心**: patterns/ 存储重复性问题模式，支持从失败中学习
 - **验证**: 扫描其他工作流 repo-memory 结构 + 评估效果
-
-#### [H004: 工作流可观测性需要"运行时"和"编译时"两层监控](hypotheses/H004-two-layer-observability.md)
-- **提出**: 2026-01-09 (Run #26)
-- **来源**: audit-workflows vs workflow-health-manager 对比
-- **核心**: 编译时（静态）+ 运行时（日志）互补，覆盖完整问题空间
-- **验证**: 查看 gh-aw 实际部署 + 可观测性理论
+- **备注**: copilot-session-insights 使用 cache-memory（不同模式，Run #27）
 
 ### 已证实 (confirmed)
-
-*暂无*
 
 ### 已证伪 (refuted)
 
@@ -76,10 +83,10 @@
 
 | 优先级 | 猜想 | 原因 |
 |--------|------|------|
-| P1 | H001 (MCP vs CLI) | 影响工具选择策略，证据充分 |
-| P1 | H004 (两层监控) | 架构级猜想，影响研究议程 |
-| P2 | H003 (patterns/ 目录) | 知识沉淀设计，需多案例验证 |
-| P3 | H002 (移动平均) | 具体实现细节，优先级较低 |
+| P1 | H004 (两层监控) | ✅ 已确认，可应用到实践 |
+| P1 | H001 (结构化数据工具) | 需修正后验证新方向 |
+| P2 | H003 (patterns/ 目录) | 需更多案例验证 |
+| P3 | H002 (平滑技术) | 需修正后验证新方向 |
 
 ---
 
@@ -87,6 +94,9 @@
 
 | 日期 | 活动类型 | 猜想 | 描述 |
 |------|----------|------|------|
+| 2026-01-09 | 确认 | H004 | 两层监控架构验证（copilot-session-insights 分析） |
+| 2026-01-09 | 修正 | H001 | MCP → 结构化数据工具（发现 jq+Python 也有效） |
+| 2026-01-09 | 修正 | H002 | 7天平滑 → 场景适配（移动平均是可选技巧） |
 | 2026-01-09 | 提出 | H001 | MCP 工具优于 CLI（audit-workflows 分析） |
 | 2026-01-09 | 提出 | H002 | 7 天移动平均（audit-workflows 分析） |
 | 2026-01-09 | 提出 | H003 | patterns/ 目录设计（audit-workflows 分析） |
