@@ -277,6 +277,65 @@
 
 ⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: discussion-task-mining.campaign 分析 #12)
 
+#### Parent-Child Issue Management Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Discussion 触发创建 parent issue (带 `temporary_id`) + 创建 child issues (引用 temporary_id) | Issue 触发直接使用现有 issue 作为 parent + 创建 child issues (引用 `#数字`)
+- **核心技术**: temporary_id 机制（格式: `aw_` + 12位16进制字符）
+- **设计意图**: 优雅解决"先引用后创建"的鸡生蛋问题 + Discussion 是草案需转 Issue + Issue 已存在直接复用
+- **配置示例**: `safe-outputs: create-issue: max: 6` (1 parent + 5 children OR 5 children)
+- **Prompt 示例**: `Generate a unique temporary ID (format: aw_abc123def456) to reference the parent issue`
+- **用途**: 大任务分解、Epic → Story → Task、RFC/Discussion → 实施计划
+- **典型案例**: plan (双上下文 Parent-Child 管理)
+
+#### Dual-Context Adaptation Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 同一工作流处理两种完全不同的触发场景 + 使用 `{{#if}}` 在 Prompt 中分支逻辑 + 每个分支有不同的步骤序列
+- **实现结构**: Mission 分支（Issue 模式 vs Discussion 模式）+ 共享 Guidelines + 分上下文的 Examples
+- **设计意图**: 避免维护重复工作流 + 用户统一入口（如 `/plan`）+ 代码复用（Guidelines 共享）
+- **优势**: 维护成本低、用户体验一致、逻辑集中
+- **风险与缓解**: Prompt 复杂度增加 → 清晰分支标记（"When triggered from..."）+ 重复约束
+- **对比**: Multi-Context 只显示不同信息 | Dual-Context 执行不同逻辑路径（更深层次）
+- **用途**: Slash Command 在 Issue/PR/Discussion 多场景工作 + Event-Driven 处理不同事件类型
+- **典型案例**: plan (Issue vs Discussion 双路径)
+
+#### Task Decomposition Guidelines Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Prompt 包含明确的"如何分解任务"教学内容 + 四个维度（Clarity, Sequencing, Granularity, Formulation）+ 每个维度有具体检查点
+- **四维框架**: 1. Clarity and Specificity（清晰具体）2. Proper Sequencing（正确顺序）3. Right Level of Granularity（合适粒度）4. SWE Agent Formulation（面向Agent的表述）
+- **关键原则**: "completable in a single PR"（粒度控制）+ "Keep them extremely small and focused"（强调最小化）+ "Use imperative language"（行动导向）+ "Consider dependencies"（顺序意识）
+- **设计意图**: 教 Agent 如何做好任务规划 + 避免生成过大/过小/模糊的子任务 + 确保适合 SWE Agent 执行
+- **用途**: 任务分解、项目规划、Issue triage、Epic 分解
+- **可复用性**: ⭐⭐⭐⭐⭐（极高，可直接复制到其他规划工作流）
+- **典型案例**: plan (完整 4 维度指导)
+
+#### Acceptance Criteria Template Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: Issue Body 包含 Checklist 格式的验收标准 + 结构: `## Acceptance Criteria` + `- [ ]` 列表
+- **完整模板**: Objective + Context + Approach + Files to Modify + Acceptance Criteria
+- **设计意图**: 明确完成定义（何时算"完成"）+ SWE Agent 自检能力 + 审查者清晰检查点
+- **每部分作用**: Objective（快速理解）+ Context（理解大局）+ Approach（有起点）+ Files（知道改哪些）+ Criteria（可测试检查点）
+- **与 DoD 关系**: DoD 是通用标准（"所有测试通过"）+ Acceptance Criteria 是任务特定标准（互补）
+- **用途**: 任何创建 Issue 的工作流 + 确保 Issue 质量 + 提升 SWE Agent 成功率
+- **典型案例**: plan (完整 Issue Body 模板)
+
+#### Quantity Limit Rationale Pattern ⭐⭐⭐⭐⭐
+
+- **识别特征**: `max: N` in frontmatter + "at most N" 在 Prompt 多处重复
+- **为什么是 5**: 1. 认知科学（Miller's Law: 7±2）2. Agent 能力边界（5-7 质量最高）3. 项目管理最佳实践（Sprint 3-8 个 Story）4. 防止滥用（避免几十个 Issue）
+- **设计权衡**: 3（极简，可能太粗）vs 5（✅ 平衡质量和覆盖）vs 10（覆盖全但认知负荷高）
+- **用途**: 任何需要限制输出数量的场景 + 防止 Agent 生成过多内容 + 质量优先于数量
+- **典型案例**: plan (max 5 sub-issues, 基于多维推理)
+
+#### Conditional Close Pattern ⭐⭐⭐⭐⭐
+
+- **识别特征**: `close-discussion: required-category: "Ideas"` + Prompt 中条件关闭指令
+- **状态流转**: Ideas Discussion（草案）→ /plan 触发 → 创建 Issues → 成功后关闭 Discussion（RESOLVED）
+- **为什么只关闭 Ideas**: Ideas 已转 Issue 使命完成 | Q&A/Announcements/General 应保持开放
+- **防御性设计**: `required-category` 限制范围降低误关闭风险
+- **用途**: 状态流转场景（Draft → Active → Done）+ 草案转正式（RFC → Implementation）+ 临时转长期追踪
+- **典型案例**: plan (Ideas → Issues 流转)
+
+⭐⭐⭐⭐⭐⭐⭐⭐ = 新发现模式 (来源: plan 分析 #14)
 #### Portfolio Management Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
 
 - **识别特征**: 管理一组相关工作单元（Campaigns/Workflows）+ 从整体视角优化资源分配 + 跨单元优先级平衡 + 基于数据的战略决策
@@ -357,6 +416,26 @@
 | ⭐⭐⭐ | 清晰角色、分阶段任务、明确约束 |
 | ⭐⭐ | 基本可用，结构较清晰 |
 | ⭐ | 混乱或缺失关键信息 |
+
+### 复杂度评估
+
+#### 上下文分支数量
+
+| 分支数 | 复杂度 | 示例 | 建议 |
+|--------|--------|------|------|
+| **0** | ⭐ | 单一场景工作流 | 简单易懂，维护容易 |
+| **1** | ⭐⭐ | 简单条件判断 | 可接受，注意分支标记 |
+| **2** | ⭐⭐⭐⭐⭐ | 双上下文适配（如 plan.md） | 需要清晰的分支标记和重复约束 |
+| **3+** | ⭐⭐⭐⭐⭐⭐ | 多场景适配 | 考虑拆分为多个工作流 |
+
+**判断标准**: 统计 Prompt 中 `{{#if github.event.*}}` 的主分支数量（不计嵌套）
+
+**设计原则**:
+- 2 个上下文是最佳平衡点（plan.md 示范）
+- 3+ 个上下文 → Prompt 过于复杂 → 建议拆分
+- 共享逻辑应提取到独立章节（如 Guidelines）
+
+**来源**: plan 分析 #14
 
 ---
 
