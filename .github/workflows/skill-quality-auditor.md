@@ -13,7 +13,7 @@ permissions:
   issues: read
 engine:
   id: copilot
-  model: claude-sonnet-4
+  model: claude-opus-4.5
 tools:
   github:
     toolsets: [issues, repos]
