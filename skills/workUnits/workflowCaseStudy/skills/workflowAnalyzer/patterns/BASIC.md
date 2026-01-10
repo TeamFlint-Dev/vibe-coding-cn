@@ -112,6 +112,17 @@
 
 ---
 
+## Rolling Report Pattern ⭐⭐⭐⭐
+
+- **识别特征**: `close-older-discussions: true` + 定时触发 + 同类型输出
+- **设计意图**: 定期报告只保留最新版，自动归档历史版本
+- **配置示例**: `safe-outputs: { create-discussion: { category: "audits", max: 1, close-older-discussions: true } }`
+- **适用场景**: 周报/月报、健康检查、审计报告
+- **典型案例**: mcp-inspector
+- **来源**: mcp-inspector 分析 (Run #5)
+
+---
+
 ## Expiring Issue Pattern ⭐⭐⭐⭐⭐⭐
 
 - **识别特征**: `create-issue` 配置 `expires: 2h`（或其他时间）

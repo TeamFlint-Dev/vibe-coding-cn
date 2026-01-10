@@ -1,7 +1,7 @@
 # 猜想索引
 
-> **最后更新**: 2026-01-10 (Run #4)  
-> **统计**: 总计 5 | 待验证 2 | 已证实 1 | 已证伪 0 | 需修正 1 | 新提出 1
+> **最后更新**: 2026-01-10 (Run #5)  
+> **统计**: 总计 5 | 待验证 3 | 已证实 1 | 已证伪 0 | 需修正 1
 
 ---
 
@@ -29,6 +29,9 @@
 │       ├── H001: MCP 优于 CLI
 │       ├── H002: 7 天移动平均
 │       └── H003: patterns/ 目录设计
+
+模块化配置 (Research Agenda - 新主题)
+└── H005: Import-as-Validation
 │           └── H005: repo-memory 目录结构反映知识类型 (refines H003)
 
 数据基础设施 (新分支)
@@ -82,6 +85,15 @@
 - **核心**: patterns/ 存储重复性问题模式，支持从失败中学习
 - **验证**: 扫描其他工作流 repo-memory 结构 + 评估效果
 - **备注**: copilot-session-insights 使用 cache-memory（不同模式，Run #27）
+- **新证据**: mcp-inspector 显示 `shared/mcp/` 也是知识沉淀体系（Run #5）
+
+### 提出中 (proposed)
+
+#### [H005: Imports 机制可用于配置验证](hypotheses/H005-import-as-validation.md)
+- **提出**: 2026-01-10 (Run #5)
+- **来源**: mcp-inspector 分析
+- **核心**: 通过导入配置但不全部使用，利用编译期检查发现配置问题
+- **验证**: 检查其他使用大量 imports 的工作流是否有类似意图
 
 ### 新提出 (proposed)
 
@@ -118,6 +130,8 @@
 
 | 日期 | 活动类型 | 猜想 | 描述 |
 |------|----------|------|------|
+| 2026-01-10 | 提出 | H005 | Import-as-Validation（mcp-inspector 分析） |
+| 2026-01-10 | 证据 | H003 | shared/mcp/ 也是知识沉淀体系（mcp-inspector 分析） |
 | 2026-01-10 | 提出 | H005 | 解释性评论提升信任（issue-triage-agent 分析） |
 | 2026-01-10 | 提出 | H005 | repo-memory 目录结构反映知识类型（metrics-collector 分析） |
 | 2026-01-10 | 添加证据 | H003 | 发现 metrics/ 作为 patterns/ 的互补（metrics-collector 分析） |
