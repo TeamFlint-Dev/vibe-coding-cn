@@ -11,7 +11,9 @@ on:
 permissions:
   contents: read
   issues: read
-engine: claude
+engine:
+  id: copilot
+  model: claude-sonnet-4-20250514
 tools:
   github:
     toolsets: [issues, repos]
