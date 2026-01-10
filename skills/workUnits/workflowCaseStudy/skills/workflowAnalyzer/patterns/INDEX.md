@@ -32,6 +32,8 @@
 | 监控其他工作流 | Meta-Orchestrator | META.md |
 | 防止危险操作 | Embedded Security Framework | SECURITY.md |
 | 渐进式收集信息 | Progressive Disclosure | UX.md |
+| 限制可添加的标签 | Label Whitelist | BASIC.md |
+| 自动操作后解释理由 | Author Notification | BASIC.md |
 
 ### 按复杂度
 
@@ -55,6 +57,7 @@
 - ⭐⭐⭐⭐⭐+ = agent-performance-analyzer 分析
 - ⭐⭐⭐⭐⭐⭐+ = smoke-detector / campaign 分析
 - ⭐⭐⭐⭐⭐⭐⭐⭐ = human-ai-collaboration / plan 分析
+- 🔴⭐ (Run #4) = issue-triage-agent 分析
 
 ---
 
