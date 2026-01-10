@@ -28,4 +28,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: github-models/deepseek/deepseek-v3-0324
+          model: claude-opus-4-5
