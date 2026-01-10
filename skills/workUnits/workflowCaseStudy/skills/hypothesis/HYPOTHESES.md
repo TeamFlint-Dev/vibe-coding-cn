@@ -1,7 +1,7 @@
 # 猜想索引
 
-> **最后更新**: 2026-01-09 (Run #27)  
-> **统计**: 总计 4 | 待验证 2 | 已证实 1 | 已证伪 0 | 需修正 1
+> **最后更新**: 2026-01-10 (Run #5)  
+> **统计**: 总计 5 | 待验证 3 | 已证实 1 | 已证伪 0 | 需修正 1
 
 ---
 
@@ -9,7 +9,7 @@
 
 | 状态 | 数量 | 猜想列表 |
 |------|------|----------|
-| `proposed` | 0 | |
+| `proposed` | 1 | H005 |
 | `investigating` | 2 | H003 |
 | `needs-revision` | 1 | H001, H002 |
 | `confirmed` | 1 | H004 |
@@ -29,6 +29,9 @@
 │       ├── H001: MCP 优于 CLI
 │       ├── H002: 7 天移动平均
 │       └── H003: patterns/ 目录设计
+
+模块化配置 (Research Agenda - 新主题)
+└── H005: Import-as-Validation
 ```
 
 ---
@@ -68,6 +71,15 @@
 - **核心**: patterns/ 存储重复性问题模式，支持从失败中学习
 - **验证**: 扫描其他工作流 repo-memory 结构 + 评估效果
 - **备注**: copilot-session-insights 使用 cache-memory（不同模式，Run #27）
+- **新证据**: mcp-inspector 显示 `shared/mcp/` 也是知识沉淀体系（Run #5）
+
+### 提出中 (proposed)
+
+#### [H005: Imports 机制可用于配置验证](hypotheses/H005-import-as-validation.md)
+- **提出**: 2026-01-10 (Run #5)
+- **来源**: mcp-inspector 分析
+- **核心**: 通过导入配置但不全部使用，利用编译期检查发现配置问题
+- **验证**: 检查其他使用大量 imports 的工作流是否有类似意图
 
 ### 已证实 (confirmed)
 
@@ -94,6 +106,8 @@
 
 | 日期 | 活动类型 | 猜想 | 描述 |
 |------|----------|------|------|
+| 2026-01-10 | 提出 | H005 | Import-as-Validation（mcp-inspector 分析） |
+| 2026-01-10 | 证据 | H003 | shared/mcp/ 也是知识沉淀体系（mcp-inspector 分析） |
 | 2026-01-09 | 确认 | H004 | 两层监控架构验证（copilot-session-insights 分析） |
 | 2026-01-09 | 修正 | H001 | MCP → 结构化数据工具（发现 jq+Python 也有效） |
 | 2026-01-09 | 修正 | H002 | 7天平滑 → 场景适配（移动平均是可选技巧） |

@@ -241,8 +241,19 @@
 - **配置示例**: `imports: [shared/mcp/gh-aw.md, shared/mcp/serena.md]`
 - **MCP 协作**: gh-aw（工作流自省）+ Serena（代码分析）+ JQ Schema（JSON 探索）
 - **设计意图**: 分离关注点，避免单一 MCP 功能膨胀
-- **典型案例**: cloclo
-- **来源**: cloclo 分析
+- **典型案例**: cloclo, mcp-inspector
+- **来源**: cloclo 分析, mcp-inspector 分析 (Run #5)
+
+---
+
+## Import-as-Validation Pattern ⭐⭐⭐⭐
+
+- **识别特征**: 工作流导入大量配置但只部分使用 + 编译期检查
+- **设计意图**: 利用 imports 机制进行配置验证，发现语法或依赖问题
+- **工作原理**: 如果被导入的配置文件有语法错误，工作流编译就会失败
+- **适用场景**: 配置管理、依赖验证、Schema 校验
+- **典型案例**: mcp-inspector（导入 15 个 MCP 配置进行验证）
+- **来源**: mcp-inspector 分析 (Run #5)
 
 ---
 
