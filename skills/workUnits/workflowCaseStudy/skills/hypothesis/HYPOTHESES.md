@@ -86,6 +86,7 @@
 - **验证**: 扫描其他工作流 repo-memory 结构 + 评估效果
 - **备注**: copilot-session-insights 使用 cache-memory（不同模式，Run #27）
 - **新证据**: mcp-inspector 显示 `shared/mcp/` 也是知识沉淀体系（Run #5）
+- **新证据**: research 通过 `imports: shared/mcp/tavily.md` 复用 MCP 配置（Run #6）
 
 ### 提出中 (proposed)
 
@@ -130,6 +131,7 @@
 
 | 日期 | 活动类型 | 猜想 | 描述 |
 |------|----------|------|------|
+| 2026-01-10 | 证据 | H003 | research 工作流使用 shared/mcp/tavily.md 复用（Run #6） |
 | 2026-01-10 | 提出 | H005 | Import-as-Validation（mcp-inspector 分析） |
 | 2026-01-10 | 证据 | H003 | shared/mcp/ 也是知识沉淀体系（mcp-inspector 分析） |
 | 2026-01-10 | 提出 | H005 | 解释性评论提升信任（issue-triage-agent 分析） |
