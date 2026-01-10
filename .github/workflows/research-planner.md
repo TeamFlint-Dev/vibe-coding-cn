@@ -16,7 +16,7 @@ permissions:
   contents: read
 engine:
   id: copilot
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-4
 
 # 需要 PAT 用于创建 Issue
 github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}

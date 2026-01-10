@@ -11,7 +11,7 @@ permissions:
 tracker-id: workflow-case-study
 engine:
   id: copilot
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-4
 env:
   WORK_UNIT_NAME: workflowCaseStudy
   GH_AW_REPO: githubnext/gh-aw

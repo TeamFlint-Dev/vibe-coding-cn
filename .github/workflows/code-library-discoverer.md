@@ -13,7 +13,7 @@ permissions:
   issues: read
 engine:
   id: copilot
-  model: claude-sonnet-4-20250514
+  model: claude-sonnet-4
 env:
   WORK_UNIT_NAME: codeLibraryDiscoverer
   THINK_MODEL: craftsman
