@@ -9,7 +9,7 @@ permissions:
   contents: read
   issues: read
 tracker-id: workflow-case-study
-engine: copilot
+engine: claude
 env:
   WORK_UNIT_NAME: workflowCaseStudy
   GH_AW_REPO: githubnext/gh-aw

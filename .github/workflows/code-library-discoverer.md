@@ -11,7 +11,7 @@ on:
 permissions:
   contents: read
   issues: read
-engine: copilot
+engine: claude
 env:
   WORK_UNIT_NAME: codeLibraryDiscoverer
   THINK_MODEL: craftsman

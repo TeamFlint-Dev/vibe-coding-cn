@@ -14,7 +14,7 @@ on:
         type: string
 permissions:
   contents: read
-engine: copilot
+engine: claude
 
 # 需要 PAT 用于创建 Issue
 github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
