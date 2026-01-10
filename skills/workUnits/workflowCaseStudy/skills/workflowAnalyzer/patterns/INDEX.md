@@ -34,6 +34,9 @@
 | 渐进式收集信息 | Progressive Disclosure | UX.md |
 | 限制可添加的标签 | Label Whitelist | BASIC.md |
 | 自动操作后解释理由 | Author Notification | BASIC.md |
+| 输出研究/分析报告 | Discussion-as-Research-Output | BASIC.md |
+| 简单任务极简配置 | Minimalist Prompt Design | BASIC.md |
+| 需要外部 API 但保持安全 | AWF Sandbox Mode | SECURITY.md |
 
 ### 按复杂度
 
@@ -58,6 +61,7 @@
 - ⭐⭐⭐⭐⭐⭐+ = smoke-detector / campaign 分析
 - ⭐⭐⭐⭐⭐⭐⭐⭐ = human-ai-collaboration / plan 分析
 - 🔴⭐ (Run #4) = issue-triage-agent 分析
+- 🔴⭐ (Run #6) = research 分析
 
 ---
 
