@@ -17,6 +17,7 @@ github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
 tools:
   github:
     toolsets: [issues]
+    github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
   bash: [":*"]
 
 safe-outputs:
