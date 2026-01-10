@@ -25,9 +25,17 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Read prompt file
+        id: prompt
+        run: |
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          cat .github/opencode-prompt.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Run opencode
         uses: anomalyco/opencode/github@latest
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         with:
           model: deepseek/deepseek-reasoner
+          prompt: ${{ steps.prompt.outputs.content }}
