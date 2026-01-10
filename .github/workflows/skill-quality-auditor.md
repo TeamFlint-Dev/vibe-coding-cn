@@ -1,7 +1,6 @@
 ---
 name: Skill Quality Auditor
 description: 审计 Skill 的质量，检查文档完整性、示例有效性，创建改进 Issue
-runs-on: self-hosted
 on:
   workflow_dispatch:
     inputs:

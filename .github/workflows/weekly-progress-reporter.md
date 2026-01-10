@@ -1,7 +1,6 @@
 ---
 name: Weekly Progress Reporter
 description: 生成仓库/项目的周进展报告，总结完成事项和待办
-runs-on: self-hosted
 on:
   workflow_dispatch:
     inputs:

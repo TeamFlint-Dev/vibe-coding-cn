@@ -1,7 +1,6 @@
 ---
 name: Failure Case Miner
 description: 从 Issue、PR 和代码注释中提炼踩坑经验，沉淀到 FAILURE-CASES.md
-runs-on: self-hosted
 on:
   workflow_dispatch:
     inputs:

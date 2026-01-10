@@ -1,7 +1,6 @@
 ---
 name: Skill Gap Finder
 description: 分析仓库中的 Skill 缺失，发现需要新建的技能，创建 Issue 追踪
-runs-on: self-hosted
 on:
   workflow_dispatch:
     inputs:

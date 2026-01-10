@@ -1,7 +1,6 @@
 ---
 name: API Digest Updater
 description: 检查 API Digest 文件是否过时，建议更新任务
-runs-on: self-hosted
 on:
   workflow_dispatch:
     inputs:

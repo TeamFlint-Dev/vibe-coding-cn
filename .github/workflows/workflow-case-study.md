@@ -1,7 +1,6 @@
 ---
 name: Workflow Case Study
 description: 智能分析 GitHub Agentic Workflows，持续沉淀知识到 Skills
-runs-on: self-hosted
 on:
   workflow_dispatch:
   schedule:
