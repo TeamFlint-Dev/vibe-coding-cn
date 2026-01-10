@@ -14,6 +14,8 @@
 
 ## 支持证据
 
+### 证据 1: audit-workflows 使用 patterns/
+
 **来源**: `audit-workflows.md` Prompt
 
 ```markdown
@@ -24,14 +26,37 @@
 
 **分析**：按问题类型分类，便于后续查找和对比。
 
+### 证据 2: metrics-collector 使用 metrics/ (Run #3)
+
+**来源**: `metrics-collector.md` 分析
+
+```yaml
+repo-memory:
+  branch-name: memory/meta-orchestrators
+  file-glob: "metrics/**"
+```
+
+**分析**：metrics-collector 不使用 patterns/，而是使用 metrics/ 目录存储性能数据。这揭示了：
+- **patterns/** 用于存储**问题模式**（错误类型、失败原因）
+- **metrics/** 用于存储**性能数据**（运行次数、成功率、token 消耗）
+
+**结论**：patterns/ 不是唯一的知识沉淀结构，而是「问题知识」的沉淀结构。
+
 ---
 
 ## 验证计划
 
-1. 扫描其他工作流的 repo-memory 结构
+1. ~~扫描其他工作流的 repo-memory 结构~~ ✅ 发现 metrics/ 结构
 2. 查看模式文件的读取逻辑
 3. 评估实际效果
+4. 🆕 探索是否还有其他知识类型目录（investigations/? logs/?）
 
 ---
 
-*最后更新: 2026-01-09*
+## 相关猜想
+
+- **H005**: repo-memory 目录结构反映知识类型（本猜想的精化版本）
+
+---
+
+*最后更新: 2026-01-10 (Run #3)*
