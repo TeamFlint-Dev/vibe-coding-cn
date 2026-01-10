@@ -112,6 +112,17 @@
 
 ---
 
+## Rolling Report Pattern ⭐⭐⭐⭐
+
+- **识别特征**: `close-older-discussions: true` + 定时触发 + 同类型输出
+- **设计意图**: 定期报告只保留最新版，自动归档历史版本
+- **配置示例**: `safe-outputs: { create-discussion: { category: "audits", max: 1, close-older-discussions: true } }`
+- **适用场景**: 周报/月报、健康检查、审计报告
+- **典型案例**: mcp-inspector
+- **来源**: mcp-inspector 分析 (Run #5)
+
+---
+
 ## Expiring Issue Pattern ⭐⭐⭐⭐⭐⭐
 
 - **识别特征**: `create-issue` 配置 `expires: 2h`（或其他时间）
@@ -138,3 +149,31 @@
 - **设计权衡**: 3（极简）vs 5（✅ 平衡）vs 10（覆盖全但负荷高）
 - **典型案例**: plan (max 5 sub-issues)
 - **来源**: plan 分析
+
+---
+
+## Label Whitelist Pattern 🔴⭐ (Run #4)
+
+- **识别特征**: `safe-outputs.add-labels.allowed: [label1, label2, ...]`
+- **设计意图**: 限制 Agent 只能添加预定义的标签，防止创建任意标签或添加敏感标签
+- **配置示例**:
+  ```yaml
+  safe-outputs:
+    add-labels:
+      allowed: [bug, feature, enhancement, documentation]
+  ```
+- **安全价值**: 比单纯的 `max` 限制更精细，控制「能做什么」而非只控制「做多少次」
+- **典型案例**: issue-triage-agent, issue-classifier
+- **来源**: issue-triage-agent 分析 (Run #4)
+
+---
+
+## Author Notification Pattern 🔴⭐ (Run #4)
+
+- **识别特征**: Prompt 要求「操作后 @mention 作者并解释理由」
+- **设计意图**: 透明化自动决策、减少用户困惑、建立信任
+- **Prompt 示例**: "After adding the label, mention the issue author in a comment explaining why"
+- **UX 价值**: Agent 不是黑盒——用户知道为什么被分类
+- **关联猜想**: H005 (解释性评论提升信任)
+- **典型案例**: issue-triage-agent
+- **来源**: issue-triage-agent 分析 (Run #4)

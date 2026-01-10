@@ -109,3 +109,60 @@
 - **设计优雅**: 上下文感知（失败信息出现在最相关的地方）
 - **典型案例**: smoke-detector
 - **来源**: smoke-detector 分析
+
+---
+
+## Infrastructure Agent Pattern ⭐⭐⭐
+
+- **识别特征**: 
+  - 无 safe-outputs 配置
+  - 明确的「消费者列表」（为谁服务）
+  - repo-memory 作为唯一输出
+  - Prompt 明确声明「DO NOT create issues/PRs/comments」
+- **设计意图**: 
+  - 将数据收集与数据消费解耦
+  - 减少 API 调用（多个工作流只需查询一次）
+  - 标准化数据格式
+- **典型案例**: metrics-collector
+- **可复用场景**: 任何需要共享数据层的多 Agent 系统
+- **来源**: metrics-collector 分析 (Run #3)
+
+---
+
+## Shared Memory Branch Pattern ⭐⭐⭐
+
+- **识别特征**:
+  - `repo-memory.branch-name` 指定专用分支
+  - `file-glob` 限制访问范围
+  - 多个工作流共享同一分支
+- **配置示例**:
+  ```yaml
+  repo-memory:
+    branch-name: memory/meta-orchestrators
+    file-glob: "metrics/**"
+  ```
+- **设计意图**:
+  - 隔离数据与代码
+  - 避免主分支污染
+  - 实现数据层的版本控制
+- **典型案例**: metrics-collector
+- **来源**: metrics-collector 分析 (Run #3)
+
+---
+
+## Data Retention Policy Pattern ⭐⭐⭐
+
+- **识别特征**:
+  - 明确的保留期（如 30 天）
+  - 自动清理命令
+  - latest.json 永久保留
+- **实现示例**:
+  ```bash
+  find /tmp/gh-aw/repo-memory/default/metrics/daily/ -name "*.json" -mtime +30 -delete
+  ```
+- **设计意图**:
+  - 控制存储增长
+  - 保证历史可查
+  - 快速访问最新数据
+- **典型案例**: metrics-collector
+- **来源**: metrics-collector 分析 (Run #3)
