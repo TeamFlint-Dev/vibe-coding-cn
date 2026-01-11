@@ -697,6 +697,7 @@ jobs:
           
           **记住这个 PR 的编号和分支名**，Phase 4 推送时需要用。
           
+          获取pr的提交内容，在这之上去完成工作。
           然后：
           1. 读 PR 描述和评论——**有订单吗？用户在等什么？**
           2. 读最近的 Journal（在 `journals/workUnits/workflowCaseStudy/` 目录）
@@ -704,8 +705,6 @@ jobs:
           ### 没有 PR
           
           **记住：需要在 Phase 4 创建新 PR。**
-          
-          **⚠️ 注意**：不要尝试切换分支。你在 GitHub Actions 环境中工作，始终在 main 分支。Phase 4 的推送工具会自动处理分支切换。
           
           ---
           
