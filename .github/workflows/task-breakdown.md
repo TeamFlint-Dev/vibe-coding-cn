@@ -23,17 +23,22 @@ tools:
   bash:
     - "jq *"
     - "cat *"
+    - "git *"
+  edit:
 safe-outputs:
   create-issue:
     title-prefix: "[task] "
     labels: [dag-task, pending]
+    max: 10
   link-sub-issue:
+    max: 10
   add-comment:
-    max: 2
+    max: 3
   create-pull-request:
     title-prefix: "[dag] "
     labels: [dag-execution]
     draft: true
+  push-to-pull-request-branch:
 timeout-minutes: 15
 strict: true
 ---
@@ -83,7 +88,54 @@ DAG 结构:
 
 ---
 
-## Step 2: 创建共享 PR
+## Step 2: 创建任务计划文件（初始提交）
+
+**在创建 PR 之前**，必须先创建一个文件作为初始提交，否则 PR 无法创建。
+
+使用 `edit` 工具创建任务计划文件：
+
+**文件路径**: `.dag/issue-${{ github.event.issue.number }}/PLAN.md`
+
+**文件内容**:
+```markdown
+# DAG 任务计划
+
+**源 Issue**: #${{ github.event.issue.number }}
+**创建时间**: <当前时间>
+**状态**: 执行中
+
+## 任务概述
+
+<从父 Issue 提取的目标描述>
+
+## DAG 结构
+
+<任务依赖关系图>
+
+## 任务列表
+
+| 任务 | 状态 | 依赖 |
+|------|------|------|
+| 任务A | pending | - |
+| 任务B | pending | 任务A |
+| ...  | ... | ... |
+
+## 执行日志
+
+Worker 完成任务后会在这里追加日志。
+```
+
+创建文件后，提交并推送：
+
+```bash
+git checkout -b dag/issue-${{ github.event.issue.number }}
+git add .dag/
+git commit -m "chore: init DAG plan for #${{ github.event.issue.number }}"
+```
+
+---
+
+## Step 3: 创建共享 PR
 
 创建 draft PR，所有 Worker 将在同一分支工作：
 
@@ -101,7 +153,7 @@ DAG 结构:
 
 ---
 
-## Step 3: 创建子 Issue
+## Step 4: 创建子 Issue
 
 为每个任务创建 Issue，使用 `temporary_id` 处理依赖。
 
@@ -143,7 +195,7 @@ DAG 结构:
 
 ---
 
-## Step 4: 发送就绪信号
+## Step 5: 发送就绪信号
 
 在父 Issue 添加带信号标记的评论，触发 Dispatcher：
 
