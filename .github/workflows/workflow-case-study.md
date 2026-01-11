@@ -14,7 +14,7 @@ concurrency:
 tracker-id: workflow-case-study
 engine:
   id: copilot
-  model: claude-sonnet-4
+  model: claude-opus-4.5
 env:
   WORK_UNIT_NAME: workflowCaseStudy
   GH_AW_REPO: githubnext/gh-aw
@@ -72,7 +72,19 @@ strict: true
 
 > **为什么有这个阶段？** 漫无目的的探索是最大的浪费。你只有 25 分钟，必须知道自己要找什么。
 
-### 0.1 读取猜想库
+### 0.1 检查现有研究 PR
+
+**首先检查是否有现有的研究 PR**：
+
+```bash
+gh pr list --repo ${{ github.repository }} --label knowledge-capture --label gh-aw-research --state open --json number,title,headRefName
+```
+
+**记住结果**：
+- **如果有 PR**：记下 PR 编号，后续你的工作会推送到这个 PR
+- **如果没有 PR**：你需要创建新 PR
+
+### 0.2 读取猜想库
 
 **读取**: `${{ env.SKILLS_BASE }}/hypothesis/HYPOTHESES.md`
 
@@ -83,7 +95,7 @@ strict: true
 
 **没有问题 = 没有方向。** 如果猜想库是空的，你的任务之一是提出第一个猜想。
 
-### 0.2 回顾历史：避免重复劳动
+### 0.3 回顾历史：避免重复劳动
 
 快速扫描已有工作：
 - `skills/workUnits/workflowCaseStudy/reports/case-studies/` - 已分析过什么？
@@ -91,13 +103,13 @@ strict: true
 
 **如果你选了一个已经分析过的工作流，这次运行就浪费了。**
 
-### 0.3 研究议程：大方向对齐
+### 0.4 研究议程：大方向对齐
 
 **读取**: `skills/workUnits/workflowCaseStudy/RESEARCH-AGENDA.md`
 
 议程是粗方向，猜想是具体问题。两者结合，你才知道今天该往哪走。
 
-### 0.4 决定运行模式
+### 0.5 决定运行模式
 
 **读取**: `${{ env.SKILLS_BASE }}/skillsMaintenance/SKILL.md`
 
@@ -110,7 +122,7 @@ strict: true
 
 **不要假装没看到问题。** 如果 Skills 需要重构，今天就重构，不要拖延。
 
-### 0.5 避免踩坑
+### 0.6 避免踩坑
 
 **读取失败案例**：
 - `${{ env.SKILLS_BASE }}/workflowAnalyzer/FAILURE-CASES.md`
@@ -286,20 +298,36 @@ gh api repos/githubnext/gh-aw/contents/.github/workflows --jq '.[] | "\(.name)"'
 
 ### 4.2 提交更改
 
-**先检查是否有现有的研究 PR**：
+**回顾 Phase 0.1 的结果**：
 
-```bash
-gh pr list --repo ${{ github.repository }} --label knowledge-capture --label gh-aw-research --state open --json number,title
-```
-
-- **如果找到了**：使用 `push_to_pull_request_branch` 推送到现有 PR
-- **如果没找到**：使用 `create_pull_request` 创建新 PR
+- **如果有现有 PR**：使用 `push_to_pull_request_branch` 推送到现有 PR
+- **如果没有 PR**：使用 `create_pull_request` 创建新 PR
 
 **标题格式**: `[workflow-study] 分析 {workflow-name} 工作流`
 
-### 4.3 确认 PR 创建成功
+### 4.3 在 PR 上添加评论
 
-输出 PR 链接，确认任务闭环。
+**使用 `add_comment` 告诉别人你做了什么**：
+
+```markdown
+## 🔬 Run #${{ github.run_number }} 完成
+
+**分析目标**: {workflow-name}
+
+**主要发现**:
+- {发现1}
+- {发现2}
+
+**新增文件**:
+- `reports/case-studies/{workflow-name}-analysis.md`
+- `journals/workUnits/workflowCaseStudy/YYYY-MM-DD-{workflow-name}.md`
+
+**猜想更新**: {更新了哪个猜想，或提出了新猜想}
+```
+
+### 4.4 确认任务闭环
+
+输出 PR 链接，确认工作已提交。
 
 ---
 

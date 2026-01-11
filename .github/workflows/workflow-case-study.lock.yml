@@ -541,7 +541,7 @@ jobs:
             const awInfo = {
               engine_id: "copilot",
               engine_name: "GitHub Copilot CLI",
-              model: "claude-sonnet-4",
+              model: "claude-opus-4.5",
               version: "",
               agent_version: "0.0.375",
               cli_version: "v0.36.0",
@@ -619,7 +619,19 @@ jobs:
           
           > **为什么有这个阶段？** 漫无目的的探索是最大的浪费。你只有 25 分钟，必须知道自己要找什么。
           
-          ### 0.1 读取猜想库
+          ### 0.1 检查现有研究 PR
+          
+          **首先检查是否有现有的研究 PR**：
+          
+          ```bash
+          gh pr list --repo __GH_AW_GITHUB_REPOSITORY__ --label knowledge-capture --label gh-aw-research --state open --json number,title,headRefName
+          ```
+          
+          **记住结果**：
+          - **如果有 PR**：记下 PR 编号，后续你的工作会推送到这个 PR
+          - **如果没有 PR**：你需要创建新 PR
+          
+          ### 0.2 读取猜想库
           
           **读取**: `__GH_AW_ENV_SKILLS_BASE__/hypothesis/HYPOTHESES.md`
           
@@ -630,7 +642,7 @@ jobs:
           
           **没有问题 = 没有方向。** 如果猜想库是空的，你的任务之一是提出第一个猜想。
           
-          ### 0.2 回顾历史：避免重复劳动
+          ### 0.3 回顾历史：避免重复劳动
           
           快速扫描已有工作：
           - `skills/workUnits/workflowCaseStudy/reports/case-studies/` - 已分析过什么？
@@ -638,13 +650,13 @@ jobs:
           
           **如果你选了一个已经分析过的工作流，这次运行就浪费了。**
           
-          ### 0.3 研究议程：大方向对齐
+          ### 0.4 研究议程：大方向对齐
           
           **读取**: `skills/workUnits/workflowCaseStudy/RESEARCH-AGENDA.md`
           
           议程是粗方向，猜想是具体问题。两者结合，你才知道今天该往哪走。
           
-          ### 0.4 决定运行模式
+          ### 0.5 决定运行模式
           
           **读取**: `__GH_AW_ENV_SKILLS_BASE__/skillsMaintenance/SKILL.md`
           
@@ -657,7 +669,7 @@ jobs:
           
           **不要假装没看到问题。** 如果 Skills 需要重构，今天就重构，不要拖延。
           
-          ### 0.5 避免踩坑
+          ### 0.6 避免踩坑
           
           **读取失败案例**：
           - `__GH_AW_ENV_SKILLS_BASE__/workflowAnalyzer/FAILURE-CASES.md`
@@ -833,20 +845,36 @@ jobs:
           
           ### 4.2 提交更改
           
-          **先检查是否有现有的研究 PR**：
+          **回顾 Phase 0.1 的结果**：
           
-          ```bash
-          gh pr list --repo __GH_AW_GITHUB_REPOSITORY__ --label knowledge-capture --label gh-aw-research --state open --json number,title
-          ```
-          
-          - **如果找到了**：使用 `push_to_pull_request_branch` 推送到现有 PR
-          - **如果没找到**：使用 `create_pull_request` 创建新 PR
+          - **如果有现有 PR**：使用 `push_to_pull_request_branch` 推送到现有 PR
+          - **如果没有 PR**：使用 `create_pull_request` 创建新 PR
           
           **标题格式**: `[workflow-study] 分析 {workflow-name} 工作流`
           
-          ### 4.3 确认 PR 创建成功
+          ### 4.3 在 PR 上添加评论
           
-          输出 PR 链接，确认任务闭环。
+          **使用 `add_comment` 告诉别人你做了什么**：
+          
+          ```markdown
+          ## 🔬 Run #__GH_AW_GITHUB_RUN_NUMBER__ 完成
+          
+          **分析目标**: {workflow-name}
+          
+          **主要发现**:
+          - {发现1}
+          - {发现2}
+          
+          **新增文件**:
+          - `reports/case-studies/{workflow-name}-analysis.md`
+          - `journals/workUnits/workflowCaseStudy/YYYY-MM-DD-{workflow-name}.md`
+          
+          **猜想更新**: {更新了哪个猜想，或提出了新猜想}
+          ```
+          
+          ### 4.4 确认任务闭环
+          
+          输出 PR 链接，确认工作已提交。
           
           ---
           
@@ -1099,7 +1127,7 @@ jobs:
         run: |
           set -o pipefail
           sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --mount /home/runner/.copilot:/home/runner/.copilot:rw --mount /opt/gh-aw:/opt/gh-aw:ro --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.8.2 \
-            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --model claude-sonnet-4 --allow-all-tools --allow-all-paths --share /tmp/gh-aw/sandbox/agent/logs/conversation.md --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)" \
+            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --model claude-opus-4.5 --allow-all-tools --allow-all-paths --share /tmp/gh-aw/sandbox/agent/logs/conversation.md --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)" \
             2>&1 | tee /tmp/gh-aw/agent-stdio.log
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
@@ -1432,7 +1460,7 @@ jobs:
           mkdir -p /tmp/gh-aw/
           mkdir -p /tmp/gh-aw/agent/
           mkdir -p /tmp/gh-aw/sandbox/agent/logs/
-          copilot --add-dir /tmp/ --add-dir /tmp/gh-aw/ --add-dir /tmp/gh-aw/agent/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --disable-builtin-mcps --model claude-sonnet-4 --allow-tool 'shell(cat)' --allow-tool 'shell(grep)' --allow-tool 'shell(head)' --allow-tool 'shell(jq)' --allow-tool 'shell(ls)' --allow-tool 'shell(tail)' --allow-tool 'shell(wc)' --share /tmp/gh-aw/sandbox/agent/logs/conversation.md --prompt "$COPILOT_CLI_INSTRUCTION" 2>&1 | tee /tmp/gh-aw/threat-detection/detection.log
+          copilot --add-dir /tmp/ --add-dir /tmp/gh-aw/ --add-dir /tmp/gh-aw/agent/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --disable-builtin-mcps --model claude-opus-4.5 --allow-tool 'shell(cat)' --allow-tool 'shell(grep)' --allow-tool 'shell(head)' --allow-tool 'shell(jq)' --allow-tool 'shell(ls)' --allow-tool 'shell(tail)' --allow-tool 'shell(wc)' --share /tmp/gh-aw/sandbox/agent/logs/conversation.md --prompt "$COPILOT_CLI_INSTRUCTION" 2>&1 | tee /tmp/gh-aw/threat-detection/detection.log
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
           COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
@@ -1474,7 +1502,7 @@ jobs:
     timeout-minutes: 15
     env:
       GH_AW_ENGINE_ID: "copilot"
-      GH_AW_ENGINE_MODEL: "claude-sonnet-4"
+      GH_AW_ENGINE_MODEL: "claude-opus-4.5"
       GH_AW_SAFE_OUTPUT_MESSAGES: "{\"runStarted\":\"🔬 正在评估研究价值... [{workflow_name}]({run_url})\",\"runSuccess\":\"💡 知识沉淀完成！[{workflow_name}]({run_url})\",\"runFailure\":\"🤔 研究遇到困难... [{workflow_name}]({run_url}) {status}\"}"
       GH_AW_TRACKER_ID: "workflow-case-study"
       GH_AW_WORKFLOW_ID: "workflow-case-study"
