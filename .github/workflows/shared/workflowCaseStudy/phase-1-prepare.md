@@ -23,8 +23,8 @@
 ## Step 1.1: 进入办公室（进入已经在存在的pr/新建pr）
 
 有gh-aw-research这个标签的pr，就是你的办公室
-```bash
-gh pr list --repo ${{ github.repository }} --state open --label "gh-aw-research" --json number,title,headRefName,body
+```
+你在cloud action环境中，github cli工具是不可用的。使用合适工具读取pr
 ```
 
 ### 有 PR
@@ -36,10 +36,6 @@ gh pr list --repo ${{ github.repository }} --state open --label "gh-aw-research"
 ### 没有 PR
 
 **必须创建。**
-
-```bash
-git checkout -b workflow-study/$(date +%Y%m%d)
-```
 
 ---
 

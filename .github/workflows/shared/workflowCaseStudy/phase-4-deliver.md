@@ -45,10 +45,8 @@
 
 ### 4.4 提交代码
 
-```bash
-git add -A
-git commit -m "feat(workflowCaseStudy): [简述本次产出]"
-git push
+```
+你处于cloud github action环境中，使用合适的工具提交代码。
 ```
 
 ### 4.5 更新 PR

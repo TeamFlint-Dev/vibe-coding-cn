@@ -595,10 +595,6 @@ jobs:
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
-          GH_AW_ENV_JOURNAL_PATH: ${{ env.JOURNAL_PATH }}
-          GH_AW_ENV_WORK_UNIT_PATH: ${{ env.WORK_UNIT_PATH }}
-          GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_AW_GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: |
           bash /opt/gh-aw/actions/create_prompt_first.sh
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
@@ -692,8 +688,8 @@ jobs:
           ## Step 1.1: 进入办公室（进入已经在存在的pr/新建pr）
           
           有gh-aw-research这个标签的pr，就是你的办公室
-          ```bash
-          gh pr list --repo __GH_AW_GITHUB_REPOSITORY__ --state open --label "gh-aw-research" --json number,title,headRefName,body
+          ```
+          你在cloud action环境中，github cli工具是不可用的。使用合适工具读取pr
           ```
           
           ### 有 PR
@@ -705,10 +701,6 @@ jobs:
           ### 没有 PR
           
           **必须创建。**
-          
-          ```bash
-          git checkout -b workflow-study/$(date +%Y%m%d)
-          ```
           
           ---
           
@@ -1039,10 +1031,8 @@ jobs:
           
           ### 4.4 提交代码
           
-          ```bash
-          git add -A
-          git commit -m "feat(workflowCaseStudy): [简述本次产出]"
-          git push
+          ```
+          你处于cloud github action环境中，使用合适的工具提交代码。
           ```
           
           ### 4.5 更新 PR
@@ -1086,14 +1076,6 @@ jobs:
           
           **所有输出使用中文**（代码和技术术语可用英文）。
           
-          ## 任务上下文
-          
-          - **仓库**: __GH_AW_GITHUB_REPOSITORY__
-          - **运行编号**: #__GH_AW_GITHUB_RUN_NUMBER__
-          - **工作单元路径**: `__GH_AW_ENV_WORK_UNIT_PATH__/`
-          - **Journal 路径**: `__GH_AW_ENV_JOURNAL_PATH__/`
-          
-          
           ---
           
           ## 🚨 任务完成标准
@@ -1109,28 +1091,6 @@ jobs:
           **✅ 成功标志：你能够提供一个 PR 链接**
           
           PROMPT_EOF
-      - name: Substitute placeholders
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
-        env:
-          GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-          GH_AW_ENV_JOURNAL_PATH: ${{ env.JOURNAL_PATH }}
-          GH_AW_ENV_WORK_UNIT_PATH: ${{ env.WORK_UNIT_PATH }}
-          GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_AW_GITHUB_RUN_NUMBER: ${{ github.run_number }}
-        with:
-          script: |
-            const substitutePlaceholders = require('/opt/gh-aw/actions/substitute_placeholders.cjs');
-            
-            // Call the substitution function
-            return await substitutePlaceholders({
-              file: process.env.GH_AW_PROMPT,
-              substitutions: {
-                GH_AW_ENV_JOURNAL_PATH: process.env.GH_AW_ENV_JOURNAL_PATH,
-                GH_AW_ENV_WORK_UNIT_PATH: process.env.GH_AW_ENV_WORK_UNIT_PATH,
-                GH_AW_GITHUB_REPOSITORY: process.env.GH_AW_GITHUB_REPOSITORY,
-                GH_AW_GITHUB_RUN_NUMBER: process.env.GH_AW_GITHUB_RUN_NUMBER
-              }
-            });
       - name: Append XPIA security instructions to prompt
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
@@ -1236,10 +1196,6 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-          GH_AW_ENV_JOURNAL_PATH: ${{ env.JOURNAL_PATH }}
-          GH_AW_ENV_WORK_UNIT_PATH: ${{ env.WORK_UNIT_PATH }}
-          GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_AW_GITHUB_RUN_NUMBER: ${{ github.run_number }}
         with:
           script: |
             const { setupGlobals } = require('/opt/gh-aw/actions/setup_globals.cjs');

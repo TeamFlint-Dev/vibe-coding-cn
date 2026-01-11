@@ -54,14 +54,6 @@ strict: true
 
 **所有输出使用中文**（代码和技术术语可用英文）。
 
-## 任务上下文
-
-- **仓库**: ${{ github.repository }}
-- **运行编号**: #${{ github.run_number }}
-- **工作单元路径**: `${{ env.WORK_UNIT_PATH }}/`
-- **Journal 路径**: `${{ env.JOURNAL_PATH }}/`
-
-
 ---
 
 ## 🚨 任务完成标准
