@@ -72,17 +72,22 @@ strict: true
 
 > **为什么有这个阶段？** 漫无目的的探索是最大的浪费。你只有 25 分钟，必须知道自己要找什么。
 
-### 0.1 检查现有研究 PR
+### 0.1 检查现有研究 PR（强制执行）
 
-**首先检查是否有现有的研究 PR**：
+**⛔ 在做任何其他事情之前，你必须先执行这个命令并查看结果：**
 
 ```bash
 gh pr list --repo ${{ github.repository }} --label gh-aw-research --state open --json number,title,headRefName
 ```
 
-**记住结果**：
-- **如果有 PR**：记下 PR 编号，后续你的工作会推送到这个 PR
-- **如果没有 PR**：你需要创建新 PR
+**执行后根据结果决定：**
+
+| 结果 | 你应该怎么做 |
+|------|-------------|
+| 返回 1 个或多个 PR | ✅ 记下**最新的** PR 编号。你今天的所有工作都要推送到这个 PR |
+| 返回空列表 `[]` | ⚠️ 没有现有 PR，你需要在 Phase 4 创建新 PR |
+
+**⚠️ 如果你没有实际执行这个命令，后续提交时会创建重复的 PR！**
 
 ### 0.2 读取猜想库
 
@@ -300,10 +305,17 @@ gh api repos/githubnext/gh-aw/contents/.github/workflows --jq '.[] | "\(.name)"'
 
 **回顾 Phase 0.1 的结果**：
 
-- **如果有现有 PR**：使用 `push_to_pull_request_branch` 推送到现有 PR
-- **如果没有 PR**：使用 `create_pull_request` 创建新 PR
+| Phase 0.1 结果 | 你必须调用的 Tool |
+|---------------|------------------|
+| `gh pr list` 返回了 PR（如 `#14`）| **调用 `push_to_pull_request_branch`**，推送到现有 PR 的分支 |
+| `gh pr list` 返回空列表 `[]` | **调用 `create_pull_request`**，创建新 PR |
 
-**标题格式**: `[workflow-study] 分析 {workflow-name} 工作流`
+**⛔ 关键规则**：
+- 如果 Phase 0.1 找到了现有 PR，你**必须**使用 `push_to_pull_request_branch`
+- 只有当**确实没有**现有 PR 时，才使用 `create_pull_request`
+- 违反这个规则会创建重复的 PR
+
+**标题格式**: `[workflow-study] 分析 {workflow-name} 工作流 (Run #{run_number})`
 
 ### 4.3 在 PR 上添加评论
 
