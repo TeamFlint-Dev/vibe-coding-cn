@@ -24,15 +24,18 @@
 name: "Workflow Case Study"
 "on":
   schedule:
-  - cron: "17 */4 * * *"
+  - cron: "3 */4 * * *"
+    # Friendly format: every 4h (scattered)
   workflow_dispatch:
 
 permissions:
   contents: read
   issues: read
+  pull-requests: read
 
 concurrency:
-  group: "gh-aw-${{ github.workflow }}"
+  cancel-in-progress: false
+  group: workflow-case-study-${{ github.ref }}
 
 run-name: "Workflow Case Study"
 
@@ -71,6 +74,7 @@ jobs:
     permissions:
       contents: read
       issues: read
+      pull-requests: read
     concurrency:
       group: "gh-aw-copilot-${{ github.workflow }}"
     env:
@@ -159,7 +163,7 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /opt/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1},"create_issue":{"max":1},"create_pull_request":{},"missing_data":{},"missing_tool":{},"noop":{"max":1}}
+          {"add_comment":{"max":1,"target":"*"},"create_issue":{"max":1},"create_pull_request":{},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0}}
           EOF
           cat > /opt/gh-aw/safeoutputs/tools.json << 'EOF'
           [
@@ -204,7 +208,7 @@ jobs:
               "name": "create_issue"
             },
             {
-              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added.",
+              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added. Target: *.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -226,7 +230,7 @@ jobs:
               "name": "add_comment"
             },
             {
-              "description": "Create a new GitHub pull request to propose code changes. Use this after making file edits to submit them for review and merging. The PR will be created from the current branch with your committed changes. For code review comments on an existing PR, use create_pull_request_review_comment instead. CONSTRAINTS: Maximum 1 pull request(s) can be created. Title will be prefixed with \"[workflow-study] \". Labels [knowledge-capture gh-aw-research] will be automatically added.",
+              "description": "Create a new GitHub pull request to propose code changes. Use this after making file edits to submit them for review and merging. The PR will be created from the current branch with your committed changes. For code review comments on an existing PR, use create_pull_request_review_comment instead. CONSTRAINTS: Maximum 1 pull request(s) can be created. Title will be prefixed with \"[workflow-study] \". Labels [gh-aw-research] will be automatically added.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -257,6 +261,34 @@ jobs:
                 "type": "object"
               },
               "name": "create_pull_request"
+            },
+            {
+              "description": "Push committed changes to a pull request's branch. Use this to add follow-up commits to an existing PR, such as addressing review feedback or fixing issues. Changes must be committed locally before calling this tool.",
+              "inputSchema": {
+                "additionalProperties": false,
+                "properties": {
+                  "branch": {
+                    "description": "Branch name to push changes from. If omitted, uses the current working branch. Only specify if you need to push from a different branch.",
+                    "type": "string"
+                  },
+                  "message": {
+                    "description": "Commit message describing the changes. Follow repository commit message conventions (e.g., conventional commits).",
+                    "type": "string"
+                  },
+                  "pull_request_number": {
+                    "description": "Pull request number to push changes to. This is the numeric ID from the GitHub URL (e.g., 654 in github.com/owner/repo/pull/654). Required when the workflow target is '*' (any PR).",
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "name": "push_to_pull_request_branch"
             },
             {
               "description": "Report that a tool or capability needed to complete the task is not available. Use this when you cannot accomplish what was requested because the required functionality is missing or access is restricted.",
@@ -413,6 +445,26 @@ jobs:
                   "maxLength": 65000
                 }
               }
+            },
+            "push_to_pull_request_branch": {
+              "defaultMax": 1,
+              "fields": {
+                "branch": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 256
+                },
+                "message": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 65000
+                },
+                "pull_request_number": {
+                  "issueOrPRNumber": true
+                }
+              }
             }
           }
           EOF
@@ -441,7 +493,7 @@ jobs:
                   "-e",
                   "GITHUB_LOCKDOWN_MODE=$GITHUB_MCP_LOCKDOWN",
                   "-e",
-                  "GITHUB_TOOLSETS=repos",
+                  "GITHUB_TOOLSETS=context,repos,issues,pull_requests",
                   "ghcr.io/github/github-mcp-server:v0.27.0"
                 ],
                 "tools": ["*"],
@@ -555,13 +607,36 @@ jobs:
           - **目标仓库**: `githubnext/gh-aw`
           - **Skill 路径前缀**: `__GH_AW_ENV_SKILLS_BASE__/`
           
+          ## ⛔ 禁止修改的目录
+          
+          **绝对不要修改 `.github/` 目录下的任何文件**（包括 workflows、actions 等）。
+          
+          原因：`GITHUB_TOKEN` 没有 `workflows` 权限，修改会导致 push 失败。
+          
           ---
           
           ## Phase 0: 带着问题启程 🧭
           
           > **为什么有这个阶段？** 漫无目的的探索是最大的浪费。你只有 25 分钟，必须知道自己要找什么。
           
-          ### 0.1 读取猜想库
+          ### 0.1 检查现有研究 PR（强制执行）
+          
+          **⛔ 在做任何其他事情之前，你必须先搜索现有的 workflow-study PR：**
+          
+          搜索满足以下**两个条件**的 open PR：
+          1. 标题以 `[workflow-study]` 开头
+          2. 有 `gh-aw-research` 标签
+          
+          **如果找到现有 PR**：
+          - 记下它的 **PR 编号** 和 **分支名 (headRefName)**
+          - 你今天的所有工作都要推送到**这个分支**
+          
+          **如果没有找到**：
+          - 你需要在 Phase 4 创建新 PR
+          
+          **⚠️ 重要**：必须记住分支名！后续 `push_to_pull_request_branch` 需要用到。
+          
+          ### 0.2 读取猜想库
           
           **读取**: `__GH_AW_ENV_SKILLS_BASE__/hypothesis/HYPOTHESES.md`
           
@@ -572,7 +647,7 @@ jobs:
           
           **没有问题 = 没有方向。** 如果猜想库是空的，你的任务之一是提出第一个猜想。
           
-          ### 0.2 回顾历史：避免重复劳动
+          ### 0.3 回顾历史：避免重复劳动
           
           快速扫描已有工作：
           - `skills/workUnits/workflowCaseStudy/reports/case-studies/` - 已分析过什么？
@@ -580,13 +655,13 @@ jobs:
           
           **如果你选了一个已经分析过的工作流，这次运行就浪费了。**
           
-          ### 0.3 研究议程：大方向对齐
+          ### 0.4 研究议程：大方向对齐
           
           **读取**: `skills/workUnits/workflowCaseStudy/RESEARCH-AGENDA.md`
           
           议程是粗方向，猜想是具体问题。两者结合，你才知道今天该往哪走。
           
-          ### 0.4 决定运行模式
+          ### 0.5 决定运行模式
           
           **读取**: `__GH_AW_ENV_SKILLS_BASE__/skillsMaintenance/SKILL.md`
           
@@ -599,7 +674,7 @@ jobs:
           
           **不要假装没看到问题。** 如果 Skills 需要重构，今天就重构，不要拖延。
           
-          ### 0.5 避免踩坑
+          ### 0.6 避免踩坑
           
           **读取失败案例**：
           - `__GH_AW_ENV_SKILLS_BASE__/workflowAnalyzer/FAILURE-CASES.md`
@@ -773,15 +848,47 @@ jobs:
           
           **缺任何一项，补完再继续。**
           
-          ### 4.2 创建 PR
+          ### 4.2 提交更改
           
-          **读取**: `__GH_AW_ENV_SKILLS_BASE__/reportWriting/SKILL.md` 中的「PR 描述撰写指南」
+          **回顾 Phase 0.1 的结果**：
           
-          **标题格式**: `[workflow-study] 分析 {workflow-name} 工作流`
+          | Phase 0.1 结果 | 你必须做什么 |
+          |---------------|-------------|
+          | 找到了现有 PR（记住了分支名）| 用 `push_to_pull_request_branch` 推送到**那个分支** |
+          | 没有找到现有 PR | 用 `create_pull_request` 创建新 PR |
           
-          ### 4.3 确认 PR 创建成功
+          **⚠️ 关键**：
+          - 如果 Phase 0.1 找到了现有 PR，**必须**用 `push_to_pull_request_branch`
+          - 这样你的更改会推送到**现有 PR 的分支**，不会产生冲突
+          - 只有确实没有现有 PR 时，才用 `create_pull_request`
           
-          输出 PR 链接，确认任务闭环。
+          ### 4.3 在 PR 上添加评论
+          
+          **使用 `add_comment` 告诉别人你做了什么**。
+          
+          指定 `issue_number` 为 Phase 0.1 找到的（或刚创建的）PR 编号。
+          
+          **评论内容格式**：
+          
+          ```markdown
+          ## 🔬 Run #__GH_AW_GITHUB_RUN_NUMBER__ 完成
+          
+          **分析目标**: {workflow-name}
+          
+          **主要发现**:
+          - {发现1}
+          - {发现2}
+          
+          **新增文件**:
+          - `reports/case-studies/{workflow-name}-analysis.md`
+          - `journals/workUnits/workflowCaseStudy/YYYY-MM-DD-{workflow-name}.md`
+          
+          **猜想更新**: {更新了哪个猜想，或提出了新猜想}
+          ```
+          
+          ### 4.4 确认任务闭环
+          
+          输出 PR 链接，确认工作已提交。
           
           ---
           
@@ -932,7 +1039,7 @@ jobs:
           <instructions>
           To create or modify GitHub resources (issues, discussions, pull requests, etc.), you MUST call the appropriate safe output tool. Simply writing content will NOT work - the workflow requires actual tool calls.
           
-          **Available tools**: add_comment, create_issue, create_pull_request, missing_tool, noop
+          **Available tools**: add_comment, create_issue, create_pull_request, missing_tool, noop, push_to_pull_request_branch
           
           **Critical**: Tool calls write structured data that downstream jobs process. Without tool calls, follow-up actions will be skipped.
           </instructions>
@@ -1440,14 +1547,14 @@ jobs:
           name: agent-artifacts
           path: /tmp/gh-aw/
       - name: Checkout repository
-        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
+        if: (((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))) || (((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'push_to_pull_request_branch')))
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           token: ${{ github.token }}
           persist-credentials: false
           fetch-depth: 1
       - name: Configure Git credentials
-        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
+        if: (((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))) || (((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'push_to_pull_request_branch')))
         env:
           REPO_NAME: ${{ github.repository }}
           SERVER_URL: ${{ github.server_url }}
@@ -1463,7 +1570,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"labels\":[\"knowledge-capture\",\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1,\"target\":\"*\"},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"draft\":false,\"labels\":[\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"warn\",\"max_patch_size\":1024}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |

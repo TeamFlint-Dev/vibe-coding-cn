@@ -3,11 +3,14 @@ name: Workflow Case Study
 description: 智能分析 GitHub Agentic Workflows，持续沉淀知识到 Skills
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 */4 * * *"
+  schedule: every 4h
 permissions:
   contents: read
   issues: read
+  pull-requests: read
+concurrency:
+  group: workflow-case-study-${{ github.ref }}
+  cancel-in-progress: false
 tracker-id: workflow-case-study
 engine:
   id: copilot
@@ -18,16 +21,19 @@ env:
   SKILLS_BASE: skills/workUnits/workflowCaseStudy/skills
 tools:
   github:
-    toolsets: [repos]
+    toolsets: [default]
   bash: ["*"]
   edit:
 safe-outputs:
   create-pull-request:
     title-prefix: "[workflow-study] "
-    labels: [knowledge-capture, gh-aw-research]
+    labels: [gh-aw-research]
+    draft: false
+  push-to-pull-request-branch:
   create-issue:
     labels: [agent-suggested, needs-triage]
   add-comment:
+    target: "*"
     max: 1
   messages:
     run-started: "🔬 正在评估研究价值... [{workflow_name}]({run_url})"
@@ -52,13 +58,36 @@ strict: true
 - **目标仓库**: `githubnext/gh-aw`
 - **Skill 路径前缀**: `${{ env.SKILLS_BASE }}/`
 
+## ⛔ 禁止修改的目录
+
+**绝对不要修改 `.github/` 目录下的任何文件**（包括 workflows、actions 等）。
+
+原因：`GITHUB_TOKEN` 没有 `workflows` 权限，修改会导致 push 失败。
+
 ---
 
 ## Phase 0: 带着问题启程 🧭
 
 > **为什么有这个阶段？** 漫无目的的探索是最大的浪费。你只有 25 分钟，必须知道自己要找什么。
 
-### 0.1 读取猜想库
+### 0.1 检查现有研究 PR（强制执行）
+
+**⛔ 在做任何其他事情之前，你必须先搜索现有的 workflow-study PR：**
+
+搜索满足以下**两个条件**的 open PR：
+1. 标题以 `[workflow-study]` 开头
+2. 有 `gh-aw-research` 标签
+
+**如果找到现有 PR**：
+- 记下它的 **PR 编号** 和 **分支名 (headRefName)**
+- 你今天的所有工作都要推送到**这个分支**
+
+**如果没有找到**：
+- 你需要在 Phase 4 创建新 PR
+
+**⚠️ 重要**：必须记住分支名！后续 `push_to_pull_request_branch` 需要用到。
+
+### 0.2 读取猜想库
 
 **读取**: `${{ env.SKILLS_BASE }}/hypothesis/HYPOTHESES.md`
 
@@ -69,7 +98,7 @@ strict: true
 
 **没有问题 = 没有方向。** 如果猜想库是空的，你的任务之一是提出第一个猜想。
 
-### 0.2 回顾历史：避免重复劳动
+### 0.3 回顾历史：避免重复劳动
 
 快速扫描已有工作：
 - `skills/workUnits/workflowCaseStudy/reports/case-studies/` - 已分析过什么？
@@ -77,13 +106,13 @@ strict: true
 
 **如果你选了一个已经分析过的工作流，这次运行就浪费了。**
 
-### 0.3 研究议程：大方向对齐
+### 0.4 研究议程：大方向对齐
 
 **读取**: `skills/workUnits/workflowCaseStudy/RESEARCH-AGENDA.md`
 
 议程是粗方向，猜想是具体问题。两者结合，你才知道今天该往哪走。
 
-### 0.4 决定运行模式
+### 0.5 决定运行模式
 
 **读取**: `${{ env.SKILLS_BASE }}/skillsMaintenance/SKILL.md`
 
@@ -96,7 +125,7 @@ strict: true
 
 **不要假装没看到问题。** 如果 Skills 需要重构，今天就重构，不要拖延。
 
-### 0.5 避免踩坑
+### 0.6 避免踩坑
 
 **读取失败案例**：
 - `${{ env.SKILLS_BASE }}/workflowAnalyzer/FAILURE-CASES.md`
@@ -270,15 +299,47 @@ gh api repos/githubnext/gh-aw/contents/.github/workflows --jq '.[] | "\(.name)"'
 
 **缺任何一项，补完再继续。**
 
-### 4.2 创建 PR
+### 4.2 提交更改
 
-**读取**: `${{ env.SKILLS_BASE }}/reportWriting/SKILL.md` 中的「PR 描述撰写指南」
+**回顾 Phase 0.1 的结果**：
 
-**标题格式**: `[workflow-study] 分析 {workflow-name} 工作流`
+| Phase 0.1 结果 | 你必须做什么 |
+|---------------|-------------|
+| 找到了现有 PR（记住了分支名）| 用 `push_to_pull_request_branch` 推送到**那个分支** |
+| 没有找到现有 PR | 用 `create_pull_request` 创建新 PR |
 
-### 4.3 确认 PR 创建成功
+**⚠️ 关键**：
+- 如果 Phase 0.1 找到了现有 PR，**必须**用 `push_to_pull_request_branch`
+- 这样你的更改会推送到**现有 PR 的分支**，不会产生冲突
+- 只有确实没有现有 PR 时，才用 `create_pull_request`
 
-输出 PR 链接，确认任务闭环。
+### 4.3 在 PR 上添加评论
+
+**使用 `add_comment` 告诉别人你做了什么**。
+
+指定 `issue_number` 为 Phase 0.1 找到的（或刚创建的）PR 编号。
+
+**评论内容格式**：
+
+```markdown
+## 🔬 Run #${{ github.run_number }} 完成
+
+**分析目标**: {workflow-name}
+
+**主要发现**:
+- {发现1}
+- {发现2}
+
+**新增文件**:
+- `reports/case-studies/{workflow-name}-analysis.md`
+- `journals/workUnits/workflowCaseStudy/YYYY-MM-DD-{workflow-name}.md`
+
+**猜想更新**: {更新了哪个猜想，或提出了新猜想}
+```
+
+### 4.4 确认任务闭环
+
+输出 PR 链接，确认工作已提交。
 
 ---
 
