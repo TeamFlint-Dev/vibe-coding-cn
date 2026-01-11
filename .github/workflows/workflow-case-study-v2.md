@@ -20,6 +20,12 @@ env:
   GH_AW_REPO: githubnext/gh-aw
   WORK_UNIT_PATH: skills/workUnits/workflowCaseStudy
   JOURNAL_PATH: journals/workUnits/workflowCaseStudy
+imports:
+  - shared/workflowCaseStudy/think-model.md
+  - shared/workflowCaseStudy/phase-1-prepare.md
+  - shared/workflowCaseStudy/phase-2-decide.md
+  - shared/workflowCaseStudy/phase-3-execute.md
+  - shared/workflowCaseStudy/phase-4-deliver.md
 tools:
   github:
     toolsets: [default]
@@ -58,36 +64,6 @@ strict: true
 ## ⛔ 禁止修改的目录
 
 **绝对不要修改 `.github/` 目录下的任何文件**。
-
----
-
-## 思维模型
-
-{% include ".github/workflows/shared/workflowCaseStudy/think-model.md" %}
-
----
-
-## Phase 1: 准备
-
-{% include ".github/workflows/shared/workflowCaseStudy/phase-1-prepare.md" %}
-
----
-
-## Phase 2: 思考
-
-{% include ".github/workflows/shared/workflowCaseStudy/phase-2-decide.md" %}
-
----
-
-## Phase 3: 执行
-
-{% include ".github/workflows/shared/workflowCaseStudy/phase-3-execute.md" %}
-
----
-
-## Phase 4: 交付
-
-{% include ".github/workflows/shared/workflowCaseStudy/phase-4-deliver.md" %}
 
 ---
 
