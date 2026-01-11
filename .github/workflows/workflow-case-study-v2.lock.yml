@@ -998,7 +998,9 @@ jobs:
           
           做完了不等于交付了。
           
-          交付 = 成果放到正确的位置 + 别人能找到 + 状态更新了 + Commits + **推送到 PR**。
+          交付 = 文件创建 + 推送到 PR 分支 + PR 评论
+          
+          **如果你没有推送到 PR，你的工作会丢失。**
           
           ---
           
@@ -1006,115 +1008,153 @@ jobs:
           
           ### 4.1 确认产出物已创建
           
-          **在提交前，先确认文件真的存在：**
+          在提交前，先确认文件真的存在。使用工具读取以下文件：
           
-          | 产出类型 | 路径 | 如何确认 |
-          |----------|------|----------|
-          | 案例报告 | `skills/workUnits/workflowCaseStudy/reports/` | 列出目录，找到你的文件 |
-          | Skill 更新 | 对应的 Skill 目录 | 读取文件，确认修改已保存 |
-          | 猜想更新 | `hypothesis/` 或 `OVERVIEW.md` | 读取文件，确认内容已更新 |
-          | Journal | `journals/workUnits/workflowCaseStudy/` | 读取文件，确认完整 |
-          | OVERVIEW.md | `skills/workUnits/workflowCaseStudy/OVERVIEW.md` | 读取文件，确认资产清单已更新 |
+          | 产出类型 | 路径 |
+          |----------|------|
+          | 案例报告 | `skills/workUnits/workflowCaseStudy/reports/` |
+          | Skill 更新 | 对应的 Skill 目录 |
+          | 猜想更新 | `skills/workUnits/workflowCaseStudy/skills/hypothesis/` |
+          | Journal | `journals/workUnits/workflowCaseStudy/` |
+          | OVERVIEW.md | `skills/workUnits/workflowCaseStudy/OVERVIEW.md` |
           
-          还有所有与今日任务相关的产物！！
-          
-          **如果文件不存在或内容不对，回到 Phase 3 补完。**
+          **如果文件不存在，回到 Phase 3 创建它。**
           
           ---
           
-          ### 4.2 检查 OVERVIEW.md 更新
+          ### 4.2 推送到 PR（最关键的一步）
           
-          **必须检查**：`skills/workUnits/workflowCaseStudy/OVERVIEW.md`
+          **⚠️ 这是最重要的步骤。如果不做这一步，你的所有工作都会丢失。**
           
-          读取这个文件，确认：
-          - 新增的案例报告已加到资产清单
-          - 消化的素材已更新进度
-          - 承诺的订单已更新状态
-          - 发现的新素材来源已添加
+          #### 如何正确推送
           
-          **如果没更新，现在更新。不要跳过这一步。**
+          **你需要使用 `push_to_pull_request_branch` 或 `create_pull_request` 工具。**
+          
+          这些工具的工作原理：
+          1. 它们会自动创建一个新的分支（或使用现有分支）
+          2. 把你创建/修改的文件提交到那个分支
+          3. 创建或更新 PR
+          
+          #### 情况 A：Phase 1 找到了现有 PR
+          
+          使用 `push_to_pull_request_branch` 工具。
+          
+          **你需要提供**：
+          - `files`: 你要提交的文件列表（完整路径）
+          - `message`: commit 消息
+          - `branch`: Phase 1 记录的 PR 分支名
+          
+          **示例**：
+          ```
+          工具: push_to_pull_request_branch
+          参数:
+            files:
+              - skills/workUnits/workflowCaseStudy/reports/xxx-analysis.md
+              - skills/workUnits/workflowCaseStudy/OVERVIEW.md
+              - journals/workUnits/workflowCaseStudy/2026-01-11-xxx.md
+            message: "feat: 完成 xxx 分析"
+            branch: workflow-study/xxx
+          ```
+          
+          #### 情况 B：Phase 1 没有找到 PR
+          
+          使用 `create_pull_request` 工具。
+          
+          **你需要提供**：
+          - `files`: 你要提交的文件列表（完整路径）
+          - `title`: PR 标题，必须以 `[workflow-study]` 开头
+          - `body`: PR 描述
+          - `labels`: 必须包含 `gh-aw-research`
+          
+          **示例**：
+          ```
+          工具: create_pull_request
+          参数:
+            files:
+              - skills/workUnits/workflowCaseStudy/reports/xxx-analysis.md
+              - skills/workUnits/workflowCaseStudy/OVERVIEW.md
+              - journals/workUnits/workflowCaseStudy/2026-01-11-xxx.md
+            title: "[workflow-study] xxx 分析报告"
+            body: "本次完成了 xxx 的分析..."
+            labels:
+              - gh-aw-research
+          ```
+          
+          #### 常见错误
+          
+          | 错误 | 原因 | 解决方法 |
+          |------|------|----------|
+          | 文件没有出现在 PR | 没有把文件路径加到 `files` 参数 | 确保列出所有要提交的文件 |
+          | PR 创建失败 | 文件路径错误 | 检查文件是否真的存在 |
+          | 分支冲突 | 使用了错误的分支名 | 使用 Phase 1 记录的分支名 |
           
           ---
           
-          ### 4.3 提交到 PR
+          ### 4.3 验证推送成功
           
-          **关键步骤：必须把文件推送到 PR 分支。**
+          推送工具调用后，检查返回结果：
           
-          你有两个选择：
+          - **成功**：会返回 PR URL
+          - **失败**：会返回错误信息
           
-          #### 选项 A：有现有 PR（Phase 1 找到的）
-          
-          使用 `push_to_pull_request_branch` 工具：
-          - 这会把你的修改推送到**现有 PR 的分支**
-          - PR 会自动更新
-          - 不会产生冲突
-          
-          #### 选项 B：没有现有 PR
-          
-          使用 `create_pull_request` 工具：
-          - 标题前缀：`[workflow-study]`
-          - 标签：`gh-aw-research`
-          - 描述：简要说明本次工作内容
-          
-          **⚠️ 重要**：
-          - 不要用 `git` 命令，用工具
-          - 确认工具调用成功返回了 PR 链接
-          - 如果失败，检查错误信息，修正后重试
+          **如果失败，分析错误信息，修正后重试。不要跳过这一步。**
           
           ---
           
           ### 4.4 在 PR 上添加评论
           
-          **使用 `add_comment` 工具，总结本次工作：**
+          使用 `add_comment` 工具，总结本次工作：
           
-          评论内容应包含：
-          - 本次做了什么任务
-          - 主要产出是什么（列出文件）
-          - 有什么发现或学到了什么
-          - （如果是订单交付）@用户 让他们知道
+          ```
+          工具: add_comment
+          参数:
+            issue_number: [PR 编号]
+            body: |
+              ## Run #xxx 完成
+              
+              ### 本次工作
+              - [做了什么]
+              
+              ### 产出文件
+              - `path/to/file1.md`
+              - `path/to/file2.md`
+              
+              ### 发现/学习
+              - [有什么发现]
+          ```
           
           ---
           
-          ## 交付完成检查（强制执行）
+          ## 交付检查清单
           
-          **在说"交付完成"之前，必须确认每一项：**
+          **在说"交付完成"之前，必须逐项确认：**
           
-          | 检查项 | 如何确认 | 状态 |
-          |--------|----------|------|
-          | 产出物文件已创建？ | 读取文件确认内容 | ☐ |
-          | OVERVIEW.md 已更新？ | 读取文件确认资产清单 | ☐ |
-          | Journal 已完成？ | 读取文件确认完整 | ☐ |
-          | 文件已推送到 PR？ | 工具返回成功，有 PR 链接 | ☐ |
-          | 评论已添加？ | 工具返回成功 | ☐ |
+          | # | 检查项 | 如何确认 |
+          |---|--------|----------|
+          | 1 | 产出物文件已创建 | 读取文件确认内容存在 |
+          | 2 | OVERVIEW.md 已更新 | 读取文件确认资产清单 |
+          | 3 | 推送工具已调用 | 确认调用了 push_to_pull_request_branch 或 create_pull_request |
+          | 4 | 推送成功 | 工具返回了 PR URL |
+          | 5 | 评论已添加 | add_comment 调用成功 |
           
-          **如果有任何一项打不上勾，不要继续。回去完成它。**
+          **如果 #3 或 #4 失败，你的工作没有保存。必须修正后重试。**
           
           ---
           
           ## 最终输出
           
-          **你必须输出：**
+          成功交付后，必须输出：
           
           ```
           ✅ 交付完成
           
-          PR 链接：[具体的 PR URL]
-          Commits编号: 具体的编号
+          PR 链接：https://github.com/xxx/xxx/pull/N
+          推送的文件：
+          - path/to/file1.md
+          - path/to/file2.md
+          ```
           
-          **没有 PR 链接 和 Commit = 交付失败。**
-          
-          ---
-          
-          ## 收尾
-          
-          如果是订单交付：
-          - 确认用户能看到你的产出
-          - 如果准备了多个方案，说明每个方案的特点
-          
-          如果是资产积累：
-          - 想一下这个资产未来可能用在哪里
-          
-          **交付完成。**
+          **没有 PR 链接 = 交付失败 = 工作丢失**
           
           **所有输出使用中文**（代码和技术术语可用英文）。
           
