@@ -163,7 +163,7 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /opt/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1},"create_issue":{"max":1},"create_pull_request":{},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0,"target":"*"}}
+          {"add_comment":{"max":1,"target":"*"},"create_issue":{"max":1},"create_pull_request":{},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0,"target":"*"}}
           EOF
           cat > /opt/gh-aw/safeoutputs/tools.json << 'EOF'
           [
@@ -208,7 +208,7 @@ jobs:
               "name": "create_issue"
             },
             {
-              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added.",
+              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 1 comment(s) can be added. Target: *.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -866,7 +866,11 @@ jobs:
           
           ### 4.3 在 PR 上添加评论
           
-          **使用 `add_comment` 告诉别人你做了什么**：
+          **使用 `add_comment` 告诉别人你做了什么**。
+          
+          ⚠️ **必须指定 PR 编号**：因为这个 workflow 通过 schedule/dispatch 触发，没有默认的 PR 上下文。你需要在调用 `add_comment` 时指定 `issue_number` 参数为 Phase 0.1 找到的（或刚创建的）PR 编号。
+          
+          **评论内容格式**：
           
           ```markdown
           ## 🔬 Run #__GH_AW_GITHUB_RUN_NUMBER__ 完成
@@ -1568,7 +1572,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"labels\":[\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"ignore\",\"labels\":[\"gh-aw-research\"],\"max_patch_size\":1024,\"target\":\"*\",\"title_prefix\":\"[workflow-study] \"}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1,\"target\":\"*\"},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"labels\":[\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"ignore\",\"labels\":[\"gh-aw-research\"],\"max_patch_size\":1024,\"target\":\"*\",\"title_prefix\":\"[workflow-study] \"}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |

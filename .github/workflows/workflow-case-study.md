@@ -36,6 +36,7 @@ safe-outputs:
   create-issue:
     labels: [agent-suggested, needs-triage]
   add-comment:
+    target: "*"
     max: 1
   messages:
     run-started: "🔬 正在评估研究价值... [{workflow_name}]({run_url})"
@@ -319,7 +320,11 @@ gh api repos/githubnext/gh-aw/contents/.github/workflows --jq '.[] | "\(.name)"'
 
 ### 4.3 在 PR 上添加评论
 
-**使用 `add_comment` 告诉别人你做了什么**：
+**使用 `add_comment` 告诉别人你做了什么**。
+
+⚠️ **必须指定 PR 编号**：因为这个 workflow 通过 schedule/dispatch 触发，没有默认的 PR 上下文。你需要在调用 `add_comment` 时指定 `issue_number` 参数为 Phase 0.1 找到的（或刚创建的）PR 编号。
+
+**评论内容格式**：
 
 ```markdown
 ## 🔬 Run #${{ github.run_number }} 完成
