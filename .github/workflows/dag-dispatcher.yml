@@ -177,7 +177,7 @@ jobs:
             fi
             
             # 🔒 二次检查：确保任务仍是 pending 状态（防止并发重复触发）
-            CURRENT_LABELS=$(gh issue view "$ISSUE_NUM" --json labels -q '.labels[].name' | tr '\n' ',')
+            CURRENT_LABELS=$(gh issue view "$ISSUE_NUM" --json labels --jq '.labels[].name' | tr '\n' ',')
             if [[ "$CURRENT_LABELS" != *"pending"* ]]; then
               echo "⏭️ 跳过 #$ISSUE_NUM: 已不是 pending 状态 (当前: $CURRENT_LABELS)"
               continue
