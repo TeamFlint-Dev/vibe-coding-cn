@@ -29,7 +29,18 @@ imports:
 tools:
   github:
     toolsets: [default]
-  bash: ["*"]
+  bash:
+    - "git fetch"
+    - "git checkout"
+    - "git pull"
+    - "git status"
+    - "git branch"
+    - "cat"
+    - "ls"
+    - "find"
+    - "head"
+    - "tail"
+    - "grep"
   edit:
 safe-outputs:
   create-pull-request:

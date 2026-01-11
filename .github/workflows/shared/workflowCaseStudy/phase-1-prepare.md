@@ -18,9 +18,10 @@
 
 巡视自己的工厂，了解工厂的现状，并决定工厂的今日任务。
 生产，维护，改进，一切都是你的决策。
+
 ---
 
-## Step 1.1: 检查现有 PR
+## Step 1.1: 检查现有 PR 并切换分支
 
 有 `gh-aw-research` 标签的 PR，就是你的办公室。
 
@@ -32,12 +33,25 @@
 
 **记住这个 PR 的编号和分支名**，Phase 4 推送时需要用。
 
-获取pr的提交内容，在这之上去完成工作。
+**⚠️ 重要：立即切换到 PR 分支**：
+
+```bash
+git fetch origin
+git checkout <PR_BRANCH>
+git pull origin <PR_BRANCH>
+```
+
+把 `<PR_BRANCH>` 替换为 PR 的分支名（如 `workflow-study/xxx`）。
+
+这样你后续创建的文件就直接在 PR 分支上，不会有冲突。
+
 然后：
 1. 读 PR 描述和评论——**有订单吗？用户在等什么？**
 2. 读最近的 Journal（在 `journals/workUnits/workflowCaseStudy/` 目录）
 
 ### 没有 PR
+
+**不需要切换分支**。保持在 main 分支工作。
 
 **记住：需要在 Phase 4 创建新 PR。**
 

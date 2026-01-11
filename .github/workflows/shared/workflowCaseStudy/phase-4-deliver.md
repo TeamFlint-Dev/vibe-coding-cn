@@ -8,9 +8,9 @@
 
 做完了不等于交付了。
 
-交付 = 文件创建 + 推送到 PR 分支 + PR 评论
+交付 = 文件创建 + 推送到远程 + PR 评论
 
-**如果你没有推送到 PR，你的工作会丢失。**
+**如果你没有推送，你的工作会丢失。**
 
 ---
 
@@ -32,71 +32,45 @@
 
 ---
 
-### 4.2 推送到 PR（最关键的一步）
+### 4.2 推送到远程（最关键的一步）
 
 **⚠️ 这是最重要的步骤。如果不做这一步，你的所有工作都会丢失。**
 
-#### 如何正确推送
+#### 情况 A：你在 Phase 1 切换到了 PR 分支
 
-**你需要使用 `push_to_pull_request_branch` 或 `create_pull_request` 工具。**
+你已经在正确的分支上了。使用 `push_to_pull_request_branch` 推送：
 
-这些工具的工作原理：
-1. 它们会自动创建一个新的分支（或使用现有分支）
-2. 把你创建/修改的文件提交到那个分支
-3. 创建或更新 PR
-
-#### 情况 A：Phase 1 找到了现有 PR
-
-使用 `push_to_pull_request_branch` 工具。
-
-**你需要提供**：
-- `files`: 你要提交的文件列表（完整路径）
-- `message`: commit 消息
-- `branch`: Phase 1 记录的 PR 分支名
-
-**示例**：
 ```
 工具: push_to_pull_request_branch
 参数:
-  files:
-    - skills/workUnits/workflowCaseStudy/reports/xxx-analysis.md
-    - skills/workUnits/workflowCaseStudy/OVERVIEW.md
-    - journals/workUnits/workflowCaseStudy/2026-01-11-xxx.md
-  message: "feat: 完成 xxx 分析"
-  branch: workflow-study/xxx
+  message: "feat: [描述你做了什么]"
 ```
 
-#### 情况 B：Phase 1 没有找到 PR
+这个工具会：
+1. 把你创建/修改的文件打包
+2. 推送到当前 PR 分支
 
-使用 `create_pull_request` 工具。
+#### 情况 B：没有现有 PR（你在 main 分支）
 
-**你需要提供**：
-- `files`: 你要提交的文件列表（完整路径）
-- `title`: PR 标题，必须以 `[workflow-study]` 开头
-- `body`: PR 描述
-- `labels`: 必须包含 `gh-aw-research`
+使用 `create_pull_request` 工具创建新 PR：
 
-**示例**：
 ```
 工具: create_pull_request
 参数:
-  files:
-    - skills/workUnits/workflowCaseStudy/reports/xxx-analysis.md
-    - skills/workUnits/workflowCaseStudy/OVERVIEW.md
-    - journals/workUnits/workflowCaseStudy/2026-01-11-xxx.md
-  title: "[workflow-study] xxx 分析报告"
-  body: "本次完成了 xxx 的分析..."
-  labels:
-    - gh-aw-research
+  title: "[workflow-study] [描述主题]"
+  body: |
+    ## 本次工作
+    - [做了什么]
+    
+    ## 产出文件
+    - path/to/file1.md
+    - path/to/file2.md
 ```
 
-#### 常见错误
-
-| 错误 | 原因 | 解决方法 |
-|------|------|----------|
-| 文件没有出现在 PR | 没有把文件路径加到 `files` 参数 | 确保列出所有要提交的文件 |
-| PR 创建失败 | 文件路径错误 | 检查文件是否真的存在 |
-| 分支冲突 | 使用了错误的分支名 | 使用 Phase 1 记录的分支名 |
+这个工具会：
+1. 创建新分支
+2. 把你创建/修改的文件提交到新分支
+3. 创建 PR（自动添加 `gh-aw-research` 标签）
 
 ---
 
@@ -120,7 +94,7 @@
 参数:
   issue_number: [PR 编号]
   body: |
-    ## Run #xxx 完成
+    ## Run 完成
     
     ### 本次工作
     - [做了什么]
