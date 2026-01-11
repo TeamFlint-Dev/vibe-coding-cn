@@ -29,11 +29,13 @@ tools:
 safe-outputs:
   create-pull-request:
     title-prefix: "[workflow-study] "
-    labels: [knowledge-capture, gh-aw-research, rolling-pr]
+    labels: [rolling-pr, gh-aw-research]
     draft: false
+    if-no-changes: ignore
   push-to-pull-request-branch:
+    target: "*"
     title-prefix: "[workflow-study] "
-    labels: [rolling-pr]
+    labels: [rolling-pr, gh-aw-research]
     if-no-changes: ignore
   create-issue:
     labels: [agent-suggested, needs-triage]
@@ -124,16 +126,36 @@ cat "${{ env.PROGRESS_FILE }}" 2>/dev/null || echo '{"analyzed":[],"in_progress"
 - `in_progress`: 是否有其他运行正在进行 → **等待或选择其他目标**
 - `queue`: 建议的下一批目标 → **优先从这里选择**
 
-### 0.2 检查滚动 PR 状态
+### 0.2 检查滚动 PR 状态（关键步骤！）
+
+**这一步决定了你后续使用哪个 safe-output 工具。**
 
 ```bash
-# 查找现有的滚动 PR
-gh pr list --repo ${{ github.repository }} --label rolling-pr --state open --json number,title,headRefName
+# 查找符合条件的现有 PR（必须同时满足 title-prefix 和 labels）
+gh pr list --repo ${{ github.repository }} \
+  --label rolling-pr \
+  --label gh-aw-research \
+  --state open \
+  --json number,title,headRefName,labels
 ```
 
-**记住**：
-- 如果 PR 存在 → 使用 `push-to-pull-request-branch` 推送更改
-- 如果 PR 不存在 → 使用 `create-pull-request` 创建新 PR
+**判断逻辑**：
+
+| 搜索结果 | 后续操作 |
+|----------|----------|
+| 找到 PR（标题以 `[workflow-study]` 开头，有 `rolling-pr` + `gh-aw-research` 标签）| **记住 PR 编号**，Phase 4 使用 `push_to_pull_request_branch` |
+| 没有找到符合条件的 PR | Phase 4 使用 `create_pull_request` 创建新 PR |
+
+**⚠️ 重要**：记住这个判断结果，Phase 4 需要用到！
+
+```
+# 如果找到 PR，记录：
+EXISTING_PR_NUMBER=<从搜索结果获取>
+USE_PUSH_TO_PR=true
+
+# 如果没找到：
+USE_PUSH_TO_PR=false
+```
 
 ### 0.3 标记自己为"进行中"
 
@@ -349,21 +371,59 @@ jq -e '.analyzed[] | select(.workflow == "brave.md")' "${{ env.PROGRESS_FILE }}"
 }
 ```
 
-### 4.3 推送到滚动 PR
+### 4.3 推送到滚动 PR（核心步骤！）
 
-**判断 PR 状态**：
+**回顾 Phase 0.2 的判断结果**，选择正确的工具：
 
-| 情况 | 操作 |
-|------|------|
-| 滚动 PR 存在 | 使用 `push-to-pull-request-branch` 推送到现有 PR |
-| 滚动 PR 不存在 | 使用 `create-pull-request` 创建新 PR |
+---
+
+#### 情况 A：找到了现有的滚动 PR
+
+**使用 `push_to_pull_request_branch` 工具**：
+
+```javascript
+// 调用 push_to_pull_request_branch safe-output 工具
+push_to_pull_request_branch({
+  message: "📝 Run #${{ github.run_number }}: 分析 {workflow-name}"
+})
+```
+
+系统会自动：
+- 找到匹配 `title-prefix: "[workflow-study] "` 和 `labels: [rolling-pr, gh-aw-research]` 的 PR
+- 将你的更改推送到该 PR 的分支
+
+---
+
+#### 情况 B：没有找到现有的滚动 PR
+
+**使用 `create_pull_request` 工具**：
+
+```javascript
+// 调用 create_pull_request safe-output 工具
+create_pull_request({
+  title: "[workflow-study] 滚动知识沉淀 (持续更新中)",
+  body: `## 📊 知识沉淀进度
+
+本 PR 采用滚动模式，多次运行共享同一个 PR。
+
+### 本次贡献 (Run #${{ github.run_number }})
+
+- 分析了: {workflow-name}
+- 主要发现: {insights}
+
+### 累计进度
+
+- 已分析工作流: {count}
+- 待分析队列: {queue}
+`
+})
+```
+
+---
 
 **PR 标题格式**: `[workflow-study] 滚动知识沉淀 (持续更新中)`
 
-**PR 描述应包含**：
-- 📊 累计分析数量（从进度文件读取）
-- 📝 本次新增的分析内容
-- 🔗 相关猜想的验证状态
+**⚠️ 注意**：标题必须以 `[workflow-study] ` 开头，否则后续运行无法匹配到这个 PR！
 
 ### 4.4 建议下一批目标（可选）
 
