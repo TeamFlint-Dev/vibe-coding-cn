@@ -27,11 +27,11 @@ tools:
 safe-outputs:
   create-pull-request:
     title-prefix: "[workflow-study] "
-    labels: [knowledge-capture, gh-aw-research]
+    labels: [gh-aw-research]
   push-to-pull-request-branch:
     target: "*"
     title-prefix: "[workflow-study] "
-    labels: [knowledge-capture, gh-aw-research]
+    labels: [gh-aw-research]
     if-no-changes: ignore
   create-issue:
     labels: [agent-suggested, needs-triage]
@@ -77,7 +77,7 @@ strict: true
 **首先检查是否有现有的研究 PR**：
 
 ```bash
-gh pr list --repo ${{ github.repository }} --label knowledge-capture --label gh-aw-research --state open --json number,title,headRefName
+gh pr list --repo ${{ github.repository }} --label gh-aw-research --state open --json number,title,headRefName
 ```
 
 **记住结果**：
