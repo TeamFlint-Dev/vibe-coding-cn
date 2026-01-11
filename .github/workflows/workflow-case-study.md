@@ -8,6 +8,9 @@ permissions:
   contents: read
   issues: read
   pull-requests: read
+concurrency:
+  group: gh-aw-${{ github.workflow }}
+  cancel-in-progress: false
 tracker-id: workflow-case-study
 engine:
   id: copilot

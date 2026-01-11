@@ -34,7 +34,8 @@ permissions:
   pull-requests: read
 
 concurrency:
-  group: "gh-aw-${{ github.workflow }}"
+  cancel-in-progress: false
+  group: gh-aw-${{ github.workflow }}
 
 run-name: "Workflow Case Study"
 
