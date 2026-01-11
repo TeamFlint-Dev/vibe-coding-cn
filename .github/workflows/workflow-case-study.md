@@ -14,7 +14,7 @@ concurrency:
 tracker-id: workflow-case-study
 engine:
   id: copilot
-  model: claude-opus-4.5
+  model: claude-sonnet-4
 env:
   WORK_UNIT_NAME: workflowCaseStudy
   GH_AW_REPO: githubnext/gh-aw
