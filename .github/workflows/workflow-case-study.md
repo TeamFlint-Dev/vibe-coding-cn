@@ -9,7 +9,7 @@ permissions:
   issues: read
   pull-requests: read
 concurrency:
-  group: gh-aw-${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ github.ref }}-case-study
   cancel-in-progress: false
 tracker-id: workflow-case-study
 engine:
