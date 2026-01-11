@@ -4,6 +4,11 @@ on:
   issue_comment:
     types: [created]
 
+# 🔒 关键：同一个 Issue 的 Dispatcher 串行执行，避免重复触发 Worker
+concurrency:
+  group: dag-dispatcher-${{ github.event.issue.number }}
+  cancel-in-progress: false  # 不取消，排队等待
+
 jobs:
   dispatch:
     # 只处理包含 DAG 信号的评论
@@ -149,6 +154,19 @@ jobs:
               break
             fi
             
+            # 🔒 二次检查：确保任务仍是 pending 状态（防止并发重复触发）
+            CURRENT_LABELS=$(gh issue view "$ISSUE_NUM" --json labels -q '.labels[].name' | tr '\n' ',')
+            if [[ "$CURRENT_LABELS" != *"pending"* ]]; then
+              echo "⏭️ 跳过 #$ISSUE_NUM: 已不是 pending 状态 (当前: $CURRENT_LABELS)"
+              continue
+            fi
+            
+            # 先更新标签（原子操作，作为锁）
+            echo "🔒 锁定 #$ISSUE_NUM..."
+            gh issue edit "$ISSUE_NUM" \
+              --remove-label "pending" \
+              --add-label "in-progress"
+            
             echo "🚀 触发 Worker 处理 #$ISSUE_NUM..."
             
             # 使用 PAT 触发 workflow
@@ -156,11 +174,6 @@ jobs:
               --field issue_number="$ISSUE_NUM" \
               --field pr_number="$PR_NUMBER" \
               --field parent_issue="$PARENT_ISSUE"
-            
-            # 更新标签: pending → in-progress
-            gh issue edit "$ISSUE_NUM" \
-              --remove-label "pending" \
-              --add-label "in-progress"
             
             COUNT=$((COUNT + 1))
           done
