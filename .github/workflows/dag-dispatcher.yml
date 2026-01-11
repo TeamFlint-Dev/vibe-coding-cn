@@ -171,17 +171,17 @@ jobs:
         if: steps.ready.outputs.open_count == '0'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PARENT_ISSUE: ${{ steps.signal.outputs.parent_issue }}
+          PR_NUMBER: ${{ steps.signal.outputs.pr_number }}
         run: |
-          PARENT_ISSUE="${{ steps.signal.outputs.parent_issue }}"
-          
           echo "🎉 所有任务已完成！"
           
           gh issue comment "$PARENT_ISSUE" \
             --body "## 🎉 DAG 执行完成！
 
-所有子任务已完成。
+          所有子任务已完成。
 
-**PR 可供审批**: #${{ steps.signal.outputs.pr_number }}
+          **PR 可供审批**: #$PR_NUMBER
 
----
-> 🤖 DAG Dispatcher"
+          ---
+          > 🤖 DAG Dispatcher"
