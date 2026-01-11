@@ -1,0 +1,13 @@
+{
+  "description": "Workflow Case Study 滚动 PR 模式进度追踪文件",
+  "analyzed": [],
+  "in_progress": null,
+  "queue": [
+    "brave.md",
+    "archie.md",
+    "ci-coach.md",
+    "campaign-generator.md"
+  ],
+  "last_updated": "2026-01-11T00:00:00Z",
+  "notes": "每次运行前读取此文件，完成后更新。避免重复分析已完成的工作流。"
+}
