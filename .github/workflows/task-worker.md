@@ -1,89 +1,181 @@
 ---
 name: Task Worker
-description: 自动为 [Task] Issue 分配 Copilot Agent 执行任务
+description: 执行单个 DAG 任务的 Worker Agent
 on:
-  issues:
-    types: [opened, labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: '要执行的任务 Issue 编号'
+        required: true
+      pr_number:
+        description: '共享 PR 编号'
+        required: true
+      parent_issue:
+        description: '父 Issue 编号'
+        required: true
 permissions:
   contents: read
   issues: read
   pull-requests: read
-
-# 只处理带有 task 标签的 Issue
-if: contains(github.event.issue.labels.*.name, 'task')
-
-github-token: ${{ secrets.COPILOT_GITHUB_TOKEN }}
-
+concurrency:
+  group: dag-worker-${{ github.repository }}-${{ github.event.inputs.issue_number }}
+  cancel-in-progress: false
+engine:
+  id: copilot
+  model: claude-opus-4.5
+tools:
+  github:
+    toolsets: [default]
+  bash:
+    - "git *"
+    - "gh pr *"
+    - "gh issue *"
+    - "cat *"
+    - "ls *"
+    - "find *"
+  edit:
 safe-outputs:
-  assign-to-agent:
-    name: copilot
-    max: 1
-  assign-to-user:
-    allowed:
-      - Maybank01
-    max: 1
   add-comment:
-    max: 1
-
-timeout-minutes: 2
+    max: 2
+  push-to-pull-request-branch:
+  close-issue:
+timeout-minutes: 30
+strict: true
 ---
 
-# 🔧 Task Worker Dispatcher
+# 🔧 Task Worker Agent
 
-你是任务分发器，负责将带有 `task` 标签的 Issue 分配给 Copilot Agent 执行。
+你是 **DAG Worker**——执行单个任务，完成后发信号给 Dispatcher。
 
-## 📋 当前任务
+## 当前任务
 
-- **Issue**: #${{ github.event.issue.number }}
-- **标题**: ${{ github.event.issue.title }}
+- **任务 Issue**: #${{ github.event.inputs.issue_number }}
+- **共享 PR**: #${{ github.event.inputs.pr_number }}
+- **父 Issue**: #${{ github.event.inputs.parent_issue }}
+- **仓库**: ${{ github.repository }}
+
+---
+
+## Step 1: 读取任务详情
+
+获取 Issue #${{ github.event.inputs.issue_number }} 的内容：
+- 任务目标
+- 验收标准
+- PR 分支名
 
 ---
 
-## 🎯 你的任务
+## Step 2: 切换到 PR 分支
 
-### 步骤 1: 验证 Issue
+```bash
+# 获取 PR 分支
+PR_BRANCH=$(gh pr view ${{ github.event.inputs.pr_number }} --json headRefName -q '.headRefName')
 
-确认这是一个有效的任务 Issue：
-- ✅ 带有 `task` 标签
-- ✅ 标题包含 `[Task]`（可选但推荐）
-
-### 步骤 2: 分配 Copilot Agent
-
-使用 `assign-to-agent` safe-output，将 Issue #${{ github.event.issue.number }} 分配给 Copilot。
-
-**分配时的指令**:
-> 请仔细阅读 Issue 描述中的任务目标和验收标准。
-> 完成任务后，创建 Pull Request 并在 Issue 中评论汇报进度。
-> 如果遇到困难或需要澄清，请在 Issue 中评论说明。
-
-### 步骤 3: 分配人类监督者
-
-使用 `assign-to-user` safe-output，将 Issue #${{ github.event.issue.number }} 分配给 Maybank01 作为监督者。
-
-### 步骤 4: 确认启动
-
-使用 `add-comment` 在 Issue 中评论：
-
-```markdown
-## 🚀 任务已启动
-
-- ✅ Copilot Agent 已分配，正在执行任务
-- ✅ @Maybank01 已分配为监督者
-
-**Agent 将会**:
-1. 分析任务需求
-2. 实现代码/文档变更
-3. 创建 Pull Request
-4. 在此 Issue 中汇报进度
-
----
-> 🤖 由 Task Worker 自动分配
+git fetch origin $PR_BRANCH
+git checkout $PR_BRANCH
+git pull origin $PR_BRANCH
 ```
 
 ---
 
-## ⚠️ 注意事项
+## Step 3: 执行任务
 
-1. **幂等性** - 如果 Issue 已经分配了 Copilot，不要重复分配
-2. **快速执行** - 这是一个轻量级 Workflow，应在 2 分钟内完成
-3. **错误处理** - 如果分配失败，在 Issue 中评论说明原因
+根据任务描述完成工作：
+
+1. **分析需求**
+2. **定位/创建文件**
+3. **实施修改**（使用 edit 工具）
+4. **验证结果**
+
+**编码原则**：
+- 遵循仓库代码风格
+- 如果是 Verse 代码，运行 `./verseProject/analyze.sh --format text` 验证
+
+---
+
+## Step 4: 提交并推送
+
+```bash
+git add -A
+git commit -m "feat: ${{ github.event.inputs.issue_number }} - <任务摘要>
+
+Part of #${{ github.event.inputs.parent_issue }}"
+```
+
+使用 safe-output 推送：
+
+```json
+{
+  "type": "push_to_pull_request_branch"
+}
+```
+
+---
+
+## Step 5: 完成任务
+
+### 5.1 在任务 Issue 评论并关闭
+
+```json
+{
+  "type": "add_comment",
+  "issue_number": "${{ github.event.inputs.issue_number }}",
+  "body": "## ✅ 任务完成\n\n### 完成的工作\n\n<摘要>\n\n### 修改的文件\n\n- `path/to/file`\n\n---\n> 🤖 Task Worker"
+}
+```
+
+```json
+{
+  "type": "close_issue",
+  "issue_number": "${{ github.event.inputs.issue_number }}"
+}
+```
+
+### 5.2 在父 Issue 发送完成信号
+
+**这一步触发 Dispatcher 检查下游任务！**
+
+```json
+{
+  "type": "add_comment",
+  "issue_number": "${{ github.event.inputs.parent_issue }}",
+  "body": "<!-- TASK_DONE issue=${{ github.event.inputs.issue_number }} -->\n\n✅ 任务 #${{ github.event.inputs.issue_number }} 已完成"
+}
+```
+
+---
+
+## 失败处理
+
+如果任务无法完成：
+
+```json
+{
+  "type": "add_comment",
+  "issue_number": "${{ github.event.inputs.issue_number }}",
+  "body": "## ❌ 任务失败\n\n### 问题\n\n<问题描述>\n\n### 尝试过的方案\n\n1. ...\n\n---\n> 🤖 Task Worker"
+}
+```
+
+仍然关闭 Issue（让 Dispatcher 处理后续）并添加 failed 标签：
+
+```bash
+gh issue edit ${{ github.event.inputs.issue_number }} --add-label "failed"
+```
+
+```json
+{
+  "type": "close_issue",
+  "issue_number": "${{ github.event.inputs.issue_number }}"
+}
+```
+
+在父 Issue 发送信号（即使失败也要发）：
+
+```json
+{
+  "type": "add_comment", 
+  "issue_number": "${{ github.event.inputs.parent_issue }}",
+  "body": "<!-- TASK_DONE issue=${{ github.event.inputs.issue_number }} -->\n\n❌ 任务 #${{ github.event.inputs.issue_number }} 失败，请查看详情"
+}
+```

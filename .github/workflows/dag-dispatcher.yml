@@ -1,0 +1,187 @@
+name: DAG Dispatcher
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  dispatch:
+    # 只处理包含 DAG 信号的评论
+    if: |
+      contains(github.event.comment.body, '<!-- DAG_READY') ||
+      contains(github.event.comment.body, '<!-- TASK_DONE')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      contents: read
+      actions: write
+    
+    steps:
+      - name: Parse signal type
+        id: signal
+        run: |
+          COMMENT_BODY="${{ github.event.comment.body }}"
+          
+          if [[ "$COMMENT_BODY" == *"<!-- DAG_READY"* ]]; then
+            echo "type=dag_ready" >> $GITHUB_OUTPUT
+            # 提取 PR 编号
+            PR_NUM=$(echo "$COMMENT_BODY" | grep -oP '<!-- DAG_READY pr=\K\d+' || echo "")
+            echo "pr_number=$PR_NUM" >> $GITHUB_OUTPUT
+          elif [[ "$COMMENT_BODY" == *"<!-- TASK_DONE"* ]]; then
+            echo "type=task_done" >> $GITHUB_OUTPUT
+            # 提取完成的 Issue 编号
+            DONE_ISSUE=$(echo "$COMMENT_BODY" | grep -oP '<!-- TASK_DONE issue=\K\d+' || echo "")
+            echo "done_issue=$DONE_ISSUE" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "parent_issue=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+
+      - name: Get sub-issues
+        id: sub_issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PARENT_ISSUE=${{ steps.signal.outputs.parent_issue }}
+          
+          # 获取父 Issue 的所有子 Issue
+          # 使用 GitHub CLI 列出子 Issue
+          gh api graphql -f query='
+            query($owner: String!, $repo: String!, $issue: Int!) {
+              repository(owner: $owner, name: $repo) {
+                issue(number: $issue) {
+                  subIssues(first: 50) {
+                    nodes {
+                      number
+                      title
+                      state
+                      body
+                      labels(first: 10) {
+                        nodes { name }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ' -f owner="${{ github.repository_owner }}" \
+            -f repo="${{ github.event.repository.name }}" \
+            -F issue="$PARENT_ISSUE" \
+            --jq '.data.repository.issue.subIssues.nodes' > /tmp/sub_issues.json
+          
+          echo "子 Issue 列表:"
+          cat /tmp/sub_issues.json | jq -r '.[] | "  #\(.number) [\(.state)] \(.title)"'
+          
+          # 保存到 output
+          echo "json=$(cat /tmp/sub_issues.json | jq -c '.')" >> $GITHUB_OUTPUT
+
+      - name: Find ready tasks
+        id: ready
+        run: |
+          SUB_ISSUES='${{ steps.sub_issues.outputs.json }}'
+          
+          # 找出所有 OPEN 且有 pending 标签的任务
+          PENDING_ISSUES=$(echo "$SUB_ISSUES" | jq -c '[.[] | select(.state == "OPEN") | select(.labels.nodes | any(.name == "pending"))]')
+          
+          echo "待处理任务:"
+          echo "$PENDING_ISSUES" | jq -r '.[] | "  #\(.number) \(.title)"'
+          
+          # 获取所有已关闭的 Issue 编号
+          CLOSED_ISSUES=$(echo "$SUB_ISSUES" | jq -r '[.[] | select(.state == "CLOSED") | .number] | @csv' | tr -d '"')
+          echo "已完成任务: $CLOSED_ISSUES"
+          
+          # 检查每个 pending 任务的依赖是否满足
+          READY_ISSUES="[]"
+          
+          for row in $(echo "$PENDING_ISSUES" | jq -r '.[] | @base64'); do
+            _jq() {
+              echo ${row} | base64 --decode | jq -r ${1}
+            }
+            
+            ISSUE_NUM=$(_jq '.number')
+            ISSUE_BODY=$(_jq '.body')
+            
+            # 解析依赖: "Depends on: #X, #Y" 或 "依赖"
+            DEPS=$(echo "$ISSUE_BODY" | grep -oP 'Depends on:.*?#\K\d+' | tr '\n' ',' | sed 's/,$//')
+            
+            if [ -z "$DEPS" ]; then
+              # 无依赖，直接就绪
+              echo "  #$ISSUE_NUM: 无依赖 → 就绪"
+              READY_ISSUES=$(echo "$READY_ISSUES" | jq --argjson num "$ISSUE_NUM" '. + [$num]')
+            else
+              # 检查所有依赖是否都已关闭
+              ALL_SATISFIED=true
+              for DEP in $(echo "$DEPS" | tr ',' ' '); do
+                if ! echo ",$CLOSED_ISSUES," | grep -q ",$DEP,"; then
+                  echo "  #$ISSUE_NUM: 依赖 #$DEP 未完成"
+                  ALL_SATISFIED=false
+                  break
+                fi
+              done
+              
+              if [ "$ALL_SATISFIED" = true ]; then
+                echo "  #$ISSUE_NUM: 所有依赖已满足 → 就绪"
+                READY_ISSUES=$(echo "$READY_ISSUES" | jq --argjson num "$ISSUE_NUM" '. + [$num]')
+              fi
+            fi
+          done
+          
+          echo "就绪任务: $READY_ISSUES"
+          echo "issues=$READY_ISSUES" >> $GITHUB_OUTPUT
+          
+          # 检查是否全部完成
+          OPEN_COUNT=$(echo "$SUB_ISSUES" | jq '[.[] | select(.state == "OPEN")] | length')
+          echo "open_count=$OPEN_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Dispatch workers
+        if: steps.ready.outputs.issues != '[]'
+        env:
+          GH_TOKEN: ${{ secrets.DAG_DISPATCH_TOKEN }}
+        run: |
+          READY_ISSUES='${{ steps.ready.outputs.issues }}'
+          PR_NUMBER="${{ steps.signal.outputs.pr_number }}"
+          PARENT_ISSUE="${{ steps.signal.outputs.parent_issue }}"
+          
+          # 限制并行数量为 5
+          COUNT=0
+          for ISSUE_NUM in $(echo "$READY_ISSUES" | jq -r '.[]'); do
+            if [ $COUNT -ge 5 ]; then
+              echo "已达到并行上限 (5)，剩余任务等待下一轮"
+              break
+            fi
+            
+            echo "🚀 触发 Worker 处理 #$ISSUE_NUM..."
+            
+            # 使用 PAT 触发 workflow
+            gh workflow run task-worker.md \
+              --field issue_number="$ISSUE_NUM" \
+              --field pr_number="$PR_NUMBER" \
+              --field parent_issue="$PARENT_ISSUE"
+            
+            # 更新标签: pending → in-progress
+            gh issue edit "$ISSUE_NUM" \
+              --remove-label "pending" \
+              --add-label "in-progress"
+            
+            COUNT=$((COUNT + 1))
+          done
+          
+          echo "已触发 $COUNT 个 Worker"
+
+      - name: Check completion
+        if: steps.ready.outputs.open_count == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PARENT_ISSUE="${{ steps.signal.outputs.parent_issue }}"
+          
+          echo "🎉 所有任务已完成！"
+          
+          gh issue comment "$PARENT_ISSUE" \
+            --body "## 🎉 DAG 执行完成！
+
+所有子任务已完成。
+
+**PR 可供审批**: #${{ steps.signal.outputs.pr_number }}
+
+---
+> 🤖 DAG Dispatcher"

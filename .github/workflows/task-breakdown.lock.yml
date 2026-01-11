@@ -19,20 +19,18 @@
 #   gh aw compile
 # For more information: https://github.com/githubnext/gh-aw/blob/main/.github/aw/github-agentic-workflows.md
 #
-# 执行单个 DAG 任务的 Worker Agent
+# 解析 Issue 中的任务树，创建子 Issue 和共享 PR
 
-name: "Task Worker"
+name: "Task Breakdown"
 "on":
+  issue_comment:
+    types:
+    - created
+    - edited
   workflow_dispatch:
     inputs:
       issue_number:
-        description: 要执行的任务 Issue 编号
-        required: true
-      parent_issue:
-        description: 父 Issue 编号
-        required: true
-      pr_number:
-        description: 共享 PR 编号
+        description: 要分解的 Issue 编号
         required: true
 
 permissions:
@@ -41,19 +39,29 @@ permissions:
   pull-requests: read
 
 concurrency:
-  cancel-in-progress: false
-  group: dag-worker-${{ github.repository }}-${{ github.event.inputs.issue_number }}
+  group: "gh-aw-${{ github.workflow }}-${{ github.event.issue.number || github.event.pull_request.number }}"
 
-run-name: "Task Worker"
+run-name: "Task Breakdown"
 
 jobs:
   activation:
+    needs: pre_activation
+    if: >
+      (needs.pre_activation.outputs.activated == 'true') && (((github.event_name == 'issue_comment') && ((github.event_name == 'issue_comment') &&
+      ((contains(github.event.comment.body, '/breakdown')) && (github.event.issue.pull_request == null)))) ||
+      (!(github.event_name == 'issue_comment')))
     runs-on: ubuntu-slim
     permissions:
       contents: read
+      discussions: write
+      issues: write
+      pull-requests: write
     outputs:
-      comment_id: ""
-      comment_repo: ""
+      comment_id: ${{ steps.react.outputs.comment-id }}
+      comment_repo: ${{ steps.react.outputs.comment-repo }}
+      comment_url: ${{ steps.react.outputs.comment-url }}
+      reaction_id: ${{ steps.react.outputs.reaction-id }}
+      slash_command: ${{ needs.pre_activation.outputs.matched_command }}
     steps:
       - name: Setup Scripts
         uses: githubnext/gh-aw/actions/setup@a933c835b5e2d12ae4dead665a0fdba420a2d421 # v0.36.0
@@ -62,12 +70,26 @@ jobs:
       - name: Check workflow file timestamps
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          GH_AW_WORKFLOW_FILE: "task-worker.lock.yml"
+          GH_AW_WORKFLOW_FILE: "task-breakdown.lock.yml"
         with:
           script: |
             const { setupGlobals } = require('/opt/gh-aw/actions/setup_globals.cjs');
             setupGlobals(core, github, context, exec, io);
             const { main } = require('/opt/gh-aw/actions/check_workflow_timestamp_api.cjs');
+            await main();
+      - name: Add eyes reaction to the triggering item
+        id: react
+        if: github.event_name == 'issues' || github.event_name == 'issue_comment' || github.event_name == 'pull_request_review_comment' || github.event_name == 'discussion' || github.event_name == 'discussion_comment' || (github.event_name == 'pull_request') && (github.event.pull_request.head.repo.id == github.repository_id)
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          GH_AW_REACTION: "eyes"
+          GH_AW_COMMAND: breakdown
+          GH_AW_WORKFLOW_NAME: "Task Breakdown"
+        with:
+          script: |
+            const { setupGlobals } = require('/opt/gh-aw/actions/setup_globals.cjs');
+            setupGlobals(core, github, context, exec, io);
+            const { main } = require('/opt/gh-aw/actions/add_reaction_and_edit_comment.cjs');
             await main();
 
   agent:
@@ -77,8 +99,6 @@ jobs:
       contents: read
       issues: read
       pull-requests: read
-    concurrency:
-      group: "gh-aw-copilot-${{ github.workflow }}"
     env:
       GH_AW_MCP_LOG_DIR: /tmp/gh-aw/mcp-logs/safeoutputs
       GH_AW_SAFE_OUTPUTS: /tmp/gh-aw/safeoutputs/outputs.jsonl
@@ -165,33 +185,49 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /opt/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":2},"close_issue":{"max":1},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0}}
+          {"add_comment":{"max":2},"create_issue":{"max":1},"create_pull_request":{},"link_sub_issue":{"max":5},"missing_data":{},"missing_tool":{},"noop":{"max":1}}
           EOF
           cat > /opt/gh-aw/safeoutputs/tools.json << 'EOF'
           [
             {
-              "description": "Close a GitHub issue with a closing comment. Use this when work is complete, the issue is no longer relevant, or it's a duplicate. The closing comment should explain the resolution or reason for closing. CONSTRAINTS: Maximum 1 issue(s) can be closed.",
+              "description": "Create a new GitHub issue for tracking bugs, feature requests, or tasks. Use this for actionable work items that need assignment, labeling, and status tracking. For reports, announcements, or status updates that don't require task tracking, use create_discussion instead. CONSTRAINTS: Maximum 1 issue(s) can be created. Title will be prefixed with \"[task] \". Labels [dag-task pending] will be automatically added.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
                   "body": {
-                    "description": "Closing comment explaining why the issue is being closed and summarizing any resolution, workaround, or conclusion.",
+                    "description": "Detailed issue description in Markdown. Do NOT repeat the title as a heading since it already appears as the issue's h1. Include context, reproduction steps, or acceptance criteria as appropriate.",
                     "type": "string"
                   },
-                  "issue_number": {
-                    "description": "Issue number to close. This is the numeric ID from the GitHub URL (e.g., 901 in github.com/owner/repo/issues/901). If omitted, closes the issue that triggered this workflow (requires an issue event trigger).",
+                  "labels": {
+                    "description": "Labels to categorize the issue (e.g., 'bug', 'enhancement'). Labels must exist in the repository.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "parent": {
+                    "description": "Parent issue number for creating sub-issues. This is the numeric ID from the GitHub URL (e.g., 42 in github.com/owner/repo/issues/42). Can also be a temporary_id (e.g., 'aw_abc123def456') from a previously created issue in the same workflow run.",
                     "type": [
                       "number",
                       "string"
                     ]
+                  },
+                  "temporary_id": {
+                    "description": "Unique temporary identifier for referencing this issue before it's created. Format: 'aw_' followed by 12 hex characters (e.g., 'aw_abc123def456'). Use '#aw_ID' in body text to reference other issues by their temporary_id; these are replaced with actual issue numbers after creation.",
+                    "type": "string"
+                  },
+                  "title": {
+                    "description": "Concise issue title summarizing the bug, feature, or task. The title appears as the main heading, so keep it brief and descriptive.",
+                    "type": "string"
                   }
                 },
                 "required": [
+                  "title",
                   "body"
                 ],
                 "type": "object"
               },
-              "name": "close_issue"
+              "name": "create_issue"
             },
             {
               "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 2 comment(s) can be added.",
@@ -216,32 +252,37 @@ jobs:
               "name": "add_comment"
             },
             {
-              "description": "Push committed changes to a pull request's branch. Use this to add follow-up commits to an existing PR, such as addressing review feedback or fixing issues. Changes must be committed locally before calling this tool.",
+              "description": "Create a new GitHub pull request to propose code changes. Use this after making file edits to submit them for review and merging. The PR will be created from the current branch with your committed changes. For code review comments on an existing PR, use create_pull_request_review_comment instead. CONSTRAINTS: Maximum 1 pull request(s) can be created. Title will be prefixed with \"[dag] \". Labels [dag-execution] will be automatically added. PRs will be created as drafts.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
+                  "body": {
+                    "description": "Detailed PR description in Markdown. Include what changes were made, why, testing notes, and any breaking changes. Do NOT repeat the title as a heading.",
+                    "type": "string"
+                  },
                   "branch": {
-                    "description": "Branch name to push changes from. If omitted, uses the current working branch. Only specify if you need to push from a different branch.",
+                    "description": "Source branch name containing the changes. If omitted, uses the current working branch.",
                     "type": "string"
                   },
-                  "message": {
-                    "description": "Commit message describing the changes. Follow repository commit message conventions (e.g., conventional commits).",
-                    "type": "string"
+                  "labels": {
+                    "description": "Labels to categorize the PR (e.g., 'enhancement', 'bugfix'). Labels must exist in the repository.",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
                   },
-                  "pull_request_number": {
-                    "description": "Pull request number to push changes to. This is the numeric ID from the GitHub URL (e.g., 654 in github.com/owner/repo/pull/654). Required when the workflow target is '*' (any PR).",
-                    "type": [
-                      "number",
-                      "string"
-                    ]
+                  "title": {
+                    "description": "Concise PR title describing the changes. Follow repository conventions (e.g., conventional commits). The title appears as the main heading.",
+                    "type": "string"
                   }
                 },
                 "required": [
-                  "message"
+                  "title",
+                  "body"
                 ],
                 "type": "object"
               },
-              "name": "push_to_pull_request_branch"
+              "name": "create_pull_request"
             },
             {
               "description": "Report that a tool or capability needed to complete the task is not available. Use this when you cannot accomplish what was requested because the required functionality is missing or access is restricted.",
@@ -285,6 +326,34 @@ jobs:
                 "type": "object"
               },
               "name": "noop"
+            },
+            {
+              "description": "Link an issue as a sub-issue of a parent issue. Use this to establish parent-child relationships between issues for better organization and tracking of related work items. CONSTRAINTS: Maximum 5 sub-issue link(s) can be created.",
+              "inputSchema": {
+                "additionalProperties": false,
+                "properties": {
+                  "parent_issue_number": {
+                    "description": "The parent issue number to link the sub-issue to. This is the numeric ID from the GitHub URL (e.g., 100 in github.com/owner/repo/issues/100).",
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  },
+                  "sub_issue_number": {
+                    "description": "The issue number to link as a sub-issue of the parent. This is the numeric ID from the GitHub URL (e.g., 101 in github.com/owner/repo/issues/101).",
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  }
+                },
+                "required": [
+                  "parent_issue_number",
+                  "sub_issue_number"
+                ],
+                "type": "object"
+              },
+              "name": "link_sub_issue"
             }
           ]
           EOF
@@ -304,7 +373,7 @@ jobs:
                 }
               }
             },
-            "close_issue": {
+            "create_issue": {
               "defaultMax": 1,
               "fields": {
                 "body": {
@@ -313,10 +382,72 @@ jobs:
                   "sanitize": true,
                   "maxLength": 65000
                 },
-                "issue_number": {
-                  "optionalPositiveInteger": true
+                "labels": {
+                  "type": "array",
+                  "itemType": "string",
+                  "itemSanitize": true,
+                  "itemMaxLength": 128
+                },
+                "parent": {
+                  "issueOrPRNumber": true
+                },
+                "repo": {
+                  "type": "string",
+                  "maxLength": 256
+                },
+                "temporary_id": {
+                  "type": "string"
+                },
+                "title": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 128
                 }
               }
+            },
+            "create_pull_request": {
+              "defaultMax": 1,
+              "fields": {
+                "body": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 65000
+                },
+                "branch": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 256
+                },
+                "labels": {
+                  "type": "array",
+                  "itemType": "string",
+                  "itemSanitize": true,
+                  "itemMaxLength": 128
+                },
+                "title": {
+                  "required": true,
+                  "type": "string",
+                  "sanitize": true,
+                  "maxLength": 128
+                }
+              }
+            },
+            "link_sub_issue": {
+              "defaultMax": 5,
+              "fields": {
+                "parent_issue_number": {
+                  "required": true,
+                  "issueNumberOrTemporaryId": true
+                },
+                "sub_issue_number": {
+                  "required": true,
+                  "issueNumberOrTemporaryId": true
+                }
+              },
+              "customValidation": "parentAndSubDifferent"
             },
             "missing_tool": {
               "defaultMax": 20,
@@ -348,26 +479,6 @@ jobs:
                   "type": "string",
                   "sanitize": true,
                   "maxLength": 65000
-                }
-              }
-            },
-            "push_to_pull_request_branch": {
-              "defaultMax": 1,
-              "fields": {
-                "branch": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 256
-                },
-                "message": {
-                  "required": true,
-                  "type": "string",
-                  "sanitize": true,
-                  "maxLength": 65000
-                },
-                "pull_request_number": {
-                  "issueOrPRNumber": true
                 }
               }
             }
@@ -450,7 +561,7 @@ jobs:
               version: "",
               agent_version: "0.0.375",
               cli_version: "v0.36.0",
-              workflow_name: "Task Worker",
+              workflow_name: "Task Breakdown",
               experimental: false,
               supports_tools_allowlist: true,
               supports_http_transport: true,
@@ -491,158 +602,147 @@ jobs:
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ env.GH_AW_SAFE_OUTPUTS }}
-          GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER: ${{ github.event.inputs.issue_number }}
-          GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE: ${{ github.event.inputs.parent_issue }}
-          GH_AW_GITHUB_EVENT_INPUTS_PR_NUMBER: ${{ github.event.inputs.pr_number }}
+          GH_AW_GITHUB_ACTOR: ${{ github.actor }}
+          GH_AW_GITHUB_EVENT_ISSUE_NUMBER: ${{ github.event.issue.number }}
           GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           bash /opt/gh-aw/actions/create_prompt_first.sh
           cat << 'PROMPT_EOF' > "$GH_AW_PROMPT"
-          # 🔧 Task Worker Agent
+          # 🌳 Task Breakdown Agent
           
-          你是 **DAG Worker**——执行单个任务，完成后发信号给 Dispatcher。
+          你是 **DAG 架构师**——将复杂任务分解为可并行执行的子任务网络。
           
-          ## 当前任务
+          ## 当前上下文
           
-          - **任务 Issue**: #__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__
-          - **共享 PR**: #__GH_AW_GITHUB_EVENT_INPUTS_PR_NUMBER__
-          - **父 Issue**: #__GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE__
           - **仓库**: __GH_AW_GITHUB_REPOSITORY__
+          - **父 Issue**: #__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__
+          - **触发者**: @__GH_AW_GITHUB_ACTOR__
           
           ---
           
-          ## Step 1: 读取任务详情
+          ## Step 1: 解析任务树
           
-          获取 Issue #__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__ 的内容：
-          - 任务目标
-          - 验收标准
-          - PR 分支名
+          从父 Issue 正文中识别任务结构。支持的格式：
           
-          ---
+          ### 格式 1: 任务列表带依赖
+          ```markdown
+          ## 子任务
+          - [ ] 任务A：创建数据模型
+          - [ ] 任务B：实现 API（依赖：任务A）
+          - [ ] 任务C：编写前端（依赖：任务A）
+          - [ ] 任务D：集成测试（依赖：任务B, 任务C）
+          ```
           
-          ## Step 2: 切换到 PR 分支
+          ### 格式 2: 缩进层级
+          ```markdown
+          - 任务A：基础设施
+            - 任务B：API 实现
+            - 任务C：前端实现
+          ```
           
-          ```bash
-          # 获取 PR 分支
-          PR_BRANCH=$(gh pr view __GH_AW_GITHUB_EVENT_INPUTS_PR_NUMBER__ --json headRefName -q '.headRefName')
+          **输出 DAG 分析**：
+          ```
+          DAG 结构:
+          - 任务A → 无依赖 (root)
+          - 任务B → 依赖 [任务A]
+          - 任务C → 依赖 [任务A]  
+          - 任务D → 依赖 [任务B, 任务C]
           
-          git fetch origin $PR_BRANCH
-          git checkout $PR_BRANCH
-          git pull origin $PR_BRANCH
+          可并行: [任务B, 任务C]
           ```
           
           ---
           
-          ## Step 3: 执行任务
+          ## Step 2: 创建共享 PR
           
-          根据任务描述完成工作：
-          
-          1. **分析需求**
-          2. **定位/创建文件**
-          3. **实施修改**（使用 edit 工具）
-          4. **验证结果**
-          
-          **编码原则**：
-          - 遵循仓库代码风格
-          - 如果是 Verse 代码，运行 `./verseProject/analyze.sh --format text` 验证
-          
-          ---
-          
-          ## Step 4: 提交并推送
-          
-          ```bash
-          git add -A
-          git commit -m "feat: __GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__ - <任务摘要>
-          
-          Part of #__GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE__"
-          ```
-          
-          使用 safe-output 推送：
+          创建 draft PR，所有 Worker 将在同一分支工作：
           
           ```json
           {
-            "type": "push_to_pull_request_branch"
+            "type": "create_pull_request",
+            "title": "[dag] <父Issue标题摘要>",
+            "body": "## 🎯 DAG 执行 PR\n\n**源 Issue**: #__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__\n\n此 PR 由多个 Worker Agent 协作完成。",
+            "base": "main",
+            "draft": true
+          }
+          ```
+          
+          记住 PR 编号，后面要写入子 Issue。
+          
+          ---
+          
+          ## Step 3: 创建子 Issue
+          
+          为每个任务创建 Issue，使用 `temporary_id` 处理依赖。
+          
+          ### 无依赖任务
+          
+          ```json
+          {
+            "type": "create_issue",
+            "temporary_id": "aw_task_a_001",
+            "parent": "#__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__",
+            "title": "任务A：创建数据模型",
+            "body": "## 目标\n\n<任务描述>\n\n## 上下文\n\n- **父任务**: #__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__\n- **PR**: #<PR编号>\n- **PR 分支**: <分支名>\n\n## 依赖\n\n无\n\n## 验收标准\n\n- [ ] <标准>\n\n---\n> 🤖 Task Breakdown Agent"
+          }
+          ```
+          
+          ### 有依赖任务
+          
+          ```json
+          {
+            "type": "create_issue",
+            "temporary_id": "aw_task_b_002", 
+            "parent": "#__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__",
+            "title": "任务B：实现 API",
+            "body": "## 目标\n\n<任务描述>\n\n## 上下文\n\n- **父任务**: #__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__\n- **PR**: #<PR编号>\n- **PR 分支**: <分支名>\n\n## 依赖\n\n**Depends on: aw_task_a_001**\n\n## 验收标准\n\n- [ ] <标准>\n\n---\n> 🤖 Task Breakdown Agent"
+          }
+          ```
+          
+          **重要**：依赖格式必须是 `Depends on: #X, #Y` 或 `Depends on: aw_xxx`
+          
+          ### 链接到父 Issue
+          
+          ```json
+          {
+            "type": "link_sub_issue",
+            "parent_issue_number": "#__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__",
+            "sub_issue_number": "aw_task_a_001"
           }
           ```
           
           ---
           
-          ## Step 5: 完成任务
+          ## Step 4: 发送就绪信号
           
-          ### 5.1 在任务 Issue 评论并关闭
+          在父 Issue 添加带信号标记的评论，触发 Dispatcher：
           
           ```json
           {
             "type": "add_comment",
-            "issue_number": "__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__",
-            "body": "## ✅ 任务完成\n\n### 完成的工作\n\n<摘要>\n\n### 修改的文件\n\n- `path/to/file`\n\n---\n> 🤖 Task Worker"
+            "issue_number": "__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__",
+            "body": "## ✅ 任务分解完成\n\n<!-- DAG_READY pr=<PR编号> -->\n\n### 创建的任务\n\n| # | 任务 | 依赖 |\n|---|------|------|\n| #X | 任务A | 无 |\n| #Y | 任务B | #X |\n| #Z | 任务C | #X |\n\n### 共享 PR\n\n#<PR编号>\n\n---\n> Dispatcher 将自动启动就绪任务"
           }
           ```
           
-          ```json
-          {
-            "type": "close_issue",
-            "issue_number": "__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__"
-          }
-          ```
-          
-          ### 5.2 在父 Issue 发送完成信号
-          
-          **这一步触发 Dispatcher 检查下游任务！**
-          
-          ```json
-          {
-            "type": "add_comment",
-            "issue_number": "__GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE__",
-            "body": "<!-- TASK_DONE issue=__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__ -->\n\n✅ 任务 #__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__ 已完成"
-          }
-          ```
+          **关键**：评论必须包含 `` 标记！
           
           ---
           
-          ## 失败处理
+          ## 约束
           
-          如果任务无法完成：
-          
-          ```json
-          {
-            "type": "add_comment",
-            "issue_number": "__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__",
-            "body": "## ❌ 任务失败\n\n### 问题\n\n<问题描述>\n\n### 尝试过的方案\n\n1. ...\n\n---\n> 🤖 Task Worker"
-          }
-          ```
-          
-          仍然关闭 Issue（让 Dispatcher 处理后续）并添加 failed 标签：
-          
-          ```bash
-          gh issue edit __GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__ --add-label "failed"
-          ```
-          
-          ```json
-          {
-            "type": "close_issue",
-            "issue_number": "__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__"
-          }
-          ```
-          
-          在父 Issue 发送信号（即使失败也要发）：
-          
-          ```json
-          {
-            "type": "add_comment", 
-            "issue_number": "__GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE__",
-            "body": "<!-- TASK_DONE issue=__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__ -->\n\n❌ 任务 #__GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER__ 失败，请查看详情"
-          }
-          ```
+          - **最多 20 个子任务**
+          - **DAG 必须无环**（检测到循环则报错）
+          - **任务描述必须详细**（Worker 能直接执行）
+          - **依赖格式必须标准**（`Depends on: #X, #Y`）
           
           PROMPT_EOF
       - name: Substitute placeholders
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-          GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER: ${{ github.event.inputs.issue_number }}
-          GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE: ${{ github.event.inputs.parent_issue }}
-          GH_AW_GITHUB_EVENT_INPUTS_PR_NUMBER: ${{ github.event.inputs.pr_number }}
+          GH_AW_GITHUB_ACTOR: ${{ github.actor }}
+          GH_AW_GITHUB_EVENT_ISSUE_NUMBER: ${{ github.event.issue.number }}
           GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
         with:
           script: |
@@ -652,9 +752,8 @@ jobs:
             return await substitutePlaceholders({
               file: process.env.GH_AW_PROMPT,
               substitutions: {
-                GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER: process.env.GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER,
-                GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE: process.env.GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE,
-                GH_AW_GITHUB_EVENT_INPUTS_PR_NUMBER: process.env.GH_AW_GITHUB_EVENT_INPUTS_PR_NUMBER,
+                GH_AW_GITHUB_ACTOR: process.env.GH_AW_GITHUB_ACTOR,
+                GH_AW_GITHUB_EVENT_ISSUE_NUMBER: process.env.GH_AW_GITHUB_EVENT_ISSUE_NUMBER,
                 GH_AW_GITHUB_REPOSITORY: process.env.GH_AW_GITHUB_REPOSITORY
               }
             });
@@ -681,7 +780,7 @@ jobs:
           <instructions>
           To create or modify GitHub resources (issues, discussions, pull requests, etc.), you MUST call the appropriate safe output tool. Simply writing content will NOT work - the workflow requires actual tool calls.
           
-          **Available tools**: add_comment, close_issue, missing_tool, noop, push_to_pull_request_branch
+          **Available tools**: add_comment, create_issue, create_pull_request, link_sub_issue, missing_tool, noop
           
           **Critical**: Tool calls write structured data that downstream jobs process. Without tool calls, follow-up actions will be skipped.
           </instructions>
@@ -759,13 +858,19 @@ jobs:
                 GH_AW_GITHUB_WORKSPACE: process.env.GH_AW_GITHUB_WORKSPACE
               }
             });
+      - name: Append PR context instructions to prompt
+        if: |
+          (github.event_name == 'issue_comment') && (github.event.issue.pull_request != null) || github.event_name == 'pull_request_review_comment' || github.event_name == 'pull_request_review'
+        env:
+          GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
+        run: |
+          cat "/opt/gh-aw/prompts/pr_context_prompt.md" >> "$GH_AW_PROMPT"
       - name: Interpolate variables and render templates
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
-          GH_AW_GITHUB_EVENT_INPUTS_ISSUE_NUMBER: ${{ github.event.inputs.issue_number }}
-          GH_AW_GITHUB_EVENT_INPUTS_PARENT_ISSUE: ${{ github.event.inputs.parent_issue }}
-          GH_AW_GITHUB_EVENT_INPUTS_PR_NUMBER: ${{ github.event.inputs.pr_number }}
+          GH_AW_GITHUB_ACTOR: ${{ github.actor }}
+          GH_AW_GITHUB_EVENT_ISSUE_NUMBER: ${{ github.event.issue.number }}
           GH_AW_GITHUB_REPOSITORY: ${{ github.repository }}
         with:
           script: |
@@ -786,10 +891,6 @@ jobs:
         # --allow-tool shell(cat)
         # --allow-tool shell(date)
         # --allow-tool shell(echo)
-        # --allow-tool shell(find *)
-        # --allow-tool shell(gh issue *)
-        # --allow-tool shell(gh pr *)
-        # --allow-tool shell(git *)
         # --allow-tool shell(git add:*)
         # --allow-tool shell(git branch:*)
         # --allow-tool shell(git checkout:*)
@@ -800,7 +901,7 @@ jobs:
         # --allow-tool shell(git switch:*)
         # --allow-tool shell(grep)
         # --allow-tool shell(head)
-        # --allow-tool shell(ls *)
+        # --allow-tool shell(jq *)
         # --allow-tool shell(ls)
         # --allow-tool shell(pwd)
         # --allow-tool shell(sort)
@@ -809,11 +910,11 @@ jobs:
         # --allow-tool shell(wc)
         # --allow-tool shell(yq)
         # --allow-tool write
-        timeout-minutes: 30
+        timeout-minutes: 15
         run: |
           set -o pipefail
           sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --mount /home/runner/.copilot:/home/runner/.copilot:rw --mount /opt/gh-aw:/opt/gh-aw:ro --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.8.2 \
-            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --model claude-opus-4.5 --allow-tool github --allow-tool safeoutputs --allow-tool 'shell(cat *)' --allow-tool 'shell(cat)' --allow-tool 'shell(date)' --allow-tool 'shell(echo)' --allow-tool 'shell(find *)' --allow-tool 'shell(gh issue *)' --allow-tool 'shell(gh pr *)' --allow-tool 'shell(git *)' --allow-tool 'shell(git add:*)' --allow-tool 'shell(git branch:*)' --allow-tool 'shell(git checkout:*)' --allow-tool 'shell(git commit:*)' --allow-tool 'shell(git merge:*)' --allow-tool 'shell(git rm:*)' --allow-tool 'shell(git status)' --allow-tool 'shell(git switch:*)' --allow-tool 'shell(grep)' --allow-tool 'shell(head)' --allow-tool 'shell(ls *)' --allow-tool 'shell(ls)' --allow-tool 'shell(pwd)' --allow-tool 'shell(sort)' --allow-tool 'shell(tail)' --allow-tool 'shell(uniq)' --allow-tool 'shell(wc)' --allow-tool 'shell(yq)' --allow-tool write --allow-all-paths --share /tmp/gh-aw/sandbox/agent/logs/conversation.md --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)" \
+            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --model claude-opus-4.5 --allow-tool github --allow-tool safeoutputs --allow-tool 'shell(cat *)' --allow-tool 'shell(cat)' --allow-tool 'shell(date)' --allow-tool 'shell(echo)' --allow-tool 'shell(git add:*)' --allow-tool 'shell(git branch:*)' --allow-tool 'shell(git checkout:*)' --allow-tool 'shell(git commit:*)' --allow-tool 'shell(git merge:*)' --allow-tool 'shell(git rm:*)' --allow-tool 'shell(git status)' --allow-tool 'shell(git switch:*)' --allow-tool 'shell(grep)' --allow-tool 'shell(head)' --allow-tool 'shell(jq *)' --allow-tool 'shell(ls)' --allow-tool 'shell(pwd)' --allow-tool 'shell(sort)' --allow-tool 'shell(tail)' --allow-tool 'shell(uniq)' --allow-tool 'shell(wc)' --allow-tool 'shell(yq)' --allow-tool write --allow-all-paths --share /tmp/gh-aw/sandbox/agent/logs/conversation.md --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)" \
             2>&1 | tee /tmp/gh-aw/agent-stdio.log
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
@@ -874,6 +975,7 @@ jobs:
           GH_AW_ALLOWED_DOMAINS: "api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org"
           GITHUB_SERVER_URL: ${{ github.server_url }}
           GITHUB_API_URL: ${{ github.api_url }}
+          GH_AW_COMMAND: breakdown
         with:
           script: |
             const { setupGlobals } = require('/opt/gh-aw/actions/setup_globals.cjs');
@@ -977,7 +1079,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: 1
-          GH_AW_WORKFLOW_NAME: "Task Worker"
+          GH_AW_WORKFLOW_NAME: "Task Breakdown"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -990,7 +1092,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Task Worker"
+          GH_AW_WORKFLOW_NAME: "Task Breakdown"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -1006,7 +1108,7 @@ jobs:
           GH_AW_COMMENT_ID: ${{ needs.activation.outputs.comment_id }}
           GH_AW_COMMENT_REPO: ${{ needs.activation.outputs.comment_repo }}
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          GH_AW_WORKFLOW_NAME: "Task Worker"
+          GH_AW_WORKFLOW_NAME: "Task Breakdown"
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_DETECTION_CONCLUSION: ${{ needs.detection.result }}
         with:
@@ -1022,8 +1124,6 @@ jobs:
     if: needs.agent.outputs.output_types != '' || needs.agent.outputs.has_patch == 'true'
     runs-on: ubuntu-latest
     permissions: {}
-    concurrency:
-      group: "gh-aw-copilot-${{ github.workflow }}"
     timeout-minutes: 10
     outputs:
       success: ${{ steps.parse_results.outputs.success }}
@@ -1052,8 +1152,8 @@ jobs:
       - name: Setup threat detection
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          WORKFLOW_NAME: "Task Worker"
-          WORKFLOW_DESCRIPTION: "执行单个 DAG 任务的 Worker Agent"
+          WORKFLOW_NAME: "Task Breakdown"
+          WORKFLOW_DESCRIPTION: "解析 Issue 中的任务树，创建子 Issue 和共享 PR"
           HAS_PATCH: ${{ needs.agent.outputs.has_patch }}
         with:
           script: |
@@ -1169,6 +1269,43 @@ jobs:
           path: /tmp/gh-aw/threat-detection/detection.log
           if-no-files-found: ignore
 
+  pre_activation:
+    if: >
+      ((github.event_name == 'issue_comment') && ((github.event_name == 'issue_comment') && ((contains(github.event.comment.body, '/breakdown')) &&
+      (github.event.issue.pull_request == null)))) || (!(github.event_name == 'issue_comment'))
+    runs-on: ubuntu-slim
+    outputs:
+      activated: ${{ (steps.check_membership.outputs.is_team_member == 'true') && (steps.check_command_position.outputs.command_position_ok == 'true') }}
+      matched_command: ${{ steps.check_command_position.outputs.matched_command }}
+    steps:
+      - name: Setup Scripts
+        uses: githubnext/gh-aw/actions/setup@a933c835b5e2d12ae4dead665a0fdba420a2d421 # v0.36.0
+        with:
+          destination: /opt/gh-aw/actions
+      - name: Check team membership for command workflow
+        id: check_membership
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          GH_AW_REQUIRED_ROLES: admin,maintainer,write
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { setupGlobals } = require('/opt/gh-aw/actions/setup_globals.cjs');
+            setupGlobals(core, github, context, exec, io);
+            const { main } = require('/opt/gh-aw/actions/check_membership.cjs');
+            await main();
+      - name: Check command position
+        id: check_command_position
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          GH_AW_COMMANDS: "[\"breakdown\"]"
+        with:
+          script: |
+            const { setupGlobals } = require('/opt/gh-aw/actions/setup_globals.cjs');
+            setupGlobals(core, github, context, exec, io);
+            const { main } = require('/opt/gh-aw/actions/check_command_position.cjs');
+            await main();
+
   safe_outputs:
     needs:
       - activation
@@ -1185,8 +1322,8 @@ jobs:
     env:
       GH_AW_ENGINE_ID: "copilot"
       GH_AW_ENGINE_MODEL: "claude-opus-4.5"
-      GH_AW_WORKFLOW_ID: "task-worker"
-      GH_AW_WORKFLOW_NAME: "Task Worker"
+      GH_AW_WORKFLOW_ID: "task-breakdown"
+      GH_AW_WORKFLOW_NAME: "Task Breakdown"
     outputs:
       process_safe_outputs_processed_count: ${{ steps.process_safe_outputs.outputs.processed_count }}
       process_safe_outputs_temporary_id_map: ${{ steps.process_safe_outputs.outputs.temporary_id_map }}
@@ -1213,14 +1350,14 @@ jobs:
           name: agent-artifacts
           path: /tmp/gh-aw/
       - name: Checkout repository
-        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'push_to_pull_request_branch'))
+        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           token: ${{ github.token }}
           persist-credentials: false
           fetch-depth: 1
       - name: Configure Git credentials
-        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'push_to_pull_request_branch'))
+        if: ((!cancelled()) && (needs.agent.result != 'skipped')) && (contains(needs.agent.outputs.output_types, 'create_pull_request'))
         env:
           REPO_NAME: ${{ github.repository }}
           SERVER_URL: ${{ github.server_url }}
@@ -1236,7 +1373,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":2},\"close_issue\":{\"max\":1},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"warn\",\"max_patch_size\":1024}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":2},\"create_issue\":{\"labels\":[\"dag-task\",\"pending\"],\"max\":1,\"title_prefix\":\"[task] \"},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"draft\":true,\"labels\":[\"dag-execution\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[dag] \"},\"link_sub_issue\":{\"max\":5}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
