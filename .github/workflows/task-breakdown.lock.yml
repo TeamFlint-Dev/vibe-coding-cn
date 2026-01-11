@@ -43,6 +43,9 @@ concurrency:
 
 run-name: "Task Breakdown"
 
+env:
+  GH_TOKEN: ${{ secrets.DAG_DISPATCH_TOKEN }}
+
 jobs:
   activation:
     needs: pre_activation
@@ -185,7 +188,7 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /opt/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":3},"create_issue":{"max":10},"create_pull_request":{},"link_sub_issue":{"max":10},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0}}
+          {"add_comment":{"max":2},"create_issue":{"max":10},"create_pull_request":{},"link_sub_issue":{"max":10},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0}}
           EOF
           cat > /opt/gh-aw/safeoutputs/tools.json << 'EOF'
           [
@@ -230,7 +233,7 @@ jobs:
               "name": "create_issue"
             },
             {
-              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 3 comment(s) can be added.",
+              "description": "Add a comment to an existing GitHub issue, pull request, or discussion. Use this to provide feedback, answer questions, or add information to an existing conversation. For creating new items, use create_issue, create_discussion, or create_pull_request instead. CONSTRAINTS: Maximum 2 comment(s) can be added.",
               "inputSchema": {
                 "additionalProperties": false,
                 "properties": {
@@ -790,11 +793,14 @@ jobs:
             "temporary_id": "aw_task_b_002", 
             "parent": "#__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__",
             "title": "任务B：实现 API",
-            "body": "## 目标\n\n<任务描述>\n\n## 上下文\n\n- **父任务**: #__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__\n- **PR**: #<PR编号>\n- **PR 分支**: <分支名>\n\n## 依赖\n\n**Depends on: aw_task_a_001**\n\n## 验收标准\n\n- [ ] <标准>\n\n---\n> 🤖 Task Breakdown Agent"
+            "body": "## 目标\n\n<任务描述>\n\n## 上下文\n\n- **父任务**: #__GH_AW_GITHUB_EVENT_ISSUE_NUMBER__\n- **PR**: #<PR编号>\n- **PR 分支**: <分支名>\n\n## 依赖\n\n**Depends on: #aw_task_a_001**\n\n## 验收标准\n\n- [ ] <标准>\n\n---\n> 🤖 Task Breakdown Agent"
           }
           ```
           
-          **重要**：依赖格式必须是 `Depends on: #X, #Y` 或 `Depends on: aw_xxx`
+          **重要**：
+          - 依赖格式**必须**是 `Depends on: #aw_xxx` 或 `Depends on: #aw_xxx, #aw_yyy`（带 `#` 前缀）
+          - gh-aw 会自动将 `#aw_xxx` 替换成真实的 Issue 编号如 `#123`
+          - **不要**写成 `Depends on: aw_xxx`（缺少 `#`）
           
           ### 链接到父 Issue
           
@@ -986,6 +992,8 @@ jobs:
         # --allow-tool shell(cat)
         # --allow-tool shell(date)
         # --allow-tool shell(echo)
+        # --allow-tool shell(gh issue *)
+        # --allow-tool shell(gh pr *)
         # --allow-tool shell(git *)
         # --allow-tool shell(git add:*)
         # --allow-tool shell(git branch:*)
@@ -1010,7 +1018,7 @@ jobs:
         run: |
           set -o pipefail
           sudo -E awf --env-all --container-workdir "${GITHUB_WORKSPACE}" --mount /tmp:/tmp:rw --mount "${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE}:rw" --mount /usr/bin/date:/usr/bin/date:ro --mount /usr/bin/gh:/usr/bin/gh:ro --mount /usr/bin/yq:/usr/bin/yq:ro --mount /usr/local/bin/copilot:/usr/local/bin/copilot:ro --mount /home/runner/.copilot:/home/runner/.copilot:rw --mount /opt/gh-aw:/opt/gh-aw:ro --allow-domains api.business.githubcopilot.com,api.enterprise.githubcopilot.com,api.github.com,api.githubcopilot.com,api.individual.githubcopilot.com,github.com,host.docker.internal,raw.githubusercontent.com,registry.npmjs.org --log-level info --proxy-logs-dir /tmp/gh-aw/sandbox/firewall/logs --image-tag 0.8.2 \
-            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --model claude-opus-4.5 --allow-tool github --allow-tool safeoutputs --allow-tool 'shell(cat *)' --allow-tool 'shell(cat)' --allow-tool 'shell(date)' --allow-tool 'shell(echo)' --allow-tool 'shell(git *)' --allow-tool 'shell(git add:*)' --allow-tool 'shell(git branch:*)' --allow-tool 'shell(git checkout:*)' --allow-tool 'shell(git commit:*)' --allow-tool 'shell(git merge:*)' --allow-tool 'shell(git rm:*)' --allow-tool 'shell(git status)' --allow-tool 'shell(git switch:*)' --allow-tool 'shell(grep)' --allow-tool 'shell(head)' --allow-tool 'shell(jq *)' --allow-tool 'shell(ls)' --allow-tool 'shell(pwd)' --allow-tool 'shell(sort)' --allow-tool 'shell(tail)' --allow-tool 'shell(uniq)' --allow-tool 'shell(wc)' --allow-tool 'shell(yq)' --allow-tool write --allow-all-paths --share /tmp/gh-aw/sandbox/agent/logs/conversation.md --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)" \
+            -- /usr/local/bin/copilot --add-dir /tmp/gh-aw/ --log-level all --log-dir /tmp/gh-aw/sandbox/agent/logs/ --add-dir "${GITHUB_WORKSPACE}" --disable-builtin-mcps --model claude-opus-4.5 --allow-tool github --allow-tool safeoutputs --allow-tool 'shell(cat *)' --allow-tool 'shell(cat)' --allow-tool 'shell(date)' --allow-tool 'shell(echo)' --allow-tool 'shell(gh issue *)' --allow-tool 'shell(gh pr *)' --allow-tool 'shell(git *)' --allow-tool 'shell(git add:*)' --allow-tool 'shell(git branch:*)' --allow-tool 'shell(git checkout:*)' --allow-tool 'shell(git commit:*)' --allow-tool 'shell(git merge:*)' --allow-tool 'shell(git rm:*)' --allow-tool 'shell(git status)' --allow-tool 'shell(git switch:*)' --allow-tool 'shell(grep)' --allow-tool 'shell(head)' --allow-tool 'shell(jq *)' --allow-tool 'shell(ls)' --allow-tool 'shell(pwd)' --allow-tool 'shell(sort)' --allow-tool 'shell(tail)' --allow-tool 'shell(uniq)' --allow-tool 'shell(wc)' --allow-tool 'shell(yq)' --allow-tool write --allow-all-paths --share /tmp/gh-aw/sandbox/agent/logs/conversation.md --prompt "$(cat /tmp/gh-aw/aw-prompts/prompt.txt)" \
             2>&1 | tee /tmp/gh-aw/agent-stdio.log
         env:
           COPILOT_AGENT_RUNNER_TYPE: STANDALONE
@@ -1469,7 +1477,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":3},\"create_issue\":{\"labels\":[\"dag-task\",\"pending\"],\"max\":10,\"title_prefix\":\"[task] \"},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"draft\":true,\"labels\":[\"dag-execution\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[dag] \"},\"link_sub_issue\":{\"max\":10},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"warn\",\"max_patch_size\":1024}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":2},\"create_issue\":{\"labels\":[\"dag-task\",\"pending\"],\"max\":10,\"title_prefix\":\"[task] \"},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"draft\":true,\"labels\":[\"dag-execution\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[dag] \"},\"link_sub_issue\":{\"max\":10},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"warn\",\"max_patch_size\":1024}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |

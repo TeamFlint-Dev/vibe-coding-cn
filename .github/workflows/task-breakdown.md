@@ -24,7 +24,12 @@ tools:
     - "jq *"
     - "cat *"
     - "git *"
+    - "gh issue *"
+    - "gh pr *"
   edit:
+env:
+  # 用于触发 Dispatcher 的 PAT（绕过 GITHUB_TOKEN 事件屏蔽）
+  GH_TOKEN: ${{ secrets.DAG_DISPATCH_TOKEN }}
 safe-outputs:
   create-issue:
     title-prefix: "[task] "
@@ -33,7 +38,7 @@ safe-outputs:
   link-sub-issue:
     max: 10
   add-comment:
-    max: 3
+    max: 2
   create-pull-request:
     title-prefix: "[dag] "
     labels: [dag-execution]
@@ -177,11 +182,14 @@ git commit -m "chore: init DAG plan for #${{ github.event.issue.number }}"
   "temporary_id": "aw_task_b_002", 
   "parent": "#${{ github.event.issue.number }}",
   "title": "任务B：实现 API",
-  "body": "## 目标\n\n<任务描述>\n\n## 上下文\n\n- **父任务**: #${{ github.event.issue.number }}\n- **PR**: #<PR编号>\n- **PR 分支**: <分支名>\n\n## 依赖\n\n**Depends on: aw_task_a_001**\n\n## 验收标准\n\n- [ ] <标准>\n\n---\n> 🤖 Task Breakdown Agent"
+  "body": "## 目标\n\n<任务描述>\n\n## 上下文\n\n- **父任务**: #${{ github.event.issue.number }}\n- **PR**: #<PR编号>\n- **PR 分支**: <分支名>\n\n## 依赖\n\n**Depends on: #aw_task_a_001**\n\n## 验收标准\n\n- [ ] <标准>\n\n---\n> 🤖 Task Breakdown Agent"
 }
 ```
 
-**重要**：依赖格式必须是 `Depends on: #X, #Y` 或 `Depends on: aw_xxx`
+**重要**：
+- 依赖格式**必须**是 `Depends on: #aw_xxx` 或 `Depends on: #aw_xxx, #aw_yyy`（带 `#` 前缀）
+- gh-aw 会自动将 `#aw_xxx` 替换成真实的 Issue 编号如 `#123`
+- **不要**写成 `Depends on: aw_xxx`（缺少 `#`）
 
 ### 链接到父 Issue
 

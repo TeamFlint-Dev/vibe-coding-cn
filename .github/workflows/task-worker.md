@@ -18,9 +18,6 @@ permissions:
   contents: read
   issues: read
   pull-requests: read
-concurrency:
-  group: dag-worker-${{ github.repository }}-${{ github.event.inputs.issue_number }}
-  cancel-in-progress: false
 engine:
   id: copilot
   model: claude-opus-4.5
@@ -37,7 +34,7 @@ tools:
   edit:
 safe-outputs:
   add-comment:
-    max: 2
+    max: 5
   push-to-pull-request-branch:
   close-issue:
 timeout-minutes: 30
