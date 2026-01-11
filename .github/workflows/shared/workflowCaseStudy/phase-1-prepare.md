@@ -20,22 +20,27 @@
 生产，维护，改进，一切都是你的决策。
 ---
 
-## Step 1.1: 进入办公室（进入已经在存在的pr/新建pr）
+## Step 1.1: 检查现有 PR
 
-有gh-aw-research这个标签的pr，就是你的办公室
-```
-你在cloud action环境中，github cli工具是不可用的。使用合适工具读取pr
-```
+有 `gh-aw-research` 标签的 PR，就是你的办公室。
+
+使用 GitHub 工具查询：
+- 查找 open 状态的 PR
+- 标签必须包含 `gh-aw-research`
 
 ### 有 PR
 
-1. 切换到 PR 分支
-2. 读 PR 描述和评论——**有订单吗？用户在等什么？**
-3. 读最新的 Journal
+**记住这个 PR 的编号和分支名**，Phase 4 推送时需要用。
+
+然后：
+1. 读 PR 描述和评论——**有订单吗？用户在等什么？**
+2. 读最近的 Journal（在 `journals/workUnits/workflowCaseStudy/` 目录）
 
 ### 没有 PR
 
-**必须创建。**
+**记住：需要在 Phase 4 创建新 PR。**
+
+**⚠️ 注意**：不要尝试切换分支。你在 GitHub Actions 环境中工作，始终在 main 分支。Phase 4 的推送工具会自动处理分支切换。
 
 ---
 
