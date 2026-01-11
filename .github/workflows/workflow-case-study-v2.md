@@ -48,6 +48,7 @@ safe-outputs:
     labels: [gh-aw-research]
     draft: false
   push-to-pull-request-branch:
+    target: "*"  # 允许 Agent 指定任意 PR（通过 pull_request_number 参数）
   create-issue:
     labels: [agent-suggested, needs-triage]
   add-comment:

@@ -172,7 +172,7 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /opt/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1,"target":"*"},"create_issue":{"max":1},"create_pull_request":{},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0}}
+          {"add_comment":{"max":1,"target":"*"},"create_issue":{"max":1},"create_pull_request":{},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0,"target":"*"}}
           EOF
           cat > /opt/gh-aw/safeoutputs/tools.json << 'EOF'
           [
@@ -1726,7 +1726,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1,\"target\":\"*\"},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"draft\":false,\"labels\":[\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"warn\",\"max_patch_size\":1024}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1,\"target\":\"*\"},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"draft\":false,\"labels\":[\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"warn\",\"max_patch_size\":1024,\"target\":\"*\"}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
