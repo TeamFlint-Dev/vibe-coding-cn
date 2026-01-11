@@ -61,9 +61,6 @@ strict: true
 - **工作单元路径**: `${{ env.WORK_UNIT_PATH }}/`
 - **Journal 路径**: `${{ env.JOURNAL_PATH }}/`
 
-## ⛔ 禁止修改的目录
-
-**绝对不要修改 `.github/` 目录下的任何文件**。
 
 ---
 
