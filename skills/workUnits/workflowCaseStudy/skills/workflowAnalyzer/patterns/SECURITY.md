@@ -150,3 +150,25 @@
 - **适用场景**: 需要外部 API 访问（如 MCP 服务器）但仍需安全边界的工作流
 - **典型案例**: research（使用 Tavily 搜索 MCP）
 - **来源**: research 分析 (Run #6)
+
+---
+
+## Risk-Tiered Approval Pattern ⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 
+  - 操作按风险分为三层：Low / Medium / High
+  - 每层有不同的审批要求和执行者
+- **分层设计**:
+  - **Low Risk（AI 自动执行）**: Rollback, Scale up, Increase timeout
+  - **Medium Risk（Team Lead 审批）**: Apply hotfix, Disable feature flag
+  - **High Risk（Executive 审批）**: Database rollback, Traffic failover
+- **设计意图**:
+  - 低风险快速响应，不等待人类
+  - 中风险需要技术负责人确认
+  - 高风险需要高管批准（涉及数据/安全/业务影响）
+- **交互模式**: AI 生成风险分层的推荐操作 → 人类选择性批准
+  - "execute-immediate" → 执行所有低风险操作
+  - "approve-medium [action numbers]" → 批准指定中风险操作
+  - "escalate-high" → 升级高风险操作给 Executive
+- **典型案例**: incident-response
+- **来源**: incident-response 分析 (Run #16)
