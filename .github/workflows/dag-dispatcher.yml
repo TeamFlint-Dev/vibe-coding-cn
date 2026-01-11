@@ -192,8 +192,8 @@ jobs:
             
             echo "🚀 触发 Worker 处理 #$ISSUE_NUM..."
             
-            # 使用 PAT 触发 workflow
-            gh workflow run task-worker.md --repo "$GH_REPO" \
+            # 使用 GITHUB_TOKEN 触发 workflow
+            gh workflow run task-worker.lock.yml --repo "$GH_REPO" \
               --field issue_number="$ISSUE_NUM" \
               --field pr_number="$PR_NUMBER" \
               --field parent_issue="$PARENT_ISSUE"
