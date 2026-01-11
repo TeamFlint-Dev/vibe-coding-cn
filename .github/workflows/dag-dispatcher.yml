@@ -4,16 +4,16 @@ on:
   issue_comment:
     types: [created]
 
-# 🔒 关键：同一个 Issue 的 Dispatcher 串行执行，避免重复触发 Worker
+# 🔒 同一个 Issue 的 Dispatcher 串行执行
 concurrency:
   group: dag-dispatcher-${{ github.event.issue.number }}
-  cancel-in-progress: false  # 不取消，排队等待
+  cancel-in-progress: false
 
 jobs:
   dispatch:
-    # 只处理包含 DAG 信号的评论
+    # 手动 /run 或 Worker 完成信号
     if: |
-      contains(github.event.comment.body, '<!-- DAG_READY') ||
+      contains(github.event.comment.body, '/run') ||
       contains(github.event.comment.body, '<!-- TASK_DONE')
     runs-on: ubuntu-latest
     permissions:
@@ -27,19 +27,41 @@ jobs:
         run: |
           COMMENT_BODY="${{ github.event.comment.body }}"
           
-          if [[ "$COMMENT_BODY" == *"<!-- DAG_READY"* ]]; then
-            echo "type=dag_ready" >> $GITHUB_OUTPUT
-            # 提取 PR 编号
-            PR_NUM=$(echo "$COMMENT_BODY" | grep -oP '<!-- DAG_READY pr=\K\d+' || echo "")
-            echo "pr_number=$PR_NUM" >> $GITHUB_OUTPUT
+          if [[ "$COMMENT_BODY" == *"/run"* ]]; then
+            echo "type=manual_run" >> $GITHUB_OUTPUT
           elif [[ "$COMMENT_BODY" == *"<!-- TASK_DONE"* ]]; then
             echo "type=task_done" >> $GITHUB_OUTPUT
-            # 提取完成的 Issue 编号
             DONE_ISSUE=$(echo "$COMMENT_BODY" | grep -oP '<!-- TASK_DONE issue=\K\d+' || echo "")
             echo "done_issue=$DONE_ISSUE" >> $GITHUB_OUTPUT
           fi
           
           echo "parent_issue=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+      
+      - name: Get PR number from sub-issues
+        id: get_pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PARENT_ISSUE=${{ steps.signal.outputs.parent_issue }}
+          
+          # 从任意子 Issue 的 body 中提取 PR 编号
+          PR_NUM=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $issue: Int!) {
+              repository(owner: $owner, name: $repo) {
+                issue(number: $issue) {
+                  subIssues(first: 1) {
+                    nodes { body }
+                  }
+                }
+              }
+            }
+          ' -f owner="${{ github.repository_owner }}" \
+            -f repo="${{ github.event.repository.name }}" \
+            -F issue="$PARENT_ISSUE" \
+            --jq '.data.repository.issue.subIssues.nodes[0].body' | grep -oP 'PR.*?#\K\d+' | head -1 || echo "")
+          
+          echo "pr_number=$PR_NUM" >> $GITHUB_OUTPUT
+          echo "提取到 PR 编号: $PR_NUM"
 
       - name: Get sub-issues
         id: sub_issues
@@ -143,7 +165,7 @@ jobs:
           GH_TOKEN: ${{ secrets.DAG_DISPATCH_TOKEN }}
         run: |
           READY_ISSUES='${{ steps.ready.outputs.issues }}'
-          PR_NUMBER="${{ steps.signal.outputs.pr_number }}"
+          PR_NUMBER="${{ steps.get_pr.outputs.pr_number }}"
           PARENT_ISSUE="${{ steps.signal.outputs.parent_issue }}"
           
           # 限制并行数量为 5
@@ -185,16 +207,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PARENT_ISSUE: ${{ steps.signal.outputs.parent_issue }}
-          PR_NUMBER: ${{ steps.signal.outputs.pr_number }}
+          PR_NUMBER: ${{ steps.get_pr.outputs.pr_number }}
         run: |
           echo "🎉 所有任务已完成！"
           
           gh issue comment "$PARENT_ISSUE" \
             --body "## 🎉 DAG 执行完成！
 
-          所有子任务已完成。
+所有子任务已完成。
 
-          **PR 可供审批**: #$PR_NUMBER
+**PR 可供审批**: #$PR_NUMBER"
 
           ---
           > 🤖 DAG Dispatcher"
