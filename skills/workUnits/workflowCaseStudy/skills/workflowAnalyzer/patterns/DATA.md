@@ -166,3 +166,32 @@
   - 快速访问最新数据
 - **典型案例**: metrics-collector
 - **来源**: metrics-collector 分析 (Run #3)
+
+---
+
+## Dual-Track State Pattern ⭐⭐⭐⭐⭐
+
+- **识别特征**:
+  - repo-memory 存储结构化数据（JSON）
+  - Issue/PR 展示人类可读摘要（Markdown）
+  - 两者同步更新，内容一致性
+- **数据分工**:
+  - repo-memory: 机器读取、精确查询、历史追溯
+  - Issue: 人类阅读、决策界面、通知触发
+- **典型结构**:
+  ```
+  repo-memory/
+  ├── command-center.json  # 元数据（状态、团队、SLA）
+  └── timeline.json        # 事件时间线（事件溯源）
+  
+  Issue (Command Center)
+  ├── Status Summary       # 人类可读状态
+  ├── SLA Tracking         # 时间约束
+  └── Decision History     # 决策记录
+  ```
+- **设计意图**:
+  - 机器处理需要结构化数据
+  - 人类决策需要可读界面
+  - 双轨分离，各取所需
+- **典型案例**: incident-response
+- **来源**: incident-response 分析 (Run #16)

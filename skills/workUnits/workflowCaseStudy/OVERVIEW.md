@@ -8,7 +8,7 @@
 
 | 维度 | 状态 |
 |------|------|
-| **资产** | 初始阶段，待积累 |
+| **资产** | 稳步积累中（21 篇案例报告） |
 | **订单** | 无待处理订单 |
 | **负债** | 无 |
 
@@ -26,19 +26,28 @@
 
 | 报告 | 路径 | 状态 |
 |------|------|------|
-| （待添加） | | |
+| incident-response (Run #16) | `reports/case-studies/incident-response-analysis.md` | ✅ 新增 |
+| workflow-generator (Run #15) | `reports/case-studies/workflow-generator-analysis.md` | ✅ |
+| research (Run #6) | `reports/case-studies/research-analysis.md` | ✅ |
+| 其他 18 篇 | `reports/case-studies/` | ✅ |
 
 ### Skills
 
 | Skill | 路径 | 状态 |
 |-------|------|------|
-| （待添加） | | |
+| workflowAnalyzer | `skills/workflowAnalyzer/` | 活跃维护 |
+| hypothesis | `skills/hypothesis/` | 活跃维护 |
+| reportWriting | `skills/reportWriting/` | 基础版 |
 
 ### 猜想
 
 | 猜想 | 状态 | 验证方式 |
 |------|------|----------|
-| （待添加） | | |
+| H006: Agent 文件是可执行知识沉淀 | proposed | 扫描 gh-aw Agent 文件 |
+| H005: repo-memory 目录结构反映知识类型 | proposed | 更多案例验证 |
+| H004: 两层监控架构 | ✅ confirmed | - |
+| H003: patterns/ 目录是知识沉淀关键 | investigating | 持续收集证据 |
+| H001/H002 | needs-revision | 待修正 |
 
 ---
 

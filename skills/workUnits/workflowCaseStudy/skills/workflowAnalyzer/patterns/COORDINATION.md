@@ -160,3 +160,45 @@
 - **为什么只关闭 Ideas**: Ideas 已转 Issue 使命完成 | Q&A/General 应保持开放
 - **典型案例**: plan
 - **来源**: plan 分析
+
+---
+
+## Command Center Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 
+  - repo-memory 存储结构化数据（command-center.json, timeline.json）
+  - Issue 作为人类可见的指挥中心
+  - 双轨分离：机器读 + 人类读
+- **核心组件**:
+  - `command-center.json`: 元数据（状态、SLA、团队）
+  - `timeline.json`: 事件时间线（事件溯源）
+  - Command Center Issue: 人类界面（状态摘要 + 决策历史）
+- **设计意图**:
+  - repo-memory 存储结构化数据供机器处理
+  - Issue 展示人类可读摘要供人类决策
+  - 分离存储与展示，各司其职
+- **可复用场景**: 任何需要人机协作的长时间协调任务
+- **典型案例**: incident-response
+- **来源**: incident-response 分析 (Run #16)
+
+---
+
+## SLA-Driven Execution Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**:
+  - 基于严重程度的时间约束配置
+  - 周期性状态更新（如每 30 分钟）
+  - SLA 倒计时显示
+- **配置示例**:
+  ```yaml
+  sla_target_minutes:
+    critical: 30
+    high: 120
+    medium: 480
+  ```
+- **设计意图**:
+  - 给团队明确的时间预期
+  - 防止事件处理拖延
+  - 支持基于紧急程度的资源分配
+- **典型案例**: incident-response
+- **来源**: incident-response 分析 (Run #16)
