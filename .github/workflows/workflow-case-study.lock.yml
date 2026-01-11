@@ -604,6 +604,20 @@ jobs:
           
           **所有输出使用中文**（代码和技术术语可用英文）。
           
+          ## ⛔ 关键约束
+          
+          **禁止修改以下目录的文件：**
+          - `.github/` - 包括 workflows、actions 等
+          - 任何 `.lock.yml` 文件
+          
+          **原因**：GitHub Actions 的 `GITHUB_TOKEN` 没有 `workflows` 权限，修改这些文件会导致 push 失败。
+          
+          **你只能修改：**
+          - `skills/` 目录
+          - `journals/` 目录
+          - `reports/` 目录（如果存在）
+          - 进度文件 `__GH_AW_ENV_PROGRESS_FILE__`
+          
           ## 🔄 滚动 PR 模式
           
           本 Workflow 采用**滚动 PR 模式**：多次运行共享同一个 PR，持续累积成果。
