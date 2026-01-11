@@ -32,8 +32,9 @@ name: "Task Worker"
         description: 父 Issue 编号
         required: true
       pr_number:
-        description: 共享 PR 编号
-        required: true
+        default: ""
+        description: 共享 PR 编号（可选，如无则新建分支）
+        required: false
 
 permissions:
   contents: read

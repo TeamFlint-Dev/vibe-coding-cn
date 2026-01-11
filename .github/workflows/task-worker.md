@@ -8,8 +8,9 @@ on:
         description: '要执行的任务 Issue 编号'
         required: true
       pr_number:
-        description: '共享 PR 编号'
-        required: true
+        description: '共享 PR 编号（可选，如无则新建分支）'
+        required: false
+        default: ''
       parent_issue:
         description: '父 Issue 编号'
         required: true
