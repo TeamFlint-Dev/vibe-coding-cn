@@ -1,13 +1,36 @@
 {
   "description": "Workflow Case Study 滚动 PR 模式进度追踪文件",
-  "analyzed": [],
+  "analyzed": [
+    {"workflow": "agent-performance-analyzer.md", "date": "2026-01-09"},
+    {"workflow": "audit-workflows.md", "date": "2026-01-09"},
+    {"workflow": "campaign-generator.md", "date": "2026-01-08"},
+    {"workflow": "campaign-manager.md", "date": "2026-01-09"},
+    {"workflow": "ci-coach.md", "date": "2026-01-08"},
+    {"workflow": "cloclo.md", "date": "2026-01-08"},
+    {"workflow": "copilot-session-insights.md", "date": "2026-01-09"},
+    {"workflow": "create-agentic-workflow.md", "date": "2026-01-08"},
+    {"workflow": "discussion-task-mining-campaign.md", "date": "2026-01-09"},
+    {"workflow": "human-ai-collaboration.md", "date": "2026-01-09"},
+    {"workflow": "issue-triage-agent.md", "date": "2026-01-10"},
+    {"workflow": "mcp-inspector.md", "date": "2026-01-10"},
+    {"workflow": "metrics-collector.md", "date": "2026-01-10"},
+    {"workflow": "plan.md", "date": "2026-01-09"},
+    {"workflow": "research.md", "date": "2026-01-10"},
+    {"workflow": "scout.md", "date": "2026-01-09"},
+    {"workflow": "smoke-detector.md", "date": "2026-01-08"},
+    {"workflow": "workflow-health-manager.md", "date": "2026-01-08"}
+  ],
   "in_progress": null,
   "queue": [
     "brave.md",
     "archie.md",
-    "ci-coach.md",
-    "campaign-generator.md"
+    "changeset.md",
+    "craft.md",
+    "dev.md",
+    "mergefest.md",
+    "q.md",
+    "tidy.md"
   ],
-  "last_updated": "2026-01-11T00:00:00Z",
+  "last_updated": "2026-01-11T12:00:00Z",
   "notes": "每次运行前读取此文件，完成后更新。避免重复分析已完成的工作流。"
 }

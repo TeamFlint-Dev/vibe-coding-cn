@@ -86,18 +86,19 @@ strict: true
 ```json
 {
   "analyzed": [
-    {
-      "workflow": "brave.md",
-      "run_number": 42,
-      "date": "2026-01-11",
-      "insights": ["发现 MCP 集成模式", "验证了 H002"]
-    }
+    {"workflow": "brave.md", "date": "2026-01-11"},
+    {"workflow": "scout.md", "date": "2026-01-10"}
   ],
   "in_progress": null,
   "queue": ["ci-coach.md", "archie.md"],
   "last_updated": "2026-01-11T10:30:00Z"
 }
 ```
+
+**字段说明**：
+- `analyzed`: 已完成分析的工作流列表（`workflow` + `date`）
+- `in_progress`: 当前正在分析的工作流（防止并发冲突）
+- `queue`: 建议的下一批目标
 
 ## 任务上下文
 
@@ -159,17 +160,15 @@ USE_PUSH_TO_PR=false
 
 ### 0.3 标记自己为"进行中"
 
-**更新进度文件**，将 `in_progress` 设置为当前运行信息：
+**更新进度文件**，将 `in_progress` 设置为当前目标：
 
 ```json
 {
-  "in_progress": {
-    "run_number": ${{ github.run_number }},
-    "started_at": "<当前时间>",
-    "target": "<你选择的工作流>"
-  }
+  "in_progress": "<你选择的工作流.md>"
 }
 ```
+
+**注意**：只需要工作流名称，不需要复杂对象。
 
 ### 0.4 读取猜想库和研究议程
 
@@ -354,20 +353,27 @@ jq -e '.analyzed[] | select(.workflow == "brave.md")' "${{ env.PROGRESS_FILE }}"
 
 **将当前工作添加到 `analyzed` 列表**：
 
+```bash
+# 读取现有进度文件
+cat skills/workUnits/workflowCaseStudy/PROGRESS.json
+
+# 添加新条目到 analyzed 数组
+# {"workflow": "<当前工作流>", "date": "2026-01-11"}
+
+# 清空 in_progress
+# 更新 last_updated
+```
+
+**格式示例**：
 ```json
 {
   "analyzed": [
-    ...已有条目,
-    {
-      "workflow": "{当前工作流}",
-      "run_number": ${{ github.run_number }},
-      "date": "{今天日期}",
-      "insights": ["发现1", "发现2"]
-    }
+    ...已有条目...,
+    {"workflow": "brave.md", "date": "2026-01-11"}
   ],
   "in_progress": null,
-  "queue": [...更新后的队列],
-  "last_updated": "{当前时间}"
+  "queue": [...更新后的队列...],
+  "last_updated": "2026-01-11T12:00:00Z"
 }
 ```
 
