@@ -21,18 +21,15 @@ env:
   SKILLS_BASE: skills/workUnits/workflowCaseStudy/skills
 tools:
   github:
-    toolsets: [repos, pull_requests]
+    toolsets: [default]
   bash: ["*"]
   edit:
 safe-outputs:
   create-pull-request:
     title-prefix: "[workflow-study] "
     labels: [gh-aw-research]
+    draft: false
   push-to-pull-request-branch:
-    target: "*"
-    title-prefix: "[workflow-study] "
-    labels: [gh-aw-research]
-    if-no-changes: ignore
   create-issue:
     labels: [agent-suggested, needs-triage]
   add-comment:
@@ -75,20 +72,20 @@ strict: true
 
 ### 0.1 检查现有研究 PR（强制执行）
 
-**⛔ 在做任何其他事情之前，你必须先执行这个命令并查看结果：**
+**⛔ 在做任何其他事情之前，你必须先搜索现有的 workflow-study PR：**
 
-```bash
-gh pr list --repo ${{ github.repository }} --label gh-aw-research --state open --json number,title,headRefName
-```
+搜索满足以下**两个条件**的 open PR：
+1. 标题以 `[workflow-study]` 开头
+2. 有 `gh-aw-research` 标签
 
-**执行后根据结果决定：**
+**如果找到现有 PR**：
+- 记下它的 **PR 编号** 和 **分支名 (headRefName)**
+- 你今天的所有工作都要推送到**这个分支**
 
-| 结果 | 你应该怎么做 |
-|------|-------------|
-| 返回 1 个或多个 PR | ✅ 记下**最新的** PR 编号。你今天的所有工作都要推送到这个 PR |
-| 返回空列表 `[]` | ⚠️ 没有现有 PR，你需要在 Phase 4 创建新 PR |
+**如果没有找到**：
+- 你需要在 Phase 4 创建新 PR
 
-**⚠️ 如果你没有实际执行这个命令，后续提交时会创建重复的 PR！**
+**⚠️ 重要**：必须记住分支名！后续 `push_to_pull_request_branch` 需要用到。
 
 ### 0.2 读取猜想库
 
@@ -306,23 +303,21 @@ gh api repos/githubnext/gh-aw/contents/.github/workflows --jq '.[] | "\(.name)"'
 
 **回顾 Phase 0.1 的结果**：
 
-| Phase 0.1 结果 | 你必须调用的 Tool |
-|---------------|------------------|
-| `gh pr list` 返回了 PR（如 `#14`）| **调用 `push_to_pull_request_branch`**，推送到现有 PR 的分支 |
-| `gh pr list` 返回空列表 `[]` | **调用 `create_pull_request`**，创建新 PR |
+| Phase 0.1 结果 | 你必须做什么 |
+|---------------|-------------|
+| 找到了现有 PR（记住了分支名）| 用 `push_to_pull_request_branch` 推送到**那个分支** |
+| 没有找到现有 PR | 用 `create_pull_request` 创建新 PR |
 
-**⛔ 关键规则**：
-- 如果 Phase 0.1 找到了现有 PR，你**必须**使用 `push_to_pull_request_branch`
-- 只有当**确实没有**现有 PR 时，才使用 `create_pull_request`
-- 违反这个规则会创建重复的 PR
-
-**标题格式**: `[workflow-study] 分析 {workflow-name} 工作流 (Run #{run_number})`
+**⚠️ 关键**：
+- 如果 Phase 0.1 找到了现有 PR，**必须**用 `push_to_pull_request_branch`
+- 这样你的更改会推送到**现有 PR 的分支**，不会产生冲突
+- 只有确实没有现有 PR 时，才用 `create_pull_request`
 
 ### 4.3 在 PR 上添加评论
 
 **使用 `add_comment` 告诉别人你做了什么**。
 
-⚠️ **必须指定 PR 编号**：因为这个 workflow 通过 schedule/dispatch 触发，没有默认的 PR 上下文。你需要在调用 `add_comment` 时指定 `issue_number` 参数为 Phase 0.1 找到的（或刚创建的）PR 编号。
+指定 `issue_number` 为 Phase 0.1 找到的（或刚创建的）PR 编号。
 
 **评论内容格式**：
 

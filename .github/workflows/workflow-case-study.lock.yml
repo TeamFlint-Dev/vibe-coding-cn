@@ -163,7 +163,7 @@ jobs:
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
           cat > /opt/gh-aw/safeoutputs/config.json << 'EOF'
-          {"add_comment":{"max":1,"target":"*"},"create_issue":{"max":1},"create_pull_request":{},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0,"target":"*"}}
+          {"add_comment":{"max":1,"target":"*"},"create_issue":{"max":1},"create_pull_request":{},"missing_data":{},"missing_tool":{},"noop":{"max":1},"push_to_pull_request_branch":{"max":0}}
           EOF
           cat > /opt/gh-aw/safeoutputs/tools.json << 'EOF'
           [
@@ -493,7 +493,7 @@ jobs:
                   "-e",
                   "GITHUB_LOCKDOWN_MODE=$GITHUB_MCP_LOCKDOWN",
                   "-e",
-                  "GITHUB_TOOLSETS=repos,pull_requests",
+                  "GITHUB_TOOLSETS=context,repos,issues,pull_requests",
                   "ghcr.io/github/github-mcp-server:v0.27.0"
                 ],
                 "tools": ["*"],
@@ -621,20 +621,20 @@ jobs:
           
           ### 0.1 检查现有研究 PR（强制执行）
           
-          **⛔ 在做任何其他事情之前，你必须先执行这个命令并查看结果：**
+          **⛔ 在做任何其他事情之前，你必须先搜索现有的 workflow-study PR：**
           
-          ```bash
-          gh pr list --repo __GH_AW_GITHUB_REPOSITORY__ --label gh-aw-research --state open --json number,title,headRefName
-          ```
+          搜索满足以下**两个条件**的 open PR：
+          1. 标题以 `[workflow-study]` 开头
+          2. 有 `gh-aw-research` 标签
           
-          **执行后根据结果决定：**
+          **如果找到现有 PR**：
+          - 记下它的 **PR 编号** 和 **分支名 (headRefName)**
+          - 你今天的所有工作都要推送到**这个分支**
           
-          | 结果 | 你应该怎么做 |
-          |------|-------------|
-          | 返回 1 个或多个 PR | ✅ 记下**最新的** PR 编号。你今天的所有工作都要推送到这个 PR |
-          | 返回空列表 `[]` | ⚠️ 没有现有 PR，你需要在 Phase 4 创建新 PR |
+          **如果没有找到**：
+          - 你需要在 Phase 4 创建新 PR
           
-          **⚠️ 如果你没有实际执行这个命令，后续提交时会创建重复的 PR！**
+          **⚠️ 重要**：必须记住分支名！后续 `push_to_pull_request_branch` 需要用到。
           
           ### 0.2 读取猜想库
           
@@ -852,23 +852,21 @@ jobs:
           
           **回顾 Phase 0.1 的结果**：
           
-          | Phase 0.1 结果 | 你必须调用的 Tool |
-          |---------------|------------------|
-          | `gh pr list` 返回了 PR（如 `#14`）| **调用 `push_to_pull_request_branch`**，推送到现有 PR 的分支 |
-          | `gh pr list` 返回空列表 `[]` | **调用 `create_pull_request`**，创建新 PR |
+          | Phase 0.1 结果 | 你必须做什么 |
+          |---------------|-------------|
+          | 找到了现有 PR（记住了分支名）| 用 `push_to_pull_request_branch` 推送到**那个分支** |
+          | 没有找到现有 PR | 用 `create_pull_request` 创建新 PR |
           
-          **⛔ 关键规则**：
-          - 如果 Phase 0.1 找到了现有 PR，你**必须**使用 `push_to_pull_request_branch`
-          - 只有当**确实没有**现有 PR 时，才使用 `create_pull_request`
-          - 违反这个规则会创建重复的 PR
-          
-          **标题格式**: `[workflow-study] 分析 {workflow-name} 工作流 (Run #{run_number})`
+          **⚠️ 关键**：
+          - 如果 Phase 0.1 找到了现有 PR，**必须**用 `push_to_pull_request_branch`
+          - 这样你的更改会推送到**现有 PR 的分支**，不会产生冲突
+          - 只有确实没有现有 PR 时，才用 `create_pull_request`
           
           ### 4.3 在 PR 上添加评论
           
           **使用 `add_comment` 告诉别人你做了什么**。
           
-          ⚠️ **必须指定 PR 编号**：因为这个 workflow 通过 schedule/dispatch 触发，没有默认的 PR 上下文。你需要在调用 `add_comment` 时指定 `issue_number` 参数为 Phase 0.1 找到的（或刚创建的）PR 编号。
+          指定 `issue_number` 为 Phase 0.1 找到的（或刚创建的）PR 编号。
           
           **评论内容格式**：
           
@@ -1572,7 +1570,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1,\"target\":\"*\"},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"labels\":[\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"ignore\",\"labels\":[\"gh-aw-research\"],\"max_patch_size\":1024,\"target\":\"*\",\"title_prefix\":\"[workflow-study] \"}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1,\"target\":\"*\"},\"create_issue\":{\"labels\":[\"agent-suggested\",\"needs-triage\"],\"max\":1},\"create_pull_request\":{\"base_branch\":\"${{ github.ref_name }}\",\"draft\":false,\"labels\":[\"gh-aw-research\"],\"max\":1,\"max_patch_size\":1024,\"title_prefix\":\"[workflow-study] \"},\"push_to_pull_request_branch\":{\"base_branch\":\"${{ github.ref_name }}\",\"if_no_changes\":\"warn\",\"max_patch_size\":1024}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
