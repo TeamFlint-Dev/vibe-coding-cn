@@ -15,6 +15,37 @@
 
 ---
 
+## Agent-to-Agent Delegation Pattern ⭐⭐⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 协调器使用 `safe-outputs: { update-issue: ..., assign-to-agent: }` 组合
+- **核心机制**: 
+  - Issue Body 作为"指令协议"——协调器 Append 结构化指令
+  - Agent 文件（`.agent.md`）定义执行逻辑
+  - 协调器超时短（~5min），执行者无限制
+- **设计意图**:
+  - 解耦协调与执行：协调器只做调度和上下文准备
+  - Issue 作为契约：所有指令都在 Issue 中，透明可追溯
+  - 双模式复用：Agent 文件同时支持批处理和交互式
+- **典型流程**: 用户 Issue → 协调器更新 Issue → assign-to-agent → 执行者接管
+- **可复用场景**: 复杂任务预处理、人机协作、任务路由器
+- **典型案例**: workflow-generator → create-agentic-workflow agent
+- **来源**: workflow-generator 分析 (Run #15)
+
+---
+
+## Issue-as-Protocol Pattern ⭐⭐⭐⭐⭐⭐
+
+- **识别特征**: 使用 `update-issue.body:` 向 Issue Body Append 结构化内容
+- **内容格式**: Markdown + "AI Agent Instructions"章节 + 明确的 Next Steps
+- **设计意图**:
+  - 持久化通信：Issue Body 不会丢失
+  - 人机可读：人类和 AI 都能理解
+  - 版本控制：Issue 历史记录所有变更
+- **典型案例**: workflow-generator (update-issue safe output)
+- **来源**: workflow-generator 分析 (Run #15)
+
+---
+
 ## Dual-Mode Workflow Pattern ⭐⭐
 
 - **识别特征**: 单个工作流支持多种触发方式（issues + workflow_dispatch）
