@@ -162,7 +162,7 @@ jobs:
       - name: Dispatch workers
         if: steps.ready.outputs.issues != '[]'
         env:
-          GH_TOKEN: ${{ secrets.DAG_DISPATCH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           READY_ISSUES='${{ steps.ready.outputs.issues }}'
           PR_NUMBER="${{ steps.get_pr.outputs.pr_number }}"
