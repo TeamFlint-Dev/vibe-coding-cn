@@ -8,7 +8,7 @@
 
 | 维度 | 状态 |
 |------|------|
-| **资产** | 稳步积累中（21 篇案例报告） |
+| **资产** | 稳步积累中（21 篇案例报告 + 1 份猜想验证报告） |
 | **订单** | 无待处理订单 |
 | **负债** | 无 |
 
@@ -26,10 +26,16 @@
 
 | 报告 | 路径 | 状态 |
 |------|------|------|
-| incident-response (Run #16) | `reports/case-studies/incident-response-analysis.md` | ✅ 新增 |
+| incident-response (Run #16) | `reports/case-studies/incident-response-analysis.md` | ✅ |
 | workflow-generator (Run #15) | `reports/case-studies/workflow-generator-analysis.md` | ✅ |
 | research (Run #6) | `reports/case-studies/research-analysis.md` | ✅ |
 | 其他 18 篇 | `reports/case-studies/` | ✅ |
+
+### 猜想验证报告
+
+| 报告 | 路径 | 状态 |
+|------|------|------|
+| H006 验证 (Run #17) | `reports/hypothesis-validation/H006-agent-files-validation.md` | ✅ 新增 |
 
 ### Skills
 
@@ -43,7 +49,7 @@
 
 | 猜想 | 状态 | 验证方式 |
 |------|------|----------|
-| H006: Agent 文件是可执行知识沉淀 | proposed | 扫描 gh-aw Agent 文件 |
+| H006: Agent 文件是可执行知识沉淀 | needs-revision | ✅ 已验证（Run #17），需修正双模式断言 |
 | H005: repo-memory 目录结构反映知识类型 | proposed | 更多案例验证 |
 | H004: 两层监控架构 | ✅ confirmed | - |
 | H003: patterns/ 目录是知识沉淀关键 | investigating | 持续收集证据 |
@@ -110,4 +116,5 @@
 
 | 日期 | 更新内容 | 更新者 |
 |------|----------|--------|
+| 2026-01-11 | H006 验证完成，添加猜想验证报告目录 | workflow-case-study (Run #17) |
 | 2026-01-11 | 创建初始版本 | 系统 |
