@@ -163,6 +163,7 @@ jobs:
         if: steps.ready.outputs.issues != '[]'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
           READY_ISSUES='${{ steps.ready.outputs.issues }}'
           PR_NUMBER="${{ steps.get_pr.outputs.pr_number }}"
@@ -177,7 +178,7 @@ jobs:
             fi
             
             # 🔒 二次检查：确保任务仍是 pending 状态（防止并发重复触发）
-            CURRENT_LABELS=$(gh issue view "$ISSUE_NUM" --json labels --jq '.labels[].name' | tr '\n' ',')
+            CURRENT_LABELS=$(gh issue view "$ISSUE_NUM" --repo "$GH_REPO" --json labels --jq '.labels[].name' | tr '\n' ',')
             if [[ "$CURRENT_LABELS" != *"pending"* ]]; then
               echo "⏭️ 跳过 #$ISSUE_NUM: 已不是 pending 状态 (当前: $CURRENT_LABELS)"
               continue
@@ -185,14 +186,14 @@ jobs:
             
             # 先更新标签（原子操作，作为锁）
             echo "🔒 锁定 #$ISSUE_NUM..."
-            gh issue edit "$ISSUE_NUM" \
+            gh issue edit "$ISSUE_NUM" --repo "$GH_REPO" \
               --remove-label "pending" \
               --add-label "in-progress"
             
             echo "🚀 触发 Worker 处理 #$ISSUE_NUM..."
             
             # 使用 PAT 触发 workflow
-            gh workflow run task-worker.md \
+            gh workflow run task-worker.md --repo "$GH_REPO" \
               --field issue_number="$ISSUE_NUM" \
               --field pr_number="$PR_NUMBER" \
               --field parent_issue="$PARENT_ISSUE"
