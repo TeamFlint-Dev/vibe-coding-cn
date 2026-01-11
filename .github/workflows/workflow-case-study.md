@@ -1,6 +1,6 @@
 ---
 name: Workflow Case Study
-description: 智能分析 GitHub Agentic Workflows，持续沉淀知识到 Skills（滚动 PR 模式）
+description: 智能分析 GitHub Agentic Workflows，持续沉淀知识到 Skills
 on:
   workflow_dispatch:
   schedule: every 4h
@@ -9,7 +9,7 @@ permissions:
   issues: read
   pull-requests: read
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-case-study
+  group: workflow-case-study-${{ github.ref }}
   cancel-in-progress: false
 tracker-id: workflow-case-study
 engine:
@@ -19,8 +19,6 @@ env:
   WORK_UNIT_NAME: workflowCaseStudy
   GH_AW_REPO: githubnext/gh-aw
   SKILLS_BASE: skills/workUnits/workflowCaseStudy/skills
-  PROGRESS_FILE: skills/workUnits/workflowCaseStudy/PROGRESS.json
-  ROLLING_PR_BRANCH: workflow-study/rolling
 tools:
   github:
     toolsets: [repos, pull_requests]
@@ -29,13 +27,11 @@ tools:
 safe-outputs:
   create-pull-request:
     title-prefix: "[workflow-study] "
-    labels: [rolling-pr, gh-aw-research]
-    draft: false
-    if-no-changes: ignore
+    labels: [knowledge-capture, gh-aw-research]
   push-to-pull-request-branch:
     target: "*"
     title-prefix: "[workflow-study] "
-    labels: [rolling-pr, gh-aw-research]
+    labels: [knowledge-capture, gh-aw-research]
     if-no-changes: ignore
   create-issue:
     labels: [agent-suggested, needs-triage]
@@ -57,49 +53,6 @@ strict: true
 
 **所有输出使用中文**（代码和技术术语可用英文）。
 
-## ⛔ 关键约束
-
-**禁止修改以下目录的文件：**
-- `.github/` - 包括 workflows、actions 等
-- 任何 `.lock.yml` 文件
-
-**原因**：GitHub Actions 的 `GITHUB_TOKEN` 没有 `workflows` 权限，修改这些文件会导致 push 失败。
-
-**你只能修改：**
-- `skills/` 目录
-- `journals/` 目录
-- `reports/` 目录（如果存在）
-- 进度文件 `${{ env.PROGRESS_FILE }}`
-
-## 🔄 滚动 PR 模式
-
-本 Workflow 采用**滚动 PR 模式**：多次运行共享同一个 PR，持续累积成果。
-
-### 核心机制
-
-1. **进度文件** (`${{ env.PROGRESS_FILE }}`): 记录已分析的工作流和状态
-2. **滚动分支** (`${{ env.ROLLING_PR_BRANCH }}`): 所有运行推送到同一分支
-3. **感知前序**: 每次运行先读取进度文件，避免重复工作
-
-### 进度文件格式 (PROGRESS.json)
-
-```json
-{
-  "analyzed": [
-    {"workflow": "brave.md", "date": "2026-01-11"},
-    {"workflow": "scout.md", "date": "2026-01-10"}
-  ],
-  "in_progress": null,
-  "queue": ["ci-coach.md", "archie.md"],
-  "last_updated": "2026-01-11T10:30:00Z"
-}
-```
-
-**字段说明**：
-- `analyzed`: 已完成分析的工作流列表（`workflow` + `date`）
-- `in_progress`: 当前正在分析的工作流（防止并发冲突）
-- `queue`: 建议的下一批目标
-
 ## 任务上下文
 
 - **仓库**: ${{ github.repository }}
@@ -107,109 +60,88 @@ strict: true
 - **目标仓库**: `githubnext/gh-aw`
 - **Skill 路径前缀**: `${{ env.SKILLS_BASE }}/`
 
+## ⛔ 禁止修改的目录
+
+**绝对不要修改 `.github/` 目录下的任何文件**（包括 workflows、actions 等）。
+
+原因：`GITHUB_TOKEN` 没有 `workflows` 权限，修改会导致 push 失败。
+
 ---
 
-## Phase 0: 感知团队进度 🧭
+## Phase 0: 带着问题启程 🧭
 
-> **这是滚动 PR 模式的关键**：你不是独自工作，而是接力赛的一棒。
+> **为什么有这个阶段？** 漫无目的的探索是最大的浪费。你只有 25 分钟，必须知道自己要找什么。
 
-### 0.1 读取进度文件
+### 0.1 读取猜想库
 
-**首先检查进度文件是否存在**：
+**读取**: `${{ env.SKILLS_BASE }}/hypothesis/HYPOTHESES.md`
 
-```bash
-# 检查本地进度文件
-cat "${{ env.PROGRESS_FILE }}" 2>/dev/null || echo '{"analyzed":[],"in_progress":null,"queue":[]}'
-```
+**问自己**：
+- 有哪些待验证的猜想？
+- 今天的分析能为哪个猜想提供证据？
+- 我带着什么问题去探索？
 
-**从进度文件中获取**：
-- `analyzed`: 已完成的工作流列表 → **不要重复分析**
-- `in_progress`: 是否有其他运行正在进行 → **等待或选择其他目标**
-- `queue`: 建议的下一批目标 → **优先从这里选择**
+**没有问题 = 没有方向。** 如果猜想库是空的，你的任务之一是提出第一个猜想。
 
-### 0.2 检查滚动 PR 状态（关键步骤！）
+### 0.2 回顾历史：避免重复劳动
 
-**这一步决定了你后续使用哪个 safe-output 工具。**
+快速扫描已有工作：
+- `skills/workUnits/workflowCaseStudy/reports/case-studies/` - 已分析过什么？
+- `journals/workUnits/workflowCaseStudy/` - 上次发现了什么？
 
-```bash
-# 查找符合条件的现有 PR（必须同时满足 title-prefix 和 labels）
-gh pr list --repo ${{ github.repository }} \
-  --label rolling-pr \
-  --label gh-aw-research \
-  --state open \
-  --json number,title,headRefName,labels
-```
+**如果你选了一个已经分析过的工作流，这次运行就浪费了。**
 
-**判断逻辑**：
+### 0.3 研究议程：大方向对齐
 
-| 搜索结果 | 后续操作 |
-|----------|----------|
-| 找到 PR（标题以 `[workflow-study]` 开头，有 `rolling-pr` + `gh-aw-research` 标签）| **记住 PR 编号**，Phase 4 使用 `push_to_pull_request_branch` |
-| 没有找到符合条件的 PR | Phase 4 使用 `create_pull_request` 创建新 PR |
+**读取**: `skills/workUnits/workflowCaseStudy/RESEARCH-AGENDA.md`
 
-**⚠️ 重要**：记住这个判断结果，Phase 4 需要用到！
+议程是粗方向，猜想是具体问题。两者结合，你才知道今天该往哪走。
 
-```
-# 如果找到 PR，记录：
-EXISTING_PR_NUMBER=<从搜索结果获取>
-USE_PUSH_TO_PR=true
+### 0.4 决定运行模式
 
-# 如果没找到：
-USE_PUSH_TO_PR=false
-```
+**读取**: `${{ env.SKILLS_BASE }}/skillsMaintenance/SKILL.md`
 
-### 0.3 标记自己为"进行中"
+**诚实判断**：
 
-**更新进度文件**，将 `in_progress` 设置为当前目标：
+| 你观察到什么？ | 应该做什么？ |
+|---------------|-------------|
+| Skills 文件过大（>500行）、结构混乱 | → **Phase R**（先整理工具，再干活）|
+| Skills 状态良好 | → **Phase 1-4**（正常调研）|
 
-```json
-{
-  "in_progress": "<你选择的工作流.md>"
-}
-```
-
-**注意**：只需要工作流名称，不需要复杂对象。
-
-### 0.4 读取猜想库和研究议程
-
-- `${{ env.SKILLS_BASE }}/hypothesis/HYPOTHESES.md` - 待验证的猜想
-- `skills/workUnits/workflowCaseStudy/RESEARCH-AGENDA.md` - 大方向
+**不要假装没看到问题。** 如果 Skills 需要重构，今天就重构，不要拖延。
 
 ### 0.5 避免踩坑
 
-读取失败案例：
+**读取失败案例**：
 - `${{ env.SKILLS_BASE }}/workflowAnalyzer/FAILURE-CASES.md`
 - `${{ env.SKILLS_BASE }}/workflowAuthoring/FAILURE-CASES.md`
 
+**前人踩过的坑，你不需要再踩一遍。**
+
 ---
 
-## Phase 1: 智能选择目标 🎯
+## Phase 1: 25 分钟的赌注 🎯
 
-> **基于团队进度选择**：不是随便选，而是选「最有价值且没人做过的」。
+> **为什么这是赌注？** 你只有一次运行机会。选错目标 = 浪费 25 分钟 + API 调用 + 什么都没学到。
 
-### 1.1 确定候选列表
+### 1.1 快速扫描候选目标
 
-**从队列优先**：如果 `queue` 非空，优先从队列选择。
-
-**否则，远程探索**：
+**远程探索 `githubnext/gh-aw`**：
 
 ```bash
 # 扫描工作流列表
-gh api repos/githubnext/gh-aw/contents/.github/workflows --jq '.[] | select(.name | endswith(".md")) | .name'
+gh api repos/githubnext/gh-aw/contents/.github/workflows --jq '.[] | "\(.name)"'
 ```
 
-### 1.2 排除已分析的工作流
+**备选**：`skills/github/ghAgenticWorkflows/shared/gh-aw-raw/workflows/`
 
-**对比 `analyzed` 列表**，排除已完成的工作流。
+**用 30 秒决定，不要犹豫太久。**
 
-```bash
-# 示例：检查 brave.md 是否已分析
-jq -e '.analyzed[] | select(.workflow == "brave.md")' "${{ env.PROGRESS_FILE }}"
-```
-
-### 1.3 价值评估
+### 1.2 这个值得研究吗？
 
 **读取**: `${{ env.SKILLS_BASE }}/valueAssessment/SKILL.md`
+
+**问自己三个问题**：
 
 | 问题 | 好答案 | 坏答案 |
 |------|--------|--------|
@@ -217,12 +149,11 @@ jq -e '.analyzed[] | select(.workflow == "brave.md")' "${{ env.PROGRESS_FILE }}"
 | 这能验证哪个猜想？ | "能测试 H002" | "不知道" |
 | 这能复用到我们项目吗？ | "正好需要类似功能" | "纯学术兴趣" |
 
-### 1.4 记录选择理由
+**做好 vs 敷衍**：
+- ✅ **做好**：花 2 分钟认真评估，选出最有洞察力的目标
+- ❌ **敷衍**：随便选第一个看到的工作流
 
-**在日志中写明**：
-- 我选择了 `{workflow-name}`
-- 因为：{具体理由}
-- 预期验证：{相关猜想编号}
+**决定后，大声说出理由（写进日志）：** "我选择 X 是因为 Y"
 
 ---
 
@@ -338,115 +269,37 @@ jq -e '.analyzed[] | select(.workflow == "brave.md")' "${{ env.PROGRESS_FILE }}"
 
 ---
 
-## Phase 4: 滚动提交 📤
+## Phase 4: 没有 PR = 工作白做 📤
 
-> **滚动 PR 模式的核心**：不是每次创建新 PR，而是持续向同一个 PR 推送。
+> **⚠️ 这是硬性要求，不是可选步骤。**
 
 ### 4.1 检查清单
+
+**问自己**：
 
 - [ ] 分析报告写完了吗？
 - [ ] 工作日志记录了吗？
 - [ ] 猜想库更新了吗？
 - [ ] 能力边界更新了吗（如有新发现）？
 
-### 4.2 更新进度文件
+**缺任何一项，补完再继续。**
 
-**将当前工作添加到 `analyzed` 列表**：
+### 4.2 提交更改
+
+**先检查是否有现有的研究 PR**：
 
 ```bash
-# 读取现有进度文件
-cat skills/workUnits/workflowCaseStudy/PROGRESS.json
-
-# 添加新条目到 analyzed 数组
-# {"workflow": "<当前工作流>", "date": "2026-01-11"}
-
-# 清空 in_progress
-# 更新 last_updated
+gh pr list --repo ${{ github.repository }} --label knowledge-capture --label gh-aw-research --state open --json number,title
 ```
 
-**格式示例**：
-```json
-{
-  "analyzed": [
-    ...已有条目...,
-    {"workflow": "brave.md", "date": "2026-01-11"}
-  ],
-  "in_progress": null,
-  "queue": [...更新后的队列...],
-  "last_updated": "2026-01-11T12:00:00Z"
-}
-```
+- **如果找到了**：使用 `push_to_pull_request_branch` 推送到现有 PR
+- **如果没找到**：使用 `create_pull_request` 创建新 PR
 
-### 4.3 推送到滚动 PR（核心步骤！）
+**标题格式**: `[workflow-study] 分析 {workflow-name} 工作流`
 
-**回顾 Phase 0.2 的判断结果**，选择正确的工具：
+### 4.3 确认 PR 创建成功
 
----
-
-#### 情况 A：找到了现有的滚动 PR
-
-**使用 `push_to_pull_request_branch` 工具**：
-
-```javascript
-// 调用 push_to_pull_request_branch safe-output 工具
-push_to_pull_request_branch({
-  message: "📝 Run #${{ github.run_number }}: 分析 {workflow-name}"
-})
-```
-
-系统会自动：
-- 找到匹配 `title-prefix: "[workflow-study] "` 和 `labels: [rolling-pr, gh-aw-research]` 的 PR
-- 将你的更改推送到该 PR 的分支
-
----
-
-#### 情况 B：没有找到现有的滚动 PR
-
-**使用 `create_pull_request` 工具**：
-
-```javascript
-// 调用 create_pull_request safe-output 工具
-create_pull_request({
-  title: "[workflow-study] 滚动知识沉淀 (持续更新中)",
-  body: `## 📊 知识沉淀进度
-
-本 PR 采用滚动模式，多次运行共享同一个 PR。
-
-### 本次贡献 (Run #${{ github.run_number }})
-
-- 分析了: {workflow-name}
-- 主要发现: {insights}
-
-### 累计进度
-
-- 已分析工作流: {count}
-- 待分析队列: {queue}
-`
-})
-```
-
----
-
-**PR 标题格式**: `[workflow-study] 滚动知识沉淀 (持续更新中)`
-
-**⚠️ 注意**：标题必须以 `[workflow-study] ` 开头，否则后续运行无法匹配到这个 PR！
-
-### 4.4 建议下一批目标（可选）
-
-如果你在分析中发现了值得研究的相关工作流，添加到 `queue`：
-
-```json
-{
-  "queue": ["ci-coach.md", "archie.md", "你发现的新目标"]
-}
-```
-
-### 4.5 确认推送成功
-
-输出结果：
-- ✅ PR 链接
-- 📊 本次贡献摘要
-- 🎯 建议的下一个目标
+输出 PR 链接，确认任务闭环。
 
 ---
 
@@ -547,13 +400,8 @@ create_pull_request({
 
 | 模式 | 必须完成 |
 |------|---------|
-| 调研模式 | Phase 0-4 + 进度文件更新 + PR/推送成功 |
-| 重构模式 | Phase 0 + R + 进度文件更新 + PR/推送成功 |
+| 调研模式 | Phase 0-4 + PR 链接 |
+| 重构模式 | Phase 0 + R + PR 链接（标题前缀 `[skills-refactor]`）|
 
-**滚动 PR 模式的成功标志**：
-- ✅ 进度文件已更新（`in_progress` 清空，`analyzed` 新增条目）
-- ✅ 更改已推送到滚动 PR
-- ✅ 没有与其他运行产生冲突
-
-**❌ 没有更新进度文件 = 下次运行可能重复你的工作**
-**✅ 成功标志：进度文件反映了你的贡献**
+**❌ 没有创建 PR = 任务失败**  
+**✅ 成功标志：你能够提供一个 PR 链接**
