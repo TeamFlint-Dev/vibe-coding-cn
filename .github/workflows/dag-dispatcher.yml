@@ -211,9 +211,4 @@ jobs:
         run: |
           echo "🎉 所有任务已完成！"
           
-          gh issue comment "$PARENT_ISSUE" \
-            --body "## 🎉 DAG 执行完成！
-
-所有子任务已完成。
-
-**PR 可供审批**: #$PR_NUMBER"
+          gh issue comment "$PARENT_ISSUE" --body "## 🎉 DAG 执行完成！所有子任务已完成。**PR 可供审批**: #$PR_NUMBER"
