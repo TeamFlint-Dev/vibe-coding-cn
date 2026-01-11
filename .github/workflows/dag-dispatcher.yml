@@ -133,7 +133,7 @@ jobs:
             if [ -z "$DEPS" ]; then
               # 无依赖，直接就绪
               echo "  #$ISSUE_NUM: 无依赖 → 就绪"
-              READY_ISSUES=$(echo "$READY_ISSUES" | jq --argjson num "$ISSUE_NUM" '. + [$num]')
+              READY_ISSUES=$(echo "$READY_ISSUES" | jq -c --argjson num "$ISSUE_NUM" '. + [$num]')
             else
               # 检查所有依赖是否都已关闭
               ALL_SATISFIED=true
@@ -147,7 +147,7 @@ jobs:
               
               if [ "$ALL_SATISFIED" = true ]; then
                 echo "  #$ISSUE_NUM: 所有依赖已满足 → 就绪"
-                READY_ISSUES=$(echo "$READY_ISSUES" | jq --argjson num "$ISSUE_NUM" '. + [$num]')
+                READY_ISSUES=$(echo "$READY_ISSUES" | jq -c --argjson num "$ISSUE_NUM" '. + [$num]')
               fi
             fi
           done
