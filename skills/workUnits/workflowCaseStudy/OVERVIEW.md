@@ -1,6 +1,6 @@
 # 工作单元总览：Workflow Case Study
 
-> **最后更新**：2026-01-11（由经营者维护）
+> **最后更新**：2026-01-12（由经营者维护）
 
 ---
 
@@ -8,8 +8,8 @@
 
 | 维度 | 状态 |
 |------|------|
-| **资产** | 稳步积累中（21 篇案例报告 + 1 份猜想验证报告 + 3 个已修正猜想） |
-| **订单** | 无待处理订单 |
+| **资产** | 持续增长中（21 篇案例报告 + 1 份猜想验证报告 + 3 个已修正猜想 + **1 份调研报告**） |
+| **订单** | ✅ 已完成用户订单："调研一下多Agent协作" |
 | **负债** | 无 |
 
 ---
@@ -35,7 +35,13 @@
 
 | 报告 | 路径 | 状态 |
 |------|------|------|
-| H006 验证 (Run #17) | `reports/hypothesis-validation/H006-agent-files-validation.md` | ✅ 新增 |
+| H006 验证 (Run #17) | `reports/hypothesis-validation/H006-agent-files-validation.md` | ✅ |
+
+### 调研报告
+
+| 报告 | 路径 | 状态 |
+|------|------|------|
+| 多Agent协作机制 (Run #20) | `reports/research/multi-agent-collaboration.md` | ✅ 新增 |
 
 ### Skills
 
@@ -117,6 +123,7 @@
 
 | 日期 | 更新内容 | 更新者 |
 |------|----------|--------|
+| 2026-01-12 | 完成多Agent协作调研，新增调研报告目录，完成用户订单 | workflow-case-study (Run #20) |
 | 2026-01-12 | H001/H002 修正完成，状态 → revised | workflow-case-study (Run #19) |
 | 2026-01-11 | H006 修正完成，状态 → revised | workflow-case-study (Run #18) |
 | 2026-01-11 | H006 验证完成，添加猜想验证报告目录 | workflow-case-study (Run #17) |
