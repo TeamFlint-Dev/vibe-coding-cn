@@ -64,32 +64,32 @@ jobs:
             [🌅 早晨 - 启动阶段] 新的一天开始，先整理思路，理解任务全貌，制定今日计划。
             ${{ steps.prompt.outputs.content }}
 
-      - name: Run opencode - ☀️ 中午
-        uses: anomalyco/opencode/github@latest
-        env:
-          DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
-        with:
-          model: deepseek/deepseek-reasoner
-          prompt: |
-            [☀️ 中午 - 深入阶段] 精力充沛，深入核心工作，展开详细分析和实现。
-            ${{ steps.prompt.outputs.content }}
+      # - name: Run opencode - ☀️ 中午
+      #   uses: anomalyco/opencode/github@latest
+      #   env:
+      #     DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
+      #   with:
+      #     model: deepseek/deepseek-reasoner
+      #     prompt: |
+      #       [☀️ 中午 - 深入阶段] 精力充沛，深入核心工作，展开详细分析和实现。
+      #       ${{ steps.prompt.outputs.content }}
 
-      - name: Run opencode - 🌆 下午
-        uses: anomalyco/opencode/github@latest
-        env:
-          DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
-        with:
-          model: deepseek/deepseek-reasoner
-          prompt: |
-            [🌆 下午 - 完善阶段] 继续推进，完善细节，处理边界情况和优化。
-            ${{ steps.prompt.outputs.content }}
+      # - name: Run opencode - 🌆 下午
+      #   uses: anomalyco/opencode/github@latest
+      #   env:
+      #     DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
+      #   with:
+      #     model: deepseek/deepseek-reasoner
+      #     prompt: |
+      #       [🌆 下午 - 完善阶段] 继续推进，完善细节，处理边界情况和优化。
+      #       ${{ steps.prompt.outputs.content }}
 
-      - name: Run opencode - 🌙 晚上
-        uses: anomalyco/opencode/github@latest
-        env:
-          DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
-        with:
-          model: deepseek/deepseek-reasoner
-          prompt: |
-            [🌙 晚上 - 收尾阶段] 一天结束，总结今日成果，输出最终结论，为明天留下清晰的交接。
-            ${{ steps.prompt.outputs.content }}
+      # - name: Run opencode - 🌙 晚上
+      #   uses: anomalyco/opencode/github@latest
+      #   env:
+      #     DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
+      #   with:
+      #     model: deepseek/deepseek-reasoner
+      #     prompt: |
+      #       [🌙 晚上 - 收尾阶段] 一天结束，总结今日成果，输出最终结论，为明天留下清晰的交接。
+      #       ${{ steps.prompt.outputs.content }}
