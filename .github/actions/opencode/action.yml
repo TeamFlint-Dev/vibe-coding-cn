@@ -1,0 +1,128 @@
+name: "OpenCode Local Action"
+description: "Run opencode in GitHub Actions with full local control"
+branding:
+  icon: "code"
+  color: "blue"
+
+inputs:
+  model:
+    description: "Model to use (format: provider/model)"
+    required: true
+
+  agent:
+    description: "Agent to use. Must be a primary agent."
+    required: false
+    default: "build"
+
+  share:
+    description: "Share the opencode session (defaults to true for public repos)"
+    required: false
+    default: "true"
+
+  prompt:
+    description: "Custom prompt to override the default prompt"
+    required: false
+
+  use_github_token:
+    description: "Use GITHUB_TOKEN directly instead of OpenCode App token exchange"
+    required: false
+    default: "false"
+
+  mentions:
+    description: "Comma-separated list of trigger phrases (case-insensitive)"
+    required: false
+    default: "/opencode,/oc"
+
+  oidc_base_url:
+    description: "Base URL for OIDC token exchange API"
+    required: false
+    default: "https://api.opencode.ai"
+
+  version:
+    description: "OpenCode version to install (leave empty for latest)"
+    required: false
+
+  skip_cache:
+    description: "Skip caching opencode binary"
+    required: false
+    default: "false"
+
+  save_output:
+    description: "Save LLM session output as artifact"
+    required: false
+    default: "true"
+
+  output_retention_days:
+    description: "Number of days to retain the output artifact"
+    required: false
+    default: "30"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get opencode version
+      id: version
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.version }}" ]; then
+          echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          VERSION=$(curl -sf https://api.github.com/repos/anomalyco/opencode/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d'"' -f4)
+          echo "version=${VERSION:-latest}" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Cache opencode
+      id: cache
+      if: ${{ inputs.skip_cache != 'true' }}
+      uses: actions/cache@v4
+      with:
+        path: ~/.opencode/bin
+        key: opencode-${{ runner.os }}-${{ runner.arch }}-${{ steps.version.outputs.version }}
+
+    - name: Install opencode
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: curl -fsSL https://opencode.ai/install | bash
+
+    - name: Add opencode to PATH
+      shell: bash
+      run: echo "$HOME/.opencode/bin" >> $GITHUB_PATH
+
+    - name: Run opencode
+      shell: bash
+      id: run_opencode
+      run: |
+        # Create output directory for logs
+        mkdir -p ./opencode-output
+        
+        # Run opencode and tee output to file
+        opencode github run 2>&1 | tee ./opencode-output/session.log
+        
+        # Copy session data if exists
+        if [ -d "$HOME/.local/share/opencode/sessions" ]; then
+          cp -r "$HOME/.local/share/opencode/sessions" ./opencode-output/ 2>/dev/null || true
+        fi
+        
+        # Save metadata
+        echo "Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > ./opencode-output/metadata.txt
+        echo "Model: $MODEL" >> ./opencode-output/metadata.txt
+        echo "Agent: $AGENT" >> ./opencode-output/metadata.txt
+        echo "Run ID: $GITHUB_RUN_ID" >> ./opencode-output/metadata.txt
+        echo "Repository: $GITHUB_REPOSITORY" >> ./opencode-output/metadata.txt
+      env:
+        MODEL: ${{ inputs.model }}
+        AGENT: ${{ inputs.agent }}
+        SHARE: ${{ inputs.share }}
+        PROMPT: ${{ inputs.prompt }}
+        USE_GITHUB_TOKEN: ${{ inputs.use_github_token }}
+        MENTIONS: ${{ inputs.mentions }}
+        OIDC_BASE_URL: ${{ inputs.oidc_base_url }}
+
+    - name: Upload session output
+      if: ${{ inputs.save_output == 'true' && always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: opencode-session-${{ github.run_id }}-${{ github.run_attempt }}
+        path: ./opencode-output/
+        retention-days: ${{ inputs.output_retention_days }}
+        if-no-files-found: ignore
