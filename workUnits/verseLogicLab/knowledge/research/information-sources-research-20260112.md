@@ -49,17 +49,20 @@
 
 位置：`verseProject/digests/`
 
-| 文件 | 行数 | 说明 |
-|------|------|------|
-| `Verse/Verse.digest.verse` | 2,368 | Verse 核心 API 定义 |
-| `Fortnite/Fortnite.digest.verse` | 12,191 | Fortnite 游戏 API 定义 |
-| `UnrealEngine/UnrealEngine.digest.verse` | 1,391 | UE5 相关 API 定义 |
-| **总计** | **15,950** | |
+| 文件 | 行数 | 版本 | 说明 |
+|------|------|------|------|
+| `Verse/Verse.digest.verse` | 2,524 | v41.00 | Verse 核心 API 定义 |
+| `Fortnite/Fortnite.digest.verse` | 12,749 | v41.00 | Fortnite 游戏 API 定义 |
+| `UnrealEngine/UnrealEngine.digest.verse` | 1,755 | v41.00 | UE5 相关 API 定义 |
+| **总计** | **17,028** | | |
+
+**更新来源**：[vz-creates/uefn](https://github.com/vz-creates/uefn) - 社区维护的 API 版本追踪仓库（追踪从 v24.01 到 v41.00+ 的所有版本变更）
 
 **价值**：
 - 最权威的 API 参考
 - 直接来自 UEFN 安装目录
 - 包含完整的类型签名和模块定义
+- 可追踪版本间的 API 变更
 
 #### UEFN 官方文档本地副本
 
@@ -248,7 +251,8 @@ cat external/epic-docs-crawler/uefn_docs_organized/_compact_index.json | \
 ### 6.1 信息源丰富度
 
 ✅ **优势**：
-- 拥有完整的官方 API 定义文件（15,950 行）
+- 拥有完整的官方 API 定义文件（17,028 行，v41.00）
+- 拥有 API 版本追踪仓库（v24.01-v41.00+，可查看历史变更）
 - 拥有完整的官方文档本地副本（5,071+ 页）
 - 有多种索引方式（Markdown、JSON）
 - 可完全离线工作
@@ -268,9 +272,9 @@ UEFN 文档的组织非常系统化：
 ### 6.3 缺失的信息源
 
 目前尚未包含的信息源：
+- ~~❌ API 版本追踪仓库~~ ✅ **已添加**：[vz-creates/uefn](https://github.com/vz-creates/uefn)
 - ❌ Verse Language Specification（官方语言规范）
 - ❌ 社区博客和教程链接
-- ❌ 官方 GitHub 仓库链接
 - ❌ Discord/Forum 重要讨论链接
 
 **建议**：在后续使用过程中，遇到有价值的外部资源时及时补充到 SOURCES.md。
@@ -306,9 +310,11 @@ UEFN 文档的组织非常系统化：
 
 **关键成果**：
 1. ✅ 更新了 `SOURCES.md`，添加了详细的信息源索引
-2. ✅ 识别了 5,071+ 页官方文档和 15,950 行 API 定义
-3. ✅ 创建了按任务类型查找的导航表
-4. ✅ 制定了信息源查找流程和使用指南
+2. ✅ 识别了 5,071+ 页官方文档和 17,028 行 API 定义（v41.00）
+3. ✅ 添加了 API 版本追踪仓库链接
+4. ✅ 更新了 API Digest 文件到最新版本（+1,078 行）
+5. ✅ 创建了按任务类型查找的导航表
+6. ✅ 制定了信息源查找流程和使用指南
 
 **价值**：
 - 显著提升信息查找效率

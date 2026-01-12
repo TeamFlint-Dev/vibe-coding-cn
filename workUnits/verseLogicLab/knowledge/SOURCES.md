@@ -24,9 +24,10 @@
 
 | 资源 | 类型 | 路径/URL | 说明 | 最后访问 |
 |------|------|---------|------|----------|
-| **Verse API Digest** | 官方 API 定义 | `verseProject/digests/Verse/Verse.digest.verse` | Verse 核心 API 官方定义文件（2368 行） | 2026-01-12 |
-| **Fortnite API Digest** | 官方 API 定义 | `verseProject/digests/Fortnite/Fortnite.digest.verse` | Fortnite 游戏 API 官方定义文件（12191 行） | 2026-01-12 |
-| **UnrealEngine API Digest** | 官方 API 定义 | `verseProject/digests/UnrealEngine/UnrealEngine.digest.verse` | UE5 相关 API 官方定义文件（1391 行） | 2026-01-12 |
+| **UEFN API Digest Repository** | 官方 API 版本追踪 | https://github.com/vz-creates/uefn | 社区维护的 UEFN API Digest 版本追踪仓库（v24.01-v41.00+） | 2026-01-12 |
+| **Verse API Digest** | 官方 API 定义 | `verseProject/digests/Verse/Verse.digest.verse` | Verse 核心 API 官方定义文件（2524 行，v41.00） | 2026-01-12 |
+| **Fortnite API Digest** | 官方 API 定义 | `verseProject/digests/Fortnite/Fortnite.digest.verse` | Fortnite 游戏 API 官方定义文件（12749 行，v41.00） | 2026-01-12 |
+| **UnrealEngine API Digest** | 官方 API 定义 | `verseProject/digests/UnrealEngine/UnrealEngine.digest.verse` | UE5 相关 API 官方定义文件（1755 行，v41.00） | 2026-01-12 |
 | **UEFN Documentation** | 官方文档（本地副本） | `external/epic-docs-crawler/uefn_docs_organized/` | Epic Games 官方文档本地副本（5071+ 页） | 2026-01-12 |
 | Verse Language Reference | 官方文档（在线） | https://dev.epicgames.com/documentation/en-us/uefn/verse-language-reference | Verse 语言官方在线参考文档 | - |
 
@@ -101,15 +102,31 @@ cat external/epic-docs-crawler/uefn_docs_organized/_compact_index.json | jq '.pa
 
 ```bash
 verseProject/digests/
-├── Verse/Verse.digest.verse          # Verse 核心 API (2368 行)
-├── Fortnite/Fortnite.digest.verse    # Fortnite 游戏 API (12191 行)  
-└── UnrealEngine/UnrealEngine.digest.verse  # UE5 API (1391 行)
+├── Verse/Verse.digest.verse          # Verse 核心 API (2524 行，v41.00)
+├── Fortnite/Fortnite.digest.verse    # Fortnite 游戏 API (12749 行，v41.00)
+└── UnrealEngine/UnrealEngine.digest.verse  # UE5 API (1755 行，v41.00)
 ```
+
+**更新来源**：[vz-creates/uefn](https://github.com/vz-creates/uefn) - 社区维护的 API 版本追踪仓库
 
 **使用方法**：
 - 查询 API 签名和类型定义
 - 确认函数参数和返回值
 - 了解可用的模块和命名空间
+
+**更新流程**：
+```bash
+# 克隆最新版本
+git clone https://github.com/vz-creates/uefn.git /tmp/uefn
+
+# 复制 FortniteGame 模块的 digest 文件（通常是最新的）
+cp /tmp/uefn/Modules/FortniteGame/Verse/Verse.digest.verse verseProject/digests/Verse/
+cp /tmp/uefn/Modules/FortniteGame/Fortnite/Fortnite.digest.verse verseProject/digests/Fortnite/
+cp /tmp/uefn/Modules/FortniteGame/UnrealEngine/UnrealEngine.digest.verse verseProject/digests/UnrealEngine/
+
+# 验证更新
+wc -l verseProject/digests/*/*.digest.verse
+```
 
 ### UEFN 官方文档本地副本
 
