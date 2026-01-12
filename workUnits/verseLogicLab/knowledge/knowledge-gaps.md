@@ -77,10 +77,14 @@
 **缺口主题**：Verse类型转换标准方法
 - **影响范围**：数值计算模块
 - **发现原因**：CONJ-003猜想（Floor用于类型转换）可靠性低
-- **建议行动**：执行RESEARCH-006（数值类型转换与精度）
-- **优先级**：高
-- **状态**：待调研
-- **相关任务**：RESEARCH-006
+- **状态**: ✅ **已完成** - 完成RESEARCH-006
+- **完成日期**: 2026-01-12
+- **产出**: `knowledge/research/verse-numeric-conversion-research-20260112.md`
+- **关键发现**:
+  - Int → Float 标准方法：乘以 1.0（官方推荐）
+  - Float → Int 四种方法：Int/Floor/Ceil/Round，根据场景选择
+  - 所有 float → int 转换都有 `<decides>` 效果，需处理失败
+  - Floor 签名是 `(float):int`，不是用于 int → float 转换
 
 **缺口主题**：Fortnite API能力索引缺失
 - **影响范围**：所有游戏功能开发
