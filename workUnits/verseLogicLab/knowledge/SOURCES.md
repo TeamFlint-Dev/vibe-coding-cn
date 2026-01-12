@@ -60,11 +60,21 @@ cat external/epic-docs-crawler/uefn_docs_organized/Verse-Language.md
 cat external/epic-docs-crawler/uefn_docs_organized/_compact_index.json | jq '.pages[] | select(.title | contains("Timer"))'
 ```
 
+#### 类型系统与转换
+
+| 资源 | 类型 | 路径/URL | 说明 | 最后访问 |
+|------|------|----------|------|----------|
+| **Type Casting and Conversion** | 官方文档（本地） | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/type-casting-and-conversion-in-verse/index.md` | 类型转换的官方方法、float ↔ int 转换规则 | 2026-01-12 |
+| **Option in Verse** | 官方文档（本地） | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/option-in-verse/index.md` | option[T] 类型定义、构造、访问、persistable 特性 | 2026-01-12 |
+
 #### 效果系统（Effects）
 
-| 资源 | 类型 | URL/引用 | 说明 | 最后访问 |
+| 资源 | 类型 | 路径/URL | 说明 | 最后访问 |
 |------|------|----------|------|----------|
-| Verse Effects Guide | 官方文档（本地） | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/` | 效果系统文档（在 Verse 语言章节） | 2026-01-12 |
+| **Failure in Verse** | 官方文档（本地） | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/failure-in-verse/index.md` | Failure context、speculative execution、transacts 要求 | 2026-01-12 |
+| **Functions in Verse** | 官方文档（本地） | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/functions-in-verse/index.md` | 函数定义、效果标注、decides 效果说明 | 2026-01-12 |
+| **If in Verse** | 官方文档（本地） | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/if-in-verse/index.md` | if 条件中的 decides 行为、transactional rollback | 2026-01-12 |
+| Verse Effects Guide | 官方文档（在线） | https://dev.epicgames.com/documentation/en-us/fortnite/failure-in-verse | Verse 效果系统在线文档 | 2026-01-12 |
 | User Feedback (@wyughakut) | 用户反馈 | PR Comment #3739768476 | 指出 `<decides>` 与 `<transacts>` 可以同时使用 | 2026-01-12 |
 
 ---

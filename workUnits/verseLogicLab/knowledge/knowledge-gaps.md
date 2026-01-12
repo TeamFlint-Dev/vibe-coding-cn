@@ -65,18 +65,39 @@
 **缺口主题**：Verse效果系统完整理解
 - **影响范围**：所有逻辑模块开发
 - **发现原因**：CONJ-002猜想未验证，缺少官方文档确认
-- **建议行动**：执行RESEARCH-001（Verse效果系统完整规范）
-- **优先级**：高
-- **状态**：待调研
-- **相关任务**：RESEARCH-001
+- **状态**: ✅ **已完成** - 完成RESEARCH-001
+- **完成日期**: 2026-01-12
+- **产出**: `knowledge/research/verse-effects-system-research-20260112.md`
+- **关键发现**:
+  - `<decides>` 必须配合 `<transacts>` 使用（官方要求）
+  - Failure context 要求所有函数支持事务回滚
+  - 用户函数默认是 `<no_rollback>`，需显式标注 `<transacts>`
+  - Speculative execution 是 Verse 核心特性
 
 **缺口主题**：Verse类型转换标准方法
 - **影响范围**：数值计算模块
 - **发现原因**：CONJ-003猜想（Floor用于类型转换）可靠性低
-- **建议行动**：执行RESEARCH-006（数值类型转换与精度）
-- **优先级**：高
-- **状态**：待调研
-- **相关任务**：RESEARCH-006
+- **状态**: ✅ **已完成** - 完成RESEARCH-006
+- **完成日期**: 2026-01-12
+- **产出**: `knowledge/research/verse-numeric-conversion-research-20260112.md`
+- **关键发现**:
+  - Int → Float 标准方法：乘以 1.0（官方推荐）
+  - Float → Int 四种方法：Int/Floor/Ceil/Round，根据场景选择
+  - 所有 float → int 转换都有 `<decides>` 效果，需处理失败
+  - Floor 签名是 `(float):int`，不是用于 int → float 转换
+
+**缺口主题**：option[T] 类型使用规范
+- **影响范围**：空值处理、错误处理模式
+- **发现原因**：缺少 option 类型的系统化知识
+- **状态**: ✅ **已完成** - 完成RESEARCH-003
+- **完成日期**: 2026-01-12
+- **产出**: `knowledge/research/verse-option-type-research-20260112.md`
+- **关键发现**:
+  - `?` 查询操作符是 failable expression，必须在 failure context 使用
+  - option 构造器是 failure context，自动捕获表达式失败
+  - `false` 是所有 option 类型的通用空值字面量
+  - persistable 特性是递归的（取决于内部类型）
+- **验证猜想**: ✅ CONJ-004, ✅ CONJ-005, ✅ CONJ-006, ✅ CONJ-007（全部验证通过）
 
 **缺口主题**：Fortnite API能力索引缺失
 - **影响范围**：所有游戏功能开发
