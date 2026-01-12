@@ -67,9 +67,12 @@ runs:
         if [ -n "${{ inputs.version }}" ]; then
           echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
         else
-          VERSION=$(curl -sf https://api.github.com/repos/anomalyco/opencode/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d'"' -f4)
+          # Use GITHUB_TOKEN for authenticated API request to avoid rate limiting
+          VERSION=$(curl -sf -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/anomalyco/opencode/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d'"' -f4 || echo "latest")
           echo "version=${VERSION:-latest}" >> $GITHUB_OUTPUT
         fi
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
 
     - name: Cache opencode
       id: cache
