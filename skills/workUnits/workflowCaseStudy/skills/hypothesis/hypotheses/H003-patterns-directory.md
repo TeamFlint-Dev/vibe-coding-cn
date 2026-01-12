@@ -42,6 +42,48 @@ repo-memory:
 
 **结论**：patterns/ 不是唯一的知识沉淀结构，而是「问题知识」的沉淀结构。
 
+### 证据 3: smoke-detector 使用 patterns/ 和 investigations/ 目录
+
+**来源**: `smoke-detector.md` 分析
+
+```
+- Store error patterns in `/tmp/gh-aw/cache-memory/patterns/`
+- Store investigation database and knowledge patterns in `/tmp/gh-aw/cache-memory/investigations/` and `/tmp/gh-aw/cache-memory/patterns/`
+```
+
+**分析**：patterns/ 与 investigations/ 目录结合使用，形成「错误模式」+「调查记录」的双重知识沉淀。investigations/ 存储具体调查案例，patterns/ 存储抽象模式。
+
+### 证据 4: ci-doctor 使用 patterns/ 目录
+
+**来源**: `ci-doctor.md` 分析
+
+```
+- Store error patterns in `/tmp/memory/patterns/`
+- Store investigation database and knowledge patterns in `/tmp/memory/investigations/` and `/tmp/memory/patterns/`
+```
+
+**分析**：与 smoke-detector 类似，验证了 patterns/ + investigations/ 的双目录模式在多个工作流中复用。
+
+### 证据 5: lockfile-stats 的目录结构设计
+
+**来源**: `lockfile-stats.md` 分析
+
+```
+├── patterns/
+```
+
+**分析**：lockfile-stats 设计了 patterns/ 目录但未明确用途，说明 patterns/ 是通用知识沉淀结构的一部分。
+
+### 综合发现
+
+1. **patterns/ 的普遍性**：至少 4 个工作流使用 patterns/ 目录（audit-workflows, smoke-detector, ci-doctor, lockfile-stats）
+2. **与 investigations/ 的配对**：patterns/ 常与 investigations/ 配对，形成「抽象模式 + 具体案例」的知识体系
+3. **知识类型分化**：
+   - `patterns/`：错误模式、问题类型、通用解决方案
+   - `investigations/`：具体调查记录、上下文、决策过程
+   - `metrics/`：性能数据、趋势指标
+   - `audits/`：审计记录、合规证据
+
 ---
 
 ## 验证计划
@@ -59,4 +101,4 @@ repo-memory:
 
 ---
 
-*最后更新: 2026-01-10 (Run #3)*
+*最后更新: 2026-01-12 (Run #19) - 新增证据 3-5*
