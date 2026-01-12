@@ -445,6 +445,184 @@ var MaybeANumber : ?int = false # unset optional value
 
 ---
 
+### CONJ-008: `<suspends>` 与 failure context 可能不兼容
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 中  
+**来源**: 隐藏信息挖掘
+
+### 猜想内容
+
+`<suspends>` 效果可能无法在 failure context 中使用，因为异步挂起的状态无法回滚。
+
+### 需要验证的问题
+
+- [ ] 能否在 if 条件中调用 Sleep？
+- [ ] `<suspends><transacts>` 组合是否合法？
+- [ ] `<suspends><decides>` 组合是否合法？
+
+### 参考
+
+- 隐藏信息分析: `knowledge/research/hidden-patterns-analysis-20260112.md`
+
+---
+
+### CONJ-009: `<transacts>` 不提供并发原子性保证
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 高  
+**来源**: 隐藏信息挖掘
+
+### 猜想内容
+
+`<transacts>` 只保证失败时回滚，但不保证并发安全（atomicity）。回滚 ≠ 原子性。
+
+### 需要验证的问题
+
+- [ ] 两个 agent 同时调用同一函数会有 race condition 吗？
+- [ ] Verse 是否有锁或其他并发控制机制？
+
+### 参考
+
+- 隐藏信息分析: `knowledge/research/hidden-patterns-analysis-20260112.md`
+
+---
+
+### CONJ-010: `false` 是多态常量
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 高  
+**来源**: 隐藏信息挖掘
+
+### 猜想内容
+
+`false` 不是固定类型，而是根据上下文推断类型的多态常量（可以是 `logic` 或 `?T`）。
+
+### 需要验证的问题
+
+- [ ] `false` 的类型签名是什么？
+- [ ] `option[logic] = false` 是 unset 还是 set(false)？
+
+### 参考
+
+- 隐藏信息分析: `knowledge/research/hidden-patterns-analysis-20260112.md`
+
+---
+
+### CONJ-011: Effects 具有"向上传染"特性
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 中  
+**来源**: 隐藏信息挖掘
+
+### 猜想内容
+
+某些 effects（如 `<decides>`, `<suspends>`）会"强制"调用者也添加相应的 effect。
+
+### 需要验证的问题
+
+- [ ] 调用 `<suspends>` 函数是否要求调用者也是 `<suspends>`？
+- [ ] 是否有 effect polymorphism？
+
+### 参考
+
+- 隐藏信息分析: `knowledge/research/hidden-patterns-analysis-20260112.md`
+
+---
+
+### CONJ-012: for 循环实现了"部分失败"语义
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified（基于官方文档的隐含问题）  
+**置信度**: 高  
+**来源**: 隐藏信息挖掘
+
+### 猜想内容
+
+for 循环中某次迭代失败不会中止整个循环，但隐含问题是：如何知道哪些迭代失败了？
+
+### 需要验证的问题
+
+- [ ] 是否有 API 获取失败的迭代列表？
+- [ ] 如何在 for 循环后检查是否有失败？
+
+### 参考
+
+- 隐藏信息分析: `knowledge/research/hidden-patterns-analysis-20260112.md`
+
+---
+
+### CONJ-013: persistable 是类型约束
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 中  
+**来源**: 隐藏信息挖掘
+
+### 猜想内容
+
+persistable 可能类似于 Rust 的 trait 或 Haskell 的 type class，是类型系统的约束。
+
+### 需要验证的问题
+
+- [ ] 如何声明一个类型为 persistable？
+- [ ] persistable 有哪些要求？
+
+### 参考
+
+- 隐藏信息分析: `knowledge/research/hidden-patterns-analysis-20260112.md`
+
+---
+
+### CONJ-014: 不同 effect 有不同的性能特性
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 中  
+**来源**: 隐藏信息挖掘
+
+### 猜想内容
+
+`<computes>` 最快，`<transacts>` 中等（需要状态快照），`<suspends>` 最慢（需要保存调用栈）。
+
+### 需要验证的问题
+
+- [ ] 官方是否有性能基准测试？
+- [ ] 在性能关键路径上如何选择 effect？
+
+### 参考
+
+- 隐藏信息分析: `knowledge/research/hidden-patterns-analysis-20260112.md`
+
+---
+
+### CONJ-015: Verse 有内置 async/await 并发模型
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 高  
+**来源**: 隐藏信息挖掘
+
+### 猜想内容
+
+Verse 有类似现代语言的 async/await 并发模型，`<suspends>` 是其核心。
+
+### 需要验证的问题
+
+- [ ] Verse 的并发模型是什么？（coroutine? fiber?）
+- [ ] 多个 `<suspends>` 函数如何调度？
+- [ ] 是否有并发原语（channel, mutex）？
+
+### 参考
+
+- 隐藏信息分析: `knowledge/research/hidden-patterns-analysis-20260112.md`
+
+---
+
 ## 已证伪的猜想
 
 ### CONJ-003: ~~Floor 函数用于 int → float 类型转换~~
