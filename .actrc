@@ -1,0 +1,5 @@
+# act 本地测试配置
+# 使用方法: act -s DEEPSEEK_API_KEY=your_key workflow_dispatch
+
+# 默认使用中等大小的镜像（推荐）
+# 如果需要完整 Ubuntu 环境，使用: act -P ubuntu-latest=catthehacker/ubuntu:full-latest

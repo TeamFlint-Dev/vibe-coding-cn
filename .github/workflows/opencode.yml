@@ -33,7 +33,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Run opencode
-        uses: anomalyco/opencode/github@latest
+        uses: ./.github/actions/opencode
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         with:
