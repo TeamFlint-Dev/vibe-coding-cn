@@ -171,6 +171,58 @@ ExpProgress := GetExpPercent(CurrentExp, RequiredExp)
 
 ---
 
+### 6. 类型派发模式（Type Dispatch）
+
+使用 enum 类型进行函数派发。
+
+#### 6.1 Enum Dispatch（枚举派发）
+
+**意图**: 根据 enum 值选择不同的处理函数，实现多态行为
+
+**使用场景**: 当有多个相关但实现不同的操作时，通过 enum 统一接口
+
+**结构**:
+```verse
+operation_type := enum:
+    OperationA
+    OperationB
+    OperationC
+
+DispatchOperation<public>(OpType:operation_type, Input:float):float =
+    if (OpType = operation_type.OperationA):
+        ProcessA(Input)
+    else if (OpType = operation_type.OperationB):
+        ProcessB(Input)
+    else if (OpType = operation_type.OperationC):
+        ProcessC(Input)
+    else:
+        DefaultProcess(Input)
+```
+
+**示例**:
+```verse
+# 曲线类型派发
+SampleEasingCurve<public>(CurveType:curve_type, T:float):float =
+    if (CurveType = curve_type.CurveLinear):
+        EaseLinear(T)
+    else if (CurveType = curve_type.CurveInSine):
+        EaseInSine(T)
+    else:
+        EaseLinear(T)
+```
+
+**注意事项**:
+- Enum 值命名避免与函数名冲突（使用前缀如 "Curve*", "Type*"）
+- 总是提供 else 分支处理未知类型
+- if-else 链可能较长，但编译器可优化为跳转表
+- 考虑按使用频率排序 if 分支
+
+**相关模式**:
+- Strategy Pattern（策略模式）
+- Factory Pattern（工厂模式）
+
+---
+
 ## 添加新模式
 
 发现可复用模式时，使用以下模板添加到相应分类：
@@ -211,6 +263,7 @@ ExpProgress := GetExpPercent(CurrentExp, RequiredExp)
 | Clamp Pattern | `<computes>` | 数值计算 |
 | Predicate Function | `<decides>` | 条件判断 |
 | Percent Calculation | `<computes>` | 状态查询 |
+| Enum Dispatch | 推断（通常无效果） | 类型派发 |
 
 ### 按频率分类
 
@@ -219,6 +272,7 @@ ExpProgress := GetExpPercent(CurrentExp, RequiredExp)
 | Clamp Pattern | ⭐⭐⭐⭐⭐ |
 | Safe Division | ⭐⭐⭐⭐ |
 | Predicate Function | ⭐⭐⭐⭐ |
+| Enum Dispatch | ⭐⭐⭐ |
 | Percent Calculation | ⭐⭐⭐ |
 
 ---
