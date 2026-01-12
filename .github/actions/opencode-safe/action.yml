@@ -73,23 +73,20 @@ runs:
       run: |
         set +e  # Don't exit on error
         
-        # Run opencode and capture output
-        output=$(opencode github run 2>&1)
-        exit_code=$?
+        # Run opencode with real-time output, also capture to file
+        opencode github run 2>&1 | tee /tmp/opencode_output.txt
+        exit_code=${PIPESTATUS[0]}
         
-        echo "$output"
-        
-        # Check for known recoverable errors
-        if echo "$output" | grep -q "No commits between"; then
+        # Check for known recoverable errors in the captured output
+        if grep -q "No commits between" /tmp/opencode_output.txt; then
           echo "status=no_changes" >> $GITHUB_OUTPUT
           echo "error_message=No changes were made, skipping PR creation" >> $GITHUB_OUTPUT
           echo "::warning::No changes were made by the agent, skipping PR creation"
           exit 0
         fi
         
-        if echo "$output" | grep -q "Validation Failed"; then
-          # Extract the actual error message
-          error_msg=$(echo "$output" | grep -o '"message":"[^"]*"' | head -1 | cut -d'"' -f4)
+        if grep -q "Validation Failed" /tmp/opencode_output.txt; then
+          error_msg=$(grep -o '"message":"[^"]*"' /tmp/opencode_output.txt | head -1 | cut -d'"' -f4)
           echo "status=validation_error" >> $GITHUB_OUTPUT
           echo "error_message=$error_msg" >> $GITHUB_OUTPUT
           echo "::warning::GitHub API validation error: $error_msg"
