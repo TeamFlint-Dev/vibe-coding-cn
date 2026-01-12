@@ -1,0 +1,32 @@
+{
+  "lessons": [
+    {
+      "id": "LESSON-000",
+      "error": "示例错误（请删除此条目）",
+      "context": "这是一个示例 Lesson，展示 JSON 格式。实际使用时请删除此条目。",
+      "solution": "按照模板添加真实的编译经验。",
+      "prevention": "在遇到编译错误并成功解决后，立即记录到此文件。",
+      "date": "2026-01-12",
+      "tags": ["example", "template"]
+    }
+  ],
+  "_metadata": {
+    "description": "Verse Logic Lab 编译经验教训库",
+    "usage": "记录编译错误、解决方案和预防措施",
+    "tags_guide": {
+      "error_types": ["type-error", "effect-mismatch", "ambiguous-identifier", "undefined-identifier", "syntax-error"],
+      "difficulty": ["beginner", "intermediate", "advanced"],
+      "frequency": ["common", "rare"],
+      "domains": ["naming", "effects", "types", "imports", "syntax"]
+    },
+    "template": {
+      "id": "LESSON-xxx (使用递增编号)",
+      "error": "完整的错误信息（包括错误代码）",
+      "context": "什么情况下发生的，相关代码片段",
+      "solution": "如何修复，具体步骤",
+      "prevention": "如何预防，最佳实践",
+      "date": "YYYY-MM-DD",
+      "tags": ["标签1", "标签2"]
+    }
+  }
+}
