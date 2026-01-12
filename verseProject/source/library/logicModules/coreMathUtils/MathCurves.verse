@@ -441,3 +441,243 @@ MathCurves<public> := module:
         ClampedT := ClampT(T)
         Value := SampleEasingCurve(CurveType, ClampedT)
         Value + Offset
+    
+    # ───────────────────────────────────────────────────────────
+    # 高级曲线操作 (Advanced Curve Operations)
+    # ───────────────────────────────────────────────────────────
+    
+    # 曲线反转（时间反向）
+    # @param CurveType: 曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 在 (1.0 - T) 处采样的曲线值
+    ReverseCurve<public>(CurveType:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        ReversedT := 1.0 - ClampedT
+        SampleEasingCurve(CurveType, ReversedT)
+    
+    # 曲线垂直镜像（关于 y=0.5 镜像）
+    # @param CurveType: 曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 1.0 - 曲线值
+    MirrorCurveVertical<public>(CurveType:curve_type, T:float):float =
+        InvertCurve(CurveType, T)
+    
+    # 曲线水平镜像（关于 x=0.5 镜像）
+    # @param CurveType: 曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 在镜像位置采样的曲线值
+    MirrorCurveHorizontal<public>(CurveType:curve_type, T:float):float =
+        ReverseCurve(CurveType, T)
+    
+    # Ping-Pong 曲线（来回往返）
+    # @param CurveType: 曲线类型
+    # @param T: 采样参数 [0.0, 1.0]，[0.0, 0.5] 正向，[0.5, 1.0] 反向
+    # @returns: Ping-pong 效果的曲线值
+    PingPongCurve<public>(CurveType:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        if (ClampedT <= 0.5):
+            # 前半段：正常播放
+            LocalT := ClampedT * 2.0
+            SampleEasingCurve(CurveType, LocalT)
+        else:
+            # 后半段：反向播放
+            LocalT := (1.0 - ClampedT) * 2.0
+            SampleEasingCurve(CurveType, LocalT)
+    
+    # 曲线循环（重复 N 次）
+    # @param CurveType: 曲线类型
+    # @param Cycles: 循环次数（必须 >= 1.0）
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 循环后的曲线值
+    # 说明：将 T 映射到 Cycles 个重复周期中
+    LoopCurve<public>(CurveType:curve_type, Cycles:float, T:float):float =
+        ClampedT := ClampT(T)
+        ClampedCycles := if (Cycles < 1.0) then 1.0 else Cycles
+        
+        # 计算缩放后的时间
+        ScaledT := ClampedT * ClampedCycles
+        
+        # 使用循环实现取模运算（取小数部分）
+        LocalT := if (ScaledT >= 1.0):
+            var Temp:float = ScaledT
+            loop:
+                if (Temp < 1.0):
+                    break
+                set Temp -= 1.0
+            Temp
+        else:
+            ScaledT
+        
+        SampleEasingCurve(CurveType, LocalT)
+    
+    # 曲线时间缩放（加速/减速）
+    # @param CurveType: 曲线类型
+    # @param TimeScale: 时间缩放因子（>1 加速，<1 减速）
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 时间缩放后的曲线值
+    TimeScaleCurve<public>(CurveType:curve_type, TimeScale:float, T:float):float =
+        ClampedT := ClampT(T)
+        ScaledT := ClampT(ClampedT * TimeScale)
+        SampleEasingCurve(CurveType, ScaledT)
+    
+    # 曲线幂运算（curve ^ power）
+    # @param CurveType: 曲线类型
+    # @param Power: 指数
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 曲线值的 Power 次方
+    PowerCurve<public>(CurveType:curve_type, Power:float, T:float):float =
+        ClampedT := ClampT(T)
+        Value := SampleEasingCurve(CurveType, ClampedT)
+        # 确保 Value >= 0 以避免负数的非整数次方
+        ClampedValue := Max(Value, 0.0)
+        Pow(ClampedValue, Power)
+    
+    # 曲线输出限制到范围
+    # @param CurveType: 曲线类型
+    # @param MinValue: 最小输出值
+    # @param MaxValue: 最大输出值
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 限制在 [MinValue, MaxValue] 范围内的曲线值
+    ClampCurveOutput<public>(CurveType:curve_type, MinValue:float, MaxValue:float, T:float):float =
+        ClampedT := ClampT(T)
+        Value := SampleEasingCurve(CurveType, ClampedT)
+        Clamp(Value, MinValue, MaxValue)
+    
+    # 两条曲线取最小值
+    # @param Curve1: 第一条曲线类型
+    # @param Curve2: 第二条曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 两条曲线值的最小值
+    MinCurves<public>(Curve1:curve_type, Curve2:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        Value1 := SampleEasingCurve(Curve1, ClampedT)
+        Value2 := SampleEasingCurve(Curve2, ClampedT)
+        Min(Value1, Value2)
+    
+    # 两条曲线取最大值
+    # @param Curve1: 第一条曲线类型
+    # @param Curve2: 第二条曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 两条曲线值的最大值
+    MaxCurves<public>(Curve1:curve_type, Curve2:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        Value1 := SampleEasingCurve(Curve1, ClampedT)
+        Value2 := SampleEasingCurve(Curve2, ClampedT)
+        Max(Value1, Value2)
+    
+    # 动态混合曲线（使用第三条曲线控制混合权重）
+    # @param Curve1: 第一条曲线类型
+    # @param Curve2: 第二条曲线类型
+    # @param BlendCurve: 控制混合的曲线类型（0.0 = Curve1, 1.0 = Curve2）
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 动态混合后的曲线值
+    DynamicBlendCurves<public>(Curve1:curve_type, Curve2:curve_type, BlendCurve:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        Value1 := SampleEasingCurve(Curve1, ClampedT)
+        Value2 := SampleEasingCurve(Curve2, ClampedT)
+        BlendWeight := SampleEasingCurve(BlendCurve, ClampedT)
+        ClampedWeight := Clamp(BlendWeight, 0.0, 1.0)
+        
+        Value1 * (1.0 - ClampedWeight) + Value2 * ClampedWeight
+    
+    # Smoothstep 插值（Hermite 插值）
+    # @param Edge0: 起始边界
+    # @param Edge1: 结束边界
+    # @param T: 采样参数
+    # @returns: Smoothstep 插值结果
+    Smoothstep<public>(Edge0:float, Edge1:float, T:float):float =
+        ClampedT := Clamp((T - Edge0) / (Edge1 - Edge0), 0.0, 1.0)
+        ClampedT * ClampedT * (3.0 - 2.0 * ClampedT)
+    
+    # 使用 Smoothstep 的曲线过渡
+    # @param CurveType: 曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 应用 smoothstep 后的曲线值
+    SmoothstepCurve<public>(CurveType:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        # 先对时间应用 smoothstep，再采样曲线
+        SmoothedT := Smoothstep(0.0, 1.0, ClampedT)
+        SampleEasingCurve(CurveType, SmoothedT)
+    
+    # 曲线差值（Curve1 - Curve2）
+    # @param Curve1: 第一条曲线类型
+    # @param Curve2: 第二条曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 两条曲线值的差
+    SubtractCurves<public>(Curve1:curve_type, Curve2:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        Value1 := SampleEasingCurve(Curve1, ClampedT)
+        Value2 := SampleEasingCurve(Curve2, ClampedT)
+        Value1 - Value2
+    
+    # 曲线除法（Curve1 / Curve2，带保护）
+    # @param Curve1: 第一条曲线类型（分子）
+    # @param Curve2: 第二条曲线类型（分母）
+    # @param DefaultValue: 当分母为零时的默认值
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 两条曲线值的商，分母为零时返回默认值
+    DivideCurves<public>(Curve1:curve_type, Curve2:curve_type, DefaultValue:float, T:float):float =
+        ClampedT := ClampT(T)
+        Value1 := SampleEasingCurve(Curve1, ClampedT)
+        Value2 := SampleEasingCurve(Curve2, ClampedT)
+        
+        if (Abs(Value2) > Epsilon):
+            Value1 / Value2
+        else:
+            DefaultValue
+    
+    # 曲线平均值（多条曲线的简单平均）
+    # @param Curves: 曲线类型数组
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 所有曲线值的平均值
+    AverageCurves<public>(Curves:[]curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        
+        Length := Curves.Length
+        if (Length = 0):
+            return 0.0
+        
+        var Sum:float = 0.0
+        var Count:float = 0.0
+        for (Curve : Curves):
+            Value := SampleEasingCurve(Curve, ClampedT)
+            set Sum += Value
+            set Count += 1.0
+        
+        if (Count > 0.0):
+            Sum / Count
+        else:
+            0.0
+    
+    # 曲线序列链接（使用自定义分段点）
+    # @param Curves: 曲线类型数组
+    # @param SplitPoints: 分段点数组（递增，范围 [0.0, 1.0]）
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 链接后的曲线值
+    ChainCurvesCustom<public>(Curves:[]curve_type, SplitPoints:[]float, T:float):float =
+        ClampedT := ClampT(T)
+        
+        if (Curves.Length = 0):
+            return 0.0
+        
+        # 找到 T 所在的区间
+        for (I := 0..Curves.Length - 1):
+            if:
+                StartPoint := if (I = 0) then 0.0 else SplitPoints[I - 1]
+                EndPoint := if (I = Curves.Length - 1) then 1.0 else SplitPoints[I]
+                Curve := Curves[I]
+            then:
+                if (ClampedT >= StartPoint and ClampedT <= EndPoint):
+                    # 计算段内的局部 T
+                    SegmentDuration := EndPoint - StartPoint
+                    if (SegmentDuration > Epsilon):
+                        LocalT := (ClampedT - StartPoint) / SegmentDuration
+                        return SampleEasingCurve(Curve, LocalT)
+        
+        # 默认返回最后一条曲线的终点值
+        if:
+            LastCurve := Curves[Curves.Length - 1]
+        then:
+            SampleEasingCurve(LastCurve, 1.0)
+        else:
+            0.0
