@@ -67,12 +67,9 @@ runs:
         if [ -n "${{ inputs.version }}" ]; then
           echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
         else
-          # Use GITHUB_TOKEN for authenticated API request to avoid rate limiting
-          VERSION=$(curl -sf -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/anomalyco/opencode/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d'"' -f4 || echo "latest")
+          VERSION=$(curl -sf https://api.github.com/repos/anomalyco/opencode/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d'"' -f4)
           echo "version=${VERSION:-latest}" >> $GITHUB_OUTPUT
         fi
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
 
     - name: Cache opencode
       id: cache
@@ -98,7 +95,7 @@ runs:
         # Create output directory for logs
         mkdir -p ./opencode-output
         
-        # Run opencode with GITHUB_TOKEN from environment
+        # Run opencode and tee output to file
         opencode github run 2>&1 | tee ./opencode-output/session.log
         
         # Copy session data if exists
@@ -113,11 +110,11 @@ runs:
         echo "Run ID: $GITHUB_RUN_ID" >> ./opencode-output/metadata.txt
         echo "Repository: $GITHUB_REPOSITORY" >> ./opencode-output/metadata.txt
       env:
-        GITHUB_TOKEN: ${{ github.token }}
         MODEL: ${{ inputs.model }}
         AGENT: ${{ inputs.agent }}
         SHARE: ${{ inputs.share }}
         PROMPT: ${{ inputs.prompt }}
+        USE_GITHUB_TOKEN: ${{ inputs.use_github_token }}
         MENTIONS: ${{ inputs.mentions }}
         OIDC_BASE_URL: ${{ inputs.oidc_base_url }}
 
