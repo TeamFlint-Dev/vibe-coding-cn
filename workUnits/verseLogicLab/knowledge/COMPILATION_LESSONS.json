@@ -12,20 +12,22 @@
     {
       "id": "LESSON-002",
       "error": "error:3512:This invocation calls a function that has the 'no_rollback' effect, which is not allowed by its context",
-      "context": "在 <transacts> 函数中调用了具有 <no_rollback> 效果的函数（如 Sin, Cos, Pow）。Verse 的效果系统不允许在 transacts 上下文中调用 no_rollback 函数",
-      "solution": "将函数效果改为匹配被调用函数的效果，或者重构代码避免效果冲突。例如：将原本的 <transacts> 函数拆分为纯计算部分（可调用 no_rollback 函数）和事务部分（处理可变状态）",
-      "prevention": "设计函数时，优先使用最少的效果。如果函数主要是数学计算，使用 <computes> 或不标注效果（让编译器推断）。只在真正需要事务性操作时使用 <transacts>",
+      "context": "在不带任何效果标注的函数中调用了具有 <no_rollback> 效果的函数（如 Sin, Cos, Pow）。无效果标注的函数默认只允许 <computes> 效果",
+      "solution": "在函数签名中添加允许的效果。例如：让编译器推断效果（不标注），或明确允许特定效果。注意：<transacts> 实际上包含了大多数效果，包括 <decides> 和 <no_rollback>",
+      "prevention": "理解 Verse 效果层次：<transacts> 是最强大的效果，包含 <decides>。如果函数需要调用可能失败的操作或有副作用的函数，让编译器推断效果或使用 <transacts>",
       "date": "2026-01-12",
-      "tags": ["effect-mismatch", "no_rollback", "transacts", "intermediate"]
+      "tags": ["effect-mismatch", "no_rollback", "effect-inference", "intermediate"],
+      "correction": "2026-01-12 - 修正：原记录错误地认为 <decides> 与 <transacts> 不兼容。实际上 <transacts> 包含 <decides> 效果，两者可以一起使用"
     },
     {
       "id": "LESSON-003",
       "error": "error:3512:This invocation calls a function that has the 'decides' effect, which is not allowed by its context",
-      "context": "在 <computes> 函数中尝试使用数组索引（如 Config.Params[0]），数组索引有 <decides> 效果（可能失败），但不在 failure context 中",
-      "solution": "使用 if-then-else 结构来处理可能失败的操作：if: P0 := Array[0] then: UseP0 else: DefaultValue。这创建了一个 failure context",
-      "prevention": "访问数组元素前，要么使用 if 结构，要么在函数签名中声明 <decides> 效果。对于需要安全访问的场景，考虑先验证数组长度",
+      "context": "在 <computes> 或无效果标注的函数中尝试使用数组索引（如 Config.Params[0]），数组索引有 <decides> 效果（可能失败），但不在允许 <decides> 的上下文中",
+      "solution": "使用 if-then-else 结构来处理可能失败的操作：if: P0 := Array[0] then: UseP0 else: DefaultValue。这创建了一个 failure context。或者在函数签名中声明 <transacts><decides> 效果组合",
+      "prevention": "访问数组元素前，要么使用 if 结构提供 failure context，要么在函数签名中声明 <transacts><decides>。注意：<decides> 通常需要 <transacts> 配合使用",
       "date": "2026-01-12",
-      "tags": ["decides", "array-access", "effect-mismatch", "common"]
+      "tags": ["decides", "array-access", "effect-mismatch", "common"],
+      "correction": "2026-01-12 - 修正：<decides> 效果通常与 <transacts> 一起使用，而非互斥"
     },
     {
       "id": "LESSON-004",

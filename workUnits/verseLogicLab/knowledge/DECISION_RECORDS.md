@@ -163,12 +163,12 @@ Architecture Decision Records (ADR) 记录重要的技术决策及其背景，�
       Type:curve_type
       Params:[]float
   
-  SampleCurve(Config:curve_config, T:float)<transacts>:float
+  SampleCurve(Config:curve_config, T:float)<transacts><decides>:float
   ```
   - 更灵活，可以表示参数化曲线
-  - 但引入效果冲突：数组访问需要 `<decides>`，与 `<transacts>` 不兼容
-  - 如果调用 easing 函数（有 `<no_rollback>` 效果），则 `<transacts>` 不允许
-  - 实现复杂度高，容易出错
+  - 需要处理数组访问的 `<decides>` 效果（可能失败）
+  - 实现复杂度较高，需要更多的错误处理逻辑
+  - **更正说明**：原 ADR 错误地认为 `<decides>` 与 `<transacts>` 不兼容。实际上 `<transacts><decides>` 可以组合使用
 
 ### 后果（Consequences）
 

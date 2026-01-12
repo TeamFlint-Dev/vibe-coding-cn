@@ -301,3 +301,143 @@ MathCurves<public> := module:
     SampleEasingCurveMapped<public>(CurveType:curve_type, T:float, MinValue:float, MaxValue:float):float =
         NormalizedValue := SampleEasingCurve(CurveType, T)
         MapRange(NormalizedValue, MinValue, MaxValue)
+    
+    # ───────────────────────────────────────────────────────────
+    # 曲线运算库 (Curve Operations)
+    # ───────────────────────────────────────────────────────────
+    
+    # 曲线段结构
+    # 表示一段曲线及其在整体中的时间范围
+    curve_segment<public> := struct<computes>:
+        CurveType<public>:curve_type  # 曲线类型
+        StartT<public>:float          # 段起始时间 [0.0, 1.0]
+        EndT<public>:float            # 段结束时间 [0.0, 1.0]
+    
+    # 连接两条曲线（首尾相连）
+    # @param FirstCurve: 第一条曲线类型
+    # @param SecondCurve: 第二条曲线类型
+    # @param T: 采样参数 [0.0, 1.0]，[0.0, 0.5] 采样第一条，[0.5, 1.0] 采样第二条
+    # @returns: 连接后的曲线在 T 处的值
+    ConcatenateCurves<public>(FirstCurve:curve_type, SecondCurve:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        if (ClampedT < 0.5):
+            # 第一段：将 [0.0, 0.5] 映射到 [0.0, 1.0]
+            LocalT := ClampedT * 2.0
+            SampleEasingCurve(FirstCurve, LocalT)
+        else:
+            # 第二段：将 [0.5, 1.0] 映射到 [0.0, 1.0]
+            LocalT := (ClampedT - 0.5) * 2.0
+            SampleEasingCurve(SecondCurve, LocalT)
+    
+    # 采样多段连接曲线
+    # @param Segments: 曲线段数组，每段指定曲线类型和时间范围
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 多段曲线在 T 处的值
+    SampleMultiSegmentCurve<public>(Segments:[]curve_segment, T:float):float =
+        ClampedT := ClampT(T)
+        
+        # 遍历所有段，找到 T 所在的段
+        for (Segment : Segments):
+            if (ClampedT >= Segment.StartT and ClampedT <= Segment.EndT):
+                # 计算段内的局部 T
+                SegmentDuration := Segment.EndT - Segment.StartT
+                if (SegmentDuration > Epsilon):
+                    LocalT := (ClampedT - Segment.StartT) / SegmentDuration
+                    return SampleEasingCurve(Segment.CurveType, LocalT)
+        
+        # 如果未找到匹配的段，返回 0.0
+        0.0
+    
+    # 加权叠加两条曲线
+    # @param Curve1: 第一条曲线类型
+    # @param Curve2: 第二条曲线类型
+    # @param Weight1: 第一条曲线的权重 [0.0, 1.0]
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 加权叠加后的值（Weight1 * Curve1 + (1-Weight1) * Curve2）
+    BlendCurves<public>(Curve1:curve_type, Curve2:curve_type, Weight1:float, T:float):float =
+        ClampedT := ClampT(T)
+        ClampedWeight := Clamp(Weight1, 0.0, 1.0)
+        Weight2 := 1.0 - ClampedWeight
+        
+        Value1 := SampleEasingCurve(Curve1, ClampedT)
+        Value2 := SampleEasingCurve(Curve2, ClampedT)
+        
+        Value1 * ClampedWeight + Value2 * Weight2
+    
+    # 多曲线加权平均
+    # @param Curves: 曲线类型数组
+    # @param Weights: 对应的权重数组（长度应与 Curves 相同）
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 加权平均后的值
+    WeightedAverageCurves<public>(Curves:[]curve_type, Weights:[]float, T:float):float =
+        ClampedT := ClampT(T)
+        
+        # 计算总权重和加权和
+        var TotalWeight:float = 0.0
+        var WeightedSum:float = 0.0
+        
+        for (I := 0..Curves.Length - 1):
+            if:
+                Curve := Curves[I]
+                Weight := Weights[I]
+            then:
+                Value := SampleEasingCurve(Curve, ClampedT)
+                set WeightedSum += Value * Weight
+                set TotalWeight += Weight
+        
+        # 归一化
+        if (TotalWeight > Epsilon):
+            WeightedSum / TotalWeight
+        else:
+            0.0
+    
+    # 曲线相加
+    # @param Curve1: 第一条曲线类型
+    # @param Curve2: 第二条曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 两条曲线值的和
+    AddCurves<public>(Curve1:curve_type, Curve2:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        Value1 := SampleEasingCurve(Curve1, ClampedT)
+        Value2 := SampleEasingCurve(Curve2, ClampedT)
+        Value1 + Value2
+    
+    # 曲线相乘
+    # @param Curve1: 第一条曲线类型
+    # @param Curve2: 第二条曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 两条曲线值的乘积
+    MultiplyCurves<public>(Curve1:curve_type, Curve2:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        Value1 := SampleEasingCurve(Curve1, ClampedT)
+        Value2 := SampleEasingCurve(Curve2, ClampedT)
+        Value1 * Value2
+    
+    # 曲线取反（1.0 - curve）
+    # @param CurveType: 曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 1.0 - 曲线值
+    InvertCurve<public>(CurveType:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        Value := SampleEasingCurve(CurveType, ClampedT)
+        1.0 - Value
+    
+    # 曲线缩放（curve * scale）
+    # @param CurveType: 曲线类型
+    # @param Scale: 缩放因子
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 曲线值 * 缩放因子
+    ScaleCurve<public>(CurveType:curve_type, Scale:float, T:float):float =
+        ClampedT := ClampT(T)
+        Value := SampleEasingCurve(CurveType, ClampedT)
+        Value * Scale
+    
+    # 曲线偏移（curve + offset）
+    # @param CurveType: 曲线类型
+    # @param Offset: 偏移量
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 曲线值 + 偏移量
+    OffsetCurve<public>(CurveType:curve_type, Offset:float, T:float):float =
+        ClampedT := ClampT(T)
+        Value := SampleEasingCurve(CurveType, ClampedT)
+        Value + Offset
