@@ -97,13 +97,13 @@
 
 ---
 
-## 当前未验证的猜想
+## 已验证的猜想
 
 ### CONJ-002: Verse 效果系统层次关系
 
 **日期**: 2026-01-12  
-**状态**: ⚠️ Unverified  
-**置信度**: 中
+**状态**: ✅ Verified（部分） 
+**置信度**: 曾经：中 → 现在：高（已验证）
 
 ### 猜想内容
 
@@ -116,38 +116,47 @@
 
 - **来源 1**: 用户 @wyughakut 的反馈（2026-01-12）："decide 和 transact 是可以同时使用的，甚至没有 transact 就不能使用 decide"
 - **来源类型**: 用户反馈（二级源）
-- **验证状态**: 部分确认，但缺少官方文档验证
+- **来源 2**: Verse 官方文档 - failure-in-verse/index.md（一级源）
+- **来源 3**: Verse 官方文档 - if-in-verse/index.md（一级源）
 
-### 需要验证的问题
+### 验证结果
 
-- [ ] 官方文档中关于效果层次的完整说明
-- [ ] `<transacts>` 是否真的"包含" `<decides>` 和 `<no_rollback>`？
-- [ ] 效果组合的完整规则是什么？
-- [ ] 什么情况下必须显式声明效果组合（如 `<transacts><decides>`）？
-- [ ] 编译器何时能够自动推断效果？
+- **验证日期**: 2026-01-12
+- **结果**: ✅ 部分正确，需要修正理解
+- **证据**: 官方文档明确说明（详见 RESEARCH-001）
+- **修正**:
+  1. ❌ **不准确**: `<transacts>` 不"包含" `<decides>`，而是 `<decides>` **依赖** `<transacts>`
+  2. ✅ **正确**: `<decides>` 必须配合 `<transacts>` 使用（官方文档："Currently it is also necessary to add `<transacts>` when using `<decides>`"）
+  3. ❌ **不准确**: `<transacts>` 不"包含" `<no_rollback>`，而是**覆盖**它（用户函数默认是 `<no_rollback>`）
+  4. ✅ **部分正确**: 存在效果兼容性规则，但不是严格的"层次结构"，而是"依赖"和"覆盖"关系
 
-### 影响范围
+### 更新后的理解
 
-如果理解错误，可能导致：
-- 错误的函数效果声明
-- 不必要的代码重构
-- 对编译错误的误判
+```
+<no_rollback>（用户函数默认） ← <transacts>（覆盖） ← <decides>（依赖）
+                                                    ↓
+                                             必须同时标注
+```
 
-### 验证计划
+**核心规则**：
+- 用户函数默认拥有隐式的 `<no_rollback>` 效果
+- 显式标注 `<transacts>` 会覆盖 `<no_rollback>`
+- `<decides>` 函数必须同时标注 `<transacts>`（语言强制要求）
+- Failure context 禁止调用 `<no_rollback>` 函数
 
-1. 查阅 Verse 官方文档中关于效果系统的章节
-2. 创建测试用例验证不同效果组合的行为
-3. 在 Verse 社区论坛寻求确认
-4. 收集多个实际案例进行对比
+### 影响
 
-### 当前实践
+- ✅ 所有逻辑模块的函数效果标注现在有明确依据
+- ✅ 理解了为什么某些编译错误会发生
+- ✅ 可以正确在 failure context 中调用函数
 
-基于现有信息，当前采用的做法：
-- 遇到效果冲突时，让编译器推断效果（不显式标注）
-- 如需显式声明，优先使用 `<transacts>` 或 `<transacts><decides>` 组合
-- 在 COMPILATION_LESSONS.json 中仅记录错误和解决方法，不做推测性解释
+### 参考
+
+- 完整研究报告: `knowledge/research/verse-effects-system-research-20260112.md`
 
 ---
+
+## 当前未验证的猜想
 
 ### CONJ-003: Floor 函数用于类型转换
 

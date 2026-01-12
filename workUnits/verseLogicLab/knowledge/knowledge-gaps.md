@@ -65,10 +65,14 @@
 **缺口主题**：Verse效果系统完整理解
 - **影响范围**：所有逻辑模块开发
 - **发现原因**：CONJ-002猜想未验证，缺少官方文档确认
-- **建议行动**：执行RESEARCH-001（Verse效果系统完整规范）
-- **优先级**：高
-- **状态**：待调研
-- **相关任务**：RESEARCH-001
+- **状态**: ✅ **已完成** - 完成RESEARCH-001
+- **完成日期**: 2026-01-12
+- **产出**: `knowledge/research/verse-effects-system-research-20260112.md`
+- **关键发现**:
+  - `<decides>` 必须配合 `<transacts>` 使用（官方要求）
+  - Failure context 要求所有函数支持事务回滚
+  - 用户函数默认是 `<no_rollback>`，需显式标注 `<transacts>`
+  - Speculative execution 是 Verse 核心特性
 
 **缺口主题**：Verse类型转换标准方法
 - **影响范围**：数值计算模块
