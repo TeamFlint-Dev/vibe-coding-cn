@@ -55,16 +55,13 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Load secrets
-        id: secrets
         run: |
-          # 从 secrets.env 文件加载密钥
           source .github/secrets.env
           echo "::add-mask::$DEEPSEEK_API_KEY"
           echo "DEEPSEEK_API_KEY=$DEEPSEEK_API_KEY" >> $GITHUB_ENV
 
       - name: Run opencode
-        uses: ./.github/actions/opencode
+        uses: anomalyco/opencode/github@latest
         with:
           model: deepseek/deepseek-reasoner
           prompt: ${{ steps.prompt.outputs.content }}
-          use_github_token: "true"
