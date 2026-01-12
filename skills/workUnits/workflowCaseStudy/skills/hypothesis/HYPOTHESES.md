@@ -1,7 +1,7 @@
 # 猜想索引
 
 > **最后更新**: 2026-01-11 (Run #18)  
-> **统计**: 总计 6 | 待验证 3 | 已证实 1 | 已修正 1 | 需修正 2
+> **统计**: 总计 6 | 待验证 3 | 已证实 1 | 已修正 3 | 需修正 0
 
 ---
 
@@ -11,9 +11,9 @@
 |------|------|----------|
 | `proposed` | 1 | H005 |
 | `investigating` | 2 | H003 |
-| `needs-revision` | 2 | H001, H002 |
+| `needs-revision` | 0 | |
 | `confirmed` | 1 | H004 |
-| `revised` | 1 | H006 |
+| `revised` | 3 | H001, H002, H006 |
 | `refuted` | 0 | |
 | `abandoned` | 0 | |
 
@@ -59,6 +59,22 @@ Agent 协作 (Research Agenda P1)
 - **四种形式**: 流程型、模板型、规则型、诊断型
 - **验证报告**: `reports/hypothesis-validation/H006-agent-files-validation.md`
 - **关系**: refines H003
+
+#### [H001: 结构化数据工具优于文本解析](hypotheses/H001-mcp-vs-cli.md)
+- **提出**: 2026-01-09 (Run #26)
+- **修正**: 2026-01-12 (Run #19)
+- **来源**: audit-workflows 分析
+- **核心**: 结构化数据工具（MCP / jq+Python）优于纯文本解析
+- **修正内容**: 删除「MCP 优于 CLI」的绝对断言，确认 jq+Python 同样有效
+- **验证报告**: 无需新报告（基于已有证据）
+
+#### [H002: 趋势图平滑技术需场景适配](hypotheses/H002-moving-average-window.md)
+- **提出**: 2026-01-09 (Run #26)
+- **修正**: 2026-01-12 (Run #19)
+- **来源**: audit-workflows 分析
+- **核心**: 根据数据波动性选择平滑技术
+- **修正内容**: 移动平均是场景依赖的可选技巧，非通用要求
+- **验证报告**: 无需新报告（基于已有证据）
 
 ### 需修正 (needs-revision)
 
@@ -140,6 +156,8 @@ Agent 协作 (Research Agenda P1)
 
 | 日期 | 活动类型 | 猜想 | 描述 |
 |------|----------|------|------|
+| 2026-01-12 | 证据 | H003 | 新增 3 个证据：smoke-detector、ci-doctor、lockfile-stats 使用 patterns/ 目录，发现 patterns/ + investigations/ 双重知识沉淀（Run #19） |
+| 2026-01-12 | 修正 | H001/H002 | 完成修正，状态 → revised（Run #19） |
 | 2026-01-11 | 修正 | H006 | 完成修正：删除双模式断言，补充四种知识沉淀形式，状态 → revised（Run #18） |
 | 2026-01-11 | 验证 | H006 | 扫描 9 个 Agent 文件，双模式仅占 33%，状态 → needs-revision（Run #17） |
 | 2026-01-11 | 发现 | H006 | 识别四种知识沉淀形式：流程型、模板型、规则型、诊断型（Run #17） |
