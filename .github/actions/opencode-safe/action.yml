@@ -1,0 +1,106 @@
+name: "OpenCode Safe Runner"
+description: "Wrapper around opencode that handles tool errors gracefully"
+branding:
+  icon: "code"
+  color: "green"
+
+inputs:
+  model:
+    description: "Model to use"
+    required: true
+  prompt:
+    description: "Custom prompt"
+    required: false
+  agent:
+    description: "Agent to use"
+    required: false
+  share:
+    description: "Share the opencode session"
+    required: false
+  use_github_token:
+    description: "Use GITHUB_TOKEN directly"
+    required: false
+    default: "false"
+  max_retries:
+    description: "Maximum retries on recoverable errors"
+    required: false
+    default: "3"
+
+outputs:
+  status:
+    description: "Execution status (success, no_changes, error)"
+    value: ${{ steps.run.outputs.status }}
+  error_message:
+    description: "Error message if failed"
+    value: ${{ steps.run.outputs.error_message }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get opencode version
+      id: version
+      shell: bash
+      run: |
+        VERSION=$(curl -sf https://api.github.com/repos/anomalyco/opencode/releases/latest | grep -o '"tag_name": *"[^"]*"' | cut -d'"' -f4)
+        echo "version=${VERSION:-latest}" >> $GITHUB_OUTPUT
+
+    - name: Cache opencode
+      id: cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.opencode/bin
+        key: opencode-${{ runner.os }}-${{ runner.arch }}-${{ steps.version.outputs.version }}
+
+    - name: Install opencode
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: curl -fsSL https://opencode.ai/install | bash
+
+    - name: Add opencode to PATH
+      shell: bash
+      run: echo "$HOME/.opencode/bin" >> $GITHUB_PATH
+
+    - name: Run opencode with error handling
+      id: run
+      shell: bash
+      env:
+        MODEL: ${{ inputs.model }}
+        AGENT: ${{ inputs.agent }}
+        SHARE: ${{ inputs.share }}
+        PROMPT: ${{ inputs.prompt }}
+        USE_GITHUB_TOKEN: ${{ inputs.use_github_token }}
+        MAX_RETRIES: ${{ inputs.max_retries }}
+      run: |
+        set +e  # Don't exit on error
+        
+        # Run opencode and capture output
+        output=$(opencode github run 2>&1)
+        exit_code=$?
+        
+        echo "$output"
+        
+        # Check for known recoverable errors
+        if echo "$output" | grep -q "No commits between"; then
+          echo "status=no_changes" >> $GITHUB_OUTPUT
+          echo "error_message=No changes were made, skipping PR creation" >> $GITHUB_OUTPUT
+          echo "::warning::No changes were made by the agent, skipping PR creation"
+          exit 0
+        fi
+        
+        if echo "$output" | grep -q "Validation Failed"; then
+          # Extract the actual error message
+          error_msg=$(echo "$output" | grep -o '"message":"[^"]*"' | head -1 | cut -d'"' -f4)
+          echo "status=validation_error" >> $GITHUB_OUTPUT
+          echo "error_message=$error_msg" >> $GITHUB_OUTPUT
+          echo "::warning::GitHub API validation error: $error_msg"
+          exit 0
+        fi
+        
+        if [ $exit_code -ne 0 ]; then
+          echo "status=error" >> $GITHUB_OUTPUT
+          echo "error_message=OpenCode failed with exit code $exit_code" >> $GITHUB_OUTPUT
+          exit $exit_code
+        fi
+        
+        echo "status=success" >> $GITHUB_OUTPUT
+        exit 0

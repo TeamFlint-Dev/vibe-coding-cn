@@ -55,7 +55,8 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Run opencode - 🌅 早晨
-        uses: anomalyco/opencode/github@latest
+        id: morning
+        uses: ./.github/actions/opencode-safe
         env:
           DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
         with:
@@ -64,8 +65,18 @@ jobs:
             [🌅 早晨 - 启动阶段] 新的一天开始，先整理思路，理解任务全貌，制定今日计划。
             ${{ steps.prompt.outputs.content }}
 
+      - name: Report morning status
+        if: always()
+        run: |
+          echo "🌅 早晨阶段状态: ${{ steps.morning.outputs.status }}"
+          if [ "${{ steps.morning.outputs.status }}" = "no_changes" ]; then
+            echo "ℹ️ Agent 没有做任何文件修改"
+          fi
+
       # - name: Run opencode - ☀️ 中午
-      #   uses: anomalyco/opencode/github@latest
+      #   id: noon
+      #   if: steps.morning.outputs.status == 'success'
+      #   uses: ./.github/actions/opencode-safe
       #   env:
       #     DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
       #   with:
@@ -75,7 +86,9 @@ jobs:
       #       ${{ steps.prompt.outputs.content }}
 
       # - name: Run opencode - 🌆 下午
-      #   uses: anomalyco/opencode/github@latest
+      #   id: afternoon
+      #   if: steps.noon.outputs.status == 'success' || steps.morning.outputs.status == 'no_changes'
+      #   uses: ./.github/actions/opencode-safe
       #   env:
       #     DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
       #   with:
@@ -85,7 +98,9 @@ jobs:
       #       ${{ steps.prompt.outputs.content }}
 
       # - name: Run opencode - 🌙 晚上
-      #   uses: anomalyco/opencode/github@latest
+      #   id: evening
+      #   if: always()
+      #   uses: ./.github/actions/opencode-safe
       #   env:
       #     DEEPSEEK_API_KEY: sk-d1c7bc700f234fd49eab49b162cf86da
       #   with:
@@ -93,3 +108,14 @@ jobs:
       #     prompt: |
       #       [🌙 晚上 - 收尾阶段] 一天结束，总结今日成果，输出最终结论，为明天留下清晰的交接。
       #       ${{ steps.prompt.outputs.content }}
+
+      # - name: Summary
+      #   if: always()
+      #   run: |
+      #     echo "## 🗓️ 工作日报" >> $GITHUB_STEP_SUMMARY
+      #     echo "| 时段 | 状态 |" >> $GITHUB_STEP_SUMMARY
+      #     echo "|------|------|" >> $GITHUB_STEP_SUMMARY
+      #     echo "| 🌅 早晨 | ${{ steps.morning.outputs.status || 'skipped' }} |" >> $GITHUB_STEP_SUMMARY
+      #     echo "| ☀️ 中午 | ${{ steps.noon.outputs.status || 'skipped' }} |" >> $GITHUB_STEP_SUMMARY
+      #     echo "| 🌆 下午 | ${{ steps.afternoon.outputs.status || 'skipped' }} |" >> $GITHUB_STEP_SUMMARY
+      #     echo "| 🌙 晚上 | ${{ steps.evening.outputs.status || 'skipped' }} |" >> $GITHUB_STEP_SUMMARY
