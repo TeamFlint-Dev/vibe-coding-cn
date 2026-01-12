@@ -212,3 +212,92 @@ MathCurves<public> := module:
     # 值域映射：将 [0.0, 1.0] 映射到 [MinValue, MaxValue]
     MapRange<public>(T:float, MinValue:float, MaxValue:float):float =
         MinValue + T * (MaxValue - MinValue)
+    
+    # ═══════════════════════════════════════════════════════════
+    # 曲线构建与采样系统 (Curve Construction & Sampling)
+    # ═══════════════════════════════════════════════════════════
+    
+    # 曲线类型枚举
+    # 定义支持的所有曲线类型
+    curve_type<public> := enum:
+        CurveLinear
+        CurveInSine
+        CurveOutSine
+        CurveInOutSine
+        CurveInQuad
+        CurveOutQuad
+        CurveInOutQuad
+        CurveInCubic
+        CurveOutCubic
+        CurveInOutCubic
+        CurveInQuart
+        CurveOutQuart
+        CurveInOutQuart
+        CurveInExpo
+        CurveOutExpo
+        CurveInOutExpo
+        CurveInBack
+        CurveOutBack
+        CurveInOutBack
+    
+    # ───────────────────────────────────────────────────────────
+    # 缓动曲线采样器
+    # ───────────────────────────────────────────────────────────
+    
+    # 根据曲线类型采样缓动曲线
+    # @param CurveType: 曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @returns: 曲线在 T 处的值
+    SampleEasingCurve<public>(CurveType:curve_type, T:float):float =
+        ClampedT := ClampT(T)
+        
+        if (CurveType = curve_type.CurveLinear):
+            EaseLinear(ClampedT)
+        else if (CurveType = curve_type.CurveInSine):
+            EaseInSine(ClampedT)
+        else if (CurveType = curve_type.CurveOutSine):
+            EaseOutSine(ClampedT)
+        else if (CurveType = curve_type.CurveInOutSine):
+            EaseInOutSine(ClampedT)
+        else if (CurveType = curve_type.CurveInQuad):
+            EaseInQuad(ClampedT)
+        else if (CurveType = curve_type.CurveOutQuad):
+            EaseOutQuad(ClampedT)
+        else if (CurveType = curve_type.CurveInOutQuad):
+            EaseInOutQuad(ClampedT)
+        else if (CurveType = curve_type.CurveInCubic):
+            EaseInCubic(ClampedT)
+        else if (CurveType = curve_type.CurveOutCubic):
+            EaseOutCubic(ClampedT)
+        else if (CurveType = curve_type.CurveInOutCubic):
+            EaseInOutCubic(ClampedT)
+        else if (CurveType = curve_type.CurveInQuart):
+            EaseInQuart(ClampedT)
+        else if (CurveType = curve_type.CurveOutQuart):
+            EaseOutQuart(ClampedT)
+        else if (CurveType = curve_type.CurveInOutQuart):
+            EaseInOutQuart(ClampedT)
+        else if (CurveType = curve_type.CurveInExpo):
+            EaseInExpo(ClampedT)
+        else if (CurveType = curve_type.CurveOutExpo):
+            EaseOutExpo(ClampedT)
+        else if (CurveType = curve_type.CurveInOutExpo):
+            EaseInOutExpo(ClampedT)
+        else if (CurveType = curve_type.CurveInBack):
+            EaseInBack(ClampedT)
+        else if (CurveType = curve_type.CurveOutBack):
+            EaseOutBack(ClampedT)
+        else if (CurveType = curve_type.CurveInOutBack):
+            EaseInOutBack(ClampedT)
+        else:
+            EaseLinear(ClampedT)
+    
+    # 采样缓动曲线并映射到目标值域
+    # @param CurveType: 曲线类型
+    # @param T: 采样参数 [0.0, 1.0]
+    # @param MinValue: 目标值域最小值
+    # @param MaxValue: 目标值域最大值
+    # @returns: 映射后的值
+    SampleEasingCurveMapped<public>(CurveType:curve_type, T:float, MinValue:float, MaxValue:float):float =
+        NormalizedValue := SampleEasingCurve(CurveType, T)
+        MapRange(NormalizedValue, MinValue, MaxValue)
