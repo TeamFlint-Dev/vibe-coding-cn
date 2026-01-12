@@ -95,8 +95,14 @@ runs:
         # Create output directory for logs
         mkdir -p ./opencode-output
         
+        # Build command with optional flags
+        CMD="opencode github run"
+        if [ "$USE_GITHUB_TOKEN" = "true" ]; then
+          CMD="$CMD --use-github-token"
+        fi
+        
         # Run opencode and tee output to file
-        opencode github run 2>&1 | tee ./opencode-output/session.log
+        $CMD 2>&1 | tee ./opencode-output/session.log
         
         # Copy session data if exists
         if [ -d "$HOME/.local/share/opencode/sessions" ]; then

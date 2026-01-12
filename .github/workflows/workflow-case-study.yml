@@ -67,3 +67,4 @@ jobs:
         with:
           model: deepseek/deepseek-reasoner
           prompt: ${{ steps.prompt.outputs.content }}
+          use_github_token: "true"
