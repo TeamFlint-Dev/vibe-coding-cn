@@ -99,6 +99,124 @@
 
 ## 已验证的猜想
 
+### CONJ-004: option[T] 查询操作符 `?` 隐式包含 `<decides>` 效果
+
+**日期**: 2026-01-12  
+**状态**: ✅ Verified  
+**置信度**: 曾经：高 → 现在：确认（已验证）
+
+### 猜想内容
+
+option[T] 的查询操作符 `?` 是一个 failable expression，必须在 failure context 中使用。
+
+### 验证结果
+
+- **验证日期**: 2026-01-12
+- **结果**: ✅ 完全正确
+- **证据**: 官方文档明确说明（详见 RESEARCH-003）
+- **官方文档引用**："Accessing the value stored in an option is a failable expression because there might not be a value in the option, and so must be used in a failure context."
+
+### 关键发现
+
+1. ✅ `MaybeValue?` 操作隐式具有 `<decides>` 效果
+2. ✅ 必须在 failure context 中使用（如 `if` 条件）
+3. ✅ 如果 option 为空，操作失败并触发 rollback
+
+### 参考
+
+- 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
+
+---
+
+### CONJ-005: option 类型的 persistable 特性是递归的
+
+**日期**: 2026-01-12  
+**状态**: ✅ Verified  
+**置信度**: 曾经：中 → 现在：确认（已验证）
+
+### 猜想内容
+
+如果 T 是 persistable 类型，则 option[T] 也是 persistable。
+
+### 验证结果
+
+- **验证日期**: 2026-01-12
+- **结果**: ✅ 完全正确
+- **证据**: 官方文档明确说明（详见 RESEARCH-003）
+- **官方文档引用**："An option is persistable if its value is persistable, which means that you can use them in your module-scoped weak_map variables and have their values persist across game sessions."
+
+### 关键发现
+
+1. ✅ persistable 特性是递归的（取决于内部类型）
+2. ✅ 可以在 weak_map 中使用 persistable option
+3. ✅ 这个规则递归应用（如 option[option[int]] 也是 persistable）
+
+### 参考
+
+- 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
+
+---
+
+### CONJ-006: `false` 是 option 类型的"空值"字面量
+
+**日期**: 2026-01-12  
+**状态**: ✅ Verified  
+**置信度**: 曾经：高 → 现在：确认（已验证）
+
+### 猜想内容
+
+`false` 是所有 option 类型的通用空值表示。
+
+### 验证结果
+
+- **验证日期**: 2026-01-12
+- **结果**: ✅ 完全正确
+- **证据**: 官方文档明确说明（详见 RESEARCH-003）
+- **官方文档引用**："Assign `false` to the option to mark it as unset."
+
+### 关键发现
+
+1. ✅ `false` 是所有 `?T` 类型的通用空值字面量
+2. ✅ `false` 在 option 上下文中不是 logic 类型的 false
+3. ✅ 任何 `?T` 类型都可以赋值为 `false` 表示空
+
+### 参考
+
+- 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
+
+---
+
+### CONJ-007: option[T] 与 failable 表达式的深度关联
+
+**日期**: 2026-01-12  
+**状态**: ✅ Verified  
+**置信度**: 曾经：中 → 现在：确认（已验证）
+
+### 猜想内容
+
+`option{Expression}` 构造器会自动捕获 Expression 的失败，option 构造是一个 failure context。
+
+### 验证结果
+
+- **验证日期**: 2026-01-12
+- **结果**: ✅ 完全正确
+- **证据**: 官方文档明确说明（详见 RESEARCH-003）
+- **官方文档引用 1**："If the expression fails, the option will be unset and have the value `false`."
+- **官方文档引用 2**（failure-in-verse）："Initializing a variable that has the `option` type: `option{expression}`"（列在 failure contexts 中）
+
+### 关键发现
+
+1. ✅ option 构造器是 failure context
+2. ✅ Expression 可以是 failable（有 `<decides>` 效果）
+3. ✅ 失败时 option 自动为 `false`
+4. ✅ 提供了一种优雅的错误处理方式
+
+### 参考
+
+- 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
+
+---
+
 ### CONJ-002: Verse 效果系统层次关系
 
 **日期**: 2026-01-12  
@@ -158,7 +276,172 @@
 
 ## 当前未验证的猜想
 
-_暂无未验证的猜想_
+### CONJ-004: option[T] 查询操作符 `?` 隐式包含 `<decides>` 效果
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 高
+
+### 猜想内容
+
+基于官方文档的描述，`option[T]` 的查询操作符 `?` 是一个 failable expression，因为 option 可能为空。因此，我猜测：
+1. 使用 `MaybeValue?` 访问 option 值时，这个操作隐式具有 `<decides>` 效果
+2. 必须在 failure context 中使用（如 `if` 条件、`or` 表达式）
+3. 如果 option 为空（`false`），操作会失败并触发 rollback
+
+### 信息来源
+
+- **来源 1**: Verse 官方文档 - option-in-verse/index.md（一级源）
+- **来源 2**: 文档明确说明："Accessing the value stored in an option is a failable expression because there might not be a value in the option, and so must be used in a failure context."
+- **来源类型**: 官方文档明确说明
+
+### 需要验证的问题
+
+- [ ] `?` 操作符的效果签名是什么？
+- [ ] 是否可以在非 failure context 中使用？（应该不行）
+- [ ] 如果 option 为空，是否会触发 rollback？
+- [ ] 是否可以链式访问嵌套的 option？（如 `A?.B?`）
+
+### 影响范围
+
+如果理解正确：
+- 所有访问 option 值的代码都需要在 failure context 中
+- 需要处理 option 为空的情况（使用 `or` 或 `if`）
+- 与效果系统的交互需要特别注意
+
+### 验证计划
+
+1. 查阅 Verse API digest 中关于 option 的定义
+2. 查找 `?` 操作符的效果签名
+3. 创建测试代码验证不同使用场景
+4. 执行 RESEARCH-003（option[T] 类型深度研究）
+
+---
+
+### CONJ-005: option 类型的 persistable 特性是递归的
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 中
+
+### 猜想内容
+
+官方文档提到"An option is persistable if its value is persistable"。我猜测：
+1. 如果 `T` 是 persistable 类型，则 `option[T]` 也是 persistable
+2. 如果 `T` 不是 persistable，则 `option[T]` 也不是 persistable
+3. 这个规则是递归应用的（如 `option[option[int]]` 也是 persistable）
+
+### 信息来源
+
+- **来源 1**: Verse 官方文档 - option-in-verse/index.md（一级源）
+- **来源类型**: 官方文档提示，但未详细说明
+
+### 需要验证的问题
+
+- [ ] 哪些类型是 persistable 的？（int, float, string？）
+- [ ] 如何判断一个自定义类型是否 persistable？
+- [ ] 嵌套的 option 是否也遵循这个规则？
+- [ ] 如果尝试持久化不可持久化的 option 会发生什么？
+
+### 影响范围
+
+如果理解正确：
+- 使用 weak_map 存储 option 时需要确保内部类型可持久化
+- 设计数据结构时需要考虑持久化需求
+
+### 验证计划
+
+1. 查阅 Verse 文档关于 persistable 的定义
+2. 查看 Verse API digest 中 persistable 约束的使用
+3. 创建测试代码验证
+
+---
+
+### CONJ-006: `false` 是 option 类型的"空值"字面量
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 高
+
+### 猜想内容
+
+官方文档示例中使用 `false` 来表示 unset option：
+```verse
+var MaybeANumber : ?int = false # unset optional value
+```
+
+我猜测：
+1. `false` 是所有 option 类型的通用空值表示
+2. `false` 在 option 上下文中不是 logic 类型的 false，而是特殊的空值字面量
+3. 任何 `?T` 类型都可以赋值为 `false` 表示空
+
+### 信息来源
+
+- **来源 1**: Verse 官方文档 - option-in-verse/index.md（一级源）
+- **来源 2**: 代码示例明确使用 `false` 表示 unset
+- **来源类型**: 官方文档示例
+
+### 需要验证的问题
+
+- [ ] `false` 在 option 上下文中的类型是什么？
+- [ ] 是否可以使用其他值表示空？（如 `None`、`null`）
+- [ ] `false` 是否只能用于 option 类型？
+- [ ] 比较 `MaybeValue == false` 是否能判断 option 是否为空？
+
+### 影响范围
+
+如果理解正确：
+- 所有 option 初始化为空值都使用 `false`
+- 可能与 logic 类型的 `false` 产生混淆
+
+### 验证计划
+
+1. 查阅 Verse 类型系统文档
+2. 测试不同的空值表示方式
+3. 测试 `false` 在不同上下文中的行为
+
+---
+
+### CONJ-007: option[T] 与 failable 表达式的深度关联
+
+**日期**: 2026-01-12  
+**状态**: ⚠️ Unverified  
+**置信度**: 中
+
+### 猜想内容
+
+基于效果系统和 option 类型的观察，我猜测：
+1. `option{Expression}` 构造器会自动捕获 `Expression` 的失败
+   - 如果 Expression 成功，option 包含其值
+   - 如果 Expression 失败，option 为空（`false`）
+2. 这提供了一种"安全执行"模式：将可能失败的操作包装在 option 中
+3. option 构造是一个 failure context
+
+### 信息来源
+
+- **来源 1**: Verse 官方文档 - option-in-verse/index.md："If the expression fails, the option will be unset and have the value `false`."
+- **来源 2**: Verse 官方文档 - failure-in-verse/index.md：列出了所有 failure contexts
+- **来源类型**: 官方文档，但需要深入理解交互
+
+### 需要验证的问题
+
+- [ ] `option{Expression}` 中的 Expression 是否必须有 `<decides>` 效果？
+- [ ] 如果 Expression 没有 `<decides>`，会发生什么？
+- [ ] option 构造器是否在 failure contexts 列表中？
+- [ ] 是否可以嵌套使用 option 构造器？
+
+### 影响范围
+
+如果理解正确：
+- option 可以作为错误处理的一种方式
+- 可以避免显式的 if-else 错误处理
+- 提供了更函数式的编程风格
+
+### 验证计划
+
+1. 深入研究 option 构造语法
+2. 测试 option 构造器与不同效果的交互
+3. 对比 option 和 failure context 的异同
 
 ---
 

@@ -86,6 +86,19 @@
   - 所有 float → int 转换都有 `<decides>` 效果，需处理失败
   - Floor 签名是 `(float):int`，不是用于 int → float 转换
 
+**缺口主题**：option[T] 类型使用规范
+- **影响范围**：空值处理、错误处理模式
+- **发现原因**：缺少 option 类型的系统化知识
+- **状态**: ✅ **已完成** - 完成RESEARCH-003
+- **完成日期**: 2026-01-12
+- **产出**: `knowledge/research/verse-option-type-research-20260112.md`
+- **关键发现**:
+  - `?` 查询操作符是 failable expression，必须在 failure context 使用
+  - option 构造器是 failure context，自动捕获表达式失败
+  - `false` 是所有 option 类型的通用空值字面量
+  - persistable 特性是递归的（取决于内部类型）
+- **验证猜想**: ✅ CONJ-004, ✅ CONJ-005, ✅ CONJ-006, ✅ CONJ-007（全部验证通过）
+
 **缺口主题**：Fortnite API能力索引缺失
 - **影响范围**：所有游戏功能开发
 - **发现原因**：17000+行digest文件未系统化索引

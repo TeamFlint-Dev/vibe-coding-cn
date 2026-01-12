@@ -65,6 +65,7 @@ cat external/epic-docs-crawler/uefn_docs_organized/_compact_index.json | jq '.pa
 | 资源 | 类型 | 路径/URL | 说明 | 最后访问 |
 |------|------|----------|------|----------|
 | **Type Casting and Conversion** | 官方文档（本地） | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/type-casting-and-conversion-in-verse/index.md` | 类型转换的官方方法、float ↔ int 转换规则 | 2026-01-12 |
+| **Option in Verse** | 官方文档（本地） | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/option-in-verse/index.md` | option[T] 类型定义、构造、访问、persistable 特性 | 2026-01-12 |
 
 #### 效果系统（Effects）
 
