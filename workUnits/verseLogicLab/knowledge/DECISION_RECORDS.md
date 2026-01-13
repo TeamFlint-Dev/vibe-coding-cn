@@ -148,6 +148,133 @@ Verse 使用 IEEE 754 标准的浮点数：
 
 ---
 
+### ADR-013: vector3 类型选择决策
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/validationUtils/VectorValidation.verse`
+
+#### 上下文（Context）
+
+在实现 TASK-084 (Vector Validation) 时，发现 Verse 提供了**两种** vector3 类型：
+
+1. **Verse.org vector3** (`/Verse.org/SpatialMath`)
+   - 使用语义化分量名：`.Forward`, `.Left`, `.Up`
+   - 标记为官方稳定 API
+   
+2. **UnrealEngine vector3** (`/UnrealEngine.com/Temporary/SpatialMath`)
+   - 使用传统分量名：`.X`, `.Y`, `.Z`
+   - 标记为 Temporary API（临时 API）
+
+需要选择一种类型作为 Logic Layer 的标准，确保模块间的一致性。
+
+#### 决策（Decision）
+
+**选择 `/Verse.org/SpatialMath/vector3`**（语义化命名版本）作为 Logic Layer 的标准 vector3 类型。
+
+所有新的逻辑模块应使用此类型，除非有特殊原因需要使用 UE Temporary 版本。
+
+#### 理由（Rationale）
+
+**为什么选择 Verse.org vector3？**
+
+1. **稳定性保证**
+   - ✅ 官方稳定 API，不在 Temporary 命名空间下
+   - ✅ 长期支持，不会在未来版本中突然变更
+   - ⚠️ UE Temporary API 可能在未来版本中废弃或修改
+
+2. **语义清晰性**
+   - ✅ `.Forward`, `.Left`, `.Up` 更符合游戏开发的语义
+   - ✅ 避免了 X/Y/Z 轴向的歧义（不同引擎有不同的轴向定义）
+   - ✅ 代码可读性更强：`Velocity.Forward` vs `Velocity.X`
+
+3. **Verse 生态一致性**
+   - ✅ 与 Verse 官方示例和最佳实践保持一致
+   - ✅ 未来 Verse API 更新更可能兼容此类型
+
+**缺点和权衡**：
+
+- ❌ 与传统 3D 数学库（使用 X/Y/Z）的习惯不同
+- ❌ 从其他引擎迁移代码时需要转换命名
+- ⚠️ 需要团队成员适应新的命名约定
+
+**缓解措施**：
+
+- 在文档中明确说明 Forward/Left/Up 与 X/Y/Z 的对应关系
+- 如需与 UE Temporary API 互操作，提供转换函数
+
+#### 替代方案（Alternatives Considered）
+
+**方案 A: 使用 UE Temporary vector3**
+- ✅ 优点：传统 X/Y/Z 命名，易于理解
+- ❌ 缺点：API 不稳定，未来可能变更
+- **未选择理由**：稳定性风险过高
+
+**方案 B: 使用 tuple(float, float, float)**
+- ✅ 优点：完全独立于 Verse API，最大灵活性
+- ❌ 缺点：失去类型安全，无法使用 extension methods（如 .Length()）
+- **未选择理由**：ADR-011 已在 MathGeometry3d 中使用 tuple，但那是为了轻量级设计。验证函数需要与原生 vector3 配合
+
+**方案 C: 混合方案（同时支持两种）**
+- ✅ 优点：最大兼容性
+- ❌ 缺点：增加复杂度，需要维护转换逻辑
+- **未选择理由**：过度设计，Logic Layer 应选择单一标准
+
+#### 后果（Consequences）
+
+**正面影响**：
+- ✅ Logic Layer 所有模块使用统一的 vector3 类型
+- ✅ 代码可读性和语义清晰度提升
+- ✅ 未来升级 Verse 版本时风险更低
+
+**负面影响**：
+- ⚠️ 团队需要学习新的命名约定（Forward/Left/Up）
+- ⚠️ 与 UE Temporary API 互操作时需要注意类型转换
+
+**适用范围**：
+- ✅ **应用于**：所有 Logic Layer 模块（logicModules/）
+- ⚠️ **不强制**：Driver/Session 层（可能需要直接对接 UE API）
+
+#### 实施指南
+
+**新模块开发**：
+```verse
+# ✅ 推荐：使用 Verse.org vector3
+using { /Verse.org/SpatialMath }
+
+MyFunction<public>(Direction:vector3)<computes>:logic =
+    ForwardComponent := Direction.Forward
+    LeftComponent := Direction.Left
+    UpComponent := Direction.Up
+    # ...
+```
+
+**轴向对应关系**：
+| Verse.org | 传统 | 含义 |
+|-----------|------|------|
+| `.Forward` | `.X` | 前方方向 |
+| `.Left` | `-Y` | 左侧方向（注意负号） |
+| `.Up` | `.Z` | 向上方向 |
+
+**转换函数（如需要）**：
+```verse
+# 未来可在 conversionUtils 中提供
+VerseToUEVector(V:Verse_vector3):UE_vector3
+UEToVerseVector(V:UE_vector3):Verse_vector3
+```
+
+#### 参考（References）
+
+- **研究报告**: `knowledge/research/vector3-research-20260113.md`
+- **官方文档**: 
+  - Verse.org vector3: `external/epic-docs-crawler/.../versedotorg/spatialmath/vector3/`
+  - UE Temporary vector3: `external/epic-docs-crawler/.../temporary/spatialmath/vector3/`
+- **相关猜想**: CONJ-004 (已证伪) - 记录在 `knowledge/CONJECTURES.md`
+- **实现示例**: `validationUtils/VectorValidation.verse`
+- **相关 ADR**: ADR-011 (MathGeometry3d 使用 tuple 的决策)
+
+---
+
 ## ADR 列表
 
 ### ADR-000: 示例决策（删除此条目）

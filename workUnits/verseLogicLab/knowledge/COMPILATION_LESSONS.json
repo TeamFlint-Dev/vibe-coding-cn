@@ -92,6 +92,63 @@
       "prevention": "在纯函数（<computes>）中避免使用 var，优先使用递归模式",
       "date": "2026-01-13",
       "tags": ["effect-mismatch", "var", "allocates", "recursion-pattern"]
+    },
+    {
+      "id": "LESSON-011",
+      "error": "error:3506:Unknown identifier `MathFloatComparison`. Did you mean coreMathUtils.MathFloatComparison",
+      "context": "在 validationUtils 模块中使用 `using { MathFloatComparison }` 导入同项目的其他模块，但这是错误的导入方式",
+      "solution": "同项目内的模块不通过 using 导入，而是通过完整路径访问：`coreMathUtils.MathFloatComparison.Function`",
+      "prevention": "记住：using 用于外部 API（如 /Verse.org/），项目内模块用 `modulePath.ModuleName.Function` 格式直接访问",
+      "date": "2026-01-13",
+      "tags": ["imports", "module-reference", "common", "beginner"],
+      "note": "项目内模块引用不需要 using 声明"
+    },
+    {
+      "id": "LESSON-012",
+      "error": "error:3506:Unknown identifier `Magnitude`",
+      "context": "尝试调用 Magnitude(V) 函数计算 vector3 的长度，但 Verse.org/SpatialMath 中不存在此函数",
+      "solution": "使用 vector3 的 extension method：`V.Length()` 而非 `Magnitude(V)`",
+      "prevention": "查阅官方文档确认 API 名称。vector3 的长度使用 `.Length()` extension method，不是 Magnitude 函数",
+      "date": "2026-01-13",
+      "tags": ["undefined-identifier", "vector3", "API", "extension-method"],
+      "related_source": "external/epic-docs-crawler/.../spatialmath/length/index.md"
+    },
+    {
+      "id": "LESSON-013",
+      "error": "error:3512:This invocation calls a function that has effects that are not allowed by its context: reads, dictates",
+      "context": "在 <computes> 函数中调用 V.Length() extension method，但 .Length() 具有 <reads> 效果",
+      "solution": "在函数签名中添加 <reads> 效果：`IsNormalized<public>(...)<reads><computes>:logic`",
+      "prevention": "调用 extension methods（如 .Length(), .Magnitude()）时，检查其效果要求并在调用方添加相应效果",
+      "date": "2026-01-13",
+      "tags": ["effect-mismatch", "reads", "extension-method", "vector3"]
+    },
+    {
+      "id": "LESSON-014",
+      "error": "error:3565:Effect attribute <reads> cannot be combined with <transacts>",
+      "context": "函数签名中同时使用 <reads><decides><transacts> 三个效果，但 <reads> 和 <transacts> 互斥",
+      "solution": "根据需求选择：纯读取用 <reads><decides>，事务性操作用 <decides><transacts>。不能同时使用 <reads> 和 <transacts>",
+      "prevention": "理解效果互斥规则：<reads> 用于只读操作，<transacts> 用于可回滚操作，两者不能共存",
+      "date": "2026-01-13",
+      "tags": ["effect-conflict", "reads", "transacts", "effect-system", "common"],
+      "note": "这是 Verse 效果系统的基本约束，见 CONJ-002 关于效果层次的讨论"
+    },
+    {
+      "id": "LESSON-015",
+      "error": "error:3512:This invocation calls a function that has the 'transacts' effect, which is not allowed by its context",
+      "context": "在 <reads><decides> 函数中调用了 <decides><transacts> 函数（如 ValidateFinite[]）",
+      "solution": "方案1: 改用返回 logic 的检查函数（如 IsFinite()）而非 Validate* 函数；方案2: 将调用方改为 <decides><transacts> 效果",
+      "prevention": "<reads> 函数不能调用 <transacts> 函数。设计时分离：Is* 系列用 <computes>/<reads>，Validate* 系列用 <transacts>",
+      "date": "2026-01-13",
+      "tags": ["effect-mismatch", "transacts", "function-design", "validation-pattern"]
+    },
+    {
+      "id": "LESSON-016",
+      "error": "error:3511:This call uses square brackets to call a function that does not have the 'decides' effect",
+      "context": "使用 IsNormalized[V] 调用一个返回 logic 的 <computes> 函数，但该函数没有 <decides> 效果",
+      "solution": "改为使用圆括号调用：IsNormalized(V)。方括号 [] 仅用于 <decides> 函数",
+      "prevention": "调用约定检查清单：<decides> 函数用 []，非 <decides> 函数用 ()。查看函数签名确认是否有 <decides>",
+      "date": "2026-01-13",
+      "tags": ["syntax-error", "function-call", "decides", "common", "brackets"]
     }
   ],
   "_metadata": {

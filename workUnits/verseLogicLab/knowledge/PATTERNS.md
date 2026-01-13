@@ -328,6 +328,177 @@ ValidateFloatInRange<public>(Value:float, MinVal:float, MaxVal:float, ?Epsilon:f
 
 ---
 
+#### 3.3 Vector Validation Pattern（向量验证模式）⭐ 新增
+
+**意图**: 验证 vector3 数据的有效性，包括零向量检测、归一化验证、特殊值检查
+
+**使用场景**:
+- 物理计算前验证速度/加速度向量
+- 归一化前检查零向量（避免除零）
+- 检测 NaN/Infinity（数值错误早期发现）
+- 验证方向向量的有效性
+
+**核心概念**:
+1. **零向量检测** - 使用 epsilon 容差，避免浮点精度问题
+2. **归一化验证** - 检查 magnitude ≈ 1.0（需要 `<reads>` 效果）
+3. **特殊值检测** - NaN/Infinity 检测（NaN != NaN 特性）
+4. **方向向量** - 非零 + 有限 = 可用作方向
+
+**结构**:
+```verse
+using { /Verse.org/SpatialMath }
+
+# 1. 零向量检测（<computes> - 纯计算）
+IsZeroVector<public>(V:vector3, ?Epsilon:float = 0.0001)<computes>:logic =
+    ForwardIsZero := coreMathUtils.MathFloatComparison.NearlyZero(V.Forward, ?Epsilon)
+    LeftIsZero := coreMathUtils.MathFloatComparison.NearlyZero(V.Left, ?Epsilon)
+    UpIsZero := coreMathUtils.MathFloatComparison.NearlyZero(V.Up, ?Epsilon)
+    ForwardIsZero and LeftIsZero and UpIsZero
+
+# 2. 归一化检测（<reads> - 需要调用 .Length()）
+IsNormalized<public>(V:vector3, ?Epsilon:float = 0.001)<reads><computes>:logic =
+    Mag := V.Length()  # 需要 <reads> 效果
+    coreMathUtils.MathFloatComparison.NearlyEqual(Mag, 1.0, ?Epsilon)
+
+# 3. 特殊值检测（<computes> - 纯计算）
+HasNaN<public>(V:vector3)<computes>:logic =
+    # 利用 NaN != NaN 的特性
+    ForwardIsNaN := if (V.Forward = V.Forward) then false else true
+    LeftIsNaN := if (V.Left = V.Left) then false else true
+    UpIsNaN := if (V.Up = V.Up) then false else true
+    ForwardIsNaN or LeftIsNaN or UpIsNaN
+
+IsFinite<public>(V:vector3)<computes>:logic =
+    # 检查是否为有限数（非 NaN 且非 Infinity）
+    MaxSafeFloat := 1.0e+30
+    # 每个分量需要：value == value 且 |value| < MaxSafeFloat
+    # ... 完整实现见 VectorValidation.verse
+
+# 4. Fail-Fast 验证函数（<decides><transacts>）
+ValidateNotZeroVector<public>(V:vector3, ?Epsilon:float = 0.0001)<decides><transacts>:void =
+    if (IsZeroVector(V, ?Epsilon) = false):
+        void
+    else:
+        false  # 零向量，验证失败
+
+ValidateFinite<public>(V:vector3)<decides><transacts>:void =
+    if (IsFinite(V) = true):
+        void
+    else:
+        false  # 包含 NaN 或 Infinity
+
+# 5. 方向向量验证（组合验证）
+IsDirection<public>(V:vector3, ?Epsilon:float = 0.0001)<computes>:logic =
+    IsZero := IsZeroVector(V, ?Epsilon)
+    Finite := IsFinite(V)
+    (IsZero = false) and (Finite = true)
+
+ValidateDirection<public>(V:vector3, ?Epsilon:float = 0.0001)<decides><transacts>:void =
+    ValidateNotZeroVector[V, ?Epsilon]  # 非零
+    ValidateFinite[V]  # 有限
+    void
+```
+
+**使用示例**:
+```verse
+# 场景1：归一化前检查零向量
+NormalizeDirection<public>(V:vector3)<transacts>:vector3 =
+    # 验证不是零向量（避免除零）
+    validationUtils.VectorValidation.ValidateNotZeroVector[V]
+    
+    # 安全归一化
+    Normalize(V)
+
+# 场景2：物理计算前验证
+ApplyForce<public>(Force:vector3)<transacts>:void =
+    # 验证力向量有效（非零 + 有限）
+    validationUtils.VectorValidation.ValidateDirection[Force]
+    
+    # 应用力
+    # ...
+
+# 场景3：检查归一化结果
+CheckNormalized<public>(Direction:vector3)<reads><computes>:logic =
+    # 使用 IsNormalized 检查（需要 <reads>）
+    validationUtils.VectorValidation.IsNormalized(Direction, ?Epsilon := 0.001)
+```
+
+**关键点**:
+
+1. **Effect 选择规则**:
+   | 检查类型 | Effect | 原因 |
+   |---------|--------|------|
+   | `IsZeroVector` | `<computes>` | 仅分量比较 |
+   | `IsNormalized` | `<reads><computes>` | 调用 `.Length()` 需要 `<reads>` |
+   | `ValidateXxx` | `<decides><transacts>` | Fail-fast 验证 |
+
+2. **Epsilon 选择**:
+   - **DefaultEpsilon = 0.0001** - 一般性比较
+   - **NormalizedEpsilon = 0.001** - 归一化检查（开方误差更大）
+
+3. **vector3 API 使用**:
+   - ✅ 使用 `/Verse.org/SpatialMath/vector3`（稳定 API）
+   - ✅ 分量访问：`.Forward`, `.Left`, `.Up`
+   - ✅ 长度计算：`V.Length()` extension method（需要 `<reads>`）
+
+4. **NaN/Infinity 检测技巧**:
+   ```verse
+   # NaN 检测：利用 NaN != NaN
+   IsNaN := if (Value = Value) then false else true
+   
+   # Infinity 检测：绝对值超出安全范围
+   AbsValue := if (Value < 0.0) then -Value else Value
+   IsInfinity := AbsValue > MaxSafeFloat
+   ```
+
+**常见错误**:
+
+```verse
+# ❌ 错误 1：Effect 冲突
+ValidateNormalized<public>(...)<reads><decides><transacts>:void  # <reads> 与 <transacts> 冲突
+
+# ✅ 正确：选择合适的 effect 组合
+ValidateNormalized<public>(...)<reads><decides>:void  # 只读验证
+# 或
+ValidateUnitDirection<public>(...)<decides><transacts>:void  # 使用 IsNormalized() 而非 ValidateNormalized[]
+
+# ❌ 错误 2：直接比较零向量
+if (V.Forward = 0.0 and V.Left = 0.0 and V.Up = 0.0):  # 浮点精度问题
+
+# ✅ 正确：使用 epsilon 容差
+if (IsZeroVector(V, ?Epsilon := 0.0001) = true):
+
+# ❌ 错误 3：忘记 <reads> 效果
+IsNormalized<public>(V:vector3)<computes>:logic =  # 缺少 <reads>
+    V.Length()  # 编译错误：Length() 需要 <reads>
+
+# ✅ 正确：添加 <reads> 效果
+IsNormalized<public>(V:vector3)<reads><computes>:logic =
+    V.Length()
+```
+
+**性能考虑**:
+- ⚠️ `.Length()` 涉及开方运算，相对耗时
+- ✅ 优先使用 `IsZeroVector()` 而非计算长度后比较
+- ✅ 如只需检查非零，不要验证归一化
+
+**与其他模式的关系**:
+- **Float Comparison with Tolerance** - 依赖 MathFloatComparison 处理精度
+- **Validation Function Pattern** - 是验证模式的具体应用
+- **Safe Math Operations** - 零向量检测避免除零错误
+
+**实现参考**:
+- `validationUtils/VectorValidation.verse` - 完整实现
+- `coreMathUtils/MathFloatComparison.verse` - Epsilon 比较基础
+- **研究报告**: `knowledge/research/vector3-research-20260113.md`
+- **ADR**: ADR-013 (vector3 类型选择决策)
+
+**验证猜想**:
+- ✅ CONJ-004 已证伪：vector3 支持分量访问（.Forward/.Left/.Up）
+- ✅ Effect 规则：`<reads>` 与 `<transacts>` 不能组合（LESSON-014）
+
+---
+
 ### 4. 状态查询模式（State Query）
 
 从状态数据中提取信息。
