@@ -722,6 +722,140 @@ InverseLerp(Value:float, MinVal:float, MaxVal:float):float =
 
 ---
 
+## 7. 数据结构模式（Data Structure Patterns）
+
+### 7.1 Tuple Indexing（Tuple 索引模式）
+
+**意图**: 使用 Tuple 定义轻量级数据结构，通过索引访问字段
+
+**使用场景**:
+- Logic Layer 中的简单数据类型（点、矩形、颜色等）
+- 无需方法或行为的纯数据
+- 高频创建和传递的值类型
+
+**结构**:
+```verse
+# 类型定义
+Point2D<public> := tuple(float, float)  # (X, Y)
+Rect2D<public> := tuple(Point2D, Point2D)  # (MinPoint, MaxPoint)
+
+# 创建实例
+MyPoint := (100.0, 200.0)
+MyRect := ((0.0, 0.0), (800.0, 600.0))
+
+# 访问字段
+X := MyPoint(0)  # 第一个字段
+Y := MyPoint(1)  # 第二个字段
+
+MinPoint := MyRect(0)
+MaxPoint := MyRect(1)
+MinX := MinPoint(0)  # 嵌套访问
+```
+
+**示例**:
+```verse
+# 2D 点距离计算
+DistanceSquared<public>(P1:Point2D, P2:Point2D)<computes>:float =
+    X1 := P1(0)
+    Y1 := P1(1)
+    X2 := P2(0)
+    Y2 := P2(1)
+    DX := X2 - X1
+    DY := Y2 - Y1
+    DX * DX + DY * DY
+
+# 矩形碰撞检测
+PointInRect<public>(Point:Point2D, Rect:Rect2D)<computes>:logic =
+    PX := Point(0)
+    PY := Point(1)
+    MinPoint := Rect(0)
+    MaxPoint := Rect(1)
+    MinX := MinPoint(0)
+    MinY := MinPoint(1)
+    MaxX := MaxPoint(0)
+    MaxY := MaxPoint(1)
+    
+    if (PX >= MinX):
+        if (PX <= MaxX):
+            if (PY >= MinY):
+                if (PY <= MaxY):
+                    true
+                else:
+                    false
+            else:
+                false
+        else:
+            false
+    else:
+        false
+```
+
+**最佳实践**:
+
+1. **清晰的注释** - 在类型定义处标注字段含义：
+   ```verse
+   Point2D := tuple(float, float)  # (X, Y)
+   Circle2D := tuple(Point2D, float)  # (Center, Radius)
+   ```
+
+2. **有意义的变量名** - 访问时使用描述性名称：
+   ```verse
+   # ✅ 好的实践
+   PX := Point(0)  # X 坐标
+   PY := Point(1)  # Y 坐标
+   
+   # ❌ 避免
+   F0 := Point(0)
+   F1 := Point(1)
+   ```
+
+3. **辅助函数** - 可选地提供访问器提升可读性：
+   ```verse
+   GetX<public>(P:Point2D)<computes>:float = P(0)
+   GetY<public>(P:Point2D)<computes>:float = P(1)
+   
+   # 使用
+   X := GetX(MyPoint)  # 比 MyPoint(0) 更清晰
+   ```
+
+**优缺点**:
+
+✅ **优点**:
+- 简洁的创建语法：`(100.0, 200.0)` vs `Point{X=100.0, Y=200.0}`
+- 无分配开销（value type）
+- 适合高频操作（如 UI 每帧更新）
+- 符合 Logic Layer 轻量级原则
+
+⚠️ **缺点**:
+- 可读性略低：`P(0)` 不如 `P.X` 直观
+- 字段无名称（仅索引）
+- 字段顺序不能改变（破坏性更新）
+
+**何时使用 Tuple？**
+- ✅ Logic Layer 的简单数据（2-4 个字段）
+- ✅ 无需方法或行为的纯数据
+- ✅ 高性能要求的场景
+
+**何时使用 Struct/Class？**
+- ❌ Session Layer 或 Component Layer（需要状态和方法）
+- ❌ 字段多于 4 个（可读性下降）
+- ❌ 需要验证或业务逻辑
+
+**注意事项**:
+- ⚠️ Tuple 索引从 0 开始
+- ⚠️ 索引越界会导致编译错误
+- ⚠️ 嵌套 Tuple 需要多级索引（如 `Rect(0)(1)` 获取 MinY）
+
+**相关决策**:
+- ADR-011: 2D 几何类型使用 Tuple 而非 Struct
+- ADR-010: 为何货币不立即实现类（YAGNI 原则）
+
+**实现参考**:
+- `coreMathUtils/MathGeometry2d.verse` - Point2D, Rect2D, Circle2D
+- `coreMathUtils/MathRanges.verse` - 函数返回 tuple 结果
+
+---
+
 ## 维护指南
 
 1. **添加模式**: 在相应分类下追加

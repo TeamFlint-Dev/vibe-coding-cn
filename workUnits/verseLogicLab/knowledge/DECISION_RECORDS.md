@@ -1346,3 +1346,122 @@ Currency := tuple(int, string)  # (金额, 货币代码)
 - **性能考虑**: RISK-007 (浮点精度问题)
 
 ---
+
+## ADR-011: 2D 几何类型使用 Tuple 而非 Struct
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/coreMathUtils/MathGeometry2d.verse`
+
+### 上下文（Context）
+
+在实现 MathGeometry2d 模块时，需要定义 2D 几何类型（点、矩形、圆形）。有两种主要选择：
+
+1. **使用 Tuple**：
+   ```verse
+   Point2D := tuple(float, float)  # (X, Y)
+   Rect2D := tuple(Point2D, Point2D)  # (MinPoint, MaxPoint)
+   ```
+
+2. **使用 Struct**：
+   ```verse
+   Point2D := struct{X:float, Y:float}
+   Rect2D := struct{MinPoint:Point2D, MaxPoint:Point2D}
+   ```
+
+设计约束：
+- 这些类型用于 Logic Layer（无状态纯函数）
+- 需要高性能（UI 和游戏循环中频繁使用）
+- 需要简洁（开发者频繁创建和传递）
+- 无需复杂的行为或方法
+
+### 决策（Decision）
+
+**选择使用 Tuple 定义 2D 几何类型**，理由如下：
+
+```verse
+# 数据类型定义
+Point2D<public> := tuple(float, float)  # (X, Y)
+Rect2D<public> := tuple(Point2D, Point2D)  # (MinPoint, MaxPoint)
+Circle2D<public> := tuple(Point2D, float)  # (Center, Radius)
+```
+
+**访问方式**：使用索引访问 `P(0)` 和 `P(1)`
+
+### 理由（Rationale）
+
+**为什么选择 Tuple？**
+
+1. **简洁性**：
+   - 创建更简洁：`(100.0, 200.0)` vs `Point2D{X=100.0, Y=200.0}`
+   - 无需显式构造函数
+   - 适合 Logic Layer 的轻量级数据
+
+2. **性能**：
+   - Tuple 是 Verse 的原生类型，可能有优化
+   - 无分配开销（stack-based value type）
+   - 适合高频率操作（UI 每帧更新）
+
+3. **模式一致性**：
+   - 与 DLSD 架构一致：Logic Layer 使用简单类型，Session Layer 使用类
+   - 参考 ADR-010：角度也使用 float 而非类
+
+4. **功能充分性**：
+   - 2D 点只需存储 X, Y 坐标，无需方法
+   - 所有操作都是纯函数，定义在模块层级
+   - 不需要状态或行为（如果需要，应在 Session Layer）
+
+**Tuple 索引的权衡**：
+
+- ✅ 优点：访问速度快（编译时索引）
+- ⚠️ 缺点：`P(0)` 和 `P(1)` 不如 `P.X` 和 `P.Y` 直观
+- ✅ 缓解：通过清晰的注释说明（如 `# (X, Y)`）
+
+**替代方案及为何未选择**：
+
+1. **Struct**：
+   - ❌ 过于重量级，Logic Layer 不需要
+   - ❌ 创建语法冗长
+   - ✅ 但字段访问更直观（`P.X` vs `P(0)`）
+
+2. **命名 Tuple**（如果 Verse 支持）：
+   - ✅ 最佳方案：兼具简洁和可读性
+   - ❌ Verse 目前可能不支持（未在文档中找到）
+
+3. **直接使用 float 对**：
+   - ❌ 无类型安全，容易混淆参数顺序
+   - ❌ 不如 `Point2D` 类型语义清晰
+
+### 后果（Consequences）
+
+**积极影响**：
+- ✅ 代码简洁：几何操作的调用代码更短
+- ✅ 性能优化：避免了不必要的抽象开销
+- ✅ 架构一致：符合 DLSD 分层原则
+
+**负面影响**：
+- ⚠️ 可读性略低：`P(0)` 不如 `P.X` 直观
+- ⚠️ 维护成本：需要在注释中明确索引含义
+
+**缓解措施**：
+- 在类型定义处添加清晰注释：`Point2D := tuple(float, float)  # (X, Y)`
+- 在函数中使用有意义的变量名：
+  ```verse
+  PX := Point(0)  # X 坐标
+  PY := Point(1)  # Y 坐标
+  ```
+- 考虑未来添加辅助函数（如 `GetX(P:Point2D):float`）提升可读性
+
+**使用建议**：
+- 仅在 Logic Layer 使用 Tuple 类型
+- 如果需要复杂行为或状态，迁移到 Session Layer 使用 class
+- 3D 几何类型（MathGeometry3d）应遵循相同模式
+
+### 参考（References）
+
+- **相关决策**: ADR-010 (为何货币不立即实现类)
+- **相关模式**: Tuple Indexing Pattern (PATTERNS.md)
+- **相关模块**: `MathGeometry2d.verse`
+- **性能考虑**: Logic Layer 轻量级设计原则
+
+---
