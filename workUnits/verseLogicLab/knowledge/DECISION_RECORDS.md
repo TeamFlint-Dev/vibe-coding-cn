@@ -148,6 +148,133 @@ Verse 使用 IEEE 754 标准的浮点数：
 
 ---
 
+### ADR-013: vector3 类型选择决策
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/validationUtils/VectorValidation.verse`
+
+#### 上下文（Context）
+
+在实现 TASK-084 (Vector Validation) 时，发现 Verse 提供了**两种** vector3 类型：
+
+1. **Verse.org vector3** (`/Verse.org/SpatialMath`)
+   - 使用语义化分量名：`.Forward`, `.Left`, `.Up`
+   - 标记为官方稳定 API
+   
+2. **UnrealEngine vector3** (`/UnrealEngine.com/Temporary/SpatialMath`)
+   - 使用传统分量名：`.X`, `.Y`, `.Z`
+   - 标记为 Temporary API（临时 API）
+
+需要选择一种类型作为 Logic Layer 的标准，确保模块间的一致性。
+
+#### 决策（Decision）
+
+**选择 `/Verse.org/SpatialMath/vector3`**（语义化命名版本）作为 Logic Layer 的标准 vector3 类型。
+
+所有新的逻辑模块应使用此类型，除非有特殊原因需要使用 UE Temporary 版本。
+
+#### 理由（Rationale）
+
+**为什么选择 Verse.org vector3？**
+
+1. **稳定性保证**
+   - ✅ 官方稳定 API，不在 Temporary 命名空间下
+   - ✅ 长期支持，不会在未来版本中突然变更
+   - ⚠️ UE Temporary API 可能在未来版本中废弃或修改
+
+2. **语义清晰性**
+   - ✅ `.Forward`, `.Left`, `.Up` 更符合游戏开发的语义
+   - ✅ 避免了 X/Y/Z 轴向的歧义（不同引擎有不同的轴向定义）
+   - ✅ 代码可读性更强：`Velocity.Forward` vs `Velocity.X`
+
+3. **Verse 生态一致性**
+   - ✅ 与 Verse 官方示例和最佳实践保持一致
+   - ✅ 未来 Verse API 更新更可能兼容此类型
+
+**缺点和权衡**：
+
+- ❌ 与传统 3D 数学库（使用 X/Y/Z）的习惯不同
+- ❌ 从其他引擎迁移代码时需要转换命名
+- ⚠️ 需要团队成员适应新的命名约定
+
+**缓解措施**：
+
+- 在文档中明确说明 Forward/Left/Up 与 X/Y/Z 的对应关系
+- 如需与 UE Temporary API 互操作，提供转换函数
+
+#### 替代方案（Alternatives Considered）
+
+**方案 A: 使用 UE Temporary vector3**
+- ✅ 优点：传统 X/Y/Z 命名，易于理解
+- ❌ 缺点：API 不稳定，未来可能变更
+- **未选择理由**：稳定性风险过高
+
+**方案 B: 使用 tuple(float, float, float)**
+- ✅ 优点：完全独立于 Verse API，最大灵活性
+- ❌ 缺点：失去类型安全，无法使用 extension methods（如 .Length()）
+- **未选择理由**：ADR-011 已在 MathGeometry3d 中使用 tuple，但那是为了轻量级设计。验证函数需要与原生 vector3 配合
+
+**方案 C: 混合方案（同时支持两种）**
+- ✅ 优点：最大兼容性
+- ❌ 缺点：增加复杂度，需要维护转换逻辑
+- **未选择理由**：过度设计，Logic Layer 应选择单一标准
+
+#### 后果（Consequences）
+
+**正面影响**：
+- ✅ Logic Layer 所有模块使用统一的 vector3 类型
+- ✅ 代码可读性和语义清晰度提升
+- ✅ 未来升级 Verse 版本时风险更低
+
+**负面影响**：
+- ⚠️ 团队需要学习新的命名约定（Forward/Left/Up）
+- ⚠️ 与 UE Temporary API 互操作时需要注意类型转换
+
+**适用范围**：
+- ✅ **应用于**：所有 Logic Layer 模块（logicModules/）
+- ⚠️ **不强制**：Driver/Session 层（可能需要直接对接 UE API）
+
+#### 实施指南
+
+**新模块开发**：
+```verse
+# ✅ 推荐：使用 Verse.org vector3
+using { /Verse.org/SpatialMath }
+
+MyFunction<public>(Direction:vector3)<computes>:logic =
+    ForwardComponent := Direction.Forward
+    LeftComponent := Direction.Left
+    UpComponent := Direction.Up
+    # ...
+```
+
+**轴向对应关系**：
+| Verse.org | 传统 | 含义 |
+|-----------|------|------|
+| `.Forward` | `.X` | 前方方向 |
+| `.Left` | `-Y` | 左侧方向（注意负号） |
+| `.Up` | `.Z` | 向上方向 |
+
+**转换函数（如需要）**：
+```verse
+# 未来可在 conversionUtils 中提供
+VerseToUEVector(V:Verse_vector3):UE_vector3
+UEToVerseVector(V:UE_vector3):Verse_vector3
+```
+
+#### 参考（References）
+
+- **研究报告**: `knowledge/research/vector3-research-20260113.md`
+- **官方文档**: 
+  - Verse.org vector3: `external/epic-docs-crawler/.../versedotorg/spatialmath/vector3/`
+  - UE Temporary vector3: `external/epic-docs-crawler/.../temporary/spatialmath/vector3/`
+- **相关猜想**: CONJ-004 (已证伪) - 记录在 `knowledge/CONJECTURES.md`
+- **实现示例**: `validationUtils/VectorValidation.verse`
+- **相关 ADR**: ADR-011 (MathGeometry3d 使用 tuple 的决策)
+
+---
+
 ## ADR 列表
 
 ### ADR-000: 示例决策（删除此条目）
@@ -1344,6 +1471,170 @@ Currency := tuple(int, string)  # (金额, 货币代码)
 - **设计原则**: YAGNI, DRY, SOLID
 - **架构层次**: DLSD 架构 - Session Layer 使用类
 - **性能考虑**: RISK-007 (浮点精度问题)
+
+---
+
+### ADR-014: 时间表示和单位选择决策
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/validationUtils/TimeValidation.verse`
+
+#### 上下文（Context）
+
+在实现 TASK-085 (Time Validation) 时，需要确定如何表示时间和持续时间：
+1. **类型选择**：int（整数毫秒）vs float（浮点秒）
+2. **单位选择**：秒、毫秒、还是其他单位
+3. **时间戳起点**：从 0 开始还是使用 Unix 时间戳
+4. **持续时间语义**：是否允许负值
+
+这些决策影响所有时间相关的逻辑模块和游戏系统。
+
+#### 决策（Decision）
+
+**选择 `float` 类型表示时间，单位为秒，时间戳从 0.0 开始（游戏开始时刻）。**
+
+具体规则：
+- **时间戳（Timestamp）**: `float` 类型，单位秒，范围 [0.0, MaxReasonableTimestamp]
+- **持续时间（Duration）**: `float` 类型，单位秒，范围 [0.0, +∞)
+- **时间戳起点**: 0.0 表示游戏开始时刻
+- **持续时间语义**: 0.0 表示瞬间/无持续时间，负值非法
+- **浮点精度**: 使用 Epsilon (0.0001) 处理浮点比较
+
+#### 理由（Rationale）
+
+**为什么选择 float（浮点秒）？**
+
+1. **Verse 生态一致性**
+   - ✅ Verse/UEFN API 普遍使用 float 表示时间（秒）
+   - ✅ GetSimulationElapsedTime() 返回 float
+   - ✅ Delay() 函数接受 float 参数
+   - ✅ 与引擎和设备 API 直接兼容，无需转换
+
+2. **精度与范围平衡**
+   - ✅ float 精度对游戏时间足够（误差 < 0.0001 秒，人类无法感知）
+   - ✅ 范围足够大：可表示数小时的游戏时长
+   - ✅ 0.0001 秒精度 = 0.1 毫秒，对大多数游戏机制已足够
+
+3. **使用便利性**
+   - ✅ 直接表达时间概念：1.5 秒 vs 1500 毫秒
+   - ✅ 浮点运算更自然：速度 * 时间 = 距离
+   - ✅ 无需频繁的单位转换
+
+**为什么时间戳从 0.0 开始？**
+
+1. **游戏时间 vs 真实时间**
+   - ✅ 游戏时间从游戏开始计算，0.0 是自然起点
+   - ✅ 无需处理 Unix 时间戳（1970-01-01）的大数值
+   - ✅ 简化调试（时间戳 = 游戏运行时长）
+
+2. **数值稳定性**
+   - ✅ 避免大数值运算的精度损失
+   - ✅ 时间差计算更简单：Duration = EndTime - StartTime
+
+**为什么持续时间不允许负值？**
+
+1. **语义清晰性**
+   - ✅ 持续时间是"时长"概念，负值无物理意义
+   - ✅ 0.0 表示瞬间/无持续时间（合法）
+   - ✅ 负值通常是逻辑错误，应该立即失败
+
+2. **防御性编程**
+   - ✅ 尽早发现时间计算错误
+   - ✅ 避免负持续时间导致的隐蔽 bug
+
+#### 替代方案（Alternatives Considered）
+
+**方案 A: 使用 int 表示毫秒**
+```verse
+Timestamp:int  # 毫秒，如 1500 表示 1.5 秒
+```
+- ✅ 优点：避免浮点精度问题，整数运算更快
+- ❌ 缺点：与 Verse API 不兼容（需要频繁转换），表达不自然
+- **未选择理由**：与 Verse 生态脱节，转换开销大于浮点精度问题
+
+**方案 B: 使用 int 表示帧数**
+```verse
+Timestamp:int  # 帧数，如 60 表示 1 秒（假设 60 FPS）
+```
+- ✅ 优点：精确，无浮点误差
+- ❌ 缺点：帧率可变时失效，难以理解和调试
+- **未选择理由**：帧率非固定，游戏时间应与帧率解耦
+
+**方案 C: 使用 Unix 时间戳（秒自 1970-01-01）**
+```verse
+Timestamp:float  # Unix 时间戳，如 1705147200.0
+```
+- ✅ 优点：与真实世界时间对应，跨系统通用
+- ❌ 缺点：大数值精度损失，游戏内不需要真实时钟
+- **未选择理由**：游戏使用相对时间，不需要绝对时钟
+
+#### 后果（Consequences）
+
+**正面影响**：
+- ✅ 与 Verse/UEFN API 无缝集成，无需类型转换
+- ✅ 代码可读性强：`Cooldown := 5.0` 比 `Cooldown := 5000` 更直观
+- ✅ 浮点精度对游戏逻辑完全够用（误差小于人类感知）
+- ✅ 时间计算简单：直接加减乘除
+
+**负面影响**：
+- ⚠️ 浮点精度问题：需要使用 Epsilon 进行比较
+- ⚠️ 极长时间可能累积误差（但游戏通常不会运行数天）
+
+**缓解措施**：
+- 所有时间比较使用 Epsilon 容差（DefaultEpsilon = 0.0001）
+- 设置合理的最大时间戳（MaxReasonableTimestamp = 100000 秒 ≈ 27.7 小时）
+- 文档中明确说明浮点精度限制
+
+#### 实施指南
+
+**标准用法**：
+```verse
+# ✅ 推荐：使用 float 秒
+Timestamp:float = 10.5  # 10.5 秒
+Duration:float = 5.0    # 5 秒持续时间
+
+# ❌ 不推荐：使用 int 毫秒
+Timestamp:int = 10500  # 需要额外转换，不兼容 API
+```
+
+**时间验证**：
+```verse
+using { validationUtils.TimeValidation }
+
+# 验证时间戳有效性
+TimeValidation.ValidateTimestamp[EventTime]
+
+# 验证持续时间
+TimeValidation.ValidateDuration[CooldownTime]
+
+# 时间比较（使用 Epsilon）
+if (TimeValidation.IsFuture(EventTime, CurrentTime)):
+    # 事件尚未发生
+```
+
+**常见时间值**：
+| 描述 | 值（秒） | 说明 |
+|------|---------|------|
+| 瞬间 | 0.0 | 无持续时间 |
+| 1 帧（60 FPS） | 0.0167 | 约 16.7 毫秒 |
+| 半秒 | 0.5 | 常用于短冷却 |
+| 1 秒 | 1.0 | 标准计时单位 |
+| 1 分钟 | 60.0 | 长冷却、buff 时长 |
+| 1 小时 | 3600.0 | 超长 buff、每日重置 |
+
+**Epsilon 选择**：
+- **DefaultEpsilon = 0.0001** - 通用时间比较（0.1 毫秒容差）
+- 对于大多数游戏机制，0.1 毫秒误差完全可接受
+- 如需更精确，可传入自定义 Epsilon
+
+#### 参考（References）
+
+- **Verse API**: GetSimulationElapsedTime() 返回 float 秒
+- **实现代码**: `validationUtils/TimeValidation.verse`
+- **相关 ADR**: ADR-001 (浮点数比较 Epsilon 选择)
+- **相关模式**: PATTERNS.md - 时间验证模式（待添加）
+- **IEEE 754**: 浮点数标准，定义 float 精度约 7 位有效数字
 
 ---
 
