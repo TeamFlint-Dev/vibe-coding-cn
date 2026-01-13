@@ -21,69 +21,6 @@ UtilTime<public> := module:
         Seconds<public>:int = 0
         Milliseconds<public>:int = 0
     
-    # ========== 时间转换 ==========
-    
-    # 秒转分钟（向下取整）
-    SecondsToMinutes<public>(Seconds:float)<computes>:int =
-        Floor(Seconds / SECONDS_PER_MINUTE)
-    
-    # 秒转小时（向下取整）
-    SecondsToHours<public>(Seconds:float)<computes>:int =
-        Floor(Seconds / SECONDS_PER_HOUR)
-    
-    # 将秒数分解为时分秒
-    SecondsToTime<public>(TotalSeconds:float)<transacts>:time_duration =
-        IntSeconds := Floor(TotalSeconds)
-        IntSecondsFloat := Floor(TotalSeconds)
-        
-        Hours := Floor(IntSecondsFloat / SECONDS_PER_HOUR)
-        HoursInSec := Hours * SECONDS_PER_HOUR
-        Remaining := IntSecondsFloat - HoursInSec
-        
-        Minutes := Floor(Remaining / SECONDS_PER_MINUTE)
-        MinutesInSec := Minutes * SECONDS_PER_MINUTE
-        Seconds := Floor(Remaining - MinutesInSec)
-        
-        FracPart := TotalSeconds - IntSecondsFloat
-        Milliseconds := Floor(FracPart * MILLISECONDS_PER_SECOND)
-        
-        time_duration{
-            Hours := Hours
-            Minutes := Minutes
-            Seconds := Seconds
-            Milliseconds := Milliseconds
-        }
-    
-    # ========== 时间格式化 ==========
-    
-    # 格式化倒计时为 MM:SS
-    FormatCountdown<public>(Seconds:float)<computes>:[]char =
-        TotalSec := Floor(Max(Seconds, 0.0))
-        Minutes := Floor(TotalSec / SECONDS_PER_MINUTE)
-        MinutesInSec := Minutes * SECONDS_PER_MINUTE
-        Secs := Floor(TotalSec - MinutesInSec)
-        
-        MinStr := if (Minutes < 10.0) then "0{Minutes}" else "{Minutes}"
-        SecStr := if (Secs < 10.0) then "0{Secs}" else "{Secs}"
-        "{MinStr}:{SecStr}"
-    
-    # 格式化时间为 HH:MM:SS
-    FormatTime<public>(Seconds:float)<computes>:[]char =
-        TotalSec := Floor(Max(Seconds, 0.0))
-        
-        Hours := Floor(TotalSec / SECONDS_PER_HOUR)
-        HoursInSec := Hours * SECONDS_PER_HOUR
-        Remaining := TotalSec - HoursInSec
-        
-        Minutes := Floor(Remaining / SECONDS_PER_MINUTE)
-        MinutesInSec := Minutes * SECONDS_PER_MINUTE
-        Secs := Floor(Remaining - MinutesInSec)
-        
-        HourStr := if (Hours < 10.0) then "0{Hours}" else "{Hours}"
-        MinStr := if (Minutes < 10.0) then "0{Minutes}" else "{Minutes}"
-        SecStr := if (Secs < 10.0) then "0{Secs}" else "{Secs}"
-        "{HourStr}:{MinStr}:{SecStr}"
-    
     # ========== 帧率计算 ==========
     
     # 根据帧时间计算 FPS
@@ -125,10 +62,10 @@ UtilTime<public> := module:
     
     # 将时间持续转换为总秒数
     DurationToSeconds<public>(Duration:time_duration)<computes>:float =
-        HoursSec := Duration.Hours * SECONDS_PER_HOUR
-        MinutesSec := Duration.Minutes * SECONDS_PER_MINUTE
+        HoursSec := (Duration.Hours * 1.0) * SECONDS_PER_HOUR
+        MinutesSec := (Duration.Minutes * 1.0) * SECONDS_PER_MINUTE
         SecondsSec := Duration.Seconds * 1.0
-        MillisSec := Duration.Milliseconds / MILLISECONDS_PER_SECOND
+        MillisSec := (Duration.Milliseconds * 1.0) / MILLISECONDS_PER_SECOND
         HoursSec + MinutesSec + SecondsSec + MillisSec
     
     # 计算时间间隔百分比

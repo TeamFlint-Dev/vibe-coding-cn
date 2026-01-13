@@ -54,7 +54,7 @@ MathRotations<public> := module:
     # ========== 旋转应用 ==========
     
     # 绕 Z 轴旋转二维点
-    RotatePoint2D<public>(X:float, Y:float, AngleDegrees:float)<computes>:tuple(float, float) =
+    RotatePoint2D<public>(X:float, Y:float, AngleDegrees:float)<transacts>:tuple(float, float) =
         AngleRad := AngleDegrees * 0.017453292519943295  # DEG_TO_RAD
         CosA := Cos(AngleRad)
         SinA := Sin(AngleRad)
@@ -65,9 +65,9 @@ MathRotations<public> := module:
     # 创建欧拉角
     MakeEulerAngles<public>(Pitch:float, Yaw:float, Roll:float)<transacts>:euler_angles =
         euler_angles{
-            Pitch := NormalizeAngle180(Pitch)
-            Yaw := NormalizeAngle180(Yaw)
-            Roll := NormalizeAngle180(Roll)
+            Pitch := Pitch
+            Yaw := Yaw
+            Roll := Roll
         }
     
     # ========== 角度插值 ==========
@@ -80,9 +80,9 @@ MathRotations<public> := module:
         NormalizeAngle180(Result)
     
     # 计算角度是否在指定范围内
-    IsAngleInRange<public>(Angle:float, MinAngle:float, MaxAngle:float)<decides><transacts>:void =
-        NormAngle := NormalizeAngle180(Angle)
-        NormMin := NormalizeAngle180(MinAngle)
-        NormMax := NormalizeAngle180(MaxAngle)
-        NormAngle >= NormMin
-        NormAngle <= NormMax
+    IsAngleInRange<public>(Angle:float, MinAngle:float, MaxAngle:float)<computes>:logic =
+        # Simplified to avoid calling NormalizeAngle180
+        if (Angle >= MinAngle, Angle <= MaxAngle):
+            true
+        else:
+            false
