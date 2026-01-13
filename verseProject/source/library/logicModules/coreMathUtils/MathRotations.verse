@@ -104,8 +104,8 @@ MathRotations<public> := module:
         DEG_TO_RAD := 0.017453292519943295
         YawRad := YawDegrees * DEG_TO_RAD
         vector3{
-            X := Sin(YawRad)
-            Y := -Cos(YawRad)
+            X := -Sin(YawRad)
+            Y := Cos(YawRad)
             Z := 0.0
         }
     
