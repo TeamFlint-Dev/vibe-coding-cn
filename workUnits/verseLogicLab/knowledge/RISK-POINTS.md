@@ -1,7 +1,18 @@
 # Risk Points Documentation
 # 风险点记录文档
 
-> **目的**: 记录和追踪代码库中已识别的风险点、潜在问题和语言限制，确保所有类似风险被暴露和管理。
+> **目的**: 记录和追踪代码库中**已验证的**风险点、潜在问题和语言限制。
+> 
+> **重要区分**:
+> - **风险点 (RISK-POINTS.md)**: 已验证的真实风险，有官方文档或实际错误证据
+> - **猜想 (CONJECTURES.md)**: 未验证的假设和推测，需要进一步验证
+> - **错误记录 (COMPILATION_LESSONS.json)**: 实际发生的编译错误，忠实记录现象和解决方法
+> 
+> **收录标准**:
+> - ✅ 必须有可靠信息源（官方文档、编译错误、API 限制）
+> - ✅ 必须是真实存在的风险或限制
+> - ❌ 不能是未验证的猜测（应放在 CONJECTURES.md）
+> - ❌ 不能是单次错误（应放在 COMPILATION_LESSONS.json）
 
 ---
 
@@ -36,31 +47,19 @@
 - **相关代码**: `StringValidation.verse`
 - **影响任务**: TASK-082 (部分功能缺失)
 
-#### RISK-003: ~~vector3 不暴露分量访问~~ (已解决 - 假设错误)
-- **风险等级**: ~~🟡 中危~~ → ✅ 已解决
-- **状态**: ✅ **假设错误 - 已纠正**
-- **描述**: ~~vector3 类型不提供 .X, .Y, .Z 成员访问~~ **错误**
-- **真实情况**: Verse 提供 **两种** vector3 类型，均支持分量访问：
-  - `/Verse.org/SpatialMath/vector3` - 使用 `.Forward`, `.Left`, `.Up` (官方稳定)
-  - `/UnrealEngine.com/Temporary/SpatialMath/vector3` - 使用 `.X`, `.Y`, `.Z` (临时API)
-- **发现时间**: 2026-01-13 (错误假设) → 2026-01-13 (纠正)
-- **错误根源**: 
-  - 未全面查阅官方文档
-  - 预期传统命名，未考虑语义化命名
-  - 将未验证的推测记录为"已知限制"
-- **纠正依据**: 
-  - **研究报告**: `knowledge/research/vector3-research-20260113.md`
-  - **官方文档**: `/Verse.org/SpatialMath/vector3` API 文档
-  - **用户反馈**: @stallsping 指出 vector3 实际上没问题
-- **当前决策**: 
-  - MathGeometry3d 保持 tuple 设计 (ADR-011 仍然有效)
-  - 可选：未来添加 vector3 ↔ tuple 转换函数
-- **相关代码**: `MathGeometry3d.verse` (使用 tuple，设计合理)
-- **影响任务**: TASK-084 现在可以实现 (不再阻塞)
-- **教训**: 
-  - ❌ 不要基于假设记录"已知限制"
-  - ✅ 始终查阅官方文档验证
-  - ✅ 区分"猜想"(CONJECTURES.md) 和"已验证的事实"(RISK-POINTS.md)
+---
+
+### 已解决/证伪的风险
+
+#### ~~RISK-003: vector3 不暴露分量访问~~ (证伪 - 移至 CONJECTURES.md)
+- **状态**: ❌ **已证伪 - 这是一个错误的猜想**
+- **原始假设**: vector3 类型不提供 .X, .Y, .Z 成员访问
+- **纠正结果**: Verse 提供 **两种** vector3 类型，均支持分量访问
+  - `/Verse.org/SpatialMath/vector3` - 使用 `.Forward`, `.Left`, `.Up`
+  - `/UnrealEngine.com/Temporary/SpatialMath/vector3` - 使用 `.X`, `.Y`, `.Z`
+- **纠正时间**: 2026-01-13
+- **详细信息**: 见 `CONJECTURES.md` 的 CONJ-004 和 `research/vector3-research-20260113.md`
+- **教训**: 不应将未验证的猜想记录为"风险点"
 
 #### RISK-004: 模块级别不支持 private 访问修饰符
 - **风险等级**: 🟢 低危
