@@ -46,7 +46,18 @@
    - 按状态或维度查找具体任务
    - 理解每个任务的产出和优先级
 
-3. **使用任务追踪系统** → [fishing-task-tracking-system.md](./designs/fishing-task-tracking-system.md)
+3. **使用状态任务清单** → 每个状态都有独立的任务文件 ⭐
+   - [IDLE 状态任务清单](./designs/states/idle/TASKS.md) (15任务)
+   - [CASTING 状态任务清单](./designs/states/casting/TASKS.md) (12任务)
+   - [WAITING 状态任务清单](./designs/states/waiting/TASKS.md) (18任务)
+   - [HOOKED 状态任务清单](./designs/states/hooked/TASKS.md) (16任务)
+   - [SUCCESS 状态任务清单](./designs/states/success/TASKS.md) (20任务)
+   - [FAILED 状态任务清单](./designs/states/failed/TASKS.md) (10任务)
+   - [MISSED 状态任务清单](./designs/states/missed/TASKS.md) (8任务)
+   - [状态转换任务清单](./designs/states/transitions/TASKS.md) (12任务)
+   - [全局系统任务清单](./designs/states/global/TASKS.md) (11任务)
+
+4. **使用任务追踪系统** → [fishing-task-tracking-system.md](./designs/fishing-task-tracking-system.md)
    - 使用任务卡片模板
    - 追踪进度（按状态/维度/优先级）
    - 管理验收和评审
