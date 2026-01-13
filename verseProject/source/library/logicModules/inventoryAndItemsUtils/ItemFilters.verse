@@ -1,5 +1,16 @@
-# 物品过滤模块
-# 功能：物品拾取过滤规则（只捡紫色以上）
+# 物品筛选模块
+# 功能：物品按条件筛选（类型、等级、稀有度）
+
+using { /Verse.org/Simulation }
 
 ItemFilters<public> := module:
-    # 占位符 - 待实现
+    
+    FilterByRarity<public>(ItemRarity:int, TargetRarity:int)<decides><transacts>:void =
+        ItemRarity >= TargetRarity
+    
+    FilterByLevel<public>(ItemLevel:int, MinLevel:int, MaxLevel:int)<decides><transacts>:void =
+        ItemLevel >= MinLevel
+        ItemLevel <= MaxLevel
+    
+    FilterByType<public>(ItemType:int, TargetType:int)<decides><transacts>:void =
+        ItemType = TargetType
