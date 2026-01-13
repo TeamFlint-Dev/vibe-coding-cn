@@ -1019,3 +1019,330 @@ MathRanges := module:
 - **性能分析**: RISK-006 (迭代次数限制)
 
 ---
+
+## ADR-010: 何时使用类封装数值类型
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: 未来的数值封装库
+
+### 上下文（Context）
+
+在 ADR-009 中讨论了为何角度不使用类封装，理由是：
+- 简单的角度归一化不值得引入类
+- Logic Layer 应使用纯函数
+- 与现有 float 参数兼容性
+
+**用户反馈**（@stallsping）：
+> "当用户的钱变成几十个亿的时候，你不能无脑增加字段长度去记录，而是应该考虑使用类定义，封装这些定义。不过这些类定义内容都放到一起，方便管理。"
+
+**核心问题**：
+1. **何时原始类型不够用？** float/int 在某些场景下有明显局限
+2. **何时应该使用类？** 需要清晰的判断标准
+3. **如何组织类定义？** 避免散落各处，集中管理
+
+### 决策（Decision）
+
+**建立数值类型封装的判断标准**，并创建集中的类型定义库。
+
+#### 判断标准：何时使用类封装？
+
+**使用类封装的场景**（满足以下任一条件）：
+
+1. **数值范围超出原始类型**
+   - ✅ 货币：几十亿、万亿级别（float 精度不足）
+   - ✅ 大整数：超过 int 范围（需要 BigInteger）
+   - ✅ 高精度计算：科学计算、金融计算
+
+2. **需要复杂的语义约束**
+   - ✅ 货币：不能为负、需要货币单位、汇率转换
+   - ✅ 百分比：0-100% 或 0-1 范围约束
+   - ✅ 时间：年月日时分秒组合、时区处理
+
+3. **需要附加元数据**
+   - ✅ 带单位的数值：温度（°C/°F）、距离（m/km/ft）
+   - ✅ 精度要求：小数位数、舍入规则
+   - ✅ 验证规则：最小值、最大值、有效性检查
+
+4. **需要封装多个操作**
+   - ✅ 货币：加减乘除、格式化、解析
+   - ✅ 时间：加减、比较、格式化
+   - ✅ 复数：算术运算、三角函数
+
+**不使用类的场景**（继续用 float/int）：
+
+1. **简单数值运算**
+   - ✅ 角度归一化（ADR-009 已说明）
+   - ✅ 简单的范围检查
+   - ✅ 临时计算结果
+
+2. **性能关键路径**
+   - ✅ 每帧执行的物理计算
+   - ✅ 大量数组元素的遍历
+   - ✅ GPU 相关的向量运算
+
+3. **与外部 API 交互**
+   - ✅ UEFN API 要求 float/int 参数
+   - ✅ 需要与现有代码兼容
+
+#### 类型定义的组织结构
+
+**创建集中的类型库**（未来实现）：
+
+```
+verseProject/source/library/
+├── logicModules/
+│   └── ... (现有逻辑模块)
+└── types/  # 新增：集中的类型定义
+    ├── numeric/
+    │   ├── Currency.verse        # 货币类
+    │   ├── BigInteger.verse       # 大整数类
+    │   ├── Percentage.verse       # 百分比类
+    │   └── FixedPoint.verse       # 定点数类
+    ├── temporal/
+    │   ├── Duration.verse         # 时长类
+    │   ├── Timestamp.verse        # 时间戳类
+    │   └── Calendar.verse         # 日历类
+    └── physical/
+        ├── Temperature.verse      # 温度类
+        ├── Distance.verse         # 距离类
+        └── Mass.verse             # 质量类
+```
+
+**组织原则**：
+- ✅ **按领域分类**：numeric, temporal, physical 等
+- ✅ **一个文件一个类**：便于维护和查找
+- ✅ **清晰的命名**：类名即用途（Currency, BigInteger）
+- ✅ **集中管理**：统一在 types/ 目录下
+
+### 理由（Rationale）
+
+#### 为什么需要类封装大数值？
+
+**以货币为例**：
+
+**问题 1: float 精度不足**
+```verse
+# ❌ 问题：float 只有 ~7 位有效数字
+Money:float = 9876543210.0  # 实际存储可能是 9876543000.0
+Loss:float = 9876543210.0 - Money  # 210.0 丢失！
+```
+
+**问题 2: 无法表达语义**
+```verse
+# ❌ 问题：负数货币没有意义，但 float 允许
+PlayerMoney:float = -100.0  # 编译通过，但逻辑错误
+```
+
+**问题 3: 缺少操作封装**
+```verse
+# ❌ 问题：格式化、验证需要分散的工具函数
+FormattedMoney := FormatCurrency(Money)  # 函数散落各处
+ValidateCurrency[Money]  # 验证也是独立函数
+```
+
+**解决方案：Currency 类**
+```verse
+Currency := class:
+    # 使用 int 存储分（避免浮点精度问题）
+    AmountInCents:int  # 1亿元 = 100_0000_0000 分
+    
+    # 构造函数验证
+    New(Cents:int)<transacts>:Currency =
+        if (Cents < 0):
+            # 拒绝负数
+            fail
+        Currency{AmountInCents := Cents}
+    
+    # 封装操作
+    Add<public>(Other:Currency)<computes>:Currency =
+        Currency{AmountInCents := AmountInCents + Other.AmountInCents}
+    
+    Format<public>()<computes>:string =
+        # 格式化为 "¥1,234,567.89"
+        # ...实现略
+```
+
+**优势**：
+- ✅ **精度保证**：用 int 存储分，支持万亿级别
+- ✅ **类型安全**：编译时检查，不能与普通 int 混用
+- ✅ **语义清晰**：`Currency` 比 `float` 更明确
+- ✅ **操作封装**：加减、格式化、验证都在类内部
+
+#### 为什么集中管理类定义？
+
+**分散管理的问题**：
+```verse
+# ❌ 问题：类定义散落在业务模块中
+gameLogic/ShopSystem.verse:
+    Currency := class:
+        ...
+
+gameLogic/InventorySystem.verse:
+    Money := class:  # 重复定义！
+        ...
+```
+
+**集中管理的好处**：
+```verse
+# ✅ 解决：统一在 types/ 目录
+types/numeric/Currency.verse:
+    Currency := class:
+        ...
+
+# 业务模块只需引用
+using { /VibeCodingCN/library/types/numeric/Currency }
+
+ShopSystem := module:
+    BuyItem(Price:Currency)<transacts>:void =
+        # 使用统一的 Currency 类
+```
+
+**优势**：
+- ✅ **避免重复**：一个类型只定义一次
+- ✅ **易于查找**：所有类型在 types/ 目录下
+- ✅ **版本一致**：所有模块使用相同版本的类
+- ✅ **便于维护**：修改类定义只需更新一处
+
+#### 何时实现类型库？
+
+**分阶段实现**：
+
+**Phase 1（当前）**：
+- ✅ 使用原始类型 + 工具函数（Logic Layer）
+- ✅ 简单场景无需引入类（如角度归一化）
+- ✅ 记录 ADR-010 作为未来指导
+
+**Phase 2（需求驱动）**：
+- ⏰ 遇到实际需求时才实现（如真的需要处理亿级货币）
+- ⏰ 创建 types/ 目录和第一个类型（如 Currency）
+- ⏰ 在 Session/Component 层使用（非 Logic Layer）
+
+**Phase 3（库完善）**：
+- ⏰ 根据使用情况扩展类型库
+- ⏰ 添加更多领域的类型（temporal, physical）
+- ⏰ 建立类型使用的最佳实践
+
+**现阶段不实现的原因**：
+- ❌ **YAGNI 原则**：目前没有实际需求（You Aren't Gonna Need It）
+- ❌ **避免过度设计**：Logic Layer 当前任务只需纯函数
+- ✅ **保持聚焦**：先完成 P0 任务，再扩展类型系统
+
+### 示例：Currency 类设计草案
+
+**未来实现参考**（存档备用）：
+
+```verse
+# verseProject/source/library/types/numeric/Currency.verse
+
+Currency := class:
+    # 私有字段：存储分（1元 = 100分）
+    # 使用 int 支持 ±21亿分 = ±2100万元（如需更大，用数组模拟 BigInt）
+    var AmountInCents:int
+    
+    # 构造函数：从元创建
+    FromYuan<public>(Yuan:float)<decides><transacts>:Currency =
+        Cents := Floor[Yuan * 100.0]
+        if (CentsInt := Cents):
+            if (CentsInt >= 0):
+                Currency{AmountInCents := CentsInt}
+            else:
+                # 拒绝负数货币
+                fail
+        else:
+            # Floor 失败（NaN/Infinity）
+            fail
+    
+    # 算术运算
+    Add<public>(Other:Currency)<computes>:Currency =
+        Currency{AmountInCents := AmountInCents + Other.AmountInCents}
+    
+    Subtract<public>(Other:Currency)<decides><computes>:Currency =
+        NewAmount := AmountInCents - Other.AmountInCents
+        if (NewAmount >= 0):
+            Currency{AmountInCents := NewAmount}
+        else:
+            # 余额不足
+            fail
+    
+    # 格式化
+    Format<public>()<computes>:string =
+        Yuan := AmountInCents / 100
+        Cents := AmountInCents mod 100
+        # 返回 "¥1,234.56"
+        "¥{Yuan}.{Cents}"
+    
+    # 比较
+    IsGreaterThan<public>(Other:Currency)<computes>:logic =
+        AmountInCents > Other.AmountInCents
+```
+
+**使用示例**：
+```verse
+# 在 Session 层使用
+PlayerSession := class:
+    var Money:Currency = Currency{AmountInCents := 0}
+    
+    AddMoney<public>(Amount:Currency)<transacts>:void =
+        set Money = Money.Add(Amount)
+    
+    Buy<public>(Price:Currency)<transacts>:void =
+        if (NewMoney := Money.Subtract(Price)):
+            set Money = NewMoney
+        else:
+            # 余额不足，购买失败
+            Print("余额不足！")
+```
+
+### 替代方案（Alternatives）
+
+**方案 A: 继续使用 float/int + 工具函数**
+- 优点：简单、性能好
+- 缺点：缺少类型安全、语义不清晰、操作分散
+- **适用场景**：简单数值运算（当前使用）
+
+**方案 B: 使用 tuple 封装**
+```verse
+Currency := tuple(int, string)  # (金额, 货币代码)
+```
+- 优点：轻量级
+- 缺点：无法封装方法、类型不安全（任何 tuple 都能传入）
+- **未选择理由**：不如类强大
+
+**方案 C: 每个模块定义自己的类**
+- 优点：灵活
+- 缺点：重复定义、版本不一致、难以维护
+- **未选择理由**：违反 DRY 原则
+
+**方案 D: 使用第三方库**
+- 优点：成熟、经过测试
+- 缺点：Verse 生态尚未成熟，暂无可用库
+- **未选择理由**：不可行
+
+### 后果（Consequences）
+
+**积极影响**：
+- ✅ **明确标准**：何时用类、何时用原始类型
+- ✅ **集中管理**：未来类型库有清晰的组织结构
+- ✅ **避免过度设计**：按需实现，不提前优化
+- ✅ **指导未来工作**：遇到相关需求时有章可循
+
+**需要注意**：
+- ⚠️ **暂不实现**：当前无实际需求，避免 YAGNI
+- ⚠️ **性能权衡**：类有开销，性能关键路径慎用
+- ⚠️ **兼容性**：类与 UEFN API 的 float/int 参数可能需要转换
+
+**未来行动**：
+- 📝 记录到 improvement-backlog.md 作为未来任务
+- 📝 遇到大数值需求时，启动 types/ 库实现
+- 📝 在 RISK-POINTS.md 中标注原始类型的精度风险
+
+### 参考（References）
+
+- **相关决策**: ADR-009 (为何角度不用类)
+- **用户反馈**: @stallsping comment #3743808637
+- **设计原则**: YAGNI, DRY, SOLID
+- **架构层次**: DLSD 架构 - Session Layer 使用类
+- **性能考虑**: RISK-007 (浮点精度问题)
+
+---
