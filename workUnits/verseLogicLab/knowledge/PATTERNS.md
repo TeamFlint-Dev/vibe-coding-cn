@@ -1438,6 +1438,203 @@ SafeAdd(A, B) =
 - 整数溢出 runtime error（已通过 Safe Math 解决）
 
 ---
+
+#### 3.4 Option[T] Array Query Pattern（选项类型数组查询模式）⭐ 新增
+
+**意图**: 使用 option[T] 类型实现安全的数组查询操作，优雅处理"未找到"情况
+
+**使用场景**:
+- 查找元素索引（可能不存在）
+- 查找符合条件的元素（可能为空）
+- 安全地访问数组元素（索引可能越界）
+- 任何可能失败的数组操作
+
+**核心原理**:
+1. **option[T] 作为返回类型**：表示"可能有值，也可能没有"
+2. **`false` 作为空值**：未找到时返回 `false`
+3. **`option{Expression}` 构造器**：自动捕获 failable 表达式的失败
+4. **`?` 查询操作符**：在 failure context 中安全访问 option 值
+
+**背景知识**（基于 CONJ-004-007 验证结果）:
+- ✅ option[T] 的 `?` 操作符是 failable expression，必须在 failure context 中使用
+- ✅ `false` 是所有 option[T] 类型的通用空值字面量
+- ✅ `option{Expression}` 自动捕获失败，失败时为 `false`
+- ✅ option 是 persistable（如果 T 是 persistable）
+
+**结构**:
+
+```verse
+# 模式 1: 返回 option[int] - 查找索引
+IndexOf<public>(Arr:[]Type, Target:Type)<transacts>:?int =
+    var Result:?int = false  # 初始化为空值
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            if (not Result?):  # 仅记录第一次出现
+                set Result = option{Index}
+    Result
+
+# 模式 2: 返回 option[int] - 查找最后出现
+LastIndexOf<public>(Arr:[]Type, Target:Type)<transacts>:?int =
+    var LastIndex:?int = false
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            set LastIndex = option{Index}  # 持续更新
+    LastIndex
+
+# 模式 3: 返回 []Type - 过滤数组
+FindAll<public>(Arr:[]Type, Target:Type)<computes>:[]Type =
+    for (Element : Arr, Element = Target):
+        Element
+
+# 模式 4: 检查存在性 - 使用 option 查询
+Contains<public>(Arr:[]Type, Target:Type)<transacts>:logic =
+    Result := IndexOf(Arr, Target)
+    if (Result?) then true else false
+
+# 模式 5: Any - 检查是否存在满足条件的元素
+AnyGreaterThan<public>(Arr:[]int, Threshold:int)<transacts>:logic =
+    Count := CountGreaterThan(Arr, Threshold)
+    if (Count > 0) then true else false
+
+# 模式 6: All - 检查是否所有元素满足条件
+AllNonZero<public>(Arr:[]int)<transacts>:logic =
+    NonZeroCount := CountNonZero(Arr)
+    TotalCount := Arr.Length
+    if (NonZeroCount = TotalCount) then true else false
+```
+
+**示例**:
+
+```verse
+using { ArrayQueries }
+
+# 示例 1: 查找元素索引，处理未找到情况
+if (Index := ArrayQueries.IndexOfInt[PlayerScores, TargetScore]):
+    Print("Found at position {Index}")
+else:
+    Print("Not found")
+
+# 示例 2: 使用 or 提供默认值
+Index := ArrayQueries.IndexOfInt(PlayerIDs, MyID) or -1
+
+# 示例 3: 查找最后出现位置
+LastPos := ArrayQueries.LastIndexOfInt(Events, TargetEvent)
+if (LastPos?):
+    Print("Last occurrence: {LastPos}")
+
+# 示例 4: 查找所有匹配元素
+HighScores := ArrayQueries.FindGreaterThanInt(Scores, 1000)
+for (Score : HighScores):
+    Print("High score: {Score}")
+
+# 示例 5: 检查是否包含
+if (ArrayQueries.ContainsInt(ValidIDs, PlayerID)):
+    AllowAccess()
+
+# 示例 6: 检查是否有任意元素满足条件
+if (ArrayQueries.AnyPositiveInt(Deltas)):
+    Print("有增长")
+
+# 示例 7: 检查是否所有元素满足条件
+if (ArrayQueries.AllNonZeroInt(Contributions)):
+    Print("所有人都有贡献")
+```
+
+**option[T] 使用技巧**:
+
+| 操作 | 语法 | 说明 |
+|------|------|------|
+| **初始化为空** | `var Result:?int = false` | 使用 `false` 作为空值 |
+| **构造 option** | `option{Expression}` | 自动捕获失败 |
+| **检查是否有值** | `if (Result?)` | `?` 操作符在 failure context 中 |
+| **获取值** | `if (Val := Result?)` | 提取值并绑定 |
+| **提供默认值** | `Result or DefaultValue` | option 为空时使用默认值 |
+
+**为什么使用 option[T] 而非 `<decides>` 失败？**
+
+| 场景 | option[T] | `<decides>` |
+|------|-----------|-------------|
+| **查找可能不存在** | ✅ 返回 `false` | ❌ 触发 rollback |
+| **批量查询** | ✅ 可以收集多个结果 | ❌ 第一次失败就中止 |
+| **可选结果** | ✅ 调用者可选处理 | ❌ 强制失败传播 |
+| **默认值降级** | ✅ `Result or Default` | ✅ 也支持但语义不同 |
+
+**选择指南**:
+- **使用 option[T]**: 查找操作（未找到是正常情况）
+- **使用 `<decides>`**: 必须成功的操作（失败是异常情况）
+
+**注意事项**:
+- ✅ **failure context**: `Result?` 必须在 failure context 中使用（if、or）
+- ✅ **transacts 效果**: 使用 var 的查询函数需要 `<transacts>`
+- ✅ **computes 效果**: 不用 var 的过滤函数可以用 `<computes>`
+- ⚠️ **性能**: option 构造有轻微开销，但可忽略不计
+- ⚠️ **类型限制**: Verse 泛型有限，需为每种类型实现（Int, Float, String）
+
+**反模式**:
+
+```verse
+# ❌ 错误：返回 -1 表示未找到（C 风格）
+IndexOf(Arr, Target):int =
+    # ... 未找到返回 -1
+    -1  # 糟糕！调用者可能忘记检查
+
+# ❌ 错误：使用 <decides> 表示未找到
+IndexOf(Arr, Target)<decides>:int =
+    # ... 未找到时
+    false  # 触发 rollback，过于严厉
+
+# ❌ 错误：在非 failure context 中使用 ?
+Result := IndexOf(Arr, Target)
+Value := Result?  # 错误！必须在 if 或 or 中
+
+# ✅ 正确：使用 option[int]
+IndexOf(Arr, Target):?int =
+    # ... 未找到时
+    false  # 返回空值，调用者决定如何处理
+```
+
+**效果标注规则**:
+
+```verse
+# 使用 var → 需要 <transacts>
+CountOccurrences(Arr, Target)<transacts>:int =
+    var Count:int = 0
+    # ...
+
+# 仅读取，无 var → 可用 <computes>
+FindAll(Arr, Target)<computes>:[]int =
+    for (Element : Arr, Element = Target):
+        Element
+
+# 返回 option + 使用 var → <transacts>
+IndexOf(Arr, Target)<transacts>:?int =
+    var Result:?int = false
+    # ...
+```
+
+**与其他模式的关系**:
+- **Validation Function Pattern**: 验证后再查询
+- **Safe Math Operations**: 类似的"可能失败"处理
+- **Effect-Aware Function Call**: option 查询需要 failure context
+
+**实现参考**:
+- `coreMathUtils/ArrayQueries.verse` - 完整的 option[T] 数组查询实现
+  - IndexOfInt, LastIndexOfInt
+  - FindAllInt, FindGreaterThanInt
+  - ContainsInt, AnyPositiveInt, AllNonZeroInt
+  - CountOccurrencesInt, CountGreaterThanInt
+
+**验证猜想**:
+- ✅ CONJ-004: option[T] 查询操作符 `?` 隐式包含 `<decides>` 效果
+- ✅ CONJ-005: option 类型的 persistable 特性是递归的
+- ✅ CONJ-006: `false` 是 option 类型的"空值"字面量
+- ✅ CONJ-007: `option{Expression}` 构造器是 failure context
+
+**官方文档**:
+- `option-in-verse/index.md` - option 类型完整说明
+- RESEARCH-003: `knowledge/research/verse-option-type-research-20260112.md`
+
+---
 ## 维护指南
 
 1. **添加模式**: 在相应分类下追加

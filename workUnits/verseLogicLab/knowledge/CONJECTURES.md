@@ -166,6 +166,53 @@ option[T] 的查询操作符 `?` 是一个 failable expression，必须在 failu
 
 ### 参考
 
+### 验证记录更新 (2026-01-13) - TASK-023
+
+**验证任务**: TASK-023 (Array Queries) 实现评估
+
+**验证结果**: ✅ **完全确认 - 实践应用成功**
+
+在评估 ArrayQueries.verse 实现时，验证了所有 option[T] 相关猜想的实际应用：
+
+**CONJ-004 验证**（option[T] 查询操作符 `?`）:
+```verse
+# 在 Contains 函数中的实际应用
+ContainsInt<public>(Arr:[]int, Target:int)<transacts>:logic =
+    Result := IndexOfInt(Arr, Target)
+    if (Result?) then true else false  # Result? 在 failure context 中使用 ✅
+```
+
+**CONJ-006 验证**（`false` 是空值字面量）:
+```verse
+# 在 IndexOf 函数中的实际应用
+IndexOfInt<public>(Arr:[]int, Target:int)<transacts>:?int =
+    var Result:?int = false  # 使用 false 初始化 option ✅
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            if (not Result?):
+                set Result = option{Index}
+    Result
+```
+
+**CONJ-007 验证**（option 构造器 failure context）:
+```verse
+# 使用 option{Expression} 构造器
+set Result = option{Index}  # 自动捕获失败 ✅
+set LastIndex = option{Index}  # 失败时自动为 false ✅
+```
+
+**实践发现**:
+1. ✅ option[T] 完美适合数组查询场景（未找到是正常情况）
+2. ✅ `false` 作为空值语义清晰，易于理解
+3. ✅ `option{Expression}` 简化了安全构造
+4. ✅ `Result?` 操作符强制在 failure context 中使用，避免忘记检查
+
+**参考实现**:
+- 文件：`verseProject/source/library/logicModules/coreMathUtils/ArrayQueries.verse`
+- 函数：IndexOfInt, LastIndexOfInt, ContainsInt, FindAllInt
+- 模式：`knowledge/PATTERNS.md` - Option[T] Array Query Pattern
+
+
 - 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
 
 ---
@@ -224,6 +271,53 @@ option[T] 的查询操作符 `?` 是一个 failable expression，必须在 failu
 
 ### 参考
 
+### 验证记录更新 (2026-01-13) - TASK-023
+
+**验证任务**: TASK-023 (Array Queries) 实现评估
+
+**验证结果**: ✅ **完全确认 - 实践应用成功**
+
+在评估 ArrayQueries.verse 实现时，验证了所有 option[T] 相关猜想的实际应用：
+
+**CONJ-004 验证**（option[T] 查询操作符 `?`）:
+```verse
+# 在 Contains 函数中的实际应用
+ContainsInt<public>(Arr:[]int, Target:int)<transacts>:logic =
+    Result := IndexOfInt(Arr, Target)
+    if (Result?) then true else false  # Result? 在 failure context 中使用 ✅
+```
+
+**CONJ-006 验证**（`false` 是空值字面量）:
+```verse
+# 在 IndexOf 函数中的实际应用
+IndexOfInt<public>(Arr:[]int, Target:int)<transacts>:?int =
+    var Result:?int = false  # 使用 false 初始化 option ✅
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            if (not Result?):
+                set Result = option{Index}
+    Result
+```
+
+**CONJ-007 验证**（option 构造器 failure context）:
+```verse
+# 使用 option{Expression} 构造器
+set Result = option{Index}  # 自动捕获失败 ✅
+set LastIndex = option{Index}  # 失败时自动为 false ✅
+```
+
+**实践发现**:
+1. ✅ option[T] 完美适合数组查询场景（未找到是正常情况）
+2. ✅ `false` 作为空值语义清晰，易于理解
+3. ✅ `option{Expression}` 简化了安全构造
+4. ✅ `Result?` 操作符强制在 failure context 中使用，避免忘记检查
+
+**参考实现**:
+- 文件：`verseProject/source/library/logicModules/coreMathUtils/ArrayQueries.verse`
+- 函数：IndexOfInt, LastIndexOfInt, ContainsInt, FindAllInt
+- 模式：`knowledge/PATTERNS.md` - Option[T] Array Query Pattern
+
+
 - 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
 
 ---
@@ -254,6 +348,53 @@ option[T] 的查询操作符 `?` 是一个 failable expression，必须在 failu
 4. ✅ 提供了一种优雅的错误处理方式
 
 ### 参考
+
+### 验证记录更新 (2026-01-13) - TASK-023
+
+**验证任务**: TASK-023 (Array Queries) 实现评估
+
+**验证结果**: ✅ **完全确认 - 实践应用成功**
+
+在评估 ArrayQueries.verse 实现时，验证了所有 option[T] 相关猜想的实际应用：
+
+**CONJ-004 验证**（option[T] 查询操作符 `?`）:
+```verse
+# 在 Contains 函数中的实际应用
+ContainsInt<public>(Arr:[]int, Target:int)<transacts>:logic =
+    Result := IndexOfInt(Arr, Target)
+    if (Result?) then true else false  # Result? 在 failure context 中使用 ✅
+```
+
+**CONJ-006 验证**（`false` 是空值字面量）:
+```verse
+# 在 IndexOf 函数中的实际应用
+IndexOfInt<public>(Arr:[]int, Target:int)<transacts>:?int =
+    var Result:?int = false  # 使用 false 初始化 option ✅
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            if (not Result?):
+                set Result = option{Index}
+    Result
+```
+
+**CONJ-007 验证**（option 构造器 failure context）:
+```verse
+# 使用 option{Expression} 构造器
+set Result = option{Index}  # 自动捕获失败 ✅
+set LastIndex = option{Index}  # 失败时自动为 false ✅
+```
+
+**实践发现**:
+1. ✅ option[T] 完美适合数组查询场景（未找到是正常情况）
+2. ✅ `false` 作为空值语义清晰，易于理解
+3. ✅ `option{Expression}` 简化了安全构造
+4. ✅ `Result?` 操作符强制在 failure context 中使用，避免忘记检查
+
+**参考实现**:
+- 文件：`verseProject/source/library/logicModules/coreMathUtils/ArrayQueries.verse`
+- 函数：IndexOfInt, LastIndexOfInt, ContainsInt, FindAllInt
+- 模式：`knowledge/PATTERNS.md` - Option[T] Array Query Pattern
+
 
 - 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
 
