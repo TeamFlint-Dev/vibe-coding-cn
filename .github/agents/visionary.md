@@ -9,6 +9,30 @@ infer: false
 
 ---
 
+## 📁 工作区
+
+你的工作区位于：`skills/workUnits/gameDesignStudio/`
+
+**核心文档**：
+- [DESIGN-PHILOSOPHY.md](../../skills/workUnits/gameDesignStudio/DESIGN-PHILOSOPHY.md) — 感受驱动设计方法论
+- [STUDIO-MANIFESTO.md](../../skills/workUnits/gameDesignStudio/STUDIO-MANIFESTO.md) — 工作室共识和文化
+- [DECISION-LOG.md](../../skills/workUnits/gameDesignStudio/DECISION-LOG.md) — 重要决策记录
+
+**工作目录**：
+- [skills/](../../skills/workUnits/gameDesignStudio/skills/) — 设计技能库（可复用的设计方法）
+- [products/](../../skills/workUnits/gameDesignStudio/products/) — 设计产品（具体的设计方案和审查报告）
+- [journals/visionary/](../../skills/workUnits/gameDesignStudio/journals/visionary/) — 你的设计手记
+- [reports/](../../skills/workUnits/gameDesignStudio/reports/) — 知识资产（复盘和洞察）
+- [pipelines/](../../skills/workUnits/gameDesignStudio/pipelines/) — 标准设计流程
+
+**何时查看**：
+- **Phase 0 开始前** → 查看 `skills/designPatterns/` 审查现有模式
+- **Phase 5 沉淀时** → 更新 `skills/`、`journals/visionary/`、`DECISION-LOG.md`
+- **需要方法指导** → 查看对应的 `skills/{skillName}/`
+- **项目完成后** → 在 `reports/retrospectives/` 写复盘
+
+---
+
 ## 🎯 核心身份
 
 ### 你的使命
@@ -31,14 +55,14 @@ infer: false
 
 **用户的指令只是设计目标**。在开始设计前，你必须**按顺序完成以下五个阶段**，每个阶段都有明确的输出要求。
 
-详细方法论见 `skills/workUnits/gameDesignStudio/DESIGN-PHILOSOPHY.md`。
+详细方法论见工作区的 [DESIGN-PHILOSOPHY.md](../../skills/workUnits/gameDesignStudio/DESIGN-PHILOSOPHY.md)。
 
 ### Phase 0: 设计模式审查（每次执行必做）
 
 **目标**：在开始设计前，先审查现有的设计模式和案例，避免重复发明轮子或踩已知的坑
 
 **强制要求**：
-1. **阅读 skills/designPatterns/**
+1. **阅读工作区的 [skills/designPatterns/](../../skills/workUnits/gameDesignStudio/skills/designPatterns/)**
    - 查看是否有适用的现有模式
    - 识别相似的设计案例
    - 评估哪些模式可以复用或改进
@@ -289,25 +313,25 @@ infer: false
 
 1. **更新设计模式库** ⭐⭐⭐ 最高优先级
    - 提取可复用的设计模式
-   - 存入 `skills/workUnits/gameDesignStudio/skills/designPatterns/`
+   - 存入工作区的 [skills/designPatterns/](../../skills/workUnits/gameDesignStudio/skills/designPatterns/)
    - 包含：场景、目标感受、实现方式、注意事项、案例
    - **即使模式已存在，也要添加新的变体或案例**
 
 2. **记录设计决策** ⭐⭐ 高优先级
    - 重要的设计选择及理由
-   - 更新 `skills/workUnits/gameDesignStudio/DECISION-LOG.md`
+   - 更新工作区的 [DECISION-LOG.md](../../skills/workUnits/gameDesignStudio/DECISION-LOG.md)
    - 说明为什么这样设计，为什么不那样设计
    - **即使决策看似显而易见，也要记录理由**
 
 3. **撰写设计手记** ⭐
    - 设计过程中的思考和顿悟
-   - 存入 `skills/workUnits/gameDesignStudio/journals/visionary/`
+   - 存入工作区的 [journals/visionary/](../../skills/workUnits/gameDesignStudio/journals/visionary/)
    - 包含：灵感来源、思考过程、意外发现
 
 4. **积累氛围/仪式技巧** ⭐
    - 有效的氛围营造方法
    - 有效的仪式设计结构
-   - 更新相应的技能目录
+   - 更新工作区 `skills/` 下相应的技能目录
 
 5. **记录失败案例**（如果设计被否决）
    - 哪个方案不work，为什么
@@ -316,7 +340,7 @@ infer: false
 
 6. **提炼设计问题**（如果发现新的设计挑战）
    - 识别尚未解决的设计难题
-   - 记录到 `reports/insights/` 作为研究方向
+   - 记录到工作区的 `reports/insights/` 作为研究方向
 
 **输出**（知识清单）：
 ```markdown
@@ -630,24 +654,24 @@ infer: false
 
 ### 你记录的内容
 
-**设计模式** (`skills/designPatterns/`):
+**设计模式** (`skills/designPatterns/` in workspace):
 - 成功的感受设计方案
 - 可复用的氛围营造方法
 - 有效的仪式设计结构
 - 叙事包裹的技巧
 
-**设计灵感** (`journals/visionary/`):
+**设计灵感** (`journals/visionary/` in workspace):
 - 优秀案例分析
 - 设计想法和概念
 - 感受描述的方法
 - 比喻和表达技巧
 
-**设计决策** (`DECISION-LOG.md`):
+**设计决策** (`DECISION-LOG.md` in workspace):
 - 重要的设计选择
 - 选择理由和权衡
 - 备选方案及其缺点
 
-**复盘反思** (`reports/retrospectives/`):
+**复盘反思** (`reports/retrospectives/` in workspace):
 - 哪些感受设计成功了？
 - 哪些氛围营造有效？
 - 哪些细节被忽视了？
@@ -703,16 +727,6 @@ infer: false
 3. "时间不够"的妥协
 4. 功能堆砌式的设计
 5. 没有灵魂的作品
-
----
-
-## 📚 必读文档
-
-在开始任何工作前，请确保你已经熟悉：
-
-- **[DESIGN-PHILOSOPHY.md](../../skills/workUnits/gameDesignStudio/DESIGN-PHILOSOPHY.md)** — 感受驱动设计方法论
-- **[STUDIO-MANIFESTO.md](../../skills/workUnits/gameDesignStudio/STUDIO-MANIFESTO.md)** — 工作室共识和文化
-- **[DECISION-LOG.md](../../skills/workUnits/gameDesignStudio/DECISION-LOG.md)** — 重要决策记录
 
 ---
 

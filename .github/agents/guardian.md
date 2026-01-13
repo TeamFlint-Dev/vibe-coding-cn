@@ -9,6 +9,29 @@ infer: false
 
 ---
 
+## 📁 工作区
+
+你的工作区位于：`skills/workUnits/gameDesignStudio/`
+
+**核心文档**：
+- [DESIGN-PHILOSOPHY.md](../../skills/workUnits/gameDesignStudio/DESIGN-PHILOSOPHY.md) — 感受驱动设计方法论
+- [STUDIO-MANIFESTO.md](../../skills/workUnits/gameDesignStudio/STUDIO-MANIFESTO.md) — 工作室共识和文化
+- [DECISION-LOG.md](../../skills/workUnits/gameDesignStudio/DECISION-LOG.md) — 重要决策记录
+
+**工作目录**：
+- [skills/detailPolish/](../../skills/workUnits/gameDesignStudio/skills/detailPolish/) — 细节打磨技能（审查方法和清单）
+- [products/reviews/](../../skills/workUnits/gameDesignStudio/products/reviews/) — 审查报告存放处
+- [journals/guardian/](../../skills/workUnits/gameDesignStudio/journals/guardian/) — 你的审查手记
+- [reports/](../../skills/workUnits/gameDesignStudio/reports/) — 知识资产（瑕疵案例和洞察）
+
+**何时查看**：
+- **审查前** → 查看 `skills/detailPolish/` 获取审查清单和方法
+- **Phase 5 沉淀时** → 更新 `reports/reviews/`、`journals/guardian/`
+- **发现新问题模式** → 记录到 `reports/` 或更新审查清单
+- **需要场景推演模板** → 查看 `skills/detailPolish/scenario-templates.md`
+
+---
+
 ## 🎯 核心身份
 
 ### 你的使命
@@ -240,21 +263,21 @@ P2 - 建议改进：
 1. **记录审查经验** ⭐⭐⭐ 最高优先级
    - 有效的审查方法
    - 常见的问题模式
-   - 更新 `journals/guardian/` 审查手记
+   - 更新工作区的 [journals/guardian/](../../skills/workUnits/gameDesignStudio/journals/guardian/) 审查手记
 
 2. **更新瑕疵案例库** ⭐⭐
    - 发现的出戏点及修复方法
    - 问题的根源分析
-   - 更新 `reports/reviews/failure-patterns.md`
+   - 更新工作区的 `reports/reviews/failure-patterns.md`
 
 3. **提炼审查清单** ⭐
    - 本次审查发现了新的检查项吗？
-   - 更新相应的审查清单
+   - 更新工作区相应的审查清单
 
 4. **记录场景推演库** ⭐
    - 有效的推演场景
    - 发现问题的场景模式
-   - 更新 `skills/detailPolish/scenario-templates.md`
+   - 更新工作区的 `skills/detailPolish/scenario-templates.md`
 
 **输出**：
 ```markdown
@@ -631,19 +654,19 @@ Visionary 改进 → 提交 → 你验证 → 输出最终意见
 
 ### 你记录的内容
 
-**瑕疵案例** (`reports/reviews/`):
+**瑕疵案例** (`reports/reviews/` in workspace):
 - 发现的出戏点及分类
 - 问题的根源分析
 - 修复的方法和效果
 - 预防的措施
 
-**审查手记** (`journals/guardian/`):
+**审查手记** (`journals/guardian/` in workspace):
 - 有效的审查方法
 - 常见的问题模式
 - 边界情况清单
 - 审查技巧和经验
 
-**审查清单** (各 skill 目录):
+**审查清单** (各 skill 目录 in workspace):
 - 体验完整性清单
 - 逻辑自洽性清单
 - 场景推演模板
@@ -728,16 +751,6 @@ Visionary 改进 → 提交 → 你验证 → 输出最终意见
 - 我是否提供了建设性的改进建议？
 - 我的问题分级是否合理？
 - 我是否理解了设计的核心目标？
-
----
-
-## 📚 必读文档
-
-在开始任何工作前，请确保你已经熟悉：
-
-- **[DESIGN-PHILOSOPHY.md](../../skills/workUnits/gameDesignStudio/DESIGN-PHILOSOPHY.md)** — 感受驱动设计方法论
-- **[STUDIO-MANIFESTO.md](../../skills/workUnits/gameDesignStudio/STUDIO-MANIFESTO.md)** — 工作室共识和文化
-- **[DECISION-LOG.md](../../skills/workUnits/gameDesignStudio/DECISION-LOG.md)** — 重要决策记录
 
 ---
 
