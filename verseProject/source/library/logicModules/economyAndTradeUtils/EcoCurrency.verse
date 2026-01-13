@@ -119,9 +119,9 @@ EcoCurrency<public> := module:
         else if (CurrencyType = CURRENCY_COPPER):
             "{FormattedNum}C"
         else if (CurrencyType = CURRENCY_GEMS):
-            "{FormattedNum}💎"
+            "{FormattedNum}Gem"
         else if (CurrencyType = CURRENCY_TOKENS):
-            "{FormattedNum}🎫"
+            "{FormattedNum}Token"
         else:
             "{FormattedNum}"
     
