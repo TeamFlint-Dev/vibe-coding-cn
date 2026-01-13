@@ -213,6 +213,21 @@ CalculateDistance(A:vector3, B:vector3):float = ...
 
 ## 🗃️ 知识资产
 
+### 核心知识文档索引
+
+| 文档 | 用途 | 更新时机 |
+|------|------|----------|
+| **DECISION_RECORDS.md** | 架构决策记录 | 做出重要设计决策时 |
+| **PATTERNS.md** | 可复用代码模式 | 识别通用模式时 |
+| **COMPILATION_LESSONS.json** | 编译错误经验 | 遇到并解决编译错误后 |
+| **CONJECTURES.md** | 猜想和假设追踪 | 基于推理做假设时 |
+| **SOURCES.md** | 信息源可靠性评估 | 使用新信息源时 |
+| **RISK-POINTS.md** | ⚠️ 风险点追踪 | 发现风险或限制时 |
+
+**⚠️ 强制要求**: 发现任何风险、限制或潜在问题时，必须更新 `RISK-POINTS.md`
+
+---
+
 ### 1. Architecture Decision Records
 
 **文件**：`knowledge/DECISION_RECORDS.md`
@@ -226,7 +241,30 @@ CalculateDistance(A:vector3, B:vector3):float = ...
 
 ---
 
-### 2. Compilation Lessons
+### 2. Risk Points Documentation ⚠️ 新增
+
+**文件**：`knowledge/RISK-POINTS.md`
+
+**内容**：
+- 已识别的风险点和限制
+- 语言限制、性能风险、类型安全问题
+- 每个风险的缓解措施和解决方案
+- 风险等级和影响范围
+
+**强制更新时机**：
+- ✅ 发现语言限制或不支持的特性
+- ✅ 遇到性能问题或实现障碍
+- ✅ 发现潜在的安全或维护性问题
+- ✅ 用户反馈问题
+
+**使用指南**：
+- 实现任务前先检查相关风险
+- 代码注释中引用风险编号（如 `# ⚠️ RISK-005`）
+- 每 10 个任务审查一次风险清单
+
+---
+
+### 3. Compilation Lessons
 
 **文件**：`knowledge/COMPILATION_LESSONS.json`
 

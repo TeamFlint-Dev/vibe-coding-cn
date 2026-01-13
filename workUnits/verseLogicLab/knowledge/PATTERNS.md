@@ -206,6 +206,125 @@ CheckInRange<public>(Value:float, Min:float, Max:float)<decides>:void =
 
 **相关模式**:
 - State Query Pattern
+- Validation Function Pattern (范围验证的标准模式)
+
+---
+
+#### 3.2 Validation Function Pattern（验证函数模式）
+
+**意图**: 对输入参数进行验证，确保数据满足约束条件，使用 fail-fast 策略
+
+**使用场景**: 
+- 函数入口参数验证
+- 数值范围检查
+- 业务规则验证
+- 前置条件断言
+
+**核心原则**:
+1. **Fail-Fast**: 验证失败时立即停止，不继续执行
+2. **使用 `<decides><transacts>` 效果**: 标准验证签名
+3. **返回 `void`**: 通过成功/失败而非返回值传递结果
+4. **命名约定**: `Validate*` 前缀，清晰表达验证意图
+
+**结构**:
+```verse
+# 基础模式
+ValidateCondition<public>(Value:type, ...constraints)<decides><transacts>:void =
+    [条件表达式1]
+    [条件表达式2]
+    ...
+
+# 带容差的浮点数验证
+ValidateFloat<public>(Value:float, ...constraints, ?Epsilon:float = DefaultEpsilon)<decides><transacts>:void =
+    [使用 epsilon 的条件表达式]
+```
+
+**示例**:
+```verse
+using { RangeValidation }
+
+# 整数范围验证
+ValidateIntInRange<public>(Value:int, MinVal:int, MaxVal:int)<decides><transacts>:void =
+    Value >= MinVal
+    Value <= MaxVal
+
+# 浮点数验证（带容差）
+ValidateFloatPositive<public>(Value:float, ?Epsilon:float = 0.0001)<decides><transacts>:void =
+    Value > Epsilon
+
+# 组合验证（多条件）
+ValidateIntRangeNonZero<public>(Value:int, MinVal:int, MaxVal:int)<decides><transacts>:void =
+    Value >= MinVal
+    Value <= MaxVal
+    Value <> 0
+
+# 使用示例：在函数入口验证参数
+CalculateDamage<public>(BaseDamage:float, DefenseRating:float)<transacts>:float =
+    # 验证输入参数
+    RangeValidation.ValidateFloatNonNegative[BaseDamage]
+    RangeValidation.ValidatePercent[DefenseRating]
+    
+    # 参数有效，继续计算
+    FinalDamage := BaseDamage * (1.0 - DefenseRating)
+    FinalDamage
+```
+
+**验证函数的分类**:
+
+| 类别 | 函数示例 | 用途 |
+|------|----------|------|
+| **范围验证** | ValidateIntInRange, ValidateFloatInRange | 检查值是否在 [min, max] 内 |
+| **符号验证** | ValidatePositive, ValidateNonNegative | 检查正负性 |
+| **特殊值验证** | ValidatePercent, ValidateAngleDegrees | 验证特定领域的值 |
+| **索引验证** | ValidateArrayIndex | 检查数组访问是否安全 |
+| **组合验证** | ValidateIntRangeNonZero | 多条件组合验证 |
+
+**为什么使用 `<decides><transacts>` 而非返回 bool？**
+
+```verse
+# ❌ 不推荐：返回 bool 需要手动检查
+if (IsInRange(Value, 0, 100) = true):
+    DoSomething()
+else:
+    # 错误处理...
+
+# ✅ 推荐：使用 <decides> 自动失败回滚
+ValidateInRange[Value, 0, 100]  # 失败时自动 rollback
+DoSomething()  # 仅在验证通过后执行
+```
+
+**浮点数验证的特殊考虑**:
+- **问题**: 直接比较浮点数存在精度问题
+- **解决**: 使用 epsilon 容差
+- **实践**: 与 MathFloatComparison 保持一致的 DefaultEpsilon (0.0001)
+
+```verse
+# 浮点数范围验证考虑容差
+ValidateFloatInRange<public>(Value:float, MinVal:float, MaxVal:float, ?Epsilon:float = 0.0001)<decides><transacts>:void =
+    Value >= MinVal - Epsilon  # 允许略小于 MinVal
+    Value <= MaxVal + Epsilon  # 允许略大于 MaxVal
+```
+
+**注意事项**:
+- ✅ 验证函数应该是纯粹的条件检查，不应有副作用
+- ✅ 使用 `[方括号]` 调用验证函数（`<decides>` 效果要求）
+- ✅ 验证失败会触发 rollback，确保事务性
+- ⚠️ 过度验证会影响性能，在性能关键路径上谨慎使用
+- ⚠️ 验证仅检查格式，不检查业务逻辑的语义正确性
+
+**与其他模式的关系**:
+- **Predicate Function**: 验证函数是谓词函数的特殊应用
+- **Safe Math Operations**: 常与验证配合使用（先验证再计算）
+- **Effect-Aware Function Call**: 必须用方括号调用
+
+**实现参考**:
+- `validationUtils/RangeValidation.verse` - 完整的范围验证实现
+- `coreMathUtils/UtilArrays.verse` - CheckEmpty, CheckValidIndex
+- `characterAndStateUtils/RpgHealth.verse` - CheckAlive, CheckFullHealth
+
+**验证猜想**:
+- ✅ CONJ-002 验证：`<decides>` 必须配合 `<transacts>` 使用
+- ✅ 验证函数标准签名：`<decides><transacts>:void`
 
 ---
 
@@ -395,72 +514,85 @@ Percent := SafeDivide(Current, Maximum, 0.0)
 
 ---
 
-### 2.4 Recursion Instead of Var（递归替代可变状态模式）
+### 2.4 Iterative Loop Pattern（迭代循环模式）
 
-**意图**: 在纯函数中实现迭代逻辑，避免使用 var
+**意图**: 使用 for 循环实现迭代逻辑，避免递归
 
-**使用场景**: 需要循环或迭代处理，但必须保持函数纯净（<computes>）
+**使用场景**: 需要循环或迭代处理的所有情况
 
-**问题**: var 需要 `<allocates>` 效果，与 `<computes>` 不兼容
+**问题**: 递归存在以下风险：
+- 堆栈溢出风险（深度递归）
+- 难以预测执行深度
+- 调试困难
+- 性能开销（函数调用开销）
+
+**解决方案**: 使用 for 循环 + var（需要 `<transacts>` 或 `<allocates>` 效果）
 
 **结构**:
 ```verse
-# 错误：使用 var
-ProcessLoop<public>(Value:int)<computes>:int =
-    var Result:int = Value  # ❌ 需要 allocates 效果
-    set Result = Result * 2
+# 使用 for 循环实现迭代
+ProcessIterative<public>(Value:float, MaxIterations:int)<transacts>:float =
+    var Result:float = Value
+    for (I := 0..MaxIterations - 1):
+        # 迭代处理
+        if (Result < 0.0):
+            set Result = Result + 360.0
     Result
-
-# 正确：使用递归
-ProcessRecursive<public>(Value:int, Count:int)<computes>:int =
-    if (Count <= 0):
-        Value
-    else:
-        ProcessRecursive(Value * 2, Count - 1)
 ```
 
 **示例（角度归一化）**:
 ```verse
-# 递归实现角度归一化
-NormalizeAngle360<public>(Angle:float)<computes>:float =
+# 使用迭代循环实现角度归一化
+NormalizeAngle360<public>(Angle:float)<transacts>:float =
     if (Angle >= 0.0 and Angle < 360.0):
         Angle  # 已在范围内
     else if (Angle < 0.0):
-        NormalizeAngle360(Angle + 360.0)  # 递归加360
+        # 负数：迭代加360直到为正
+        var Result:float = Angle
+        for (I := 0..100):  # 最多100次迭代
+            if (Result < 0.0):
+                set Result = Result + 360.0
+        Result
     else:
-        NormalizeAngle360(Angle - 360.0)  # 递归减360
+        # 大于360：迭代减360直到进入范围
+        var Result:float = Angle
+        for (I := 0..100):
+            if (Result >= 360.0):
+                set Result = Result - 360.0
+        Result
 ```
 
 **注意事项**:
-- 递归深度可能受限，避免无限递归
-- 添加终止条件确保递归结束
-- 尾递归优化可能由编译器完成
-- 对于复杂迭代，考虑使用支持 allocates 的效果
+- ✅ 总是设置最大迭代次数，防止无限循环
+- ✅ 使用 `var` 需要 `<transacts>` 或 `<allocates>` 效果
+- ✅ 循环次数应该基于实际需求合理设置
+- ❌ **禁止使用递归** - 递归存在堆栈溢出和难以预测的风险
+- ✅ 对于已知次数的迭代，直接使用固定范围的 for 循环
 
 **相关模式**:
-- Lookup Table Pattern（避免递归计算）
+- Lookup Table Pattern（对于可预计算的值，优先使用查表）
 
 **来源**:
-- `MathRanges.verse` - NormalizeAngle360/180
+- `MathRanges.verse` - NormalizeAngle360/180（已从递归重构为迭代）
 
 ---
 
 ### 2.5 Lookup Table Pattern（查表模式）
 
-**意图**: 用预计算的值表替代复杂计算或递归
+**意图**: 用预计算的值表替代复杂计算或迭代
 
 **使用场景**: 计算结果可预知且数量有限
 
 **结构**:
 ```verse
-# 错误：使用递归计算2的幂
-PowerOf2Recursive(N:int)<computes>:int =
-    if (N <= 0):
-        1
-    else:
-        2 * PowerOf2Recursive(N - 1)  # 每次调用都递归
+# 不推荐：使用迭代计算2的幂（每次调用都要循环）
+PowerOf2Iterative(N:int)<transacts>:int =
+    var Result:int = 1
+    for (I := 0..N - 1):
+        set Result = Result * 2
+    Result
 
-# 正确：使用查表
+# 推荐：使用查表（O(1) 查找）
 PowerOf2<public>(N:int)<computes>:int =
     if (N <= 0):
         1
@@ -483,7 +615,7 @@ PowerOf2<public>(N:int)<computes>:int =
 
 **优势**:
 - O(1) 查找时间
-- 无递归风险
+- 无迭代开销
 - 编译器可能优化为跳转表
 - 代码清晰，易于理解
 

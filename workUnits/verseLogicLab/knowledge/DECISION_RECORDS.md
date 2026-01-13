@@ -539,3 +539,810 @@ Enum 值使用 "Curve" 前缀：`CurveLinear`, `CurveInSine`, `CurveOutSine` 等
 
 ---
 
+## ADR-008: 禁止递归，强制使用迭代循环
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: 所有 logicModules
+
+### 上下文（Context）
+
+在早期开发中，部分模块（如 `MathRanges.verse` 的 `NormalizeAngle360`）使用了递归来实现迭代逻辑。递归方法存在以下问题：
+
+1. **堆栈溢出风险**: 深度递归可能导致堆栈溢出，尤其是输入值极端时
+2. **难以预测**: 递归深度取决于输入值，无法提前预知执行深度
+3. **调试困难**: 递归调用链难以追踪和调试
+4. **性能开销**: 每次递归调用都有函数调用开销
+5. **不够直观**: 递归逻辑对于维护者来说理解成本较高
+
+### 决策（Decision）
+
+**全面禁止使用递归，所有迭代逻辑必须使用 for 循环实现。**
+
+具体要求：
+1. ✅ **使用 for 循环** + var 实现所有迭代逻辑
+2. ✅ **设置最大迭代次数**，防止无限循环
+3. ✅ **使用 `<transacts>` 或 `<allocates>` 效果**支持 var
+4. ❌ **禁止函数自调用**（递归）
+5. ❌ **禁止互相递归**（函数 A 调用 B，B 调用 A）
+
+### 理由（Rationale）
+
+#### 为什么禁止递归？
+
+**安全性问题**:
+```verse
+# ❌ 危险：递归可能导致堆栈溢出
+NormalizeAngle360<public>(Angle:float)<computes>:float =
+    if (Angle < 0.0):
+        NormalizeAngle360(Angle + 360.0)  # 如果 Angle = -1e10，会递归数百万次
+    else:
+        Angle
+```
+
+**可预测性问题**:
+- 递归深度取决于输入，无法保证不会崩溃
+- 极端输入（如 -1e10 度）会导致深度递归
+
+**维护性问题**:
+- 递归逻辑需要更多心智负担理解
+- 调试时难以追踪调用栈
+- 性能分析困难
+
+#### 为什么使用 for 循环？
+
+**安全性保证**:
+```verse
+# ✅ 安全：固定最大迭代次数，不会堆栈溢出
+NormalizeAngle360<public>(Angle:float)<transacts>:float =
+    if (Angle < 0.0):
+        var Result:float = Angle
+        for (I := 0..100):  # 最多100次，绝对安全
+            if (Result < 0.0):
+                set Result = Result + 360.0
+        Result
+    else:
+        Angle
+```
+
+**可预测性**:
+- 固定的最大迭代次数，执行时间可预测
+- 不会因输入极端而无限执行
+- 易于性能分析和优化
+
+**易维护性**:
+- 逻辑清晰直观
+- 调试简单（可以单步执行每次迭代）
+- 性能可控
+
+### 替代方案（Alternatives）
+
+**方案 A: 保留递归，添加深度限制**
+- 优点：代码简洁
+- 缺点：仍有堆栈溢出风险，深度限制难以选择
+- **未选择理由**: 风险仍然存在
+
+**方案 B: 使用尾递归优化**
+- 优点：编译器可能优化为循环
+- 缺点：依赖编译器优化，不可控
+- **未选择理由**: Verse 编译器是否支持尾递归优化未知
+
+**方案 C: 仅在特定场景使用递归**
+- 优点：灵活
+- 缺点：规则不一致，难以执行
+- **未选择理由**: 全面禁止更简单明确
+
+### 后果（Consequences）
+
+**积极影响**:
+- ✅ 消除堆栈溢出风险
+- ✅ 执行时间可预测
+- ✅ 代码更易理解和维护
+- ✅ 调试更简单
+- ✅ 性能可控
+
+**需要注意**:
+- ⚠️ 需要使用 `<transacts>` 或 `<allocates>` 效果（不能使用纯 `<computes>`）
+- ⚠️ 需要合理设置最大迭代次数
+- ⚠️ 某些算法（如树遍历）可能需要转换为迭代形式
+
+**迁移指南**:
+```verse
+# 从递归转换为迭代的标准模式
+
+# 旧代码（递归）
+OldRecursive<public>(Value:float)<computes>:float =
+    if (Condition):
+        Value
+    else:
+        OldRecursive(Transform(Value))
+
+# 新代码（迭代）
+NewIterative<public>(Value:float, MaxIterations:int)<transacts>:float =
+    var Result:float = Value
+    for (I := 0..MaxIterations - 1):
+        if (not Condition):
+            set Result = Transform(Result)
+    Result
+```
+
+**执行要求**:
+- 所有新代码必须使用迭代循环
+- 现有递归代码必须重构为迭代
+- Code Review 时严格检查，发现递归立即拒绝
+
+### 参考（References）
+
+- **重构示例**: `MathRanges.verse` - NormalizeAngle360 从递归改为迭代
+- **模式文档**: `PATTERNS.md` - Iterative Loop Pattern (section 2.4)
+- **编译验证**: 重构后编译通过，0错误
+
+---
+
+## ADR-007: Range Validation 设计决策
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `validationUtils/RangeValidation.verse`
+
+### 上下文（Context）
+
+需要为逻辑模块提供标准的参数验证机制。在实现 TASK-081（Range Validation）时，需要决定：
+1. 验证函数应该返回 bool 还是使用 `<decides>` 效果？
+2. 是否需要同时支持 int 和 float？
+3. 浮点数验证是否需要容差？
+4. 如何与现有的 MathFloatComparison 协调？
+
+### 决策（Decision）
+
+采用以下设计：
+1. **使用 `<decides><transacts>:void` 签名**：验证失败时自动触发 rollback
+2. **同时提供 int 和 float 版本**：满足不同类型的验证需求
+3. **float 验证使用 epsilon 容差**：与 MathFloatComparison 保持一致
+4. **统一命名约定**：`Validate*` 前缀，清晰表达验证意图
+
+### 理由（Rationale）
+
+#### 1. 为什么使用 `<decides>` 而非返回 bool？
+
+**方案对比**:
+
+```verse
+# 方案 A: 返回 bool
+IsInRange<public>(Value:int, Min:int, Max:int)<computes>:logic =
+    if (Value >= Min):
+        if (Value <= Max):
+            true
+        else:
+            false
+    else:
+        false
+
+# 使用时需要手动检查
+if (IsInRange(Value, 0, 100) = true):
+    DoSomething()
+else:
+    # 手动错误处理
+    Print("Invalid value")
+
+# 方案 B: 使用 <decides>
+ValidateInRange<public>(Value:int, Min:int, Max:int)<decides><transacts>:void =
+    Value >= Min
+    Value <= Max
+
+# 使用时自动失败回滚
+ValidateInRange[Value, 0, 100]
+DoSomething()  # 仅在验证通过后执行
+```
+
+**选择方案 B 的理由**:
+- ✅ **Fail-Fast**: 验证失败立即停止，不需要手动检查返回值
+- ✅ **事务性**: `<transacts>` 确保失败时自动回滚
+- ✅ **简洁性**: 调用代码更简洁，无需 if-else 包裹
+- ✅ **一致性**: 与现有验证函数（CheckEmpty, CheckAlive）保持一致
+- ✅ **可组合性**: 多个验证可以顺序调用，任一失败即回滚
+
+#### 2. 为什么同时支持 int 和 float？
+
+- **int 验证**：不需要容差，精确比较
+  - 数组索引、计数器、ID 等场景
+  - 性能更好（无浮点运算）
+
+- **float 验证**：需要容差，避免精度问题
+  - 百分比、角度、物理参数等场景
+  - 与 MathFloatComparison 一致
+
+#### 3. 为什么 float 使用 epsilon = 0.0001？
+
+**与 MathFloatComparison 保持一致**:
+- ✅ 已有的 ADR-001 详细说明了 epsilon 选择理由
+- ✅ 0.0001 适用于大多数游戏逻辑场景
+- ✅ 提供灵活性：可选参数允许自定义 epsilon
+
+**示例**:
+```verse
+# 默认 epsilon (0.0001)
+ValidatePercent[Value]  # 检查 0.0 <= Value <= 1.0
+
+# 自定义 epsilon（高精度场景）
+ValidatePercent[Value, ?Epsilon := 0.000001]
+```
+
+#### 4. 为什么采用 `Validate*` 命名约定？
+
+**对比其他命名方案**:
+
+| 方案 | 示例 | 优点 | 缺点 |
+|------|------|------|------|
+| `Check*` | CheckInRange | 简短 | 与查询混淆（如 CheckEmpty 是查询） |
+| `Is*` | IsInRange | 符合布尔函数习惯 | 暗示返回 bool，与 `<decides>` 不符 |
+| `Assert*` | AssertInRange | 明确表达断言语义 | 在某些语言中有特殊含义（调试用） |
+| **`Validate*`** | **ValidateInRange** | **清晰表达验证意图** | **稍长** |
+
+**选择 `Validate*` 的理由**:
+- ✅ 明确表达"验证"而非"查询"
+- ✅ 与现有函数区分（Check* 用于查询，Validate* 用于验证）
+- ✅ 行业标准（许多语言和框架使用 Validate 表示验证）
+
+### 替代方案（Alternatives）
+
+**方案 A: 仅提供 bool 返回值函数**
+- 优点：灵活，用户可以自行处理错误
+- 缺点：需要手动检查，容易遗漏，代码冗长
+- **未选择理由**: Verse 的 `<decides>` 机制更优雅
+
+**方案 B: 仅提供 float 版本，int 自动转换**
+- 优点：减少代码重复
+- 缺点：性能损失，类型不明确
+- **未选择理由**: int 和 float 有不同的验证语义（精确 vs 容差）
+
+**方案 C: 使用 option[T] 返回值**
+- 优点：可以返回详细的错误信息
+- 缺点：调用代码复杂，需要解包 option
+- **未选择理由**: 验证不需要返回详细信息，失败即可
+
+### 后果（Consequences）
+
+**积极影响**:
+- ✅ 统一的验证函数接口，易于学习和使用
+- ✅ Fail-fast 机制减少错误传播
+- ✅ 与现有代码风格一致
+- ✅ 浮点数验证避免了精度陷阱
+- ✅ 为所有逻辑模块提供了标准的参数验证工具
+
+**使用指南**:
+```verse
+using { RangeValidation }
+
+# 函数入口验证参数
+CalculatePercent<public>(Current:int, Total:int)<transacts>:float =
+    # 验证参数有效性
+    RangeValidation.ValidatePositive[Total]      # Total 必须 > 0
+    RangeValidation.ValidateNonNegative[Current]  # Current 必须 >= 0
+    
+    # 参数已验证，安全计算
+    Result := (Current * 1.0) / (Total * 1.0)
+    Result
+
+# 组合多个验证
+ProcessValue<public>(Value:float)<transacts>:void =
+    RangeValidation.ValidatePercent[Value]        # 0 <= Value <= 1
+    RangeValidation.ValidateFloatNonZero[Value]   # Value != 0
+    # Value 在 (0, 1] 范围内，继续处理
+```
+
+**注意事项**:
+- ⚠️ 验证会增加函数调用开销，在性能关键路径谨慎使用
+- ⚠️ 过度验证会使代码冗长，仅验证真正的前置条件
+- ⚠️ 验证失败会触发 rollback，确保调用方在 failure context 中
+
+### 参考（References）
+
+- **实现代码**: `validationUtils/RangeValidation.verse`
+- **模式记录**: `PATTERNS.md` - Validation Function Pattern
+- **相关 ADR**: ADR-001 (Float Epsilon 选择)
+- **效果系统**: CONJ-002 (已验证) - `<decides>` 与 `<transacts>` 的关系
+- **现有验证函数**:
+  - `UtilArrays.verse` - CheckEmpty, CheckValidIndex
+  - `RpgHealth.verse` - CheckAlive, CheckFullHealth
+  - `MathProbability.verse` - CheckProbability
+
+---
+
+
+
+## ADR-009: 角度归一化使用模运算而非迭代
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/coreMathUtils/MathRanges.verse`
+
+### 上下文（Context）
+
+在 ADR-008 禁止递归后，`NormalizeAngle360` 最初使用迭代循环实现：
+
+```verse
+# 旧实现：迭代方式
+var Result:float = Angle
+for (I := 0..100):
+    if (Result < 0.0):
+        set Result = Result + 360.0
+Result
+```
+
+**问题**：
+1. **性能**：极端输入（如 ±36000°）需要 100 次迭代
+2. **精度**：达到迭代上限时结果不精确
+3. **代码复杂度**：需要两个分支（正数/负数）和循环变量
+
+**用户反馈**（@stallsping）：为什么不使用取余（模运算）？
+
+### 决策（Decision）
+
+**改用数学模运算公式**：`Result = Angle - Floor(Angle / 360.0) * 360.0`
+
+```verse
+# 新实现：模运算方式
+if (FloorValue := Floor[Angle / 360.0]):
+    Remainder := Angle - (FloorValue * 1.0) * 360.0
+    # 处理浮点误差
+    if (Remainder < 0.0):
+        Remainder + 360.0
+    else if (Remainder >= 360.0):
+        Remainder - 360.0
+    else:
+        Remainder
+else:
+    0.0  # Floor 失败时的安全值
+```
+
+### 理由（Rationale）
+
+#### 为什么使用模运算？
+
+**性能优势**：
+- ✅ O(1) 时间复杂度（vs 迭代的 O(n)）
+- ✅ 极端输入（±1e10°）：1 次计算 vs 100 次迭代
+- ✅ 常见输入（±720°）：1 次计算 vs 1-2 次迭代
+
+**精度优势**：
+- ✅ 数学上精确（无迭代上限）
+- ✅ 处理任意大小的角度值
+- ✅ 仅受浮点数精度限制，而非人为迭代限制
+
+**代码简洁性**：
+- ✅ 单一数学公式，逻辑清晰
+- ✅ 无需循环变量和上限判断
+- ✅ 更易理解和维护
+
+#### 为什么 Verse 没有内置 float mod？
+
+**Verse API 限制**：
+- ❌ `Mod` 函数仅支持 `int`，不支持 `float`
+- ✅ 可使用 `Floor` 函数模拟：`x mod y = x - Floor(x/y) * y`
+
+**效果系统考虑**：
+- ⚠️ `Floor` 有 `<decides>` 效果（可能失败，如 NaN/Infinity）
+- ✅ 必须在 if 表达式中调用以处理失败情况
+- ✅ 失败时返回安全值 0.0（合理的默认角度）
+
+#### 迭代 vs 模运算对比
+
+| 维度 | 迭代方式 | 模运算方式 |
+|------|---------|-----------|
+| **时间复杂度** | O(n)，最坏 100 次 | O(1)，固定 1 次 |
+| **精度** | 受限于迭代上限 | 数学上精确 |
+| **极端输入** | ±36000° 达上限 | 任意大小均可 |
+| **代码行数** | ~15 行（2 分支） | ~10 行（1 公式） |
+| **可读性** | 需理解循环逻辑 | 直观的数学公式 |
+| **安全性** | ⚠️ 需设置上限防止无限循环 | ✅ 天然有界 |
+
+### 替代方案（Alternatives）
+
+**方案 A: 保留迭代方式**
+- 优点：无需 `Floor` 的 `<decides>` 效果处理
+- 缺点：性能差、精度有限、代码复杂
+- **未选择理由**：性能和精度问题明显
+
+**方案 B: 使用查表（Lookup Table）**
+- 优点：无浮点运算
+- 缺点：仅适用于整数角度，无法处理任意 float
+- **未选择理由**：不适用于连续值
+
+**方案 C: 创建 Angle 类封装**（用户建议）
+- 优点：类型安全、语义清晰、可封装更多操作
+- 缺点：
+  - ❌ **Verse 限制**：类在模块中难以使用（需要实例化）
+  - ❌ **性能开销**：对象创建和内存分配
+  - ❌ **复杂度**：简单的角度归一化不值得引入类
+  - ❌ **互操作性**：与现有 float 角度参数不兼容
+- **未选择理由**：过度设计，成本大于收益
+- **未来考虑**：如果需要复杂的角度运算（如四元数、欧拉角转换），可重新评估
+
+### 后果（Consequences）
+
+**积极影响**：
+- ✅ **性能提升**：极端输入快 100 倍
+- ✅ **精度提升**：无上限限制
+- ✅ **代码简化**：更少的行数和分支
+- ✅ **维护性**：数学公式易于理解
+
+**需要注意**：
+- ⚠️ **Floor 失败处理**：NaN/Infinity 输入返回 0.0
+- ⚠️ **效果组合**：`<transacts>` 效果包含 `<decides>`
+- ⚠️ **浮点误差**：仍需边界检查（< 0 或 >= 360）
+
+**性能对比（估算）**：
+```
+输入: -36000°
+迭代方式: 100 次循环 * ~10 ns = 1000 ns
+模运算方式: 1 次除法 + 1 次乘法 + 1 次减法 ~= 30 ns
+加速比: ~33x
+```
+
+### 关于 Angle 类的进一步讨论
+
+#### 为什么不创建 Angle 类？
+
+**Verse 语言限制**：
+```verse
+# ❌ 问题：模块中的类难以作为参数类型
+MathRanges := module:
+    Angle := class:
+        Degrees:float
+    
+    # ❌ 其他模块难以使用这个类型
+    RotateBy<public>(A:Angle):void = ...  # 需要显式实例化
+```
+
+**设计哲学**：
+- ✅ **Logic Layer 应为纯函数**：无状态、可组合
+- ✅ **类适合 Session Layer**：有状态、生命周期管理
+- ❌ **类不适合基础数学运算**：开销大、互操作性差
+
+**何时考虑引入类**：
+- ✅ 复杂的数学对象（如矩阵、四元数）
+- ✅ 需要封装多个相关操作和状态
+- ✅ 在 Session 或 Component 层使用（非 Logic Layer）
+
+**当前方案（primitive obsession 是可接受的）**：
+- ✅ `float` 表示角度：简单、高效、通用
+- ✅ 函数提供语义：`NormalizeAngle360(Degrees:float)`
+- ✅ 注释说明单位：`@param Degrees: 角度值（度）`
+
+### 参考（References）
+
+- **相关决策**: ADR-008 (禁止递归)
+- **用户反馈**: @stallsping comment #3743798239
+- **模式文档**: PATTERNS.md - Iterative Loop Pattern
+- **Verse API**: `Floor` 函数文档
+- **性能分析**: RISK-006 (迭代次数限制)
+
+---
+
+## ADR-010: 何时使用类封装数值类型
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: 未来的数值封装库
+
+### 上下文（Context）
+
+在 ADR-009 中讨论了为何角度不使用类封装，理由是：
+- 简单的角度归一化不值得引入类
+- Logic Layer 应使用纯函数
+- 与现有 float 参数兼容性
+
+**用户反馈**（@stallsping）：
+> "当用户的钱变成几十个亿的时候，你不能无脑增加字段长度去记录，而是应该考虑使用类定义，封装这些定义。不过这些类定义内容都放到一起，方便管理。"
+
+**核心问题**：
+1. **何时原始类型不够用？** float/int 在某些场景下有明显局限
+2. **何时应该使用类？** 需要清晰的判断标准
+3. **如何组织类定义？** 避免散落各处，集中管理
+
+### 决策（Decision）
+
+**建立数值类型封装的判断标准**，并创建集中的类型定义库。
+
+#### 判断标准：何时使用类封装？
+
+**使用类封装的场景**（满足以下任一条件）：
+
+1. **数值范围超出原始类型**
+   - ✅ 货币：几十亿、万亿级别（float 精度不足）
+   - ✅ 大整数：超过 int 范围（需要 BigInteger）
+   - ✅ 高精度计算：科学计算、金融计算
+
+2. **需要复杂的语义约束**
+   - ✅ 货币：不能为负、需要货币单位、汇率转换
+   - ✅ 百分比：0-100% 或 0-1 范围约束
+   - ✅ 时间：年月日时分秒组合、时区处理
+
+3. **需要附加元数据**
+   - ✅ 带单位的数值：温度（°C/°F）、距离（m/km/ft）
+   - ✅ 精度要求：小数位数、舍入规则
+   - ✅ 验证规则：最小值、最大值、有效性检查
+
+4. **需要封装多个操作**
+   - ✅ 货币：加减乘除、格式化、解析
+   - ✅ 时间：加减、比较、格式化
+   - ✅ 复数：算术运算、三角函数
+
+**不使用类的场景**（继续用 float/int）：
+
+1. **简单数值运算**
+   - ✅ 角度归一化（ADR-009 已说明）
+   - ✅ 简单的范围检查
+   - ✅ 临时计算结果
+
+2. **性能关键路径**
+   - ✅ 每帧执行的物理计算
+   - ✅ 大量数组元素的遍历
+   - ✅ GPU 相关的向量运算
+
+3. **与外部 API 交互**
+   - ✅ UEFN API 要求 float/int 参数
+   - ✅ 需要与现有代码兼容
+
+#### 类型定义的组织结构
+
+**创建集中的类型库**（未来实现）：
+
+```
+verseProject/source/library/
+├── logicModules/
+│   └── ... (现有逻辑模块)
+└── types/  # 新增：集中的类型定义
+    ├── numeric/
+    │   ├── Currency.verse        # 货币类
+    │   ├── BigInteger.verse       # 大整数类
+    │   ├── Percentage.verse       # 百分比类
+    │   └── FixedPoint.verse       # 定点数类
+    ├── temporal/
+    │   ├── Duration.verse         # 时长类
+    │   ├── Timestamp.verse        # 时间戳类
+    │   └── Calendar.verse         # 日历类
+    └── physical/
+        ├── Temperature.verse      # 温度类
+        ├── Distance.verse         # 距离类
+        └── Mass.verse             # 质量类
+```
+
+**组织原则**：
+- ✅ **按领域分类**：numeric, temporal, physical 等
+- ✅ **一个文件一个类**：便于维护和查找
+- ✅ **清晰的命名**：类名即用途（Currency, BigInteger）
+- ✅ **集中管理**：统一在 types/ 目录下
+
+### 理由（Rationale）
+
+#### 为什么需要类封装大数值？
+
+**以货币为例**：
+
+**问题 1: float 精度不足**
+```verse
+# ❌ 问题：float 只有 ~7 位有效数字
+Money:float = 9876543210.0  # 实际存储可能是 9876543000.0
+Loss:float = 9876543210.0 - Money  # 210.0 丢失！
+```
+
+**问题 2: 无法表达语义**
+```verse
+# ❌ 问题：负数货币没有意义，但 float 允许
+PlayerMoney:float = -100.0  # 编译通过，但逻辑错误
+```
+
+**问题 3: 缺少操作封装**
+```verse
+# ❌ 问题：格式化、验证需要分散的工具函数
+FormattedMoney := FormatCurrency(Money)  # 函数散落各处
+ValidateCurrency[Money]  # 验证也是独立函数
+```
+
+**解决方案：Currency 类**
+```verse
+Currency := class:
+    # 使用 int 存储分（避免浮点精度问题）
+    AmountInCents:int  # 1亿元 = 100_0000_0000 分
+    
+    # 构造函数验证
+    New(Cents:int)<transacts>:Currency =
+        if (Cents < 0):
+            # 拒绝负数
+            fail
+        Currency{AmountInCents := Cents}
+    
+    # 封装操作
+    Add<public>(Other:Currency)<computes>:Currency =
+        Currency{AmountInCents := AmountInCents + Other.AmountInCents}
+    
+    Format<public>()<computes>:string =
+        # 格式化为 "¥1,234,567.89"
+        # ...实现略
+```
+
+**优势**：
+- ✅ **精度保证**：用 int 存储分，支持万亿级别
+- ✅ **类型安全**：编译时检查，不能与普通 int 混用
+- ✅ **语义清晰**：`Currency` 比 `float` 更明确
+- ✅ **操作封装**：加减、格式化、验证都在类内部
+
+#### 为什么集中管理类定义？
+
+**分散管理的问题**：
+```verse
+# ❌ 问题：类定义散落在业务模块中
+gameLogic/ShopSystem.verse:
+    Currency := class:
+        ...
+
+gameLogic/InventorySystem.verse:
+    Money := class:  # 重复定义！
+        ...
+```
+
+**集中管理的好处**：
+```verse
+# ✅ 解决：统一在 types/ 目录
+types/numeric/Currency.verse:
+    Currency := class:
+        ...
+
+# 业务模块只需引用
+using { /VibeCodingCN/library/types/numeric/Currency }
+
+ShopSystem := module:
+    BuyItem(Price:Currency)<transacts>:void =
+        # 使用统一的 Currency 类
+```
+
+**优势**：
+- ✅ **避免重复**：一个类型只定义一次
+- ✅ **易于查找**：所有类型在 types/ 目录下
+- ✅ **版本一致**：所有模块使用相同版本的类
+- ✅ **便于维护**：修改类定义只需更新一处
+
+#### 何时实现类型库？
+
+**分阶段实现**：
+
+**Phase 1（当前）**：
+- ✅ 使用原始类型 + 工具函数（Logic Layer）
+- ✅ 简单场景无需引入类（如角度归一化）
+- ✅ 记录 ADR-010 作为未来指导
+
+**Phase 2（需求驱动）**：
+- ⏰ 遇到实际需求时才实现（如真的需要处理亿级货币）
+- ⏰ 创建 types/ 目录和第一个类型（如 Currency）
+- ⏰ 在 Session/Component 层使用（非 Logic Layer）
+
+**Phase 3（库完善）**：
+- ⏰ 根据使用情况扩展类型库
+- ⏰ 添加更多领域的类型（temporal, physical）
+- ⏰ 建立类型使用的最佳实践
+
+**现阶段不实现的原因**：
+- ❌ **YAGNI 原则**：目前没有实际需求（You Aren't Gonna Need It）
+- ❌ **避免过度设计**：Logic Layer 当前任务只需纯函数
+- ✅ **保持聚焦**：先完成 P0 任务，再扩展类型系统
+
+### 示例：Currency 类设计草案
+
+**未来实现参考**（存档备用）：
+
+```verse
+# verseProject/source/library/types/numeric/Currency.verse
+
+Currency := class:
+    # 私有字段：存储分（1元 = 100分）
+    # 使用 int 支持 ±21亿分 = ±2100万元（如需更大，用数组模拟 BigInt）
+    var AmountInCents:int
+    
+    # 构造函数：从元创建
+    FromYuan<public>(Yuan:float)<decides><transacts>:Currency =
+        Cents := Floor[Yuan * 100.0]
+        if (CentsInt := Cents):
+            if (CentsInt >= 0):
+                Currency{AmountInCents := CentsInt}
+            else:
+                # 拒绝负数货币
+                fail
+        else:
+            # Floor 失败（NaN/Infinity）
+            fail
+    
+    # 算术运算
+    Add<public>(Other:Currency)<computes>:Currency =
+        Currency{AmountInCents := AmountInCents + Other.AmountInCents}
+    
+    Subtract<public>(Other:Currency)<decides><computes>:Currency =
+        NewAmount := AmountInCents - Other.AmountInCents
+        if (NewAmount >= 0):
+            Currency{AmountInCents := NewAmount}
+        else:
+            # 余额不足
+            fail
+    
+    # 格式化
+    Format<public>()<computes>:string =
+        Yuan := AmountInCents / 100
+        Cents := AmountInCents mod 100
+        # 返回 "¥1,234.56"
+        "¥{Yuan}.{Cents}"
+    
+    # 比较
+    IsGreaterThan<public>(Other:Currency)<computes>:logic =
+        AmountInCents > Other.AmountInCents
+```
+
+**使用示例**：
+```verse
+# 在 Session 层使用
+PlayerSession := class:
+    var Money:Currency = Currency{AmountInCents := 0}
+    
+    AddMoney<public>(Amount:Currency)<transacts>:void =
+        set Money = Money.Add(Amount)
+    
+    Buy<public>(Price:Currency)<transacts>:void =
+        if (NewMoney := Money.Subtract(Price)):
+            set Money = NewMoney
+        else:
+            # 余额不足，购买失败
+            Print("余额不足！")
+```
+
+### 替代方案（Alternatives）
+
+**方案 A: 继续使用 float/int + 工具函数**
+- 优点：简单、性能好
+- 缺点：缺少类型安全、语义不清晰、操作分散
+- **适用场景**：简单数值运算（当前使用）
+
+**方案 B: 使用 tuple 封装**
+```verse
+Currency := tuple(int, string)  # (金额, 货币代码)
+```
+- 优点：轻量级
+- 缺点：无法封装方法、类型不安全（任何 tuple 都能传入）
+- **未选择理由**：不如类强大
+
+**方案 C: 每个模块定义自己的类**
+- 优点：灵活
+- 缺点：重复定义、版本不一致、难以维护
+- **未选择理由**：违反 DRY 原则
+
+**方案 D: 使用第三方库**
+- 优点：成熟、经过测试
+- 缺点：Verse 生态尚未成熟，暂无可用库
+- **未选择理由**：不可行
+
+### 后果（Consequences）
+
+**积极影响**：
+- ✅ **明确标准**：何时用类、何时用原始类型
+- ✅ **集中管理**：未来类型库有清晰的组织结构
+- ✅ **避免过度设计**：按需实现，不提前优化
+- ✅ **指导未来工作**：遇到相关需求时有章可循
+
+**需要注意**：
+- ⚠️ **暂不实现**：当前无实际需求，避免 YAGNI
+- ⚠️ **性能权衡**：类有开销，性能关键路径慎用
+- ⚠️ **兼容性**：类与 UEFN API 的 float/int 参数可能需要转换
+
+**未来行动**：
+- 📝 记录到 improvement-backlog.md 作为未来任务
+- 📝 遇到大数值需求时，启动 types/ 库实现
+- 📝 在 RISK-POINTS.md 中标注原始类型的精度风险
+
+### 参考（References）
+
+- **相关决策**: ADR-009 (为何角度不用类)
+- **用户反馈**: @stallsping comment #3743808637
+- **设计原则**: YAGNI, DRY, SOLID
+- **架构层次**: DLSD 架构 - Session Layer 使用类
+- **性能考虑**: RISK-007 (浮点精度问题)
+
+---

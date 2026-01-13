@@ -204,6 +204,23 @@ infer: false
    - **交叉引用：在 ADR 和 Lessons 中引用信息源**
    - 建立可追溯的知识链条
 
+8. **记录风险点（RISK-POINTS.md）** ⚠️⚠️⚠️ 强制执行（如发现风险）
+   - **强制触发**：遇到以下情况必须记录
+     - ✅ 语言限制（如 vector3 无分量访问、char 无 ToInt）
+     - ✅ 性能问题（如 O(n²) 复杂度、大数据量风险）
+     - ✅ 安全隐患（如堆栈溢出、数值溢出）
+     - ✅ 实现妥协（功能简化、暂缓实现）
+   - 更新 `workUnits/verseLogicLab/knowledge/RISK-POINTS.md`
+   - 分配风险编号（RISK-XXX）
+   - 评估风险等级（高危/中危/低危）
+   - 记录缓解措施或解决方案
+   - **在代码中标注风险引用**（如 `# ⚠️ RISK-005: O(n²) 复杂度`）
+   - **例如**：
+     - TASK-084 暂缓 → 记录 RISK-003 (vector3 限制)
+     - 数组去重 O(n²) → 记录 RISK-005
+     - 递归风险 → 记录 RISK-001 (已解决)
+
+
 ## 🛠️ 内部技能系统
 
 你有以下内部技能可供调用：
@@ -224,13 +241,16 @@ workUnits/verseLogicLab/knowledge/
 ├── DECISION_RECORDS.md           # ADR 记录
 ├── COMPILATION_LESSONS.json      # 编译经验教训
 ├── PATTERNS.md                   # 可复用模式
-├── CONJECTURES.md                # 猜想记录（未验证的假设）⭐ 新增
-├── SOURCES.md                    # 信息源记录（知识来源索引）⭐ 新增
+├── CONJECTURES.md                # 猜想记录（未验证的假设）⭐
+├── SOURCES.md                    # 信息源记录（知识来源索引）⭐
+├── RISK-POINTS.md                # ⚠️ 风险点追踪（语言限制、性能问题等）⭐⭐⭐ 新增
 ├── research/                     # 调研报告目录
 │   └── [topic]-research-YYYYMMDD.md
 ├── knowledge-gaps.md             # 知识缺口清单
 └── improvement-backlog.md        # 改进任务清单
 ```
+
+**⚠️ 重要**：发现任何风险、限制或潜在问题时，必须更新 `RISK-POINTS.md`
 
 ## 📝 检查清单
 
