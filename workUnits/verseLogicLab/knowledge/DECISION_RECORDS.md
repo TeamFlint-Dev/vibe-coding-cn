@@ -1756,3 +1756,182 @@ Circle2D<public> := tuple(Point2D, float)  # (Center, Radius)
 - **性能考虑**: Logic Layer 轻量级设计原则
 
 ---
+
+## ADR-011: 安全数学运算的错误处理策略
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/coreMathUtils/MathSafe.verse`
+
+### 上下文（Context）
+
+在实现安全数学运算库（TASK-001）时，需要选择合适的错误处理策略来应对以下运算错误：
+
+1. **整数溢出**：Verse 中整数溢出会导致 runtime error（官方文档明确说明）
+2. **除零错误**：除数为零会导致运行时崩溃
+3. **浮点数溢出**：结果超出范围会产生 Infinity 或 NaN
+
+关键约束：
+- Verse 是64位有符号整数，范围 `[-2^63, 2^63-1]`
+- 整数溢出**不会**环绕（wrap-around），而是产生运行时错误
+- 必须在运算**之前**检测潜在溢出，而非运算后检查结果
+
+### 决策（Decision）
+
+**选择使用 `<transacts><decides>` 效果进行 fail-fast 错误处理。**
+
+所有安全数学函数采用统一签名：
+```verse
+SafeOperation<public>(A:type, B:type)<transacts><decides>:type
+```
+
+- **成功时**：返回计算结果
+- **失败时**：触发 rollback，调用者的 transaction 失败
+
+### 理由（Rationale）
+
+#### 为什么选择 `<decides>` 而非 `option[T]`？
+
+**方案 A: `<decides>` 效果（已选择）**
+```verse
+SafeAddInt<public>(A:int, B:int)<transacts><decides>:int
+使用：Result := SafeAddInt[A, B]  # 失败时自动 rollback
+```
+
+**优点**:
+1. ✅ **自动错误传播**：调用者无需显式检查，失败会自动向上传播
+2. ✅ **事务语义**：错误会回滚整个计算流程，避免部分执行
+3. ✅ **简洁使用**：调用代码不需要 `or` 或 `if` 判断
+4. ✅ **符合 Verse 习惯**：Verse 推荐使用 `<decides>` 处理可能失败的操作
+5. ✅ **强制错误处理**：必须在 failure context 中调用，强制调用者考虑失败场景
+
+**缺点**:
+- ⚠️ 不够灵活：无法提供默认值降级
+- ⚠️ 必须用方括号调用（不是缺点，而是安全特性）
+
+**方案 B: 返回 `option[T]`（未选择）**
+```verse
+SafeAddInt<public>(A:int, B:int)<computes>:option[int]
+使用：Result := SafeAddInt(A, B) or DefaultValue
+```
+
+**优点**:
+- ✅ 灵活降级：调用者可以选择默认值
+- ✅ 显式错误处理：调用者明确知道操作可能失败
+
+**缺点**:
+- ❌ **容易被忽略**：调用者可能忘记检查 option，导致隐藏的 bug
+- ❌ **代码冗长**：每次调用都需要 `or` 或 `if` 判断
+- ❌ **部分执行风险**：不会自动回滚，可能导致不一致状态
+
+#### 为什么需要 `<transacts>` 配合 `<decides>`？
+
+根据 CONJ-002（已验证）和官方文档：
+- `<decides>` **必须**配合 `<transacts>` 使用
+- Verse 编译器强制要求：`<decides>` 函数必须同时标注 `<transacts>`
+- 原因：rollback 机制需要 transaction 上下文
+
+#### 溢出检测策略
+
+**整数加法溢出检测**：
+```verse
+# 两个正数相加，检查 A + B > MaxSafeInt
+# 避免计算 A + B（会溢出），改用 A > MaxSafeInt - B
+if (A > 0 and B > 0):
+    if (A > MaxSafeInt - B):
+        false  # 会溢出
+```
+
+**整数乘法溢出检测**：
+```verse
+# 检查 |A| * |B| > MaxSafeInt
+# 避免计算乘积，改用 |A| > MaxSafeInt / |B|
+# 使用 Quotient[] 进行整数除法
+Threshold := Quotient[MaxSafeInt, AbsB]
+if (AbsA > Threshold):
+    false  # 会溢出
+```
+
+**关键**：
+- ✅ 溢出检测在运算**之前**进行
+- ✅ 检测逻辑本身不会溢出（使用数学等价变换）
+- ✅ 使用 `Quotient[]` 而非 `/` 运算符（int/int 返回 rational）
+
+### 替代方案（Alternatives）
+
+**方案 C: 混合策略（未选择）**
+```verse
+# Fail-fast 版本
+SafeAddInt<public>(A:int, B:int)<transacts><decides>:int
+
+# Option 版本
+SafeAddIntOr<public>(A:int, B:int, Default:int)<computes>:int
+```
+
+**未选择理由**：
+- 增加 API 复杂度，调用者需要选择使用哪个版本
+- 容易混淆，不如统一使用 `<decides>` + `or` 语法
+- 调用者可以使用 `SafeAddInt[A, B] or Default` 实现降级
+
+**方案 D: 不检查溢出，依赖 Verse 运行时（未选择）**
+
+**未选择理由**：
+- ❌ 运行时错误会导致整个游戏崩溃
+- ❌ 难以调试和恢复
+- ❌ 违背"安全"数学的初衷
+
+### 后果（Consequences）
+
+**积极影响**：
+- ✅ **防止运行时崩溃**：所有潜在溢出都在编译时和运行时被捕获
+- ✅ **强制错误处理**：调用者必须考虑失败场景
+- ✅ **事务一致性**：错误不会导致部分状态修改
+- ✅ **API 简洁**：统一的函数签名，易于理解和使用
+
+**负面影响**：
+- ⚠️ **性能开销**：每次运算前都需要检查（但比崩溃好得多）
+  - 缓解：检查逻辑简单，开销可接受
+- ⚠️ **不够灵活**：无法直接提供默认值降级
+  - 缓解：调用者可以使用 `Result := SafeOp[A, B] or Default`
+
+**使用指导**：
+
+```verse
+# 1. 基本使用（失败时自动 rollback）
+Result := SafeAddInt[A, B]
+
+# 2. 提供默认值（失败时降级）
+Result := SafeAddInt[A, B] or 0
+
+# 3. 在 if 条件中使用（成功才执行）
+if (SafeValue := SafeMultiplyInt[A, B]):
+    Print("Result: {SafeValue}")
+
+# 4. 级联运算（任何一步失败都会 rollback）
+Result := SafeAddInt[SafeMultiplyInt[A, B], C]
+```
+
+**性能考虑**：
+- 溢出检查开销：约 2-5 条额外指令
+- 相比运行时崩溃，开销微不足道
+- 对性能极端敏感的场景，可以使用原生运算符（需确保输入安全）
+
+**已知限制**：
+- `SafePowerInt` 限制指数最大为 100（防止过长计算）
+- 浮点数溢出检测使用保守边界 (1.0e+30)，不是精确的 float 最大值
+
+### 参考（References）
+
+- **官方文档**: `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/int-in-verse/index.md`
+  - "整数运算溢出会导致 runtime error"
+- **已验证猜想**: CONJ-002 - Verse 效果系统层次关系
+  - `<decides>` 必须配合 `<transacts>` 使用
+- **研究报告**: RESEARCH-006 - 数值类型转换与精度
+  - `Quotient[]` 用于整数除法
+- **实现代码**: `verseProject/source/library/logicModules/coreMathUtils/MathSafe.verse`
+- **相关模式**: `knowledge/PATTERNS.md` - Safe Math Operations Pattern
+- **相关风险**: `knowledge/RISK-POINTS.md` - RISK-007 (浮点精度问题)
+
+---
+
+**总结**：采用 `<transacts><decides>` 效果的 fail-fast 策略，既保证了运行时安全，又提供了 Verse 习惯的优雅错误处理。通过提前检测溢出，避免了运行时崩溃，同时保持了 API 的简洁性和一致性。

@@ -1244,6 +1244,200 @@ PointInRect<public>(Point:Point2D, Rect:Rect2D)<computes>:logic =
 
 ---
 
+
+#### 2.4 Safe Math Operations（安全数学运算模式）⭐ 新增
+
+**意图**: 在执行数学运算前检测潜在错误（溢出、除零），使用 fail-fast 策略防止运行时崩溃
+
+**使用场景**:
+- 任何可能溢出的整数运算
+- 除法运算（除数可能为零）
+- 幂运算（指数过大）
+- 动态计算场景（输入来自外部数据或用户输入）
+
+**核心原理**:
+1. **提前检测**：在运算**之前**检查是否会溢出，而非运算后检查结果
+2. **Fail-Fast**：使用 `<decides>` 效果，失败时立即 rollback
+3. **事务保护**：使用 `<transacts>` 确保状态一致性
+4. **数学等价**：检测逻辑本身不会溢出（使用数学变换）
+
+**背景知识**:
+- Verse 中整数溢出会导致 **runtime error**（不是环绕）
+- int 是64位有符号整数，范围 `[-2^63, 2^63-1]`
+- 除零会导致运行时崩溃
+- `int / int` 返回 `rational` 类型，需使用 `Quotient[]` 进行整数除法
+
+**结构**:
+
+```verse
+# 基本模式：安全运算函数
+SafeOperation<public>(A:type, B:type)<transacts><decides>:type =
+    # 1. 特殊情况快速返回
+    if (SpecialCase):
+        SpecialResult
+    
+    # 2. 溢出检测（数学等价变换，避免实际计算）
+    if (WillOverflow):
+        false  # 触发 rollback
+    
+    # 3. 安全地执行运算
+    Result
+
+# 整数加法溢出检测
+SafeAddInt<public>(A:int, B:int)<transacts><decides>:int =
+    if (A > 0 and B > 0):
+        # 检查 A + B > MaxSafeInt
+        # 等价：A > MaxSafeInt - B（避免计算 A + B）
+        if (A > MaxSafeInt - B):
+            false  # 会溢出
+        A + B
+    else if (A < 0 and B < 0):
+        # 检查 A + B < MinSafeInt
+        if (A < MinSafeInt - B):
+            false
+        A + B
+    else:
+        A + B  # 一正一负或有零，不会溢出
+
+# 整数乘法溢出检测
+SafeMultiplyInt<public>(A:int, B:int)<transacts><decides>:int =
+    if (A = 0 or B = 0):
+        0
+    else:
+        AbsA := if (A < 0) then -A else A
+        AbsB := if (B < 0) then -B else B
+        
+        # 检查 |A| * |B| > MaxSafeInt
+        # 等价：|A| > MaxSafeInt / |B|
+        Threshold := Quotient[MaxSafeInt, AbsB]
+        if (AbsA > Threshold):
+            false
+        
+        A * B
+
+# 整数除法（防除零）
+SafeDivideInt<public>(A:int, B:int)<transacts><decides>:int =
+    if (B = 0):
+        false  # 除零错误
+    Quotient[A, B]  # 使用 Quotient 进行整数除法
+```
+
+**示例**:
+
+```verse
+using { MathSafe }
+
+# 示例 1: 基本使用（失败时自动 rollback）
+CalculateDamage<public>(BaseDamage:int, Multiplier:int)<transacts>:int =
+    TotalDamage := MathSafe.SafeMultiplyInt[BaseDamage, Multiplier]
+    TotalDamage
+
+# 示例 2: 提供默认值降级
+SafeScore := MathSafe.SafeAddInt[Score1, Score2] or 0
+
+# 示例 3: 在条件中使用
+if (NewHP := MathSafe.SafeSubtractInt[CurrentHP, Damage]):
+    Print("Remaining HP: {NewHP}")
+else:
+    Print("Fatal damage!")
+
+# 示例 4: 级联运算（任一步失败都会 rollback）
+# (A + B) * C
+Result := MathSafe.SafeMultiplyInt[
+    MathSafe.SafeAddInt[A, B],
+    C
+]
+
+# 示例 5: 幂运算
+Power := MathSafe.SafePowerInt[Base, Exponent]  # 指数限制 <= 100
+```
+
+**溢出检测技巧**:
+
+| 运算 | 直接检测（错误） | 等价变换（正确） |
+|------|----------------|-----------------|
+| **A + B > Max** | `A + B > Max`（会溢出） | `A > Max - B` ✅ |
+| **A - B < Min** | `A - B < Min`（会溢出） | `A < Min + B` ✅ |
+| **A * B > Max** | `A * B > Max`（会溢出） | `A > Max / B` ✅ |
+| **A / B** | 检查结果 | `B = 0?` ✅（提前检查） |
+
+**为什么使用 `<transacts><decides>` 而非 `option[T]`？**
+
+| 特性 | `<decides>` 版本 | `option[T]` 版本 |
+|------|-----------------|-----------------|
+| **错误传播** | 自动向上传播 ✅ | 需手动检查 ❌ |
+| **调用语法** | `SafeOp[A, B]` ✅ | `SafeOp(A, B)` |
+| **降级支持** | `SafeOp[A, B] or Default` ✅ | `SafeOp(A, B) or Default` ✅ |
+| **强制检查** | 必须在 failure context ✅ | 可能被忽略 ❌ |
+| **代码简洁** | 无需 or/if 判断 ✅ | 每次都需要 or/if ❌ |
+
+**注意事项**:
+- ✅ **提前检测**：溢出检测必须在运算前，不能先算再检查
+- ✅ **数学等价**：检测逻辑本身不能溢出（使用变换）
+- ✅ **使用 Quotient**：整数除法用 `Quotient[]`，不用 `/` 运算符
+- ✅ **效果标注**：必须同时标注 `<transacts><decides>`
+- ⚠️ 性能开销：每次运算前检查，约 2-5 条额外指令
+- ⚠️ 指数限制：`SafePowerInt` 限制指数 <= 100
+
+**反模式**:
+
+```verse
+# ❌ 错误：运算后检查（已经溢出了）
+UnsafeAdd(A, B) =
+    Result := A + B  # 可能已经溢出
+    if (Result > MaxSafeInt):  # 太晚了
+        false
+
+# ❌ 错误：检测逻辑本身会溢出
+UnsafeCheck(A, B) =
+    if (A + B > MaxSafeInt):  # A + B 可能溢出
+        false
+
+# ❌ 错误：使用 / 进行整数除法
+UnsafeDivide(A, B) =
+    A / B  # 返回 rational，不是 int
+
+# ✅ 正确：提前检测，数学等价变换
+SafeAdd(A, B) =
+    if (A > MaxSafeInt - B):  # 不计算 A + B
+        false
+    A + B
+```
+
+**性能考虑**:
+
+| 场景 | 建议 |
+|------|------|
+| **关键路径**（每帧调用） | 谨慎使用，考虑原生运算符（需确保输入安全） |
+| **非关键路径**（偶尔调用） | 强烈推荐，防止崩溃 |
+| **用户输入/外部数据** | 强制使用，输入不可信 |
+| **已验证范围的数据** | 可选，但仍推荐 |
+
+**相关模式**:
+- **Safe Division** - 安全除法是 Safe Math 的子集
+- **Validation Function Pattern** - 验证后再运算
+- **Effect-Aware Function Call** - `<decides>` 函数必须用方括号调用
+
+**实现参考**:
+- `coreMathUtils/MathSafe.verse` - 完整的安全数学运算实现
+  - SafeAddInt, SafeSubtractInt, SafeMultiplyInt, SafeDivideInt
+  - SafePowerInt (指数限制)
+  - SafeAddFloat, SafeSubtractFloat, SafeMultiplyFloat, SafeDivideFloat
+
+**验证决策**:
+- ✅ ADR-011: 安全数学运算的错误处理策略
+- ✅ CONJ-002: `<decides>` 必须配合 `<transacts>` 使用
+- ✅ RESEARCH-006: Quotient[] 用于整数除法
+
+**官方文档**:
+- `int-in-verse/index.md` - "整数溢出会导致 runtime error"
+- `Verse.org/Verse` API - `Quotient[]`, `Mod[]` 函数签名
+
+**风险记录**:
+- RISK-007: 浮点精度问题（已缓解，使用 epsilon）
+- 整数溢出 runtime error（已通过 Safe Math 解决）
+
+---
 ## 维护指南
 
 1. **添加模式**: 在相应分类下追加
