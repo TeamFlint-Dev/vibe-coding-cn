@@ -539,3 +539,174 @@ Enum 值使用 "Curve" 前缀：`CurveLinear`, `CurveInSine`, `CurveOutSine` 等
 
 ---
 
+## ADR-007: Range Validation 设计决策
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `validationUtils/RangeValidation.verse`
+
+### 上下文（Context）
+
+需要为逻辑模块提供标准的参数验证机制。在实现 TASK-081（Range Validation）时，需要决定：
+1. 验证函数应该返回 bool 还是使用 `<decides>` 效果？
+2. 是否需要同时支持 int 和 float？
+3. 浮点数验证是否需要容差？
+4. 如何与现有的 MathFloatComparison 协调？
+
+### 决策（Decision）
+
+采用以下设计：
+1. **使用 `<decides><transacts>:void` 签名**：验证失败时自动触发 rollback
+2. **同时提供 int 和 float 版本**：满足不同类型的验证需求
+3. **float 验证使用 epsilon 容差**：与 MathFloatComparison 保持一致
+4. **统一命名约定**：`Validate*` 前缀，清晰表达验证意图
+
+### 理由（Rationale）
+
+#### 1. 为什么使用 `<decides>` 而非返回 bool？
+
+**方案对比**:
+
+```verse
+# 方案 A: 返回 bool
+IsInRange<public>(Value:int, Min:int, Max:int)<computes>:logic =
+    if (Value >= Min):
+        if (Value <= Max):
+            true
+        else:
+            false
+    else:
+        false
+
+# 使用时需要手动检查
+if (IsInRange(Value, 0, 100) = true):
+    DoSomething()
+else:
+    # 手动错误处理
+    Print("Invalid value")
+
+# 方案 B: 使用 <decides>
+ValidateInRange<public>(Value:int, Min:int, Max:int)<decides><transacts>:void =
+    Value >= Min
+    Value <= Max
+
+# 使用时自动失败回滚
+ValidateInRange[Value, 0, 100]
+DoSomething()  # 仅在验证通过后执行
+```
+
+**选择方案 B 的理由**:
+- ✅ **Fail-Fast**: 验证失败立即停止，不需要手动检查返回值
+- ✅ **事务性**: `<transacts>` 确保失败时自动回滚
+- ✅ **简洁性**: 调用代码更简洁，无需 if-else 包裹
+- ✅ **一致性**: 与现有验证函数（CheckEmpty, CheckAlive）保持一致
+- ✅ **可组合性**: 多个验证可以顺序调用，任一失败即回滚
+
+#### 2. 为什么同时支持 int 和 float？
+
+- **int 验证**：不需要容差，精确比较
+  - 数组索引、计数器、ID 等场景
+  - 性能更好（无浮点运算）
+
+- **float 验证**：需要容差，避免精度问题
+  - 百分比、角度、物理参数等场景
+  - 与 MathFloatComparison 一致
+
+#### 3. 为什么 float 使用 epsilon = 0.0001？
+
+**与 MathFloatComparison 保持一致**:
+- ✅ 已有的 ADR-001 详细说明了 epsilon 选择理由
+- ✅ 0.0001 适用于大多数游戏逻辑场景
+- ✅ 提供灵活性：可选参数允许自定义 epsilon
+
+**示例**:
+```verse
+# 默认 epsilon (0.0001)
+ValidatePercent[Value]  # 检查 0.0 <= Value <= 1.0
+
+# 自定义 epsilon（高精度场景）
+ValidatePercent[Value, ?Epsilon := 0.000001]
+```
+
+#### 4. 为什么采用 `Validate*` 命名约定？
+
+**对比其他命名方案**:
+
+| 方案 | 示例 | 优点 | 缺点 |
+|------|------|------|------|
+| `Check*` | CheckInRange | 简短 | 与查询混淆（如 CheckEmpty 是查询） |
+| `Is*` | IsInRange | 符合布尔函数习惯 | 暗示返回 bool，与 `<decides>` 不符 |
+| `Assert*` | AssertInRange | 明确表达断言语义 | 在某些语言中有特殊含义（调试用） |
+| **`Validate*`** | **ValidateInRange** | **清晰表达验证意图** | **稍长** |
+
+**选择 `Validate*` 的理由**:
+- ✅ 明确表达"验证"而非"查询"
+- ✅ 与现有函数区分（Check* 用于查询，Validate* 用于验证）
+- ✅ 行业标准（许多语言和框架使用 Validate 表示验证）
+
+### 替代方案（Alternatives）
+
+**方案 A: 仅提供 bool 返回值函数**
+- 优点：灵活，用户可以自行处理错误
+- 缺点：需要手动检查，容易遗漏，代码冗长
+- **未选择理由**: Verse 的 `<decides>` 机制更优雅
+
+**方案 B: 仅提供 float 版本，int 自动转换**
+- 优点：减少代码重复
+- 缺点：性能损失，类型不明确
+- **未选择理由**: int 和 float 有不同的验证语义（精确 vs 容差）
+
+**方案 C: 使用 option[T] 返回值**
+- 优点：可以返回详细的错误信息
+- 缺点：调用代码复杂，需要解包 option
+- **未选择理由**: 验证不需要返回详细信息，失败即可
+
+### 后果（Consequences）
+
+**积极影响**:
+- ✅ 统一的验证函数接口，易于学习和使用
+- ✅ Fail-fast 机制减少错误传播
+- ✅ 与现有代码风格一致
+- ✅ 浮点数验证避免了精度陷阱
+- ✅ 为所有逻辑模块提供了标准的参数验证工具
+
+**使用指南**:
+```verse
+using { RangeValidation }
+
+# 函数入口验证参数
+CalculatePercent<public>(Current:int, Total:int)<transacts>:float =
+    # 验证参数有效性
+    RangeValidation.ValidatePositive[Total]      # Total 必须 > 0
+    RangeValidation.ValidateNonNegative[Current]  # Current 必须 >= 0
+    
+    # 参数已验证，安全计算
+    Result := (Current * 1.0) / (Total * 1.0)
+    Result
+
+# 组合多个验证
+ProcessValue<public>(Value:float)<transacts>:void =
+    RangeValidation.ValidatePercent[Value]        # 0 <= Value <= 1
+    RangeValidation.ValidateFloatNonZero[Value]   # Value != 0
+    # Value 在 (0, 1] 范围内，继续处理
+```
+
+**注意事项**:
+- ⚠️ 验证会增加函数调用开销，在性能关键路径谨慎使用
+- ⚠️ 过度验证会使代码冗长，仅验证真正的前置条件
+- ⚠️ 验证失败会触发 rollback，确保调用方在 failure context 中
+
+### 参考（References）
+
+- **实现代码**: `validationUtils/RangeValidation.verse`
+- **模式记录**: `PATTERNS.md` - Validation Function Pattern
+- **相关 ADR**: ADR-001 (Float Epsilon 选择)
+- **效果系统**: CONJ-002 (已验证) - `<decides>` 与 `<transacts>` 的关系
+- **现有验证函数**:
+  - `UtilArrays.verse` - CheckEmpty, CheckValidIndex
+  - `RpgHealth.verse` - CheckAlive, CheckFullHealth
+  - `MathProbability.verse` - CheckProbability
+
+---
+
+
