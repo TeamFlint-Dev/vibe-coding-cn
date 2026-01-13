@@ -122,7 +122,9 @@ MathSafe<public> := module:
             AbsB := if (B < 0) then -B else B
             
             # 检查 AbsA * AbsB 是否会超过 MaxSafeInt
-            if (AbsA > MaxSafeInt / AbsB):
+            # 使用 Quotient 进行整数除法
+            Threshold := Quotient[MaxSafeInt, AbsB]
+            if (AbsA > Threshold):
                 false  # 会溢出
             
             A * B
@@ -130,13 +132,13 @@ MathSafe<public> := module:
     # 安全整数除法 - 防止除零
     # @param A: 被除数
     # @param B: 除数
-    # @returns: A / B 的结果，如果 B = 0 则失败
+    # @returns: A / B 的结果（向零截断），如果 B = 0 则失败
     # 
-    # 注意：整数除法是截断除法（向零取整）
+    # 注意：使用 Quotient[] 进行整数除法（向零截断）
     SafeDivideInt<public>(A:int, B:int)<transacts><decides>:int =
         if (B = 0):
             false  # 除零错误
-        A / B
+        Quotient[A, B]
     
     # ═══════════════════════════════════════════════════════════
     # 浮点数安全运算
@@ -251,7 +253,8 @@ MathSafe<public> := module:
             1  # 1 的任何次方都是 1
         else if (Base = -1):
             # -1 的偶数次方是 1，奇数次方是 -1
-            if (Exponent mod 2 = 0) then 1 else -1
+            Remainder := Mod[Exponent, 2]
+            if (Remainder = 0) then 1 else -1
         else if (Exponent = 1):
             Base
         else:
@@ -263,8 +266,7 @@ MathSafe<public> := module:
             
             # 逐步乘法，每次检查溢出
             var Result:int = 1
-            var Count:int = 0
-            for (Count < Exponent):
+            for (I := 0..Exponent - 1):
                 # 使用 SafeMultiplyInt 检查溢出
                 NewResult := SafeMultiplyInt[Result, Base]
                 set Result = NewResult
