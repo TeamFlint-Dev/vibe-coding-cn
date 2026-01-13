@@ -156,22 +156,31 @@ MathRanges<public> := module:
     # @param Angle: 任意角度值
     # @returns: 归一化到 [0, 360) 的角度
     # 
-    # 注意：使用递归处理，避免可变状态
-    NormalizeAngle360<public>(Angle:float)<computes>:float =
+    # 注意：使用迭代循环避免递归，需要 <transacts> 效果支持 var
+    NormalizeAngle360<public>(Angle:float)<transacts>:float =
         if (Angle >= 0.0 and Angle < 360.0):
             # 已在范围内
             Angle
         else if (Angle < 0.0):
-            # 负数：加 360 直到为正
-            NormalizeAngle360(Angle + 360.0)
+            # 负数：迭代加360直到为正
+            var Result:float = Angle
+            # 限制最大迭代次数避免无限循环（100次足够处理极端情况）
+            for (I := 0..100):
+                if (Result < 0.0):
+                    set Result = Result + 360.0
+            Result
         else:
-            # 大于等于 360：减 360 直到进入范围
-            NormalizeAngle360(Angle - 360.0)
+            # 大于等于 360：迭代减360直到进入范围
+            var Result:float = Angle
+            for (I := 0..100):
+                if (Result >= 360.0):
+                    set Result = Result - 360.0
+            Result
     
     # 角度归一化到 [-180, 180)
     # @param Angle: 任意角度值
     # @returns: 归一化到 [-180, 180) 的角度
-    NormalizeAngle180<public>(Angle:float)<computes>:float =
+    NormalizeAngle180<public>(Angle:float)<transacts>:float =
         # 先归一化到 [0, 360)
         Normalized360 := NormalizeAngle360(Angle)
         # 转换到 [-180, 180)

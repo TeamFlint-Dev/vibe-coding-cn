@@ -539,6 +539,146 @@ Enum 值使用 "Curve" 前缀：`CurveLinear`, `CurveInSine`, `CurveOutSine` 等
 
 ---
 
+## ADR-008: 禁止递归，强制使用迭代循环
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: 所有 logicModules
+
+### 上下文（Context）
+
+在早期开发中，部分模块（如 `MathRanges.verse` 的 `NormalizeAngle360`）使用了递归来实现迭代逻辑。递归方法存在以下问题：
+
+1. **堆栈溢出风险**: 深度递归可能导致堆栈溢出，尤其是输入值极端时
+2. **难以预测**: 递归深度取决于输入值，无法提前预知执行深度
+3. **调试困难**: 递归调用链难以追踪和调试
+4. **性能开销**: 每次递归调用都有函数调用开销
+5. **不够直观**: 递归逻辑对于维护者来说理解成本较高
+
+### 决策（Decision）
+
+**全面禁止使用递归，所有迭代逻辑必须使用 for 循环实现。**
+
+具体要求：
+1. ✅ **使用 for 循环** + var 实现所有迭代逻辑
+2. ✅ **设置最大迭代次数**，防止无限循环
+3. ✅ **使用 `<transacts>` 或 `<allocates>` 效果**支持 var
+4. ❌ **禁止函数自调用**（递归）
+5. ❌ **禁止互相递归**（函数 A 调用 B，B 调用 A）
+
+### 理由（Rationale）
+
+#### 为什么禁止递归？
+
+**安全性问题**:
+```verse
+# ❌ 危险：递归可能导致堆栈溢出
+NormalizeAngle360<public>(Angle:float)<computes>:float =
+    if (Angle < 0.0):
+        NormalizeAngle360(Angle + 360.0)  # 如果 Angle = -1e10，会递归数百万次
+    else:
+        Angle
+```
+
+**可预测性问题**:
+- 递归深度取决于输入，无法保证不会崩溃
+- 极端输入（如 -1e10 度）会导致深度递归
+
+**维护性问题**:
+- 递归逻辑需要更多心智负担理解
+- 调试时难以追踪调用栈
+- 性能分析困难
+
+#### 为什么使用 for 循环？
+
+**安全性保证**:
+```verse
+# ✅ 安全：固定最大迭代次数，不会堆栈溢出
+NormalizeAngle360<public>(Angle:float)<transacts>:float =
+    if (Angle < 0.0):
+        var Result:float = Angle
+        for (I := 0..100):  # 最多100次，绝对安全
+            if (Result < 0.0):
+                set Result = Result + 360.0
+        Result
+    else:
+        Angle
+```
+
+**可预测性**:
+- 固定的最大迭代次数，执行时间可预测
+- 不会因输入极端而无限执行
+- 易于性能分析和优化
+
+**易维护性**:
+- 逻辑清晰直观
+- 调试简单（可以单步执行每次迭代）
+- 性能可控
+
+### 替代方案（Alternatives）
+
+**方案 A: 保留递归，添加深度限制**
+- 优点：代码简洁
+- 缺点：仍有堆栈溢出风险，深度限制难以选择
+- **未选择理由**: 风险仍然存在
+
+**方案 B: 使用尾递归优化**
+- 优点：编译器可能优化为循环
+- 缺点：依赖编译器优化，不可控
+- **未选择理由**: Verse 编译器是否支持尾递归优化未知
+
+**方案 C: 仅在特定场景使用递归**
+- 优点：灵活
+- 缺点：规则不一致，难以执行
+- **未选择理由**: 全面禁止更简单明确
+
+### 后果（Consequences）
+
+**积极影响**:
+- ✅ 消除堆栈溢出风险
+- ✅ 执行时间可预测
+- ✅ 代码更易理解和维护
+- ✅ 调试更简单
+- ✅ 性能可控
+
+**需要注意**:
+- ⚠️ 需要使用 `<transacts>` 或 `<allocates>` 效果（不能使用纯 `<computes>`）
+- ⚠️ 需要合理设置最大迭代次数
+- ⚠️ 某些算法（如树遍历）可能需要转换为迭代形式
+
+**迁移指南**:
+```verse
+# 从递归转换为迭代的标准模式
+
+# 旧代码（递归）
+OldRecursive<public>(Value:float)<computes>:float =
+    if (Condition):
+        Value
+    else:
+        OldRecursive(Transform(Value))
+
+# 新代码（迭代）
+NewIterative<public>(Value:float, MaxIterations:int)<transacts>:float =
+    var Result:float = Value
+    for (I := 0..MaxIterations - 1):
+        if (not Condition):
+            set Result = Transform(Result)
+    Result
+```
+
+**执行要求**:
+- 所有新代码必须使用迭代循环
+- 现有递归代码必须重构为迭代
+- Code Review 时严格检查，发现递归立即拒绝
+
+### 参考（References）
+
+- **重构示例**: `MathRanges.verse` - NormalizeAngle360 从递归改为迭代
+- **模式文档**: `PATTERNS.md` - Iterative Loop Pattern (section 2.4)
+- **编译验证**: 重构后编译通过，0错误
+
+---
+
 ## ADR-007: Range Validation 设计决策
 
 **日期**: 2026-01-13  
