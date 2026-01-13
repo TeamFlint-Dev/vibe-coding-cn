@@ -156,26 +156,30 @@ MathRanges<public> := module:
     # @param Angle: 任意角度值
     # @returns: 归一化到 [0, 360) 的角度
     # 
-    # 注意：使用迭代循环避免递归，需要 <transacts> 效果支持 var
+    # 实现说明：使用数学模运算公式而非迭代，提高性能和精度
+    # 公式：Result = Angle - Floor(Angle / 360.0) * 360.0
+    # 注意：Verse 的 Floor 有 <decides> 效果，必须在 if 表达式中调用
     NormalizeAngle360<public>(Angle:float)<transacts>:float =
         if (Angle >= 0.0 and Angle < 360.0):
-            # 已在范围内
+            # 已在范围内，直接返回
             Angle
-        else if (Angle < 0.0):
-            # 负数：迭代加360直到为正
-            var Result:float = Angle
-            # 限制最大迭代次数避免无限循环（100次足够处理极端情况）
-            for (I := 0..100):
-                if (Result < 0.0):
-                    set Result = Result + 360.0
-            Result
         else:
-            # 大于等于 360：迭代减360直到进入范围
-            var Result:float = Angle
-            for (I := 0..100):
-                if (Result >= 360.0):
-                    set Result = Result - 360.0
-            Result
+            # 使用模运算公式：Angle - Floor(Angle/360) * 360
+            # 这等价于数学中的 Angle mod 360
+            if (FloorValue := Floor[Angle / 360.0]):
+                # Floor 成功，计算余数
+                Remainder := Angle - (FloorValue * 1.0) * 360.0
+                # 处理浮点误差：确保结果严格在 [0, 360) 范围内
+                if (Remainder < 0.0):
+                    Remainder + 360.0
+                else if (Remainder >= 360.0):
+                    Remainder - 360.0
+                else:
+                    Remainder
+            else:
+                # Floor 失败（理论上不应该发生），回退到简单处理
+                # 对于 NaN 或无穷大，返回 0.0 作为安全值
+                0.0
     
     # 角度归一化到 [-180, 180)
     # @param Angle: 任意角度值
