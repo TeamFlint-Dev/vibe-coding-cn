@@ -48,18 +48,103 @@ Architecture Decision Records (ADR) 记录重要的技术决策及其背景，�
 [做出了什么决策]
 
 ### 理由（Rationale）
-- **优点**: [...]
-- **缺点**: [...]
 
-### 替代方案（Alternatives）
-- **方案 A**: [...] - [为什么没选择]
+---
 
-### 后果（Consequences）
-- [决策带来的影响]
+## 当前的决策记录
 
-### 参考（References）
-- [相关代码或文档]
-```
+### ADR-001: 浮点数比较默认 Epsilon 值选择
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/coreMathUtils/MathFloatComparison.verse`
+
+#### 上下文（Context）
+
+在实现浮点数比较函数时，需要选择一个合适的默认 Epsilon 值作为容差。这个值需要在以下目标之间平衡：
+- **精度**：足够小以检测真实的差异
+- **容错**：足够大以容忍浮点运算的精度误差
+- **易用性**：对大多数游戏逻辑场景都适用
+
+Verse 使用 IEEE 754 标准的浮点数：
+- `float` 可能是单精度（32位）或双精度（64位）
+- 单精度浮点数有约 7 位十进制有效数字
+- 双精度浮点数有约 15 位十进制有效数字
+
+#### 决策（Decision）
+
+选择 **0.0001** 作为默认 Epsilon 值，并提供 SmallEpsilon (0.000001) 和 LargeEpsilon (0.001) 供特殊场景使用。
+
+#### 理由（Rationale）
+
+**选择 0.0001 的理由**:
+
+1. **游戏逻辑适用性**:
+   - 游戏中的大多数数值（位置、速度、百分比）不需要超过 4 位小数的精度
+   - 0.0001 对于位置差异（米级）是足够小的（0.1毫米误差）
+   - 对于百分比差异，0.0001 = 0.01%，足够精确
+
+2. **平衡精度与容错**:
+   - 足够小：能区分真实的差异（如 1.0001 vs 1.0002）
+   - 足够大：能容忍常见的浮点运算误差
+   - 避免了 0.00001 可能过于敏感的问题
+
+3. **行业实践**:
+   - Unreal Engine 使用 KINDA_SMALL_NUMBER = 1.e-4f
+   - Unity 使用 Epsilon = 0.00001f（我们的值稍大，更宽容）
+   - 0.0001 是常见的工程折中选择
+
+4. **可扩展性**:
+   - 提供 SmallEpsilon (0.000001) 用于高精度场景（如物理模拟）
+   - 提供 LargeEpsilon (0.001) 用于粗略比较（如 UI 显示）
+   - 用户可以根据需求自定义 Epsilon
+
+#### 替代方案（Alternatives）
+
+**方案 A: 使用 0.00001（更小）**
+- 优点：更高精度
+- 缺点：可能对浮点运算误差过于敏感，导致误判
+- **未选择理由**：游戏逻辑通常不需要这么高的精度
+
+**方案 B: 使用 0.001（更大）**
+- 优点：更宽容，减少误判
+- 缺点：可能掩盖真实的差异
+- **未选择理由**：对于插值等场景，0.001 可能太粗糙
+
+**方案 C: 相对 Epsilon（基于值的大小）**
+- 优点：对大数值和小数值都适用
+- 缺点：实现复杂，性能开销更大
+- **未选择理由**：游戏逻辑中的数值范围通常在可控范围内，绝对 Epsilon 足够
+
+#### 后果（Consequences）
+
+**正面影响**:
+- ✅ 解决了浮点数直接比较的精度问题
+- ✅ 提供了开箱即用的合理默认值
+- ✅ 支持自定义 Epsilon 满足特殊需求
+- ✅ 与行业标准实践一致
+
+**负面影响**:
+- ⚠️ 可能对极高精度场景（如科学计算）不够精确
+  - 缓解：提供 SmallEpsilon 选项
+- ⚠️ 对极粗糙场景（如粗略估算）可能过于精确
+  - 缓解：提供 LargeEpsilon 选项
+
+**使用指导**:
+- 默认情况下使用 DefaultEpsilon (0.0001)
+- 物理模拟等高精度场景使用 SmallEpsilon (0.000001)
+- UI 显示等低精度场景使用 LargeEpsilon (0.001)
+- 特殊场景可以传入自定义 Epsilon 值
+
+#### 参考（References）
+
+- **实现代码**: `verseProject/source/library/logicModules/coreMathUtils/MathFloatComparison.verse`
+- **模式记录**: `workUnits/verseLogicLab/knowledge/PATTERNS.md` - Float Comparison with Tolerance
+- **验证猜想**: CONJ-003 (已证伪) - 记录在 `knowledge/CONJECTURES.md`
+- **行业参考**:
+  - Unreal Engine: KINDA_SMALL_NUMBER = 1.e-4f
+  - Unity: Mathf.Epsilon = 0.00001f (1.401298E-45f for float comparison)
+- **IEEE 754**: 浮点数标准，定义了浮点运算的精度特性
 
 ---
 
