@@ -90,6 +90,88 @@ Percent := Clamp(RawPercent, 0.0, 1.0)
 
 ---
 
+#### 2.3 Float Comparison with Tolerance（浮点数容差比较模式）
+
+**意图**: 安全地比较浮点数，避免精度问题导致的误判
+
+**使用场景**: 
+- 任何需要比较浮点数相等性的场景
+- 判断计算结果是否符合预期
+- 检查物体是否到达目标位置
+- 验证插值是否完成
+
+**核心原理**:
+由于浮点数的二进制表示限制，直接使用 `==` 比较两个浮点数可能因为微小的精度误差而失败。
+使用容差（Epsilon）比较可以解决这个问题：如果两个数的差值小于容差，就认为它们相等。
+
+**结构**:
+```verse
+# 基础模式：相等性判断
+NearlyEqual(A, B, Epsilon) := 
+    AbsDiff := if (A - B < 0.0) then -(A - B) else (A - B)
+    AbsDiff <= Epsilon
+
+# 扩展模式：大于/小于判断
+NearlyGreater(A, B, Epsilon) := A > B + Epsilon
+NearlyLess(A, B, Epsilon) := A < B - Epsilon
+```
+
+**示例**:
+```verse
+using { MathFloatComparison }
+
+# 判断插值是否完成（T 接近 1.0）
+if (MathFloatComparison.NearlyEqual[T, 1.0]):
+    # 插值完成
+    CompleteAnimation()
+
+# 判断物体是否停止（速度接近 0）
+if (MathFloatComparison.NearlyZero[Velocity]):
+    # 物体已停止
+    StopMovement()
+
+# 判断是否明显大于阈值（避免误判）
+if (MathFloatComparison.NearlyGreater[Value, Threshold]):
+    # Value 明显大于 Threshold
+    TriggerEvent()
+```
+
+**Epsilon 选择指南**:
+- **默认值 (0.0001)**: 适用于大多数游戏逻辑场景
+- **小值 (0.000001)**: 高精度计算场景
+- **大值 (0.001)**: 低精度场景或粗略比较
+
+**注意事项**:
+- ❌ 不要直接使用 `A == B` 比较浮点数
+- ✅ 使用 NearlyEqual 代替
+- ✅ 根据场景选择合适的 Epsilon
+- ⚠️ Epsilon 过小可能导致误判，过大可能掩盖真实差异
+
+**反模式**:
+```verse
+# ❌ 错误：直接比较浮点数
+if (CalculatedValue == 1.0):  # 可能因精度问题失败
+    DoSomething()
+
+# ✅ 正确：使用容差比较
+if (MathFloatComparison.NearlyEqual[CalculatedValue, 1.0]):
+    DoSomething()
+```
+
+**相关模式**:
+- Safe Division（安全除法）
+- Range Validation（范围验证）
+
+**实现参考**:
+- `logicModules/coreMathUtils/MathFloatComparison.verse`
+
+**验证猜想**:
+- ✅ CONJ-003 已证伪：Floor 函数不用于 int → float 转换
+- ✅ 正确方法：使用乘以 1.0 进行类型转换
+- ✅ 浮点比较必须使用容差，不能直接用 `==`
+
+---
+
 ### 3. 条件判断模式（Conditional Logic）
 
 使用 `<decides>` 效果的谓词函数。

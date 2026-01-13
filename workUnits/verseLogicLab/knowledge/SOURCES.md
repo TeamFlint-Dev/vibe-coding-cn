@@ -30,6 +30,7 @@
 | **UnrealEngine API Digest** | 官方 API 定义 | `verseProject/digests/UnrealEngine/UnrealEngine.digest.verse` | UE5 相关 API 官方定义文件（1755 行，v41.00） | 2026-01-12 |
 | **UEFN Documentation** | 官方文档（本地副本） | `external/epic-docs-crawler/uefn_docs_organized/` | Epic Games 官方文档本地副本（5071+ 页） | 2026-01-12 |
 | Verse Language Reference | 官方文档（在线） | https://dev.epicgames.com/documentation/en-us/uefn/verse-language-reference | Verse 语言官方在线参考文档 | - |
+| **Type Casting and Conversion** | 官方文档 | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/type-casting-and-conversion-in-verse/index.md` | 官方类型转换文档（验证了 CONJ-003） | 2026-01-12 |
 
 #### UEFN 文档本地索引（快速查找）
 
@@ -101,6 +102,17 @@ cat external/epic-docs-crawler/uefn_docs_organized/_compact_index.json | jq '.pa
 | **提示词库** | 内部资源 | `external/prompts-library/` | AI 交互提示词集合和文档 | 2026-01-12 |
 | **资源文档库** | 内部资源 | `resources/documents/` | 项目内部教程、技能规范等文档 | 2026-01-12 |
 | **错误笔记** | 内部资源 | `docs/error-notes/` | 开发过程中遇到的错误记录 | 2026-01-12 |
+
+#### 行业标准与最佳实践
+
+| 资源 | 类型 | 说明 | 引用日期 |
+|------|------|------|----------|
+| **IEEE 754** | 国际标准 | 浮点数运算标准，定义了 float/double 的精度特性 | 2026-01-13 |
+| **Unreal Engine Math** | 行业实践 | UE 使用 KINDA_SMALL_NUMBER = 1.e-4f 作为浮点比较阈值 | 2026-01-13 |
+| **Unity Mathf** | 行业实践 | Unity 使用 Mathf.Epsilon = 0.00001f 作为浮点比较阈值 | 2026-01-13 |
+| **游戏数学最佳实践** | 经验总结 | 游戏开发中常用 0.0001-0.001 范围的 epsilon 值 | 2026-01-13 |
+
+**注**: 这些行业标准用于参考和对比，验证我们的技术决策符合行业常规实践。
 
 ---
 
