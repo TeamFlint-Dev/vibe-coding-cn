@@ -1244,6 +1244,397 @@ PointInRect<public>(Point:Point2D, Rect:Rect2D)<computes>:logic =
 
 ---
 
+
+#### 2.4 Safe Math Operations（安全数学运算模式）⭐ 新增
+
+**意图**: 在执行数学运算前检测潜在错误（溢出、除零），使用 fail-fast 策略防止运行时崩溃
+
+**使用场景**:
+- 任何可能溢出的整数运算
+- 除法运算（除数可能为零）
+- 幂运算（指数过大）
+- 动态计算场景（输入来自外部数据或用户输入）
+
+**核心原理**:
+1. **提前检测**：在运算**之前**检查是否会溢出，而非运算后检查结果
+2. **Fail-Fast**：使用 `<decides>` 效果，失败时立即 rollback
+3. **事务保护**：使用 `<transacts>` 确保状态一致性
+4. **数学等价**：检测逻辑本身不会溢出（使用数学变换）
+
+**背景知识**:
+- Verse 中整数溢出会导致 **runtime error**（不是环绕）
+- int 是64位有符号整数，范围 `[-2^63, 2^63-1]`
+- 除零会导致运行时崩溃
+- `int / int` 返回 `rational` 类型，需使用 `Quotient[]` 进行整数除法
+
+**结构**:
+
+```verse
+# 基本模式：安全运算函数
+SafeOperation<public>(A:type, B:type)<transacts><decides>:type =
+    # 1. 特殊情况快速返回
+    if (SpecialCase):
+        SpecialResult
+    
+    # 2. 溢出检测（数学等价变换，避免实际计算）
+    if (WillOverflow):
+        false  # 触发 rollback
+    
+    # 3. 安全地执行运算
+    Result
+
+# 整数加法溢出检测
+SafeAddInt<public>(A:int, B:int)<transacts><decides>:int =
+    if (A > 0 and B > 0):
+        # 检查 A + B > MaxSafeInt
+        # 等价：A > MaxSafeInt - B（避免计算 A + B）
+        if (A > MaxSafeInt - B):
+            false  # 会溢出
+        A + B
+    else if (A < 0 and B < 0):
+        # 检查 A + B < MinSafeInt
+        if (A < MinSafeInt - B):
+            false
+        A + B
+    else:
+        A + B  # 一正一负或有零，不会溢出
+
+# 整数乘法溢出检测
+SafeMultiplyInt<public>(A:int, B:int)<transacts><decides>:int =
+    if (A = 0 or B = 0):
+        0
+    else:
+        AbsA := if (A < 0) then -A else A
+        AbsB := if (B < 0) then -B else B
+        
+        # 检查 |A| * |B| > MaxSafeInt
+        # 等价：|A| > MaxSafeInt / |B|
+        Threshold := Quotient[MaxSafeInt, AbsB]
+        if (AbsA > Threshold):
+            false
+        
+        A * B
+
+# 整数除法（防除零）
+SafeDivideInt<public>(A:int, B:int)<transacts><decides>:int =
+    if (B = 0):
+        false  # 除零错误
+    Quotient[A, B]  # 使用 Quotient 进行整数除法
+```
+
+**示例**:
+
+```verse
+using { MathSafe }
+
+# 示例 1: 基本使用（失败时自动 rollback）
+CalculateDamage<public>(BaseDamage:int, Multiplier:int)<transacts>:int =
+    TotalDamage := MathSafe.SafeMultiplyInt[BaseDamage, Multiplier]
+    TotalDamage
+
+# 示例 2: 提供默认值降级
+SafeScore := MathSafe.SafeAddInt[Score1, Score2] or 0
+
+# 示例 3: 在条件中使用
+if (NewHP := MathSafe.SafeSubtractInt[CurrentHP, Damage]):
+    Print("Remaining HP: {NewHP}")
+else:
+    Print("Fatal damage!")
+
+# 示例 4: 级联运算（任一步失败都会 rollback）
+# (A + B) * C
+Result := MathSafe.SafeMultiplyInt[
+    MathSafe.SafeAddInt[A, B],
+    C
+]
+
+# 示例 5: 幂运算
+Power := MathSafe.SafePowerInt[Base, Exponent]  # 指数限制 <= 100
+```
+
+**溢出检测技巧**:
+
+| 运算 | 直接检测（错误） | 等价变换（正确） |
+|------|----------------|-----------------|
+| **A + B > Max** | `A + B > Max`（会溢出） | `A > Max - B` ✅ |
+| **A - B < Min** | `A - B < Min`（会溢出） | `A < Min + B` ✅ |
+| **A * B > Max** | `A * B > Max`（会溢出） | `A > Max / B` ✅ |
+| **A / B** | 检查结果 | `B = 0?` ✅（提前检查） |
+
+**为什么使用 `<transacts><decides>` 而非 `option[T]`？**
+
+| 特性 | `<decides>` 版本 | `option[T]` 版本 |
+|------|-----------------|-----------------|
+| **错误传播** | 自动向上传播 ✅ | 需手动检查 ❌ |
+| **调用语法** | `SafeOp[A, B]` ✅ | `SafeOp(A, B)` |
+| **降级支持** | `SafeOp[A, B] or Default` ✅ | `SafeOp(A, B) or Default` ✅ |
+| **强制检查** | 必须在 failure context ✅ | 可能被忽略 ❌ |
+| **代码简洁** | 无需 or/if 判断 ✅ | 每次都需要 or/if ❌ |
+
+**注意事项**:
+- ✅ **提前检测**：溢出检测必须在运算前，不能先算再检查
+- ✅ **数学等价**：检测逻辑本身不能溢出（使用变换）
+- ✅ **使用 Quotient**：整数除法用 `Quotient[]`，不用 `/` 运算符
+- ✅ **效果标注**：必须同时标注 `<transacts><decides>`
+- ⚠️ 性能开销：每次运算前检查，约 2-5 条额外指令
+- ⚠️ 指数限制：`SafePowerInt` 限制指数 <= 100
+
+**反模式**:
+
+```verse
+# ❌ 错误：运算后检查（已经溢出了）
+UnsafeAdd(A, B) =
+    Result := A + B  # 可能已经溢出
+    if (Result > MaxSafeInt):  # 太晚了
+        false
+
+# ❌ 错误：检测逻辑本身会溢出
+UnsafeCheck(A, B) =
+    if (A + B > MaxSafeInt):  # A + B 可能溢出
+        false
+
+# ❌ 错误：使用 / 进行整数除法
+UnsafeDivide(A, B) =
+    A / B  # 返回 rational，不是 int
+
+# ✅ 正确：提前检测，数学等价变换
+SafeAdd(A, B) =
+    if (A > MaxSafeInt - B):  # 不计算 A + B
+        false
+    A + B
+```
+
+**性能考虑**:
+
+| 场景 | 建议 |
+|------|------|
+| **关键路径**（每帧调用） | 谨慎使用，考虑原生运算符（需确保输入安全） |
+| **非关键路径**（偶尔调用） | 强烈推荐，防止崩溃 |
+| **用户输入/外部数据** | 强制使用，输入不可信 |
+| **已验证范围的数据** | 可选，但仍推荐 |
+
+**相关模式**:
+- **Safe Division** - 安全除法是 Safe Math 的子集
+- **Validation Function Pattern** - 验证后再运算
+- **Effect-Aware Function Call** - `<decides>` 函数必须用方括号调用
+
+**实现参考**:
+- `coreMathUtils/MathSafe.verse` - 完整的安全数学运算实现
+  - SafeAddInt, SafeSubtractInt, SafeMultiplyInt, SafeDivideInt
+  - SafePowerInt (指数限制)
+  - SafeAddFloat, SafeSubtractFloat, SafeMultiplyFloat, SafeDivideFloat
+
+**验证决策**:
+- ✅ ADR-011: 安全数学运算的错误处理策略
+- ✅ CONJ-002: `<decides>` 必须配合 `<transacts>` 使用
+- ✅ RESEARCH-006: Quotient[] 用于整数除法
+
+**官方文档**:
+- `int-in-verse/index.md` - "整数溢出会导致 runtime error"
+- `Verse.org/Verse` API - `Quotient[]`, `Mod[]` 函数签名
+
+**风险记录**:
+- RISK-007: 浮点精度问题（已缓解，使用 epsilon）
+- 整数溢出 runtime error（已通过 Safe Math 解决）
+
+---
+
+#### 3.4 Option[T] Array Query Pattern（选项类型数组查询模式）⭐ 新增
+
+**意图**: 使用 option[T] 类型实现安全的数组查询操作，优雅处理"未找到"情况
+
+**使用场景**:
+- 查找元素索引（可能不存在）
+- 查找符合条件的元素（可能为空）
+- 安全地访问数组元素（索引可能越界）
+- 任何可能失败的数组操作
+
+**核心原理**:
+1. **option[T] 作为返回类型**：表示"可能有值，也可能没有"
+2. **`false` 作为空值**：未找到时返回 `false`
+3. **`option{Expression}` 构造器**：自动捕获 failable 表达式的失败
+4. **`?` 查询操作符**：在 failure context 中安全访问 option 值
+
+**背景知识**（基于 CONJ-004-007 验证结果）:
+- ✅ option[T] 的 `?` 操作符是 failable expression，必须在 failure context 中使用
+- ✅ `false` 是所有 option[T] 类型的通用空值字面量
+- ✅ `option{Expression}` 自动捕获失败，失败时为 `false`
+- ✅ option 是 persistable（如果 T 是 persistable）
+
+**结构**:
+
+```verse
+# 模式 1: 返回 option[int] - 查找索引
+IndexOf<public>(Arr:[]Type, Target:Type)<transacts>:?int =
+    var Result:?int = false  # 初始化为空值
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            if (not Result?):  # 仅记录第一次出现
+                set Result = option{Index}
+    Result
+
+# 模式 2: 返回 option[int] - 查找最后出现
+LastIndexOf<public>(Arr:[]Type, Target:Type)<transacts>:?int =
+    var LastIndex:?int = false
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            set LastIndex = option{Index}  # 持续更新
+    LastIndex
+
+# 模式 3: 返回 []Type - 过滤数组
+FindAll<public>(Arr:[]Type, Target:Type)<computes>:[]Type =
+    for (Element : Arr, Element = Target):
+        Element
+
+# 模式 4: 检查存在性 - 使用 option 查询
+Contains<public>(Arr:[]Type, Target:Type)<transacts>:logic =
+    Result := IndexOf(Arr, Target)
+    if (Result?) then true else false
+
+# 模式 5: Any - 检查是否存在满足条件的元素
+AnyGreaterThan<public>(Arr:[]int, Threshold:int)<transacts>:logic =
+    Count := CountGreaterThan(Arr, Threshold)
+    if (Count > 0) then true else false
+
+# 模式 6: All - 检查是否所有元素满足条件
+AllNonZero<public>(Arr:[]int)<transacts>:logic =
+    NonZeroCount := CountNonZero(Arr)
+    TotalCount := Arr.Length
+    if (NonZeroCount = TotalCount) then true else false
+```
+
+**示例**:
+
+```verse
+using { ArrayQueries }
+
+# 示例 1: 查找元素索引，处理未找到情况
+if (Index := ArrayQueries.IndexOfInt[PlayerScores, TargetScore]):
+    Print("Found at position {Index}")
+else:
+    Print("Not found")
+
+# 示例 2: 使用 or 提供默认值
+Index := ArrayQueries.IndexOfInt(PlayerIDs, MyID) or -1
+
+# 示例 3: 查找最后出现位置
+LastPos := ArrayQueries.LastIndexOfInt(Events, TargetEvent)
+if (LastPos?):
+    Print("Last occurrence: {LastPos}")
+
+# 示例 4: 查找所有匹配元素
+HighScores := ArrayQueries.FindGreaterThanInt(Scores, 1000)
+for (Score : HighScores):
+    Print("High score: {Score}")
+
+# 示例 5: 检查是否包含
+if (ArrayQueries.ContainsInt(ValidIDs, PlayerID)):
+    AllowAccess()
+
+# 示例 6: 检查是否有任意元素满足条件
+if (ArrayQueries.AnyPositiveInt(Deltas)):
+    Print("有增长")
+
+# 示例 7: 检查是否所有元素满足条件
+if (ArrayQueries.AllNonZeroInt(Contributions)):
+    Print("所有人都有贡献")
+```
+
+**option[T] 使用技巧**:
+
+| 操作 | 语法 | 说明 |
+|------|------|------|
+| **初始化为空** | `var Result:?int = false` | 使用 `false` 作为空值 |
+| **构造 option** | `option{Expression}` | 自动捕获失败 |
+| **检查是否有值** | `if (Result?)` | `?` 操作符在 failure context 中 |
+| **获取值** | `if (Val := Result?)` | 提取值并绑定 |
+| **提供默认值** | `Result or DefaultValue` | option 为空时使用默认值 |
+
+**为什么使用 option[T] 而非 `<decides>` 失败？**
+
+| 场景 | option[T] | `<decides>` |
+|------|-----------|-------------|
+| **查找可能不存在** | ✅ 返回 `false` | ❌ 触发 rollback |
+| **批量查询** | ✅ 可以收集多个结果 | ❌ 第一次失败就中止 |
+| **可选结果** | ✅ 调用者可选处理 | ❌ 强制失败传播 |
+| **默认值降级** | ✅ `Result or Default` | ✅ 也支持但语义不同 |
+
+**选择指南**:
+- **使用 option[T]**: 查找操作（未找到是正常情况）
+- **使用 `<decides>`**: 必须成功的操作（失败是异常情况）
+
+**注意事项**:
+- ✅ **failure context**: `Result?` 必须在 failure context 中使用（if、or）
+- ✅ **transacts 效果**: 使用 var 的查询函数需要 `<transacts>`
+- ✅ **computes 效果**: 不用 var 的过滤函数可以用 `<computes>`
+- ⚠️ **性能**: option 构造有轻微开销，但可忽略不计
+- ⚠️ **类型限制**: Verse 泛型有限，需为每种类型实现（Int, Float, String）
+
+**反模式**:
+
+```verse
+# ❌ 错误：返回 -1 表示未找到（C 风格）
+IndexOf(Arr, Target):int =
+    # ... 未找到返回 -1
+    -1  # 糟糕！调用者可能忘记检查
+
+# ❌ 错误：使用 <decides> 表示未找到
+IndexOf(Arr, Target)<decides>:int =
+    # ... 未找到时
+    false  # 触发 rollback，过于严厉
+
+# ❌ 错误：在非 failure context 中使用 ?
+Result := IndexOf(Arr, Target)
+Value := Result?  # 错误！必须在 if 或 or 中
+
+# ✅ 正确：使用 option[int]
+IndexOf(Arr, Target):?int =
+    # ... 未找到时
+    false  # 返回空值，调用者决定如何处理
+```
+
+**效果标注规则**:
+
+```verse
+# 使用 var → 需要 <transacts>
+CountOccurrences(Arr, Target)<transacts>:int =
+    var Count:int = 0
+    # ...
+
+# 仅读取，无 var → 可用 <computes>
+FindAll(Arr, Target)<computes>:[]int =
+    for (Element : Arr, Element = Target):
+        Element
+
+# 返回 option + 使用 var → <transacts>
+IndexOf(Arr, Target)<transacts>:?int =
+    var Result:?int = false
+    # ...
+```
+
+**与其他模式的关系**:
+- **Validation Function Pattern**: 验证后再查询
+- **Safe Math Operations**: 类似的"可能失败"处理
+- **Effect-Aware Function Call**: option 查询需要 failure context
+
+**实现参考**:
+- `coreMathUtils/ArrayQueries.verse` - 完整的 option[T] 数组查询实现
+  - IndexOfInt, LastIndexOfInt
+  - FindAllInt, FindGreaterThanInt
+  - ContainsInt, AnyPositiveInt, AllNonZeroInt
+  - CountOccurrencesInt, CountGreaterThanInt
+
+**验证猜想**:
+- ✅ CONJ-004: option[T] 查询操作符 `?` 隐式包含 `<decides>` 效果
+- ✅ CONJ-005: option 类型的 persistable 特性是递归的
+- ✅ CONJ-006: `false` 是 option 类型的"空值"字面量
+- ✅ CONJ-007: `option{Expression}` 构造器是 failure context
+
+**官方文档**:
+- `option-in-verse/index.md` - option 类型完整说明
+- RESEARCH-003: `knowledge/research/verse-option-type-research-20260112.md`
+
+---
 ## 维护指南
 
 1. **添加模式**: 在相应分类下追加
@@ -1254,3 +1645,183 @@ PointInRect<public>(Point:Point2D, Rect:Rect2D)<computes>:logic =
 ---
 
 _模式是经验的结晶。每次写代码，都在积累模式。_
+
+#### 3.5 Array Transforms Pattern (数组转换模式) ⭐ 新增
+
+**意图**: 使用专用函数实现常见的数组过滤、映射和聚合操作
+
+**使用场景**:
+- 数组数据筛选和转换
+- 批量计算和统计
+- 数据管道构建
+
+**核心原理**:
+1. **专用函数模式**: 为常见操作提供专用函数（Verse不支持高阶函数）
+2. **内联表达式补充**: 自定义条件使用 for 表达式
+3. **类型特化**: 为 int 和 float 分别实现
+
+**背景知识**（基于 RESEARCH-007, ADR-012）:
+- ❌ Verse 不支持高阶函数（函数作为参数）
+- ❌ 无lambda表达式
+- ✅ 支持内联 for 表达式的过滤和映射
+- ✅ 专用函数模式性能最优，类型安全
+
+**结构**:
+
+```verse
+# Pattern 1: Filter - 使用专用函数
+FilteredArray := ArrayTransforms.FilterPositiveInt(Numbers)
+
+# Pattern 2: Filter - 使用内联表达式（自定义条件）
+CustomFiltered := for (Num : Numbers, Num > 10 and Num < 100):
+    Num
+
+# Pattern 3: Map - 使用专用函数
+SquaredArray := ArrayTransforms.MapSquareInt(Numbers)
+
+# Pattern 4: Map - 使用内联表达式（自定义转换）
+CustomMapped := for (Num : Numbers):
+    Num * 3 + 5
+
+# Pattern 5: Reduce - 使用专用函数
+TotalScore := ArrayTransforms.SumInt(Scores)
+
+# Pattern 6: 组合操作（Filter + Map）
+Result := ArrayTransforms.MapSquareInt(
+    ArrayTransforms.FilterPositiveInt(Numbers)
+)
+
+# Pattern 7: 混合使用（专用函数 + 内联表达式）
+# 先用专用函数过滤，再用内联表达式映射
+Filtered := ArrayTransforms.FilterInRangeInt(Scores, 0, 100)
+Normalized := for (Score : Filtered):
+    Score / 100.0
+```
+
+**实现示例**:
+
+```verse
+using { ArrayTransforms }
+
+# 示例 1: 获取所有正数
+PositiveNumbers := ArrayTransforms.FilterPositiveInt(AllNumbers)
+
+# 示例 2: 获取所有偶数的平方
+EvenSquares := ArrayTransforms.MapSquareInt(
+    ArrayTransforms.FilterEvenInt(Numbers)
+)
+
+# 示例 3: 计算总分
+TotalScore := ArrayTransforms.SumInt(PlayerScores)
+
+# 示例 4: 计算平均分
+AverageScore := ArrayTransforms.AverageFloat(ScoresAsFloat)
+
+# 示例 5: 自定义过滤条件（内联）
+HighScores := for (Score : Scores, Score >= 90):
+    Score
+
+# 示例 6: 自定义映射（内联）
+AdjustedScores := for (Score : Scores):
+    Score * Difficulty + Bonus
+
+# 示例 7: 复杂组合
+# 筛选有效分数 -> 转换为百分比 -> 求平均
+ValidScores := ArrayTransforms.FilterInRangeInt(RawScores, 0, 100)
+Percentages := ArrayTransforms.MapMultiplyFloat(
+    for (Score : ValidScores):
+        Score * 1.0,  # int -> float
+    1.0
+)
+Average := ArrayTransforms.AverageFloat(Percentages)
+```
+
+**可用函数清单**:
+
+| 类别 | 整数函数 | 浮点函数 |
+|------|---------|---------|
+| **Filter (过滤)** | Positive, Negative, NonZero, Even, Odd, GreaterThan, LessThan, InRange, OutOfRange | Positive, Negative, GreaterThan, LessThan, InRange |
+| **Map (映射)** | Square, Double, Negate, Abs, Add, Multiply | Square, Negate, Abs, Multiply |
+| **Reduce (聚合)** | Sum, Product, CountNonZero, CountGreaterThan | Sum, Product, Average |
+
+**性能考虑**:
+
+| 操作 | 专用函数 | 内联表达式 |
+|------|----------|-----------|
+| **编译时检查** | ✅ 完全检查 | ✅ 完全检查 |
+| **运行时性能** | ✅ 最优（可内联） | ✅ 最优（可内联） |
+| **灵活性** | ⚠️ 仅预定义操作 | ✅ 任意条件 |
+| **代码可读性** | ✅ 高（函数名清晰） | ⚠️ 中（需要阅读条件） |
+
+**使用指南**:
+
+```
+选择流程：
+  │
+  ├─ 常见操作？
+  │   ├─ Yes → 使用专用函数（性能最优，代码清晰）
+  │   └─ No  → 继续
+  │
+  ├─ 简单条件？
+  │   ├─ Yes → 使用内联 for 表达式（灵活）
+  │   └─ No  → 拆分为多步或提取辅助函数
+  │
+  └─ 需要复用？
+      ├─ Yes → 考虑添加新的专用函数
+      └─ No  → 使用内联表达式即可
+```
+
+**注意事项**:
+- ✅ **选择专用函数优先**（如果满足需求）
+- ✅ **自定义条件使用内联for**（灵活性最高）
+- ⚠️ **避免过度嵌套**（影响可读性）
+- ⚠️ **Reduce操作需要<transacts>**（因为使用var）
+- ✅ **Filter和Map可用<computes>**（无副作用）
+
+**反模式**:
+
+```verse
+# ❌ 错误：尝试传递函数
+FilterArray(Numbers, MyPredicate)  # Verse不支持
+
+# ❌ 错误：过度复杂的嵌套
+Result := ArrayTransforms.MapSquareInt(
+    ArrayTransforms.FilterPositiveInt(
+        ArrayTransforms.MapAbsInt(
+            ArrayTransforms.FilterNonZeroInt(Numbers)
+        )
+    )
+)  # 可读性差
+
+# ✅ 正确：拆分为多步
+NonZero := ArrayTransforms.FilterNonZeroInt(Numbers)
+Absolute := ArrayTransforms.MapAbsInt(NonZero)
+Positive := ArrayTransforms.FilterPositiveInt(Absolute)
+Squared := ArrayTransforms.MapSquareInt(Positive)
+
+# ✅ 更好：使用内联表达式简化
+Squared := for (Num : Numbers, Num > 0 or Num < 0):
+    if (Num < 0) then (-Num) * (-Num) else Num * Num
+```
+
+**与其他模式的关系**:
+- **Option[T] Array Query Pattern**: ArrayTransforms 处理转换，Query 处理查询
+- **Inline For Expression**: 两者互补，一个提供常用函数，一个提供灵活性
+- **Validation Function Pattern**: Transform后通常需要验证
+
+**实现参考**:
+- `collectionsUtils/ArrayTransforms.verse` - 完整实现
+  - 16个Filter函数
+  - 10个Map函数
+  - 7个Reduce函数
+
+**验证决策**:
+- ✅ RESEARCH-007: Verse不支持高阶函数
+- ✅ ADR-012: 专用函数模式决策
+- ✅ 编译验证：所有函数通过编译
+
+**官方文档**:
+- Verse Language Reference - for expressions
+- RESEARCH-007: Verse高阶函数调研
+
+---
