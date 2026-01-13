@@ -1935,3 +1935,188 @@ Result := SafeAddInt[SafeMultiplyInt[A, B], C]
 ---
 
 **总结**：采用 `<transacts><decides>` 效果的 fail-fast 策略，既保证了运行时安全，又提供了 Verse 习惯的优雅错误处理。通过提前检测溢出，避免了运行时崩溃，同时保持了 API 的简洁性和一致性。
+
+## ADR-012: 不实现通用高阶函数，采用专用函数模式
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/collectionsUtils/ArrayTransforms.verse` (计划)
+
+### 上下文（Context）
+
+在规划 TASK-022 (Array Filtering/Mapping) 时，需要决定如何实现函数式的数组操作。理想的实现是通用的高阶函数：
+
+```verse
+# 理想但不可行的实现
+Filter<public>(Arr:[]t, Predicate:(t)->logic)<computes>:[]t
+Map<public>(Arr:[]t, Transform:(t)->u)<computes>:[]u
+Reduce<public>(Arr:[]t, Accumulator:(t, t)->t, Initial:t)<computes>:t
+```
+
+然而，经过调研（详见 RESEARCH-007），发现：
+- ❌ Verse 不支持将函数作为参数传递（高阶函数）
+- ❌ Verse 没有 lambda 表达式或匿名函数
+- ❌ 无法使用泛型的 `type` 参数表示函数类型
+
+这导致无法实现标准的函数式编程模式。
+
+### 决策（Decision）
+
+**采用"专用函数 + 内联表达式"模式，放弃通用高阶函数**
+
+具体方案：
+1. 为常见操作提供专用函数（如 `FilterPositive`, `MapSquare`）
+2. 在文档中指导用户使用内联 for 表达式处理自定义条件
+3. 不尝试模拟高阶函数（如使用 enum 表示操作类型）
+
+### 理由（Rationale）
+
+#### 为什么选择专用函数模式？
+
+**方案 A: 专用函数模式（已选择）**
+```verse
+FilterPositiveInt<public>(Arr:[]int)<computes>:[]int =
+    for (Element : Arr, Element > 0):
+        Element
+
+FilterGreaterThanInt<public>(Arr:[]int, Threshold:int)<computes>:[]int =
+    for (Element : Arr, Element > Threshold):
+        Element
+```
+
+**优点**:
+1. ✅ **符合语言能力**：完全在 Verse 支持范围内
+2. ✅ **性能最优**：无间接调用开销，编译器可内联优化
+3. ✅ **类型安全**：编译时完全检查，无运行时错误
+4. ✅ **代码清晰**：函数名直接表达意图，易于理解
+5. ✅ **实用性**：覆盖 80% 的常见场景
+
+**缺点**:
+- ⚠️ 代码量较大：每种操作需要一个函数
+- ⚠️ 通用性受限：添加新操作需要新函数
+
+**方案 B: Enum 模拟操作类型（未选择）**
+```verse
+filter_operation := enum:
+    Positive
+    Even
+    GreaterThanZero
+
+FilterWithOperation<public>(Arr:[]int, Op:filter_operation)<transacts>:[]int =
+    var Result:[]int = array{}
+    for (Element : Arr):
+        ShouldInclude := if (Op = filter_operation.Positive):
+            Element > 0
+        else if (Op = filter_operation.Even):
+            Mod[Element, 2] = 0
+        else:
+            false
+        if (ShouldInclude):
+            set Result += array{Element}
+    Result
+```
+
+**未选择理由**:
+- ❌ 性能较差：需要运行时分支判断
+- ❌ 不够灵活：仍然只支持预定义操作
+- ❌ 代码复杂：函数内部需要大量 if-else 分支
+- ❌ 类型不安全：编译器无法检查操作的有效性
+
+**方案 C: 仅使用内联 for 表达式（作为补充）**
+```verse
+# 调用者直接使用
+PositiveNumbers := for (Num : Numbers, Num > 0):
+    Num
+```
+
+**作为补充的理由**:
+- ✅ 最简洁
+- ✅ Verse 原生支持
+- ✅ 完全灵活（任意条件）
+- ⚠️ 但不能复用（每次都要写条件）
+
+#### 为什么不尝试其他模拟方案？
+
+其他尝试过的方案：
+- ❌ **使用字符串表示函数名**：需要在运行时反射，Verse 不支持
+- ❌ **使用类封装函数**：仍然需要多态或接口，Verse 的类系统不支持函数多态
+- ❌ **使用宏**：Verse 没有宏系统
+
+#### 实践中如何使用？
+
+**场景 1: 常见操作（使用专用函数）**
+```verse
+using { ArrayTransforms }
+
+# 过滤正数
+PositiveScores := ArrayTransforms.FilterPositiveInt(Scores)
+
+# 映射平方
+SquaredValues := ArrayTransforms.MapSquareInt(Values)
+
+# 求和
+TotalScore := ArrayTransforms.SumInt(Scores)
+```
+
+**场景 2: 自定义条件（使用内联 for）**
+```verse
+# 自定义过滤条件
+HighScores := for (Score : Scores, Score > 1000 and Score < 5000):
+    Score
+
+# 自定义映射
+AdjustedScores := for (Score : Scores):
+    Score * Multiplier + Bonus
+```
+
+**场景 3: 复杂操作（组合使用）**
+```verse
+# 先过滤再映射
+FinalScores := ArrayTransforms.MapSquareInt(
+    ArrayTransforms.FilterPositiveInt(RawScores)
+)
+```
+
+### 替代方案（Alternatives）
+
+已在"理由"部分详细说明，未选择的主要原因是性能、复杂度和语言限制。
+
+### 后果（Consequences）
+
+**积极影响**:
+- ✅ **性能最优**：直接编译为高效代码，无额外开销
+- ✅ **类型安全**：编译时检查所有类型错误
+- ✅ **易于维护**：每个函数职责单一，易于理解和测试
+- ✅ **符合 Verse 习惯**：不引入非原生的抽象
+- ✅ **覆盖常见场景**：20-30 个专用函数可满足 80% 需求
+
+**负面影响**:
+- ⚠️ **代码量增加**：估计 ArrayTransforms.verse 会有 500-800 行
+  - 缓解：函数模式重复，易于编写和维护
+- ⚠️ **通用性受限**：无法在运行时动态选择操作
+  - 缓解：通过内联 for 表达式处理特殊情况
+- ⚠️ **新操作需要新函数**：扩展性受限
+  - 缓解：80% 场景已覆盖，剩余 20% 可用 for 表达式
+
+**使用指导**:
+1. **优先使用专用函数**（性能最优，代码清晰）
+2. **特殊条件使用 for 表达式**（最灵活）
+3. **避免复杂嵌套**（可读性下降）
+
+**设计原则**:
+- 每个专用函数做好一件事
+- 函数命名清晰表达意图（如 `FilterPositive` 而非 `Filter1`）
+- 为常见操作提供专用函数（如 Even, Odd, Positive, Negative）
+- 为可配置操作提供参数化函数（如 `FilterGreaterThan(Threshold)`）
+
+### 参考（References）
+
+- **研究报告**: `knowledge/research/verse-higher-order-functions-research-20260113.md`
+- **官方文档**: Parametric Types in Verse (证明 type 不能用于函数类型)
+- **相关任务**: TASK-022 (Array Filtering/Mapping)
+- **实现文件**: `collectionsUtils/ArrayTransforms.verse` (待创建)
+
+---
+
+**总结**：由于 Verse 语言限制，我们选择实用主义的专用函数模式，而非追求理论上完美但无法实现的高阶函数模式。这个决策在性能、可维护性和实用性之间取得了良好平衡。
+
