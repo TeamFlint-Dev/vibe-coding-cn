@@ -36,18 +36,31 @@
 - **相关代码**: `StringValidation.verse`
 - **影响任务**: TASK-082 (部分功能缺失)
 
-#### RISK-003: vector3 不暴露分量访问
-- **风险等级**: 🟡 中危
-- **状态**: ⚠️ 已知限制
-- **描述**: vector3 类型不提供 .X, .Y, .Z 成员访问
-- **影响范围**: 向量验证和分量操作
-- **发现时间**: 2026-01-13
-- **当前缓解**: 
-  - TASK-084 (Vector Validation) 暂缓
-  - 无法实现分量级别的验证
-- **未来解决**: 等待 Verse API 研究或使用 Verse 内置函数
-- **相关代码**: 无 (未实现)
-- **影响任务**: TASK-084 (完全阻塞)
+#### RISK-003: ~~vector3 不暴露分量访问~~ (已解决 - 假设错误)
+- **风险等级**: ~~🟡 中危~~ → ✅ 已解决
+- **状态**: ✅ **假设错误 - 已纠正**
+- **描述**: ~~vector3 类型不提供 .X, .Y, .Z 成员访问~~ **错误**
+- **真实情况**: Verse 提供 **两种** vector3 类型，均支持分量访问：
+  - `/Verse.org/SpatialMath/vector3` - 使用 `.Forward`, `.Left`, `.Up` (官方稳定)
+  - `/UnrealEngine.com/Temporary/SpatialMath/vector3` - 使用 `.X`, `.Y`, `.Z` (临时API)
+- **发现时间**: 2026-01-13 (错误假设) → 2026-01-13 (纠正)
+- **错误根源**: 
+  - 未全面查阅官方文档
+  - 预期传统命名，未考虑语义化命名
+  - 将未验证的推测记录为"已知限制"
+- **纠正依据**: 
+  - **研究报告**: `knowledge/research/vector3-research-20260113.md`
+  - **官方文档**: `/Verse.org/SpatialMath/vector3` API 文档
+  - **用户反馈**: @stallsping 指出 vector3 实际上没问题
+- **当前决策**: 
+  - MathGeometry3d 保持 tuple 设计 (ADR-011 仍然有效)
+  - 可选：未来添加 vector3 ↔ tuple 转换函数
+- **相关代码**: `MathGeometry3d.verse` (使用 tuple，设计合理)
+- **影响任务**: TASK-084 现在可以实现 (不再阻塞)
+- **教训**: 
+  - ❌ 不要基于假设记录"已知限制"
+  - ✅ 始终查阅官方文档验证
+  - ✅ 区分"猜想"(CONJECTURES.md) 和"已验证的事实"(RISK-POINTS.md)
 
 #### RISK-004: 模块级别不支持 private 访问修饰符
 - **风险等级**: 🟢 低危
