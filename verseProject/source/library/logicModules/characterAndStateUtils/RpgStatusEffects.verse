@@ -131,8 +131,8 @@ RpgStatusEffects<public> := module:
             RefreshEffectDuration(CurrentEffect)
         else if (CurrentEffect.StackType = STACK_TYPE_COUNT):
             # 增加层数并刷新时长
-            NewEffect := AddEffectStack(CurrentEffect)
-            RefreshEffectDuration(NewEffect)
+            StackedEffect := AddEffectStack(CurrentEffect)
+            RefreshEffectDuration(StackedEffect)
         else if (CurrentEffect.StackType = STACK_TYPE_INTENSITY):
             # 叠加强度
             NewIntensity := Min(CurrentEffect.Intensity + NewEffect.Intensity, 5.0)
