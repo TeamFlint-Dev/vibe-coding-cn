@@ -499,6 +499,223 @@ IsNormalized<public>(V:vector3)<reads><computes>:logic =
 
 ---
 
+#### 3.4 Time Validation Pattern（时间验证模式）⭐ 新增
+
+**意图**: 验证时间戳和持续时间的有效性，确保时间逻辑正确
+
+**使用场景**:
+- 计时器和冷却时间验证
+- 事件调度时间检查
+- 时间窗口和时间范围验证
+- buff/debuff 持续时间验证
+
+**核心概念**:
+1. **时间戳验证** - 非负、在合理范围内
+2. **持续时间验证** - 非负（0 表示瞬间）
+3. **时间比较** - 使用 Epsilon 避免浮点精度问题
+4. **时间范围** - 开始时间 < 结束时间
+
+**时间表示标准**（ADR-014）:
+- **类型**: `float`（浮点数）
+- **单位**: 秒
+- **时间戳起点**: 0.0（游戏开始时刻）
+- **Epsilon**: 0.0001 秒（0.1 毫秒容差）
+
+**结构**:
+```verse
+using { /Verse.org/Simulation }
+
+# 常量定义
+MinValidTimestamp:float = 0.0
+MaxReasonableTimestamp:float = 100000.0  # 约 27.7 小时
+DefaultEpsilon:float = 0.0001
+
+# 1. 时间戳验证（<decides><transacts> - Fail-Fast）
+ValidateTimestamp<public>(Timestamp:float)<decides><transacts>:void =
+    Timestamp >= MinValidTimestamp
+    Timestamp <= MaxReasonableTimestamp
+
+# 2. 持续时间验证（<decides><transacts>）
+ValidateDuration<public>(Duration:float)<decides><transacts>:void =
+    Duration >= 0.0  # 持续时间不能为负
+
+ValidateDurationPositive<public>(Duration:float, ?Epsilon:float = DefaultEpsilon)<decides><transacts>:void =
+    Duration > Epsilon  # 必须有真实持续时间（不接受 0）
+
+# 3. 时间比较（<computes> - 返回 logic）
+IsFuture<public>(Timestamp:float, CurrentTime:float, ?Epsilon:float = DefaultEpsilon)<computes>:logic =
+    if (Timestamp > CurrentTime + Epsilon) then true else false
+
+IsPast<public>(Timestamp:float, CurrentTime:float, ?Epsilon:float = DefaultEpsilon)<computes>:logic =
+    if (Timestamp < CurrentTime - Epsilon) then true else false
+
+# 4. 时间范围验证（<computes> - 检查）
+IsWithinTimeframe<public>(Timestamp:float, StartTime:float, EndTime:float, ?Epsilon:float = DefaultEpsilon)<computes>:logic =
+    IsAfterOrAtStart := if (Timestamp >= StartTime - Epsilon) then true else false
+    IsBeforeOrAtEnd := if (Timestamp <= EndTime + Epsilon) then true else false
+    
+    if (IsAfterOrAtStart = true):
+        if (IsBeforeOrAtEnd = true):
+            true
+        else:
+            false
+    else:
+        false
+
+# 5. 时间范围验证（<decides><transacts> - Fail-Fast）
+ValidateWithinTimeframe<public>(Timestamp:float, StartTime:float, EndTime:float, ?Epsilon:float = DefaultEpsilon)<decides><transacts>:void =
+    Timestamp >= StartTime - Epsilon
+    Timestamp <= EndTime + Epsilon
+
+# 6. 辅助验证
+ValidateTimeRange<public>(StartTime:float, EndTime:float, ?Epsilon:float = DefaultEpsilon)<decides><transacts>:void =
+    EndTime > StartTime + Epsilon  # 结束时间必须晚于开始时间
+
+ValidateTimeOrder<public>(EarlierTime:float, LaterTime:float, ?Epsilon:float = DefaultEpsilon)<decides><transacts>:void =
+    LaterTime > EarlierTime + Epsilon  # 时间序列单调递增
+
+# 7. 时间相等比较
+IsTimeNearlyEqual<public>(TimeA:float, TimeB:float, ?Epsilon:float = DefaultEpsilon)<computes>:logic =
+    Diff := TimeA - TimeB
+    AbsDiff := if (Diff < 0.0) then -Diff else Diff
+    if (AbsDiff <= Epsilon) then true else false
+```
+
+**使用示例**:
+```verse
+using { validationUtils.TimeValidation }
+
+# 场景1：验证技能冷却时间
+SetCooldown<public>(CooldownDuration:float)<transacts>:void =
+    # 验证持续时间有效（非负）
+    TimeValidation.ValidateDuration[CooldownDuration]
+    
+    # 设置冷却
+    CooldownEndTime := GetCurrentTime() + CooldownDuration
+    # ...
+
+# 场景2：检查事件是否可触发
+CanTriggerEvent<public>(EventTime:float)<computes>:logic =
+    CurrentTime := GetCurrentTime()
+    
+    # 检查事件时间是否已到
+    TimeValidation.IsPast(EventTime, CurrentTime)
+
+# 场景3：验证限时活动时间
+ValidateEventTime<public>(JoinTime:float, EventStart:float, EventEnd:float)<transacts>:void =
+    # 验证活动时间范围配置正确
+    TimeValidation.ValidateTimeRange[EventStart, EventEnd]
+    
+    # 验证玩家加入时间在活动期间
+    TimeValidation.ValidateWithinTimeframe[JoinTime, EventStart, EventEnd]
+
+# 场景4：计时器倒计时
+UpdateTimer<public>(RemainingTime:float, DeltaTime:float)<computes>:float =
+    NewRemainingTime := RemainingTime - DeltaTime
+    
+    # 确保不会变成负数（最小为 0）
+    if (NewRemainingTime >= 0.0):
+        NewRemainingTime
+    else:
+        0.0
+```
+
+**关键点**:
+
+1. **Epsilon 的重要性**:
+   ```verse
+   # ❌ 错误：直接比较浮点数
+   if (Timestamp = TargetTime):  # 可能因精度问题永远不相等
+   
+   # ✅ 正确：使用 Epsilon 容差
+   if (TimeValidation.IsTimeNearlyEqual(Timestamp, TargetTime)):
+   ```
+
+2. **持续时间语义**:
+   | 值 | 含义 | 合法性 |
+   |---|------|--------|
+   | `Duration = 0.0` | 瞬间/无持续时间 | ✅ 合法 |
+   | `Duration > 0.0` | 有持续时间 | ✅ 合法 |
+   | `Duration < 0.0` | 负持续时间 | ❌ 非法 |
+
+3. **时间比较容差**:
+   ```verse
+   # IsFuture: Timestamp > CurrentTime + Epsilon
+   # 意味着必须"明显"在未来（超过 0.1 毫秒）
+   
+   # IsPast: Timestamp < CurrentTime - Epsilon
+   # 意味着必须"明显"在过去
+   
+   # 这避免了浮点精度导致的误判
+   ```
+
+4. **时间戳范围限制**:
+   - **MinValidTimestamp = 0.0** - 游戏开始时刻
+   - **MaxReasonableTimestamp = 100000.0** - 约 27.7 小时
+   - 超过此范围可能是逻辑错误或数值溢出
+
+**常见错误**:
+
+```verse
+# ❌ 错误 1：允许负持续时间
+Duration:float = -5.0  # 负数没有物理意义
+SetCooldown(Duration)  # 应该在此处验证
+
+# ✅ 正确：验证持续时间
+TimeValidation.ValidateDuration[Duration]  # 失败时自动 rollback
+SetCooldown(Duration)
+
+# ❌ 错误 2：直接比较时间戳
+if (EventTime = CurrentTime):  # 浮点精度问题
+    TriggerEvent()
+
+# ✅ 正确：使用 Epsilon 比较
+if (TimeValidation.IsTimeNearlyEqual(EventTime, CurrentTime)):
+    TriggerEvent()
+
+# ❌ 错误 3：时间范围顺序错误
+ValidateWithinTimeframe[JoinTime, EventEnd, EventStart]  # 参数顺序错误
+
+# ✅ 正确：确保 StartTime < EndTime
+TimeValidation.ValidateTimeRange[EventStart, EventEnd]  # 先验证范围
+TimeValidation.ValidateWithinTimeframe[JoinTime, EventStart, EventEnd]
+
+# ❌ 错误 4：在 <computes> 中直接赋值比较表达式
+IsValid := Timestamp >= MinValue  # 可能触发 <decides> effect 错误
+
+# ✅ 正确：使用 if-then-else 包装
+IsValid := if (Timestamp >= MinValue) then true else false
+```
+
+**性能考虑**:
+- ✅ 时间比较是轻量级操作（简单的浮点比较）
+- ✅ Epsilon 检查开销可忽略不计
+- ⚠️ 避免在高频循环中重复验证相同的时间戳
+
+**与其他模式的关系**:
+- **Float Comparison with Tolerance** - 时间比较基于浮点比较模式
+- **Validation Function Pattern** - 是验证模式的具体应用
+- **Range Validation** - 时间范围验证类似于数值范围验证
+
+**实现参考**:
+- `validationUtils/TimeValidation.verse` - 完整实现（15 个函数）
+- `coreMathUtils/UtilTime.verse` - 时间工具函数（待实现）
+- **ADR**: ADR-014 (时间表示和单位选择决策)
+- **Lesson**: LESSON-017 (比较表达式赋值的 effect 处理)
+
+**常用时间值参考**:
+| 描述 | 值（秒） | 用途 |
+|------|---------|------|
+| 瞬间 | 0.0 | 无持续时间的效果 |
+| 1 帧 (60 FPS) | 0.0167 | 帧级别的微小延迟 |
+| 短冷却 | 0.5 ~ 2.0 | 快速技能冷却 |
+| 中等冷却 | 5.0 ~ 10.0 | 普通技能冷却 |
+| 长冷却 | 30.0 ~ 60.0 | 大招冷却 |
+| Buff 时长 | 10.0 ~ 120.0 | 临时效果持续时间 |
+| 活动时长 | 3600.0+ | 每日活动、限时事件 |
+
+---
+
 ### 4. 状态查询模式（State Query）
 
 从状态数据中提取信息。

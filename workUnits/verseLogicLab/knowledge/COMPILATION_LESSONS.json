@@ -149,6 +149,16 @@
       "prevention": "调用约定检查清单：<decides> 函数用 []，非 <decides> 函数用 ()。查看函数签名确认是否有 <decides>",
       "date": "2026-01-13",
       "tags": ["syntax-error", "function-call", "decides", "common", "brackets"]
+    },
+    {
+      "id": "LESSON-017",
+      "error": "error:3512:This invocation calls a function that has the 'decides' effect, which is not allowed by its context",
+      "context": "在 <computes> 函数中直接将比较表达式（如 `Timestamp >= MinValue`）赋值给变量，但比较操作符在某些上下文中有 <decides> 效果",
+      "solution": "使用 if-then-else 包装：`IsValid := if (Timestamp >= MinValue) then true else false`",
+      "prevention": "在 <computes> 函数中进行比较赋值时，使用 if-then-else 明确转换为 logic 值，避免隐式 <decides> 效果",
+      "date": "2026-01-13",
+      "tags": ["effect-mismatch", "decides", "comparison", "assignment"],
+      "note": "比较操作符的 effect 取决于上下文，在赋值时需要显式转换"
     }
   ],
   "_metadata": {
