@@ -2120,3 +2120,185 @@ FinalScores := ArrayTransforms.MapSquareInt(
 
 **总结**：由于 Verse 语言限制，我们选择实用主义的专用函数模式，而非追求理论上完美但无法实现的高阶函数模式。这个决策在性能、可维护性和实用性之间取得了良好平衡。
 
+
+## ADR-013: 浮点数比较 Epsilon 值选择
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/coreMathUtils/MathFloatComparison.verse`
+
+### 上下文（Context）
+
+在实现 TASK-003 (Float Comparison) 时，需要选择合适的 Epsilon 值用于浮点数比较。由于浮点数的精度限制，直接使用 `==` 比较可能导致错误判断。
+
+关键考虑：
+- IEEE 754 单精度浮点数约有7位有效数字
+- 游戏逻辑中常见的精度需求
+- 不同场景对精度的不同要求
+
+### 决策（Decision）
+
+**选择 0.0001 作为默认 Epsilon 值**
+
+同时提供三个预定义的 Epsilon 常量：
+- `DefaultEpsilon: 0.0001` - 默认值，适用于大多数游戏逻辑
+- `SmallEpsilon: 0.000001` - 高精度场景
+- `LargeEpsilon: 0.001` - 低精度/性能优先场景
+
+### 理由（Rationale）
+
+#### 为什么选择 0.0001？
+
+**实践考虑**:
+1. ✅ **覆盖游戏常见场景**：
+   - 位置比较（单位：米）- 0.1mm 精度足够
+   - 百分比计算（0-100）- 0.01% 精度
+   - 角度比较（0-360）- 0.036° 精度
+   
+2. ✅ **避免常见浮点误差**：
+   - 0.1 + 0.2 = 0.30000000000000004 ✅ 在容差内
+   - 1.0 / 3.0 * 3.0 ≈ 1.0 ✅ 在容差内
+
+3. ✅ **性能与精度平衡**：
+   - 不会过于严格导致误判
+   - 不会过于宽松导致错误相等
+
+**与其他值的对比**:
+
+| Epsilon | 适用场景 | 优点 | 缺点 |
+|---------|---------|------|------|
+| **0.0001** (选择) | 通用游戏逻辑 | 平衡，覆盖80%场景 | 非最精确 |
+| 0.00001 | 高精度数值计算 | 更精确 | 可能误判（浮点误差） |
+| 0.001 | 性能敏感场景 | 宽松，快速 | 精度较低 |
+| 0.01 | UI显示比较 | 符合显示精度 | 对数值计算过于宽松 |
+
+**科学依据**:
+
+IEEE 754 单精度浮点数：
+- 有效位数：约 7 位十进制数字
+- 机器精度（Machine Epsilon）：约 1.19e-7
+
+选择 0.0001 (1e-4) 的理由：
+- 大于机器精度约 1000 倍，避免误判
+- 小于实际应用精度需求约 10-100 倍，保证准确性
+
+#### 为什么提供多个 Epsilon？
+
+不同场景有不同需求：
+
+**SmallEpsilon (0.000001) - 高精度场景**:
+```verse
+# 物理模拟中的精确计算
+if (MathFloatComparison.NearlyEqual(Position.X, Target.X, MathFloatComparison.SmallEpsilon)):
+    Arrived()
+```
+
+**DefaultEpsilon (0.0001) - 通用场景**:
+```verse
+# 大多数游戏逻辑
+if (MathFloatComparison.NearlyEqual(Health, MaxHealth)):
+    FullHealth()
+```
+
+**LargeEpsilon (0.001) - 性能优先**:
+```verse
+# UI显示，人类感知极限
+if (MathFloatComparison.NearlyEqual(SliderValue, TargetValue, MathFloatComparison.LargeEpsilon)):
+    UpdateUI()
+```
+
+### 替代方案（Alternatives）
+
+**方案 A: 单一固定 Epsilon（未选择）**
+```verse
+# 仅提供一个 Epsilon
+DefaultEpsilon: 0.0001
+```
+
+**未选择理由**:
+- ❌ 不够灵活，无法适应不同精度需求
+- ❌ 开发者可能自己定义不一致的值
+
+**方案 B: 相对 Epsilon（未选择）**
+```verse
+# 基于数值大小的相对误差
+RelativeEpsilon(A, B, Tolerance) :=
+    Threshold := Max(Abs(A), Abs(B)) * Tolerance
+    Abs(A - B) <= Threshold
+```
+
+**未选择理由**:
+- ❌ 复杂度更高
+- ❌ 游戏场景多使用绝对误差
+- ✅ 但可以作为未来扩展
+
+**方案 C: 可配置全局 Epsilon（未选择）**
+```verse
+# 运行时可修改的全局变量
+var GlobalEpsilon:float = 0.0001
+```
+
+**未选择理由**:
+- ❌ Verse Logic层避免可变状态
+- ❌ 可能导致不一致的比较结果
+- ❌ 难以追踪和调试
+
+### 后果（Consequences）
+
+**积极影响**:
+- ✅ **标准化**: 整个项目使用一致的精度标准
+- ✅ **灵活性**: 三个预定义值覆盖不同场景
+- ✅ **可维护性**: 明确的精度定义，易于理解
+- ✅ **正确性**: 避免浮点数直接比较的陷阱
+
+**负面影响**:
+- ⚠️ **可能过于宽松**: 某些高精度场景可能需要更小的epsilon
+  - 缓解：提供 SmallEpsilon 选项
+- ⚠️ **可能过于严格**: 某些UI场景可能不需要这么高精度
+  - 缓解：提供 LargeEpsilon 选项
+
+**使用指导**:
+
+```verse
+# 场景 1: 位置到达判断（默认）
+if (MathFloatComparison.NearlyEqual(CurrentPos, TargetPos)):
+    ReachedTarget()
+
+# 场景 2: 物理碰撞检测（高精度）
+if (MathFloatComparison.NearlyEqual(
+    Distance, 
+    CollisionThreshold, 
+    MathFloatComparison.SmallEpsilon
+)):
+    OnCollision()
+
+# 场景 3: UI滑块比较（低精度）
+if (MathFloatComparison.NearlyEqual(
+    SliderValue, 
+    Setting, 
+    MathFloatComparison.LargeEpsilon
+)):
+    SettingMatched()
+
+# 场景 4: 自定义精度
+if (MathFloatComparison.NearlyEqual(Value1, Value2, 0.5)):
+    # 自定义容差
+    WithinRange()
+```
+
+**边界情况处理**:
+- ✅ 零值比较：`NearlyZero(Value)` 专用函数
+- ✅ 极大值：Epsilon 相对值仍然合理
+- ✅ 极小值：SmallEpsilon 可处理
+
+### 参考（References）
+
+- **IEEE 754**: 浮点数标准
+- **游戏开发最佳实践**: Unity, Unreal等引擎的epsilon选择
+- **相关模块**: `coreMathUtils/MathFloatComparison.verse`
+- **相关决策**: ADR-001 (早期 Epsilon 选择，已被本决策替代)
+
+---
+
+**总结**: 0.0001 作为默认 Epsilon 在游戏开发中是经过验证的最佳实践，同时提供多个预定义值确保了灵活性。这个决策在精度、性能和易用性之间取得了良好平衡。
+

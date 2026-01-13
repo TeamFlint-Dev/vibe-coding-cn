@@ -1645,3 +1645,183 @@ IndexOf(Arr, Target)<transacts>:?int =
 ---
 
 _模式是经验的结晶。每次写代码，都在积累模式。_
+
+#### 3.5 Array Transforms Pattern (数组转换模式) ⭐ 新增
+
+**意图**: 使用专用函数实现常见的数组过滤、映射和聚合操作
+
+**使用场景**:
+- 数组数据筛选和转换
+- 批量计算和统计
+- 数据管道构建
+
+**核心原理**:
+1. **专用函数模式**: 为常见操作提供专用函数（Verse不支持高阶函数）
+2. **内联表达式补充**: 自定义条件使用 for 表达式
+3. **类型特化**: 为 int 和 float 分别实现
+
+**背景知识**（基于 RESEARCH-007, ADR-012）:
+- ❌ Verse 不支持高阶函数（函数作为参数）
+- ❌ 无lambda表达式
+- ✅ 支持内联 for 表达式的过滤和映射
+- ✅ 专用函数模式性能最优，类型安全
+
+**结构**:
+
+```verse
+# Pattern 1: Filter - 使用专用函数
+FilteredArray := ArrayTransforms.FilterPositiveInt(Numbers)
+
+# Pattern 2: Filter - 使用内联表达式（自定义条件）
+CustomFiltered := for (Num : Numbers, Num > 10 and Num < 100):
+    Num
+
+# Pattern 3: Map - 使用专用函数
+SquaredArray := ArrayTransforms.MapSquareInt(Numbers)
+
+# Pattern 4: Map - 使用内联表达式（自定义转换）
+CustomMapped := for (Num : Numbers):
+    Num * 3 + 5
+
+# Pattern 5: Reduce - 使用专用函数
+TotalScore := ArrayTransforms.SumInt(Scores)
+
+# Pattern 6: 组合操作（Filter + Map）
+Result := ArrayTransforms.MapSquareInt(
+    ArrayTransforms.FilterPositiveInt(Numbers)
+)
+
+# Pattern 7: 混合使用（专用函数 + 内联表达式）
+# 先用专用函数过滤，再用内联表达式映射
+Filtered := ArrayTransforms.FilterInRangeInt(Scores, 0, 100)
+Normalized := for (Score : Filtered):
+    Score / 100.0
+```
+
+**实现示例**:
+
+```verse
+using { ArrayTransforms }
+
+# 示例 1: 获取所有正数
+PositiveNumbers := ArrayTransforms.FilterPositiveInt(AllNumbers)
+
+# 示例 2: 获取所有偶数的平方
+EvenSquares := ArrayTransforms.MapSquareInt(
+    ArrayTransforms.FilterEvenInt(Numbers)
+)
+
+# 示例 3: 计算总分
+TotalScore := ArrayTransforms.SumInt(PlayerScores)
+
+# 示例 4: 计算平均分
+AverageScore := ArrayTransforms.AverageFloat(ScoresAsFloat)
+
+# 示例 5: 自定义过滤条件（内联）
+HighScores := for (Score : Scores, Score >= 90):
+    Score
+
+# 示例 6: 自定义映射（内联）
+AdjustedScores := for (Score : Scores):
+    Score * Difficulty + Bonus
+
+# 示例 7: 复杂组合
+# 筛选有效分数 -> 转换为百分比 -> 求平均
+ValidScores := ArrayTransforms.FilterInRangeInt(RawScores, 0, 100)
+Percentages := ArrayTransforms.MapMultiplyFloat(
+    for (Score : ValidScores):
+        Score * 1.0,  # int -> float
+    1.0
+)
+Average := ArrayTransforms.AverageFloat(Percentages)
+```
+
+**可用函数清单**:
+
+| 类别 | 整数函数 | 浮点函数 |
+|------|---------|---------|
+| **Filter (过滤)** | Positive, Negative, NonZero, Even, Odd, GreaterThan, LessThan, InRange, OutOfRange | Positive, Negative, GreaterThan, LessThan, InRange |
+| **Map (映射)** | Square, Double, Negate, Abs, Add, Multiply | Square, Negate, Abs, Multiply |
+| **Reduce (聚合)** | Sum, Product, CountNonZero, CountGreaterThan | Sum, Product, Average |
+
+**性能考虑**:
+
+| 操作 | 专用函数 | 内联表达式 |
+|------|----------|-----------|
+| **编译时检查** | ✅ 完全检查 | ✅ 完全检查 |
+| **运行时性能** | ✅ 最优（可内联） | ✅ 最优（可内联） |
+| **灵活性** | ⚠️ 仅预定义操作 | ✅ 任意条件 |
+| **代码可读性** | ✅ 高（函数名清晰） | ⚠️ 中（需要阅读条件） |
+
+**使用指南**:
+
+```
+选择流程：
+  │
+  ├─ 常见操作？
+  │   ├─ Yes → 使用专用函数（性能最优，代码清晰）
+  │   └─ No  → 继续
+  │
+  ├─ 简单条件？
+  │   ├─ Yes → 使用内联 for 表达式（灵活）
+  │   └─ No  → 拆分为多步或提取辅助函数
+  │
+  └─ 需要复用？
+      ├─ Yes → 考虑添加新的专用函数
+      └─ No  → 使用内联表达式即可
+```
+
+**注意事项**:
+- ✅ **选择专用函数优先**（如果满足需求）
+- ✅ **自定义条件使用内联for**（灵活性最高）
+- ⚠️ **避免过度嵌套**（影响可读性）
+- ⚠️ **Reduce操作需要<transacts>**（因为使用var）
+- ✅ **Filter和Map可用<computes>**（无副作用）
+
+**反模式**:
+
+```verse
+# ❌ 错误：尝试传递函数
+FilterArray(Numbers, MyPredicate)  # Verse不支持
+
+# ❌ 错误：过度复杂的嵌套
+Result := ArrayTransforms.MapSquareInt(
+    ArrayTransforms.FilterPositiveInt(
+        ArrayTransforms.MapAbsInt(
+            ArrayTransforms.FilterNonZeroInt(Numbers)
+        )
+    )
+)  # 可读性差
+
+# ✅ 正确：拆分为多步
+NonZero := ArrayTransforms.FilterNonZeroInt(Numbers)
+Absolute := ArrayTransforms.MapAbsInt(NonZero)
+Positive := ArrayTransforms.FilterPositiveInt(Absolute)
+Squared := ArrayTransforms.MapSquareInt(Positive)
+
+# ✅ 更好：使用内联表达式简化
+Squared := for (Num : Numbers, Num > 0 or Num < 0):
+    if (Num < 0) then (-Num) * (-Num) else Num * Num
+```
+
+**与其他模式的关系**:
+- **Option[T] Array Query Pattern**: ArrayTransforms 处理转换，Query 处理查询
+- **Inline For Expression**: 两者互补，一个提供常用函数，一个提供灵活性
+- **Validation Function Pattern**: Transform后通常需要验证
+
+**实现参考**:
+- `collectionsUtils/ArrayTransforms.verse` - 完整实现
+  - 16个Filter函数
+  - 10个Map函数
+  - 7个Reduce函数
+
+**验证决策**:
+- ✅ RESEARCH-007: Verse不支持高阶函数
+- ✅ ADR-012: 专用函数模式决策
+- ✅ 编译验证：所有函数通过编译
+
+**官方文档**:
+- Verse Language Reference - for expressions
+- RESEARCH-007: Verse高阶函数调研
+
+---
