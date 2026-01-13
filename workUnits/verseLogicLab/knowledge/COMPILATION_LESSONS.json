@@ -37,6 +37,61 @@
       "prevention": "在进行混合类型运算前，注意 Verse 的类型系统是严格的，int 和 float 不能隐式混合",
       "date": "2026-01-12",
       "tags": ["type-error", "int-float-conversion", "operators", "beginner"]
+    },
+    {
+      "id": "LESSON-005",
+      "error": "error:3100:vErr:S65: Use a=b for comparison, not a==b",
+      "context": "使用了 == 进行相等比较，Verse 使用单个等号 = 进行比较",
+      "solution": "将所有 == 比较替换为 = 比较",
+      "prevention": "记住 Verse 语法：赋值用 :=，比较用 =（不是 ==）",
+      "date": "2026-01-13",
+      "tags": ["syntax-error", "comparison", "beginner", "common"]
+    },
+    {
+      "id": "LESSON-006",
+      "error": "error:3588:Ambiguous identifier; could be (...):Min, (/Verse.org/Verse:)Min, or (/Verse.org/Verse:)Min",
+      "context": "函数参数名为 Min、Max、Abs 等，与 Verse 内置函数名称冲突，导致编译器无法判断引用哪个标识符",
+      "solution": "重命名参数以避免冲突，如 MinVal、MaxVal、AbsVal 等",
+      "prevention": "避免使用与 Verse 内置函数同名的参数名，特别是常见的数学函数名（Min, Max, Abs, Floor, Ceil 等）",
+      "date": "2026-01-13",
+      "tags": ["ambiguous-identifier", "naming", "parameters", "common"]
+    },
+    {
+      "id": "LESSON-007",
+      "error": "error:3594:Access levels protected and private are only allowed inside classes",
+      "context": "在 module 中使用了 <private> 访问修饰符，但 Verse 中 private/protected 仅适用于 class",
+      "solution": "移除 <private> 标记，在 module 中函数要么是 public 要么是未标记（默认可见）",
+      "prevention": "记住 Verse 访问修饰符规则：module 中不使用 private/protected，仅在 class 中使用",
+      "date": "2026-01-13",
+      "tags": ["access-modifiers", "module-vs-class", "syntax-error"]
+    },
+    {
+      "id": "LESSON-008",
+      "error": "error:3512:This invocation calls a function that has effects that are not allowed by its context: decides, reads, dictates",
+      "context": "在 <computes> 函数中调用了 Floor[] 等带有 <transacts><decides> 效果的函数",
+      "solution": "将调用方函数的效果标注改为 <transacts><decides>，或使用不需要这些效果的替代实现",
+      "prevention": "调用 Floor[], Mod[] 等内置函数前，确保调用方有足够的效果声明",
+      "date": "2026-01-13",
+      "tags": ["effect-mismatch", "transacts", "decides", "Floor", "common"],
+      "note": "Floor 和 Mod 等函数需要 <transacts><decides> 效果"
+    },
+    {
+      "id": "LESSON-009",
+      "error": "error:3511:This call uses parentheses to call a function that has the 'decides' effect. Functions that may fail must be called with square brackets",
+      "context": "使用 () 调用了带有 <decides> 效果的函数，但 Verse 要求使用 [] 调用可能失败的函数",
+      "solution": "将 TestBit(Value, Index) 改为 TestBit[Value, Index]，所有带 <decides> 的函数都用方括号",
+      "prevention": "记住调用约定：<computes> 函数用 ()，<decides> 函数用 []",
+      "date": "2026-01-13",
+      "tags": ["syntax-error", "function-call", "decides", "common"]
+    },
+    {
+      "id": "LESSON-010",
+      "error": "error:3512:This mutable data definition has the 'allocates' effect, which is not allowed by its context",
+      "context": "在 <computes> 函数中使用了 var 定义可变变量，var 需要 allocates 效果",
+      "solution": "使用递归或不可变变量替代 var，或将函数效果改为支持 allocates 的效果",
+      "prevention": "在纯函数（<computes>）中避免使用 var，优先使用递归模式",
+      "date": "2026-01-13",
+      "tags": ["effect-mismatch", "var", "allocates", "recursion-pattern"]
     }
   ],
   "_metadata": {
@@ -44,10 +99,10 @@
     "usage": "记录编译错误、解决方案和预防措施。不包含未验证的假设，假设应记录在 CONJECTURES.md",
     "principle": "忠实记录错误现象和解决步骤，不添加推测性解释",
     "tags_guide": {
-      "error_types": ["type-error", "effect-mismatch", "ambiguous-identifier", "undefined-identifier", "syntax-error", "decides", "no_rollback"],
+      "error_types": ["type-error", "effect-mismatch", "ambiguous-identifier", "undefined-identifier", "syntax-error", "decides", "no_rollback", "transacts", "allocates", "access-modifiers"],
       "difficulty": ["beginner", "intermediate", "advanced"],
       "frequency": ["common", "rare"],
-      "domains": ["naming", "effects", "types", "imports", "syntax", "enum", "array-access", "operators"]
+      "domains": ["naming", "effects", "types", "imports", "syntax", "enum", "array-access", "operators", "parameters", "function-call", "var", "module-vs-class"]
     },
     "template": {
       "id": "LESSON-xxx (使用递增编号)",

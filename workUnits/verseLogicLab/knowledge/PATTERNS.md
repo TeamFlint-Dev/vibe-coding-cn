@@ -90,6 +90,88 @@ Percent := Clamp(RawPercent, 0.0, 1.0)
 
 ---
 
+#### 2.3 Float Comparison with Tolerance（浮点数容差比较模式）
+
+**意图**: 安全地比较浮点数，避免精度问题导致的误判
+
+**使用场景**: 
+- 任何需要比较浮点数相等性的场景
+- 判断计算结果是否符合预期
+- 检查物体是否到达目标位置
+- 验证插值是否完成
+
+**核心原理**:
+由于浮点数的二进制表示限制，直接使用 `==` 比较两个浮点数可能因为微小的精度误差而失败。
+使用容差（Epsilon）比较可以解决这个问题：如果两个数的差值小于容差，就认为它们相等。
+
+**结构**:
+```verse
+# 基础模式：相等性判断
+NearlyEqual(A, B, Epsilon) := 
+    AbsDiff := if (A - B < 0.0) then -(A - B) else (A - B)
+    AbsDiff <= Epsilon
+
+# 扩展模式：大于/小于判断
+NearlyGreater(A, B, Epsilon) := A > B + Epsilon
+NearlyLess(A, B, Epsilon) := A < B - Epsilon
+```
+
+**示例**:
+```verse
+using { MathFloatComparison }
+
+# 判断插值是否完成（T 接近 1.0）
+if (MathFloatComparison.NearlyEqual[T, 1.0]):
+    # 插值完成
+    CompleteAnimation()
+
+# 判断物体是否停止（速度接近 0）
+if (MathFloatComparison.NearlyZero[Velocity]):
+    # 物体已停止
+    StopMovement()
+
+# 判断是否明显大于阈值（避免误判）
+if (MathFloatComparison.NearlyGreater[Value, Threshold]):
+    # Value 明显大于 Threshold
+    TriggerEvent()
+```
+
+**Epsilon 选择指南**:
+- **默认值 (0.0001)**: 适用于大多数游戏逻辑场景
+- **小值 (0.000001)**: 高精度计算场景
+- **大值 (0.001)**: 低精度场景或粗略比较
+
+**注意事项**:
+- ❌ 不要直接使用 `A == B` 比较浮点数
+- ✅ 使用 NearlyEqual 代替
+- ✅ 根据场景选择合适的 Epsilon
+- ⚠️ Epsilon 过小可能导致误判，过大可能掩盖真实差异
+
+**反模式**:
+```verse
+# ❌ 错误：直接比较浮点数
+if (CalculatedValue == 1.0):  # 可能因精度问题失败
+    DoSomething()
+
+# ✅ 正确：使用容差比较
+if (MathFloatComparison.NearlyEqual[CalculatedValue, 1.0]):
+    DoSomething()
+```
+
+**相关模式**:
+- Safe Division（安全除法）
+- Range Validation（范围验证）
+
+**实现参考**:
+- `logicModules/coreMathUtils/MathFloatComparison.verse`
+
+**验证猜想**:
+- ✅ CONJ-003 已证伪：Floor 函数不用于 int → float 转换
+- ✅ 正确方法：使用乘以 1.0 进行类型转换
+- ✅ 浮点比较必须使用容差，不能直接用 `==`
+
+---
+
 ### 3. 条件判断模式（Conditional Logic）
 
 使用 `<decides>` 效果的谓词函数。
@@ -310,6 +392,201 @@ Percent := Current / Maximum
 # 使用 Safe Division 模式
 Percent := SafeDivide(Current, Maximum, 0.0)
 ```
+
+---
+
+### 2.4 Recursion Instead of Var（递归替代可变状态模式）
+
+**意图**: 在纯函数中实现迭代逻辑，避免使用 var
+
+**使用场景**: 需要循环或迭代处理，但必须保持函数纯净（<computes>）
+
+**问题**: var 需要 `<allocates>` 效果，与 `<computes>` 不兼容
+
+**结构**:
+```verse
+# 错误：使用 var
+ProcessLoop<public>(Value:int)<computes>:int =
+    var Result:int = Value  # ❌ 需要 allocates 效果
+    set Result = Result * 2
+    Result
+
+# 正确：使用递归
+ProcessRecursive<public>(Value:int, Count:int)<computes>:int =
+    if (Count <= 0):
+        Value
+    else:
+        ProcessRecursive(Value * 2, Count - 1)
+```
+
+**示例（角度归一化）**:
+```verse
+# 递归实现角度归一化
+NormalizeAngle360<public>(Angle:float)<computes>:float =
+    if (Angle >= 0.0 and Angle < 360.0):
+        Angle  # 已在范围内
+    else if (Angle < 0.0):
+        NormalizeAngle360(Angle + 360.0)  # 递归加360
+    else:
+        NormalizeAngle360(Angle - 360.0)  # 递归减360
+```
+
+**注意事项**:
+- 递归深度可能受限，避免无限递归
+- 添加终止条件确保递归结束
+- 尾递归优化可能由编译器完成
+- 对于复杂迭代，考虑使用支持 allocates 的效果
+
+**相关模式**:
+- Lookup Table Pattern（避免递归计算）
+
+**来源**:
+- `MathRanges.verse` - NormalizeAngle360/180
+
+---
+
+### 2.5 Lookup Table Pattern（查表模式）
+
+**意图**: 用预计算的值表替代复杂计算或递归
+
+**使用场景**: 计算结果可预知且数量有限
+
+**结构**:
+```verse
+# 错误：使用递归计算2的幂
+PowerOf2Recursive(N:int)<computes>:int =
+    if (N <= 0):
+        1
+    else:
+        2 * PowerOf2Recursive(N - 1)  # 每次调用都递归
+
+# 正确：使用查表
+PowerOf2<public>(N:int)<computes>:int =
+    if (N <= 0):
+        1
+    else if (N = 1):
+        2
+    else if (N = 2):
+        4
+    else if (N = 3):
+        8
+    # ... 继续到N=30
+    else:
+        2147483648  # 2^31
+```
+
+**应用场景**:
+- 2的幂次（位运算）
+- 阶乘（小范围）
+- 常见三角函数值
+- 预定义配置值
+
+**优势**:
+- O(1) 查找时间
+- 无递归风险
+- 编译器可能优化为跳转表
+- 代码清晰，易于理解
+
+**注意事项**:
+- 仅适用于有限的、可预知的值集合
+- 表格过大会增加代码体积
+- 值变化频繁不适合查表
+
+**来源**:
+- `MathBitwise.verse` - PowerOf2(), IsPowerOf2()
+- `MathConstants.verse` - 预定义常量
+
+---
+
+### 2.6 Effect-Aware Function Call（效果感知调用模式）
+
+**意图**: 根据函数效果使用正确的调用语法
+
+**使用场景**: 调用带有不同效果的函数
+
+**规则**:
+```verse
+# <computes> 函数：使用圆括号 ()
+Result := PureFunction(Arg1, Arg2)
+
+# <decides> 函数：使用方括号 []
+Result := FailableFunction[Arg1, Arg2]
+
+# 在 failure context 中使用带 ? 的访问
+if (FailableFunction[Arg]?):
+    # 成功分支
+else:
+    # 失败分支
+```
+
+**示例**:
+```verse
+# 正确：TestBit 有 <decides> 效果，使用方括号
+HasFlag := TestBit[Flags, 3]
+
+# 错误：使用圆括号调用 <decides> 函数
+HasFlag := TestBit(Flags, 3)  # ❌ 编译错误
+
+# 在 if 条件中使用
+if (TestBit[Value, Index]?):
+    # 位为1的处理
+else:
+    # 位为0或失败的处理
+```
+
+**常见带 `<decides>` 的函数**:
+- `Floor[]`, `Ceil[]`, `Mod[]` - 数学函数
+- `Array[Index]` - 数组访问
+- 自定义的可能失败的函数
+
+**注意事项**:
+- 编译器会强制正确的调用语法
+- 效果不匹配会导致编译错误
+- 查看函数签名确定效果类型
+
+**来源**:
+- `MathBitwise.verse` - TestBit, RightShift 调用
+- LESSON-009 (COMPILATION_LESSONS.json)
+
+---
+
+### 2.7 Parameter Naming to Avoid Conflicts（参数命名避免冲突模式）
+
+**意图**: 避免参数名与内置函数冲突
+
+**使用场景**: 定义函数参数时
+
+**问题**: Verse 内置函数名（如 Min, Max, Abs）与参数名冲突导致歧义
+
+**结构**:
+```verse
+# 错误：参数名与内置函数冲突
+InverseLerp(Value:float, Min:float, Max:float):float =
+    Range := Max - Min  # ❌ 编译器不知道是参数 Min 还是函数 Min()
+    # ...
+
+# 正确：使用描述性后缀避免冲突
+InverseLerp(Value:float, MinVal:float, MaxVal:float):float =
+    Range := MaxVal - MinVal  # ✅ 清晰无歧义
+    # ...
+```
+
+**常见冲突名称**:
+- `Min`, `Max` → `MinVal`, `MaxVal`
+- `Abs` → `AbsVal`, `AbsoluteValue`
+- `Floor`, `Ceil` → `FloorVal`, `CeilVal`
+- `Sin`, `Cos` → `SineVal`, `CosineVal`
+
+**推荐后缀**:
+- `Val` - 用于数值参数
+- `Param` - 用于配置参数
+- `Input` - 用于输入值
+- `Arg` - 用于通用参数
+
+**来源**:
+- `MathRanges.verse` - InverseLerp, IsInRange 等
+- `MathConstants.verse` - IsNearZero
+- LESSON-006 (COMPILATION_LESSONS.json)
 
 ---
 
