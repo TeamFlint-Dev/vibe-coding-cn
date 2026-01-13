@@ -1,0 +1,63 @@
+{
+  "lessons": [
+    {
+      "id": "LESSON-001",
+      "error": "error:3532:The enumerator ... is ambiguous with this definition: function ...",
+      "context": "在定义 enum 时，enum 值名称与模块中已存在的函数名称相同，导致名称冲突。例如：enum 中有 EaseLinear，而模块中也有函数 EaseLinear(T:float):float",
+      "solution": "使用不同的命名模式避免冲突。例如：enum 值加前缀 'Curve' → CurveLinear, CurveInSine 等，与函数名 EaseLinear, EaseInSine 区分开",
+      "prevention": "在定义 enum 前，先检查模块中是否有同名函数。如果是为现有函数创建 enum，使用描述性前缀（如 Curve*, Type*, Kind*）区分 enum 值和函数名",
+      "date": "2026-01-12",
+      "tags": ["ambiguous-identifier", "naming", "enum", "common"]
+    },
+    {
+      "id": "LESSON-002",
+      "error": "error:3512:This invocation calls a function that has the 'no_rollback' effect, which is not allowed by its context",
+      "context": "在不带任何效果标注的函数中调用了具有 <no_rollback> 效果的函数（如 Sin, Cos, Pow）",
+      "solution": "在函数签名中添加允许的效果标注，或让编译器推断效果（不显式标注）",
+      "prevention": "调用有特殊效果的函数前，确保调用方函数有兼容的效果声明",
+      "date": "2026-01-12",
+      "tags": ["effect-mismatch", "no_rollback", "effect-system"],
+      "note": "关于效果系统的具体行为，参见 CONJECTURES.md 中的相关猜想"
+    },
+    {
+      "id": "LESSON-003",
+      "error": "error:3512:This invocation calls a function that has the 'decides' effect, which is not allowed by its context",
+      "context": "在 <computes> 或无效果标注的函数中尝试使用数组索引（如 Config.Params[0]），数组索引有 <decides> 效果（可能失败）",
+      "solution": "使用 if-then-else 结构来处理可能失败的操作：if: P0 := Array[0] then: UseP0 else: DefaultValue。这创建了一个 failure context",
+      "prevention": "访问数组元素时，使用 if 结构提供 failure context，或在函数签名中声明适当的效果",
+      "date": "2026-01-12",
+      "tags": ["decides", "array-access", "effect-mismatch", "common"],
+      "note": "关于 <decides> 与 <transacts> 的关系，参见 CONJECTURES.md 中的相关猜想"
+    },
+    {
+      "id": "LESSON-004",
+      "error": "error:3509:No overload of the function `operator'+'` matches the provided arguments (:type{0.000000},:int) or (:int,:type{0.000000})",
+      "context": "尝试对 int 和 float 字面量进行运算（如 I + 0.0 或 0.0 + ClampedNum），Verse 不支持隐式类型转换",
+      "solution": "确保操作数类型一致。对于字面量，使用 0.0 + I（float 在前）的形式",
+      "prevention": "在进行混合类型运算前，注意 Verse 的类型系统是严格的，int 和 float 不能隐式混合",
+      "date": "2026-01-12",
+      "tags": ["type-error", "int-float-conversion", "operators", "beginner"]
+    }
+  ],
+  "_metadata": {
+    "description": "Verse Logic Lab 编译经验教训库 - 仅记录客观的编译错误和解决方法",
+    "usage": "记录编译错误、解决方案和预防措施。不包含未验证的假设，假设应记录在 CONJECTURES.md",
+    "principle": "忠实记录错误现象和解决步骤，不添加推测性解释",
+    "tags_guide": {
+      "error_types": ["type-error", "effect-mismatch", "ambiguous-identifier", "undefined-identifier", "syntax-error", "decides", "no_rollback"],
+      "difficulty": ["beginner", "intermediate", "advanced"],
+      "frequency": ["common", "rare"],
+      "domains": ["naming", "effects", "types", "imports", "syntax", "enum", "array-access", "operators"]
+    },
+    "template": {
+      "id": "LESSON-xxx (使用递增编号)",
+      "error": "完整的错误信息（包括错误代码）",
+      "context": "什么情况下发生的，客观描述代码场景",
+      "solution": "如何修复，具体步骤（仅事实，不含推测）",
+      "prevention": "如何预防（仅事实性建议）",
+      "date": "YYYY-MM-DD",
+      "tags": ["标签1", "标签2"],
+      "note": "（可选）如有相关猜想，引用 CONJECTURES.md"
+    }
+  }
+}
