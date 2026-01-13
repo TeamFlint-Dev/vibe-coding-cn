@@ -32,6 +32,15 @@
 | Verse Language Reference | 官方文档（在线） | https://dev.epicgames.com/documentation/en-us/uefn/verse-language-reference | Verse 语言官方在线参考文档 | - |
 | **Type Casting and Conversion** | 官方文档 | `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/type-casting-and-conversion-in-verse/index.md` | 官方类型转换文档（验证了 CONJ-003） | 2026-01-12 |
 
+#### SpatialMath & Vector3 ⭐ 新增
+
+| 资源 | 类型 | 路径/URL | 说明 | 最后访问 |
+|------|------|---------|------|----------|
+| **Verse vector3 Struct** | 官方 API 文档 | `external/epic-docs-crawler/uefn_docs_organized/API/verse-api/versedotorg/spatialmath/vector3/index.md` | `/Verse.org/SpatialMath/vector3` - 使用 Forward/Left/Up 分量 | 2026-01-13 |
+| **UE vector3 Struct** | 官方 API 文档 (Temporary) | `external/epic-docs-crawler/uefn_docs_organized/API/verse-api/unrealenginedotcom/temporary/spatialmath/vector3/index.md` | `/UnrealEngine.com/Temporary/SpatialMath/vector3` - 使用 X/Y/Z 分量 | 2026-01-13 |
+| **Vector3 Research Report** | 内部调研 | `workUnits/verseLogicLab/knowledge/research/vector3-research-20260113.md` | 完整的 vector3 类型调研，纠正 RISK-003 错误假设 | 2026-01-13 |
+| Vector3 Usage Examples | 官方教程 | `external/epic-docs-crawler/uefn_docs_organized/Tutorials/Starter-Templates/verse-starter-01-creating-the-npc-behavior-in-unreal-editor-for-fortnite/index.md` | 实际代码中使用 UE vector3 的 X/Y/Z 分量访问 | 2026-01-13 |
+
 #### UEFN 文档本地索引（快速查找）
 
 **主索引文件**：`external/epic-docs-crawler/uefn_docs_organized/README.md`（完整目录）  
