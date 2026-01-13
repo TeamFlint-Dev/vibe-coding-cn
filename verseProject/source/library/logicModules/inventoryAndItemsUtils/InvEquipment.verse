@@ -90,6 +90,7 @@ InvEquipment<public> := module:
             for (SetItemID : SetItemIDs):
                 if (ItemID = SetItemID):
                     set Count += 1
+                    break
         Count
     
     # ========== 工具函数 ==========
