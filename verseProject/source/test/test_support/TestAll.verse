@@ -1,5 +1,5 @@
 using { /Verse.org/Simulation }
-using { /UnrealEngine.com/Temporary/SpatialMath }
+using { /Verse.org/SpatialMath }
 using { library.logicModules.coreMathUtils }
 using { library.logicModules.characterAndStateUtils }
 using { library.logicModules.characterAndStateUtils }

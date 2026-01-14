@@ -1,6 +1,6 @@
 using { /Fortnite.com/Devices }
 using { /Verse.org/Simulation }
-using { /UnrealEngine.com/Temporary/Diagnostics }
+using { /Verse.org/Diagnostics }
 using { test_support }
 
 MainTestDevice := class(creative_device):

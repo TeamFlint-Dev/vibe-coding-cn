@@ -2,7 +2,7 @@
 # 功能：各种缓动算法
 
 using { /Verse.org/Simulation }
-using { /UnrealEngine.com/Temporary/SpatialMath }
+using { /Verse.org/SpatialMath }
 
 MathInterpolation<public> := module:
 
