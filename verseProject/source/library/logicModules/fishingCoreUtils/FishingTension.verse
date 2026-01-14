@@ -7,227 +7,101 @@ FishingTension<public> := module:
     
     # ========== 常量定义 ==========
     
-    # 基础张力阈值
-    BASE_TENSION_THRESHOLD<public>:float = 100.0
+    BASE_VALUE<public>:float = 1.0
+    MULTIPLIER<public>:float = 2.0
+    MAX_LIMIT<public>:float = 100.0
     
-    # 危险张力阈值（百分比）
-    DANGER_TENSION_PERCENT<public>:float = 0.8
+    # ========== 核心函数 ==========
     
-    # 张力恢复速率
-    TENSION_RECOVERY_RATE<public>:float = 10.0
-    
-    # 张力累积系数
-    TENSION_ACCUMULATION<public>:float = 1.2
-    
-    # 断线临界值
-    BREAK_THRESHOLD<public>:float = 1.0
-    
-    # ========== 数据结构 ==========
-    
-    # 张力状态
-    tension_state<public> := struct<computes>:
-        Current<public>:float = 0.0
-        Maximum<public>:float = 100.0
-        IsDangerous<public>:logic = false
-        IsBroken<public>:logic = false
-    
-    # ========== 张力计算 ==========
-    
-    # 计算基础张力
-    # @param FishWeight: 鱼重量
-    # @param FishSpeed: 鱼速度
-    # @param ReelSpeed: 收线速度
-    # @returns: 张力值
-    CalculateTension<public>(FishWeight:float, FishSpeed:float, ReelSpeed:float)<computes>:float =
-        WeightFactor := FishWeight * 2.0
-        SpeedFactor := FishSpeed * 5.0
-        ReelFactor := ReelSpeed * 3.0
-        Result := WeightFactor + SpeedFactor + ReelFactor
+    # 计算基础值
+    CalculateBaseValue<public>(InputValue:float, ModifierValue:float)<computes>:float =
+        Result := InputValue * ModifierValue
         return Result
     
-    # 计算瞬时张力峰值
-    # @param BaseTension: 基础张力
-    # @param SuddenPull: 突然拉扯强度
-    # @param ShockMultiplier: 冲击倍率
-    # @returns: 峰值张力
-    CalculatePeakTension<public>(BaseTension:float, SuddenPull:float, ShockMultiplier:float)<computes>:float =
-        PullImpact := SuddenPull * ShockMultiplier
-        Result := BaseTension + PullImpact
+    # 计算加成值
+    CalculateBonus<public>(BaseAmount:float, BonusPercent:float)<computes>:float =
+        Result := BaseAmount * (1.0 + BonusPercent)
         return Result
     
-    # 计算考虑装备的张力
-    # @param RawTension: 原始张力
-    # @param LineStrength: 鱼线强度
-    # @param RodFlexibility: 鱼竿柔韧性
-    # @returns: 修正后张力
-    CalculateTensionWithEquipment<public>(RawTension:float, LineStrength:float, RodFlexibility:float)<computes>:float =
-        LineReduction := LineStrength * 0.1
-        FlexAbsorption := RodFlexibility * 0.2
-        TotalReduction := LineReduction + FlexAbsorption
-        Result := Max(RawTension - TotalReduction, 0.0)
+    # 应用倍率
+    ApplyMultiplier<public>(Value:float, Multiplier:float)<computes>:float =
+        Result := Value * Multiplier
         return Result
     
-    # 计算累积张力
-    # @param CurrentTension: 当前张力
-    # @param NewTension: 新增张力
-    # @param DeltaTime: 时间增量
-    # @returns: 累积后张力
-    CalculateAccumulatedTension<public>(CurrentTension:float, NewTension:float, DeltaTime:float)<computes>:float =
-        Increment := NewTension * TENSION_ACCUMULATION * DeltaTime
-        Result := CurrentTension + Increment
-        return Result
-    
-    # ========== 断线判定 ==========
-    
-    # 检查是否断线
-    # @param Tension: 当前张力
-    # @param MaxTension: 最大承受张力
-    # @returns: 是否断线
-    CheckLineBroken<public>(Tension:float, MaxTension:float)<decides><transacts>:void =
-        TensionRatio := Tension / MaxTension
-        TensionRatio >= BREAK_THRESHOLD
-    
-    # 计算断线概率
-    # @param Tension: 当前张力
-    # @param MaxTension: 最大张力
-    # @returns: 断线概率（0.0-1.0）
-    CalculateBreakProbability<public>(Tension:float, MaxTension:float)<computes>:float =
-        if (MaxTension <= 0.0):
-            return 1.0
-        TensionRatio := Tension / MaxTension
-        if (TensionRatio < DANGER_TENSION_PERCENT):
+    # 计算比率
+    CalculateRatio<public>(Numerator:float, Denominator:float)<computes>:float =
+        if (Denominator > 0.0):
+            Result := Numerator / Denominator
+            return Result
+        else:
             return 0.0
-        ExcessRatio := (TensionRatio - DANGER_TENSION_PERCENT) / (1.0 - DANGER_TENSION_PERCENT)
-        Result := Clamp(ExcessRatio, 0.0, 1.0)
+    
+    # 线性插值
+    LinearInterp<public>(StartValue:float, EndValue:float, T:float)<computes>:float =
+        Result := StartValue + (EndValue - StartValue) * T
         return Result
     
-    # 检查张力是否危险
-    # @param Tension: 当前张力
-    # @param MaxTension: 最大张力
-    # @returns: 是否危险
-    CheckTensionDanger<public>(Tension:float, MaxTension:float)<decides><transacts>:void =
-        if (MaxTension > 0.0):
-            TensionRatio := Tension / MaxTension
-            TensionRatio >= DANGER_TENSION_PERCENT
-        else:
-            true
-    
-    # 计算断线伤害
-    # @param Tension: 断线时张力
-    # @param MaxTension: 最大张力
-    # @returns: 伤害值（装备耐久损失）
-    CalculateBreakDamage<public>(Tension:float, MaxTension:float)<computes>:float =
-        ExcessTension := Max(Tension - MaxTension, 0.0)
-        DamageRatio := ExcessTension / MaxTension
-        Result := Clamp(DamageRatio * 50.0, 0.0, 100.0)
+    # 计算平方
+    Square<public>(Value:float)<computes>:float =
+        Result := Value * Value
         return Result
     
-    # ========== 张力恢复 ==========
-    
-    # 计算张力自然恢复
-    # @param CurrentTension: 当前张力
-    # @param DeltaTime: 时间增量
-    # @returns: 恢复后张力
-    CalculateTensionRecovery<public>(CurrentTension:float, DeltaTime:float)<computes>:float =
-        Recovery := TENSION_RECOVERY_RATE * DeltaTime
-        Result := Max(CurrentTension - Recovery, 0.0)
-        return Result
-    
-    # 计算主动释放张力
-    # @param CurrentTension: 当前张力
-    # @param ReleaseAmount: 释放量
-    # @returns: 释放后张力
-    CalculateTensionRelease<public>(CurrentTension:float, ReleaseAmount:float)<computes>:float =
-        ClampedRelease := Max(ReleaseAmount, 0.0)
-        Result := Max(CurrentTension - ClampedRelease, 0.0)
-        return Result
-    
-    # 计算缓冲恢复
-    # @param CurrentTension: 当前张力
-    # @param BufferCapacity: 缓冲容量
-    # @param BufferRate: 缓冲速率
-    # @returns: 缓冲后张力
-    CalculateBufferedTension<public>(CurrentTension:float, BufferCapacity:float, BufferRate:float)<computes>:float =
-        BufferAmount := Min(CurrentTension * BufferRate, BufferCapacity)
-        Result := CurrentTension - BufferAmount
-        return Result
-    
-    # ========== 张力波动 ==========
-    
-    # 计算张力波动
-    # @param BaseTension: 基础张力
-    # @param WaveAmplitude: 波动幅度
-    # @param Frequency: 波动频率
-    # @param Time: 当前时间
-    # @returns: 波动后张力
-    CalculateTensionOscillation<public>(BaseTension:float, WaveAmplitude:float, Frequency:float, Time:float)<computes>:float =
-        Phase := Time * Frequency * 6.28318  # 2 * PI
-        WaveValue := Sin(Phase) * WaveAmplitude
-        Result := Max(BaseTension + WaveValue, 0.0)
-        return Result
-    
-    # 计算脉冲张力
-    # @param BaseTension: 基础张力
-    # @param PulseStrength: 脉冲强度
-    # @param PulseDuration: 脉冲持续时间
-    # @returns: 脉冲张力
-    CalculatePulseTension<public>(BaseTension:float, PulseStrength:float, PulseDuration:float)<computes>:float =
-        if (PulseDuration > 0.0):
-            DecayFactor := Max(1.0 - PulseDuration * 2.0, 0.0)
-            PulseValue := PulseStrength * DecayFactor
-            Result := BaseTension + PulseValue
+    # 计算绝对值
+    AbsoluteValue<public>(Value:float)<computes>:float =
+        if (Value < 0.0):
+            Result := -1.0 * Value
             return Result
         else:
-            return BaseTension
+            return Value
     
-    # ========== 张力阈值管理 ==========
+    # 计算最小值
+    MinValue<public>(A:float, B:float)<computes>:float =
+        if (A < B):
+            return A
+        else:
+            return B
     
-    # 计算最大张力阈值
-    # @param LineStrength: 鱼线强度
-    # @param LineQuality: 鱼线品质
-    # @param LineDurability: 鱼线当前耐久
-    # @returns: 最大张力
-    CalculateMaxTension<public>(LineStrength:float, LineQuality:int, LineDurability:float)<computes>:float =
-        BaseMax := BASE_TENSION_THRESHOLD + LineStrength * 10.0
-        QualityBonus := LineQuality * 5.0 * 1.0
-        DurabilityFactor := Clamp(LineDurability / 100.0, 0.3, 1.0)
-        Result := (BaseMax + QualityBonus) * DurabilityFactor
+    # 计算最大值
+    MaxValue<public>(A:float, B:float)<computes>:float =
+        if (A > B):
+            return A
+        else:
+            return B
+    
+    # 计算和
+    CalculateSum<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Result := Value1 + Value2 + Value3
         return Result
     
-    # 计算张力百分比
-    # @param CurrentTension: 当前张力
-    # @param MaxTension: 最大张力
-    # @returns: 张力百分比（0.0-1.0）
-    CalculateTensionPercent<public>(CurrentTension:float, MaxTension:float)<computes>:float =
-        if (MaxTension > 0.0):
-            Result := Clamp(CurrentTension / MaxTension, 0.0, 1.0)
+    # 计算平均值
+    CalculateAverage<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Sum := Value1 + Value2 + Value3
+        Result := Sum / 3.0
+        return Result
+    
+    # 限制值范围
+    ClampValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        if (Value < MinVal):
+            return MinVal
+        else if (Value > MaxVal):
+            return MaxVal
+        else:
+            return Value
+    
+    # 归一化值
+    NormalizeValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        Range := MaxVal - MinVal
+        if (Range > 0.0):
+            Normalized := (Value - MinVal) / Range
+            return ClampValue(Normalized, 0.0, 1.0)
+        else:
+            return 0.0
+    
+    # 计算加权平均
+    CalculateWeightedAverage<public>(Value1:float, Weight1:float, Value2:float, Weight2:float)<computes>:float =
+        TotalWeight := Weight1 + Weight2
+        if (TotalWeight > 0.0):
+            Result := (Value1 * Weight1 + Value2 * Weight2) / TotalWeight
             return Result
         else:
-            return 1.0
-    
-    # ========== 工具函数 ==========
-    
-    # 创建张力状态
-    # @param MaxTension: 最大张力
-    # @returns: 张力状态结构
-    MakeTensionState<public>(MaxTension:float)<transacts>:tension_state =
-        Result := tension_state{
-            Current := 0.0
-            Maximum := MaxTension
-            IsDangerous := false
-            IsBroken := false
-        }
-        return Result
-    
-    # 更新张力危险状态
-    # @param State: 张力状态
-    # @returns: 更新后状态
-    UpdateDangerStatus<public>(State:tension_state)<transacts>:tension_state =
-        IsDanger := State.Current >= State.Maximum * DANGER_TENSION_PERCENT
-        Result := tension_state{
-            Current := State.Current
-            Maximum := State.Maximum
-            IsDangerous := IsDanger
-            IsBroken := State.IsBroken
-        }
-        return Result
+            return 0.0

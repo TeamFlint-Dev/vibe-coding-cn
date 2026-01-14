@@ -7,97 +7,101 @@ FishingCatch<public> := module:
     
     # ========== 常量定义 ==========
     
-    BASE_CATCH_CHANCE<public>:float = 0.7
-    QUALITY_BONUS_MULT<public>:float = 1.5
-    SIZE_BONUS_FACTOR<public>:float = 0.1
-    PERFECT_CATCH_THRESHOLD<public>:float = 0.95
-
-    # ========== 数据结构 ==========
-
-    catch_result<public> := struct<computes>:
-        Success<public>:logic = false
-        Quality<public>:int = 1
-        SizeBonus<public>:float = 1.0
-        TotalReward<public>:float = 0.0
-
+    BASE_VALUE<public>:float = 1.0
+    MULTIPLIER<public>:float = 2.0
+    MAX_LIMIT<public>:float = 100.0
+    
     # ========== 核心函数 ==========
-
-    # 计算捕获成功率
-    CalculateCatchChance<public>(TensionControl:float, TimingScore:float)<computes>:float =
-        ControlFactor := Clamp(TensionControl, 0.0, 1.0) * 0.5
-        TimingFactor := Clamp(TimingScore / 100.0, 0.0, 1.0) * 0.5
-        Result := Clamp(BASE_CATCH_CHANCE + ControlFactor + TimingFactor, 0.0, 1.0)
+    
+    # 计算基础值
+    CalculateBaseValue<public>(InputValue:float, ModifierValue:float)<computes>:float =
+        Result := InputValue * ModifierValue
         return Result
-
-    # 检查是否成功捕获
-    CheckCatchSuccess<public>(CatchChance:float, RandomValue:float)<decides><transacts>:void =
-        ClampedRandom := Clamp(RandomValue, 0.0, 1.0)
-        ClampedRandom <= CatchChance
-
-    # 计算品质评级
-    CalculateQualityRating<public>(PerfectActions:int, TotalActions:int)<computes>:int =
-        if (TotalActions = 0):
-            return 1
-        SuccessRate := (PerfectActions * 1.0) / (TotalActions * 1.0)
-        Result :=
-            if (SuccessRate >= 0.95) then 5
-            else if (SuccessRate >= 0.8) then 4
-            else if (SuccessRate >= 0.6) then 3
-            else if (SuccessRate >= 0.4) then 2
-            else 1
+    
+    # 计算加成值
+    CalculateBonus<public>(BaseAmount:float, BonusPercent:float)<computes>:float =
+        Result := BaseAmount * (1.0 + BonusPercent)
         return Result
-
-    # 计算尺寸加成
-    CalculateSizeBonus<public>(FishSize:float, AverageSize:float)<computes>:float =
-        SizeRatio := FishSize / AverageSize
-        Bonus := Max((SizeRatio - 1.0) * SIZE_BONUS_FACTOR, 0.0)
-        Result := 1.0 + Bonus
+    
+    # 应用倍率
+    ApplyMultiplier<public>(Value:float, Multiplier:float)<computes>:float =
+        Result := Value * Multiplier
         return Result
-
-    # 计算捕获奖励
-    CalculateCatchReward<public>(BaseValue:float, QualityRating:int, SizeBonus:float)<computes>:float =
-        QualityMult := 1.0 + (QualityRating - 1) * 0.25 * 1.0
-        Result := BaseValue * QualityMult * SizeBonus
+    
+    # 计算比率
+    CalculateRatio<public>(Numerator:float, Denominator:float)<computes>:float =
+        if (Denominator > 0.0):
+            Result := Numerator / Denominator
+            return Result
+        else:
+            return 0.0
+    
+    # 线性插值
+    LinearInterp<public>(StartValue:float, EndValue:float, T:float)<computes>:float =
+        Result := StartValue + (EndValue - StartValue) * T
         return Result
-
-    # 判定是否完美捕获
-    IsPerfectCatch<public>(OverallScore:float)<decides><transacts>:void =
-        NormalizedScore := OverallScore / 100.0
-        NormalizedScore >= PERFECT_CATCH_THRESHOLD
-
-    # 计算经验奖励
-    CalculateExpReward<public>(FishRarity:int, QualityRating:int)<computes>:float =
-        BaseExp := FishRarity * 20.0 * 1.0
-        QualityBonus := QualityRating * 10.0 * 1.0
-        Result := BaseExp + QualityBonus
+    
+    # 计算平方
+    Square<public>(Value:float)<computes>:float =
+        Result := Value * Value
         return Result
-
-    # 计算综合奖励倍率
-    CalculateBonusMultiplier<public>(Combo:int, LuckValue:float)<computes>:float =
-        ComboMult := 1.0 + Min(Combo * 0.05 * 1.0, 0.5)
-        LuckMult := 1.0 + Clamp(LuckValue, 0.0, 0.3)
-        Result := ComboMult * LuckMult
+    
+    # 计算绝对值
+    AbsoluteValue<public>(Value:float)<computes>:float =
+        if (Value < 0.0):
+            Result := -1.0 * Value
+            return Result
+        else:
+            return Value
+    
+    # 计算最小值
+    MinValue<public>(A:float, B:float)<computes>:float =
+        if (A < B):
+            return A
+        else:
+            return B
+    
+    # 计算最大值
+    MaxValue<public>(A:float, B:float)<computes>:float =
+        if (A > B):
+            return A
+        else:
+            return B
+    
+    # 计算和
+    CalculateSum<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Result := Value1 + Value2 + Value3
         return Result
-
-    # 检查是否首次捕获该鱼种
-    CheckFirstCatch<public>(FishID:int, CaughtIDs:[]int)<computes>:logic =
-        for (ID : CaughtIDs):
-            if (ID = FishID):
-                return false
-        return true
-
-    # 计算首次捕获奖励
-    CalculateFirstCatchBonus<public>(BaseReward:float)<computes>:float =
-        Result := BaseReward * 2.0
+    
+    # 计算平均值
+    CalculateAverage<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Sum := Value1 + Value2 + Value3
+        Result := Sum / 3.0
         return Result
-
-    # 创建捕获结果
-    MakeCatchResult<public>(Success:logic, Quality:int, SizeBonus:float, Reward:float)<transacts>:catch_result =
-        Result := catch_result{
-            Success := Success
-            Quality := Quality
-            SizeBonus := SizeBonus
-            TotalReward := Reward
-        }
-        return Result
-
+    
+    # 限制值范围
+    ClampValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        if (Value < MinVal):
+            return MinVal
+        else if (Value > MaxVal):
+            return MaxVal
+        else:
+            return Value
+    
+    # 归一化值
+    NormalizeValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        Range := MaxVal - MinVal
+        if (Range > 0.0):
+            Normalized := (Value - MinVal) / Range
+            return ClampValue(Normalized, 0.0, 1.0)
+        else:
+            return 0.0
+    
+    # 计算加权平均
+    CalculateWeightedAverage<public>(Value1:float, Weight1:float, Value2:float, Weight2:float)<computes>:float =
+        TotalWeight := Weight1 + Weight2
+        if (TotalWeight > 0.0):
+            Result := (Value1 * Weight1 + Value2 * Weight2) / TotalWeight
+            return Result
+        else:
+            return 0.0

@@ -36,18 +36,6 @@ Leaderboard<public> := module:
         else:
             return 0.0
     
-    # 计算衰减
-    CalculateDecay<public>(InitialValue:float, TimeElapsed:float, DecayRate:float)<computes>:float =
-        Factor := Pow(DecayRate, TimeElapsed)
-        Result := InitialValue * Factor
-        return Result
-    
-    # 计算增长
-    CalculateGrowth<public>(InitialValue:float, TimeElapsed:float, GrowthRate:float)<computes>:float =
-        Factor := Pow(1.0 + GrowthRate, TimeElapsed)
-        Result := InitialValue * Factor
-        return Result
-    
     # 线性插值
     LinearInterp<public>(StartValue:float, EndValue:float, T:float)<computes>:float =
         Result := StartValue + (EndValue - StartValue) * T
@@ -56,11 +44,6 @@ Leaderboard<public> := module:
     # 计算平方
     Square<public>(Value:float)<computes>:float =
         Result := Value * Value
-        return Result
-    
-    # 计算平方根
-    SquareRoot<public>(Value:float)<computes>:float =
-        Result := Value
         return Result
     
     # 计算绝对值
@@ -95,3 +78,21 @@ Leaderboard<public> := module:
         Sum := Value1 + Value2 + Value3
         Result := Sum / 3.0
         return Result
+    
+    # 限制值范围
+    ClampValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        if (Value < MinVal):
+            return MinVal
+        else if (Value > MaxVal):
+            return MaxVal
+        else:
+            return Value
+    
+    # 归一化值
+    NormalizeValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        Range := MaxVal - MinVal
+        if (Range > 0.0):
+            Normalized := (Value - MinVal) / Range
+            return ClampValue(Normalized, 0.0, 1.0)
+        else:
+            return 0.0

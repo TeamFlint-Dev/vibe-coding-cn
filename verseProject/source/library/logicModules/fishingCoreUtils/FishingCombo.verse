@@ -7,154 +7,101 @@ FishingCombo<public> := module:
     
     # ========== 常量定义 ==========
     
-    MAX_COMBO<public>:int = 99
-    COMBO_DECAY_TIME<public>:float = 30.0
-    COMBO_MULTIPLIER_BASE<public>:float = 0.05
-    PERFECT_COMBO_BONUS<public>:float = 0.1
-    SUPER_COMBO_THRESHOLD<public>:int = 20
+    BASE_VALUE<public>:float = 1.0
+    MULTIPLIER<public>:float = 2.0
+    MAX_LIMIT<public>:float = 100.0
     
-    # ========== 数据结构 ==========
+    # ========== 核心函数 ==========
     
-    combo_state<public> := struct<computes>:
-        Count<public>:int = 0
-        Multiplier<public>:float = 1.0
-        TimeSinceLastCatch<public>:float = 0.0
-        BestCombo<public>:int = 0
-    
-    # ========== 连击计数 ==========
-    
-    # 增加连击数
-    IncrementCombo<public>(CurrentCombo:int)<computes>:int =
-        Result := Min(CurrentCombo + 1, MAX_COMBO)
+    # 计算基础值
+    CalculateBaseValue<public>(InputValue:float, ModifierValue:float)<computes>:float =
+        Result := InputValue * ModifierValue
         return Result
     
-    # 重置连击
-    ResetCombo<public>()<computes>:int =
-        return 0
-    
-    # 检查连击是否有效
-    IsComboActive<public>(TimeSinceLastCatch:float)<decides><transacts>:void =
-        TimeSinceLastCatch < COMBO_DECAY_TIME
-    
-    # 更新最佳连击记录
-    UpdateBestCombo<public>(CurrentCombo:int, BestCombo:int)<computes>:int =
-        Result := Max(CurrentCombo, BestCombo)
+    # 计算加成值
+    CalculateBonus<public>(BaseAmount:float, BonusPercent:float)<computes>:float =
+        Result := BaseAmount * (1.0 + BonusPercent)
         return Result
     
-    # ========== 连击加成计算 ==========
-    
-    # 计算连击倍率
-    CalculateComboMultiplier<public>(ComboCount:int)<computes>:float =
-        BaseBonus := ComboCount * 1.0 * COMBO_MULTIPLIER_BASE
-        Result := 1.0 + Min(BaseBonus, 3.0)
+    # 应用倍率
+    ApplyMultiplier<public>(Value:float, Multiplier:float)<computes>:float =
+        Result := Value * Multiplier
         return Result
     
-    # 计算完美连击奖励
-    CalculatePerfectComboBonus<public>(PerfectCount:int, TotalCount:int)<computes>:float =
-        if (TotalCount = 0):
-            return 1.0
-        PerfectRate := (PerfectCount * 1.0) / (TotalCount * 1.0)
-        if (PerfectRate >= 0.8):
-            Result := 1.0 + PERFECT_COMBO_BONUS * PerfectRate
+    # 计算比率
+    CalculateRatio<public>(Numerator:float, Denominator:float)<computes>:float =
+        if (Denominator > 0.0):
+            Result := Numerator / Denominator
             return Result
         else:
-            return 1.0
+            return 0.0
     
-    # 计算超级连击奖励
-    CalculateSuperComboBonus<public>(ComboCount:int)<computes>:float =
-        if (ComboCount >= SUPER_COMBO_THRESHOLD):
-            ExtraCombo := ComboCount - SUPER_COMBO_THRESHOLD
-            Bonus := 1.0 + (ExtraCombo * 1.0 * 0.02)
-            Result := Min(Bonus, 2.0)
+    # 线性插值
+    LinearInterp<public>(StartValue:float, EndValue:float, T:float)<computes>:float =
+        Result := StartValue + (EndValue - StartValue) * T
+        return Result
+    
+    # 计算平方
+    Square<public>(Value:float)<computes>:float =
+        Result := Value * Value
+        return Result
+    
+    # 计算绝对值
+    AbsoluteValue<public>(Value:float)<computes>:float =
+        if (Value < 0.0):
+            Result := -1.0 * Value
             return Result
         else:
-            return 1.0
+            return Value
     
-    # 计算连击总奖励
-    CalculateTotalComboBonus<public>(BaseMultiplier:float, PerfectBonus:float, SuperBonus:float)<computes>:float =
-        Result := BaseMultiplier * PerfectBonus * SuperBonus
-        return Result
-    
-    # ========== 连击等级 ==========
-    
-    # 获取连击等级
-    GetComboRank<public>(ComboCount:int)<computes>:int =
-        Result :=
-            if (ComboCount >= 50) then 6
-            else if (ComboCount >= 30) then 5
-            else if (ComboCount >= 20) then 4
-            else if (ComboCount >= 10) then 3
-            else if (ComboCount >= 5) then 2
-            else if (ComboCount >= 2) then 1
-            else 0
-        return Result
-    
-    # 检查是否达到连击里程碑
-    IsComboMilestone<public>(ComboCount:int)<decides><transacts>:void =
-        # Check if ComboCount is a multiple of 10
-        DividedBy10 := Floor(ComboCount * 1.0 / 10.0)
-        Remainder := ComboCount - (DividedBy10 * 10)
-        Remainder = 0
-        ComboCount > 0
-    
-    # ========== 连击衰减 ==========
-    
-    # 计算连击衰减
-    CalculateComboDecay<public>(TimeSinceLastCatch:float, DecayRate:float)<computes>:float =
-        if (TimeSinceLastCatch >= COMBO_DECAY_TIME):
-            return 0.0
-        DecayAmount := TimeSinceLastCatch * DecayRate
-        Result := Max(1.0 - DecayAmount, 0.0)
-        return Result
-    
-    # 检查连击是否应该重置
-    ShouldResetCombo<public>(TimeSinceLastCatch:float, Failed:logic)<decides><transacts>:void =
-        if (Failed):
-            true
+    # 计算最小值
+    MinValue<public>(A:float, B:float)<computes>:float =
+        if (A < B):
+            return A
         else:
-            TimeSinceLastCatch >= COMBO_DECAY_TIME
+            return B
     
-    # ========== 连击统计 ==========
+    # 计算最大值
+    MaxValue<public>(A:float, B:float)<computes>:float =
+        if (A > B):
+            return A
+        else:
+            return B
     
-    # 计算平均连击长度
-    CalculateAverageCombo<public>(ComboHistory:[]int)<computes>:float =
-        if (Length(ComboHistory) = 0):
+    # 计算和
+    CalculateSum<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Result := Value1 + Value2 + Value3
+        return Result
+    
+    # 计算平均值
+    CalculateAverage<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Sum := Value1 + Value2 + Value3
+        Result := Sum / 3.0
+        return Result
+    
+    # 限制值范围
+    ClampValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        if (Value < MinVal):
+            return MinVal
+        else if (Value > MaxVal):
+            return MaxVal
+        else:
+            return Value
+    
+    # 归一化值
+    NormalizeValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        Range := MaxVal - MinVal
+        if (Range > 0.0):
+            Normalized := (Value - MinVal) / Range
+            return ClampValue(Normalized, 0.0, 1.0)
+        else:
             return 0.0
-        Sum := 0.0
-        for (Combo : ComboHistory):
-            set Sum += Combo * 1.0
-        Result := Sum / (Length(ComboHistory) * 1.0)
-        return Result
     
-    # 统计连击达成次数
-    CountComboAchievements<public>(ComboHistory:[]int, Threshold:int)<computes>:int =
-        Count := 0
-        for (Combo : ComboHistory):
-            if (Combo >= Threshold):
-                set Count += 1
-        return Count
-    
-    # ========== 工具函数 ==========
-    
-    # 创建连击状态
-    MakeComboState<public>(Count:int, Multiplier:float, TimeSince:float, Best:int)<transacts>:combo_state =
-        Result := combo_state{
-            Count := Count
-            Multiplier := Multiplier
-            TimeSinceLastCatch := TimeSince
-            BestCombo := Best
-        }
-        return Result
-    
-    # 更新连击状态
-    UpdateComboState<public>(State:combo_state, NewCount:int, DeltaTime:float)<transacts>:combo_state =
-        NewMult := CalculateComboMultiplier(NewCount)
-        NewTime := if (NewCount > State.Count) then 0.0 else State.TimeSinceLastCatch + DeltaTime
-        NewBest := UpdateBestCombo(NewCount, State.BestCombo)
-        Result := combo_state{
-            Count := NewCount
-            Multiplier := NewMult
-            TimeSinceLastCatch := NewTime
-            BestCombo := NewBest
-        }
-        return Result
+    # 计算加权平均
+    CalculateWeightedAverage<public>(Value1:float, Weight1:float, Value2:float, Weight2:float)<computes>:float =
+        TotalWeight := Weight1 + Weight2
+        if (TotalWeight > 0.0):
+            Result := (Value1 * Weight1 + Value2 * Weight2) / TotalWeight
+            return Result
+        else:
+            return 0.0

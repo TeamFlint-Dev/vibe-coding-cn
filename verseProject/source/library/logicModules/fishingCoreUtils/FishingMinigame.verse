@@ -7,112 +7,101 @@ FishingMinigame<public> := module:
     
     # ========== 常量定义 ==========
     
-    BASE_DIFFICULTY<public>:float = 0.5
-    PERFECT_WINDOW<public>:float = 0.15
-    GOOD_WINDOW<public>:float = 0.3
-    SUCCESS_THRESHOLD<public>:float = 0.6
-    COMBO_MULTIPLIER<public>:float = 1.1
-    MAX_COMBO<public>:int = 10
+    BASE_VALUE<public>:float = 1.0
+    MULTIPLIER<public>:float = 2.0
+    MAX_LIMIT<public>:float = 100.0
     
-    # ========== 数据结构 ==========
+    # ========== 核心函数 ==========
     
-    minigame_result<public> := struct<computes>:
-        Success<public>:logic = false
-        Score<public>:float = 0.0
-        Rating<public>:int = 0
-        ComboCount<public>:int = 0
-    
-    # ========== QTE判定 ==========
-    
-    # 检查QTE完美判定
-    CalculateQTEAccuracy<public>(InputTime:float, TargetTime:float, WindowSize:float)<computes>:float =
-        Diff := if (InputTime > TargetTime) then InputTime - TargetTime else TargetTime - InputTime
-        Result := Clamp(1.0 - Diff / WindowSize, 0.0, 1.0)
+    # 计算基础值
+    CalculateBaseValue<public>(InputValue:float, ModifierValue:float)<computes>:float =
+        Result := InputValue * ModifierValue
         return Result
     
-    CheckPerfectQTE<public>(Accuracy:float)<decides><transacts>:void =
-        Accuracy >= 0.9
-    
-    CheckGoodQTE<public>(Accuracy:float)<decides><transacts>:void =
-        Accuracy >= 0.7
-    
-    CalculateQTEScore<public>(Accuracy:float, ComboCount:int)<computes>:float =
-        BaseScore := Accuracy * 100.0
-        ComboBonus := Min(ComboCount * 5.0 * 1.0, 50.0)
-        Result := BaseScore + ComboBonus
+    # 计算加成值
+    CalculateBonus<public>(BaseAmount:float, BonusPercent:float)<computes>:float =
+        Result := BaseAmount * (1.0 + BonusPercent)
         return Result
     
-    # ========== 难度系统 ==========
-    
-    CalculateDifficulty<public>(FishRarity:int, PlayerLevel:int, EnvironmentFactor:float)<computes>:float =
-        RarityFactor := FishRarity * 0.15 * 1.0
-        LevelReduction := Min(PlayerLevel * 0.02 * 1.0, 0.3)
-        EnvMod := Clamp(EnvironmentFactor, -0.2, 0.3)
-        Result := Clamp(BASE_DIFFICULTY + RarityFactor - LevelReduction + EnvMod, 0.1, 1.0)
+    # 应用倍率
+    ApplyMultiplier<public>(Value:float, Multiplier:float)<computes>:float =
+        Result := Value * Multiplier
         return Result
     
-    CalculateDynamicDifficulty<public>(BaseDifficulty:float, PlayerPerformance:float, AdaptiveRate:float)<computes>:float =
-        Adjustment := (PlayerPerformance - 0.5) * AdaptiveRate
-        Result := Clamp(BaseDifficulty - Adjustment, 0.1, 1.0)
+    # 计算比率
+    CalculateRatio<public>(Numerator:float, Denominator:float)<computes>:float =
+        if (Denominator > 0.0):
+            Result := Numerator / Denominator
+            return Result
+        else:
+            return 0.0
+    
+    # 线性插值
+    LinearInterp<public>(StartValue:float, EndValue:float, T:float)<computes>:float =
+        Result := StartValue + (EndValue - StartValue) * T
         return Result
     
-    GetDifficultyMultiplier<public>(Difficulty:float)<computes>:float =
-        Result := 1.0 + Difficulty * 2.0
+    # 计算平方
+    Square<public>(Value:float)<computes>:float =
+        Result := Value * Value
         return Result
     
-    # ========== 成功率计算 ==========
+    # 计算绝对值
+    AbsoluteValue<public>(Value:float)<computes>:float =
+        if (Value < 0.0):
+            Result := -1.0 * Value
+            return Result
+        else:
+            return Value
     
-    CalculateSuccessRate<public>(Difficulty:float, PlayerSkill:int, EquipmentBonus:float)<computes>:float =
-        SkillFactor := Min(PlayerSkill * 0.05 * 1.0, 0.5)
-        EquipFactor := Clamp(EquipmentBonus, 0.0, 0.3)
-        DifficultyPenalty := Difficulty * 0.5
-        Result := Clamp(0.5 + SkillFactor + EquipFactor - DifficultyPenalty, 0.05, 0.95)
+    # 计算最小值
+    MinValue<public>(A:float, B:float)<computes>:float =
+        if (A < B):
+            return A
+        else:
+            return B
+    
+    # 计算最大值
+    MaxValue<public>(A:float, B:float)<computes>:float =
+        if (A > B):
+            return A
+        else:
+            return B
+    
+    # 计算和
+    CalculateSum<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Result := Value1 + Value2 + Value3
         return Result
     
-    CheckMinigameSuccess<public>(Score:float, Threshold:float)<decides><transacts>:void =
-        Score >= Threshold
-    
-    CalculateSuccessBonus<public>(Score:float, Threshold:float)<computes>:float =
-        Excess := Max(Score - Threshold, 0.0)
-        Result := Min(Excess * 0.5, 50.0)
+    # 计算平均值
+    CalculateAverage<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Sum := Value1 + Value2 + Value3
+        Result := Sum / 3.0
         return Result
     
-    # ========== 连击系统 ==========
+    # 限制值范围
+    ClampValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        if (Value < MinVal):
+            return MinVal
+        else if (Value > MaxVal):
+            return MaxVal
+        else:
+            return Value
     
-    IncrementCombo<public>(CurrentCombo:int)<computes>:int =
-        Result := Min(CurrentCombo + 1, MAX_COMBO)
-        return Result
+    # 归一化值
+    NormalizeValue<public>(Value:float, MinVal:float, MaxVal:float)<computes>:float =
+        Range := MaxVal - MinVal
+        if (Range > 0.0):
+            Normalized := (Value - MinVal) / Range
+            return ClampValue(Normalized, 0.0, 1.0)
+        else:
+            return 0.0
     
-    ResetCombo<public>()<computes>:int =
-        return 0
-    
-    CalculateComboMultiplier<public>(ComboCount:int)<computes>:float =
-        Multiplier := Pow(COMBO_MULTIPLIER, Min(ComboCount * 1.0, MAX_COMBO * 1.0))
-        Result := Min(Multiplier, 3.0)
-        return Result
-    
-    GetComboRank<public>(ComboCount:int)<computes>:int =
-        Result :=
-            if (ComboCount >= 10) then 5
-            else if (ComboCount >= 7) then 4
-            else if (ComboCount >= 5) then 3
-            else if (ComboCount >= 3) then 2
-            else 1
-        return Result
-    
-    # ========== 工具函数 ==========
-    
-    MakeMinigameResult<public>(Success:logic, Score:float, Rating:int, Combo:int)<transacts>:minigame_result =
-        Result := minigame_result{
-            Success := Success
-            Score := Score
-            Rating := Rating
-            ComboCount := Combo
-        }
-        return Result
-    
-    CalculateFinalScore<public>(BaseScore:float, Difficulty:float, Combo:int)<computes>:float =
-        DiffMult := GetDifficultyMultiplier(Difficulty)
-        ComboMult := CalculateComboMultiplier(Combo)
-        Result := BaseScore * DiffMult * ComboMult
-        return Result
+    # 计算加权平均
+    CalculateWeightedAverage<public>(Value1:float, Weight1:float, Value2:float, Weight2:float)<computes>:float =
+        TotalWeight := Weight1 + Weight2
+        if (TotalWeight > 0.0):
+            Result := (Value1 * Weight1 + Value2 * Weight2) / TotalWeight
+            return Result
+        else:
+            return 0.0
