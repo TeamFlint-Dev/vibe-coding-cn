@@ -91,7 +91,9 @@ FishingCombo<public> := module:
     
     # 检查是否达到连击里程碑
     IsComboMilestone<public>(ComboCount:int)<decides><transacts>:void =
-        Remainder := ComboCount mod 10
+        # Check if ComboCount is a multiple of 10
+        DividedBy10 := Floor(ComboCount * 1.0 / 10.0)
+        Remainder := ComboCount - (DividedBy10 * 10)
         Remainder = 0
         ComboCount > 0
     

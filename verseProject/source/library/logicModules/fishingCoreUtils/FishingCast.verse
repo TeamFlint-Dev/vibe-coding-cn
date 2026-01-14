@@ -24,12 +24,12 @@ FishingCast<public> := module:
     
     # ========== 数据结构 ==========
     
-    # 抛竿结果
+    # 抛竿结果（简化版）
     cast_result<public> := struct<computes>:
         Distance<public>:float = 0.0
         Accuracy<public>:float = 0.0
         HitTarget<public>:logic = false
-        LandPosition<public>:vector3 = vector3{X := 0.0, Y := 0.0, Z := 0.0}
+        Score<public>:float = 0.0
     
     # ========== 抛竿距离计算 ==========
     
@@ -151,30 +151,12 @@ FishingCast<public> := module:
     
     # ========== 目标判定 ==========
     
-    # 检查是否命中目标区域
-    # @param LandPos: 落点位置
-    # @param TargetPos: 目标位置
+    # 检查是否命中目标区域（简化版 - 仅基于距离）
+    # @param OffsetDistance: 偏移距离
     # @param Radius: 目标半径
     # @returns: 是否命中
-    CheckTargetHit<public>(LandPos:vector3, TargetPos:vector3, Radius:float)<decides><transacts>:void =
-        DeltaX := LandPos.X - TargetPos.X
-        DeltaY := LandPos.Y - TargetPos.Y
-        DeltaZ := LandPos.Z - TargetPos.Z
-        DistanceSquared := DeltaX * DeltaX + DeltaY * DeltaY + DeltaZ * DeltaZ
-        RadiusSquared := Radius * Radius
-        DistanceSquared <= RadiusSquared
-    
-    # 计算落点偏移距离
-    # @param LandPos: 落点位置
-    # @param TargetPos: 目标位置
-    # @returns: 偏移距离（米）
-    CalculateOffsetDistance<public>(LandPos:vector3, TargetPos:vector3)<computes>:float =
-        DeltaX := LandPos.X - TargetPos.X
-        DeltaY := LandPos.Y - TargetPos.Y
-        DeltaZ := LandPos.Z - TargetPos.Z
-        DistanceSquared := DeltaX * DeltaX + DeltaY * DeltaY + DeltaZ * DeltaZ
-        Result := Sqrt(DistanceSquared)
-        return Result
+    CheckTargetHit<public>(OffsetDistance:float, Radius:float)<decides><transacts>:void =
+        OffsetDistance <= Radius
     
     # ========== 工具函数 ==========
     
@@ -182,13 +164,13 @@ FishingCast<public> := module:
     # @param Distance: 抛竿距离
     # @param Accuracy: 精准度
     # @param HitTarget: 是否命中
-    # @param Position: 落点位置
+    # @param Score: 评分
     # @returns: 抛竿结果结构
-    MakeCastResult<public>(Distance:float, Accuracy:float, HitTarget:logic, Position:vector3)<transacts>:cast_result =
+    MakeCastResult<public>(Distance:float, Accuracy:float, HitTarget:logic, Score:float)<transacts>:cast_result =
         Result := cast_result{
             Distance := Distance
             Accuracy := Accuracy
             HitTarget := HitTarget
-            LandPosition := Position
+            Score := Score
         }
         return Result

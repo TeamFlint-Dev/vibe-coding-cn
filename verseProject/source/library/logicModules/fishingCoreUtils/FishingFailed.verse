@@ -84,7 +84,7 @@ FishingFailed<public> := module:
     # ========== 重试机制 ==========
     
     # 检查是否可以重试
-    CanRetry<public>(Reason:int, AttemptsLeft:int)<decides><transacts>:void =
+    CheckCanRetry<public>(Reason:int, AttemptsLeft:int)<decides><transacts>:void =
         AttemptsLeft > 0
         Reason <> 1
     
@@ -95,7 +95,7 @@ FishingFailed<public> := module:
         return Result
     
     # 计算重试成本
-    CalculateRetryCost<public>(BaseC ost:float, RetryCount:int)<computes>:float =
+    CalculateRetryCost<public>(BaseCost:float, RetryCount:int)<computes>:float =
         CostMult := Pow(1.5, RetryCount * 1.0)
         Result := BaseCost * CostMult
         return Result

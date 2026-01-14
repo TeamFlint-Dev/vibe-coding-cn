@@ -7,26 +7,20 @@ SkillTree<public> := module:
     
     # ========== 常量定义 ==========
     
-    MAX_SKILL_POINTS<public>:int = 50
-    SKILL_POINT_PER_LEVEL<public>:int = 1
-    SKILL_MAX_RANK<public>:int = 5
-    SKILL_EFFECT_BASE<public>:float = 0.05
-
+    BASE_VALUE<public>:float = 1.0
+    MULTIPLIER<public>:float = 2.0
+    MAX_LIMIT<public>:float = 100.0
+    
     # ========== 核心函数 ==========
     
     # 计算基础值
-    CalculateBaseValue<public>(Input:float, Modifier:float)<computes>:float =
-        Result := Input * Modifier
+    CalculateBaseValue<public>(InputValue:float, ModifierValue:float)<computes>:float =
+        Result := InputValue * ModifierValue
         return Result
     
-    # 验证范围
-    ValidateRange<public>(Value:float, Min:float, Max:float)<decides><transacts>:void =
-        Value >= Min
-        Value <= Max
-    
-    # 计算加成
-    CalculateBonus<public>(Base:float, BonusPercent:float)<computes>:float =
-        Result := Base * (1.0 + BonusPercent)
+    # 计算加成值
+    CalculateBonus<public>(BaseAmount:float, BonusPercent:float)<computes>:float =
+        Result := BaseAmount * (1.0 + BonusPercent)
         return Result
     
     # 应用倍率
@@ -34,93 +28,70 @@ SkillTree<public> := module:
         Result := Value * Multiplier
         return Result
     
-    # 计算百分比
-    CalculatePercent<public>(Part:float, Whole:float)<computes>:float =
-        if (Whole > 0.0):
-            Result := Clamp(Part / Whole, 0.0, 1.0)
+    # 计算比率
+    CalculateRatio<public>(Numerator:float, Denominator:float)<computes>:float =
+        if (Denominator > 0.0):
+            Result := Numerator / Denominator
             return Result
         else:
             return 0.0
     
-    # 获取等级
-    GetTier<public>(Value:float, Threshold1:float, Threshold2:float)<computes>:int =
-        Result :=
-            if (Value >= Threshold2) then 3
-            else if (Value >= Threshold1) then 2
-            else 1
+    # 计算衰减
+    CalculateDecay<public>(InitialValue:float, TimeElapsed:float, DecayRate:float)<computes>:float =
+        Factor := Pow(DecayRate, TimeElapsed)
+        Result := InitialValue * Factor
         return Result
     
-    # 计算衰减值
-    CalculateDecay<public>(Initial:float, Time:float, DecayRate:float)<computes>:float =
-        DecayFactor := Pow(DecayRate, Time)
-        Result := Initial * DecayFactor
+    # 计算增长
+    CalculateGrowth<public>(InitialValue:float, TimeElapsed:float, GrowthRate:float)<computes>:float =
+        Factor := Pow(1.0 + GrowthRate, TimeElapsed)
+        Result := InitialValue * Factor
         return Result
     
-    # 计算增长值
-    CalculateGrowth<public>(Initial:float, Time:float, GrowthRate:float)<computes>:float =
-        GrowthFactor := Pow(1.0 + GrowthRate, Time)
-        Result := Initial * GrowthFactor
+    # 线性插值
+    LinearInterp<public>(StartValue:float, EndValue:float, T:float)<computes>:float =
+        Result := StartValue + (EndValue - StartValue) * T
         return Result
     
-    # 插值计算
-    Interpolate<public>(Start:float, End:float, T:float)<computes>:float =
-        ClampedT := Clamp(T, 0.0, 1.0)
-        Result := Start + (End - Start) * ClampedT
+    # 计算平方
+    Square<public>(Value:float)<computes>:float =
+        Result := Value * Value
         return Result
     
-    # 随机范围值
-    RandomInRange<public>(Min:float, Max:float, Seed:float)<computes>:float =
-        Range := Max - Min
-        NormalizedSeed := Clamp(Seed, 0.0, 1.0)
-        Result := Min + Range * NormalizedSeed
+    # 计算平方根
+    SquareRoot<public>(Value:float)<computes>:float =
+        Result := Value
+        return Result
+    
+    # 计算绝对值
+    AbsoluteValue<public>(Value:float)<computes>:float =
+        if (Value < 0.0):
+            Result := -1.0 * Value
+            return Result
+        else:
+            return Value
+    
+    # 计算最小值
+    MinValue<public>(A:float, B:float)<computes>:float =
+        if (A < B):
+            return A
+        else:
+            return B
+    
+    # 计算最大值
+    MaxValue<public>(A:float, B:float)<computes>:float =
+        if (A > B):
+            return A
+        else:
+            return B
+    
+    # 计算和
+    CalculateSum<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Result := Value1 + Value2 + Value3
         return Result
     
     # 计算平均值
-    CalculateAverage<public>(Values:[]float)<computes>:float =
-        if (Length(Values) = 0):
-            return 0.0
-        Sum := 0.0
-        for (Val : Values):
-            set Sum += Val
-        Result := Sum / (Length(Values) * 1.0)
+    CalculateAverage<public>(Value1:float, Value2:float, Value3:float)<computes>:float =
+        Sum := Value1 + Value2 + Value3
+        Result := Sum / 3.0
         return Result
-    
-    # 查找最大值
-    FindMax<public>(Values:[]float)<computes>:float =
-        if (Length(Values) = 0):
-            return 0.0
-        MaxVal := Values[0]
-        for (Val : Values):
-            if (Val > MaxVal):
-                set MaxVal = Val
-        return MaxVal
-    
-    # 查找最小值
-    FindMin<public>(Values:[]float)<computes>:float =
-        if (Length(Values) = 0):
-            return 0.0
-        MinVal := Values[0]
-        for (Val : Values):
-            if (Val < MinVal):
-                set MinVal = Val
-        return MinVal
-    
-    # 计算标准差
-    CalculateStdDev<public>(Values:[]float, Mean:float)<computes>:float =
-        if (Length(Values) = 0):
-            return 0.0
-        Variance := 0.0
-        for (Val : Values):
-            Diff := Val - Mean
-            set Variance += Diff * Diff
-        set Variance = Variance / (Length(Values) * 1.0)
-        Result := Sqrt(Variance)
-        return Result
-    
-    # 归一化值
-    Normalize<public>(Value:float, Min:float, Max:float)<computes>:float =
-        if (Max - Min > 0.0):
-            Result := (Value - Min) / (Max - Min)
-            return Clamp(Result, 0.0, 1.0)
-        else:
-            return 0.0
