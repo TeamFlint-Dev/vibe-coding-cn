@@ -36,6 +36,7 @@
 | [钓鱼循环模式](./fishing-loop-pattern.md) | 期待 → 惊喜 → 满足 | Fishing 项目 | 短周期主动采集玩法 |
 | [放置游戏核心循环](./idle-game-core-loop.md) | 进步 → 满足 → 期待 | Fishing 项目 | 放置/养成类游戏 |
 | [经济平衡设计](./economy-balance-pattern.md) | 富足 → 进步 → 期待 | Fishing 项目 | 产出-消耗-成长系统 |
+| [发现式交互模式](./discovery-interaction-pattern.md) | 好奇 → 探索 → 发现 → 满足 | Fishing 项目 IDLE-F-01 | 玩家主动发现交互点 |
 
 ---
 

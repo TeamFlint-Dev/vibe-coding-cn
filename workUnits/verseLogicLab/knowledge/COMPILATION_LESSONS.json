@@ -7,7 +7,12 @@
       "solution": "使用不同的命名模式避免冲突。例如：enum 值加前缀 'Curve' → CurveLinear, CurveInSine 等，与函数名 EaseLinear, EaseInSine 区分开",
       "prevention": "在定义 enum 前，先检查模块中是否有同名函数。如果是为现有函数创建 enum，使用描述性前缀（如 Curve*, Type*, Kind*）区分 enum 值和函数名",
       "date": "2026-01-12",
-      "tags": ["ambiguous-identifier", "naming", "enum", "common"]
+      "tags": [
+        "ambiguous-identifier",
+        "naming",
+        "enum",
+        "common"
+      ]
     },
     {
       "id": "LESSON-002",
@@ -16,7 +21,11 @@
       "solution": "在函数签名中添加允许的效果标注，或让编译器推断效果（不显式标注）",
       "prevention": "调用有特殊效果的函数前，确保调用方函数有兼容的效果声明",
       "date": "2026-01-12",
-      "tags": ["effect-mismatch", "no_rollback", "effect-system"],
+      "tags": [
+        "effect-mismatch",
+        "no_rollback",
+        "effect-system"
+      ],
       "note": "关于效果系统的具体行为，参见 CONJECTURES.md 中的相关猜想"
     },
     {
@@ -26,7 +35,12 @@
       "solution": "使用 if-then-else 结构来处理可能失败的操作：if: P0 := Array[0] then: UseP0 else: DefaultValue。这创建了一个 failure context",
       "prevention": "访问数组元素时，使用 if 结构提供 failure context，或在函数签名中声明适当的效果",
       "date": "2026-01-12",
-      "tags": ["decides", "array-access", "effect-mismatch", "common"],
+      "tags": [
+        "decides",
+        "array-access",
+        "effect-mismatch",
+        "common"
+      ],
       "note": "关于 <decides> 与 <transacts> 的关系，参见 CONJECTURES.md 中的相关猜想"
     },
     {
@@ -36,7 +50,12 @@
       "solution": "确保操作数类型一致。对于字面量，使用 0.0 + I（float 在前）的形式",
       "prevention": "在进行混合类型运算前，注意 Verse 的类型系统是严格的，int 和 float 不能隐式混合",
       "date": "2026-01-12",
-      "tags": ["type-error", "int-float-conversion", "operators", "beginner"]
+      "tags": [
+        "type-error",
+        "int-float-conversion",
+        "operators",
+        "beginner"
+      ]
     },
     {
       "id": "LESSON-005",
@@ -45,7 +64,12 @@
       "solution": "将所有 == 比较替换为 = 比较",
       "prevention": "记住 Verse 语法：赋值用 :=，比较用 =（不是 ==）",
       "date": "2026-01-13",
-      "tags": ["syntax-error", "comparison", "beginner", "common"]
+      "tags": [
+        "syntax-error",
+        "comparison",
+        "beginner",
+        "common"
+      ]
     },
     {
       "id": "LESSON-006",
@@ -54,7 +78,12 @@
       "solution": "重命名参数以避免冲突，如 MinVal、MaxVal、AbsVal 等",
       "prevention": "避免使用与 Verse 内置函数同名的参数名，特别是常见的数学函数名（Min, Max, Abs, Floor, Ceil 等）",
       "date": "2026-01-13",
-      "tags": ["ambiguous-identifier", "naming", "parameters", "common"]
+      "tags": [
+        "ambiguous-identifier",
+        "naming",
+        "parameters",
+        "common"
+      ]
     },
     {
       "id": "LESSON-007",
@@ -63,7 +92,11 @@
       "solution": "移除 <private> 标记，在 module 中函数要么是 public 要么是未标记（默认可见）",
       "prevention": "记住 Verse 访问修饰符规则：module 中不使用 private/protected，仅在 class 中使用",
       "date": "2026-01-13",
-      "tags": ["access-modifiers", "module-vs-class", "syntax-error"]
+      "tags": [
+        "access-modifiers",
+        "module-vs-class",
+        "syntax-error"
+      ]
     },
     {
       "id": "LESSON-008",
@@ -72,7 +105,13 @@
       "solution": "将调用方函数的效果标注改为 <transacts><decides>，或使用不需要这些效果的替代实现",
       "prevention": "调用 Floor[], Mod[] 等内置函数前，确保调用方有足够的效果声明",
       "date": "2026-01-13",
-      "tags": ["effect-mismatch", "transacts", "decides", "Floor", "common"],
+      "tags": [
+        "effect-mismatch",
+        "transacts",
+        "decides",
+        "Floor",
+        "common"
+      ],
       "note": "Floor 和 Mod 等函数需要 <transacts><decides> 效果"
     },
     {
@@ -82,7 +121,12 @@
       "solution": "将 TestBit(Value, Index) 改为 TestBit[Value, Index]，所有带 <decides> 的函数都用方括号",
       "prevention": "记住调用约定：<computes> 函数用 ()，<decides> 函数用 []",
       "date": "2026-01-13",
-      "tags": ["syntax-error", "function-call", "decides", "common"]
+      "tags": [
+        "syntax-error",
+        "function-call",
+        "decides",
+        "common"
+      ]
     },
     {
       "id": "LESSON-010",
@@ -91,7 +135,183 @@
       "solution": "使用递归或不可变变量替代 var，或将函数效果改为支持 allocates 的效果",
       "prevention": "在纯函数（<computes>）中避免使用 var，优先使用递归模式",
       "date": "2026-01-13",
-      "tags": ["effect-mismatch", "var", "allocates", "recursion-pattern"]
+      "tags": [
+        "effect-mismatch",
+        "var",
+        "allocates",
+        "recursion-pattern"
+      ]
+    },
+    {
+      "id": "LESSON-011",
+      "error": "error:3506:Unknown identifier `MathFloatComparison`. Did you mean coreMathUtils.MathFloatComparison",
+      "context": "在 validationUtils 模块中使用 `using { MathFloatComparison }` 导入同项目的其他模块，但这是错误的导入方式",
+      "solution": "同项目内的模块不通过 using 导入，而是通过完整路径访问：`coreMathUtils.MathFloatComparison.Function`",
+      "prevention": "记住：using 用于外部 API（如 /Verse.org/），项目内模块用 `modulePath.ModuleName.Function` 格式直接访问",
+      "date": "2026-01-13",
+      "tags": [
+        "imports",
+        "module-reference",
+        "common",
+        "beginner"
+      ],
+      "note": "项目内模块引用不需要 using 声明"
+    },
+    {
+      "id": "LESSON-012",
+      "error": "error:3506:Unknown identifier `Magnitude`",
+      "context": "尝试调用 Magnitude(V) 函数计算 vector3 的长度，但 Verse.org/SpatialMath 中不存在此函数",
+      "solution": "使用 vector3 的 extension method：`V.Length()` 而非 `Magnitude(V)`",
+      "prevention": "查阅官方文档确认 API 名称。vector3 的长度使用 `.Length()` extension method，不是 Magnitude 函数",
+      "date": "2026-01-13",
+      "tags": [
+        "undefined-identifier",
+        "vector3",
+        "API",
+        "extension-method"
+      ],
+      "related_source": "external/epic-docs-crawler/.../spatialmath/length/index.md"
+    },
+    {
+      "id": "LESSON-013",
+      "error": "error:3512:This invocation calls a function that has effects that are not allowed by its context: reads, dictates",
+      "context": "在 <computes> 函数中调用 V.Length() extension method，但 .Length() 具有 <reads> 效果",
+      "solution": "在函数签名中添加 <reads> 效果：`IsNormalized<public>(...)<reads><computes>:logic`",
+      "prevention": "调用 extension methods（如 .Length(), .Magnitude()）时，检查其效果要求并在调用方添加相应效果",
+      "date": "2026-01-13",
+      "tags": [
+        "effect-mismatch",
+        "reads",
+        "extension-method",
+        "vector3"
+      ]
+    },
+    {
+      "id": "LESSON-014",
+      "error": "error:3565:Effect attribute <reads> cannot be combined with <transacts>",
+      "context": "函数签名中同时使用 <reads><decides><transacts> 三个效果，但 <reads> 和 <transacts> 互斥",
+      "solution": "根据需求选择：纯读取用 <reads><decides>，事务性操作用 <decides><transacts>。不能同时使用 <reads> 和 <transacts>",
+      "prevention": "理解效果互斥规则：<reads> 用于只读操作，<transacts> 用于可回滚操作，两者不能共存",
+      "date": "2026-01-13",
+      "tags": [
+        "effect-conflict",
+        "reads",
+        "transacts",
+        "effect-system",
+        "common"
+      ],
+      "note": "这是 Verse 效果系统的基本约束，见 CONJ-002 关于效果层次的讨论"
+    },
+    {
+      "id": "LESSON-015",
+      "error": "error:3512:This invocation calls a function that has the 'transacts' effect, which is not allowed by its context",
+      "context": "在 <reads><decides> 函数中调用了 <decides><transacts> 函数（如 ValidateFinite[]）",
+      "solution": "方案1: 改用返回 logic 的检查函数（如 IsFinite()）而非 Validate* 函数；方案2: 将调用方改为 <decides><transacts> 效果",
+      "prevention": "<reads> 函数不能调用 <transacts> 函数。设计时分离：Is* 系列用 <computes>/<reads>，Validate* 系列用 <transacts>",
+      "date": "2026-01-13",
+      "tags": [
+        "effect-mismatch",
+        "transacts",
+        "function-design",
+        "validation-pattern"
+      ]
+    },
+    {
+      "id": "LESSON-016",
+      "error": "error:3511:This call uses square brackets to call a function that does not have the 'decides' effect",
+      "context": "使用 IsNormalized[V] 调用一个返回 logic 的 <computes> 函数，但该函数没有 <decides> 效果",
+      "solution": "改为使用圆括号调用：IsNormalized(V)。方括号 [] 仅用于 <decides> 函数",
+      "prevention": "调用约定检查清单：<decides> 函数用 []，非 <decides> 函数用 ()。查看函数签名确认是否有 <decides>",
+      "date": "2026-01-13",
+      "tags": [
+        "syntax-error",
+        "function-call",
+        "decides",
+        "common",
+        "brackets"
+      ]
+    },
+    {
+      "id": "LESSON-017",
+      "error": "error:3512:This invocation calls a function that has the 'decides' effect, which is not allowed by its context",
+      "context": "在 <computes> 函数中直接将比较表达式（如 `Timestamp >= MinValue`）赋值给变量，但比较操作符在某些上下文中有 <decides> 效果",
+      "solution": "使用 if-then-else 包装：`IsValid := if (Timestamp >= MinValue) then true else false`",
+      "prevention": "在 <computes> 函数中进行比较赋值时，使用 if-then-else 明确转换为 logic 值，避免隐式 <decides> 效果",
+      "date": "2026-01-13",
+      "tags": [
+        "effect-mismatch",
+        "decides",
+        "comparison",
+        "assignment"
+      ],
+      "note": "比较操作符的 effect 取决于上下文，在赋值时需要显式转换"
+    },
+    {
+      "id": "LESSON-018",
+      "error": "error:3100:vErr:S77: Unexpected \"mod\" following expression",
+      "context": "使用了 `Exponent mod 2` 语法进行取模运算，但 Verse 中 mod 不是运算符",
+      "solution": "使用 Mod[] 函数：`Remainder := Mod[Exponent, 2]`",
+      "prevention": "记住 Verse 中取模和商是函数而非运算符：Mod[X, Y] 和 Quotient[X, Y]",
+      "date": "2026-01-13",
+      "tags": [
+        "syntax-error",
+        "mod",
+        "operators",
+        "Mod-function"
+      ],
+      "reference": "Verse.org/Verse API - Mod[](X:int, Y:int)<computes><decides>:int"
+    },
+    {
+      "id": "LESSON-019",
+      "error": "error:3509:No overload of the function `operator'>'` matches the provided arguments (:int,:rational)",
+      "context": "使用 `AbsA > MaxSafeInt / AbsB` 进行比较，但 int / int 返回 rational 类型，不是 int",
+      "solution": "使用 Quotient[] 函数进行整数除法：`Threshold := Quotient[MaxSafeInt, AbsB]` 然后 `AbsA > Threshold`",
+      "prevention": "记住 Verse 中 / 运算符用于 float 除法，整数除法使用 Quotient[]",
+      "date": "2026-01-13",
+      "tags": [
+        "type-error",
+        "division",
+        "rational",
+        "Quotient-function",
+        "common"
+      ],
+      "reference": "Verse.org/Verse API - Quotient[](X:int, Y:int)<computes><decides>:int",
+      "note": "Quotient[] 返回商（向零截断），Mod[] 返回余数，它们配合使用：Quotient[X, Y] * Y + Mod[X, Y] = X"
+    },
+    {
+      "id": "LESSON-020",
+      "error": "error:3524:First argument to `for` must be a generator, X:=range, X:array, or X:map",
+      "context": "使用了 `for (Count < Exponent)` 的 C 风格循环语法，但 Verse 不支持",
+      "solution": "使用 range 生成器：`for (I := 0..Exponent - 1)` 或 `for (I := 0..<Exponent)`",
+      "prevention": "Verse 的 for 循环必须使用生成器（range、array 或 map），不支持条件循环",
+      "date": "2026-01-13",
+      "tags": [
+        "syntax-error",
+        "for-loop",
+        "range",
+        "generator",
+        "common"
+      ],
+      "reference": "Verse Language Reference - for expression",
+      "example": "for (I := 0..9) 迭代 10 次（0 到 9），for (I := 0..<10) 也是 10 次"
+    },
+    {
+      "id": "LESSON-021",
+      "error": "error:3510:This function returns a value of type int, but the function body's result is an incompatible value of type rational",
+      "context": "函数声明返回 int，但使用了 `A / B` 运算符，该运算符返回 rational 类型",
+      "solution": "使用 Quotient[A, B] 代替 A / B 进行整数除法，或将返回类型改为 rational/float",
+      "prevention": "区分除法运算符：/ 用于浮点除法（返回 rational/float），Quotient[] 用于整数除法（返回 int）",
+      "date": "2026-01-13",
+      "tags": [
+        "type-error",
+        "division",
+        "return-type",
+        "Quotient-function"
+      ],
+      "related": [
+        "LESSON-019"
+      ],
+      "note": "这是 LESSON-019 的延伸：除了比较问题，返回类型也会不匹配"
     }
   ],
   "_metadata": {
@@ -99,10 +319,41 @@
     "usage": "记录编译错误、解决方案和预防措施。不包含未验证的假设，假设应记录在 CONJECTURES.md",
     "principle": "忠实记录错误现象和解决步骤，不添加推测性解释",
     "tags_guide": {
-      "error_types": ["type-error", "effect-mismatch", "ambiguous-identifier", "undefined-identifier", "syntax-error", "decides", "no_rollback", "transacts", "allocates", "access-modifiers"],
-      "difficulty": ["beginner", "intermediate", "advanced"],
-      "frequency": ["common", "rare"],
-      "domains": ["naming", "effects", "types", "imports", "syntax", "enum", "array-access", "operators", "parameters", "function-call", "var", "module-vs-class"]
+      "error_types": [
+        "type-error",
+        "effect-mismatch",
+        "ambiguous-identifier",
+        "undefined-identifier",
+        "syntax-error",
+        "decides",
+        "no_rollback",
+        "transacts",
+        "allocates",
+        "access-modifiers"
+      ],
+      "difficulty": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "frequency": [
+        "common",
+        "rare"
+      ],
+      "domains": [
+        "naming",
+        "effects",
+        "types",
+        "imports",
+        "syntax",
+        "enum",
+        "array-access",
+        "operators",
+        "parameters",
+        "function-call",
+        "var",
+        "module-vs-class"
+      ]
     },
     "template": {
       "id": "LESSON-xxx (使用递增编号)",
@@ -111,7 +362,10 @@
       "solution": "如何修复，具体步骤（仅事实，不含推测）",
       "prevention": "如何预防（仅事实性建议）",
       "date": "YYYY-MM-DD",
-      "tags": ["标签1", "标签2"],
+      "tags": [
+        "标签1",
+        "标签2"
+      ],
       "note": "（可选）如有相关猜想，引用 CONJECTURES.md"
     }
   }

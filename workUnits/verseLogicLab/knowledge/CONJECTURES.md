@@ -1,6 +1,18 @@
 # 猜想记录（Conjectures）
 
-这份文档记录尚未被多个信息源验证的假设和猜想。
+这份文档记录**尚未被充分验证**的假设和猜想。
+
+> **重要区分**:
+> - **猜想 (CONJECTURES.md)**: 基于有限信息的推测，待验证 ← **当前文档**
+> - **风险点 (RISK-POINTS.md)**: 已验证的真实风险和限制
+> - **错误记录 (COMPILATION_LESSONS.json)**: 实际编译错误的忠实记录
+> 
+> **收录标准**:
+> - ✅ 基于单一信息源的推测
+> - ✅ 基于推理而非文档的假设
+> - ✅ 尚未经过实践检验的想法
+> - ✅ 对文档的不完整理解
+> - ❌ 已被多个信息源验证的事实（应移到相应文档）
 
 ---
 
@@ -60,6 +72,36 @@
 ```
 
 ---
+
+### 验证记录更新 (2026-01-13)
+
+**验证任务**: TASK-001 (SafeMath) 实现
+
+**验证结果**: ✅ **完全确认**
+
+在实现安全数学运算库时，所有函数都使用了 `<transacts><decides>` 效果组合：
+```verse
+SafeAddInt<public>(A:int, B:int)<transacts><decides>:int
+SafeMultiplyInt<public>(A:int, B:int)<transacts><decides>:int
+SafeDivideInt<public>(A:int, B:int)<transacts><decides>:int
+SafePowerInt<public>(Base:int, Exponent:int)<transacts><decides>:int
+```
+
+**实践验证**:
+1. ✅ 所有 `<decides>` 函数都必须标注 `<transacts>`
+2. ✅ 编译器强制要求：去掉 `<transacts>` 会导致编译错误
+3. ✅ Failure context 自动处理 `<decides>` 效果的失败情况
+4. ✅ Rollback 机制确保失败时状态一致性
+
+**编译验证通过**：
+- 文件：`verseProject/source/library/logicModules/coreMathUtils/MathSafe.verse`
+- 结果：0 编译错误
+- 所有安全数学函数正确使用 `<transacts><decides>` 组合
+
+**参考决策**:
+- ADR-011: 安全数学运算的错误处理策略
+- PATTERNS.md: Safe Math Operations Pattern
+
 
 ## 猜想列表
 
@@ -124,6 +166,53 @@ option[T] 的查询操作符 `?` 是一个 failable expression，必须在 failu
 
 ### 参考
 
+### 验证记录更新 (2026-01-13) - TASK-023
+
+**验证任务**: TASK-023 (Array Queries) 实现评估
+
+**验证结果**: ✅ **完全确认 - 实践应用成功**
+
+在评估 ArrayQueries.verse 实现时，验证了所有 option[T] 相关猜想的实际应用：
+
+**CONJ-004 验证**（option[T] 查询操作符 `?`）:
+```verse
+# 在 Contains 函数中的实际应用
+ContainsInt<public>(Arr:[]int, Target:int)<transacts>:logic =
+    Result := IndexOfInt(Arr, Target)
+    if (Result?) then true else false  # Result? 在 failure context 中使用 ✅
+```
+
+**CONJ-006 验证**（`false` 是空值字面量）:
+```verse
+# 在 IndexOf 函数中的实际应用
+IndexOfInt<public>(Arr:[]int, Target:int)<transacts>:?int =
+    var Result:?int = false  # 使用 false 初始化 option ✅
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            if (not Result?):
+                set Result = option{Index}
+    Result
+```
+
+**CONJ-007 验证**（option 构造器 failure context）:
+```verse
+# 使用 option{Expression} 构造器
+set Result = option{Index}  # 自动捕获失败 ✅
+set LastIndex = option{Index}  # 失败时自动为 false ✅
+```
+
+**实践发现**:
+1. ✅ option[T] 完美适合数组查询场景（未找到是正常情况）
+2. ✅ `false` 作为空值语义清晰，易于理解
+3. ✅ `option{Expression}` 简化了安全构造
+4. ✅ `Result?` 操作符强制在 failure context 中使用，避免忘记检查
+
+**参考实现**:
+- 文件：`verseProject/source/library/logicModules/coreMathUtils/ArrayQueries.verse`
+- 函数：IndexOfInt, LastIndexOfInt, ContainsInt, FindAllInt
+- 模式：`knowledge/PATTERNS.md` - Option[T] Array Query Pattern
+
+
 - 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
 
 ---
@@ -182,6 +271,53 @@ option[T] 的查询操作符 `?` 是一个 failable expression，必须在 failu
 
 ### 参考
 
+### 验证记录更新 (2026-01-13) - TASK-023
+
+**验证任务**: TASK-023 (Array Queries) 实现评估
+
+**验证结果**: ✅ **完全确认 - 实践应用成功**
+
+在评估 ArrayQueries.verse 实现时，验证了所有 option[T] 相关猜想的实际应用：
+
+**CONJ-004 验证**（option[T] 查询操作符 `?`）:
+```verse
+# 在 Contains 函数中的实际应用
+ContainsInt<public>(Arr:[]int, Target:int)<transacts>:logic =
+    Result := IndexOfInt(Arr, Target)
+    if (Result?) then true else false  # Result? 在 failure context 中使用 ✅
+```
+
+**CONJ-006 验证**（`false` 是空值字面量）:
+```verse
+# 在 IndexOf 函数中的实际应用
+IndexOfInt<public>(Arr:[]int, Target:int)<transacts>:?int =
+    var Result:?int = false  # 使用 false 初始化 option ✅
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            if (not Result?):
+                set Result = option{Index}
+    Result
+```
+
+**CONJ-007 验证**（option 构造器 failure context）:
+```verse
+# 使用 option{Expression} 构造器
+set Result = option{Index}  # 自动捕获失败 ✅
+set LastIndex = option{Index}  # 失败时自动为 false ✅
+```
+
+**实践发现**:
+1. ✅ option[T] 完美适合数组查询场景（未找到是正常情况）
+2. ✅ `false` 作为空值语义清晰，易于理解
+3. ✅ `option{Expression}` 简化了安全构造
+4. ✅ `Result?` 操作符强制在 failure context 中使用，避免忘记检查
+
+**参考实现**:
+- 文件：`verseProject/source/library/logicModules/coreMathUtils/ArrayQueries.verse`
+- 函数：IndexOfInt, LastIndexOfInt, ContainsInt, FindAllInt
+- 模式：`knowledge/PATTERNS.md` - Option[T] Array Query Pattern
+
+
 - 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
 
 ---
@@ -212,6 +348,53 @@ option[T] 的查询操作符 `?` 是一个 failable expression，必须在 failu
 4. ✅ 提供了一种优雅的错误处理方式
 
 ### 参考
+
+### 验证记录更新 (2026-01-13) - TASK-023
+
+**验证任务**: TASK-023 (Array Queries) 实现评估
+
+**验证结果**: ✅ **完全确认 - 实践应用成功**
+
+在评估 ArrayQueries.verse 实现时，验证了所有 option[T] 相关猜想的实际应用：
+
+**CONJ-004 验证**（option[T] 查询操作符 `?`）:
+```verse
+# 在 Contains 函数中的实际应用
+ContainsInt<public>(Arr:[]int, Target:int)<transacts>:logic =
+    Result := IndexOfInt(Arr, Target)
+    if (Result?) then true else false  # Result? 在 failure context 中使用 ✅
+```
+
+**CONJ-006 验证**（`false` 是空值字面量）:
+```verse
+# 在 IndexOf 函数中的实际应用
+IndexOfInt<public>(Arr:[]int, Target:int)<transacts>:?int =
+    var Result:?int = false  # 使用 false 初始化 option ✅
+    for (Index -> Element : Arr):
+        if (Element = Target):
+            if (not Result?):
+                set Result = option{Index}
+    Result
+```
+
+**CONJ-007 验证**（option 构造器 failure context）:
+```verse
+# 使用 option{Expression} 构造器
+set Result = option{Index}  # 自动捕获失败 ✅
+set LastIndex = option{Index}  # 失败时自动为 false ✅
+```
+
+**实践发现**:
+1. ✅ option[T] 完美适合数组查询场景（未找到是正常情况）
+2. ✅ `false` 作为空值语义清晰，易于理解
+3. ✅ `option{Expression}` 简化了安全构造
+4. ✅ `Result?` 操作符强制在 failure context 中使用，避免忘记检查
+
+**参考实现**:
+- 文件：`verseProject/source/library/logicModules/coreMathUtils/ArrayQueries.verse`
+- 函数：IndexOfInt, LastIndexOfInt, ContainsInt, FindAllInt
+- 模式：`knowledge/PATTERNS.md` - Option[T] Array Query Pattern
+
 
 - 完整研究报告: `knowledge/research/verse-option-type-research-20260112.md`
 
@@ -666,6 +849,79 @@ Verse 有类似现代语言的 async/await 并发模型，`<suspends>` 是其核
 ### 参考
 
 - 完整研究报告: `knowledge/research/verse-numeric-conversion-research-20260112.md`
+
+---
+
+## CONJ-004: vector3 不暴露分量访问
+
+**日期**: 2026-01-13  
+**状态**: ❌ Disproven  
+**置信度**: 曾经：中 → 现在：0（已证伪）
+
+### 猜想内容
+
+原始猜想：vector3 类型不提供 .X, .Y, .Z 成员访问，无法进行分量级别的操作。
+
+### 信息来源
+
+- **来源 1**: 不完整的文档搜索
+- **来源类型**: 推理（未验证）
+- **错误**: 假设 vector3 使用传统 X/Y/Z 命名，未考虑 Verse 可能使用语义化命名
+
+### 验证结果
+
+- **验证日期**: 2026-01-13
+- **结果**: ❌ **完全错误**
+- **证据**: 官方 API 文档
+- **修正**: Verse 提供 **两种** vector3 类型，**均支持分量访问**：
+  1. `/Verse.org/SpatialMath/vector3` - 使用 `.Forward`, `.Left`, `.Up` 分量（官方稳定）
+  2. `/UnrealEngine.com/Temporary/SpatialMath/vector3` - 使用 `.X`, `.Y`, `.Z` 分量（临时API）
+
+### 正确用法示例
+
+```verse
+# Verse.org vector3
+using { /Verse.org/SpatialMath }
+MyVec : vector3 = vector3{Forward=1.0, Left=0.0, Up=0.0}
+ForwardComponent := MyVec.Forward
+
+# UnrealEngine vector3 (Temporary)
+using { /UnrealEngine.com/Temporary/SpatialMath }
+MyVec : vector3 = vector3{X=1.0, Y=0.0, Z=0.0}
+XComponent := MyVec.X
+```
+
+### 错误根源分析
+
+1. ❌ **未全面搜索官方文档** - 只查看了部分 API，未系统搜索
+2. ❌ **预设传统命名** - 假设只有 X/Y/Z，未考虑语义化命名
+3. ❌ **猜想当作事实** - 将未验证的推测直接记录为 RISK-003 "已知限制"
+4. ❌ **缺少源头追溯** - 未标注信息来源或验证依据
+
+### 纠正触发
+
+- **触发者**: @stallsping 用户反馈
+- **反馈内容**: "Vector3 实际上是没问题的"
+- **纠正时间**: 2026-01-13
+
+### 影响范围
+
+- ❌ **错误记录**: RISK-003 记录为"已知限制"（现已移除）
+- ✅ **代码设计**: MathGeometry3d 使用 tuple 设计（ADR-011），但这个决策仍然有效（轻量级设计优势）
+- ✅ **任务阻塞**: TASK-084 (Vector Validation) 被错误标记为阻塞（现已解除）
+
+### 教训
+
+1. ✅ **猜想 ≠ 事实**: 未验证的推测应记录在 CONJECTURES.md，不是 RISK-POINTS.md
+2. ✅ **验证优先**: 任何"限制"必须有官方文档或编译错误证据
+3. ✅ **保持开放**: 准备随时推翻自己的假设
+4. ✅ **标注来源**: 所有结论都应能追溯到可靠信息源
+
+### 参考
+
+- **完整研究报告**: `knowledge/research/vector3-research-20260113.md`
+- **官方文档**: `external/epic-docs-crawler/uefn_docs_organized/API/verse-api/versedotorg/spatialmath/vector3/index.md`
+- **纠正记录**: RISK-POINTS.md 中 RISK-003 已移至已证伪区域
 
 ---
 

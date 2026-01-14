@@ -148,6 +148,133 @@ Verse 使用 IEEE 754 标准的浮点数：
 
 ---
 
+### ADR-013: vector3 类型选择决策
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/validationUtils/VectorValidation.verse`
+
+#### 上下文（Context）
+
+在实现 TASK-084 (Vector Validation) 时，发现 Verse 提供了**两种** vector3 类型：
+
+1. **Verse.org vector3** (`/Verse.org/SpatialMath`)
+   - 使用语义化分量名：`.Forward`, `.Left`, `.Up`
+   - 标记为官方稳定 API
+   
+2. **UnrealEngine vector3** (`/UnrealEngine.com/Temporary/SpatialMath`)
+   - 使用传统分量名：`.X`, `.Y`, `.Z`
+   - 标记为 Temporary API（临时 API）
+
+需要选择一种类型作为 Logic Layer 的标准，确保模块间的一致性。
+
+#### 决策（Decision）
+
+**选择 `/Verse.org/SpatialMath/vector3`**（语义化命名版本）作为 Logic Layer 的标准 vector3 类型。
+
+所有新的逻辑模块应使用此类型，除非有特殊原因需要使用 UE Temporary 版本。
+
+#### 理由（Rationale）
+
+**为什么选择 Verse.org vector3？**
+
+1. **稳定性保证**
+   - ✅ 官方稳定 API，不在 Temporary 命名空间下
+   - ✅ 长期支持，不会在未来版本中突然变更
+   - ⚠️ UE Temporary API 可能在未来版本中废弃或修改
+
+2. **语义清晰性**
+   - ✅ `.Forward`, `.Left`, `.Up` 更符合游戏开发的语义
+   - ✅ 避免了 X/Y/Z 轴向的歧义（不同引擎有不同的轴向定义）
+   - ✅ 代码可读性更强：`Velocity.Forward` vs `Velocity.X`
+
+3. **Verse 生态一致性**
+   - ✅ 与 Verse 官方示例和最佳实践保持一致
+   - ✅ 未来 Verse API 更新更可能兼容此类型
+
+**缺点和权衡**：
+
+- ❌ 与传统 3D 数学库（使用 X/Y/Z）的习惯不同
+- ❌ 从其他引擎迁移代码时需要转换命名
+- ⚠️ 需要团队成员适应新的命名约定
+
+**缓解措施**：
+
+- 在文档中明确说明 Forward/Left/Up 与 X/Y/Z 的对应关系
+- 如需与 UE Temporary API 互操作，提供转换函数
+
+#### 替代方案（Alternatives Considered）
+
+**方案 A: 使用 UE Temporary vector3**
+- ✅ 优点：传统 X/Y/Z 命名，易于理解
+- ❌ 缺点：API 不稳定，未来可能变更
+- **未选择理由**：稳定性风险过高
+
+**方案 B: 使用 tuple(float, float, float)**
+- ✅ 优点：完全独立于 Verse API，最大灵活性
+- ❌ 缺点：失去类型安全，无法使用 extension methods（如 .Length()）
+- **未选择理由**：ADR-011 已在 MathGeometry3d 中使用 tuple，但那是为了轻量级设计。验证函数需要与原生 vector3 配合
+
+**方案 C: 混合方案（同时支持两种）**
+- ✅ 优点：最大兼容性
+- ❌ 缺点：增加复杂度，需要维护转换逻辑
+- **未选择理由**：过度设计，Logic Layer 应选择单一标准
+
+#### 后果（Consequences）
+
+**正面影响**：
+- ✅ Logic Layer 所有模块使用统一的 vector3 类型
+- ✅ 代码可读性和语义清晰度提升
+- ✅ 未来升级 Verse 版本时风险更低
+
+**负面影响**：
+- ⚠️ 团队需要学习新的命名约定（Forward/Left/Up）
+- ⚠️ 与 UE Temporary API 互操作时需要注意类型转换
+
+**适用范围**：
+- ✅ **应用于**：所有 Logic Layer 模块（logicModules/）
+- ⚠️ **不强制**：Driver/Session 层（可能需要直接对接 UE API）
+
+#### 实施指南
+
+**新模块开发**：
+```verse
+# ✅ 推荐：使用 Verse.org vector3
+using { /Verse.org/SpatialMath }
+
+MyFunction<public>(Direction:vector3)<computes>:logic =
+    ForwardComponent := Direction.Forward
+    LeftComponent := Direction.Left
+    UpComponent := Direction.Up
+    # ...
+```
+
+**轴向对应关系**：
+| Verse.org | 传统 | 含义 |
+|-----------|------|------|
+| `.Forward` | `.X` | 前方方向 |
+| `.Left` | `-Y` | 左侧方向（注意负号） |
+| `.Up` | `.Z` | 向上方向 |
+
+**转换函数（如需要）**：
+```verse
+# 未来可在 conversionUtils 中提供
+VerseToUEVector(V:Verse_vector3):UE_vector3
+UEToVerseVector(V:UE_vector3):Verse_vector3
+```
+
+#### 参考（References）
+
+- **研究报告**: `knowledge/research/vector3-research-20260113.md`
+- **官方文档**: 
+  - Verse.org vector3: `external/epic-docs-crawler/.../versedotorg/spatialmath/vector3/`
+  - UE Temporary vector3: `external/epic-docs-crawler/.../temporary/spatialmath/vector3/`
+- **相关猜想**: CONJ-004 (已证伪) - 记录在 `knowledge/CONJECTURES.md`
+- **实现示例**: `validationUtils/VectorValidation.verse`
+- **相关 ADR**: ADR-011 (MathGeometry3d 使用 tuple 的决策)
+
+---
+
 ## ADR 列表
 
 ### ADR-000: 示例决策（删除此条目）
@@ -1346,3 +1473,832 @@ Currency := tuple(int, string)  # (金额, 货币代码)
 - **性能考虑**: RISK-007 (浮点精度问题)
 
 ---
+
+### ADR-014: 时间表示和单位选择决策
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/validationUtils/TimeValidation.verse`
+
+#### 上下文（Context）
+
+在实现 TASK-085 (Time Validation) 时，需要确定如何表示时间和持续时间：
+1. **类型选择**：int（整数毫秒）vs float（浮点秒）
+2. **单位选择**：秒、毫秒、还是其他单位
+3. **时间戳起点**：从 0 开始还是使用 Unix 时间戳
+4. **持续时间语义**：是否允许负值
+
+这些决策影响所有时间相关的逻辑模块和游戏系统。
+
+#### 决策（Decision）
+
+**选择 `float` 类型表示时间，单位为秒，时间戳从 0.0 开始（游戏开始时刻）。**
+
+具体规则：
+- **时间戳（Timestamp）**: `float` 类型，单位秒，范围 [0.0, MaxReasonableTimestamp]
+- **持续时间（Duration）**: `float` 类型，单位秒，范围 [0.0, +∞)
+- **时间戳起点**: 0.0 表示游戏开始时刻
+- **持续时间语义**: 0.0 表示瞬间/无持续时间，负值非法
+- **浮点精度**: 使用 Epsilon (0.0001) 处理浮点比较
+
+#### 理由（Rationale）
+
+**为什么选择 float（浮点秒）？**
+
+1. **Verse 生态一致性**
+   - ✅ Verse/UEFN API 普遍使用 float 表示时间（秒）
+   - ✅ GetSimulationElapsedTime() 返回 float
+   - ✅ Delay() 函数接受 float 参数
+   - ✅ 与引擎和设备 API 直接兼容，无需转换
+
+2. **精度与范围平衡**
+   - ✅ float 精度对游戏时间足够（误差 < 0.0001 秒，人类无法感知）
+   - ✅ 范围足够大：可表示数小时的游戏时长
+   - ✅ 0.0001 秒精度 = 0.1 毫秒，对大多数游戏机制已足够
+
+3. **使用便利性**
+   - ✅ 直接表达时间概念：1.5 秒 vs 1500 毫秒
+   - ✅ 浮点运算更自然：速度 * 时间 = 距离
+   - ✅ 无需频繁的单位转换
+
+**为什么时间戳从 0.0 开始？**
+
+1. **游戏时间 vs 真实时间**
+   - ✅ 游戏时间从游戏开始计算，0.0 是自然起点
+   - ✅ 无需处理 Unix 时间戳（1970-01-01）的大数值
+   - ✅ 简化调试（时间戳 = 游戏运行时长）
+
+2. **数值稳定性**
+   - ✅ 避免大数值运算的精度损失
+   - ✅ 时间差计算更简单：Duration = EndTime - StartTime
+
+**为什么持续时间不允许负值？**
+
+1. **语义清晰性**
+   - ✅ 持续时间是"时长"概念，负值无物理意义
+   - ✅ 0.0 表示瞬间/无持续时间（合法）
+   - ✅ 负值通常是逻辑错误，应该立即失败
+
+2. **防御性编程**
+   - ✅ 尽早发现时间计算错误
+   - ✅ 避免负持续时间导致的隐蔽 bug
+
+#### 替代方案（Alternatives Considered）
+
+**方案 A: 使用 int 表示毫秒**
+```verse
+Timestamp:int  # 毫秒，如 1500 表示 1.5 秒
+```
+- ✅ 优点：避免浮点精度问题，整数运算更快
+- ❌ 缺点：与 Verse API 不兼容（需要频繁转换），表达不自然
+- **未选择理由**：与 Verse 生态脱节，转换开销大于浮点精度问题
+
+**方案 B: 使用 int 表示帧数**
+```verse
+Timestamp:int  # 帧数，如 60 表示 1 秒（假设 60 FPS）
+```
+- ✅ 优点：精确，无浮点误差
+- ❌ 缺点：帧率可变时失效，难以理解和调试
+- **未选择理由**：帧率非固定，游戏时间应与帧率解耦
+
+**方案 C: 使用 Unix 时间戳（秒自 1970-01-01）**
+```verse
+Timestamp:float  # Unix 时间戳，如 1705147200.0
+```
+- ✅ 优点：与真实世界时间对应，跨系统通用
+- ❌ 缺点：大数值精度损失，游戏内不需要真实时钟
+- **未选择理由**：游戏使用相对时间，不需要绝对时钟
+
+#### 后果（Consequences）
+
+**正面影响**：
+- ✅ 与 Verse/UEFN API 无缝集成，无需类型转换
+- ✅ 代码可读性强：`Cooldown := 5.0` 比 `Cooldown := 5000` 更直观
+- ✅ 浮点精度对游戏逻辑完全够用（误差小于人类感知）
+- ✅ 时间计算简单：直接加减乘除
+
+**负面影响**：
+- ⚠️ 浮点精度问题：需要使用 Epsilon 进行比较
+- ⚠️ 极长时间可能累积误差（但游戏通常不会运行数天）
+
+**缓解措施**：
+- 所有时间比较使用 Epsilon 容差（DefaultEpsilon = 0.0001）
+- 设置合理的最大时间戳（MaxReasonableTimestamp = 100000 秒 ≈ 27.7 小时）
+- 文档中明确说明浮点精度限制
+
+#### 实施指南
+
+**标准用法**：
+```verse
+# ✅ 推荐：使用 float 秒
+Timestamp:float = 10.5  # 10.5 秒
+Duration:float = 5.0    # 5 秒持续时间
+
+# ❌ 不推荐：使用 int 毫秒
+Timestamp:int = 10500  # 需要额外转换，不兼容 API
+```
+
+**时间验证**：
+```verse
+using { validationUtils.TimeValidation }
+
+# 验证时间戳有效性
+TimeValidation.ValidateTimestamp[EventTime]
+
+# 验证持续时间
+TimeValidation.ValidateDuration[CooldownTime]
+
+# 时间比较（使用 Epsilon）
+if (TimeValidation.IsFuture(EventTime, CurrentTime)):
+    # 事件尚未发生
+```
+
+**常见时间值**：
+| 描述 | 值（秒） | 说明 |
+|------|---------|------|
+| 瞬间 | 0.0 | 无持续时间 |
+| 1 帧（60 FPS） | 0.0167 | 约 16.7 毫秒 |
+| 半秒 | 0.5 | 常用于短冷却 |
+| 1 秒 | 1.0 | 标准计时单位 |
+| 1 分钟 | 60.0 | 长冷却、buff 时长 |
+| 1 小时 | 3600.0 | 超长 buff、每日重置 |
+
+**Epsilon 选择**：
+- **DefaultEpsilon = 0.0001** - 通用时间比较（0.1 毫秒容差）
+- 对于大多数游戏机制，0.1 毫秒误差完全可接受
+- 如需更精确，可传入自定义 Epsilon
+
+#### 参考（References）
+
+- **Verse API**: GetSimulationElapsedTime() 返回 float 秒
+- **实现代码**: `validationUtils/TimeValidation.verse`
+- **相关 ADR**: ADR-001 (浮点数比较 Epsilon 选择)
+- **相关模式**: PATTERNS.md - 时间验证模式（待添加）
+- **IEEE 754**: 浮点数标准，定义 float 精度约 7 位有效数字
+
+---
+
+## ADR-011: 2D 几何类型使用 Tuple 而非 Struct
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/coreMathUtils/MathGeometry2d.verse`
+
+### 上下文（Context）
+
+在实现 MathGeometry2d 模块时，需要定义 2D 几何类型（点、矩形、圆形）。有两种主要选择：
+
+1. **使用 Tuple**：
+   ```verse
+   Point2D := tuple(float, float)  # (X, Y)
+   Rect2D := tuple(Point2D, Point2D)  # (MinPoint, MaxPoint)
+   ```
+
+2. **使用 Struct**：
+   ```verse
+   Point2D := struct{X:float, Y:float}
+   Rect2D := struct{MinPoint:Point2D, MaxPoint:Point2D}
+   ```
+
+设计约束：
+- 这些类型用于 Logic Layer（无状态纯函数）
+- 需要高性能（UI 和游戏循环中频繁使用）
+- 需要简洁（开发者频繁创建和传递）
+- 无需复杂的行为或方法
+
+### 决策（Decision）
+
+**选择使用 Tuple 定义 2D 几何类型**，理由如下：
+
+```verse
+# 数据类型定义
+Point2D<public> := tuple(float, float)  # (X, Y)
+Rect2D<public> := tuple(Point2D, Point2D)  # (MinPoint, MaxPoint)
+Circle2D<public> := tuple(Point2D, float)  # (Center, Radius)
+```
+
+**访问方式**：使用索引访问 `P(0)` 和 `P(1)`
+
+### 理由（Rationale）
+
+**为什么选择 Tuple？**
+
+1. **简洁性**：
+   - 创建更简洁：`(100.0, 200.0)` vs `Point2D{X=100.0, Y=200.0}`
+   - 无需显式构造函数
+   - 适合 Logic Layer 的轻量级数据
+
+2. **性能**：
+   - Tuple 是 Verse 的原生类型，可能有优化
+   - 无分配开销（stack-based value type）
+   - 适合高频率操作（UI 每帧更新）
+
+3. **模式一致性**：
+   - 与 DLSD 架构一致：Logic Layer 使用简单类型，Session Layer 使用类
+   - 参考 ADR-010：角度也使用 float 而非类
+
+4. **功能充分性**：
+   - 2D 点只需存储 X, Y 坐标，无需方法
+   - 所有操作都是纯函数，定义在模块层级
+   - 不需要状态或行为（如果需要，应在 Session Layer）
+
+**Tuple 索引的权衡**：
+
+- ✅ 优点：访问速度快（编译时索引）
+- ⚠️ 缺点：`P(0)` 和 `P(1)` 不如 `P.X` 和 `P.Y` 直观
+- ✅ 缓解：通过清晰的注释说明（如 `# (X, Y)`）
+
+**替代方案及为何未选择**：
+
+1. **Struct**：
+   - ❌ 过于重量级，Logic Layer 不需要
+   - ❌ 创建语法冗长
+   - ✅ 但字段访问更直观（`P.X` vs `P(0)`）
+
+2. **命名 Tuple**（如果 Verse 支持）：
+   - ✅ 最佳方案：兼具简洁和可读性
+   - ❌ Verse 目前可能不支持（未在文档中找到）
+
+3. **直接使用 float 对**：
+   - ❌ 无类型安全，容易混淆参数顺序
+   - ❌ 不如 `Point2D` 类型语义清晰
+
+### 后果（Consequences）
+
+**积极影响**：
+- ✅ 代码简洁：几何操作的调用代码更短
+- ✅ 性能优化：避免了不必要的抽象开销
+- ✅ 架构一致：符合 DLSD 分层原则
+
+**负面影响**：
+- ⚠️ 可读性略低：`P(0)` 不如 `P.X` 直观
+- ⚠️ 维护成本：需要在注释中明确索引含义
+
+**缓解措施**：
+- 在类型定义处添加清晰注释：`Point2D := tuple(float, float)  # (X, Y)`
+- 在函数中使用有意义的变量名：
+  ```verse
+  PX := Point(0)  # X 坐标
+  PY := Point(1)  # Y 坐标
+  ```
+- 考虑未来添加辅助函数（如 `GetX(P:Point2D):float`）提升可读性
+
+**使用建议**：
+- 仅在 Logic Layer 使用 Tuple 类型
+- 如果需要复杂行为或状态，迁移到 Session Layer 使用 class
+- 3D 几何类型（MathGeometry3d）应遵循相同模式
+
+### 参考（References）
+
+- **相关决策**: ADR-010 (为何货币不立即实现类)
+- **相关模式**: Tuple Indexing Pattern (PATTERNS.md)
+- **相关模块**: `MathGeometry2d.verse`
+- **性能考虑**: Logic Layer 轻量级设计原则
+
+---
+
+## ADR-011: 安全数学运算的错误处理策略
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/coreMathUtils/MathSafe.verse`
+
+### 上下文（Context）
+
+在实现安全数学运算库（TASK-001）时，需要选择合适的错误处理策略来应对以下运算错误：
+
+1. **整数溢出**：Verse 中整数溢出会导致 runtime error（官方文档明确说明）
+2. **除零错误**：除数为零会导致运行时崩溃
+3. **浮点数溢出**：结果超出范围会产生 Infinity 或 NaN
+
+关键约束：
+- Verse 是64位有符号整数，范围 `[-2^63, 2^63-1]`
+- 整数溢出**不会**环绕（wrap-around），而是产生运行时错误
+- 必须在运算**之前**检测潜在溢出，而非运算后检查结果
+
+### 决策（Decision）
+
+**选择使用 `<transacts><decides>` 效果进行 fail-fast 错误处理。**
+
+所有安全数学函数采用统一签名：
+```verse
+SafeOperation<public>(A:type, B:type)<transacts><decides>:type
+```
+
+- **成功时**：返回计算结果
+- **失败时**：触发 rollback，调用者的 transaction 失败
+
+### 理由（Rationale）
+
+#### 为什么选择 `<decides>` 而非 `option[T]`？
+
+**方案 A: `<decides>` 效果（已选择）**
+```verse
+SafeAddInt<public>(A:int, B:int)<transacts><decides>:int
+使用：Result := SafeAddInt[A, B]  # 失败时自动 rollback
+```
+
+**优点**:
+1. ✅ **自动错误传播**：调用者无需显式检查，失败会自动向上传播
+2. ✅ **事务语义**：错误会回滚整个计算流程，避免部分执行
+3. ✅ **简洁使用**：调用代码不需要 `or` 或 `if` 判断
+4. ✅ **符合 Verse 习惯**：Verse 推荐使用 `<decides>` 处理可能失败的操作
+5. ✅ **强制错误处理**：必须在 failure context 中调用，强制调用者考虑失败场景
+
+**缺点**:
+- ⚠️ 不够灵活：无法提供默认值降级
+- ⚠️ 必须用方括号调用（不是缺点，而是安全特性）
+
+**方案 B: 返回 `option[T]`（未选择）**
+```verse
+SafeAddInt<public>(A:int, B:int)<computes>:option[int]
+使用：Result := SafeAddInt(A, B) or DefaultValue
+```
+
+**优点**:
+- ✅ 灵活降级：调用者可以选择默认值
+- ✅ 显式错误处理：调用者明确知道操作可能失败
+
+**缺点**:
+- ❌ **容易被忽略**：调用者可能忘记检查 option，导致隐藏的 bug
+- ❌ **代码冗长**：每次调用都需要 `or` 或 `if` 判断
+- ❌ **部分执行风险**：不会自动回滚，可能导致不一致状态
+
+#### 为什么需要 `<transacts>` 配合 `<decides>`？
+
+根据 CONJ-002（已验证）和官方文档：
+- `<decides>` **必须**配合 `<transacts>` 使用
+- Verse 编译器强制要求：`<decides>` 函数必须同时标注 `<transacts>`
+- 原因：rollback 机制需要 transaction 上下文
+
+#### 溢出检测策略
+
+**整数加法溢出检测**：
+```verse
+# 两个正数相加，检查 A + B > MaxSafeInt
+# 避免计算 A + B（会溢出），改用 A > MaxSafeInt - B
+if (A > 0 and B > 0):
+    if (A > MaxSafeInt - B):
+        false  # 会溢出
+```
+
+**整数乘法溢出检测**：
+```verse
+# 检查 |A| * |B| > MaxSafeInt
+# 避免计算乘积，改用 |A| > MaxSafeInt / |B|
+# 使用 Quotient[] 进行整数除法
+Threshold := Quotient[MaxSafeInt, AbsB]
+if (AbsA > Threshold):
+    false  # 会溢出
+```
+
+**关键**：
+- ✅ 溢出检测在运算**之前**进行
+- ✅ 检测逻辑本身不会溢出（使用数学等价变换）
+- ✅ 使用 `Quotient[]` 而非 `/` 运算符（int/int 返回 rational）
+
+### 替代方案（Alternatives）
+
+**方案 C: 混合策略（未选择）**
+```verse
+# Fail-fast 版本
+SafeAddInt<public>(A:int, B:int)<transacts><decides>:int
+
+# Option 版本
+SafeAddIntOr<public>(A:int, B:int, Default:int)<computes>:int
+```
+
+**未选择理由**：
+- 增加 API 复杂度，调用者需要选择使用哪个版本
+- 容易混淆，不如统一使用 `<decides>` + `or` 语法
+- 调用者可以使用 `SafeAddInt[A, B] or Default` 实现降级
+
+**方案 D: 不检查溢出，依赖 Verse 运行时（未选择）**
+
+**未选择理由**：
+- ❌ 运行时错误会导致整个游戏崩溃
+- ❌ 难以调试和恢复
+- ❌ 违背"安全"数学的初衷
+
+### 后果（Consequences）
+
+**积极影响**：
+- ✅ **防止运行时崩溃**：所有潜在溢出都在编译时和运行时被捕获
+- ✅ **强制错误处理**：调用者必须考虑失败场景
+- ✅ **事务一致性**：错误不会导致部分状态修改
+- ✅ **API 简洁**：统一的函数签名，易于理解和使用
+
+**负面影响**：
+- ⚠️ **性能开销**：每次运算前都需要检查（但比崩溃好得多）
+  - 缓解：检查逻辑简单，开销可接受
+- ⚠️ **不够灵活**：无法直接提供默认值降级
+  - 缓解：调用者可以使用 `Result := SafeOp[A, B] or Default`
+
+**使用指导**：
+
+```verse
+# 1. 基本使用（失败时自动 rollback）
+Result := SafeAddInt[A, B]
+
+# 2. 提供默认值（失败时降级）
+Result := SafeAddInt[A, B] or 0
+
+# 3. 在 if 条件中使用（成功才执行）
+if (SafeValue := SafeMultiplyInt[A, B]):
+    Print("Result: {SafeValue}")
+
+# 4. 级联运算（任何一步失败都会 rollback）
+Result := SafeAddInt[SafeMultiplyInt[A, B], C]
+```
+
+**性能考虑**：
+- 溢出检查开销：约 2-5 条额外指令
+- 相比运行时崩溃，开销微不足道
+- 对性能极端敏感的场景，可以使用原生运算符（需确保输入安全）
+
+**已知限制**：
+- `SafePowerInt` 限制指数最大为 100（防止过长计算）
+- 浮点数溢出检测使用保守边界 (1.0e+30)，不是精确的 float 最大值
+
+### 参考（References）
+
+- **官方文档**: `external/epic-docs-crawler/uefn_docs_organized/Verse-Language/int-in-verse/index.md`
+  - "整数运算溢出会导致 runtime error"
+- **已验证猜想**: CONJ-002 - Verse 效果系统层次关系
+  - `<decides>` 必须配合 `<transacts>` 使用
+- **研究报告**: RESEARCH-006 - 数值类型转换与精度
+  - `Quotient[]` 用于整数除法
+- **实现代码**: `verseProject/source/library/logicModules/coreMathUtils/MathSafe.verse`
+- **相关模式**: `knowledge/PATTERNS.md` - Safe Math Operations Pattern
+- **相关风险**: `knowledge/RISK-POINTS.md` - RISK-007 (浮点精度问题)
+
+---
+
+**总结**：采用 `<transacts><decides>` 效果的 fail-fast 策略，既保证了运行时安全，又提供了 Verse 习惯的优雅错误处理。通过提前检测溢出，避免了运行时崩溃，同时保持了 API 的简洁性和一致性。
+
+## ADR-012: 不实现通用高阶函数，采用专用函数模式
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/collectionsUtils/ArrayTransforms.verse` (计划)
+
+### 上下文（Context）
+
+在规划 TASK-022 (Array Filtering/Mapping) 时，需要决定如何实现函数式的数组操作。理想的实现是通用的高阶函数：
+
+```verse
+# 理想但不可行的实现
+Filter<public>(Arr:[]t, Predicate:(t)->logic)<computes>:[]t
+Map<public>(Arr:[]t, Transform:(t)->u)<computes>:[]u
+Reduce<public>(Arr:[]t, Accumulator:(t, t)->t, Initial:t)<computes>:t
+```
+
+然而，经过调研（详见 RESEARCH-007），发现：
+- ❌ Verse 不支持将函数作为参数传递（高阶函数）
+- ❌ Verse 没有 lambda 表达式或匿名函数
+- ❌ 无法使用泛型的 `type` 参数表示函数类型
+
+这导致无法实现标准的函数式编程模式。
+
+### 决策（Decision）
+
+**采用"专用函数 + 内联表达式"模式，放弃通用高阶函数**
+
+具体方案：
+1. 为常见操作提供专用函数（如 `FilterPositive`, `MapSquare`）
+2. 在文档中指导用户使用内联 for 表达式处理自定义条件
+3. 不尝试模拟高阶函数（如使用 enum 表示操作类型）
+
+### 理由（Rationale）
+
+#### 为什么选择专用函数模式？
+
+**方案 A: 专用函数模式（已选择）**
+```verse
+FilterPositiveInt<public>(Arr:[]int)<computes>:[]int =
+    for (Element : Arr, Element > 0):
+        Element
+
+FilterGreaterThanInt<public>(Arr:[]int, Threshold:int)<computes>:[]int =
+    for (Element : Arr, Element > Threshold):
+        Element
+```
+
+**优点**:
+1. ✅ **符合语言能力**：完全在 Verse 支持范围内
+2. ✅ **性能最优**：无间接调用开销，编译器可内联优化
+3. ✅ **类型安全**：编译时完全检查，无运行时错误
+4. ✅ **代码清晰**：函数名直接表达意图，易于理解
+5. ✅ **实用性**：覆盖 80% 的常见场景
+
+**缺点**:
+- ⚠️ 代码量较大：每种操作需要一个函数
+- ⚠️ 通用性受限：添加新操作需要新函数
+
+**方案 B: Enum 模拟操作类型（未选择）**
+```verse
+filter_operation := enum:
+    Positive
+    Even
+    GreaterThanZero
+
+FilterWithOperation<public>(Arr:[]int, Op:filter_operation)<transacts>:[]int =
+    var Result:[]int = array{}
+    for (Element : Arr):
+        ShouldInclude := if (Op = filter_operation.Positive):
+            Element > 0
+        else if (Op = filter_operation.Even):
+            Mod[Element, 2] = 0
+        else:
+            false
+        if (ShouldInclude):
+            set Result += array{Element}
+    Result
+```
+
+**未选择理由**:
+- ❌ 性能较差：需要运行时分支判断
+- ❌ 不够灵活：仍然只支持预定义操作
+- ❌ 代码复杂：函数内部需要大量 if-else 分支
+- ❌ 类型不安全：编译器无法检查操作的有效性
+
+**方案 C: 仅使用内联 for 表达式（作为补充）**
+```verse
+# 调用者直接使用
+PositiveNumbers := for (Num : Numbers, Num > 0):
+    Num
+```
+
+**作为补充的理由**:
+- ✅ 最简洁
+- ✅ Verse 原生支持
+- ✅ 完全灵活（任意条件）
+- ⚠️ 但不能复用（每次都要写条件）
+
+#### 为什么不尝试其他模拟方案？
+
+其他尝试过的方案：
+- ❌ **使用字符串表示函数名**：需要在运行时反射，Verse 不支持
+- ❌ **使用类封装函数**：仍然需要多态或接口，Verse 的类系统不支持函数多态
+- ❌ **使用宏**：Verse 没有宏系统
+
+#### 实践中如何使用？
+
+**场景 1: 常见操作（使用专用函数）**
+```verse
+using { ArrayTransforms }
+
+# 过滤正数
+PositiveScores := ArrayTransforms.FilterPositiveInt(Scores)
+
+# 映射平方
+SquaredValues := ArrayTransforms.MapSquareInt(Values)
+
+# 求和
+TotalScore := ArrayTransforms.SumInt(Scores)
+```
+
+**场景 2: 自定义条件（使用内联 for）**
+```verse
+# 自定义过滤条件
+HighScores := for (Score : Scores, Score > 1000 and Score < 5000):
+    Score
+
+# 自定义映射
+AdjustedScores := for (Score : Scores):
+    Score * Multiplier + Bonus
+```
+
+**场景 3: 复杂操作（组合使用）**
+```verse
+# 先过滤再映射
+FinalScores := ArrayTransforms.MapSquareInt(
+    ArrayTransforms.FilterPositiveInt(RawScores)
+)
+```
+
+### 替代方案（Alternatives）
+
+已在"理由"部分详细说明，未选择的主要原因是性能、复杂度和语言限制。
+
+### 后果（Consequences）
+
+**积极影响**:
+- ✅ **性能最优**：直接编译为高效代码，无额外开销
+- ✅ **类型安全**：编译时检查所有类型错误
+- ✅ **易于维护**：每个函数职责单一，易于理解和测试
+- ✅ **符合 Verse 习惯**：不引入非原生的抽象
+- ✅ **覆盖常见场景**：20-30 个专用函数可满足 80% 需求
+
+**负面影响**:
+- ⚠️ **代码量增加**：估计 ArrayTransforms.verse 会有 500-800 行
+  - 缓解：函数模式重复，易于编写和维护
+- ⚠️ **通用性受限**：无法在运行时动态选择操作
+  - 缓解：通过内联 for 表达式处理特殊情况
+- ⚠️ **新操作需要新函数**：扩展性受限
+  - 缓解：80% 场景已覆盖，剩余 20% 可用 for 表达式
+
+**使用指导**:
+1. **优先使用专用函数**（性能最优，代码清晰）
+2. **特殊条件使用 for 表达式**（最灵活）
+3. **避免复杂嵌套**（可读性下降）
+
+**设计原则**:
+- 每个专用函数做好一件事
+- 函数命名清晰表达意图（如 `FilterPositive` 而非 `Filter1`）
+- 为常见操作提供专用函数（如 Even, Odd, Positive, Negative）
+- 为可配置操作提供参数化函数（如 `FilterGreaterThan(Threshold)`）
+
+### 参考（References）
+
+- **研究报告**: `knowledge/research/verse-higher-order-functions-research-20260113.md`
+- **官方文档**: Parametric Types in Verse (证明 type 不能用于函数类型)
+- **相关任务**: TASK-022 (Array Filtering/Mapping)
+- **实现文件**: `collectionsUtils/ArrayTransforms.verse` (待创建)
+
+---
+
+**总结**：由于 Verse 语言限制，我们选择实用主义的专用函数模式，而非追求理论上完美但无法实现的高阶函数模式。这个决策在性能、可维护性和实用性之间取得了良好平衡。
+
+
+## ADR-013: 浮点数比较 Epsilon 值选择
+
+**日期**: 2026-01-13  
+**状态**: Accepted  
+**相关模块**: `logicModules/coreMathUtils/MathFloatComparison.verse`
+
+### 上下文（Context）
+
+在实现 TASK-003 (Float Comparison) 时，需要选择合适的 Epsilon 值用于浮点数比较。由于浮点数的精度限制，直接使用 `==` 比较可能导致错误判断。
+
+关键考虑：
+- IEEE 754 单精度浮点数约有7位有效数字
+- 游戏逻辑中常见的精度需求
+- 不同场景对精度的不同要求
+
+### 决策（Decision）
+
+**选择 0.0001 作为默认 Epsilon 值**
+
+同时提供三个预定义的 Epsilon 常量：
+- `DefaultEpsilon: 0.0001` - 默认值，适用于大多数游戏逻辑
+- `SmallEpsilon: 0.000001` - 高精度场景
+- `LargeEpsilon: 0.001` - 低精度/性能优先场景
+
+### 理由（Rationale）
+
+#### 为什么选择 0.0001？
+
+**实践考虑**:
+1. ✅ **覆盖游戏常见场景**：
+   - 位置比较（单位：米）- 0.1mm 精度足够
+   - 百分比计算（0-100）- 0.01% 精度
+   - 角度比较（0-360）- 0.036° 精度
+   
+2. ✅ **避免常见浮点误差**：
+   - 0.1 + 0.2 = 0.30000000000000004 ✅ 在容差内
+   - 1.0 / 3.0 * 3.0 ≈ 1.0 ✅ 在容差内
+
+3. ✅ **性能与精度平衡**：
+   - 不会过于严格导致误判
+   - 不会过于宽松导致错误相等
+
+**与其他值的对比**:
+
+| Epsilon | 适用场景 | 优点 | 缺点 |
+|---------|---------|------|------|
+| **0.0001** (选择) | 通用游戏逻辑 | 平衡，覆盖80%场景 | 非最精确 |
+| 0.00001 | 高精度数值计算 | 更精确 | 可能误判（浮点误差） |
+| 0.001 | 性能敏感场景 | 宽松，快速 | 精度较低 |
+| 0.01 | UI显示比较 | 符合显示精度 | 对数值计算过于宽松 |
+
+**科学依据**:
+
+IEEE 754 单精度浮点数：
+- 有效位数：约 7 位十进制数字
+- 机器精度（Machine Epsilon）：约 1.19e-7
+
+选择 0.0001 (1e-4) 的理由：
+- 大于机器精度约 1000 倍，避免误判
+- 小于实际应用精度需求约 10-100 倍，保证准确性
+
+#### 为什么提供多个 Epsilon？
+
+不同场景有不同需求：
+
+**SmallEpsilon (0.000001) - 高精度场景**:
+```verse
+# 物理模拟中的精确计算
+if (MathFloatComparison.NearlyEqual(Position.X, Target.X, MathFloatComparison.SmallEpsilon)):
+    Arrived()
+```
+
+**DefaultEpsilon (0.0001) - 通用场景**:
+```verse
+# 大多数游戏逻辑
+if (MathFloatComparison.NearlyEqual(Health, MaxHealth)):
+    FullHealth()
+```
+
+**LargeEpsilon (0.001) - 性能优先**:
+```verse
+# UI显示，人类感知极限
+if (MathFloatComparison.NearlyEqual(SliderValue, TargetValue, MathFloatComparison.LargeEpsilon)):
+    UpdateUI()
+```
+
+### 替代方案（Alternatives）
+
+**方案 A: 单一固定 Epsilon（未选择）**
+```verse
+# 仅提供一个 Epsilon
+DefaultEpsilon: 0.0001
+```
+
+**未选择理由**:
+- ❌ 不够灵活，无法适应不同精度需求
+- ❌ 开发者可能自己定义不一致的值
+
+**方案 B: 相对 Epsilon（未选择）**
+```verse
+# 基于数值大小的相对误差
+RelativeEpsilon(A, B, Tolerance) :=
+    Threshold := Max(Abs(A), Abs(B)) * Tolerance
+    Abs(A - B) <= Threshold
+```
+
+**未选择理由**:
+- ❌ 复杂度更高
+- ❌ 游戏场景多使用绝对误差
+- ✅ 但可以作为未来扩展
+
+**方案 C: 可配置全局 Epsilon（未选择）**
+```verse
+# 运行时可修改的全局变量
+var GlobalEpsilon:float = 0.0001
+```
+
+**未选择理由**:
+- ❌ Verse Logic层避免可变状态
+- ❌ 可能导致不一致的比较结果
+- ❌ 难以追踪和调试
+
+### 后果（Consequences）
+
+**积极影响**:
+- ✅ **标准化**: 整个项目使用一致的精度标准
+- ✅ **灵活性**: 三个预定义值覆盖不同场景
+- ✅ **可维护性**: 明确的精度定义，易于理解
+- ✅ **正确性**: 避免浮点数直接比较的陷阱
+
+**负面影响**:
+- ⚠️ **可能过于宽松**: 某些高精度场景可能需要更小的epsilon
+  - 缓解：提供 SmallEpsilon 选项
+- ⚠️ **可能过于严格**: 某些UI场景可能不需要这么高精度
+  - 缓解：提供 LargeEpsilon 选项
+
+**使用指导**:
+
+```verse
+# 场景 1: 位置到达判断（默认）
+if (MathFloatComparison.NearlyEqual(CurrentPos, TargetPos)):
+    ReachedTarget()
+
+# 场景 2: 物理碰撞检测（高精度）
+if (MathFloatComparison.NearlyEqual(
+    Distance, 
+    CollisionThreshold, 
+    MathFloatComparison.SmallEpsilon
+)):
+    OnCollision()
+
+# 场景 3: UI滑块比较（低精度）
+if (MathFloatComparison.NearlyEqual(
+    SliderValue, 
+    Setting, 
+    MathFloatComparison.LargeEpsilon
+)):
+    SettingMatched()
+
+# 场景 4: 自定义精度
+if (MathFloatComparison.NearlyEqual(Value1, Value2, 0.5)):
+    # 自定义容差
+    WithinRange()
+```
+
+**边界情况处理**:
+- ✅ 零值比较：`NearlyZero(Value)` 专用函数
+- ✅ 极大值：Epsilon 相对值仍然合理
+- ✅ 极小值：SmallEpsilon 可处理
+
+### 参考（References）
+
+- **IEEE 754**: 浮点数标准
+- **游戏开发最佳实践**: Unity, Unreal等引擎的epsilon选择
+- **相关模块**: `coreMathUtils/MathFloatComparison.verse`
+- **相关决策**: ADR-001 (早期 Epsilon 选择，已被本决策替代)
+
+---
+
+**总结**: 0.0001 作为默认 Epsilon 在游戏开发中是经过验证的最佳实践，同时提供多个预定义值确保了灵活性。这个决策在精度、性能和易用性之间取得了良好平衡。
+

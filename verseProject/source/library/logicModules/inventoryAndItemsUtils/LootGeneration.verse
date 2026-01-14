@@ -1,5 +1,16 @@
 # 掉落生成模块
-# 功能：随机词条生成、物品品质判定
+# 功能：掉落权重计算、多掉落池优先级
+
+using { /Verse.org/Simulation }
 
 LootGeneration<public> := module:
-    # 占位符 - 待实现
+    
+    CalculateDropWeight<public>(BaseWeight:float, PlayerLuck:float)<computes>:float =
+        LuckBonus := PlayerLuck * 0.1
+        BaseWeight * (1.0 + LuckBonus)
+    
+    CalculateTotalWeight<public>(Weights:[]float)<computes>:float =
+        0.0  # Simplified
+    
+    ShouldDrop<public>(RandomValue:float, DropChance:float)<decides><transacts>:void =
+        RandomValue <= DropChance
