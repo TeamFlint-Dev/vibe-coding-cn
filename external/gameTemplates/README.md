@@ -97,10 +97,27 @@ external/gameTemplates/**/*.uasset filter=lfs diff=lfs merge=lfs -text
 external/gameTemplates/**/*.umap filter=lfs diff=lfs merge=lfs -text
 ```
 
-**首次克隆仓库后需要执行**：
+### 克隆选项
+
+**完整克隆（包含美术资源，2GB+）**：
 ```bash
-git lfs pull
+git clone <repo-url>
+# LFS 文件会自动下载
 ```
+
+**轻量克隆（仅代码，推荐）**：
+```bash
+# 跳过 LFS 文件下载
+GIT_LFS_SKIP_SMUDGE=1 git clone <repo-url>
+
+# 或克隆后按需下载特定模板
+git lfs pull --include="external/gameTemplates/AlphaTycoon/**"
+```
+
+**⚠️ GitHub LFS 配额**：
+- 免费账户：每月 1GB 带宽
+- 本模板库：2.03 GB
+- **建议**：使用轻量克隆，按需下载
 
 ## 🔧 本地完整模板
 
