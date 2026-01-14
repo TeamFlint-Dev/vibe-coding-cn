@@ -1,0 +1,125 @@
+{
+	"fileVersion": 15,
+	"title": "InIslandTransactions",
+	"description": "",
+	"keyArt": "Resources/CEModeling.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "InIslandTransactions",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 16,
+			"maxTeamCount": 16,
+			"maxTeamSize": 16,
+			"maxSocialPartySize": 16,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"useSkillBasedMatchmaking": false,
+			"version": 1
+		},
+		"experimental":
+		{
+			"experimentalContent":
+			{
+				"bIsExperimentalContentAllowed": false
+			},
+			"version": 1,
+			"personaDevice":
+			{
+				"bEnablePersonaDevice": false
+			},
+			"sceneGraphExperimentalFeatures":
+			{
+				"bAreSceneGraphExperimentalFeaturesAllowed": true
+			},
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"aurora":
+			{
+				"bIsAuroraEnabled": true
+			}
+		},
+		"ugcLocalization":
+		{
+			"nativeCulture": "en",
+			"culturesToGenerate": [
+				"ar",
+				"de",
+				"en",
+				"es",
+				"es-419",
+				"fr",
+				"id",
+				"it",
+				"ja",
+				"ko",
+				"pl",
+				"pt-BR",
+				"ru",
+				"th",
+				"tr",
+				"vi",
+				"zh-Hans",
+				"zh-Hant"
+			],
+			"poFormat": "Unreal"
+		},
+		"autoLocalization":
+		{
+			"bAutoBuildLocalization": true,
+			"cultures": [
+				"ar",
+				"de",
+				"en",
+				"es",
+				"es-419",
+				"fr",
+				"id",
+				"it",
+				"ja",
+				"ko",
+				"pl",
+				"pt-BR",
+				"ru",
+				"th",
+				"tr",
+				"vi",
+				"zh-Hans",
+				"zh-Hant"
+			],
+			"mode": "Untranslated"
+		}
+	},
+	"bindings":
+	{
+		"projectId": "69ac69b7-415e-f887-ea01-f6babe7dd4ff",
+		"modules":
+		{
+			"InIslandTransactions": "3fdfb74a-4494-b793-3050-97a1dafc5b67"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/InIslandTransactions"
+	}
+}

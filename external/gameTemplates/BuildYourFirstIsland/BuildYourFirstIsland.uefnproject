@@ -1,0 +1,64 @@
+{
+	"fileVersion": 15,
+	"title": "BuildYourFirstIsland",
+	"description": "",
+	"keyArt": "Resources/Icon.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "BuildYourFirstIsland",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 1,
+			"maxTeamCount": 1,
+			"maxTeamSize": 1,
+			"maxSocialPartySize": 1,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"useSkillBasedMatchmaking": false,
+			"ratingType": "",
+			"version": 1
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"personaDevice":
+			{
+				"bEnablePersonaDevice": false
+			},
+			"version": 1
+		}
+	},
+	"bindings":
+	{
+		"projectId": "e0ac8d66-4f99-02c1-3340-2da17e62f7de",
+		"modules":
+		{
+			"BuildYourFirstIsland": "702760f1-4480-1e39-093f-d192e36ea4b4"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/BuildYourFirstIsland"
+	}
+}

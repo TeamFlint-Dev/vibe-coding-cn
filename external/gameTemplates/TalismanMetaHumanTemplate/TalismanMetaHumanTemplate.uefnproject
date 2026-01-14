@@ -1,0 +1,58 @@
+{
+	"fileVersion": 15,
+	"title": "TalismanMetaHumanTemplate",
+	"description": "",
+	"keyArt": "Resources/Icon.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "TalismanMetaHumanTemplate",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 1,
+			"maxTeamCount": 1,
+			"maxTeamSize": 1,
+			"maxSocialPartySize": 1,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"version": 1
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"personaDevice":
+			{
+				"bEnablePersonaDevice": false
+			},
+			"version": 1
+		}
+	},
+	"bindings":
+	{
+		"projectId": "8ee5f423-478d-3db2-7f45-8685b642cf28",
+		"modules":
+		{
+			"TalismanMetaHumanTemplate": "7a31c38b-43ee-5d85-a537-90a2d11b773c"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/TalismanMetaHumanTemplate"
+	}
+}

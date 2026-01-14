@@ -1,0 +1,58 @@
+{
+	"fileVersion": 15,
+	"title": "VerseDetonationTemplate",
+	"description": "",
+	"keyArt": "Resources/Icon128.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "VerseDetonationTemplate",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 16,
+			"maxTeamCount": 2,
+			"maxTeamSize": 16,
+			"maxSocialPartySize": 16,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"version": 1
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"personaDevice":
+			{
+				"bEnablePersonaDevice": false
+			},
+			"version": 1
+		}
+	},
+	"bindings":
+	{
+		"projectId": "d0336ac2-4b82-81b9-c5a6-e2988d4af7a6",
+		"modules":
+		{
+			"VerseDetonationTemplate": "4b1003db-4905-c78b-6915-2eaa0e30e794"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/VerseDetonationTemplate"
+	}
+}

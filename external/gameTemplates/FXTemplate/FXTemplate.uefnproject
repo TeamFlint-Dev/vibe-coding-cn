@@ -1,0 +1,64 @@
+{
+	"fileVersion": 15,
+	"title": "FXTemplate",
+	"description": "",
+	"keyArt": "Resources/Icon256.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "FXTemplate",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 1,
+			"maxTeamCount": 1,
+			"maxTeamSize": 1,
+			"maxSocialPartySize": 1,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"useSkillBasedMatchmaking": false,
+			"ratingType": "",
+			"version": 1
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"personaDevice":
+			{
+				"bEnablePersonaDevice": false
+			},
+			"version": 1
+		}
+	},
+	"bindings":
+	{
+		"projectId": "8bff8719-4a72-e0cf-fe0f-388c89ec8914",
+		"modules":
+		{
+			"FXTemplate": "5a0644f2-4a46-761e-d9a0-0788ebeee60e"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/FXTemplate"
+	}
+}

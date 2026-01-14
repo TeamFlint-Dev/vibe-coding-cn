@@ -1,0 +1,31 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "VerseEliminationTemplate",
+	"Description": "",
+	"Category": "Other",
+	"CreatedBy": "",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"VersePath": "/maybank@fortnite.com/VerseEliminationTemplate",
+	"VerseVersion": 1,
+	"EnableVerseAssetReflection": true,
+	"EnabledByDefault": false,
+	"CanContainContent": true,
+	"CanContainVerse": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"ExplicitlyLoaded": true,
+	"builtInAutoActivate": false,
+	"ValkyrieSettings":
+	{
+		"libraryFolderMode": "Absent",
+		"libraryCustomPath": ""
+	},
+	"UGCLocalizationTargetName": "VerseEliminationTemplate",
+	"EnableSceneGraph": true
+}

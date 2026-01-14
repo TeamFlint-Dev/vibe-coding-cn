@@ -1,0 +1,33 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"CanContainContent": true,
+	"EnabledByDefault": false,
+	"Installed": false,
+	"Hidden": true,
+	"ExplicitlyLoaded": true,
+	"FortReleaseVersion": "Future",
+	"builtInAutoActivate": false,
+	"VersionName": "",
+	"FriendlyName": "AnimationTemplate",
+	"Description": "",
+	"Category": "",
+	"CreatedBy": "",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"VersePath": "/maybank@fortnite.com/AnimationTemplate",
+	"VerseVersion": 1,
+	"CanContainVerse": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"ValkyrieSettings":
+	{
+		"libraryFolderMode": "Absent",
+		"libraryCustomPath": ""
+	},
+	"EnableVerseAssetReflection": true,
+	"UGCLocalizationTargetName": "AnimationTemplate",
+	"EnableSceneGraph": true
+}

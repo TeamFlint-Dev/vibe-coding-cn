@@ -1,0 +1,63 @@
+{
+	"fileVersion": 15,
+	"title": "SpeedwayRacewithPersistence",
+	"description": "",
+	"keyArt": "Resources/icon.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "SpeedwayRacewithPersistence",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 8,
+			"maxTeamCount": 8,
+			"maxTeamSize": 8,
+			"maxSocialPartySize": 8,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"useSkillBasedMatchmaking": false,
+			"version": 1
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"personaDevice":
+			{
+				"bEnablePersonaDevice": false
+			},
+			"version": 1
+		}
+	},
+	"bindings":
+	{
+		"projectId": "0ecac065-4dc0-91e2-c155-d4b248755a02",
+		"modules":
+		{
+			"SpeedwayRacewithPersistence": "78487f20-446c-4b6d-98b0-f7b6b76d57aa"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/SpeedwayRacewithPersistence"
+	}
+}

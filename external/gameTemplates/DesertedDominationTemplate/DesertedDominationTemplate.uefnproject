@@ -1,0 +1,64 @@
+{
+	"fileVersion": 15,
+	"title": "DesertedDominationTemplate",
+	"description": "",
+	"keyArt": "Resources/Icon128.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "DesertedDominationTemplate",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 12,
+			"maxTeamCount": 2,
+			"maxTeamSize": 12,
+			"maxSocialPartySize": 12,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"useSkillBasedMatchmaking": false,
+			"ratingType": "",
+			"version": 1
+		},
+		"experimental":
+		{
+			"version": 1,
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"personaDevice":
+			{
+				"bEnablePersonaDevice": false
+			}
+		}
+	},
+	"bindings":
+	{
+		"projectId": "925be2bc-47d7-5b7f-9dfb-e49632e9a1e0",
+		"modules":
+		{
+			"DesertedDominationTemplate": "9e0e05ab-4d6a-1466-dbce-07b0f9dab2a4"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/DesertedDominationTemplate"
+	}
+}

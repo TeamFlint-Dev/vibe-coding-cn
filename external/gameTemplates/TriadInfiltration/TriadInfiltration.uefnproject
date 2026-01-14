@@ -1,0 +1,57 @@
+{
+	"fileVersion": 15,
+	"title": "TriadInfiltration",
+	"description": "",
+	"keyArt": "Resources/Icon256.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "TriadInfiltration",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 10,
+			"maxTeamCount": 3,
+			"maxTeamSize": 10,
+			"maxSocialPartySize": 10,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"version": 1
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"personaDevice":
+			{
+				"bEnablePersonaDevice": false
+			},
+			"version": 1
+		}
+	},
+	"bindings":
+	{
+		"projectId": "1804cb5b-422c-a4d8-c2a8-a0bd8f8826a7",
+		"modules":
+		{
+			"TriadInfiltration": "eda9549f-48b4-8cc8-1a31-519c8796d864"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/TriadInfiltration"
+	}
+}

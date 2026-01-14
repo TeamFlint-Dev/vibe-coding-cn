@@ -1,0 +1,81 @@
+{
+	"fileVersion": 15,
+	"title": "VerseDeviceTemplate",
+	"description": "",
+	"keyArt": "Resources/Icon256.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "VerseDeviceTemplate",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 16,
+			"maxTeamCount": 16,
+			"maxTeamSize": 16,
+			"maxSocialPartySize": 16,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"useSkillBasedMatchmaking": false,
+			"ratingType": "",
+			"version": 1
+		},
+		"experimental":
+		{
+			"inventory":
+			{
+				"bIsCustomInventoryAllowed": false
+			},
+			"sceneGraphExperimentalFeatures":
+			{
+				"bAreSceneGraphExperimentalFeaturesAllowed": false
+			},
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"scriptableTools":
+			{
+				"bIsScriptableToolsEnabled": false
+			},
+			"assetRedirectorReflectionSetting":
+			{
+				"bAssetRedirectorReflectionSetting": false
+			},
+			"physics":
+			{
+				"bShouldEnableToggle": true,
+				"bIsExperimentalPhysicsEnabled": false
+			},
+			"version": 1
+		}
+	},
+	"bindings":
+	{
+		"projectId": "10bb563a-4a62-936f-72d9-b1a89cb23b43",
+		"modules":
+		{
+			"VerseDeviceTemplate": "d0e5d1e7-413f-9e12-ac58-199003a70bb2"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/VerseDeviceTemplate"
+	}
+}

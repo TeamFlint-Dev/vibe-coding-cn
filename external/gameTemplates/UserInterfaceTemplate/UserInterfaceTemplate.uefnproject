@@ -1,0 +1,104 @@
+{
+	"fileVersion": 15,
+	"title": "UserInterfaceTemplate",
+	"description": "",
+	"keyArt": "Resources/UserInterfaces.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "UserInterfaceTemplate",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 16,
+			"maxTeamCount": 16,
+			"maxTeamSize": 16,
+			"maxSocialPartySize": 16,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"version": 1
+		},
+		"ugcLocalization":
+		{
+			"nativeCulture": "en",
+			"culturesToGenerate": [
+				"ar",
+				"fr",
+				"de",
+				"it",
+				"ja",
+				"ko",
+				"pl",
+				"pt-BR",
+				"ru",
+				"es",
+				"es-419",
+				"tr",
+				"en"
+			],
+			"poFormat": "Unreal"
+		},
+		"autoLocalization":
+		{
+			"cultures": [
+				"ar",
+				"fr",
+				"de",
+				"it",
+				"ja",
+				"ko",
+				"pl",
+				"pt-BR",
+				"ru",
+				"es",
+				"es-419",
+				"tr"
+			],
+			"mode": "Untranslated"
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"scriptableTools":
+			{
+				"bIsScriptableToolsEnabled": false
+			},
+			"version": 1,
+			"experimentalContent":
+			{
+				"bIsExperimentalContentAllowed": true
+			}
+		}
+	},
+	"bindings":
+	{
+		"projectId": "3ff55d34-4d72-98fb-8e39-33a4d6f867f6",
+		"modules":
+		{
+			"UserInterfaceTemplate": "75b48d2d-4516-dba8-25b1-cba8c2b19eee"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/UserInterfaceTemplate"
+	}
+}

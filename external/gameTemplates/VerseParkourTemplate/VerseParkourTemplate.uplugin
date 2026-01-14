@@ -1,0 +1,33 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"CanContainContent": true,
+	"CanContainVerse": true,
+	"VersePath": "/maybank@fortnite.com/VerseParkourTemplate",
+	"EnableVerseAssetReflection": true,
+	"EnabledByDefault": false,
+	"Installed": false,
+	"Hidden": true,
+	"ExplicitlyLoaded": true,
+	"FortReleaseVersion": "Future",
+	"builtInAutoActivate": false,
+	"VersionName": "",
+	"FriendlyName": "VerseParkourTemplate",
+	"Description": "",
+	"Category": "",
+	"CreatedBy": "",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"ValkyrieSettings":
+	{
+		"libraryFolderMode": "Absent",
+		"libraryCustomPath": ""
+	},
+	"VerseVersion": 1,
+	"UGCLocalizationTargetName": "VerseParkourTemplate",
+	"EnableSceneGraph": true
+}

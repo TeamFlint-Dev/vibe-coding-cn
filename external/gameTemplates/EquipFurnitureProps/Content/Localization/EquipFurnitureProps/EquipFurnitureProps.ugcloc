@@ -1,0 +1,24 @@
+﻿{
+	"nativeCulture": "en",
+	"culturesToGenerate": [
+		"ar",
+		"zh-Hans",
+		"zh-Hant",
+		"en",
+		"fr",
+		"de",
+		"id",
+		"it",
+		"ja",
+		"ko",
+		"pl",
+		"pt-BR",
+		"ru",
+		"es",
+		"es-419",
+		"th",
+		"tr",
+		"vi"
+	],
+	"poFormat": "Unreal"
+}

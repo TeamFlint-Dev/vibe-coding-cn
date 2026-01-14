@@ -1,0 +1,77 @@
+{
+	"fileVersion": 15,
+	"title": "SceneGraphTemplate",
+	"description": "",
+	"keyArt": "Resources/SceneGraph.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "SceneGraphTemplate",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 16,
+			"maxTeamCount": 16,
+			"maxTeamSize": 16,
+			"maxSocialPartySize": 16,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Unrestricted",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"useSkillBasedMatchmaking": false,
+			"ratingType": "",
+			"version": 1
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"inventory":
+			{
+				"bIsCustomInventoryAllowed": false
+			},
+			"physics":
+			{
+				"bShouldEnableToggle": true,
+				"bIsExperimentalPhysicsEnabled": false
+			},
+			"version": 1,
+			"sceneGraphExperimentalFeatures":
+			{
+				"bAreSceneGraphExperimentalFeaturesAllowed": false
+			},
+			"scriptableTools":
+			{
+				"bIsScriptableToolsEnabled": false
+			}
+		}
+	},
+	"bindings":
+	{
+		"projectId": "1af7d30e-4461-0875-f9a3-f78fc8dee894",
+		"modules":
+		{
+			"SceneGraphTemplate": "c5067afb-4f51-06ba-efb8-a28e369a1d13"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/SceneGraphTemplate"
+	}
+}

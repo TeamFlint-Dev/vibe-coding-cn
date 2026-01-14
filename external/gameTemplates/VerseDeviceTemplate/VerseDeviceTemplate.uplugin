@@ -1,0 +1,33 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "",
+	"FriendlyName": "VerseDeviceTemplate",
+	"Description": "",
+	"Category": "",
+	"CreatedBy": "",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"VersePath": "/maybank@fortnite.com/VerseDeviceTemplate",
+	"EnabledByDefault": false,
+	"CanContainContent": true,
+	"CanContainVerse": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Hidden": true,
+	"ExplicitlyLoaded": true,
+	"FortReleaseVersion": "Future",
+	"builtInAutoActivate": false,
+	"ValkyrieSettings":
+	{
+		"libraryFolderMode": "Absent",
+		"libraryCustomPath": ""
+	},
+	"EnableVerseAssetReflection": true,
+	"VerseVersion": 1,
+	"EnableSceneGraph": true,
+	"UGCLocalizationTargetName": "VerseDeviceTemplate"
+}

@@ -11,14 +11,16 @@
 ```
 libs/external/
 ├── README.md
-├── prompts-library/                 # 提示词库管理工具（Excel ↔ Markdown）
-├── my-nvim/                         # Neovim 配置（含 nvim-config/）
-├── XHS-image-to-PDF-conversion/     # 图片合并 PDF 工具
+├── gameTemplates/               # UEFN 官方游戏模板库（31个模板，2GB+ LFS）
+├── prompts-library/             # 提示词库管理工具（Excel ↔ Markdown）
+├── my-nvim/                     # Neovim 配置（含 nvim-config/）
+├── XHS-image-to-PDF-conversion/ # 图片合并 PDF 工具
 └── .gitkeep
 ```
 
 ## 工具清单（入口与文档）
 
+- `gameTemplates/`：UEFN 官方游戏模板（包含 Verse 代码和美术资源，详见 [`gameTemplates/README.md`](./gameTemplates/README.md)）
 - `prompts-library/`：提示词 Excel ↔ Markdown 批量互转与索引生成（详见 [`prompts-library/README.md`](./prompts-library/README.md)）
 - `my-nvim/`：个人 Neovim 配置（详见 [`my-nvim/README.md`](./my-nvim/README.md)）
 - `XHS-image-to-PDF-conversion/`：图片合并 PDF（详见 [`XHS-image-to-PDF-conversion/README.md`](./XHS-image-to-PDF-conversion/README.md)）

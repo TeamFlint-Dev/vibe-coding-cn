@@ -1,0 +1,72 @@
+{
+	"fileVersion": 15,
+	"title": "AlphaTycoon",
+	"description": "",
+	"keyArt": "Resources/Tycoon_512.png",
+	"docsUrl": "",
+	"apiAccess": "Private",
+	"compatibilityVersion": "39.20",
+	"requiredRedirectorStartingVersion": "39.20.49564179",
+	"editorPermissions": [],
+	"epicApp": "",
+	"sortPriority": 0,
+	"featureSet": "",
+	"plugins": [
+		{
+			"name": "AlphaTycoon",
+			"bIsRoot": true,
+			"bIsPublic": false
+		}
+	],
+	"dataSets":
+	{
+		"matchmaking":
+		{
+			"maxPlayers": 1,
+			"maxTeamCount": 1,
+			"maxTeamSize": 1,
+			"maxSocialPartySize": 1,
+			"allowJoinInProgress": true,
+			"allowSquadFillOption": false,
+			"islandQueuePrivacy": "Public",
+			"minPlayers": 1,
+			"overtimePlayerTarget": 1,
+			"queueMainDuration": 5,
+			"queueOvertimeDuration": 5,
+			"useSkillBasedMatchmaking": false,
+			"ratingType": "",
+			"version": 1
+		},
+		"experimental":
+		{
+			"sceneGraph":
+			{
+				"bIsSceneGraphSystemAllowed": true,
+				"bEnableOneFilePerEntity": false
+			},
+			"version": 1,
+			"experimentalContent":
+			{
+				"bIsExperimentalContentAllowed": false
+			},
+			"scriptableTools":
+			{
+				"bIsScriptableToolsEnabled": false
+			},
+			"oneFilePerEntity":
+			{
+				"bEnableOneFilePerEntity": true
+			}
+		}
+	},
+	"bindings":
+	{
+		"projectId": "7fe7b571-49e8-f64a-67db-91a73068cbc9",
+		"modules":
+		{
+			"AlphaTycoon": "0d531309-4aff-f8b5-3241-4f948eb0785a"
+		},
+		"bSuppressAutomaticVersePathAssignment": false,
+		"projectVersePath": "/maybank@fortnite.com/AlphaTycoon"
+	}
+}

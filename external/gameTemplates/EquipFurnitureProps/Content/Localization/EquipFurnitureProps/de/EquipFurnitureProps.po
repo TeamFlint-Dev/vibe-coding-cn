@@ -1,0 +1,819 @@
+﻿# EquipFurnitureProps German translation.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: EquipFurnitureProps\n"
+"POT-Creation-Date: 2025-10-09 11:23\n"
+"PO-Revision-Date: 2025-10-09 11:23\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Key:	3EBE34D941DF960BDD3AE38ADE197682
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820497380.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820497380.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",3EBE34D941DF960BDD3AE38ADE197682"
+msgid "🌱DECORATION🌱"
+msgstr "🌱DEKORATION🌱"
+
+#. Key:	AB2A45A244C96E4DF741D3BC22C0B513
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820503388.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820503388.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",AB2A45A244C96E4DF741D3BC22C0B513"
+msgid "🏕️OUTDOOR🏕️"
+msgstr "🏕️DRAUẞEN🏕️"
+
+#. Key:	ECDF69624962C67B737CCDBB56CD6BE9
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820564471.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820564471.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",ECDF69624962C67B737CCDBB56CD6BE9"
+msgid "STATUES, FOUNTAINS, FOLIAGE"
+msgstr "STATUEN, BRUNNEN, LAUBWERK"
+
+#. Key:	B03940144897EA36A95FA98800557808
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820610533.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820610533.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",B03940144897EA36A95FA98800557808"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	737065334FFB3BD7BF1A0681C719A550
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820619544.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820619544.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",737065334FFB3BD7BF1A0681C719A550"
+msgid "Bounces players. Can be customised"
+msgstr "Schleudert Spieler. Kann angepasst werden"
+
+#. Key:	5E41960C4578CEBB59E45F889AF4A750
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820696621.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820696621.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",5E41960C4578CEBB59E45F889AF4A750"
+msgid "See Storage >> barrel section for more weapons"
+msgstr "Sieh nach in Lager >> Fass-Sektion für weitere Waffen"
+
+#. Key:	2300911E4FE2D4C8B285D992E01AC02A
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820706634.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820706634.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",2300911E4FE2D4C8B285D992E01AC02A"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	8C03F47C456A4D181C40FCB97DB02564
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820802759.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820802759.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",8C03F47C456A4D181C40FCB97DB02564"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	2FFDA0994A86ED7E2CEB438BE452F70A
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820876854.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820876854.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",2FFDA0994A86ED7E2CEB438BE452F70A"
+msgid "🌱DECORATION🌱"
+msgstr "🌱DEKORATION🌱"
+
+#. Key:	D3597CE9448C8F9C314D56893C60B727
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820923916.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820923916.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",D3597CE9448C8F9C314D56893C60B727"
+msgid "🏠MAIN🏠"
+msgstr "🏠HAUPT🏠"
+
+#. Key:	43DC2C344E411EA7649293AC84D4F259
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820983992.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1820983992.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",43DC2C344E411EA7649293AC84D4F259"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	73BDDF394DB3016ADD72A48EB029846B
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821013029.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821013029.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",73BDDF394DB3016ADD72A48EB029846B"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	03036A7C4E4DF275601205B3B4522153
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821034056.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821034056.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",03036A7C4E4DF275601205B3B4522153"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	BA4B66D2461D515D7A83BC83FC1A0C48
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821051076.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821051076.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",BA4B66D2461D515D7A83BC83FC1A0C48"
+msgid "TURN PHASE TO OFF SO YOU CAN TELEPORT WHILE FLYING TO DIFFERENT AREAS IN EDIT MODE"
+msgstr "Dreh Phase auf Off, damit du während des Fliegens in den Bearbeitungsmodus zu anderen Bereichen teleportieren kannst"
+
+#. Key:	6A313BB746A8705E3C6DE3B18D767A7F
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821117160.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821117160.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",6A313BB746A8705E3C6DE3B18D767A7F"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	58CD8FCB40305E4FA3BA02B27363862B
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821154206.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821154206.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",58CD8FCB40305E4FA3BA02B27363862B"
+msgid "💡LIGHTING💡"
+msgstr "💡BELEUCHTUNG💡"
+
+#. Key:	AC4F254E4AE46049B7E78388D2A115CE
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821186247.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821186247.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",AC4F254E4AE46049B7E78388D2A115CE"
+msgid "HAS MUSIC"
+msgstr "Hat Musik"
+
+#. Key:	00B98C3B436C65325460C2AE48E5D501
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821204270.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821204270.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",00B98C3B436C65325460C2AE48E5D501"
+msgid "🏠MAIN🏠"
+msgstr "🏠HAUPT🏠"
+
+#. Key:	8CD05EFB4E1287AC5F186799DC8C8197
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821311406.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821311406.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",8CD05EFB4E1287AC5F186799DC8C8197"
+msgid "🏠MAIN🏠"
+msgstr "🏠HAUPT🏠"
+
+#. Key:	A5109EF742771069B569D18E7FB715EA
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821343449.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821343449.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",A5109EF742771069B569D18E7FB715EA"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	867B307241A91795C7D1FEB06F8B2D90
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821391512.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821391512.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",867B307241A91795C7D1FEB06F8B2D90"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	5D992D294ECE3941218845BBBBC4C868
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821471610.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821471610.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",5D992D294ECE3941218845BBBBC4C868"
+msgid "🚪DOORS/WINDOWS🚪"
+msgstr "🚪TÜREN/FENSTER🚪"
+
+#. Key:	C32F15B644F2D62028B1E097398E1D87
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821482623.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821482623.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",C32F15B644F2D62028B1E097398E1D87"
+msgid "🏕️OUTDOOR🏕️"
+msgstr "🏕️DRAUẞEN🏕️"
+
+#. Key:	99CEFE15430E0861D65F94BD9A78EEF9
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821515663.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821515663.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",99CEFE15430E0861D65F94BD9A78EEF9"
+msgid "HAS AUDIO"
+msgstr "Hat Audio"
+
+#. Key:	1CE11F8C4869A317B9BD959C1FFD2F7C
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821558718.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821558718.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",1CE11F8C4869A317B9BD959C1FFD2F7C"
+msgid "🏕️OUTDOOR🏕️"
+msgstr "🏕️DRAUẞEN🏕️"
+
+#. Key:	1E19BF9C48B853D32BF7EFBFE9E9F1D6
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821643826.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821643826.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",1E19BF9C48B853D32BF7EFBFE9E9F1D6"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	692202DB415AD6F39A65A9B0D76C1845
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821649832.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821649832.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",692202DB415AD6F39A65A9B0D76C1845"
+msgid "🏠MAIN🏠"
+msgstr "🏠HAUPT🏠"
+
+#. Key:	40295C86435AF9CE91B2A487688E6C0D
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821696893.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821696893.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",40295C86435AF9CE91B2A487688E6C0D"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	E2920F5D4E1583CC4553DBADE3F60D47
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821780007.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821780007.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",E2920F5D4E1583CC4553DBADE3F60D47"
+msgid "Animates when player dances"
+msgstr "Animiert, wenn Spieler tanzt"
+
+#. Key:	EF11DD14452F6351F07ECC8FC0308505
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821825066.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821825066.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",EF11DD14452F6351F07ECC8FC0308505"
+msgid "🏠MAIN🏠"
+msgstr "🏠HAUPT🏠"
+
+#. Key:	73325C554A6F12C83FD9E49E01FAF74F
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821869125.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821869125.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",73325C554A6F12C83FD9E49E01FAF74F"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	8D62B1A348426BF16FDF23B631DF0086
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821933208.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821933208.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",8D62B1A348426BF16FDF23B631DF0086"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	4E7CCDB74D75547AF83193BB7A03A87F
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821971254.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821971254.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",4E7CCDB74D75547AF83193BB7A03A87F"
+msgid "Make your own potted plant"
+msgstr "Mach deine eigene Topfpflanze"
+
+#. Key:	19AA6DC943C9750E315CB4B4B8BBE828
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821988277.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821988277.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",19AA6DC943C9750E315CB4B4B8BBE828"
+msgid "🏠EXAMPLES🏠"
+msgstr "🏠BEISPIELE🏠"
+
+#. Key:	F00602AE4AA66102E037D6BFE97F0033
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821992281.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1821992281.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",F00602AE4AA66102E037D6BFE97F0033"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	24A6CAD04A1F3AD8A109629862DE1D4C
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822022321.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822022321.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",24A6CAD04A1F3AD8A109629862DE1D4C"
+msgid "HAS AUDIO"
+msgstr "Hat Audio"
+
+#. Key:	0427454849C60C3E10B29FBD27B2EC4E
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822254611.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822254611.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",0427454849C60C3E10B29FBD27B2EC4E"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	CE501A0E413D52A7192D2EA39D43150F
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822396794.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822396794.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",CE501A0E413D52A7192D2EA39D43150F"
+msgid "CHANGES COLOR WITH DUPLICATION"
+msgstr "Ändert Farbe bei Duplizierung"
+
+#. Key:	53BDCA71438BB97E151BFC80996B44CB
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822496920.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822496920.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",53BDCA71438BB97E151BFC80996B44CB"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	C2BD85FF40E987570278F3AB5101285D
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822529963.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822529963.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",C2BD85FF40E987570278F3AB5101285D"
+msgid "🏠MAIN🏠"
+msgstr "🏠HAUPT🏠"
+
+#. Key:	E5E6125540A2C6E446A96ABEFD438E77
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822620082.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822620082.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",E5E6125540A2C6E446A96ABEFD438E77"
+msgid "🍳KITCHEN🍳"
+msgstr "🍳KÜCHE🍳"
+
+#. Key:	88E12A65474132237759CEB022A55228
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822646116.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822646116.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",88E12A65474132237759CEB022A55228"
+msgid "🚪DOORS/WINDOWS🚪"
+msgstr "🚪TÜREN/FENSTER🚪"
+
+#. Key:	DF5DFD1146BDBF9A280EECB0ABB51D61
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822653125.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822653125.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",DF5DFD1146BDBF9A280EECB0ABB51D61"
+msgid "HAS AUDIO"
+msgstr "Hat Audio"
+
+#. Key:	09E45E29447A815977846FB94BB363DF
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822660134.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822660134.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",09E45E29447A815977846FB94BB363DF"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	028950784B37E6AC1730C482D6042E22
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822670147.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822670147.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",028950784B37E6AC1730C482D6042E22"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	7FB896504957E8C452916288215B0977
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822703190.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822703190.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",7FB896504957E8C452916288215B0977"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	205107A34B4E812161DEC9BBB9CA368A
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822762268.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822762268.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",205107A34B4E812161DEC9BBB9CA368A"
+msgid "CAN BE SEARCHED\r\nHAS AUDIO"
+msgstr "Kann durchsucht werden \nHat Audio"
+
+#. Key:	82DAED634B78DEA6E17FD9981DA8205E
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822842374.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822842374.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",82DAED634B78DEA6E17FD9981DA8205E"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	C4605A37404629BF44FA54A03682990A
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822849383.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822849383.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",C4605A37404629BF44FA54A03682990A"
+msgid "🏠MAIN🏠"
+msgstr "🏠HAUPT🏠"
+
+#. Key:	BF77B0E5479DB4FD44FAB6970CEBF188
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822944505.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1822944505.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",BF77B0E5479DB4FD44FAB6970CEBF188"
+msgid "🚗VEHICLES🚗"
+msgstr "🚗FAHRZEUGE🚗"
+
+#. Key:	AFFDBB1D4E028D15EE1FF19087F7D74B
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823025608.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823025608.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",AFFDBB1D4E028D15EE1FF19087F7D74B"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	5290A0934D7D1D3541202F9BFF249229
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823122726.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823122726.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",5290A0934D7D1D3541202F9BFF249229"
+msgid "Created by: G_Schway (@G_Schway)"
+msgstr "Erstellt von: G_Schway (@G_Schway)"
+
+#. Key:	8FFA43C4417E86E1448A9CAEC48314D8
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823147758.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823147758.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",8FFA43C4417E86E1448A9CAEC48314D8"
+msgid "🏠MAIN🏠"
+msgstr "🏠HAUPT🏠"
+
+#. Key:	1A36A1D544EBB72BC6E810831185532A
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823155767.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823155767.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",1A36A1D544EBB72BC6E810831185532A"
+msgid "🏠EXAMPLES🏠"
+msgstr "🏠BEISPIELE🏠"
+
+#. Key:	1A4FC33A487260B5FEAD1A9EC7DECEB3
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823185806.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823185806.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",1A4FC33A487260B5FEAD1A9EC7DECEB3"
+msgid "🍳KITCHEN🍳"
+msgstr "🍳KÜCHE🍳"
+
+#. Key:	0F79A99646930941D044AAB14C44648B
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823221845.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823221845.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",0F79A99646930941D044AAB14C44648B"
+msgid "🔨UTILITY-STORAGE🔨"
+msgstr "🔨NUTZUNGSLAGER🔨"
+
+#. Key:	3964FDB445D1B980C6806CB8F9105232
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823427092.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823427092.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",3964FDB445D1B980C6806CB8F9105232"
+msgid "💡LIGHTING💡"
+msgstr "💡BELEUCHTUNG💡"
+
+#. Key:	68A9939447766E5E6D4B5BA8287ADF38
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823479155.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823479155.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",68A9939447766E5E6D4B5BA8287ADF38"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	4AD74C6349F3E9D8E63B82BE6BAB85FD
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823492171.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823492171.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",4AD74C6349F3E9D8E63B82BE6BAB85FD"
+msgid "HAS AUDIO    HAS AUDIO    HAS AUDIO"
+msgstr "HAT AUDIO    HAT AUDIO    HAT AUDIO"
+
+#. Key:	75D568B34C5F9B7D6951B6B466D7B9FF
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823500180.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823500180.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",75D568B34C5F9B7D6951B6B466D7B9FF"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	75CB35A74386A4E5AEFF68BB07112680
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823689411.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823689411.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",75CB35A74386A4E5AEFF68BB07112680"
+msgid "CHANGES VARIATION WITH PLACEMENT"
+msgstr "ÄNDERT SICH JE NACH PLATZIERUNG"
+
+#. Key:	A23210E2453BF89259BFF4B7AD2D2E93
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823692414.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823692414.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",A23210E2453BF89259BFF4B7AD2D2E93"
+msgid "YOU CAN EXPERIMENT WITH DESIGNS HERE. ALL FLOORS HAVE NO GRAVITY (THEY WON'T DELETE PROPS IF REPLACED). SKYDOME SETTINGS HERE -->"
+msgstr "Du kannst hier mit Designs experimentieren. Alle Böden haben keine Schwerkraft (sie löschen keine Requisiten, wenn ersetzt). SKYDOME-EINSTELLUNGEN HIER -->"
+
+#. Key:	2378093F45D1B06BAD892D962566D68C
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823695418.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823695418.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",2378093F45D1B06BAD892D962566D68C"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	C909EB214DDB672496C06D96D21AE708
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823705429.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823705429.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",C909EB214DDB672496C06D96D21AE708"
+msgid "Bounces players"
+msgstr "Schleudert Spieler"
+
+#. Key:	3D0D0DA3478A8EFC18AA83A5384150AE
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823710434.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823710434.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",3D0D0DA3478A8EFC18AA83A5384150AE"
+msgid "IGNITES AND EXPLODES"
+msgstr "Zündet und explodiert"
+
+#. Key:	D29CD0CD4C5DEBABC9F9649D067A62D3
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823740473.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823740473.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",D29CD0CD4C5DEBABC9F9649D067A62D3"
+msgid "v10: New galleries: (Megalodon Ship). \r\n"
+msgstr "v10: Neue Galerien: (Megalodon-Schiff). \r\n"
+
+#. Key:	1B81DDBC420BE77FD191BC8816286382
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823848613.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823848613.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",1B81DDBC420BE77FD191BC8816286382"
+msgid "Changes on movement"
+msgstr "Änderungen bei Bewegung"
+
+#. Key:	DE4CAB174D2E832DAA0463B5B66A7CF8
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823857622.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823857622.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",DE4CAB174D2E832DAA0463B5B66A7CF8"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	7ED65C5543BFF371367531AA6649E2EE
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823871641.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1823871641.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",7ED65C5543BFF371367531AA6649E2EE"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	D5C2FE124FD46423CE1ACC97A5FF8214
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824040858.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824040858.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",D5C2FE124FD46423CE1ACC97A5FF8214"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	5373E4FB4888E3AE4076C49BA93D9B9E
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824192054.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824192054.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",5373E4FB4888E3AE4076C49BA93D9B9E"
+msgid "🚗VEHICLES🚗"
+msgstr "🚗FAHRZEUGE🚗"
+
+#. Key:	770D38C743ECF8C718F03B9DCA48340B
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824240115.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824240115.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",770D38C743ECF8C718F03B9DCA48340B"
+msgid "Has Music"
+msgstr "Hat Musik"
+
+#. Key:	3063449D4F1E87AC73A430B1A2EA0E1D
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824296188.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824296188.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",3063449D4F1E87AC73A430B1A2EA0E1D"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	0DA55A904AB7F4112D39008664DCC37F
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824309205.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824309205.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",0DA55A904AB7F4112D39008664DCC37F"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	9BA37F7E477DA86F943FDA87D476068E
+#. SourceLocation:	/EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824335236.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/Design_Palettes.Design_Palettes:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B733F02_1824335236.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",9BA37F7E477DA86F943FDA87D476068E"
+msgid "🔨UTILITY-STORAGE🔨"
+msgstr "🔨NUTZUNGSLAGER🔨"
+
+#. Key:	TextBlockDefaultValue
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:DefaultSubtitleWidget_C_0.WidgetTree_0.CaptionSubtitleBlock.Text
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:DefaultSubtitleWidget_C_0.WidgetTree_0.CaptionSubtitleBlock.Text
+msgctxt "UMG,TextBlockDefaultValue"
+msgid "Text Block"
+msgstr "Textblock"
+
+#. Key:	48BEAA094C93E85D93EFADBDC3175BFF
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_3.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_3.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",48BEAA094C93E85D93EFADBDC3175BFF"
+msgid "v19: Butter Barn"
+msgstr "v19: Butter Barn"
+
+#. Key:	C61164474059C65A686F069127D09D99
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_0AA03838292F278502_1222611929.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_0AA03838292F278502_1222611929.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",C61164474059C65A686F069127D09D99"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	D9D02D0743A5057AF1FADDB540AC2EC3
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B0F2F02_1623332894.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B0F2F02_1623332894.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",D9D02D0743A5057AF1FADDB540AC2EC3"
+msgid "CHANGES COLOR WITH DUPLICATION"
+msgstr "Ändert Farbe bei Duplizierung"
+
+#. Key:	8880E7F44D2C8A05FB0C3DA140661D8E
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B1B7602_1208481056.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B1B7602_1208481056.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",8880E7F44D2C8A05FB0C3DA140661D8E"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	6C09DD9C407BB76AF956379CB6FDF5B3
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B243802_1403547305.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B243802_1403547305.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",6C09DD9C407BB76AF956379CB6FDF5B3"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	EA317FA547751AD68EF2BAB8309E3A5B
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B243802_1621064318.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B243802_1621064318.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",EA317FA547751AD68EF2BAB8309E3A5B"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	DE54FCEA4A1431840EC50A8D00C84432
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B298502_1875833342.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B298502_1875833342.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",DE54FCEA4A1431840EC50A8D00C84432"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	C7FDD8314EFB362F13E65BA655E1D75D
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B298502_2082434363.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B298502_2082434363.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",C7FDD8314EFB362F13E65BA655E1D75D"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	677BF46A4E8A3B7BC19F58B495BF2ABB
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B479102_1341092335.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B479102_1341092335.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",677BF46A4E8A3B7BC19F58B495BF2ABB"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	B461B395435595CB1EC22EB7FB047F8B
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B4B5D02_1363773726.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B4B5D02_1363773726.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",B461B395435595CB1EC22EB7FB047F8B"
+msgid "CAN MOVE TOP (UEFN)"
+msgstr "Kann Oberseite bewegen (UEFN)"
+
+#. Key:	1482F622468605400DB7A5BBFFBBE630
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B569502_1492318066.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B569502_1492318066.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",1482F622468605400DB7A5BBFFBBE630"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	1DECE70F4CB3D84BB2E055AD445EC5CD
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B934E02_1498957052.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B934E02_1498957052.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",1DECE70F4CB3D84BB2E055AD445EC5CD"
+msgid "CHANGES COLOR WITH COLOR PICKER (UEFN)"
+msgstr "Ändert Farbe mit Farbwähler (UEFN)"
+
+#. Key:	5FC24E06406EECC1F75CAAAC28AFC448
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B934E02_1702608064.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B934E02_1702608064.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",5FC24E06406EECC1F75CAAAC28AFC448"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	A7E5DA4E4C2E209DC23CF2BE022D564C
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B934E02_1743026067.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B934E02_1743026067.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",A7E5DA4E4C2E209DC23CF2BE022D564C"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	77A9D6C346C6262C93C021A11D79F89A
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B944E02_1985893287.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B944E02_1985893287.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",77A9D6C346C6262C93C021A11D79F89A"
+msgid "CHANGES WITH PLACEMENT"
+msgstr "Änderungen bei Platzierung"
+
+#. Key:	86A21C2E4562C3F61D959EB0AC021197
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B964E02_1970938779.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B964E02_1970938779.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",86A21C2E4562C3F61D959EB0AC021197"
+msgid "CHANGES WITH PLACEMENT"
+msgstr "Änderungen bei Platzierung"
+
+#. Key:	09B1006645557DA6BE0390AE915B1EFA
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B964E02_1980523780.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B964E02_1980523780.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",09B1006645557DA6BE0390AE915B1EFA"
+msgid "CHANGES WITH PLACEMENT"
+msgstr "Änderungen bei Platzierung"
+
+#. Key:	119A79244D71487B028DF7A911C54EEA
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B9F4E02_1604427704.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707B9F4E02_1604427704.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",119A79244D71487B028DF7A911C54EEA"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	13E914AE4F46C18AD64555AC9DF92E73
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BA74E02_1808918457.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BA74E02_1808918457.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",13E914AE4F46C18AD64555AC9DF92E73"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	5EE0EDA64AF7C974A84BF5842D794F67
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BA84E02_1476509695.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BA84E02_1476509695.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",5EE0EDA64AF7C974A84BF5842D794F67"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	191BD6E64F41B03C6B92F7947427F519
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BD59002_1391929157.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BD59002_1391929157.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",191BD6E64F41B03C6B92F7947427F519"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	38E451B543F4F63AF0D25DAE079C1E3B
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BE14702_1627048097.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BE14702_1627048097.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",38E451B543F4F63AF0D25DAE079C1E3B"
+msgid "CHANGES STICKERS WITH PLACEMENT"
+msgstr "Ändert Sticker bei Platzierung"
+
+#. Key:	EA03376649C745CF7AA26F86467397CF
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BE64702_1668024184.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_107C6109707BE64702_1668024184.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",EA03376649C745CF7AA26F86467397CF"
+msgid "BOTH CHANGE COLOR WITH PLACEMENT"
+msgstr "Beide ändern Farbe bei Platzierung"
+
+#. Key:	F9233E8E45E01BFBA4E52DBF19743844
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_6045BD18CE35365D02_1318811399.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_6045BD18CE35365D02_1318811399.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",F9233E8E45E01BFBA4E52DBF19743844"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	B314A40448BEAA781545598CAF0E41E9
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_6045BD18CE35365D02_1565260469.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_6045BD18CE35365D02_1565260469.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",B314A40448BEAA781545598CAF0E41E9"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	D6CDF4A84E53B5BB69EF11865E9E2B51
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E52551CC3A36102_1587066880.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E52551CC3A36102_1587066880.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",D6CDF4A84E53B5BB69EF11865E9E2B51"
+msgid "HAS AUDIO"
+msgstr "Hat Audio"
+
+#. Key:	52CB4D1941E70231B29761A48886BF35
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E52551CC3A46102_1313272137.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E52551CC3A46102_1313272137.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",52CB4D1941E70231B29761A48886BF35"
+msgid "HAS AUDIO"
+msgstr "Hat Audio"
+
+#. Key:	46B1B49A47B1792958891AA95276E24F
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E5255DB2E445D02_1986989925.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E5255DB2E445D02_1986989925.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",46B1B49A47B1792958891AA95276E24F"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	6A683A544ED8AECD24B869B1C1925A3B
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E5255DB2E455D02_1188007149.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E5255DB2E455D02_1188007149.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",6A683A544ED8AECD24B869B1C1925A3B"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	5084492E413B14FF0DB2C3824180EB56
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E5255DB2E465D02_1524504802.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E5255DB2E465D02_1524504802.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",5084492E413B14FF0DB2C3824180EB56"
+msgid "CHANGES COLOR WITH PLACEMENT"
+msgstr "Ändert die Farbe bei Platzierung"
+
+#. Key:	ED60B1F442135D9B5ACCE0B9CA9FA5DD
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E525618073D5D02_2091969627.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E525618073D5D02_2091969627.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",ED60B1F442135D9B5ACCE0B9CA9FA5DD"
+msgid "HAS SMOKE"
+msgstr "HAT RAUCH"
+
+#. Key:	4992ED6040BDCE775E53C49FA202D35A
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E52561807415D02_2008405565.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7C1E52561807415D02_2008405565.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",4992ED6040BDCE775E53C49FA202D35A"
+msgid "HAS AUDIO"
+msgstr "Hat Audio"
+
+#. Key:	01DD9B184653F098BE3845878CC8883E
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D02D28AC16402_1077068221.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D02D28AC16402_1077068221.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",01DD9B184653F098BE3845878CC8883E"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	8F8B3D174810A03DA2A02B97EDE6ABD4
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D02D28AC26402_1157189580.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D02D28AC26402_1157189580.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",8F8B3D174810A03DA2A02B97EDE6ABD4"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	8D41968C40EE8B685BA799A2B7E2493C
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D02D28AC26402_1846101596.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D02D28AC26402_1846101596.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",8D41968C40EE8B685BA799A2B7E2493C"
+msgid "ONE-WAY SEE THROUGH GLASS"
+msgstr "Einseitig durchsichtiges Glas"
+
+#. Key:	CFF390E54382DF2BC6732D8EE6C2EA1A
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D2341A2395D02_1882794741.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D2341A2395D02_1882794741.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",CFF390E54382DF2BC6732D8EE6C2EA1A"
+msgid "SIGNS, BILLBOARDS"
+msgstr "Schilder, Werbetafeln"
+
+#. Key:	10DAD8CF4BD0321F0147938DFA234E7D
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D23E3293A5E02_1280135177.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D23E3293A5E02_1280135177.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",10DAD8CF4BD0321F0147938DFA234E7D"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	2A23C9B844AF7A2F4163528AB1A0978A
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D23E329405E02_1391872767.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_7CED8D23E329405E02_1391872767.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",2A23C9B844AF7A2F4163528AB1A0978A"
+msgid "CHANGES DESIGN WITH PLACEMENT"
+msgstr "Ändert das Design bei Platzierung"
+
+#. Key:	50572F4343466AB252977A959AC923E9
+#. SourceLocation:	/EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_C858C02492E840EF01_1194874103.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+#: /EquipFurnitureProps/EquipFurnitureProps.EquipFurnitureProps:PersistentLevel.Device_Billboard_V2_C_UAID_C858C02492E840EF01_1194874103.Billboard_WidgetComp.BillboardDetails.Text_3_F1B35DC7484B004015ED62BBD41D9681
+msgctxt ",50572F4343466AB252977A959AC923E9"
+msgid "Changes on movement"
+msgstr "Änderungen bei Bewegung"
+
